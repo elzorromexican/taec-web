@@ -229,10 +229,14 @@
       .ventajas-grid { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
+    @media (max-width: 1024px) {
+      .precios-3col { grid-template-columns: 1fr !important; max-width: 420px; margin: 0 auto; }
+    }
     @media (max-width: 768px) {
       .header-actions .btn-cta { display: none; }
       .hero h1 { font-size: 28px; }
       .precios-grid { grid-template-columns: 1fr; }
+      .precios-3col { grid-template-columns: 1fr !important; max-width: 100%; }
       .ventajas-grid { grid-template-columns: 1fr; }
       .cta-inner { flex-direction: column; text-align: center; }
       .cta-btns { justify-content: center; }
@@ -490,60 +494,88 @@
   <div class="section-inner">
     <p class="section-label">Precios</p>
     <h2 class="section-title">Planes Articulate 360</h2>
-    <p class="section-sub">Precios en USD · pago en pesos al tipo de cambio oficial del día · factura electrónica mexicana</p>
-    <div class="precios-grid">
-      <div class="precio-card">
-        <h3>Articulate 360 Personal</h3>
-        <p class="precio-sub">Para un autor freelance individual</p>
-        <div class="precio-amount"><sup>$</sup>1,299 <span>USD / año</span></div>
-        <p class="precio-note">~$26,500 MXN · al tipo de cambio oficial</p>
-        <ul class="precio-features">
-          <li>Acceso a todas las apps de la suite</li>
-          <li>Content Library 360 (+13M assets)</li>
-          <li>Reach 360 (LMS básico incluido)</li>
-          <li>Actualizaciones automáticas</li>
-          <li>Soporte Articulate en inglés</li>
-          <li>Customer Success TAEC incluido</li>
-        </ul>
-        <a href="contacto.html" class="btn-precio outline">Solicitar cotización</a>
-        <a href="https://tienda.taec.com.mx" target="_blank" class="btn-precio" style="display:block;text-align:center;margin-top:10px;background:#F4F7FB;border:1.5px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;padding:10px;border-radius:8px;">🛒 Comprar en Tienda</a>
-      </div>
-      <div class="precio-card featured">
-        <div class="precio-badge">⭐ Mejor elección para equipos</div>
-        <h3>Articulate 360 Teams</h3>
-        <p class="precio-sub">Para equipos de 2 o más autores</p>
-        <div class="precio-amount"><sup>$</sup>1,499 <span>USD / seat / año</span></div>
-        <p class="precio-note">Mínimo 2 seats · ~$30,600 MXN por seat</p>
-        <ul class="precio-features">
-          <li>Todo lo de Personal, más:</li>
-          <li>Gestión centralizada de licencias</li>
-          <li>Review 360 con colaboradores ilimitados</li>
-          <li>Reach 360 con reportes de equipo</li>
-          <li>Soporte prioritario Articulate</li>
-          <li>Customer Success TAEC incluido</li>
-        </ul>
-        <a href="contacto.html" class="btn-precio primary">Solicitar cotización →</a>
-        <a href="https://tienda.taec.com.mx" target="_blank" class="btn-precio" style="display:block;text-align:center;margin-top:10px;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:10px;border-radius:8px;">🛒 Comprar en Tienda</a>
-      </div>
+    <p class="section-sub">Precios en USD sin IVA · pago en pesos al tipo de cambio oficial del día (SAT/Banxico) · factura electrónica mexicana</p>
+
+    <!-- Toggle Standard / AI -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin:28px 0 36px;">
+      <span id="label-std" style="font-size:14px;font-weight:700;color:var(--navy);">Articulate 360 Standard</span>
+      <button id="aiToggle" onclick="toggleAI()" style="position:relative;width:52px;height:28px;border-radius:14px;background:var(--border);border:none;cursor:pointer;transition:background .2s;padding:0;">
+        <span id="toggleKnob" style="position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:var(--white);box-shadow:0 1px 4px rgba(0,0,0,.25);transition:left .2s;"></span>
+      </button>
+      <span id="label-ai" style="font-size:14px;font-weight:700;color:var(--muted);">Articulate 360 AI</span>
     </div>
 
-    <!-- Add-on AI -->
-    <div style="margin-top:20px;background:linear-gradient(135deg,#EFF6FF,#F0FAFA);border:1px solid #BFDBFE;border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
-      <div>
-        <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blue);">Add-on disponible</span>
-        <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:6px 0 4px;">Articulate AI Assistant</h3>
-        <p style="font-size:13px;color:var(--dark);line-height:1.6;">Generación de contenido con IA integrada en Storyline y Rise. Se agrega a cualquier licencia Personal o Teams.</p>
+    <!-- 3-column pricing grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="precios-3col">
+
+      <!-- Prueba Gratis -->
+      <div style="background:var(--white);border:2px solid var(--border);border-radius:16px;padding:32px 24px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;background:var(--navy);color:var(--white);font-size:10px;font-weight:800;letter-spacing:1px;padding:20px 10px 6px 10px;width:64px;text-align:center;clip-path:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);">30<br>DÍAS</div>
+        <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Prueba Gratis</h3>
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">TODAS LAS HERRAMIENTAS</p>
+        <div style="text-align:center;margin-bottom:6px;"><sup style="font-size:16px;font-weight:700;color:var(--navy);">$</sup><span style="font-size:40px;font-weight:800;color:var(--navy);">0</span></div>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:24px;">por 30 días</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Regístrate en Articulate.com</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Acceso completo a toda la suite</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Descarga las aplicaciones</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Respondemos tus dudas técnicas</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Sin tarjeta de crédito</li>
+        </ul>
+        <a href="https://www.articulate.com/360/try/" target="_blank" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--blue);color:var(--white);font-weight:700;font-size:14px;">Comenzar gratis</a>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px;">Sin tarjeta de crédito</p>
       </div>
-      <div style="text-align:right;flex-shrink:0;">
-        <div style="font-size:28px;font-weight:800;color:var(--navy);">$250 <span style="font-size:14px;font-weight:500;color:var(--muted);">USD / seat / año</span></div>
-        <a href="contacto.html" style="display:inline-block;margin-top:10px;background:var(--blue);color:#fff;font-weight:700;font-size:13px;padding:9px 20px;border-radius:7px;">Agregar a mi licencia →</a>
+
+      <!-- Personal -->
+      <div style="background:var(--white);border:2px solid var(--border);border-radius:16px;padding:32px 24px;">
+        <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Freelancers</h3>
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">ARTICULATE 360 PERSONAL</p>
+        <div style="text-align:center;margin-bottom:6px;">
+          <sup style="font-size:14px;font-weight:700;color:var(--navy);">$</sup><span id="price-personal" style="font-size:40px;font-weight:800;color:var(--navy);">1,299</span>
+        </div>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:4px;">USD + IVA por año</p>
+        <p id="mxn-personal" style="text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin-bottom:20px;">~$26,500 MXN al tipo de cambio oficial</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">☁️</span> Rise 360</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">☁️</span> Review 360</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">☁️</span> Content Library (+13M assets)</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">🖥️</span> Storyline 360</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">🖥️</span> Peek 360</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">🤝</span> Customer Success TAEC</li>
+          <li id="ai-feature-personal" style="font-size:13px;color:var(--blue);font-weight:600;display:none;align-items:center;gap:8px;"><span style="font-size:16px;">🤖</span> AI Assistant incluido</li>
+        </ul>
+        <a href="contacto.html" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
+        <a href="https://tienda.taec.com.mx" target="_blank" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;border:1.5px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
+        <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones</p>
       </div>
+
+      <!-- Teams -->
+      <div style="background:var(--white);border:2px solid var(--blue);border-radius:16px;padding:32px 24px;position:relative;">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:var(--white);font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap;">⭐ Mejor elección para equipos</div>
+        <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Integrantes de Equipos</h3>
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">ARTICULATE 360 TEAMS</p>
+        <div style="text-align:center;margin-bottom:6px;">
+          <sup style="font-size:14px;font-weight:700;color:var(--navy);">$</sup><span id="price-teams" style="font-size:40px;font-weight:800;color:var(--navy);">1,499</span>
+        </div>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:4px;">USD + IVA · por seat / año</p>
+        <p id="mxn-teams" style="text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin-bottom:20px;">Mín. 2 seats · ~$30,600 MXN por seat</p>
+        <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;">Todo lo anterior, más:</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Gestión centralizada de licencias</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Review 360 colaboradores ilimitados</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Reach 360 con reportes de equipo</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Soporte prioritario Articulate</li>
+          <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Customer Success TAEC incluido</li>
+          <li id="ai-feature-teams" style="font-size:13px;color:var(--blue);font-weight:600;display:none;align-items:center;gap:8px;"><span style="font-size:16px;">🤖</span> AI Assistant incluido</li>
+        </ul>
+        <a href="contacto.html" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
+        <a href="https://tienda.taec.com.mx" target="_blank" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;background:var(--navy);color:var(--white);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
+        <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones</p>
+      </div>
+
     </div>
 
-    <div style="margin-top:16px;text-align:center;font-size:13px;color:var(--muted);">
-      ¿Quieres probar antes de comprar? → <a href="https://www.articulate.com/360/try/" target="_blank" style="color:var(--blue);font-weight:600;">Prueba gratuita 30 días — sin tarjeta de crédito</a>
-    </div>
-    <div class="precios-note">
+    <div class="precios-note" style="margin-top:28px;">
       💡 <strong>¿Necesitas más de 10 licencias?</strong> Contáctanos para una cotización especial con descuento por volumen. También gestionamos licencias multi-año con precio fijo en dólares.
     </div>
   </div>
@@ -758,6 +790,45 @@
     menuBtn.classList.toggle('open');
     mobileNav.classList.toggle('open');
   });
+
+  // Standard / AI toggle
+  let aiActive = false;
+  function toggleAI() {
+    aiActive = !aiActive;
+    const knob    = document.getElementById('toggleKnob');
+    const toggle  = document.getElementById('aiToggle');
+    const lblStd  = document.getElementById('label-std');
+    const lblAI   = document.getElementById('label-ai');
+    const pP      = document.getElementById('price-personal');
+    const pT      = document.getElementById('price-teams');
+    const mxnP    = document.getElementById('mxn-personal');
+    const mxnT    = document.getElementById('mxn-teams');
+    const aiP     = document.getElementById('ai-feature-personal');
+    const aiT     = document.getElementById('ai-feature-teams');
+    if (aiActive) {
+      knob.style.left = '28px';
+      toggle.style.background = 'var(--blue)';
+      lblStd.style.color = 'var(--muted)';
+      lblAI.style.color  = 'var(--navy)';
+      pP.textContent = '1,549';
+      pT.textContent = '1,749';
+      mxnP.textContent = '~$31,600 MXN · incluye AI Assistant';
+      mxnT.textContent = 'Mín. 2 seats · ~$35,700 MXN por seat';
+      aiP.style.display = 'flex';
+      aiT.style.display = 'flex';
+    } else {
+      knob.style.left = '4px';
+      toggle.style.background = 'var(--border)';
+      lblStd.style.color = 'var(--navy)';
+      lblAI.style.color  = 'var(--muted)';
+      pP.textContent = '1,299';
+      pT.textContent = '1,499';
+      mxnP.textContent = '~$26,500 MXN al tipo de cambio oficial';
+      mxnT.textContent = 'Mín. 2 seats · ~$30,600 MXN por seat';
+      aiP.style.display = 'none';
+      aiT.style.display = 'none';
+    }
+  }
 
   // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
