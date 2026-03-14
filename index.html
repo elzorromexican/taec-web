@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TAEC – Partner e-learning para empresas | México y LATAM</title>
+  <meta name="description" content="18 años ayudando a empresas en México y LATAM a implementar e-learning. Partner oficial Articulate, Vyond, Totara y Moodle. Cursos a medida, LMS y evaluaciones." />
+  <meta name="author" content="TAEC – www.taec.com.mx" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://nuevo.taec.com.mx/" />
+
+  <!-- OG -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="TAEC – Partner e-learning para empresas | México y LATAM" />
+  <meta property="og:description" content="18 años ayudando a empresas en México y LATAM a implementar e-learning que da resultados medibles." />
+  <meta property="og:url" content="https://nuevo.taec.com.mx/" />
+  <meta property="og:site_name" content="TAEC" />
+  <meta property="og:locale" content="es_MX" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── RESET & TOKENS ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --navy:   #004775;
+      --blue:   #3179C2;
+      --teal:   #A8DBD9;
+      --orange: #F28B1C;
+      --coral:  #D35652;
+      --muted:  #7595AA;
+      --dark:   #4D4D4E;
+      --light:  #F4F7FB;
+      --border: #E2E8F0;
+      --white:  #FFFFFF;
+      --text:   #111827;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--white);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; gap: 24px;
+    }
+    .logo-link { display: flex; align-items: center; flex-shrink: 0; }
+    .logo-link img { height: 38px; width: auto; }
+
+    nav { display: flex; gap: 6px; align-items: center; }
+    nav a {
+      font-size: 14px; font-weight: 500; color: var(--dark);
+      padding: 6px 12px; border-radius: 6px;
+      transition: background .15s, color .15s;
+    }
+    nav a:hover { background: var(--light); color: var(--blue); }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .btn-tienda {
+      font-size: 13px; font-weight: 600; color: var(--blue);
+      border: 1.5px solid var(--blue); padding: 7px 16px; border-radius: 7px;
+      transition: background .15s, color .15s;
+    }
+    .btn-tienda:hover { background: var(--blue); color: var(--white); }
+    .btn-cta {
+      font-size: 13px; font-weight: 700; color: var(--white);
+      background: var(--orange); padding: 8px 18px; border-radius: 7px;
+      transition: background .15s;
+    }
+    .btn-cta:hover { background: #d97b0e; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--dark); border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none; flex-direction: column; gap: 4px;
+      background: var(--white); padding: 16px 5% 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 15px; font-weight: 500; color: var(--dark);
+      padding: 10px 12px; border-radius: 8px;
+    }
+    .mobile-nav a:hover { background: var(--light); color: var(--blue); }
+    .mobile-nav .btn-cta { text-align: center; margin-top: 8px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
+      padding: 72px 5% 80px;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(168,219,217,.15); color: var(--teal);
+      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 5px 12px; border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 42px; line-height: 1.15; color: var(--white);
+      margin-bottom: 18px;
+    }
+    .hero h1 em { color: var(--teal); font-style: normal; }
+    .hero-sub {
+      color: #94A3B8; font-size: 16px; line-height: 1.75;
+      margin-bottom: 32px; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--orange); color: var(--white);
+      padding: 13px 26px; border-radius: 8px;
+      font-weight: 700; font-size: 14px;
+      transition: background .15s;
+    }
+    .btn-primary:hover { background: #d97b0e; }
+    .btn-ghost-hero {
+      display: inline-block;
+      border: 1.5px solid rgba(255,255,255,.3); color: var(--white);
+      padding: 13px 26px; border-radius: 8px;
+      font-weight: 600; font-size: 14px;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-ghost-hero:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); }
+
+    /* Stat cards */
+    .hero-stats {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px; padding: 28px;
+    }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(168,219,217,.15);
+      border-radius: 12px; padding: 22px 20px; text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 34px; font-weight: 400; color: var(--white);
+      line-height: 1;
+    }
+    .stat-num em { color: var(--teal); font-style: normal; }
+    .stat-label { font-size: 12px; color: #94A3B8; margin-top: 6px; line-height: 1.4; }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 11px 5%; overflow: hidden;
+    }
+    .ticker-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .ticker-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--blue);
+      background: #DBEAFE; padding: 3px 9px; border-radius: 4px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .ticker-track { display: flex; gap: 32px; overflow: hidden; flex: 1; }
+    .ticker-item { font-size: 13px; color: var(--dark); white-space: nowrap; cursor: pointer; }
+    .ticker-item .cat {
+      font-weight: 700; color: var(--blue); margin-right: 4px;
+    }
+
+    /* ── SECTION HELPERS ── */
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.4px;
+      text-transform: uppercase; color: var(--blue);
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 20px; height: 2px;
+      background: var(--teal); border-radius: 1px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 30px; color: var(--navy); line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .section-sub { font-size: 15px; color: var(--muted); max-width: 540px; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+    .see-all { font-size: 13px; font-weight: 600; color: var(--blue); white-space: nowrap; }
+    .see-all:hover { text-decoration: underline; }
+
+    /* ── PARTNERS ── */
+    .partners {
+      padding: 36px 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .partners-inner { max-width: 1200px; margin: 0 auto; }
+    .partners-label {
+      text-align: center; font-size: 11px; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 24px;
+    }
+    .partners-row {
+      display: flex; justify-content: center;
+      align-items: center; gap: 40px; flex-wrap: wrap;
+    }
+    .partner-badge {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      text-align: center; opacity: .7; transition: opacity .2s;
+    }
+    .partner-badge:hover { opacity: 1; }
+    .partner-logo {
+      height: 40px; display: flex; align-items: center; justify-content: center;
+    }
+    .partner-logo img { height: 40px; width: auto; object-fit: contain; }
+    .partner-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: .5px;
+      color: var(--muted); text-transform: uppercase;
+      background: var(--light); padding: 2px 8px; border-radius: 3px;
+    }
+    /* Logos temporales en texto hasta tener imágenes */
+    .logo-text {
+      font-family: var(--font-body); font-weight: 800;
+      font-size: 17px; color: var(--dark); letter-spacing: -.3px;
+    }
+    .logo-text.articulate { color: #E8561E; }
+    .logo-text.vyond      { color: #00A4E0; }
+    .logo-text.totara     { color: #6A2C8E; }
+    .logo-text.moodle     { color: #F98012; }
+    .logo-text.seven      { color: #1A1A2E; }
+
+    /* ── SERVICIOS ── */
+    .servicios { padding: 72px 5%; background: var(--light); }
+    .servicios-inner { max-width: 1200px; margin: 0 auto; }
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    .serv-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 26px 22px;
+      transition: box-shadow .2s, transform .2s;
+      display: flex; flex-direction: column;
+    }
+    .serv-card:hover {
+      box-shadow: 0 8px 28px rgba(0,71,117,.1);
+      transform: translateY(-3px);
+    }
+    .serv-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(168,219,217,.3), rgba(49,121,194,.15));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 16px; flex-shrink: 0;
+    }
+    .serv-card h3 {
+      font-size: 15px; font-weight: 700; color: var(--navy);
+      margin-bottom: 8px; line-height: 1.3;
+    }
+    .serv-card p { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
+    .serv-link {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 16px; font-size: 12px; font-weight: 700;
+      color: var(--blue); letter-spacing: .2px;
+    }
+    .serv-link:hover { text-decoration: underline; }
+
+    /* ── CÓMO TRABAJAMOS ── */
+    .como { padding: 72px 5%; background: var(--white); }
+    .como-inner { max-width: 1200px; margin: 0 auto; }
+    .pasos-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative; margin-top: 48px;
+    }
+    .pasos-grid::before {
+      content: '';
+      position: absolute; top: 28px; left: calc(12.5% + 16px);
+      right: calc(12.5% + 16px); height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      z-index: 0;
+    }
+    .paso {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 0 16px; position: relative; z-index: 1;
+    }
+    .paso-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--white); border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 20px; color: var(--blue);
+      margin-bottom: 20px; flex-shrink: 0; position: relative;
+      transition: background .2s, border-color .2s;
+    }
+    .paso:hover .paso-num {
+      background: var(--blue); border-color: var(--blue); color: var(--white);
+    }
+    .paso h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .paso p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── TESTIMONIOS ── */
+    .testimonios { padding: 72px 5%; background: var(--light); }
+    .testimonios-inner { max-width: 1200px; margin: 0 auto; }
+    .testi-carousel-wrapper { position: relative; margin-top: 40px; }
+    .testi-carousel {
+      display: flex; gap: 20px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none; padding-bottom: 8px;
+    }
+    .testi-carousel::-webkit-scrollbar { display: none; }
+    .testi-card {
+      flex: 0 0 340px; scroll-snap-align: start;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px 26px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .testi-quote {
+      font-size: 28px; color: var(--teal); line-height: 1;
+      font-family: var(--font-display);
+    }
+    .testi-text {
+      font-size: 14px; color: var(--dark); line-height: 1.7;
+      flex: 1; font-style: italic;
+    }
+    .testi-author { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: var(--white); flex-shrink: 0;
+    }
+    .testi-name { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .testi-org  { font-size: 12px; color: var(--muted); }
+    .testi-controls {
+      display: flex; justify-content: center; gap: 12px; margin-top: 24px;
+    }
+    .testi-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: var(--white);
+      cursor: pointer; font-size: 16px; color: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, border-color .15s;
+    }
+    .testi-btn:hover { background: var(--blue); border-color: var(--blue); color: var(--white); }
+
+    /* ── CLIENTES ── */
+    .clientes {
+      background: var(--navy); padding: 52px 5%;
+    }
+    .clientes-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .clientes-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 32px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .clientes-label::before, .clientes-label::after {
+      content: ''; flex: 1; max-width: 80px; height: 1px;
+      background: rgba(168,219,217,.3);
+    }
+    .clientes-row {
+      display: flex; justify-content: center;
+      align-items: center; gap: 32px; flex-wrap: wrap;
+    }
+    .cliente-chip {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px; padding: 10px 24px;
+      font-size: 13px; font-weight: 700;
+      color: rgba(255,255,255,.5); letter-spacing: .4px;
+      transition: background .2s, color .2s;
+    }
+    .cliente-chip:hover {
+      background: rgba(168,219,217,.12);
+      color: rgba(255,255,255,.85);
+    }
+
+    /* ── RECURSOS ── */
+    .recursos { padding: 72px 5%; background: var(--white); }
+    .recursos-inner { max-width: 1200px; margin: 0 auto; }
+    .recursos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .rec-card {
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .rec-card:hover { box-shadow: 0 6px 24px rgba(0,71,117,.08); }
+    .rec-thumb {
+      height: 120px; display: flex; align-items: center;
+      justify-content: center; font-size: 36px;
+    }
+    .rec-thumb.t1 { background: linear-gradient(135deg, #EFF6FF, #DBEAFE); }
+    .rec-thumb.t2 { background: linear-gradient(135deg, rgba(168,219,217,.2), rgba(168,219,217,.4)); }
+    .rec-thumb.t3 { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); }
+    .rec-body { padding: 18px 20px; }
+    .rec-tag {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: .8px; text-transform: uppercase;
+      color: var(--blue); background: #DBEAFE;
+      padding: 2px 8px; border-radius: 3px; margin-bottom: 10px;
+    }
+    .rec-tag.verde { color: #15803D; background: #DCFCE7; }
+    .rec-tag.naranja { color: #C2410C; background: #FFEDD5; }
+    .rec-body h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.35; }
+    .rec-body p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .rec-footer {
+      padding: 12px 20px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .rec-footer span { font-size: 12px; color: var(--muted); }
+    .rec-footer a    { font-size: 12px; font-weight: 700; color: var(--blue); }
+    .rec-footer a:hover { text-decoration: underline; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+      padding: 72px 5%;
+    }
+    .cta-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    }
+    .cta-text h2 {
+      font-family: var(--font-display);
+      font-size: 30px; color: var(--white); margin-bottom: 8px; line-height: 1.2;
+    }
+    .cta-text p { font-size: 15px; color: #94A3B8; }
+    .cta-btns { display: flex; gap: 12px; flex-wrap: wrap; flex-shrink: 0; }
+    .btn-cta-band {
+      display: inline-block;
+      background: var(--orange); color: var(--white);
+      padding: 14px 28px; border-radius: 8px;
+      font-weight: 700; font-size: 14px; white-space: nowrap;
+      transition: background .15s;
+    }
+    .btn-cta-band:hover { background: #d97b0e; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #25D366; color: var(--white);
+      padding: 14px 24px; border-radius: 8px;
+      font-weight: 700; font-size: 14px; white-space: nowrap;
+      transition: background .15s;
+    }
+    .btn-wa:hover { background: #1ebe5a; }
+    .btn-wa svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer { background: #04293F; padding: 56px 5% 28px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.6fr repeat(3, 1fr);
+      gap: 48px; padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-brand .logo-link img { height: 34px; filter: brightness(0) invert(1); }
+    .footer-brand p {
+      font-size: 13px; color: #4B6275; line-height: 1.7; margin-top: 14px;
+    }
+    .footer-brand .footer-contact {
+      margin-top: 18px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .footer-contact a {
+      font-size: 13px; color: #64748B;
+      display: flex; align-items: center; gap: 6px;
+      transition: color .15s;
+    }
+    .footer-contact a:hover { color: var(--teal); }
+    .footer-col h4 { font-size: 12px; font-weight: 700; color: #94A3B8; margin-bottom: 16px; letter-spacing: .8px; text-transform: uppercase; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li a { font-size: 13px; color: #475569; transition: color .15s; }
+    .footer-col ul li a:hover { color: var(--teal); }
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom p { font-size: 12px; color: #334155; }
+    .footer-bottom a { color: #475569; transition: color .15s; }
+    .footer-bottom a:hover { color: var(--teal); }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a {
+      width: 32px; height: 32px; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center;
+      color: #64748B; font-size: 13px; font-weight: 700;
+      transition: background .15s, color .15s;
+    }
+    .footer-social a:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .servicios-grid { grid-template-columns: repeat(3, 1fr); }
+      .pasos-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .pasos-grid::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .hero h1 { font-size: 36px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .header-actions .btn-tienda { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero { padding: 48px 5% 56px; }
+      .hero h1 { font-size: 30px; }
+      .hero-sub { font-size: 15px; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+
+      .servicios-grid { grid-template-columns: 1fr 1fr; }
+      .pasos-grid { grid-template-columns: 1fr; gap: 24px; }
+
+      .testi-card { flex: 0 0 280px; }
+
+      .recursos-grid { grid-template-columns: 1fr; }
+
+      .cta-inner { flex-direction: column; text-align: center; }
+      .cta-text h2 { font-size: 24px; }
+      .cta-btns { justify-content: center; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .section-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .servicios-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo-link">
+      <img src="assets/logo.svg" alt="TAEC" />
+    </a>
+    <nav>
+      <a href="pages/servicios.html">Soluciones</a>
+      <a href="pages/nosotros.html">Nosotros</a>
+      <a href="pages/clientes.html">Clientes</a>
+      <a href="pages/articulate-360-mexico.html">Articulate 360</a>
+      <a href="pages/contacto.html">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://tienda.taec.com.mx" target="_blank" class="btn-tienda">Tienda</a>
+      <a href="pages/contacto.html" class="btn-cta">Hablar con un especialista</a>
+    </div>
+    <button class="hamburger" id="menuBtn" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobileNav">
+  <a href="pages/servicios.html">Soluciones</a>
+  <a href="pages/nosotros.html">Nosotros</a>
+  <a href="pages/clientes.html">Clientes</a>
+  <a href="pages/articulate-360-mexico.html">Articulate 360</a>
+  <a href="https://tienda.taec.com.mx" target="_blank">Tienda</a>
+  <a href="pages/contacto.html" class="btn-cta">Hablar con un especialista</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">Partner Oficial · México y LATAM · desde 2007</span>
+      <h1>Capacitación corporativa que da <em>resultados reales</em></h1>
+      <p class="hero-sub">18 años acompañando empresas en México y LATAM a implementar e-learning que se mide y se ve. Desde CDMX para toda la región.</p>
+      <div class="hero-actions">
+        <a href="pages/servicios.html" class="btn-primary">Ver soluciones →</a>
+        <a href="pages/contacto.html" class="btn-ghost-hero">Hablar con un especialista</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num"><em id="años-exp">18</em>+</div>
+          <div class="stat-label">años en el mercado</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">+<em>1,500</em></div>
+          <div class="stat-label">clientes atendidos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num"><em>22</em></div>
+          <div class="stat-label">países de alcance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">+<em>200</em></div>
+          <div class="stat-label">proyectos entregados</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-badge">Blog TAEC</span>
+    <div class="ticker-track" id="tickerTrack">
+      <!-- Cargado por JS desde data/ticker.json -->
+    </div>
+  </div>
+</div>
+
+<!-- ══ PARTNERS ══ -->
+<section class="partners">
+  <div class="partners-inner">
+    <p class="partners-label">Partners y distribuidores oficiales</p>
+    <div class="partners-row">
+      <div class="partner-badge">
+        <div class="partner-logo"><span class="logo-text articulate">articulate</span></div>
+        <span class="partner-tag">Authorized Reseller</span>
+      </div>
+      <div class="partner-badge">
+        <div class="partner-logo"><span class="logo-text articulate">articulate</span></div>
+        <span class="partner-tag">Certified Training Partner</span>
+      </div>
+      <div class="partner-badge">
+        <div class="partner-logo"><span class="logo-text vyond">Vyond</span></div>
+        <span class="partner-tag">Authorized Reseller</span>
+      </div>
+      <div class="partner-badge">
+        <div class="partner-logo"><span class="logo-text totara">totara</span></div>
+        <span class="partner-tag">Solutions Partner</span>
+      </div>
+      <div class="partner-badge">
+        <div class="partner-logo"><span class="logo-text moodle">Moodle</span></div>
+        <span class="partner-tag">Partner</span>
+      </div>
+      <div class="partner-badge">
+        <div class="partner-logo"><span class="logo-text seven">7Min</span></div>
+        <span class="partner-tag">Authorized Reseller</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICIOS ══ -->
+<section class="servicios">
+  <div class="servicios-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label">Lo que hacemos</p>
+        <h2 class="section-title">Soluciones de aprendizaje a tu medida</h2>
+        <p class="section-sub">Del diagnóstico a la implementación — cubrimos todo el ecosistema e-learning de tu organización.</p>
+      </div>
+      <a href="pages/servicios.html" class="see-all">Ver todas las soluciones →</a>
+    </div>
+    <div class="servicios-grid">
+      <div class="serv-card">
+        <div class="serv-icon">🛠️</div>
+        <h3>Herramientas de autoría</h3>
+        <p>Articulate 360, Vyond y más. Licencias oficiales con soporte en español, factura mexicana y precio en pesos al tipo de cambio del día.</p>
+        <a href="pages/articulate-360-mexico.html" class="serv-link">Ver herramientas →</a>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">🎬</div>
+        <h3>Desarrollo de cursos a medida</h3>
+        <p>Diseño instruccional + producción en Articulate o Vyond. E-learning, microlearning, blended learning y MOOCs listos para tu LMS.</p>
+        <a href="pages/servicios.html#cursos" class="serv-link">Ver proceso →</a>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">⚙️</div>
+        <h3>Implementación LMS</h3>
+        <p>Moodle, Totara, Articulate Reach y más. Instalación, configuración, migración de contenidos y capacitación a tu equipo.</p>
+        <a href="pages/moodle-mexico.html" class="serv-link">Ver plataformas →</a>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">💡</div>
+        <h3>Consultoría L&D</h3>
+        <p>Diagnóstico de brechas, estrategia de capacitación, analítica de aprendizaje y acompañamiento de adopción con metodología probada.</p>
+        <a href="pages/servicios.html#consultoria" class="serv-link">Saber más →</a>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">📋</div>
+        <h3>Evaluaciones de alta seguridad</h3>
+        <p>Plataforma especializada en exámenes de alta importancia. Diseño y análisis de evaluaciones con estándares para certificación.</p>
+        <a href="pages/servicios.html#evaluaciones" class="serv-link">Ver más →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CÓMO TRABAJAMOS ══ -->
+<section class="como">
+  <div class="como-inner">
+    <div style="text-align:center; margin-bottom: 0;">
+      <p class="section-label" style="justify-content:center;">Nuestro proceso</p>
+      <h2 class="section-title" style="text-align:center; margin-bottom: 8px;">Cómo trabajamos contigo</h2>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
+    </div>
+    <div class="pasos-grid">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <h3>Diagnóstico</h3>
+        <p>Analizamos tus necesidades reales de capacitación, presupuesto, infraestructura y equipo — no el ideal teórico.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <h3>Recomendación</h3>
+        <p>Proponemos la solución que funciona para tu contexto específico. No la más cara ni la más popular — la correcta.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <h3>Implementación</h3>
+        <p>Entregamos, configuramos y capacitamos a tu equipo hasta que dominen las herramientas. En español, desde CDMX.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <h3>Acompañamiento</h3>
+        <p>Soporte continuo post-implementación. Estamos cuando nos necesitas, no solo en la venta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIOS ══ -->
+<section class="testimonios">
+  <div class="testimonios-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label">Clientes que confían en TAEC</p>
+        <h2 class="section-title">Lo que dicen quienes nos eligieron</h2>
+      </div>
+      <a href="pages/clientes.html" class="see-all">Ver todos →</a>
+    </div>
+    <div class="testi-carousel-wrapper">
+      <div class="testi-carousel" id="testiCarousel">
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">La colaboración con TAEC ha sido fructífera, hemos podido implementar exitosamente la plataforma de Totara y nos ayudaron a desarrollar el contenido que necesitábamos para las capacitaciones a distancia.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">GS</div>
+            <div>
+              <div class="testi-name">GS1 México</div>
+              <div class="testi-org">Estándares globales de negocio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Articulate nos brinda la oportunidad de transformar contenido a un formato dinámico, atractivo y divertido para los cursos online que ofrecemos a nuestros colaboradores. Reducimos tiempos de desarrollo utilizando plantillas o diseñando desde cero.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">VA</div>
+            <div>
+              <div class="testi-name">VivaAerobús</div>
+              <div class="testi-org">Aerolínea mexicana</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">TAEC nos permitió respaldar el desarrollo de cursos y las necesidades gráficas y audiovisuales de nuestros clientes. Es un factor de crecimiento notable. Por el profesionalismo, anticipamos que nuestra relación continuará fortaleciéndose.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MU</div>
+            <div>
+              <div class="testi-name">Mosaic USA</div>
+              <div class="testi-org">Servicios empresariales · EUA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Utilizamos Vyond para desarrollar modelos educativos innovadores centrados en las personas. Nos permite crear oportunidades de aprendizaje para el desarrollo y plena participación social y productiva de las personas.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">FO</div>
+            <div>
+              <div class="testi-name">Fundación Omar Dengo</div>
+              <div class="testi-org">Educación y tecnología · Costa Rica</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Los cursos que se desarrollaron han cumplido con toda su funcionalidad. La colaboración y productividad nos han dejado satisfechos. Esperamos poder seguir trabajando con TAEC en el futuro.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">OI</div>
+            <div>
+              <div class="testi-name">OIM Perú</div>
+              <div class="testi-org">Organización Internacional para las Migraciones</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Articulate es de gran apoyo para gestionar los cursos en línea de nuestras contrapartes y lograr nuestros objetivos. TAEC otorga un gran apoyo y servicio gracias a su cercana colaboración y disponibilidad de atención.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">UC</div>
+            <div>
+              <div class="testi-name">UNICEF Costa Rica</div>
+              <div class="testi-org">Fondo de las Naciones Unidas para la Infancia</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Taec nos ayudó a llegar a una implementación integral de ONE y NEO en nuestro colegio. Gracias a su colaboración podemos afirmar que estamos posicionados a la vanguardia de la educación a distancia en México.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">KB</div>
+            <div>
+              <div class="testi-name">Colegio KB</div>
+              <div class="testi-org">Institución educativa · México</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Escogimos a TAEC como nuestro socio en e-learning por su calidad, profesionalismo y conocimiento en la creación de estrategias de capacitación.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">LT</div>
+            <div>
+              <div class="testi-name">Linktech</div>
+              <div class="testi-org">Tecnología y capacitación</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /carousel -->
+      <div class="testi-controls">
+        <button class="testi-btn" id="testiPrev">&#8592;</button>
+        <button class="testi-btn" id="testiNext">&#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLIENTES ══ -->
+<section class="clientes">
+  <div class="clientes-inner">
+    <p class="clientes-label">Confían en TAEC</p>
+    <div class="clientes-row">
+      <div class="cliente-chip">GS1</div>
+      <div class="cliente-chip">VivaAerobús</div>
+      <div class="cliente-chip">UNICEF</div>
+      <div class="cliente-chip">OIM</div>
+      <div class="cliente-chip">Mosaic USA</div>
+      <div class="cliente-chip">Fundación Omar Dengo</div>
+      <div class="cliente-chip">Colegio KB</div>
+      <div class="cliente-chip">Linktech</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RECURSOS ══ -->
+<section class="recursos">
+  <div class="recursos-inner">
+    <div class="section-head">
+      <div>
+        <p class="section-label">Biblioteca gratuita</p>
+        <h2 class="section-title">Recursos para equipos L&D</h2>
+      </div>
+      <a href="https://taec-elearning.neocities.org" target="_blank" class="see-all">Ver todos los recursos →</a>
+    </div>
+    <div class="recursos-grid">
+      <div class="rec-card">
+        <div class="rec-thumb t1">📋</div>
+        <div class="rec-body">
+          <span class="rec-tag">Guía</span>
+          <h3>Cómo elegir un LMS en México: guía práctica 2026</h3>
+          <p>Checklist de requerimientos, comparativo de plataformas y preguntas clave para tu evaluación.</p>
+        </div>
+        <div class="rec-footer">
+          <span>PDF · Gratis</span>
+          <a href="pages/contacto.html">Solicitar →</a>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-thumb t2">🗺️</div>
+        <div class="rec-body">
+          <span class="rec-tag verde">Glosario</span>
+          <h3>Glosario e-learning LATAM: 200+ términos explicados</h3>
+          <p>Desde ADDIE hasta xAPI — el vocabulario completo del aprendizaje digital en español para LATAM.</p>
+        </div>
+        <div class="rec-footer">
+          <span>Web · Gratis</span>
+          <a href="https://taec-elearning.neocities.org/glosario-taec.html" target="_blank">Ver glosario →</a>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-thumb t3">🧩</div>
+        <div class="rec-body">
+          <span class="rec-tag naranja">Comparativo</span>
+          <h3>Articulate 360 vs Lectora vs iSpring: ¿cuál elegir?</h3>
+          <p>Comparamos las tres herramientas líderes en 12 criterios clave para el mercado hispanohablante.</p>
+        </div>
+        <div class="rec-footer">
+          <span>Artículo · Gratis</span>
+          <a href="https://taec-elearning.neocities.org/comparativos-taec.html" target="_blank">Leer →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BAND ══ -->
+<section class="cta-band">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>¿Tu organización necesita una estrategia de capacitación?</h2>
+      <p>Una llamada de 30 minutos es suficiente para saber si podemos ayudarte.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="pages/contacto.html" class="btn-cta-band">Agendar diagnóstico gratuito →</a>
+      <a href="https://wa.me/5255277582792" target="_blank" class="btn-wa">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo-link">
+          <img src="assets/logo.svg" alt="TAEC" />
+        </a>
+        <p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde CDMX para México y LATAM.</p>
+        <div class="footer-contact">
+          <a href="mailto:info@taec.com.mx">✉ info@taec.com.mx</a>
+          <a href="tel:5568223300">📞 55 6822 3300</a>
+          <a href="https://wa.me/5255277582792" target="_blank">💬 WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Soluciones</h4>
+        <ul>
+          <li><a href="pages/articulate-360-mexico.html">Articulate 360 en México</a></li>
+          <li><a href="pages/moodle-mexico.html">Moodle en México</a></li>
+          <li><a href="pages/vyond-mexico.html">Vyond en México</a></li>
+          <li><a href="pages/totara-lms-mexico.html">Totara LMS</a></li>
+          <li><a href="pages/servicios.html">Todos los servicios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="https://taec-elearning.neocities.org/glosario-taec.html" target="_blank">Glosario e-learning</a></li>
+          <li><a href="https://taec-elearning.neocities.org/articulos-taec.html" target="_blank">Artículos</a></li>
+          <li><a href="https://taec-elearning.neocities.org/comparativos-taec.html" target="_blank">Comparativos</a></li>
+          <li><a href="https://taec-elearning.neocities.org" target="_blank">Hub editorial</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="pages/nosotros.html">Quiénes somos</a></li>
+          <li><a href="pages/clientes.html">Clientes y casos</a></li>
+          <li><a href="https://tienda.taec.com.mx" target="_blank">Tienda</a></li>
+          <li><a href="pages/contacto.html">Contacto</a></li>
+          <li><a href="https://www.taec.com.mx/soporte-tecnico.php">Soporte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> TAEC · Ciudad de México · <a href="#">Aviso de privacidad</a></p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/company/taec" target="_blank" title="LinkedIn">in</a>
+        <a href="https://wa.me/5255277582792" target="_blank" title="WhatsApp">WA</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Año dinámico
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Años de experiencia (fundada 11 oct 2007)
+  (function() {
+    const founded = new Date(2007, 9, 11);
+    const now     = new Date();
+    const anni    = now.getFullYear() - founded.getFullYear() -
+                    (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
+    document.getElementById('años-exp').textContent = anni;
+  })();
+
+  // ── Hamburger menu
+  const menuBtn   = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+
+  // ── Ticker dinámico desde data/ticker.json
+  (async function() {
+    try {
+      const res   = await fetch('data/ticker.json');
+      const items = await res.json();
+      const track = document.getElementById('tickerTrack');
+      track.innerHTML = items.map(i =>
+        `<span class="ticker-item"><span class="cat">${i.categoria}</span>${i.titulo}</span>`
+      ).join('<span class="ticker-item" style="color:var(--border)">·</span>');
+    } catch(e) {
+      // silencioso — el ticker simplemente no aparece si falla el fetch
+    }
+  })();
+
+  // ── Testimonios carousel
+  const carousel = document.getElementById('testiCarousel');
+  const cardW    = () => carousel.querySelector('.testi-card').offsetWidth + 20;
+  document.getElementById('testiPrev').addEventListener('click', () => {
+    carousel.scrollBy({ left: -cardW(), behavior: 'smooth' });
+  });
+  document.getElementById('testiNext').addEventListener('click', () => {
+    carousel.scrollBy({ left:  cardW(), behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
