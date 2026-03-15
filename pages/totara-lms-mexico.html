@@ -239,6 +239,30 @@
     .nav-item.open > .simple-dropdown  { display: grid !important; }
     .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
     .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
+  
+    /* ── PRODUCT LOGO ── */
+    .product-logo-wrap { display: inline-flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 10px; padding: 10px 20px; margin-bottom: 22px; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+    .product-logo { height: 36px; width: auto; display: block; }
+
+    /* ── G2 BADGES ── */
+    .g2-badges-section { background: #F8FAFC; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 44px 5%; }
+    .g2-badges-inner { max-width: 960px; margin: 0 auto; text-align: center; }
+    .g2-badges-title { font-size: 13px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; }
+    .g2-badges-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .g2-badge-card { background: white; border: 1px solid #E2E8F0; border-radius: 10px; padding: 16px 14px; width: 130px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .g2-badge-season { font-size: 9px; font-weight: 700; color: #64748B; letter-spacing: .5px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .g2-badge-g2 { background: #FF492C; color: white; font-size: 9px; font-weight: 900; padding: 2px 5px; border-radius: 3px; }
+    .g2-badge-name { font-size: 15px; font-weight: 900; color: #111827; line-height: 1.2; margin-bottom: 6px; }
+    .g2-badge-cat { font-size: 10px; color: #64748B; font-weight: 600; }
+    .g2-badge-bar { height: 5px; border-radius: 0 0 6px 6px; margin: 10px -14px -16px; }
+    .bar-leader    { background: linear-gradient(90deg, #EF4444, #F97316); }
+    .bar-usability { background: #EAB308; }
+    .bar-results   { background: #7C3AED; }
+    .bar-roi       { background: #7C3AED; }
+    .bar-setup     { background: #38BDF8; }
+    .bar-implement { background: #3B82F6; }
+    .g2-badges-link { font-size: 13px; color: #64748B; text-decoration: underline; }
+    .g2-badges-link:hover { color: #FF492C; }
   </style>
 </head>
 <body>
@@ -380,7 +404,9 @@
 <section class="wip-hero">
   <div class="wip-hero-inner">
     <span class="wip-tag">Plataformas &amp; LMS</span>
-    <span class="wip-icon" role="img" aria-label="Totara LMS en México">🏆</span>
+    <div class="product-logo-wrap" style="margin:16px auto 4px;">
+      <img src="../assets/logos/totara.png" alt="Totara LMS" class="product-logo" style="height:40px;" />
+    </div>
     <h1>Totara LMS en México</h1>
     <p>Totara Learn, Engage y Perform para empresas que necesitan un LMS flexible y extensible. SaaS gestionado por TAEC.</p>
     <div class="wip-card">
@@ -391,6 +417,53 @@
         <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
       </div>
     </div>
+  </div>
+</section>
+
+
+<!-- ══ G2 BADGES WINTER 2026 ══ -->
+<section class="g2-badges-section">
+  <div class="g2-badges-inner">
+    <p class="g2-badges-title">Reconocimientos G2 · Winter 2026 · Enterprise</p>
+    <div class="g2-badges-grid">
+      <div class="g2-badge-card">
+        <div class="g2-badge-season">WINTER 2026 <span class="g2-badge-g2">G2</span></div>
+        <div class="g2-badge-name">Leader</div>
+        <div class="g2-badge-cat">ENTERPRISE</div>
+        <div class="g2-badge-bar bar-leader"></div>
+      </div>
+      <div class="g2-badge-card">
+        <div class="g2-badge-season">WINTER 2026 <span class="g2-badge-g2">G2</span></div>
+        <div class="g2-badge-name">Best Usability</div>
+        <div class="g2-badge-cat">ENTERPRISE</div>
+        <div class="g2-badge-bar bar-usability"></div>
+      </div>
+      <div class="g2-badge-card">
+        <div class="g2-badge-season">WINTER 2026 <span class="g2-badge-g2">G2</span></div>
+        <div class="g2-badge-name">Best Results</div>
+        <div class="g2-badge-cat">ENTERPRISE</div>
+        <div class="g2-badge-bar bar-results"></div>
+      </div>
+      <div class="g2-badge-card">
+        <div class="g2-badge-season">WINTER 2026 <span class="g2-badge-g2">G2</span></div>
+        <div class="g2-badge-name">Best Est. ROI</div>
+        <div class="g2-badge-cat">ENTERPRISE</div>
+        <div class="g2-badge-bar bar-roi"></div>
+      </div>
+      <div class="g2-badge-card">
+        <div class="g2-badge-season">WINTER 2026 <span class="g2-badge-g2">G2</span></div>
+        <div class="g2-badge-name">Easiest Setup</div>
+        <div class="g2-badge-cat">ENTERPRISE</div>
+        <div class="g2-badge-bar bar-setup"></div>
+      </div>
+      <div class="g2-badge-card">
+        <div class="g2-badge-season">WINTER 2026 <span class="g2-badge-g2">G2</span></div>
+        <div class="g2-badge-name">Most Implementable</div>
+        <div class="g2-badge-cat">ENTERPRISE</div>
+        <div class="g2-badge-bar bar-implement"></div>
+      </div>
+    </div>
+    <a href="https://www.g2.com/products/totara-learn/reviews" target="_blank" rel="noopener noreferrer" class="g2-badges-link">Ver reseñas completas en G2 →</a>
   </div>
 </section>
 
