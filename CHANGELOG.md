@@ -4,11 +4,25 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.2 · 14 mar 2026
+- **7 landing pages de Capacitación** — una página por cada ítem del dropdown (Cursos Abiertos y Cerrados)
+  - `curso-articulate.html` — Articulate 360 Certificado (Básico · Avanzado · Experto · Rise 360+ · Completo) + AI Assistant
+  - `curso-storyline.html` — Storyline 360 Técnicas Avanzadas
+  - `curso-vyond.html` — Vyond Essentials
+  - `curso-moodle.html` — Moodle (3 opciones: Creación · Administración · Combinado)
+  - `curso-fundamentos.html` — Fundamentos del Diseño e-Learning + Diseño Instruccional (8 hrs)
+  - `curso-cerrado-empresa.html` — Capacitación Cerrada para tu Empresa
+  - `curso-cerrado-grupos.html` — Grupos a Medida (programas personalizados)
+  - Contenido real extraído de taec.com.mx/cursos-capacitacion.php
+- **Dropdown Capacitación** — cada ítem enlaza a su landing page específica (no más anclas en capacitacion-abierta.html)
+- **Active nav** — regex actualizado (`|curso-/`) para resaltar "Capacitación" en las 7 nuevas páginas
+- **Mobile nav** — Cursos Abiertos actualizado con links a nuevas páginas
+
 ## v2.1 · 14 mar 2026
 - **Fix dropdown definitivo** — `top: calc(100%+6px)` → `top: 100%` corregido en CSS origen (no más override con !important)
   - Eliminados bloques CSS/JS duplicados y conflictivos acumulados en parches anteriores
   - JS reescrito: hover (mouseenter/mouseleave) + click-toggle unificados en un solo bloque limpio
-  - Links de Capacitación → Cursos Abiertos redirigidos a páginas propias: Articulate 360, Vyond, Moodle, Storyline Avanzado
+- **Active nav no marca links dentro de dropdowns** — añadido `a.closest('.mega-menu') || a.closest('.simple-dropdown') → return`
 - **Frase hero** — "Partner Oficial · México y LATAM · desde 2007" → "Especialistas en e-learning corporativo · México y LATAM · desde 2007"
 - **Número de versión** — (ver 2.0) restaurado en footer de las 21 páginas
 
