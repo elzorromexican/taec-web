@@ -4,6 +4,42 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.1 · 15 mar 2026
+
+### Vyond — Subpáginas completas
+- **`vyond-go.html`** — Página de producto Vyond Go: hero, "De texto a video en segundos", cómo funciona (3 pasos), quote Virgenia Hall (Indeed), 4 casos de uso, explore-more, CTA. Contenido basado en vyond.com/product/vyond-go/
+- **`vyond-studio.html`** — Vyond Studio: editor drag-and-drop, 80+ idiomas, 1,100+ avatares IA, quote Christopher Annand (Cargill), 4 casos de uso, CTA
+- **`vyond-mobile.html`** — Vyond Mobile: Smart Capture con IA, Vyond Go en bolsillo, sincronización en tiempo real, 4 casos de uso
+- **`vyond-starter.html`** / **`vyond-professional.html`** / **`vyond-enterprise.html`** — 3 páginas de planes con comparativa visual de 3 columnas, features grid (6 tarjetas), use cases, CTA band
+- **Mega menu Vyond** actualizado en 34 archivos: Go [IA] · Studio · Mobile · "Ver planes →" (antes: Starter · Professional · Enterprise)
+- **Tabs de navegación** entre productos (Go / Studio / Mobile) en cada subpágina
+- **Barra Fortune 500** — "65% de las empresas Fortune 500 confían en Vyond" en las 3 páginas de producto
+
+### Vyond — Badges y reconocimientos
+- **`assets/badges/`** — Nuevo directorio: 6 badges G2 Winter 2026 Enterprise (Leader, Best Results, Best Usability, Best ROI, Most Implementable, Easiest Setup) + Vyond Certified Partner badge
+- **Sección de reconocimientos** en `vyond-mexico.html`: franja visual con los 7 badges entre el bloque G2 y el FAQ
+
+### Vyond — Landing page principal
+- **`vyond-mexico.html`** completamente reconstruido: hero 2-col gradiente oscuro, stats bar (70+ idiomas · 40K+ props · 4M+ recursos · 20K+ empresas), 3 productos (Go/Studio/Mobile), IA features grid, testimonial Rance Greene, G2 (4.8/5 · 466 reseñas), badges strip, FAQ 7 preguntas `<details>`, CTA band naranja
+- Contenido basado en tictaclearn.net/products/vyond
+
+### Assets
+- **`assets/logos/vyond.svg`** — SVG oficial Vyond naranja #C84D16 (reemplaza PNG)
+- **`assets/logos/articulate-reseller.svg`** — Badge oficial Articulate Authorized Reseller
+- **`assets/logos/totara.png`** — Logo Totara
+- **`.product-logo-wrap`** CSS — Píldora blanca para logos en fondos oscuros (reemplaza `filter: brightness(0) invert(1)`)
+
+### SEO y verificación
+- **`google6fa6407ffaf5623d.html`** — Archivo de verificación Google Search Console
+- **`sitemap.xml`** y **`robots.txt`** añadidos al repositorio
+
+### Otros productos
+- **`totara-lms-mexico.html`** — Logo Totara + 6 badges G2 Winter 2026 Enterprise con barras de color
+- **`articulate-360-mexico.html`** — Badge Authorized Reseller + sección G2 (4.7/5 · 621 reseñas)
+- **Versión** bumpeada de `(ver 2.0)` → `(ver 2.1)` en los 34 archivos HTML
+
+---
+
 ## v2.0 · 14-15 mar 2026
 - **Footer canónico** — mismo HTML en las 21 páginas: columnas Soluciones · Recursos · Empresa + Soporte técnico
 - Franja "También en:" 🇲🇽 taec.com.mx · 🇨🇴 taec.com.co · 🇨🇱 taec.cl en todos los footers
