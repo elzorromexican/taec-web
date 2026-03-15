@@ -69,13 +69,94 @@
     .logo-link { display: flex; align-items: center; flex-shrink: 0; }
     .logo-link img { height: 38px; width: auto; }
 
-    nav { display: flex; gap: 6px; align-items: center; }
-    nav a {
+    /* ── DESKTOP NAV ── */
+    .header-inner nav { display: flex; gap: 2px; align-items: center; }
+
+    /* direct links + dropdown triggers */
+    .header-inner nav > a,
+    .nav-link {
       font-size: 14px; font-weight: 500; color: var(--dark);
       padding: 6px 12px; border-radius: 6px;
       transition: background .15s, color .15s;
+      display: flex; align-items: center; gap: 3px;
+      cursor: pointer; white-space: nowrap;
+      background: none; border: none; font-family: inherit;
     }
-    nav a:hover { background: var(--light); color: var(--blue); }
+    .header-inner nav > a:hover,
+    .nav-link:hover,
+    .nav-item:hover > .nav-link { background: var(--light); color: var(--blue); }
+    .nav-link svg { width: 13px; height: 13px; transition: transform .2s; flex-shrink: 0; }
+    .nav-item:hover > .nav-link svg { transform: rotate(180deg); }
+
+    /* ── NAV ITEM WRAPPER ── */
+    .nav-item { position: relative; }
+
+    /* ── MEGA MENU (Soluciones) ── */
+    .mega-menu {
+      display: none; position: absolute;
+      top: calc(100% + 6px); left: 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.13);
+      padding: 24px 20px;
+      grid-template-columns: repeat(3,1fr);
+      gap: 8px 24px;
+      min-width: 660px;
+      z-index: 300;
+    }
+    .nav-item:hover .mega-menu { display: grid; }
+    .mega-col { display: flex; flex-direction: column; gap: 2px; }
+    .mega-head {
+      font-size: 10px; font-weight: 700; letter-spacing: .9px;
+      text-transform: uppercase; color: var(--muted);
+      padding: 0 8px; margin-bottom: 6px; margin-top: 4px;
+    }
+    .mega-col > a {
+      font-size: 13px; font-weight: 600; color: var(--dark);
+      padding: 6px 8px; border-radius: 6px;
+      transition: background .15s, color .15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .mega-col > a:hover { background: var(--light); color: var(--blue); }
+    .mega-sub {
+      padding-left: 12px;
+      border-left: 2px solid var(--border);
+      margin: 2px 0 8px 12px;
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .mega-sub a {
+      font-size: 12px; font-weight: 400; color: var(--muted);
+      padding: 4px 8px; border-radius: 5px;
+      transition: background .15s, color .15s;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .mega-sub a:hover { background: var(--light); color: var(--blue); }
+    .badge-saas {
+      font-size: 9px; font-weight: 700; background: rgba(168,219,217,.3);
+      color: var(--navy); padding: 1px 5px; border-radius: 3px; flex-shrink: 0;
+    }
+    .badge-new {
+      font-size: 9px; font-weight: 700; background: var(--orange);
+      color: var(--white); padding: 1px 5px; border-radius: 3px; flex-shrink: 0;
+    }
+    .mega-divider { height: 1px; background: var(--border); margin: 8px 4px; }
+
+    /* ── SIMPLE DROPDOWN (Capacitación) ── */
+    .simple-dropdown {
+      display: none; position: absolute;
+      top: calc(100% + 6px); left: 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.13);
+      padding: 20px;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      min-width: 380px;
+      z-index: 300;
+    }
+    .nav-item:hover .simple-dropdown { display: grid; }
 
     .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .btn-tienda {
@@ -106,18 +187,45 @@
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .mobile-nav {
-      display: none; flex-direction: column; gap: 4px;
-      background: var(--white); padding: 16px 5% 24px;
+      display: none; flex-direction: column; gap: 2px;
+      background: var(--white); padding: 12px 5% 24px;
       border-bottom: 1px solid var(--border);
       position: relative; z-index: 199;
     }
     .mobile-nav.open { display: flex; }
-    .mobile-nav a {
+    .mobile-nav > a {
       font-size: 15px; font-weight: 500; color: var(--dark);
       padding: 10px 12px; border-radius: 8px;
     }
-    .mobile-nav a:hover { background: var(--light); color: var(--blue); }
+    .mobile-nav > a:hover { background: var(--light); color: var(--blue); }
     .mobile-nav .btn-cta { text-align: center; margin-top: 8px; }
+    /* mobile accordion */
+    .mob-toggle {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      font-size: 15px; font-weight: 600; color: var(--dark);
+      padding: 10px 12px; border-radius: 8px;
+      background: none; border: none; font-family: inherit; cursor: pointer;
+      transition: background .15s;
+    }
+    .mob-toggle:hover { background: var(--light); }
+    .mob-toggle svg { width: 16px; height: 16px; transition: transform .2s; flex-shrink: 0; }
+    .mob-toggle.open svg { transform: rotate(180deg); }
+    .mob-section {
+      display: none; flex-direction: column; gap: 0;
+      padding-left: 8px; margin-bottom: 4px;
+    }
+    .mob-section.open { display: flex; }
+    .mob-cat {
+      font-size: 10px; font-weight: 700; letter-spacing: .8px;
+      text-transform: uppercase; color: var(--muted);
+      padding: 8px 12px 4px;
+    }
+    .mob-section a {
+      font-size: 14px; font-weight: 400; color: var(--dark);
+      padding: 8px 12px; border-radius: 7px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .mob-section a:hover { background: var(--light); color: var(--blue); }
 
     /* ── HERO ── */
     .hero {
@@ -567,7 +675,7 @@
     }
 
     @media (max-width: 768px) {
-      nav { display: none; }
+      .header-inner nav { display: none; }
       .header-actions .btn-tienda { display: none; }
       .header-actions .btn-cta { display: none; }
       .hamburger { display: flex; }
@@ -611,10 +719,81 @@
       <img src="assets/logo.svg" alt="TAEC" />
     </a>
     <nav>
-      <a href="#servicios">Soluciones</a>
+      <!-- Soluciones mega menu -->
+      <div class="nav-item">
+        <button class="nav-link">Soluciones
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="mega-menu">
+          <!-- Col 1: Autoría & Video -->
+          <div class="mega-col">
+            <span class="mega-head">Autoría &amp; Video</span>
+            <a href="pages/articulate-360-mexico.html">Articulate 360</a>
+            <div class="mega-sub">
+              <a href="pages/articulate-360-mexico.html#rise">Rise 360</a>
+              <a href="pages/articulate-360-mexico.html#storyline">Storyline 360</a>
+              <a href="pages/articulate-360-mexico.html#studio">Studio 360</a>
+              <a href="pages/articulate-360-mexico.html#content-library">Content Library</a>
+              <a href="pages/articulate-360-mexico.html#ai">AI Assistant <span class="badge-new">nuevo</span></a>
+            </div>
+            <a href="pages/vyond-mexico.html">Vyond</a>
+            <div class="mega-sub">
+              <a href="pages/vyond-mexico.html#starter">Starter</a>
+              <a href="pages/vyond-mexico.html#professional">Professional</a>
+            </div>
+          </div>
+          <!-- Col 2: Plataformas & LMS -->
+          <div class="mega-col">
+            <span class="mega-head">Plataformas &amp; LMS</span>
+            <a href="pages/moodle-mexico.html">Moodle <span class="badge-saas">SaaS</span></a>
+            <a href="pages/totara-lms-mexico.html">Totara <span class="badge-saas">SaaS</span></a>
+            <a href="#">Ottolearn <span class="badge-saas">SaaS</span></a>
+            <a href="#">Lys <span class="badge-saas">SaaS</span></a>
+            <a href="#">BigBlueButton <span class="badge-saas">SaaS</span></a>
+            <div class="mega-divider"></div>
+            <a href="#">Zoola Analytics</a>
+          </div>
+          <!-- Col 3: Servicios & Add-ons -->
+          <div class="mega-col">
+            <span class="mega-head">Servicios &amp; Add-ons</span>
+            <a href="#">Class <small style="color:var(--muted);font-weight:400">(videoclases)</small></a>
+            <a href="#">Proctorizer</a>
+            <a href="#">StrikePlagiarism</a>
+            <div class="mega-divider"></div>
+            <span class="mega-head" style="margin-top:4px">Catálogo listo</span>
+            <a href="#">7 Minutes</a>
+            <a href="#">GO1</a>
+            <a href="#">Custom Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Capacitación dropdown -->
+      <div class="nav-item">
+        <button class="nav-link">Capacitación
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="simple-dropdown">
+          <div class="mega-col">
+            <span class="mega-head">Cursos Abiertos</span>
+            <a href="#">Articulate 360</a>
+            <a href="#">Vyond</a>
+            <a href="#">Storyline Avanzado</a>
+            <a href="#">Moodle</a>
+            <a href="#">Fundamentos e-learning</a>
+            <a href="#" style="color:var(--blue);font-weight:600;margin-top:4px">Ver calendario →</a>
+          </div>
+          <div class="mega-col">
+            <span class="mega-head">Cursos Cerrados</span>
+            <a href="#">Para tu empresa</a>
+            <a href="#">Grupos a medida</a>
+            <a href="pages/contacto.html" style="color:var(--blue);font-weight:600;margin-top:4px">Solicitar programa →</a>
+          </div>
+        </div>
+      </div>
+
       <a href="pages/nosotros.html">Nosotros</a>
       <a href="pages/clientes.html">Clientes</a>
-      <a href="pages/articulate-360-mexico.html">Articulate 360</a>
       <a href="pages/contacto.html">Contacto</a>
     </nav>
     <div class="header-actions">
@@ -627,10 +806,45 @@
   </div>
 </header>
 <nav class="mobile-nav" id="mobileNav">
-  <a href="pages/servicios.html">Soluciones</a>
+  <!-- Soluciones accordion -->
+  <button class="mob-toggle" id="mobSol" onclick="toggleMob('mobSolSec','mobSol')">
+    Soluciones
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="mob-section" id="mobSolSec">
+    <span class="mob-cat">Autoría &amp; Video</span>
+    <a href="pages/articulate-360-mexico.html">Articulate 360</a>
+    <a href="pages/vyond-mexico.html">Vyond</a>
+    <span class="mob-cat">Plataformas &amp; LMS</span>
+    <a href="pages/moodle-mexico.html">Moodle <span class="badge-saas">SaaS</span></a>
+    <a href="pages/totara-lms-mexico.html">Totara <span class="badge-saas">SaaS</span></a>
+    <a href="#">Ottolearn</a>
+    <a href="#">Lys</a>
+    <a href="#">BigBlueButton</a>
+    <span class="mob-cat">Servicios &amp; Add-ons</span>
+    <a href="#">Class</a>
+    <a href="#">Proctorizer</a>
+    <a href="#">StrikePlagiarism</a>
+    <a href="#">Zoola Analytics</a>
+  </div>
+
+  <!-- Capacitación accordion -->
+  <button class="mob-toggle" id="mobCap" onclick="toggleMob('mobCapSec','mobCap')">
+    Capacitación
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="mob-section" id="mobCapSec">
+    <span class="mob-cat">Cursos Abiertos</span>
+    <a href="#">Articulate 360</a>
+    <a href="#">Vyond</a>
+    <a href="#">Moodle</a>
+    <a href="#">Fundamentos e-learning</a>
+    <span class="mob-cat">Cursos Cerrados</span>
+    <a href="pages/contacto.html">Solicitar programa →</a>
+  </div>
+
   <a href="pages/nosotros.html">Nosotros</a>
   <a href="pages/clientes.html">Clientes</a>
-  <a href="pages/articulate-360-mexico.html">Articulate 360</a>
   <a href="https://tienda.taec.com.mx" target="_blank">Tienda</a>
   <a href="pages/contacto.html">Contacto</a>
   <a href="https://wa.me/5215527758279" target="_blank" class="btn-cta">WhatsApp →</a>
@@ -1079,6 +1293,14 @@
     menuBtn.classList.toggle('open');
     mobileNav.classList.toggle('open');
   });
+
+  // ── Mobile accordion
+  function toggleMob(sectionId, btnId) {
+    const sec = document.getElementById(sectionId);
+    const btn = document.getElementById(btnId);
+    sec.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
 
   // ── Ticker dinámico desde data/ticker.json
   (async function() {
