@@ -4,6 +4,14 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.1 · 14 mar 2026
+- **Fix dropdown definitivo** — `top: calc(100%+6px)` → `top: 100%` corregido en CSS origen (no más override con !important)
+  - Eliminados bloques CSS/JS duplicados y conflictivos acumulados en parches anteriores
+  - JS reescrito: hover (mouseenter/mouseleave) + click-toggle unificados en un solo bloque limpio
+  - Links de Capacitación → Cursos Abiertos redirigidos a páginas propias: Articulate 360, Vyond, Moodle, Storyline Avanzado
+- **Frase hero** — "Partner Oficial · México y LATAM · desde 2007" → "Especialistas en e-learning corporativo · México y LATAM · desde 2007"
+- **Número de versión** — (ver 2.0) restaurado en footer de las 21 páginas
+
 ## v2.0 · 14 mar 2026
 - **Footer canónico** — mismo HTML en las 21 páginas: columnas Soluciones · Recursos · Empresa + Soporte técnico
 - Franja "También en:" 🇲🇽 taec.com.mx · 🇨🇴 taec.com.co · 🇨🇱 taec.cl en todos los footers
