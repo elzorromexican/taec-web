@@ -4,6 +4,21 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v1.7 · 14 mar 2026
+- **Accesibilidad WCAG 2.1 AA** — correcciones aplicadas en `index.html`, `articulate-360-mexico.html` y `contacto.html`
+- Skip link "Ir al contenido principal" en los 3 archivos
+- `<main id="main-content">` como landmark de contenido principal
+- `aria-label` en botones de testimonio (← →) y toggle Standard/AI
+- `aria-haspopup` + `aria-expanded` en dropdowns desktop (Soluciones, Capacitación)
+- `aria-expanded` + `aria-controls` dinámicos en acordeón móvil (toggleMob actualizado)
+- `aria-pressed` + `aria-label` dinámico en toggle Standard/AI de Articulate
+- `aria-required="true"` en campos obligatorios del formulario de contacto
+- `aria-hidden="true"` en SVGs decorativos del nav
+- `rel="noopener noreferrer"` en todos los `target="_blank"`
+- `:focus-visible` con `outline: 3px solid var(--blue)` en los 3 archivos
+- `.mob-cat` color fijado a `#4B5563` (ratio 7:1) — eliminado `var(--muted)` en index.html
+- Ver estándar completo: `docs/accesibilidad.md`
+
 ## v1.6 · 14 mar 2026
 - `articulate-360-mexico.html` — Link de prueba actualizado a versión en español (`articulate.com/es/360/trial/`)
 
