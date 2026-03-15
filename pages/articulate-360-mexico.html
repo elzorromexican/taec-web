@@ -357,6 +357,17 @@
       font-weight: 700;
       text-decoration: none;
     }
+  
+    /* ── NAV BRIDGE: elimina hover-gap entre botón y dropdown ── */
+    .nav-item { position: relative; }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 12px; /* cubre el gap de 6px con margen */
+    }
   </style>
 </head>
 <body>
@@ -995,56 +1006,32 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  // Active nav: mark current section as cardex tab
+  // Active nav: marca ficha de cardex
   (function(){
-    var p = window.location.pathname;
-    // Dropdown buttons (Soluciones, Capacitación)
-    var sec = '';
-    if(/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/.test(p)) sec='Soluciones';
-    else if(/capacitacion|7minutes|go1|customguide/.test(p)) sec='Capacitaci';
-    if(sec){
-      document.querySelectorAll('header button.nav-link').forEach(function(btn){
-        if(btn.textContent.trim().indexOf(sec)===0) btn.classList.add('active');
-      });
-    }
-    // Plain links (Nosotros, Clientes, Contacto)
-    document.querySelectorAll('header a').forEach(function(a){
-      var href = a.getAttribute('href')||'';
-      if(!href||href==='#'||a.classList.contains('logo-link')||a.classList.contains('btn-cta')) return;
-      var fn = href.split('/').pop().replace('.html','');
-      if(fn && p.includes(fn)) a.classList.add('active');
-    });
-  })();
+    var page = location.pathname.split('/').pop() || 'index.html';
+    var p    = location.pathname;
 
-  // Dropdown: mouseenter/mouseleave with 120ms grace — no hover-gap problem
-  (function(){
-    document.querySelectorAll('.nav-item').forEach(function(item){
-      var timer;
-      item.addEventListener('mouseenter', function(){
-        clearTimeout(timer);
-        document.querySelectorAll('.nav-item').forEach(function(i){
-          if(i!==item){ i.classList.remove('dropdown-open'); var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false'); }
-        });
-        item.classList.add('dropdown-open');
-        var btn=item.querySelector('button.nav-link');
-        if(btn) btn.setAttribute('aria-expanded','true');
-      });
-      item.addEventListener('mouseleave', function(){
-        timer=setTimeout(function(){
-          item.classList.remove('dropdown-open');
-          var btn=item.querySelector('button.nav-link');
-          if(btn) btn.setAttribute('aria-expanded','false');
-        }, 120);
-      });
-    });
-    // Close on outside click
-    document.addEventListener('click', function(e){
-      if(!e.target.closest('.nav-item')){
-        document.querySelectorAll('.nav-item').forEach(function(i){
-          i.classList.remove('dropdown-open');
-          var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false');
+    // Botones dropdown (Soluciones / Capacitación) — por texto
+    var secMap = {
+      'Soluciones':    /articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/,
+      'Capacitaci':    /capacitacion|7minutes|go1|customguide/
+    };
+    Object.keys(secMap).forEach(function(sec){
+      if(secMap[sec].test(p)){
+        document.querySelectorAll('header button.nav-link').forEach(function(btn){
+          if(btn.textContent.trim().indexOf(sec) === 0) btn.classList.add('active');
         });
       }
+    });
+
+    // Links directos (Nosotros, Clientes, Contacto) — por nombre de archivo
+    document.querySelectorAll('header a[href]').forEach(function(a){
+      var href = a.getAttribute('href') || '';
+      if(!href || href === '#' || href.indexOf('mailto:') === 0 ||
+         href.indexOf('tel:') === 0 || href.indexOf('http') === 0 ||
+         a.classList.contains('logo-link') || a.classList.contains('btn-cta')) return;
+      var linked = href.split('/').pop();
+      if(linked && linked === page) a.classList.add('active');
     });
   })();
 
