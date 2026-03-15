@@ -239,6 +239,10 @@
     .nav-item.open > .simple-dropdown  { display: grid !important; }
     .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
     .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
+  
+    /* ── PRODUCT LOGO ── */
+    .product-logo-wrap { margin-bottom: 20px; }
+    .product-logo { height: 42px; width: auto; display: block; filter: brightness(0) invert(1); }
   </style>
 </head>
 <body>
@@ -381,7 +385,9 @@
   <div class="wip-hero-inner">
     <span class="wip-tag">Autoría &amp; Video</span>
     <span class="wip-icon" role="img" aria-label="Vyond en México">🎬</span>
-    <h1>Vyond en México</h1>
+    
+      <div class="product-logo-wrap"><img src="../assets/logos/vyond.png" alt="Vyond" class="product-logo" /></div>
+      <h1>Vyond en México</h1>
     <p>Crea videos animados profesionales para capacitación corporativa. Partner oficial Vyond para México y LATAM.</p>
     <div class="wip-card">
       <p class="wip-card-title">🚧 Página en construcción</p>

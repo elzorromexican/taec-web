@@ -239,6 +239,10 @@
     .nav-item.open > .simple-dropdown  { display: grid !important; }
     .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
     .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
+  
+    /* ── PRODUCT LOGO ── */
+    .product-logo-wrap { margin-bottom: 20px; }
+    .product-logo { height: 42px; width: auto; display: block; filter: brightness(0) invert(1); }
   </style>
 </head>
 <body>
@@ -381,7 +385,9 @@
   <div class="wip-hero-inner">
     <span class="wip-tag">Catálogo Listo</span>
     <span class="wip-icon" role="img" aria-label="7 Minutes Learning">⏱️</span>
-    <h1>7 Minutes Learning</h1>
+    
+      <div class="product-logo-wrap"><img src="../assets/logos/7minutes.png" alt="7 Minutes Learning" class="product-logo" /></div>
+      <h1>7 Minutes Learning</h1>
     <p>Biblioteca de contenidos de microlearning listos para usar. Más de 3,500 cápsulas en múltiples idiomas.</p>
     <div class="wip-card">
       <p class="wip-card-title">🚧 Página en construcción</p>
