@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vyond Starter en México — Crea videos animados con IA | TAEC</title>
+  <meta name="description" content="Empieza a crear videos animados para capacitación con Vyond Starter. Acceso a Vyond Go (IA), Studio y plantillas profesionales. Partner oficial en México." />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    :root{--navy:#004775;--blue:#3179C2;--teal:#A8DBD9;--orange:#F28B1C;--coral:#D35652;--muted:#7595AA;--dark:#4D4D4E;--light:#F4F7FB;--border:#E2E8F0;--white:#FFFFFF;--text:#111827;--font-display:"DM Serif Display",Georgia,serif;--font-body:"Inter",sans-serif;--vy:#C84D16}
+    body{font-family:var(--font-body);color:var(--text);background:var(--white);font-size:15px;line-height:1.6;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    /* header */
+    header{position:sticky;top:0;z-index:200;background:var(--white);border-bottom:1px solid var(--border);padding:0 5%}
+    .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
+    .logo-link{display:flex;align-items:center;flex-shrink:0}
+    .logo-link img{height:38px;width:auto}
+    .header-inner nav{display:flex;gap:2px;align-items:center}
+    .header-inner nav>a,.nav-link{font-size:14px;font-weight:500;color:var(--dark);padding:6px 12px;border-radius:6px;transition:background .15s,color .15s;display:flex;align-items:center;gap:3px;cursor:pointer;white-space:nowrap;background:none;border:none;font-family:inherit}
+    .header-inner nav>a:hover,.nav-link:hover,.nav-item:hover>.nav-link{background:var(--light);color:var(--blue)}
+    .nav-link svg{width:13px;height:13px;transition:transform .2s;flex-shrink:0}
+    .nav-item:hover>.nav-link svg{transform:rotate(180deg)}
+    .nav-item{position:relative}
+    .mega-menu{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.13);padding:24px 20px 24px;grid-template-columns:repeat(3,1fr);gap:8px 24px;min-width:660px;z-index:300;padding-top:10px}
+    .nav-item:hover .mega-menu{display:grid}
+    .mega-col{display:flex;flex-direction:column;gap:2px}
+    .mega-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#4B5563;padding:4px 8px 6px}
+    .mega-menu a{font-size:13px;font-weight:500;color:var(--dark);padding:5px 8px;border-radius:6px;display:flex;align-items:center;gap:6px}
+    .mega-menu a:hover{background:var(--light);color:var(--blue)}
+    .mega-sub{display:flex;flex-direction:column;gap:0;padding-left:8px;border-left:2px solid var(--border);margin:2px 0 4px 8px}
+    .mega-sub a{font-size:12px;color:#4B5563;padding:3px 6px}
+    .mega-divider{height:1px;background:var(--border);margin:8px 4px}
+    .badge-saas{font-size:9px;font-weight:700;background:#EFF6FF;color:var(--blue);border:1px solid #BFDBFE;border-radius:3px;padding:1px 4px}
+    .badge-new{font-size:9px;font-weight:700;background:#FEF3E2;color:var(--orange);border:1px solid #FDE68A;border-radius:3px;padding:1px 4px}
+    .simple-dropdown{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.13);padding:20px;grid-template-columns:1fr 1fr;gap:8px 24px;min-width:380px;z-index:300;padding-top:10px}
+    .nav-item:hover .simple-dropdown{display:grid}
+    .header-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+    .btn-tienda{font-size:13px;font-weight:600;color:var(--dark);border:1.5px solid var(--border);padding:6px 14px;border-radius:6px;transition:border-color .15s}
+    .btn-tienda:hover{border-color:var(--blue);color:var(--blue)}
+    .btn-cta{background:var(--orange);color:var(--white);font-weight:700;font-size:13px;padding:7px 16px;border-radius:7px;transition:background .15s}
+    .btn-cta:hover{background:#d97b0e}
+    .hamburger{display:none;flex-direction:column;gap:5px;padding:6px;border:none;background:none;cursor:pointer;border-radius:6px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px;transition:all .25s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-nav{display:none;flex-direction:column;gap:2px;background:var(--white);padding:12px 5% 24px;border-bottom:1px solid var(--border);position:relative;z-index:199}
+    .mobile-nav.open{display:flex}
+    .mobile-nav>a{font-size:15px;font-weight:500;color:var(--dark);padding:10px 12px;border-radius:8px}
+    .mobile-nav>a:hover{background:var(--light);color:var(--blue)}
+    .mob-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:600;color:var(--dark);padding:10px 12px;border-radius:8px;background:none;border:none;font-family:inherit;cursor:pointer;transition:background .15s}
+    .mob-toggle:hover{background:var(--light)}
+    .mob-toggle svg{width:16px;height:16px;transition:transform .2s;flex-shrink:0}
+    .mob-toggle.open svg{transform:rotate(180deg)}
+    .mob-section{display:none;flex-direction:column;gap:0;padding-left:8px;margin-bottom:4px}
+    .mob-section.open{display:flex}
+    .mob-cat{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#4B5563;padding:8px 12px 4px}
+    .mob-section a{font-size:14px;font-weight:500;color:var(--text);padding:8px 12px;border-radius:7px;display:flex;align-items:center;gap:6px}
+    .mob-section a:hover{background:var(--light);color:var(--blue)}
+    @media(max-width:768px){.header-inner nav{display:none}.header-actions .btn-tienda,.header-actions .btn-cta{display:none}.hamburger{display:flex}}
+    /* footer */
+    footer{background:#04293F;padding:56px 5% 28px}
+    .footer-inner{max-width:1200px;margin:0 auto}
+    .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .footer-brand a img{height:34px;filter:brightness(0) invert(1);display:block}
+    .footer-brand p{font-size:13px;color:#4B6275;line-height:1.7;margin-top:14px}
+    .footer-contact{margin-top:18px;display:flex;flex-direction:column;gap:6px}
+    .footer-contact a{font-size:13px;color:#64748B;display:flex;align-items:center;gap:6px;transition:color .15s;text-decoration:none}
+    .footer-contact a:hover{color:#A8DBD9}
+    .footer-col h4{font-size:11px;font-weight:700;color:#94A3B8;margin-bottom:16px;letter-spacing:.8px;text-transform:uppercase}
+    .footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+    .footer-col ul li a{font-size:13px;color:#64748B;text-decoration:none;transition:color .15s}
+    .footer-col ul li a:hover{color:#A8DBD9}
+    .footer-latam{display:flex;align-items:center;gap:20px;padding:16px 0;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap;margin-top:8px}
+    .footer-latam-label{font-size:10px;color:#64748B;font-weight:700;text-transform:uppercase;letter-spacing:.8px;flex-shrink:0}
+    .footer-latam a{font-size:12px;color:#64748B;text-decoration:none;transition:color .15s}
+    .footer-latam a:hover{color:#A8DBD9}
+    .footer-bottom{padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.07);margin-top:4px}
+    .footer-bottom p{font-size:12px;color:#334155}
+    .footer-bottom a{color:#475569;transition:color .15s;text-decoration:none}
+    .footer-bottom a:hover{color:#A8DBD9}
+    .footer-social{display:flex;gap:10px}
+    .footer-social a{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.1);display:inline-flex;align-items:center;justify-content:center;color:#64748B;font-size:11px;font-weight:700;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+    .footer-social a:hover{background:#3179C2;color:#fff;border-color:#3179C2}
+    .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:transform .2s}
+    .wa-float:hover{transform:scale(1.1)}
+    .wa-float svg{width:28px;height:28px;fill:white}
+    .skip-link{position:absolute;top:-60px;left:16px;background:var(--navy);color:var(--white);padding:8px 16px;border-radius:0 0 8px 8px;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top .2s}
+    .skip-link:focus{top:0}
+    *:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+    .nav-item.open>.mega-menu{display:grid!important}
+    .nav-item.open>.simple-dropdown{display:grid!important}
+    header .nav-link.active,header button.nav-link.active{background:#111827!important;color:#fff!important;border-radius:8px;padding:5px 14px;font-weight:700}
+    header a.active{background:#111827!important;color:#fff!important;border-radius:8px;padding:5px 14px;font-weight:700;text-decoration:none}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
+    @media(max-width:600px){.footer-grid{grid-template-columns:1fr;gap:24px}.footer-bottom{flex-direction:column;text-align:center}}
+    /* plan pages */
+    .vp-hero{padding:72px 5% 80px}
+    .vp-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+    .vp-logo-pill{display:inline-flex;background:white;border-radius:10px;padding:10px 20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+    .vp-logo-pill img{height:34px;width:auto}
+    .vp-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:16px}
+    .vp-hero h1{font-size:clamp(26px,3.5vw,42px);font-weight:800;color:white;line-height:1.2;margin-bottom:16px}
+    .vp-hero h1 em{font-style:normal}
+    .vp-hero-sub{font-size:16px;color:rgba(255,255,255,.8);margin-bottom:28px;line-height:1.6}
+    .vp-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-vp-primary{background:white;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;transition:opacity .15s}
+    .btn-vp-primary:hover{opacity:.9}
+    .btn-vp-ghost{background:rgba(255,255,255,.12);color:white;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);transition:background .15s}
+    .btn-vp-ghost:hover{background:rgba(255,255,255,.2)}
+    .vp-hero-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:28px}
+    .vp-hero-feats{display:flex;flex-direction:column;gap:10px}
+    .vp-feat{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,.9)}
+    .vp-feat-check{color:#FFCBA4;font-weight:700;flex-shrink:0;margin-top:1px}
+    /* plan selector */
+    .plan-selector{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
+    .plan-selector-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
+    .plan-tab{display:inline-flex;align-items:center;gap:6px;padding:16px 24px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+    .plan-tab:hover{color:var(--vy)}
+    .plan-tab.active{color:var(--vy);border-bottom-color:var(--vy)}
+    .plan-tab .plan-badge{font-size:9px;font-weight:700;border-radius:3px;padding:2px 5px}
+    /* pricing cards */
+    .plan-cards{padding:56px 5%;background:white}
+    .plan-cards-inner{max-width:1100px;margin:0 auto}
+    .plan-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .plan-card{border:2px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:box-shadow .2s}
+    .plan-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.1)}
+    .plan-card.current{border-color:var(--vy);box-shadow:0 0 0 4px rgba(200,77,22,.08)}
+    .plan-card-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--vy);color:white;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 12px;border-radius:4px;white-space:nowrap}
+    .plan-card-name{font-size:20px;font-weight:800;color:#111827;margin-bottom:4px}
+    .plan-card-desc{font-size:13px;color:#64748B;margin-bottom:20px;line-height:1.5}
+    .plan-card-price{font-size:13px;color:#94A3B8;margin-bottom:20px;font-weight:600}
+    .plan-card-feats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+    .plan-card-feats li{font-size:13px;color:#374151;display:flex;align-items:flex-start;gap:8px}
+    .plan-card-feats li::before{content:"✓";color:var(--vy);font-weight:700;flex-shrink:0;margin-top:1px}
+    .plan-card-feats li.no::before{content:"—";color:#CBD5E1}
+    .plan-card-feats li.no{color:#9CA3AF}
+    .plan-card-cta{display:block;text-align:center;padding:11px 20px;border-radius:8px;font-weight:700;font-size:14px;transition:background .15s}
+    .plan-card-cta-primary{background:var(--vy);color:white}
+    .plan-card-cta-primary:hover{background:#a33d10}
+    .plan-card-cta-outline{border:2px solid var(--border);color:#374151}
+    .plan-card-cta-outline:hover{border-color:var(--vy);color:var(--vy)}
+    /* features grid */
+    .feat-section{padding:64px 5%;background:#F8FAFC}
+    .feat-section-alt{background:white}
+    .feat-inner{max-width:1100px;margin:0 auto}
+    .feat-title{font-size:clamp(22px,2.5vw,30px);font-weight:800;color:#111827;margin-bottom:8px}
+    .feat-sub{font-size:16px;color:#64748B;margin-bottom:40px;max-width:600px}
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .feat-card{background:white;border:1px solid var(--border);border-radius:14px;padding:24px}
+    .feat-section-alt .feat-card{background:#F8FAFC}
+    .feat-icon{font-size:28px;margin-bottom:14px}
+    .feat-name{font-size:16px;font-weight:700;color:#111827;margin-bottom:8px}
+    .feat-desc{font-size:13px;color:#475569;line-height:1.6}
+    /* use cases */
+    .usecase-section{padding:64px 5%;background:white}
+    .usecase-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:56px;align-items:start}
+    .usecase-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--vy);margin-bottom:12px}
+    .usecase-title{font-size:clamp(22px,2.5vw,30px);font-weight:800;color:#111827;margin-bottom:16px}
+    .usecase-sub{font-size:15px;color:#475569;line-height:1.7}
+    .usecase-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .usecase-card{background:#F8FAFC;border:1px solid var(--border);border-radius:12px;padding:20px}
+    .usecase-card-title{font-size:14px;font-weight:700;color:#111827;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+    .usecase-card-desc{font-size:13px;color:#475569;line-height:1.55}
+    /* cta band */
+    .vp-cta{background:var(--vy);padding:56px 5%;text-align:center}
+    .vp-cta h2{font-size:28px;font-weight:800;color:white;margin-bottom:10px}
+    .vp-cta p{font-size:16px;color:rgba(255,255,255,.85);margin-bottom:28px}
+    .vp-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn-cta-white{background:white;font-weight:700;font-size:15px;padding:13px 28px;border-radius:8px}
+    .btn-cta-outline{border:2px solid rgba(255,255,255,.6);color:white;font-weight:600;font-size:15px;padding:13px 28px;border-radius:8px;transition:border-color .15s}
+    .btn-cta-outline:hover{border-color:white}
+    @media(max-width:768px){
+      .vp-hero-inner,.usecase-inner{grid-template-columns:1fr;gap:32px}
+      .plan-cards-grid,.feat-grid,.usecase-grid{grid-template-columns:1fr}
+      .plan-selector-inner{overflow-x:auto;gap:4px}
+    }
+
+    .btn-vp-primary{color:#E86820}
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Ir al contenido principal</a>
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo-link"><img src="../assets/logo.svg" alt="TAEC — Inicio" /></a>
+    <nav>
+      <div class="nav-item">
+        <button class="nav-link" aria-haspopup="true" aria-expanded="false">Soluciones
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="mega-menu">
+          <div class="mega-col">
+            <span class="mega-head">Autoría &amp; Video</span>
+            <a href="articulate-360-mexico.html">Articulate 360</a>
+            <div class="mega-sub">
+              <a href="rise-360.html">Rise 360</a>
+              <a href="storyline-360.html">Storyline 360</a>
+              <a href="studio-360.html">Studio 360</a>
+              <a href="articulate-360-mexico.html#content-library">Content Library</a>
+              <a href="articulate-360-mexico.html#ai">AI Assistant <span class="badge-new">nuevo</span></a>
+            </div>
+            <a href="vyond-mexico.html">Vyond</a>
+            <div class="mega-sub">
+              <a href="vyond-starter.html">Starter</a>
+              <a href="vyond-professional.html">Professional</a>
+              <a href="vyond-enterprise.html">Enterprise</a>
+            </div>
+          </div>
+          <div class="mega-col">
+            <span class="mega-head">Plataformas &amp; LMS</span>
+            <a href="moodle-mexico.html">Moodle <span class="badge-saas">SaaS</span></a>
+            <a href="totara-lms-mexico.html">Totara <span class="badge-saas">SaaS</span></a>
+            <a href="ottolearn-mexico.html">Ottolearn <span class="badge-saas">SaaS</span></a>
+            <a href="lys-mexico.html">Lys <span class="badge-saas">SaaS</span></a>
+            <a href="bigbluebutton-mexico.html">BigBlueButton <span class="badge-saas">SaaS</span></a>
+            <div class="mega-divider"></div>
+            <a href="zoola-analytics.html">Zoola Analytics</a>
+          </div>
+          <div class="mega-col">
+            <span class="mega-head">Servicios &amp; Add-ons</span>
+            <a href="class-taec.html">Class <small style="color:#4B5563;font-weight:400">(videoclases)</small></a>
+            <a href="proctorizer-mexico.html">Proctorizer</a>
+            <a href="strikeplagiarism-mexico.html">StrikePlagiarism</a>
+            <div class="mega-divider"></div>
+            <span class="mega-head" style="margin-top:4px">Catálogo listo</span>
+            <a href="7minutes-learning.html">7 Minutes</a>
+            <a href="go1-mexico.html">GO1</a>
+            <a href="customguide-mexico.html">Custom Guide</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button class="nav-link" aria-haspopup="true" aria-expanded="false">Capacitación
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="simple-dropdown">
+          <div class="mega-col">
+            <span class="mega-head">Cursos Abiertos</span>
+            <a href="curso-articulate.html">Articulate 360</a>
+            <a href="curso-vyond.html">Vyond</a>
+            <a href="curso-storyline.html">Storyline Avanzado</a>
+            <a href="curso-moodle.html">Moodle</a>
+            <a href="curso-fundamentos.html">Fundamentos e-learning</a>
+            <a href="capacitacion-abierta.html" style="color:var(--blue);font-weight:600;margin-top:4px">Ver calendario →</a>
+          </div>
+          <div class="mega-col">
+            <span class="mega-head">Cursos Cerrados</span>
+            <a href="curso-cerrado-empresa.html">Para tu empresa</a>
+            <a href="curso-cerrado-grupos.html">Grupos a medida</a>
+            <a href="contacto.html" style="color:var(--blue);font-weight:600;margin-top:4px">Solicitar programa →</a>
+          </div>
+        </div>
+      </div>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" class="btn-tienda">Tienda</a>
+      <a href="https://tidycal.com/slimmasmoudi/consultoria-estrategia" target="_blank" rel="noopener noreferrer" class="btn-cta">Agendar diagnóstico →</a>
+    </div>
+    <button class="hamburger" id="menuBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobileNav">
+  <button class="mob-toggle" id="mobSol" onclick="toggleMob('mobSolSec','mobSol')" aria-expanded="false">Soluciones
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="mob-section" id="mobSolSec">
+    <span class="mob-cat">Autoría &amp; Video</span>
+    <a href="articulate-360-mexico.html">Articulate 360</a>
+    <a href="vyond-mexico.html">Vyond</a>
+    <span class="mob-cat">Plataformas &amp; LMS</span>
+    <a href="moodle-mexico.html">Moodle</a>
+    <a href="totara-lms-mexico.html">Totara</a>
+    <a href="ottolearn-mexico.html">Ottolearn</a>
+    <a href="lys-mexico.html">Lys</a>
+    <a href="bigbluebutton-mexico.html">BigBlueButton</a>
+    <a href="zoola-analytics.html">Zoola Analytics</a>
+    <span class="mob-cat">Servicios</span>
+    <a href="class-taec.html">Class</a>
+    <a href="proctorizer-mexico.html">Proctorizer</a>
+    <a href="strikeplagiarism-mexico.html">StrikePlagiarism</a>
+    <span class="mob-cat">Catálogo listo</span>
+    <a href="7minutes-learning.html">7 Minutes</a>
+    <a href="go1-mexico.html">GO1</a>
+    <a href="customguide-mexico.html">Custom Guide</a>
+  </div>
+  <button class="mob-toggle" id="mobCap" onclick="toggleMob('mobCapSec','mobCap')" aria-expanded="false">Capacitación
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="mob-section" id="mobCapSec">
+    <a href="curso-articulate.html">Articulate 360</a>
+    <a href="curso-vyond.html">Vyond</a>
+    <a href="curso-moodle.html">Moodle</a>
+    <a href="capacitacion-abierta.html">Ver calendario →</a>
+  </div>
+  <a href="nosotros.html">Nosotros</a>
+  <a href="clientes.html">Clientes</a>
+  <a href="contacto.html">Contacto</a>
+  <a href="https://tidycal.com/slimmasmoudi/consultoria-estrategia" target="_blank" rel="noopener noreferrer" class="btn-cta" style="text-align:center;margin-top:8px">Agendar diagnóstico →</a>
+</nav>
+<main id="main-content">
+
+<!-- plan tabs -->
+<div class="plan-selector">
+  <div class="plan-selector-inner"><a href="vyond-starter.html" class="plan-tab  active">Vyond Starter</a>
+<a href="vyond-professional.html" class="plan-tab">Vyond Professional</a>
+<a href="vyond-enterprise.html" class="plan-tab">Vyond Enterprise</a></div>
+</div>
+
+<!-- hero -->
+<section class="vp-hero" style="background:linear-gradient(135deg, #2d1200 0%, #7B2800 55%, #E86820 100%)">
+  <div class="vp-hero-inner">
+    <div>
+      <div class="vp-logo-pill"><img src="../assets/logos/vyond.svg" alt="Vyond" /></div>
+      <span class="vp-tag" style="background:rgba(200,77,22,.2);color:#FFCBA4">Plan de entrada · 1–5 usuarios</span>
+      <h1>Crea tus primeros <em style="color:#FFCBA4">videos animados</em> con IA</h1>
+      <p class="vp-hero-sub">El punto de partida ideal para diseñadores instruccionales y profesionales de L&D que quieren producir videos de capacitación sin experiencia previa en animación.</p>
+      <div class="vp-btns">
+        <a href="https://think.vyond.com/signup" class="btn-vp-primary" style="background:white;color:#E86820">Probar Vyond gratis →</a>
+        <a href="contacto.html" class="btn-vp-ghost">Hablar con un especialista</a>
+      </div>
+    </div>
+    <div class="vp-hero-card">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#FFCBA4;margin-bottom:16px">Incluido en Vyond Starter</div>
+      <div class="vp-hero-feats"><div class="vp-feat"><span class="vp-feat-check">✓</span><span>Acceso completo a Vyond Go con generación de video por IA</span></div>
+<div class="vp-feat"><span class="vp-feat-check">✓</span><span>Vyond Studio — animación fotograma a fotograma</span></div>
+<div class="vp-feat"><span class="vp-feat-check">✓</span><span>3,000 créditos de IA al mes incluidos</span></div>
+<div class="vp-feat"><span class="vp-feat-check">✓</span><span>Exportación MP4 / GIF lista para cualquier LMS</span></div>
+<div class="vp-feat"><span class="vp-feat-check">✓</span><span>Librería con 40,000+ props y personajes profesionales</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- plan comparison -->
+<section class="plan-cards">
+  <div class="plan-cards-inner">
+    <h2 style="font-size:22px;font-weight:800;color:#111827;margin-bottom:6px;text-align:center">Compara los planes Vyond</h2>
+    <p style="text-align:center;color:#64748B;font-size:14px;margin-bottom:36px">Elige el plan que mejor se adapta al tamaño y necesidades de tu equipo</p>
+    <div class="plan-cards-grid"><div class="plan-card current">
+      <div class="plan-card-badge">Plan actual</div>
+      <div class="plan-card-name">Vyond Starter</div>
+      <div class="plan-card-desc">Desde USD $39 / usuario / mes</div>
+      <ul class="plan-card-feats"><li>Vyond Go (IA)</li>
+<li>Vyond Studio + Mobile</li>
+<li>3,000 créditos IA/mes</li>
+<li>Videos hasta 20 min</li></ul>
+      <a href="https://think.vyond.com/signup" class="plan-card-cta plan-card-cta-primary">Probar Vyond gratis</a>
+    </div>
+<div class="plan-card">
+      
+      <div class="plan-card-name">Vyond Professional</div>
+      <div class="plan-card-desc">Desde USD $55 / usuario / mes</div>
+      <ul class="plan-card-feats"><li>Todo Starter incluido</li>
+<li>5,000 créditos IA/mes</li>
+<li>Colaboración de equipo</li>
+<li>Videos hasta 40 min</li></ul>
+      <a href="vyond-professional.html" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
+    </div>
+<div class="plan-card">
+      
+      <div class="plan-card-name">Vyond Enterprise</div>
+      <div class="plan-card-desc">Precio personalizado — consultar</div>
+      <ul class="plan-card-feats"><li>Todo Professional incluido</li>
+<li>Créditos IA ilimitados</li>
+<li>SSO / SCIM / API</li>
+<li>Videos hasta 90 min</li></ul>
+      <a href="vyond-enterprise.html" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
+    </div></div>
+  </div>
+</section>
+
+<!-- features -->
+<section class="feat-section">
+  <div class="feat-inner">
+    <h2 class="feat-title">Todo lo que incluye Starter</h2>
+    <p class="feat-sub">Las herramientas esenciales para empezar a producir videos animados de calidad profesional desde el primer día.</p>
+    <div class="feat-grid"><div class="feat-card"><div class="feat-icon">🎬</div><div class="feat-name">Vyond Studio</div><div class="feat-desc">Editor completo de animación: personajes, escenas, fondos y texto animado con control total fotograma a fotograma.</div></div>
+<div class="feat-card"><div class="feat-icon">🤖</div><div class="feat-name">Vyond Go — IA</div><div class="feat-desc">Genera videos animados completos desde texto en segundos. Incluye 3,000 créditos de IA mensuales.</div></div>
+<div class="feat-card"><div class="feat-icon">📱</div><div class="feat-name">Vyond Mobile</div><div class="feat-desc">Crea y edita desde tu teléfono. Ideal para capturas de pantalla y videos rápidos de microlearning.</div></div>
+<div class="feat-card"><div class="feat-icon">🎭</div><div class="feat-name">3 estilos de personaje</div><div class="feat-desc">Contemporary, Whiteboard y Business Friendly. Personaliza expresiones, ropa, accesorios y lip-sync automático.</div></div>
+<div class="feat-card"><div class="feat-icon">🔊</div><div class="feat-name">Text-to-Speech</div><div class="feat-desc">Genera narración en más de 70 idiomas directamente desde el editor sin grabar audio manualmente.</div></div>
+<div class="feat-card"><div class="feat-icon">📤</div><div class="feat-name">Exportación MP4 / GIF</div><div class="feat-desc">Archivos listos para SCORM, Articulate 360, Moodle, YouTube o cualquier plataforma corporativa.</div></div></div>
+  </div>
+</section>
+
+<!-- use cases -->
+<section class="usecase-section">
+  <div class="usecase-inner">
+    <div>
+      <div class="usecase-label">¿Para quién?</div>
+      <h2 class="usecase-title">¿Para quién es Vyond Starter?</h2>
+      <p class="usecase-sub">Starter es perfecto para profesionales independientes y equipos pequeños que dan sus primeros pasos en la producción de video de capacitación.</p>
+      <a href="vyond-mexico.html" style="display:inline-block;margin-top:20px;font-size:13px;font-weight:600;color:var(--vy)">← Ver todos los planes Vyond</a>
+    </div>
+    <div class="usecase-grid"><div class="usecase-card"><div class="usecase-card-title">🎓 Diseñadores instruccionales</div><div class="usecase-card-desc">Crea videos explicativos, micro-lecciones y escenarios interactivos sin necesidad de un equipo de producción.</div></div>
+<div class="usecase-card"><div class="usecase-card-title">👩‍💼 Freelancers de e-learning</div><div class="usecase-card-desc">Ofrece producción de video como servicio adicional a tus clientes sin invertir en software costoso.</div></div>
+<div class="usecase-card"><div class="usecase-card-title">🏫 Docentes y formadores</div><div class="usecase-card-desc">Produce materiales audiovisuales dinámicos para tus cursos presenciales y virtuales.</div></div>
+<div class="usecase-card"><div class="usecase-card-title">🚀 Startups y PYMES</div><div class="usecase-card-desc">Comunica procesos, onboarding y procedimientos en video sin depender de agencias externas.</div></div></div>
+  </div>
+</section>
+
+<!-- cta band -->
+<section class="vp-cta">
+  <h2>¿Listo para empezar con Vyond Starter?</h2>
+  <p>Prueba gratis por 14 días o consulta con nuestro equipo la licencia anual con soporte en español.</p>
+  <div class="vp-cta-btns">
+    <a href="https://think.vyond.com/signup" class="btn-cta-white" style="color:#E86820">Probar Vyond gratis →</a>
+    <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo-link"><img src="../assets/logo.svg" alt="TAEC" /></a>
+        <p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde 2007 en CDMX para México y LATAM.</p>
+        <div class="footer-contact">
+          <a href="mailto:info@taec.com.mx">✉ info@taec.com.mx</a>
+          <a href="tel:5568223300">📞 55 6822 3300</a>
+          <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Soluciones</h4><ul>
+        <li><a href="articulate-360-mexico.html">Articulate 360</a></li>
+        <li><a href="vyond-mexico.html">Vyond</a></li>
+        <li><a href="moodle-mexico.html">Moodle</a></li>
+        <li><a href="totara-lms-mexico.html">Totara LMS</a></li>
+        <li><a href="servicios.html">Todas las soluciones →</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Recursos</h4><ul>
+        <li><a href="https://taec-elearning.neocities.org/glosario-taec.html" target="_blank" rel="noopener noreferrer">Glosario e-learning</a></li>
+        <li><a href="https://taec-elearning.neocities.org/articulos-taec.html" target="_blank" rel="noopener noreferrer">Artículos</a></li>
+        <li><a href="https://taec-elearning.neocities.org/comparativos-taec.html" target="_blank" rel="noopener noreferrer">Comparativos</a></li>
+        <li><a href="https://taec-elearning.neocities.org" target="_blank" rel="noopener noreferrer">Hub editorial</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Quiénes somos</a></li>
+        <li><a href="clientes.html">Clientes y casos</a></li>
+        <li><a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer">Tienda</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="https://www.taec.com.mx/soporte-tecnico.php" target="_blank" rel="noopener noreferrer">Soporte técnico</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-latam">
+      <span class="footer-latam-label">También en:</span>
+      <a href="https://www.taec.com.mx/" title="TAEC México">🇲🇽 México &mdash; taec.com.mx</a>
+      <a href="https://www.taec.com.co/" target="_blank" rel="noopener noreferrer" title="TAEC Colombia">🇨🇴 Colombia &mdash; taec.com.co</a>
+      <a href="https://www.taec.cl/" target="_blank" rel="noopener noreferrer" title="TAEC Chile">🇨🇱 Chile &mdash; taec.cl</a>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> TAEC <span style="opacity:.5;font-size:11px;">(ver 2.0)</span> &middot; Ciudad de México &middot; <a href="#">Aviso de privacidad</a></p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
+        <a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>
+        <a href="https://www.facebook.com/TAEC.eLearning" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">fb</a>
+        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">WA</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  (function(){
+    var p = location.pathname;
+    var secMap = {'Soluciones':/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios|rise-360|storyline-360|studio-360/,'Capacitaci':/capacitacion|7minutes|go1|customguide|curso-/};
+    Object.keys(secMap).forEach(function(sec){ if(secMap[sec].test(p)){ document.querySelectorAll('header button.nav-link').forEach(function(btn){ if(btn.textContent.trim().indexOf(sec)===0) btn.classList.add('active'); }); } });
+    document.querySelectorAll('header a[href]').forEach(function(a){ var href=a.getAttribute('href')||''; if(!href||href==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0||href.indexOf('http')===0||a.classList.contains('logo-link')||a.classList.contains('btn-cta')) return; if(a.closest('.mega-menu')||a.closest('.simple-dropdown')) return; var linked=href.split('/').pop(); if(linked&&linked===location.pathname.split('/').pop()) a.classList.add('active'); });
+  })();
+  const menuBtn=document.getElementById("menuBtn"); const mobileNav=document.getElementById("mobileNav");
+  menuBtn.addEventListener("click",()=>{ menuBtn.classList.toggle("open"); mobileNav.classList.toggle("open"); menuBtn.setAttribute("aria-label",mobileNav.classList.contains("open")?"Cerrar menú":"Abrir menú"); });
+  function toggleMob(sId,bId){ var s=document.getElementById(sId); var b=document.getElementById(bId); s.classList.toggle("open"); b.classList.toggle("open"); b.setAttribute("aria-expanded",b.classList.contains("open")?"true":"false"); }
+  (function(){ document.querySelectorAll('.nav-item').forEach(function(item){ var btn=item.querySelector('button.nav-link'); if(!btn) return; btn.addEventListener('click',function(e){ e.stopPropagation(); var isOpen=item.classList.contains('open'); document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('open'); var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false'); }); if(!isOpen){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); } }); }); document.addEventListener('click',function(){ document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('open'); var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false'); }); }); })();
+</script>
+</body>
+</html>
