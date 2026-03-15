@@ -219,6 +219,21 @@
     .footer-social a:hover { background: #3179C2; color: #fff; border-color: #3179C2; }
     @media(max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; gap:32px; } }
     @media(max-width:600px){ .footer-grid{ grid-template-columns:1fr; gap:24px; } .footer-bottom{ flex-direction:column; text-align:center; } }
+  
+    /* ── DROPDOWN: JS-controlled (no hover gap) ── */
+    .nav-item.dropdown-open > .mega-menu        { display: grid; }
+    .nav-item.dropdown-open > .simple-dropdown  { display: grid; }
+    .nav-item.dropdown-open > .nav-link         { background: var(--light); color: var(--blue); }
+    .nav-item.dropdown-open > .nav-link svg     { transform: rotate(180deg); }
+    /* Active state for plain <a> links (Nosotros / Clientes / Contacto) */
+    header a.active {
+      background: #111827 !important;
+      color: #ffffff !important;
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -462,13 +477,7 @@
   // Active nav: mark current section as cardex tab
   (function(){
     var p = window.location.pathname;
-    // Direct links (Nosotros, Clientes, Contacto)
-    document.querySelectorAll('header a.nav-link').forEach(function(a){
-      var href = a.getAttribute('href') || '';
-      var fn = href.split('/').pop();
-      if(fn && fn !== '#' && p.includes(fn.replace('.html',''))) a.classList.add('active');
-    });
-    // Dropdown sections (Soluciones, Capacitación)
+    // Dropdown buttons (Soluciones, Capacitación)
     var sec = '';
     if(/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/.test(p)) sec='Soluciones';
     else if(/capacitacion|7minutes|go1|customguide/.test(p)) sec='Capacitaci';
@@ -477,6 +486,45 @@
         if(btn.textContent.trim().indexOf(sec)===0) btn.classList.add('active');
       });
     }
+    // Plain links (Nosotros, Clientes, Contacto)
+    document.querySelectorAll('header a').forEach(function(a){
+      var href = a.getAttribute('href')||'';
+      if(!href||href==='#'||a.classList.contains('logo-link')||a.classList.contains('btn-cta')) return;
+      var fn = href.split('/').pop().replace('.html','');
+      if(fn && p.includes(fn)) a.classList.add('active');
+    });
+  })();
+
+  // Dropdown: mouseenter/mouseleave with 120ms grace — no hover-gap problem
+  (function(){
+    document.querySelectorAll('.nav-item').forEach(function(item){
+      var timer;
+      item.addEventListener('mouseenter', function(){
+        clearTimeout(timer);
+        document.querySelectorAll('.nav-item').forEach(function(i){
+          if(i!==item){ i.classList.remove('dropdown-open'); var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false'); }
+        });
+        item.classList.add('dropdown-open');
+        var btn=item.querySelector('button.nav-link');
+        if(btn) btn.setAttribute('aria-expanded','true');
+      });
+      item.addEventListener('mouseleave', function(){
+        timer=setTimeout(function(){
+          item.classList.remove('dropdown-open');
+          var btn=item.querySelector('button.nav-link');
+          if(btn) btn.setAttribute('aria-expanded','false');
+        }, 120);
+      });
+    });
+    // Close on outside click
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.nav-item')){
+        document.querySelectorAll('.nav-item').forEach(function(i){
+          i.classList.remove('dropdown-open');
+          var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false');
+        });
+      }
+    });
   })();
   const menuBtn = document.getElementById("menuBtn");
   const mobileNav = document.getElementById("mobileNav");
