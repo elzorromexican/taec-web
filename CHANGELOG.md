@@ -4,6 +4,19 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v1.9 · 14 mar 2026
+- `pages/nosotros.html` — Página completa con datos reales TAEC (reemplaza placeholder "En construcción")
+- Hero con nombre legal completo: Tecnología Avanzada para la Educación y la Capacitación, S.A. de C.V.
+- Stats band: fundada 2007 · +1,500 clientes · 17 países · +200 proyectos entregados
+- Sección Quiénes somos con 4 valores corporativos (Expertise, Resultados, Cercanía, Innovación)
+- Mercados con barras visuales: Corporativo 70% · Académico 20% · Gubernamental 10%
+- Servicios: 6 tarjetas (Plataformas LMS, Contenido e-learning, Articulate 360, Vyond, Consultoría, Soporte)
+- Partners oficiales: Articulate (desde 2007), Vyond, Totara
+- Oficinas: 🇲🇽 CDMX (sede) · 🇨🇴 Bogotá · 🇨🇱 Santiago de Chile
+- CTA doble: TidyCal (Agendar diagnóstico) + WhatsApp
+- WCAG 2.1 AA completo: skip link, aria, focus-visible, contraste
+- Footer version: (ver 1.9)
+
 ## v1.8 · 14 mar 2026
 - 18 páginas nuevas "En construcción" con header/footer completo y accesibilidad WCAG
 - Árbol de navegación completo: todos los `href="#"` reemplazados por rutas reales
