@@ -364,17 +364,17 @@
         <div class="simple-dropdown">
           <div class="mega-col">
             <span class="mega-head">Cursos Abiertos</span>
-            <a href="capacitacion-abierta.html#articulate">Articulate 360</a>
-            <a href="capacitacion-abierta.html#vyond">Vyond</a>
-            <a href="capacitacion-abierta.html#storyline">Storyline Avanzado</a>
-            <a href="capacitacion-abierta.html#moodle">Moodle</a>
-            <a href="capacitacion-abierta.html">Fundamentos e-learning</a>
+            <a href="curso-articulate.html">Articulate 360</a>
+            <a href="curso-vyond.html">Vyond</a>
+            <a href="curso-storyline.html">Storyline Avanzado</a>
+            <a href="curso-moodle.html">Moodle</a>
+            <a href="curso-fundamentos.html">Fundamentos e-learning</a>
             <a href="capacitacion-abierta.html" style="color:var(--blue);font-weight:600;margin-top:4px">Ver calendario →</a>
           </div>
           <div class="mega-col">
             <span class="mega-head">Cursos Cerrados</span>
-            <a href="capacitacion-cerrada.html">Para tu empresa</a>
-            <a href="capacitacion-cerrada.html">Grupos a medida</a>
+            <a href="curso-cerrado-empresa.html">Para tu empresa</a>
+            <a href="curso-cerrado-grupos.html">Grupos a medida</a>
             <a href="contacto.html" style="color:var(--blue);font-weight:600;margin-top:4px">Solicitar programa →</a>
           </div>
         </div>
@@ -420,9 +420,9 @@
   </button>
   <div class="mob-section" id="mobCapSec">
     <span class="mob-cat">Cursos Abiertos</span>
-    <a href="articulate-360-mexico.html">Articulate 360</a>
-    <a href="vyond-mexico.html">Vyond</a>
-    <a href="moodle-mexico.html">Moodle</a>
+    <a href="curso-articulate.html">Articulate 360</a>
+    <a href="curso-vyond.html">Vyond</a>
+    <a href="curso-moodle.html">Moodle</a>
     <span class="mob-cat">Cursos Cerrados</span>
     <a href="contacto.html">Solicitar programa →</a>
   </div>
@@ -801,7 +801,7 @@
     // Botones dropdown (Soluciones / Capacitación) — por texto
     var secMap = {
       'Soluciones':    /articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/,
-      'Capacitaci':    /capacitacion|7minutes|go1|customguide/
+      'Capacitaci':    /capacitacion|7minutes|go1|customguide|curso-/
     };
     Object.keys(secMap).forEach(function(sec){
       if(secMap[sec].test(p)){
