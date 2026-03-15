@@ -169,20 +169,56 @@
       .wip-hero p { font-size: 15px; }
     }
   
-    /* ── PAGE CONTEXT BAR ── */
-    .page-context-bar { background:#111827; padding:0 5%; position:relative; z-index:190; }
-    .pcb-inner { max-width:1200px; margin:0 auto; display:flex; align-items:stretch; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-    .pcb-inner::-webkit-scrollbar { display:none; }
-    .pcb-tab { padding:11px 18px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#475569; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; transition:color .15s, border-color .15s, background .15s; display:inline-flex; align-items:center; }
-    .pcb-tab:hover { color:#94A3B8; background:rgba(255,255,255,.04); }
-    .pcb-tab.active { color:#F8FAFC; border-bottom-color:#3179C2; background:rgba(49,121,194,.15); }
-    @media(max-width:480px){ .pcb-tab{ padding:10px 13px; font-size:9px; letter-spacing:.5px; } }
 
     /* ── FOOTER LATAM ── */
     .footer-latam { display:flex; align-items:center; gap:20px; padding:14px 0; border-top:1px solid rgba(255,255,255,.07); flex-wrap:wrap; margin-bottom:24px; }
     .footer-latam-label { font-size:10px; color:#334155; font-weight:700; text-transform:uppercase; letter-spacing:.8px; flex-shrink:0; }
     .footer-latam a { font-size:12px; color:#475569; text-decoration:none; transition:color .15s; }
     .footer-latam a:hover { color:#A8DBD9; }
+  
+    /* ── ACTIVE NAV (ficha de cardex) ── */
+    header .nav-link.active,
+    header a.nav-link.active {
+      background: #111827 !important;
+      color: #ffffff !important;
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-weight: 700;
+    }
+    header button.nav-link.active {
+      background: #111827 !important;
+      color: #ffffff !important;
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-weight: 700;
+    }
+  
+    /* ── FOOTER CANONICAL (override) ── */
+    footer { background: #04293F; padding: 56px 5% 28px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .footer-brand a img, .footer-brand .logo-link img { height: 34px; filter: brightness(0) invert(1); display:block; }
+    .footer-brand p { font-size: 13px; color: #4B6275; line-height: 1.7; margin-top: 14px; }
+    .footer-contact { margin-top: 18px; display: flex; flex-direction: column; gap: 6px; }
+    .footer-contact a { font-size: 13px; color: #64748B; display: flex; align-items: center; gap: 6px; transition: color .15s; text-decoration: none; }
+    .footer-contact a:hover { color: #A8DBD9; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; color: #94A3B8; margin-bottom: 16px; letter-spacing: .8px; text-transform: uppercase; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li a { font-size: 13px; color: #64748B; text-decoration: none; transition: color .15s; }
+    .footer-col ul li a:hover { color: #A8DBD9; }
+    .footer-latam { display: flex; align-items: center; gap: 20px; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.07); flex-wrap: wrap; margin-top: 8px; }
+    .footer-latam-label { font-size: 10px; color: #64748B; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; flex-shrink: 0; }
+    .footer-latam a { font-size: 12px; color: #64748B; text-decoration: none; transition: color .15s; }
+    .footer-latam a:hover { color: #A8DBD9; }
+    .footer-bottom { padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid rgba(255,255,255,.07); margin-top: 4px; }
+    .footer-bottom p { font-size: 12px; color: #334155; }
+    .footer-bottom a { color: #475569; transition: color .15s; text-decoration: none; }
+    .footer-bottom a:hover { color: #A8DBD9; }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,.1); display: inline-flex; align-items: center; justify-content: center; color: #64748B; font-size: 11px; font-weight: 700; text-decoration: none; transition: background .15s, color .15s, border-color .15s; }
+    .footer-social a:hover { background: #3179C2; color: #fff; border-color: #3179C2; }
+    @media(max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; gap:32px; } }
+    @media(max-width:600px){ .footer-grid{ grid-template-columns:1fr; gap:24px; } .footer-bottom{ flex-direction:column; text-align:center; } }
   </style>
 </head>
 <body>
@@ -318,18 +354,6 @@
   <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta">WhatsApp →</a>
 </nav>
 
-<!-- ══ PAGE CONTEXT BAR ══ -->
-<div class="page-context-bar" aria-label="Sección actual del sitio">
-  <div class="pcb-inner">
-    <a href="../index.html"                        class="pcb-tab" data-section="inicio">Inicio</a>
-    <a href="servicios.html"                       class="pcb-tab" data-section="soluciones">Soluciones</a>
-    <a href="capacitacion-abierta.html"            class="pcb-tab" data-section="capacitacion">Capacitación</a>
-    <a href="7minutes-learning.html"               class="pcb-tab" data-section="catalogo">Catálogo Listo</a>
-    <a href="nosotros.html"                        class="pcb-tab" data-section="empresa">Empresa</a>
-    <a href="contacto.html"                        class="pcb-tab" data-section="contacto">Contacto</a>
-  </div>
-</div>
-
 <main id="main-content">
 
 <!-- ══ HERO EN CONSTRUCCIÓN ══ -->
@@ -372,10 +396,8 @@
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="../index.html" class="logo-link">
-          <img src="../assets/logo.svg" alt="TAEC" />
-        </a>
-        <p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde CDMX para México y LATAM.</p>
+        <a href="../index.html" class="logo-link"><img src="../assets/logo.svg" alt="TAEC" /></a>
+        <p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde 2007 en CDMX para México y LATAM.</p>
         <div class="footer-contact">
           <a href="mailto:info@taec.com.mx">✉ info@taec.com.mx</a>
           <a href="tel:5568223300">📞 55 6822 3300</a>
@@ -389,7 +411,16 @@
           <li><a href="vyond-mexico.html">Vyond</a></li>
           <li><a href="moodle-mexico.html">Moodle</a></li>
           <li><a href="totara-lms-mexico.html">Totara LMS</a></li>
-          <li><a href="servicios.html">Todas las soluciones</a></li>
+          <li><a href="servicios.html">Todas las soluciones →</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="https://taec-elearning.neocities.org/glosario-taec.html" target="_blank" rel="noopener noreferrer">Glosario e-learning</a></li>
+          <li><a href="https://taec-elearning.neocities.org/articulos-taec.html" target="_blank" rel="noopener noreferrer">Artículos</a></li>
+          <li><a href="https://taec-elearning.neocities.org/comparativos-taec.html" target="_blank" rel="noopener noreferrer">Comparativos</a></li>
+          <li><a href="https://taec-elearning.neocities.org" target="_blank" rel="noopener noreferrer">Hub editorial</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -399,14 +430,7 @@
           <li><a href="clientes.html">Clientes y casos</a></li>
           <li><a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer">Tienda</a></li>
           <li><a href="contacto.html">Contacto</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Recursos</h4>
-        <ul>
-          <li><a href="https://taec-elearning.neocities.org/glosario-taec.html" target="_blank" rel="noopener noreferrer">Glosario e-learning</a></li>
-          <li><a href="https://taec-elearning.neocities.org/articulos-taec.html" target="_blank" rel="noopener noreferrer">Artículos</a></li>
-          <li><a href="https://taec-elearning.neocities.org" target="_blank" rel="noopener noreferrer">Hub editorial</a></li>
+          <li><a href="https://www.taec.com.mx/soporte-tecnico.php" target="_blank" rel="noopener noreferrer">Soporte técnico</a></li>
         </ul>
       </div>
     </div>
@@ -416,14 +440,13 @@
       <a href="https://www.taec.com.co/" target="_blank" rel="noopener noreferrer" title="TAEC Colombia">🇨🇴 Colombia &mdash; taec.com.co</a>
       <a href="https://www.taec.cl/" target="_blank" rel="noopener noreferrer" title="TAEC Chile">🇨🇱 Chile &mdash; taec.cl</a>
     </div>
-
     <div class="footer-bottom">
-      <p>© <span id="year"></span> TAEC <span style="opacity:.5;font-size:11px;">(ver 1.8)</span> · Ciudad de México · <a href="#">Aviso de privacidad</a></p>
+      <p>© <span id="year"></span> TAEC &middot; Ciudad de México &middot; <a href="#">Aviso de privacidad</a></p>
       <div class="footer-social">
-        <a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" title="LinkedIn">in</a>
-        <a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" title="YouTube">YT</a>
-        <a href="https://www.facebook.com/TAEC.eLearning" target="_blank" rel="noopener noreferrer" title="Facebook">fb</a>
-        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" title="WhatsApp">WA</a>
+        <a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
+        <a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>
+        <a href="https://www.facebook.com/TAEC.eLearning" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">fb</a>
+        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">WA</a>
       </div>
     </div>
   </div>
@@ -436,17 +459,24 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-  // PCB: auto-highlight active section tab
+  // Active nav: mark current section as cardex tab
   (function(){
     var p = window.location.pathname;
-    var s = 'inicio';
-    if(/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/.test(p)) s='soluciones';
-    else if(/capacitacion/.test(p)) s='capacitacion';
-    else if(/7minutes|go1|customguide/.test(p)) s='catalogo';
-    else if(/nosotros|clientes/.test(p)) s='empresa';
-    else if(/contacto/.test(p)) s='contacto';
-    var t=document.querySelector('.pcb-tab[data-section="'+s+'"]');
-    if(t) t.classList.add('active');
+    // Direct links (Nosotros, Clientes, Contacto)
+    document.querySelectorAll('header a.nav-link').forEach(function(a){
+      var href = a.getAttribute('href') || '';
+      var fn = href.split('/').pop();
+      if(fn && fn !== '#' && p.includes(fn.replace('.html',''))) a.classList.add('active');
+    });
+    // Dropdown sections (Soluciones, Capacitación)
+    var sec = '';
+    if(/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/.test(p)) sec='Soluciones';
+    else if(/capacitacion|7minutes|go1|customguide/.test(p)) sec='Capacitaci';
+    if(sec){
+      document.querySelectorAll('header button.nav-link').forEach(function(btn){
+        if(btn.textContent.trim().indexOf(sec)===0) btn.classList.add('active');
+      });
+    }
   })();
   const menuBtn = document.getElementById("menuBtn");
   const mobileNav = document.getElementById("mobileNav");
