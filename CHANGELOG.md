@@ -4,6 +4,18 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.0 · 14 mar 2026
+- **Footer canónico** — mismo HTML en las 21 páginas: columnas Soluciones · Recursos · Empresa + Soporte técnico
+- Franja "También en:" 🇲🇽 taec.com.mx · 🇨🇴 taec.com.co · 🇨🇱 taec.cl en todos los footers
+- CSS unificado del footer (tipografía, colores, hover) aplicado vía override en todos los archivos
+- **Oficinas Colombia y Chile** en `nosotros.html`: dirección, teléfonos locales y links a taec.com.co / taec.cl
+- **Nav activa (ficha de cardex)** — ítem del menú actual resaltado con fondo #111827 y texto blanco
+  - Soluciones / Capacitación: detectados por regex de pathname
+  - Nosotros / Clientes / Contacto: detectados por nombre de archivo exacto (filename match)
+- **Fix dropdown hover** — gap de 6px eliminado: `top: calc(100%+6px)` → `top: 100%` con `padding-top` interno
+  - Soluciones y Capacitación ahora navegables sin que el menú se cierre al bajar el cursor
+  - Confirmado: gap = 0px en staging (verificado via JS en Chrome)
+
 ## v1.9 · 14 mar 2026
 - `pages/nosotros.html` — Página completa con datos reales TAEC (reemplaza placeholder "En construcción")
 - Hero con nombre legal completo: Tecnología Avanzada para la Educación y la Capacitación, S.A. de C.V.
