@@ -4,6 +4,14 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v1.8 · 14 mar 2026
+- 18 páginas nuevas "En construcción" con header/footer completo y accesibilidad WCAG
+- Árbol de navegación completo: todos los `href="#"` reemplazados por rutas reales
+- Fix logo TAEC en `index.html`: `href="/"` → `href="./index.html"` (fix GitHub Pages staging)
+- Mobile nav `index.html`: fix link Class, añadir sección Catálogo Listo (7 Minutes, GO1, Custom Guide)
+- `contacto.html`: añadir `overflow-x: hidden` en body (previene scroll horizontal en móvil)
+- Footer version actualizado a (ver 1.8) en index.html
+
 ## v1.7 · 14 mar 2026
 - **Accesibilidad WCAG 2.1 AA** — correcciones aplicadas en `index.html`, `articulate-360-mexico.html` y `contacto.html`
 - Skip link "Ir al contenido principal" en los 3 archivos
