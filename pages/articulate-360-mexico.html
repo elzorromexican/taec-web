@@ -364,8 +364,13 @@
     .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
   
     /* ── PRODUCT LOGO ── */
-    .product-logo-wrap { margin-bottom: 20px; }
-    .product-logo { height: 42px; width: auto; display: block; filter: brightness(0) invert(1); }
+    .product-logo-wrap {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #ffffff; border-radius: 10px;
+      padding: 10px 20px; margin-bottom: 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
+    .product-logo { height: 36px; width: auto; display: block; }
   </style>
 </head>
 <body>
