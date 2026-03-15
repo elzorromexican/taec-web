@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vyond Enterprise en México — Video corporativo a escala | TAEC</title>
-  <meta name="description" content="Despliega Vyond en toda tu organización con SSO, branding personalizado y créditos IA ilimitados. Partner oficial Vyond para México y LATAM." />
+  <title>Vyond Studio en México — Editor profesional de video animado | TAEC</title>
+  <meta name="description" content="Crea videos animados y mixed media con Vyond Studio. Traducción automática a 80+ idiomas, 1,100+ avatares IA y control creativo total. Partner oficial en México." />
   <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,6 @@
     body{font-family:var(--font-body);color:var(--text);background:var(--white);font-size:15px;line-height:1.6;overflow-x:hidden}
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
-    /* header */
     header{position:sticky;top:0;z-index:200;background:var(--white);border-bottom:1px solid var(--border);padding:0 5%}
     .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
     .logo-link{display:flex;align-items:center;flex-shrink:0}
@@ -27,7 +26,7 @@
     .nav-link svg{width:13px;height:13px;transition:transform .2s;flex-shrink:0}
     .nav-item:hover>.nav-link svg{transform:rotate(180deg)}
     .nav-item{position:relative}
-    .mega-menu{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.13);padding:24px 20px 24px;grid-template-columns:repeat(3,1fr);gap:8px 24px;min-width:660px;z-index:300;padding-top:10px}
+    .mega-menu{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.13);padding:24px 20px;grid-template-columns:repeat(3,1fr);gap:8px 24px;min-width:660px;z-index:300;padding-top:10px}
     .nav-item:hover .mega-menu{display:grid}
     .mega-col{display:flex;flex-direction:column;gap:2px}
     .mega-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#4B5563;padding:4px 8px 6px}
@@ -64,14 +63,13 @@
     .mob-section a{font-size:14px;font-weight:500;color:var(--text);padding:8px 12px;border-radius:7px;display:flex;align-items:center;gap:6px}
     .mob-section a:hover{background:var(--light);color:var(--blue)}
     @media(max-width:768px){.header-inner nav{display:none}.header-actions .btn-tienda,.header-actions .btn-cta{display:none}.hamburger{display:flex}}
-    /* footer */
     footer{background:#04293F;padding:56px 5% 28px}
     .footer-inner{max-width:1200px;margin:0 auto}
     .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.07)}
     .footer-brand a img{height:34px;filter:brightness(0) invert(1);display:block}
     .footer-brand p{font-size:13px;color:#4B6275;line-height:1.7;margin-top:14px}
     .footer-contact{margin-top:18px;display:flex;flex-direction:column;gap:6px}
-    .footer-contact a{font-size:13px;color:#64748B;display:flex;align-items:center;gap:6px;transition:color .15s;text-decoration:none}
+    .footer-contact a{font-size:13px;color:#64748B;transition:color .15s;text-decoration:none;display:flex;align-items:center;gap:6px}
     .footer-contact a:hover{color:#A8DBD9}
     .footer-col h4{font-size:11px;font-weight:700;color:#94A3B8;margin-bottom:16px;letter-spacing:.8px;text-transform:uppercase}
     .footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
@@ -100,90 +98,99 @@
     header a.active{background:#111827!important;color:#fff!important;border-radius:8px;padding:5px 14px;font-weight:700;text-decoration:none}
     @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
     @media(max-width:600px){.footer-grid{grid-template-columns:1fr;gap:24px}.footer-bottom{flex-direction:column;text-align:center}}
-    /* plan pages */
-    .vp-hero{padding:72px 5% 80px}
-    .vp-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-    .vp-logo-pill{display:inline-flex;background:white;border-radius:10px;padding:10px 20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.2)}
-    .vp-logo-pill img{height:34px;width:auto}
-    .vp-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:16px}
-    .vp-hero h1{font-size:clamp(26px,3.5vw,42px);font-weight:800;color:white;line-height:1.2;margin-bottom:16px}
-    .vp-hero h1 em{font-style:normal}
-    .vp-hero-sub{font-size:16px;color:rgba(255,255,255,.8);margin-bottom:28px;line-height:1.6}
-    .vp-btns{display:flex;gap:12px;flex-wrap:wrap}
-    .btn-vp-primary{background:white;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;transition:opacity .15s}
-    .btn-vp-primary:hover{opacity:.9}
-    .btn-vp-ghost{background:rgba(255,255,255,.12);color:white;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);transition:background .15s}
-    .btn-vp-ghost:hover{background:rgba(255,255,255,.2)}
-    .vp-hero-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:28px}
-    .vp-hero-feats{display:flex;flex-direction:column;gap:10px}
-    .vp-feat{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,.9)}
-    .vp-feat-check{color:#FFCBA4;font-weight:700;flex-shrink:0;margin-top:1px}
-    /* plan selector */
-    .plan-selector{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
-    .plan-selector-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
-    .plan-tab{display:inline-flex;align-items:center;gap:6px;padding:16px 24px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
-    .plan-tab:hover{color:var(--vy)}
-    .plan-tab.active{color:var(--vy);border-bottom-color:var(--vy)}
-    .plan-tab .plan-badge{font-size:9px;font-weight:700;border-radius:3px;padding:2px 5px}
-    /* pricing cards */
-    .plan-cards{padding:56px 5%;background:white}
-    .plan-cards-inner{max-width:1100px;margin:0 auto}
-    .plan-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .plan-card{border:2px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:box-shadow .2s}
-    .plan-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.1)}
-    .plan-card.current{border-color:var(--vy);box-shadow:0 0 0 4px rgba(200,77,22,.08)}
-    .plan-card-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--vy);color:white;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 12px;border-radius:4px;white-space:nowrap}
-    .plan-card-name{font-size:20px;font-weight:800;color:#111827;margin-bottom:4px}
-    .plan-card-desc{font-size:13px;color:#64748B;margin-bottom:20px;line-height:1.5}
-    .plan-card-price{font-size:13px;color:#94A3B8;margin-bottom:20px;font-weight:600}
-    .plan-card-feats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
-    .plan-card-feats li{font-size:13px;color:#374151;display:flex;align-items:flex-start;gap:8px}
-    .plan-card-feats li::before{content:"✓";color:var(--vy);font-weight:700;flex-shrink:0;margin-top:1px}
-    .plan-card-feats li.no::before{content:"—";color:#CBD5E1}
-    .plan-card-feats li.no{color:#9CA3AF}
-    .plan-card-cta{display:block;text-align:center;padding:11px 20px;border-radius:8px;font-weight:700;font-size:14px;transition:background .15s}
-    .plan-card-cta-primary{background:var(--vy);color:white}
-    .plan-card-cta-primary:hover{background:#a33d10}
-    .plan-card-cta-outline{border:2px solid var(--border);color:#374151}
-    .plan-card-cta-outline:hover{border-color:var(--vy);color:var(--vy)}
-    /* features grid */
-    .feat-section{padding:64px 5%;background:#F8FAFC}
-    .feat-section-alt{background:white}
-    .feat-inner{max-width:1100px;margin:0 auto}
-    .feat-title{font-size:clamp(22px,2.5vw,30px);font-weight:800;color:#111827;margin-bottom:8px}
-    .feat-sub{font-size:16px;color:#64748B;margin-bottom:40px;max-width:600px}
-    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .feat-card{background:white;border:1px solid var(--border);border-radius:14px;padding:24px}
-    .feat-section-alt .feat-card{background:#F8FAFC}
-    .feat-icon{font-size:28px;margin-bottom:14px}
-    .feat-name{font-size:16px;font-weight:700;color:#111827;margin-bottom:8px}
-    .feat-desc{font-size:13px;color:#475569;line-height:1.6}
+    /* product pages */
+    .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
+    .prod-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
+    .prod-tab{display:inline-flex;align-items:center;gap:7px;padding:16px 22px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+    .prod-tab:hover{color:var(--vy)}
+    .prod-tab.active{color:var(--vy);border-bottom-color:var(--vy)}
+    .prod-tab-icon{font-size:15px}
+    /* hero */
+    .prod-hero{padding:72px 5% 80px}
+    .prod-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+    .prod-logo-pill{display:inline-flex;background:white;border-radius:10px;padding:10px 20px;margin-bottom:20px;box-shadow:0 2px 14px rgba(0,0,0,.2)}
+    .prod-logo-pill img{height:34px;width:auto}
+    .prod-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:16px;background:rgba(200,77,22,.22);color:#FFCBA4}
+    .prod-hero h1{font-size:clamp(26px,3.5vw,44px);font-weight:800;color:white;line-height:1.18;margin-bottom:16px}
+    .prod-hero h1 em{font-style:normal;color:#FFCBA4}
+    .prod-hero-sub{font-size:16px;color:rgba(255,255,255,.8);margin-bottom:28px;line-height:1.65}
+    .prod-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-prod-primary{background:var(--vy);color:white;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;transition:background .15s}
+    .btn-prod-primary:hover{background:#a33d10}
+    .btn-prod-ghost{background:rgba(255,255,255,.12);color:white;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);transition:background .15s}
+    .btn-prod-ghost:hover{background:rgba(255,255,255,.2)}
+    .prod-hero-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:28px}
+    .prod-hero-card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#FFCBA4;margin-bottom:16px}
+    .prod-hero-feats{display:flex;flex-direction:column;gap:11px}
+    .prod-feat{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,.88)}
+    .prod-feat-check{color:#FFCBA4;font-weight:700;flex-shrink:0;margin-top:2px}
+    /* stats bar */
+    .prod-stats{background:white;border-bottom:1px solid var(--border);padding:24px 5%}
+    .prod-stats-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:64px;flex-wrap:wrap;align-items:center}
+    .prod-stat{text-align:center}
+    .prod-stat-num{font-size:30px;font-weight:800;color:var(--vy);line-height:1}
+    .prod-stat-label{font-size:12px;color:#64748B;margin-top:3px}
+    /* how it works */
+    .how-section{padding:72px 5%}
+    .how-section-alt{background:#F8FAFC}
+    .how-inner{max-width:1100px;margin:0 auto}
+    .how-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--vy);margin-bottom:10px}
+    .how-title{font-size:clamp(22px,2.5vw,32px);font-weight:800;color:#111827;margin-bottom:10px}
+    .how-sub{font-size:16px;color:#475569;line-height:1.65;margin-bottom:44px;max-width:640px}
+    .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .how-card{background:white;border:1px solid var(--border);border-radius:14px;padding:26px;position:relative}
+    .how-section-alt .how-card{background:white}
+    .how-card-num{font-size:11px;font-weight:800;color:var(--vy);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .how-card-num::before{content:'';display:inline-block;width:22px;height:2px;background:var(--vy);border-radius:2px}
+    .how-icon{font-size:30px;margin-bottom:12px}
+    .how-card-title{font-size:16px;font-weight:700;color:#111827;margin-bottom:8px}
+    .how-card-desc{font-size:13px;color:#475569;line-height:1.6}
+    /* quote */
+    .quote-section{background:linear-gradient(135deg,#1a0a00,#3d1200);padding:56px 5%;text-align:center}
+    .quote-inner{max-width:760px;margin:0 auto}
+    .quote-marks{font-size:56px;color:rgba(200,77,22,.4);line-height:.6;margin-bottom:8px;font-family:Georgia,serif}
+    .quote-text{font-size:clamp(16px,2vw,22px);color:white;line-height:1.65;font-style:italic;margin-bottom:20px}
+    .quote-author{font-size:13px;color:#FFCBA4;font-weight:700}
+    .quote-role{font-size:12px;color:rgba(255,203,164,.6);margin-top:3px}
     /* use cases */
-    .usecase-section{padding:64px 5%;background:white}
-    .usecase-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:56px;align-items:start}
-    .usecase-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--vy);margin-bottom:12px}
-    .usecase-title{font-size:clamp(22px,2.5vw,30px);font-weight:800;color:#111827;margin-bottom:16px}
-    .usecase-sub{font-size:15px;color:#475569;line-height:1.7}
-    .usecase-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .usecase-card{background:#F8FAFC;border:1px solid var(--border);border-radius:12px;padding:20px}
-    .usecase-card-title{font-size:14px;font-weight:700;color:#111827;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-    .usecase-card-desc{font-size:13px;color:#475569;line-height:1.55}
+    .uc-section{padding:72px 5%}
+    .uc-section-alt{background:#F8FAFC}
+    .uc-inner{max-width:1100px;margin:0 auto}
+    .uc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px}
+    .uc-card{background:white;border:1px solid var(--border);border-radius:14px;padding:24px;display:flex;gap:16px;align-items:flex-start}
+    .uc-section-alt .uc-card{background:white}
+    .uc-icon{font-size:26px;flex-shrink:0;margin-top:2px}
+    .uc-card-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:6px}
+    .uc-card-desc{font-size:13px;color:#475569;line-height:1.55}
+    /* fortune bar */
+    .fortune-bar{background:#F8FAFC;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 5%;text-align:center}
+    .fortune-text{font-size:15px;color:#374151;font-weight:500}
+    .fortune-text strong{color:var(--vy)}
+    /* explore more */
+    .explore-section{padding:56px 5%;background:white}
+    .explore-inner{max-width:1100px;margin:0 auto}
+    .explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+    .explore-card{border:2px solid var(--border);border-radius:14px;padding:28px;transition:border-color .2s,box-shadow .2s;cursor:pointer}
+    .explore-card:hover{border-color:var(--vy);box-shadow:0 4px 20px rgba(200,77,22,.1)}
+    .explore-card-icon{font-size:32px;margin-bottom:14px}
+    .explore-card-title{font-size:17px;font-weight:700;color:#111827;margin-bottom:8px}
+    .explore-card-desc{font-size:13px;color:#475569;line-height:1.55;margin-bottom:16px}
+    .explore-card-link{font-size:13px;font-weight:600;color:var(--vy)}
     /* cta band */
-    .vp-cta{background:var(--vy);padding:56px 5%;text-align:center}
-    .vp-cta h2{font-size:28px;font-weight:800;color:white;margin-bottom:10px}
-    .vp-cta p{font-size:16px;color:rgba(255,255,255,.85);margin-bottom:28px}
-    .vp-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    .btn-cta-white{background:white;font-weight:700;font-size:15px;padding:13px 28px;border-radius:8px}
+    .prod-cta{background:var(--vy);padding:56px 5%;text-align:center}
+    .prod-cta h2{font-size:28px;font-weight:800;color:white;margin-bottom:10px}
+    .prod-cta p{font-size:16px;color:rgba(255,255,255,.85);margin-bottom:28px}
+    .prod-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn-cta-white{background:white;color:var(--vy);font-weight:700;font-size:15px;padding:13px 28px;border-radius:8px}
+    .btn-cta-white:hover{opacity:.92}
     .btn-cta-outline{border:2px solid rgba(255,255,255,.6);color:white;font-weight:600;font-size:15px;padding:13px 28px;border-radius:8px;transition:border-color .15s}
     .btn-cta-outline:hover{border-color:white}
     @media(max-width:768px){
-      .vp-hero-inner,.usecase-inner{grid-template-columns:1fr;gap:32px}
-      .plan-cards-grid,.feat-grid,.usecase-grid{grid-template-columns:1fr}
-      .plan-selector-inner{overflow-x:auto;gap:4px}
+      .prod-hero-inner{grid-template-columns:1fr;gap:32px}
+      .how-grid,.uc-grid,.explore-grid{grid-template-columns:1fr}
+      .prod-stats-inner{gap:28px}
     }
-
-    .btn-vp-primary{color:#C84D16}
-  </style>
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Ir al contenido principal</a>
@@ -278,6 +285,9 @@
     <span class="mob-cat">Autoría &amp; Video</span>
     <a href="articulate-360-mexico.html">Articulate 360</a>
     <a href="vyond-mexico.html">Vyond</a>
+    <a href="vyond-go.html">— Vyond Go</a>
+    <a href="vyond-studio.html">— Vyond Studio</a>
+    <a href="vyond-mobile.html">— Vyond Mobile</a>
     <span class="mob-cat">Plataformas &amp; LMS</span>
     <a href="moodle-mexico.html">Moodle</a>
     <a href="totara-lms-mexico.html">Totara</a>
@@ -310,113 +320,86 @@
 </nav>
 <main id="main-content">
 
-<!-- plan tabs -->
-<div class="plan-selector">
-  <div class="plan-selector-inner"><a href="vyond-starter.html" class="plan-tab">Vyond Starter</a>
-<a href="vyond-professional.html" class="plan-tab">Vyond Professional</a>
-<a href="vyond-enterprise.html" class="plan-tab  active">Vyond Enterprise</a></div>
-</div>
+<div class="prod-tabs"><div class="prod-tabs-inner"><a href="vyond-go.html" class="prod-tab"><span class="prod-tab-icon">🤖</span>Vyond Go</a>
+<a href="vyond-studio.html" class="prod-tab active"><span class="prod-tab-icon">🎬</span>Vyond Studio</a>
+<a href="vyond-mobile.html" class="prod-tab"><span class="prod-tab-icon">📱</span>Vyond Mobile</a></div></div>
 
-<!-- hero -->
-<section class="vp-hero" style="background:linear-gradient(135deg, #0a0500 0%, #1a0a00 50%, #3d1200 100%)">
-  <div class="vp-hero-inner">
+<section class="prod-hero" style="background:linear-gradient(135deg, #0f0500 0%, #2a1000 50%, #8B3000 100%)">
+  <div class="prod-hero-inner">
     <div>
-      <div class="vp-logo-pill"><img src="../assets/logos/vyond.svg" alt="Vyond" /></div>
-      <span class="vp-tag" style="background:rgba(255,203,164,.15);color:#FFCBA4">Para grandes organizaciones · Usuarios ilimitados</span>
-      <h1>Video corporativo a <em style="color:#FFCBA4">escala empresarial</em></h1>
-      <p class="vp-hero-sub">La solución completa para corporativos y organizaciones con cientos de usuarios que necesitan desplegar Vyond de forma segura, centralizada y sin límites.</p>
-      <div class="vp-btns">
-        <a href="contacto.html" class="btn-vp-primary" style="background:white;color:#C84D16">Hablar con un especialista →</a>
-        <a href="contacto.html" class="btn-vp-ghost">Hablar con un especialista</a>
+      <div class="prod-logo-pill"><img src="../assets/logos/vyond.svg" alt="Vyond" /></div>
+      <span class="prod-tag">Vyond Studio · Editor profesional de video</span>
+      <h1>El editor de video que <em>tu equipo</em> ya estaba esperando</h1>
+      <p class="prod-hero-sub">Vyond Studio es un editor drag-and-drop de nivel profesional que combina animación tradicional, avatares IA y mixed media en una sola plataforma. Diseñado para crear impacto a escala.</p>
+      <div class="prod-btns">
+        <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-prod-primary">Solicitar demo de Vyond Studio →</a>
+        <a href="contacto.html" class="btn-prod-ghost">Hablar con TAEC</a>
       </div>
     </div>
-    <div class="vp-hero-card">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#FFCBA4;margin-bottom:16px">Incluido en Vyond Enterprise</div>
-      <div class="vp-hero-feats"><div class="vp-feat"><span class="vp-feat-check">✓</span><span>Todo lo incluido en Professional</span></div>
-<div class="vp-feat"><span class="vp-feat-check">✓</span><span>Créditos de IA prácticamente ilimitados</span></div>
-<div class="vp-feat"><span class="vp-feat-check">✓</span><span>SSO (Single Sign-On) y aprovisionamiento SCIM</span></div>
-<div class="vp-feat"><span class="vp-feat-check">✓</span><span>Branding corporativo personalizado en toda la plataforma</span></div>
-<div class="vp-feat"><span class="vp-feat-check">✓</span><span>Customer Success Manager dedicado</span></div>
-<div class="vp-feat"><span class="vp-feat-check">✓</span><span>Videos de hasta 90 minutos — el más largo del mercado</span></div>
-<div class="vp-feat"><span class="vp-feat-check">✓</span><span>API para integración con sistemas corporativos</span></div></div>
+    <div class="prod-hero-card">
+      <div class="prod-hero-card-title">Lo que puedes hacer</div>
+      <div class="prod-hero-feats"><div class="prod-feat"><span class="prod-feat-check">✓</span><span>Drag & drop — sin curva de aprendizaje técnica</span></div>
+<div class="prod-feat"><span class="prod-feat-check">✓</span><span>1,100+ avatares IA que se combinan con cualquier estilo visual</span></div>
+<div class="prod-feat"><span class="prod-feat-check">✓</span><span>Traducción y localización automática en 80+ idiomas</span></div>
+<div class="prod-feat"><span class="prod-feat-check">✓</span><span>780+ voces text-to-speech naturales y expresivas</span></div>
+<div class="prod-feat"><span class="prod-feat-check">✓</span><span>Eliminación de fondos, mejora de voz y acciones personalizadas por IA</span></div>
+<div class="prod-feat"><span class="prod-feat-check">✓</span><span>Librerías compartidas de equipo y controles de administración</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- plan comparison -->
-<section class="plan-cards">
-  <div class="plan-cards-inner">
-    <h2 style="font-size:22px;font-weight:800;color:#111827;margin-bottom:6px;text-align:center">Compara los planes Vyond</h2>
-    <p style="text-align:center;color:#64748B;font-size:14px;margin-bottom:36px">Elige el plan que mejor se adapta al tamaño y necesidades de tu equipo</p>
-    <div class="plan-cards-grid"><div class="plan-card">
-      
-      <div class="plan-card-name">Vyond Starter</div>
-      <div class="plan-card-desc">Desde USD $39 / usuario / mes</div>
-      <ul class="plan-card-feats"><li>Vyond Go (IA)</li>
-<li>Vyond Studio + Mobile</li>
-<li>3,000 créditos IA/mes</li>
-<li>Videos hasta 20 min</li></ul>
-      <a href="vyond-starter.html" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
-    </div>
-<div class="plan-card">
-      
-      <div class="plan-card-name">Vyond Professional</div>
-      <div class="plan-card-desc">Desde USD $55 / usuario / mes</div>
-      <ul class="plan-card-feats"><li>Todo Starter incluido</li>
-<li>5,000 créditos IA/mes</li>
-<li>Colaboración de equipo</li>
-<li>Videos hasta 40 min</li></ul>
-      <a href="vyond-professional.html" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
-    </div>
-<div class="plan-card current">
-      <div class="plan-card-badge">Plan actual</div>
-      <div class="plan-card-name">Vyond Enterprise</div>
-      <div class="plan-card-desc">Precio personalizado — consultar</div>
-      <ul class="plan-card-feats"><li>Todo Professional incluido</li>
-<li>Créditos IA ilimitados</li>
-<li>SSO / SCIM / API</li>
-<li>Videos hasta 90 min</li></ul>
-      <a href="contacto.html" class="plan-card-cta plan-card-cta-primary">Hablar con un especialista</a>
-    </div></div>
+<div class="fortune-bar">
+  <p class="fortune-text"><strong>65% de las empresas Fortune 500</strong> y millones de usuarios en el mundo confían en Vyond para su comunicación corporativa.</p>
+</div>
+
+<section class="how-section">
+  <div class="how-inner">
+    <div class="how-label">Capacidades clave</div>
+    <h2 class="how-title">Más que un editor — una plataforma de producción</h2>
+    <p class="how-sub">Vyond Studio reúne todas las herramientas que necesita un equipo de L&D o comunicación corporativa para producir video profesional sin depender de agencias externas.</p>
+    <div class="how-grid"><div class="how-card"><div class="how-icon">🌐</div><div class="how-card-title">Traducción automática a 80+ idiomas</div><div class="how-card-desc">Crea el video una sola vez y localízalo automáticamente. Ideal para organizaciones con operaciones en múltiples países o idiomas.</div></div>
+<div class="how-card"><div class="how-icon">🧑‍💼</div><div class="how-card-title">1,100+ avatares fotorrealistas</div><div class="how-card-desc">Portavoces profesionales generados por IA que se integran con cualquier estilo visual. Personaliza expresiones, movimientos y voz para cada escena.</div></div>
+<div class="how-card"><div class="how-icon">🎭</div><div class="how-card-title">AnyStyle — cualquier audiencia</div><div class="how-card-desc">Animated, photorealistic, mixed media y más. Un solo video puede combinar múltiples estilos para mantener el engagement de principio a fin.</div></div>
+<div class="how-card"><div class="how-icon">🔒</div><div class="how-card-title">Seguridad enterprise</div><div class="how-card-desc">SSO, controles de administración de equipos, privacidad de datos y video hosting seguro. Cumple con los requisitos de seguridad de grandes corporativos.</div></div>
+<div class="how-card"><div class="how-icon">📦</div><div class="how-card-title">Assets de marca compartidos</div><div class="how-card-desc">Sube tus colores, logos, tipografías y plantillas. Todo el equipo crea con la identidad de tu empresa sin esfuerzo adicional.</div></div>
+<div class="how-card"><div class="how-icon">⚡</div><div class="how-card-title">IA generativa en cada paso</div><div class="how-card-desc">Genera fondos, elimina backgrounds, mejora voces y aplica acciones personalizadas a personajes subiendo un video. La IA acelera cada etapa.</div></div></div>
   </div>
 </section>
 
-<!-- features -->
-<section class="feat-section">
-  <div class="feat-inner">
-    <h2 class="feat-title">Todo lo que incluye Enterprise</h2>
-    <p class="feat-sub">La plataforma de video más completa del mercado, con las capacidades de seguridad, escala e integración que requieren las grandes organizaciones.</p>
-    <div class="feat-grid"><div class="feat-card"><div class="feat-icon">♾️</div><div class="feat-name">Créditos IA ilimitados</div><div class="feat-desc">Genera todos los videos que necesites con Vyond Go sin preocuparte por límites de créditos. Ideal para producciones masivas.</div></div>
-<div class="feat-card"><div class="feat-icon">🔐</div><div class="feat-name">SSO / SCIM</div><div class="feat-desc">Integra Vyond con tu directorio corporativo (Azure AD, Okta, etc.) para gestión centralizada de usuarios y acceso seguro.</div></div>
-<div class="feat-card"><div class="feat-icon">🎨</div><div class="feat-name">Branding total</div><div class="feat-desc">Personaliza colores, logos, tipografías y dominio. Tus usuarios verán una plataforma con la identidad de tu empresa.</div></div>
-<div class="feat-card"><div class="feat-icon">🕐</div><div class="feat-name">Videos hasta 90 min</div><div class="feat-desc">El límite de duración más alto del mercado. Produce masterclasses, programas completos y certificaciones en un solo video.</div></div>
-<div class="feat-card"><div class="feat-icon">🤝</div><div class="feat-name">Customer Success Manager</div><div class="feat-desc">Un especialista dedicado te acompaña en la adopción, entrenamiento y estrategia de producción de video en tu organización.</div></div>
-<div class="feat-card"><div class="feat-icon">🔗</div><div class="feat-name">API & Integraciones</div><div class="feat-desc">Conecta Vyond con tu LMS, HRIS o plataforma de contenido mediante API REST para flujos de trabajo automatizados.</div></div></div>
+<section class="quote-section">
+  <div class="quote-inner">
+    <div class="quote-marks">"</div>
+    <p class="quote-text">Lo que una agencia o un equipo de producción interno tardaría 3 o 4 semanas en producir, nosotros lo completamos con Vyond en 3 o 4 horas. Es como tener el poder completo de un estudio de video como parte de tu equipo a una fracción del costo.</p>
+    <div class="quote-author">Christopher Annand · Director of Programs and Governance</div>
+    <div class="quote-role">Ethics and Compliance Office · Cargill</div>
   </div>
 </section>
 
-<!-- use cases -->
-<section class="usecase-section">
-  <div class="usecase-inner">
-    <div>
-      <div class="usecase-label">¿Para quién?</div>
-      <h2 class="usecase-title">¿Para quién es Vyond Enterprise?</h2>
-      <p class="usecase-sub">Enterprise está pensado para corporativos, organismos gubernamentales y organizaciones educativas que necesitan escala, seguridad y control centralizado.</p>
-      <a href="vyond-mexico.html" style="display:inline-block;margin-top:20px;font-size:13px;font-weight:600;color:var(--vy)">← Ver todos los planes Vyond</a>
-    </div>
-    <div class="usecase-grid"><div class="usecase-card"><div class="usecase-card-title">🏦 Grandes corporativos</div><div class="usecase-card-desc">Cientos de diseñadores y administradores en una sola plataforma con gestión de permisos granular y SSO corporativo.</div></div>
-<div class="usecase-card"><div class="usecase-card-title">🌍 Empresas multinacionales</div><div class="usecase-card-desc">Localización automática de videos a docenas de idiomas para distribuir el mismo contenido en todas tus regiones.</div></div>
-<div class="usecase-card"><div class="usecase-card-title">🏛️ Sector gobierno y educación</div><div class="usecase-card-desc">Cumplimiento de requisitos de seguridad y privacidad con despliegue controlado y soporte institucional dedicado.</div></div>
-<div class="usecase-card"><div class="usecase-card-title">⚡ Productoras de e-learning</div><div class="usecase-card-desc">Produce decenas de cursos al mes para múltiples clientes con licencias de equipo y entrega de alta velocidad con IA.</div></div></div>
+<section class="uc-section uc-section-alt">
+  <div class="uc-inner">
+    <div class="how-label">Casos de uso</div>
+    <h2 class="how-title">¿Quién usa Vyond Studio?</h2>
+    <p class="how-sub">Vyond Studio está diseñado para equipos y organizaciones que producen video de forma continua y necesitan calidad, consistencia y velocidad.</p>
+    <div class="uc-grid"><div class="uc-card"><div class="uc-icon">🏢</div><div><div class="uc-card-title">Equipos de L&D corporativo</div><div class="uc-card-desc">Produce cursos completos, módulos de compliance y programas de certificación con calidad de estudio sin los costos ni los tiempos de una agencia.</div></div></div>
+<div class="uc-card"><div class="uc-icon">📣</div><div><div class="uc-card-title">Comunicación interna</div><div class="uc-card-desc">Crea anuncios corporativos, actualizaciones de liderazgo y mensajes de cambio organizacional que la gente realmente lee y recuerda.</div></div></div>
+<div class="uc-card"><div class="uc-icon">🌍</div><div><div class="uc-card-title">Empresas multinacionales</div><div class="uc-card-desc">Localiza el mismo contenido en docenas de idiomas de forma automática. Un solo equipo puede producir para toda la organización global.</div></div></div>
+<div class="uc-card"><div class="uc-icon">🎓</div><div><div class="uc-card-title">Instituciones educativas</div><div class="uc-card-desc">Diseña clases en video, tutoriales interactivos y contenido de microlearning adaptado a cualquier audiencia y nivel educativo.</div></div></div></div>
   </div>
 </section>
 
-<!-- cta band -->
-<section class="vp-cta">
-  <h2>¿Listo para desplegar Vyond en toda tu organización?</h2>
-  <p>Agenda una sesión con nuestro equipo para diseñar juntos el plan de adopción y negociar las condiciones de tu licencia Enterprise.</p>
-  <div class="vp-cta-btns">
-    <a href="contacto.html" class="btn-cta-white" style="color:#C84D16">Hablar con un especialista →</a>
+<section class="explore-section">
+  <div class="explore-inner">
+    <div class="how-label">Explora más Vyond</div>
+    <h2 class="how-title">También te puede interesar</h2>
+    <div class="explore-grid"><a href="vyond-go.html" class="explore-card"><div class="explore-card-icon">🤖</div><div class="explore-card-title">Vyond Go</div><div class="explore-card-desc">Creación ultrarrápida con IA. De texto a video en segundos, sin necesidad de edición manual.</div><div class="explore-card-link">Ver más →</div></a><a href="vyond-mobile.html" class="explore-card"><div class="explore-card-icon">📱</div><div class="explore-card-title">Vyond Mobile</div><div class="explore-card-desc">Captura y crea desde tu dispositivo móvil. Perfecto para contenido en campo e inspiración inmediata.</div><div class="explore-card-link">Ver más →</div></a><a href="vyond-mexico.html" class="explore-card"><div class="explore-card-icon">📋</div><div class="explore-card-title">Ver planes Vyond</div><div class="explore-card-desc">Compara Starter, Professional y Enterprise para encontrar el plan ideal para tu equipo.</div><div class="explore-card-link">Ver más →</div></a></div>
+  </div>
+</section>
+
+<section class="prod-cta">
+  <h2>Empieza a producir video como una agencia — desde adentro</h2>
+  <p>Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido.</p>
+  <div class="prod-cta-btns">
+    <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-cta-white">Solicitar demo de Vyond Studio →</a>
     <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>
@@ -458,16 +441,16 @@
     <div class="footer-latam">
       <span class="footer-latam-label">También en:</span>
       <a href="https://www.taec.com.mx/" title="TAEC México">🇲🇽 México &mdash; taec.com.mx</a>
-      <a href="https://www.taec.com.co/" target="_blank" rel="noopener noreferrer" title="TAEC Colombia">🇨🇴 Colombia &mdash; taec.com.co</a>
-      <a href="https://www.taec.cl/" target="_blank" rel="noopener noreferrer" title="TAEC Chile">🇨🇱 Chile &mdash; taec.cl</a>
+      <a href="https://www.taec.com.co/" target="_blank" rel="noopener noreferrer">🇨🇴 Colombia &mdash; taec.com.co</a>
+      <a href="https://www.taec.cl/" target="_blank" rel="noopener noreferrer">🇨🇱 Chile &mdash; taec.cl</a>
     </div>
     <div class="footer-bottom">
       <p>© <span id="year"></span> TAEC <span style="opacity:.5;font-size:11px;">(ver 2.0)</span> &middot; Ciudad de México &middot; <a href="#">Aviso de privacidad</a></p>
       <div class="footer-social">
-        <a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
-        <a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>
-        <a href="https://www.facebook.com/TAEC.eLearning" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">fb</a>
-        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">WA</a>
+        <a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+        <a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+        <a href="https://www.facebook.com/TAEC.eLearning" target="_blank" rel="noopener noreferrer" aria-label="Facebook">fb</a>
+        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WA</a>
       </div>
     </div>
   </div>
@@ -478,15 +461,15 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   (function(){
-    var p = location.pathname;
-    var secMap = {'Soluciones':/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios|rise-360|storyline-360|studio-360/,'Capacitaci':/capacitacion|7minutes|go1|customguide|curso-/};
-    Object.keys(secMap).forEach(function(sec){ if(secMap[sec].test(p)){ document.querySelectorAll('header button.nav-link').forEach(function(btn){ if(btn.textContent.trim().indexOf(sec)===0) btn.classList.add('active'); }); } });
-    document.querySelectorAll('header a[href]').forEach(function(a){ var href=a.getAttribute('href')||''; if(!href||href==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0||href.indexOf('http')===0||a.classList.contains('logo-link')||a.classList.contains('btn-cta')) return; if(a.closest('.mega-menu')||a.closest('.simple-dropdown')) return; var linked=href.split('/').pop(); if(linked&&linked===location.pathname.split('/').pop()) a.classList.add('active'); });
+    var p=location.pathname;
+    var secMap={'Soluciones':/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios|rise-360|storyline-360|studio-360/,'Capacitaci':/capacitacion|7minutes|go1|customguide|curso-/};
+    Object.keys(secMap).forEach(function(sec){if(secMap[sec].test(p)){document.querySelectorAll('header button.nav-link').forEach(function(btn){if(btn.textContent.trim().indexOf(sec)===0)btn.classList.add('active');});}});
+    document.querySelectorAll('header a[href]').forEach(function(a){var href=a.getAttribute('href')||'';if(!href||href==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0||href.indexOf('http')===0||a.classList.contains('logo-link')||a.classList.contains('btn-cta'))return;if(a.closest('.mega-menu')||a.closest('.simple-dropdown'))return;var linked=href.split('/').pop();if(linked&&linked===location.pathname.split('/').pop())a.classList.add('active');});
   })();
-  const menuBtn=document.getElementById("menuBtn"); const mobileNav=document.getElementById("mobileNav");
-  menuBtn.addEventListener("click",()=>{ menuBtn.classList.toggle("open"); mobileNav.classList.toggle("open"); menuBtn.setAttribute("aria-label",mobileNav.classList.contains("open")?"Cerrar menú":"Abrir menú"); });
-  function toggleMob(sId,bId){ var s=document.getElementById(sId); var b=document.getElementById(bId); s.classList.toggle("open"); b.classList.toggle("open"); b.setAttribute("aria-expanded",b.classList.contains("open")?"true":"false"); }
-  (function(){ document.querySelectorAll('.nav-item').forEach(function(item){ var btn=item.querySelector('button.nav-link'); if(!btn) return; btn.addEventListener('click',function(e){ e.stopPropagation(); var isOpen=item.classList.contains('open'); document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('open'); var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false'); }); if(!isOpen){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); } }); }); document.addEventListener('click',function(){ document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('open'); var b=i.querySelector('button.nav-link'); if(b) b.setAttribute('aria-expanded','false'); }); }); })();
+  const menuBtn=document.getElementById("menuBtn"),mobileNav=document.getElementById("mobileNav");
+  menuBtn.addEventListener("click",()=>{menuBtn.classList.toggle("open");mobileNav.classList.toggle("open");menuBtn.setAttribute("aria-label",mobileNav.classList.contains("open")?"Cerrar menú":"Abrir menú");});
+  function toggleMob(sId,bId){var s=document.getElementById(sId),b=document.getElementById(bId);s.classList.toggle("open");b.classList.toggle("open");b.setAttribute("aria-expanded",b.classList.contains("open")?"true":"false");}
+  (function(){document.querySelectorAll('.nav-item').forEach(function(item){var btn=item.querySelector('button.nav-link');if(!btn)return;btn.addEventListener('click',function(e){e.stopPropagation();var isOpen=item.classList.contains('open');document.querySelectorAll('.nav-item').forEach(function(i){i.classList.remove('open');var b=i.querySelector('button.nav-link');if(b)b.setAttribute('aria-expanded','false');});if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true');}});});document.addEventListener('click',function(){document.querySelectorAll('.nav-item').forEach(function(i){i.classList.remove('open');var b=i.querySelector('button.nav-link');if(b)b.setAttribute('aria-expanded','false');});});})();
 </script>
 </body>
 </html>
