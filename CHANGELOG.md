@@ -4,8 +4,20 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
-## v2.2 · 14 mar 2026
-- **7 landing pages de Capacitación** — una página por cada ítem del dropdown (Cursos Abiertos y Cerrados)
+## v2.0 · 14-15 mar 2026
+- **Footer canónico** — mismo HTML en las 21 páginas: columnas Soluciones · Recursos · Empresa + Soporte técnico
+- Franja "También en:" 🇲🇽 taec.com.mx · 🇨🇴 taec.com.co · 🇨🇱 taec.cl en todos los footers
+- CSS unificado del footer (tipografía, colores, hover) aplicado en todos los archivos
+- **Oficinas Colombia y Chile** en `nosotros.html`: dirección, teléfonos locales y links a taec.com.co / taec.cl
+- **Nav activa (ficha de cardex)** — ítem del menú actual resaltado con fondo #111827 y texto blanco
+  - Soluciones / Capacitación: detectados por regex de pathname
+  - Nosotros / Clientes / Contacto: detectados por nombre de archivo exacto (filename match)
+  - Fix: `a.closest('.mega-menu') || a.closest('.simple-dropdown') → return` (links dentro del dropdown no se marcan activos)
+- **Fix dropdown hover** — gap de 6px eliminado definitivamente: `top: calc(100%+6px)` → `top: 100%` en CSS origen
+  - Eliminados bloques CSS/JS duplicados y conflictivos acumulados en parches anteriores
+  - JS reescrito: hover (mouseenter/mouseleave) + click-toggle en un solo bloque limpio
+- **Frase hero** — "Partner Oficial · México y LATAM · desde 2007" → "Especialistas en e-learning corporativo · México y LATAM · desde 2007"
+- **7 landing pages de Capacitación** — una página por cada ítem del dropdown
   - `curso-articulate.html` — Articulate 360 Certificado (Básico · Avanzado · Experto · Rise 360+ · Completo) + AI Assistant
   - `curso-storyline.html` — Storyline 360 Técnicas Avanzadas
   - `curso-vyond.html` — Vyond Essentials
@@ -14,29 +26,9 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
   - `curso-cerrado-empresa.html` — Capacitación Cerrada para tu Empresa
   - `curso-cerrado-grupos.html` — Grupos a Medida (programas personalizados)
   - Contenido real extraído de taec.com.mx/cursos-capacitacion.php
-- **Dropdown Capacitación** — cada ítem enlaza a su landing page específica (no más anclas en capacitacion-abierta.html)
-- **Active nav** — regex actualizado (`|curso-/`) para resaltar "Capacitación" en las 7 nuevas páginas
+- **Dropdown Capacitación** — cada ítem enlaza a su landing page específica
+- **Active nav** — regex `|curso-/` para resaltar "Capacitación" en las 7 nuevas páginas
 - **Mobile nav** — Cursos Abiertos actualizado con links a nuevas páginas
-
-## v2.1 · 14 mar 2026
-- **Fix dropdown definitivo** — `top: calc(100%+6px)` → `top: 100%` corregido en CSS origen (no más override con !important)
-  - Eliminados bloques CSS/JS duplicados y conflictivos acumulados en parches anteriores
-  - JS reescrito: hover (mouseenter/mouseleave) + click-toggle unificados en un solo bloque limpio
-- **Active nav no marca links dentro de dropdowns** — añadido `a.closest('.mega-menu') || a.closest('.simple-dropdown') → return`
-- **Frase hero** — "Partner Oficial · México y LATAM · desde 2007" → "Especialistas en e-learning corporativo · México y LATAM · desde 2007"
-- **Número de versión** — (ver 2.0) restaurado en footer de las 21 páginas
-
-## v2.0 · 14 mar 2026
-- **Footer canónico** — mismo HTML en las 21 páginas: columnas Soluciones · Recursos · Empresa + Soporte técnico
-- Franja "También en:" 🇲🇽 taec.com.mx · 🇨🇴 taec.com.co · 🇨🇱 taec.cl en todos los footers
-- CSS unificado del footer (tipografía, colores, hover) aplicado vía override en todos los archivos
-- **Oficinas Colombia y Chile** en `nosotros.html`: dirección, teléfonos locales y links a taec.com.co / taec.cl
-- **Nav activa (ficha de cardex)** — ítem del menú actual resaltado con fondo #111827 y texto blanco
-  - Soluciones / Capacitación: detectados por regex de pathname
-  - Nosotros / Clientes / Contacto: detectados por nombre de archivo exacto (filename match)
-- **Fix dropdown hover** — gap de 6px eliminado: `top: calc(100%+6px)` → `top: 100%` con `padding-top` interno
-  - Soluciones y Capacitación ahora navegables sin que el menú se cierre al bajar el cursor
-  - Confirmado: gap = 0px en staging (verificado via JS en Chrome)
 
 ## v1.9 · 14 mar 2026
 - `pages/nosotros.html` — Página completa con datos reales TAEC (reemplaza placeholder "En construcción")
