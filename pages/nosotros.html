@@ -3,184 +3,244 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiénes somos – TAEC | 18 años en e-learning</title>
-  <meta name="description" content="18 años acompañando a organizaciones en México y LATAM a implementar estrategias de aprendizaje corporativo." />
-  <meta name="robots" content="noindex, follow" />
-
-  <!-- Fonts -->
+  <title>Quiénes somos – TAEC | 18 años en e-learning México y LATAM</title>
+  <meta name="description" content="TAEC: Tecnología Avanzada para la Educación y la Capacitación. Desde 2007 en CDMX, con oficinas en Bogotá y Santiago de Chile. +1,500 clientes en 17 países." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://nuevo.taec.com.mx/pages/nosotros.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Quiénes somos – TAEC | 18 años en e-learning" />
+  <meta property="og:description" content="Partner oficial Articulate, Vyond y Totara. +1,500 clientes en 17 países. Desde CDMX para México y LATAM." />
+  <meta property="og:locale" content="es_MX" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     :root {
-      --navy: #004775; --blue: #3179C2; --teal: #A8DBD9;
-      --orange: #F28B1C; --coral: #D35652; --muted: #7595AA;
-      --dark: #4D4D4E; --light: #F4F7FB; --border: #E2E8F0;
-      --white: #FFFFFF; --text: #111827;
-      --font-display: "DM Serif Display", Georgia, serif;
-      --font-body: "Inter", sans-serif;
+      --navy:#004775; --blue:#3179C2; --teal:#A8DBD9;
+      --orange:#F28B1C; --coral:#D35652; --muted:#7595AA;
+      --dark:#4D4D4E; --light:#F4F7FB; --border:#E2E8F0;
+      --white:#FFFFFF; --text:#111827;
+      --font-display:'DM Serif Display',Georgia,serif;
+      --font-body:'Inter',sans-serif;
     }
-    body { font-family: var(--font-body); color: var(--text); background: var(--white); font-size: 15px; line-height: 1.6; overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
+    body { font-family:var(--font-body); color:var(--text); background:var(--white); font-size:15px; line-height:1.6; overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; max-width:100%; }
 
     /* ── HEADER ── */
-    header { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5%; }
-    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
-    .logo-link { display: flex; align-items: center; flex-shrink: 0; }
-    .logo-link img { height: 38px; width: auto; }
-    .header-inner nav { display: flex; gap: 2px; align-items: center; }
-    .header-inner nav > a, .nav-link { font-size: 14px; font-weight: 500; color: var(--dark); padding: 6px 12px; border-radius: 6px; transition: background .15s, color .15s; display: flex; align-items: center; gap: 3px; cursor: pointer; white-space: nowrap; background: none; border: none; font-family: inherit; }
-    .header-inner nav > a:hover, .nav-link:hover, .nav-item:hover > .nav-link { background: var(--light); color: var(--blue); }
-    .nav-link svg { width: 13px; height: 13px; transition: transform .2s; flex-shrink: 0; }
-    .nav-item:hover > .nav-link svg { transform: rotate(180deg); }
-    .nav-item { position: relative; }
-    .mega-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; background: var(--white); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,.13); padding: 24px 20px; grid-template-columns: repeat(3,1fr); gap: 8px 24px; min-width: 660px; z-index: 300; }
-    .nav-item:hover .mega-menu { display: grid; }
-    .mega-col { display: flex; flex-direction: column; gap: 2px; }
-    .mega-head { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #4B5563; padding: 4px 8px 6px; }
-    .mega-menu a { font-size: 13px; font-weight: 500; color: var(--dark); padding: 5px 8px; border-radius: 6px; display: flex; align-items: center; gap: 6px; }
-    .mega-menu a:hover { background: var(--light); color: var(--blue); }
-    .mega-sub { display: flex; flex-direction: column; gap: 0; padding-left: 8px; border-left: 2px solid var(--border); margin: 2px 0 4px 8px; }
-    .mega-sub a { font-size: 12px; color: #4B5563; padding: 3px 6px; }
-    .mega-divider { height: 1px; background: var(--border); margin: 8px 4px; }
-    .badge-saas { font-size: 9px; font-weight: 700; background: #EFF6FF; color: var(--blue); border: 1px solid #BFDBFE; border-radius: 3px; padding: 1px 4px; }
-    .badge-new { font-size: 9px; font-weight: 700; background: #FEF3E2; color: var(--orange); border: 1px solid #FDE68A; border-radius: 3px; padding: 1px 4px; }
-    .simple-dropdown { display: none; position: absolute; top: calc(100% + 6px); left: 0; background: var(--white); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,.13); padding: 20px; grid-template-columns: 1fr 1fr; gap: 8px 24px; min-width: 380px; z-index: 300; }
-    .nav-item:hover .simple-dropdown { display: grid; }
-    .header-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-    .btn-tienda { font-size: 13px; font-weight: 600; color: var(--dark); border: 1.5px solid var(--border); padding: 6px 14px; border-radius: 6px; transition: border-color .15s; }
-    .btn-tienda:hover { border-color: var(--blue); color: var(--blue); }
-    .btn-cta { background: var(--orange); color: var(--white); font-weight: 700; font-size: 13px; padding: 7px 16px; border-radius: 7px; transition: background .15s; }
-    .btn-cta:hover { background: #d97b0e; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; border: none; background: none; cursor: pointer; border-radius: 6px; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: all .25s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    header { position:sticky; top:0; z-index:200; background:var(--white); border-bottom:1px solid var(--border); padding:0 5%; }
+    .header-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:68px; gap:24px; }
+    .logo-link { display:flex; align-items:center; flex-shrink:0; }
+    .logo-link img { height:38px; width:auto; }
+    .header-inner nav { display:flex; gap:2px; align-items:center; }
+    .header-inner nav > a, .nav-link { font-size:14px; font-weight:500; color:var(--dark); padding:6px 12px; border-radius:6px; transition:background .15s,color .15s; display:flex; align-items:center; gap:3px; cursor:pointer; white-space:nowrap; background:none; border:none; font-family:inherit; }
+    .header-inner nav > a:hover, .nav-link:hover, .nav-item:hover > .nav-link { background:var(--light); color:var(--blue); }
+    .nav-link svg { width:13px; height:13px; transition:transform .2s; flex-shrink:0; }
+    .nav-item:hover > .nav-link svg { transform:rotate(180deg); }
+    .nav-item { position:relative; }
+    .mega-menu { display:none; position:absolute; top:calc(100% + 6px); left:0; background:var(--white); border:1px solid var(--border); border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,.13); padding:24px 20px; grid-template-columns:repeat(3,1fr); gap:8px 24px; min-width:660px; z-index:300; }
+    .nav-item:hover .mega-menu { display:grid; }
+    .mega-col { display:flex; flex-direction:column; gap:2px; }
+    .mega-head { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#4B5563; padding:4px 8px 6px; }
+    .mega-menu a { font-size:13px; font-weight:500; color:var(--dark); padding:5px 8px; border-radius:6px; display:flex; align-items:center; gap:6px; }
+    .mega-menu a:hover { background:var(--light); color:var(--blue); }
+    .mega-sub { display:flex; flex-direction:column; gap:0; padding-left:8px; border-left:2px solid var(--border); margin:2px 0 4px 8px; }
+    .mega-sub a { font-size:12px; color:#4B5563; padding:3px 6px; }
+    .mega-divider { height:1px; background:var(--border); margin:8px 4px; }
+    .badge-saas { font-size:9px; font-weight:700; background:#EFF6FF; color:var(--blue); border:1px solid #BFDBFE; border-radius:3px; padding:1px 4px; }
+    .badge-new { font-size:9px; font-weight:700; background:#FEF3E2; color:var(--orange); border:1px solid #FDE68A; border-radius:3px; padding:1px 4px; }
+    .simple-dropdown { display:none; position:absolute; top:calc(100% + 6px); left:0; background:var(--white); border:1px solid var(--border); border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,.13); padding:20px; grid-template-columns:1fr 1fr; gap:8px 24px; min-width:380px; z-index:300; }
+    .nav-item:hover .simple-dropdown { display:grid; }
+    .header-actions { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+    .btn-tienda { font-size:13px; font-weight:600; color:var(--dark); border:1.5px solid var(--border); padding:6px 14px; border-radius:6px; transition:border-color .15s; }
+    .btn-tienda:hover { border-color:var(--blue); color:var(--blue); }
+    .btn-cta { background:var(--orange); color:var(--white); font-weight:700; font-size:13px; padding:7px 16px; border-radius:7px; transition:background .15s; }
+    .btn-cta:hover { background:#d97b0e; }
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; border:none; background:none; cursor:pointer; border-radius:6px; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--dark); border-radius:2px; transition:all .25s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display:none; flex-direction:column; gap:2px; background:var(--white); padding:12px 5% 24px; border-bottom:1px solid var(--border); position:relative; z-index:199; }
+    .mobile-nav.open { display:flex; }
+    .mobile-nav > a { font-size:15px; font-weight:500; color:var(--dark); padding:10px 12px; border-radius:8px; }
+    .mobile-nav > a:hover { background:var(--light); color:var(--blue); }
+    .mobile-nav .btn-cta { text-align:center; margin-top:8px; }
+    .mob-toggle { width:100%; display:flex; align-items:center; justify-content:space-between; font-size:15px; font-weight:600; color:var(--dark); padding:10px 12px; border-radius:8px; background:none; border:none; font-family:inherit; cursor:pointer; transition:background .15s; }
+    .mob-toggle:hover { background:var(--light); }
+    .mob-toggle svg { width:16px; height:16px; transition:transform .2s; flex-shrink:0; }
+    .mob-toggle.open svg { transform:rotate(180deg); }
+    .mob-section { display:none; flex-direction:column; gap:0; padding-left:8px; margin-bottom:4px; }
+    .mob-section.open { display:flex; }
+    .mob-cat { font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:#4B5563; padding:8px 12px 4px; }
+    .mob-section a { font-size:14px; font-weight:500; color:var(--text); padding:8px 12px; border-radius:7px; display:flex; align-items:center; gap:6px; }
+    .mob-section a:hover { background:var(--light); color:var(--blue); }
+    @media (max-width:768px) { .header-inner nav { display:none; } .header-actions .btn-tienda, .header-actions .btn-cta { display:none; } .hamburger { display:flex; } }
 
-    /* ── MOBILE NAV ── */
-    .mobile-nav { display: none; flex-direction: column; gap: 2px; background: var(--white); padding: 12px 5% 24px; border-bottom: 1px solid var(--border); position: relative; z-index: 199; }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav > a { font-size: 15px; font-weight: 500; color: var(--dark); padding: 10px 12px; border-radius: 8px; }
-    .mobile-nav > a:hover { background: var(--light); color: var(--blue); }
-    .mobile-nav .btn-cta { text-align: center; margin-top: 8px; }
-    .mob-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; font-size: 15px; font-weight: 600; color: var(--dark); padding: 10px 12px; border-radius: 8px; background: none; border: none; font-family: inherit; cursor: pointer; transition: background .15s; }
-    .mob-toggle:hover { background: var(--light); }
-    .mob-toggle svg { width: 16px; height: 16px; transition: transform .2s; flex-shrink: 0; }
-    .mob-toggle.open svg { transform: rotate(180deg); }
-    .mob-section { display: none; flex-direction: column; gap: 0; padding-left: 8px; margin-bottom: 4px; }
-    .mob-section.open { display: flex; }
-    .mob-cat { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #4B5563; padding: 8px 12px 4px; }
-    .mob-section a { font-size: 14px; font-weight: 500; color: var(--text); padding: 8px 12px; border-radius: 7px; display: flex; align-items: center; gap: 6px; }
-    .mob-section a:hover { background: var(--light); color: var(--blue); }
-    @media (max-width: 768px) { .header-inner nav { display: none; } .header-actions .btn-tienda, .header-actions .btn-cta { display: none; } .hamburger { display: flex; } }
+    /* ── HERO ── */
+    .hero { background:linear-gradient(135deg, var(--navy) 0%, #00355a 100%); padding:72px 5% 80px; }
+    .hero-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+    .hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(168,219,217,.15); color:var(--teal); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:4px; margin-bottom:18px; }
+    .hero h1 { font-family:var(--font-display); font-size:42px; line-height:1.15; color:var(--white); margin-bottom:16px; }
+    .hero h1 em { color:var(--teal); font-style:normal; }
+    .hero-sub { color:#94A3B8; font-size:16px; line-height:1.8; margin-bottom:10px; }
+    .hero-razon { font-size:12px; color:rgba(168,219,217,.7); font-style:italic; margin-bottom:28px; }
+    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-primary { display:inline-block; background:var(--orange); color:var(--white); padding:13px 26px; border-radius:8px; font-weight:700; font-size:14px; transition:background .15s; }
+    .btn-primary:hover { background:#d97b0e; }
+    .btn-ghost { display:inline-block; border:1.5px solid rgba(255,255,255,.3); color:var(--white); padding:13px 26px; border-radius:8px; font-weight:600; font-size:14px; transition:border-color .15s,background .15s; }
+    .btn-ghost:hover { border-color:rgba(255,255,255,.6); background:rgba(255,255,255,.06); }
+    .hero-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:28px; }
+    .hero-card-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--teal); margin-bottom:20px; }
+    .stat-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+    .stat-box { background:rgba(255,255,255,.06); border-radius:10px; padding:16px; text-align:center; }
+    .stat-box .num { font-family:var(--font-display); font-size:28px; color:var(--white); line-height:1; }
+    .stat-box .lbl { font-size:11px; color:#94A3B8; margin-top:4px; }
+    .offices-row { border-top:1px solid rgba(255,255,255,.08); padding-top:16px; display:flex; flex-direction:column; gap:8px; }
+    .office-item { display:flex; align-items:center; gap:10px; font-size:13px; color:#CBD5E1; }
+    .office-dot { width:8px; height:8px; border-radius:50%; background:var(--teal); flex-shrink:0; }
 
-    /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+    /* ── STATS BAND ── */
+    .stats-band { background:var(--light); padding:40px 5%; border-bottom:1px solid var(--border); }
+    .stats-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center; }
+    .stat-item .n { font-family:var(--font-display); font-size:40px; color:var(--navy); line-height:1; }
+    .stat-item .l { font-size:13px; color:var(--dark); margin-top:4px; }
 
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
+    /* ── QUIÉNES SOMOS ── */
+    .quienes { padding:80px 5%; }
+    .quienes-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+    .section-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--blue); margin-bottom:8px; }
+    .section-title { font-family:var(--font-display); font-size:34px; color:var(--navy); margin-bottom:20px; line-height:1.2; }
+    .body-text { font-size:15px; color:var(--dark); line-height:1.85; margin-bottom:16px; }
+    .valores-grid { display:flex; flex-direction:column; gap:14px; }
+    .valor-card { background:var(--light); border-radius:12px; padding:18px; display:flex; gap:14px; align-items:flex-start; }
+    .valor-icon { font-size:22px; flex-shrink:0; width:42px; height:42px; display:flex; align-items:center; justify-content:center; background:var(--white); border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+    .valor-text strong { display:block; font-size:14px; font-weight:700; color:var(--navy); margin-bottom:3px; }
+    .valor-text span { font-size:13px; color:var(--dark); line-height:1.6; }
+
+    /* ── MERCADOS ── */
+    .mercados { background:var(--navy); padding:72px 5%; }
+    .mercados-inner { max-width:1200px; margin:0 auto; }
+    .mercados-inner .section-title { color:var(--white); }
+    .mercados-inner .section-label { color:var(--teal); }
+    .mercados-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:40px; }
+    .mercado-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:28px; }
+    .mercado-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+    .mercado-icon { font-size:30px; }
+    .mercado-pct { font-family:var(--font-display); font-size:32px; color:var(--teal); }
+    .mercado-card h3 { font-size:16px; font-weight:700; color:var(--white); margin-bottom:8px; }
+    .mercado-card p { font-size:13px; color:#94A3B8; line-height:1.7; }
+    .mercado-bar { height:4px; background:rgba(255,255,255,.1); border-radius:2px; margin-top:16px; }
+    .mercado-bar-fill { height:100%; border-radius:2px; background:var(--teal); }
+    .mercado-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .mercado-tag { font-size:11px; font-weight:600; background:rgba(168,219,217,.12); color:var(--teal); border:1px solid rgba(168,219,217,.2); border-radius:4px; padding:2px 8px; }
+
+    /* ── SERVICIOS ── */
+    .servicios-sec { padding:72px 5%; background:var(--light); }
+    .servicios-inner { max-width:1200px; margin:0 auto; }
+    .servicios-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px; }
+    .serv-card { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:24px; }
+    .serv-card .ico { font-size:28px; margin-bottom:12px; }
+    .serv-card h3 { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+    .serv-card p { font-size:13px; color:var(--dark); line-height:1.7; }
+
+    /* ── PARTNERS ── */
+    .partners { padding:72px 5%; }
+    .partners-inner { max-width:1200px; margin:0 auto; text-align:center; }
+    .partners-sub { font-size:15px; color:var(--dark); margin-bottom:40px; }
+    .partners-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; text-align:left; }
+    .partner-card { border:1px solid var(--border); border-radius:14px; padding:28px; display:flex; flex-direction:column; gap:10px; transition:box-shadow .2s; }
+    .partner-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.08); }
+    .p-icon { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:26px; }
+    .p-icon.orange { background:#FEF3E2; }
+    .p-icon.purple { background:#F5F3FF; }
+    .p-icon.green { background:#ECFDF5; }
+    .partner-card strong { font-size:15px; font-weight:700; color:var(--navy); }
+    .partner-card span { font-size:13px; color:var(--dark); line-height:1.6; }
+    .partner-since { display:inline-block; font-size:11px; font-weight:700; background:var(--light); color:var(--dark); border-radius:20px; padding:2px 10px; width:fit-content; }
+
+    /* ── OFICINAS ── */
+    .oficinas { background:var(--light); padding:72px 5%; }
+    .oficinas-inner { max-width:1200px; margin:0 auto; }
+    .oficinas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:40px; }
+    .oficina-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:28px; }
+    .oficina-hq { border:2px solid var(--blue); }
+    .hq-badge { display:inline-block; background:var(--blue); color:var(--white); font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; margin-bottom:12px; }
+    .oficina-flag { font-size:28px; margin-bottom:12px; }
+    .sede { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--blue); margin-bottom:6px; }
+    .oficina-card h3 { font-size:17px; font-weight:700; color:var(--navy); margin-bottom:10px; }
+    .oficina-card p { font-size:13px; color:var(--dark); line-height:1.7; }
+
+    /* ── CTA ── */
+    .cta-band { background:var(--orange); padding:56px 5%; }
+    .cta-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; }
+    .cta-text h2 { font-family:var(--font-display); font-size:28px; color:var(--white); margin-bottom:8px; }
+    .cta-text p { font-size:15px; color:rgba(255,255,255,.85); }
+    .cta-btns { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-cta-band { display:inline-block; background:var(--white); color:var(--orange); font-weight:700; font-size:14px; padding:13px 26px; border-radius:8px; white-space:nowrap; transition:background .15s; }
+    .btn-cta-band:hover { background:#fff7ed; }
+    .btn-wa { display:inline-flex; align-items:center; gap:8px; background:#25D366; color:var(--white); padding:13px 22px; border-radius:8px; font-weight:700; font-size:14px; }
+    .btn-wa svg { width:18px; height:18px; fill:white; flex-shrink:0; }
 
     /* ── FOOTER ── */
-    footer { background: var(--navy); padding: 56px 5% 24px; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; }
-    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-    .footer-brand p { font-size: 13px; color: #94A3B8; line-height: 1.75; margin-top: 16px; }
-    .footer-contact { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
-    .footer-contact a { font-size: 13px; color: #94A3B8; transition: color .15s; }
-    .footer-contact a:hover { color: var(--white); }
-    .footer-col h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .footer-col ul li a { font-size: 13px; color: #CBD5E1; transition: color .15s; }
-    .footer-col ul li a:hover { color: var(--white); }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; }
-    .footer-bottom p { font-size: 12px; color: #64748B; }
-    .footer-bottom p a { color: #64748B; }
-    .footer-bottom p a:hover { color: var(--white); }
-    .footer-social { display: flex; gap: 12px; }
-    .footer-social a { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #94A3B8; transition: background .15s, color .15s; }
-    .footer-social a:hover { background: var(--blue); color: var(--white); }
-
-    /* ── WHATSAPP FLOTANTE ── */
-    .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 52px; height: 52px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); transition: transform .2s; }
-    .wa-float:hover { transform: scale(1.1); }
-    .wa-float svg { width: 28px; height: 28px; fill: white; }
+    footer { background:var(--navy); padding:56px 5% 24px; }
+    .footer-inner { max-width:1200px; margin:0 auto; }
+    .footer-grid { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px; }
+    .footer-brand p { font-size:13px; color:#94A3B8; line-height:1.75; margin-top:16px; }
+    .footer-contact { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
+    .footer-contact a { font-size:13px; color:#94A3B8; }
+    .footer-contact a:hover { color:var(--white); }
+    .footer-col h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#94A3B8; margin-bottom:16px; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .footer-col ul li a { font-size:13px; color:#CBD5E1; }
+    .footer-col ul li a:hover { color:var(--white); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:24px; display:flex; align-items:center; justify-content:space-between; }
+    .footer-bottom p { font-size:12px; color:#64748B; }
+    .footer-social { display:flex; gap:12px; }
+    .footer-social a { width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#94A3B8; transition:background .15s,color .15s; }
+    .footer-social a:hover { background:var(--blue); color:var(--white); }
+    .wa-float { position:fixed; bottom:24px; right:24px; z-index:999; width:52px; height:52px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,.45); transition:transform .2s; }
+    .wa-float:hover { transform:scale(1.1); }
+    .wa-float svg { width:28px; height:28px; fill:white; }
 
     /* ── ACCESSIBILITY ── */
-    .skip-link { position: absolute; top: -60px; left: 16px; background: var(--navy); color: var(--white); padding: 8px 16px; border-radius: 0 0 8px 8px; font-size: 14px; font-weight: 600; z-index: 9999; text-decoration: none; transition: top .2s; }
-    .skip-link:focus { top: 0; }
-    *:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
-    button:focus-visible, a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+    .skip-link { position:absolute; top:-60px; left:16px; background:var(--navy); color:var(--white); padding:8px 16px; border-radius:0 0 8px 8px; font-size:14px; font-weight:600; z-index:9999; text-decoration:none; transition:top .2s; }
+    .skip-link:focus { top:0; }
+    *:focus-visible { outline:3px solid var(--blue); outline-offset:2px; border-radius:4px; }
+    button:focus-visible, a:focus-visible { outline:3px solid var(--blue); outline-offset:2px; border-radius:4px; }
 
-    @media (max-width: 768px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-      .footer-bottom { flex-direction: column; text-align: center; gap: 16px; }
-      .wip-hero h1 { font-size: 28px; }
-      .wip-hero p { font-size: 15px; }
+    /* ── RESPONSIVE ── */
+    @media (max-width:960px) {
+      .hero-inner { grid-template-columns:1fr; gap:36px; }
+      .quienes-inner { grid-template-columns:1fr; gap:36px; }
+      .mercados-grid { grid-template-columns:1fr; gap:16px; }
+      .servicios-grid { grid-template-columns:1fr 1fr; }
+      .partners-grid { grid-template-columns:1fr; }
+      .oficinas-grid { grid-template-columns:1fr; }
+      .stats-inner { grid-template-columns:1fr 1fr; }
+      .hero h1 { font-size:32px; }
+    }
+    @media (max-width:768px) {
+      .footer-grid { grid-template-columns:1fr; gap:28px; }
+      .footer-bottom { flex-direction:column; text-align:center; gap:16px; }
+      .cta-inner { flex-direction:column; text-align:center; }
+      .cta-btns { justify-content:center; }
+    }
+    @media (max-width:480px) {
+      .servicios-grid { grid-template-columns:1fr; }
+      .stat-item .n { font-size:30px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══ SKIP LINK ══ -->
 <a class="skip-link" href="#main-content">Ir al contenido principal</a>
 
-<!-- ══ HEADER ══ -->
 <header>
   <div class="header-inner">
-    <a href="../index.html" class="logo-link">
-      <img src="../assets/logo.svg" alt="TAEC — Inicio" />
-    </a>
+    <a href="../index.html" class="logo-link"><img src="../assets/logo.svg" alt="TAEC — Inicio" /></a>
     <nav>
       <div class="nav-item">
         <button class="nav-link" aria-haspopup="true" aria-expanded="false">Soluciones
@@ -248,7 +308,7 @@
           </div>
         </div>
       </div>
-      <a href="nosotros.html">Nosotros</a>
+      <a href="nosotros.html" aria-current="page">Nosotros</a>
       <a href="clientes.html">Clientes</a>
       <a href="contacto.html">Contacto</a>
     </nav>
@@ -256,11 +316,10 @@
       <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" class="btn-tienda">Tienda</a>
       <a href="https://tidycal.com/slimmasmoudi/consultoria-estrategia" target="_blank" rel="noopener noreferrer" class="btn-cta">Agendar diagnóstico →</a>
     </div>
-    <button class="hamburger" id="menuBtn" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="menuBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
   </div>
 </header>
+
 <nav class="mobile-nav" id="mobileNav">
   <button class="mob-toggle" id="mobSol" onclick="toggleMob('mobSolSec','mobSol')" aria-expanded="false" aria-controls="mobSolSec">Soluciones
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -296,7 +355,7 @@
     <span class="mob-cat">Cursos Cerrados</span>
     <a href="contacto.html">Solicitar programa →</a>
   </div>
-  <a href="nosotros.html">Nosotros</a>
+  <a href="nosotros.html" aria-current="page">Nosotros</a>
   <a href="clientes.html">Clientes</a>
   <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer">Tienda</a>
   <a href="contacto.html">Contacto</a>
@@ -305,31 +364,276 @@
 
 <main id="main-content">
 
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Empresa</span>
-    <span class="wip-icon" role="img" aria-label="Quiénes somos">🏛️</span>
-    <h1>Quiénes somos</h1>
-    <p>18 años acompañando a organizaciones en México y LATAM a implementar estrategias de aprendizaje corporativo.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">Empresa · Desde 2007</span>
+      <h1>Tecnología al servicio del <em>aprendizaje corporativo</em></h1>
+      <p class="hero-sub">Somos Tecnología Avanzada para la Educación y la Capacitación, S.A. de C.V. Desde la Ciudad de México impulsamos el aprendizaje digital en organizaciones de México y América Latina.</p>
+      <p class="hero-razon">Tecnología Avanzada para la Educación y la Capacitación, S.A. de C.V.</p>
+      <div class="hero-actions">
+        <a href="https://tidycal.com/slimmasmoudi/consultoria-estrategia" target="_blank" rel="noopener noreferrer" class="btn-primary">Agendar diagnóstico →</a>
+        <a href="contacto.html" class="btn-ghost">Escribirnos</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <p class="hero-card-title">En números</p>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="num">18</div>
+          <div class="lbl">años de experiencia</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">+1,500</div>
+          <div class="lbl">clientes en LATAM</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">17</div>
+          <div class="lbl">países atendidos</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">+200</div>
+          <div class="lbl">proyectos entregados</div>
+        </div>
+      </div>
+      <div class="offices-row">
+        <div class="office-item"><span class="office-dot"></span>🇲🇽 Ciudad de México (sede central)</div>
+        <div class="office-item"><span class="office-dot"></span>🇨🇴 Bogotá, Colombia</div>
+        <div class="office-item"><span class="office-dot"></span>🇨🇱 Santiago de Chile</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAND ══ -->
+<section class="stats-band" aria-label="Estadísticas TAEC">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="n">2007</div>
+      <div class="l">Año de fundación en CDMX</div>
+    </div>
+    <div class="stat-item">
+      <div class="n">+1,500</div>
+      <div class="l">Clientes en México y LATAM</div>
+    </div>
+    <div class="stat-item">
+      <div class="n">17</div>
+      <div class="l">Países con presencia activa</div>
+    </div>
+    <div class="stat-item">
+      <div class="n">+200</div>
+      <div class="l">Proyectos completos entregados</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUIÉNES SOMOS ══ -->
+<section class="quienes">
+  <div class="quienes-inner">
+    <div>
+      <p class="section-label">Quiénes somos</p>
+      <h2 class="section-title">18 años construyendo el futuro del aprendizaje corporativo</h2>
+      <p class="body-text">TAEC fue fundada en la Ciudad de México en 2007 con una misión clara: hacer que la tecnología educativa sea accesible, práctica y medible para las organizaciones de México y América Latina.</p>
+      <p class="body-text">Hoy contamos con más de 1,500 clientes en 17 países, oficinas en CDMX, Bogotá y Santiago de Chile, y más de 200 proyectos completos entregados. Somos partners oficiales de las principales herramientas del mundo: Articulate, Vyond y Totara.</p>
+      <p class="body-text">Atendemos los mercados corporativo, gubernamental y académico, ofreciendo desde herramientas de autoría y plataformas LMS hasta evaluaciones en línea, microlearning y cursos a la medida — todo con soporte en español y facturación mexicana.</p>
+    </div>
+    <div class="valores-grid">
+      <div class="valor-card">
+        <div class="valor-icon" aria-hidden="true">🎯</div>
+        <div class="valor-text">
+          <strong>Resultados medibles</strong>
+          <span>No vendemos cursos, acompañamos estrategias. Cada proyecto se diseña para impactar indicadores reales de la organización.</span>
+        </div>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon" aria-hidden="true">🤝</div>
+        <div class="valor-text">
+          <strong>Partner, no proveedor</strong>
+          <span>Nuestros clientes nos llaman cuando tienen un reto, no solo cuando quieren comprar. Eso no se construye de la noche a la mañana — son 18 años de trabajo.</span>
+        </div>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon" aria-hidden="true">🌎</div>
+        <div class="valor-text">
+          <strong>Contexto latinoamericano</strong>
+          <span>Soporte en español, factura electrónica mexicana, precios en pesos y comprensión real de las necesidades de equipos L&amp;D en LATAM.</span>
+        </div>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon" aria-hidden="true">⚡</div>
+        <div class="valor-text">
+          <strong>Tecnología + Creatividad + IA</strong>
+          <span>Combinamos las mejores herramientas del mercado con diseño instruccional, creatividad audiovisual e inteligencia artificial.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MERCADOS ══ -->
+<section class="mercados">
+  <div class="mercados-inner">
+    <p class="section-label">Mercados que atendemos</p>
+    <h2 class="section-title">Soluciones para cada sector</h2>
+    <div class="mercados-grid">
+      <div class="mercado-card">
+        <div class="mercado-top">
+          <div class="mercado-icon" aria-hidden="true">🏢</div>
+          <div class="mercado-pct">70%</div>
+        </div>
+        <h3>Corporativo</h3>
+        <p>Empresas medianas y grandes que necesitan capacitar equipos de forma escalable, medible y con alto impacto en resultados de negocio.</p>
+        <div class="mercado-bar"><div class="mercado-bar-fill" style="width:70%"></div></div>
+        <div class="mercado-tags">
+          <span class="mercado-tag">RRHH</span>
+          <span class="mercado-tag">Ventas</span>
+          <span class="mercado-tag">Compliance</span>
+          <span class="mercado-tag">Onboarding</span>
+        </div>
+      </div>
+      <div class="mercado-card">
+        <div class="mercado-top">
+          <div class="mercado-icon" aria-hidden="true">🎓</div>
+          <div class="mercado-pct">20%</div>
+        </div>
+        <h3>Académico</h3>
+        <p>Universidades, institutos y centros de formación que modernizar su oferta educativa con herramientas digitales de primer nivel.</p>
+        <div class="mercado-bar"><div class="mercado-bar-fill" style="width:20%"></div></div>
+        <div class="mercado-tags">
+          <span class="mercado-tag">Universidades</span>
+          <span class="mercado-tag">Ed. continua</span>
+          <span class="mercado-tag">Aulas virtuales</span>
+        </div>
+      </div>
+      <div class="mercado-card">
+        <div class="mercado-top">
+          <div class="mercado-icon" aria-hidden="true">🏛️</div>
+          <div class="mercado-pct">10%</div>
+        </div>
+        <h3>Gubernamental</h3>
+        <p>Dependencias e instituciones públicas que requieren plataformas robustas y soluciones de capacitación masiva para servidores públicos.</p>
+        <div class="mercado-bar"><div class="mercado-bar-fill" style="width:10%"></div></div>
+        <div class="mercado-tags">
+          <span class="mercado-tag">Plataformas LMS</span>
+          <span class="mercado-tag">Certificaciones</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICIOS ══ -->
+<section class="servicios-sec">
+  <div class="servicios-inner">
+    <p class="section-label">Lo que hacemos</p>
+    <h2 class="section-title">Un rango completo de soluciones e-learning</h2>
+    <div class="servicios-grid">
+      <div class="serv-card">
+        <div class="ico" aria-hidden="true">✏️</div>
+        <h3>Diseño de cursos e-learning</h3>
+        <p>Producción a medida: diseño instruccional, guiones, desarrollo en Articulate o Vyond, revisión y publicación en tu LMS.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ico" aria-hidden="true">⏱️</div>
+        <h3>Microlearning</h3>
+        <p>Formatos cortos, efectivos y adaptados a móvil para reforzar conocimientos clave en el momento de trabajo.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ico" aria-hidden="true">🎮</div>
+        <h3>Gamificación</h3>
+        <p>Mecánicas de juego integradas al aprendizaje para aumentar motivación, engagement y retención del conocimiento.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ico" aria-hidden="true">🖥️</div>
+        <h3>Plataformas LMS</h3>
+        <p>Implementación, hosting SaaS, personalización y soporte de Moodle, Totara, Ottolearn y otras plataformas líderes.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ico" aria-hidden="true">📋</div>
+        <h3>Evaluaciones en línea</h3>
+        <p>Exámenes seguros con Proctorizer, detección de plagio con StrikePlagiarism y análisis con Zoola Analytics.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ico" aria-hidden="true">📚</div>
+        <h3>Contenidos de catálogo</h3>
+        <p>Acceso a miles de cursos listos: GO1, 7 Minutes Learning, Custom Guide — integrados a tu LMS existente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARTNERS ══ -->
+<section class="partners">
+  <div class="partners-inner">
+    <p class="section-label">Alianzas estratégicas</p>
+    <h2 class="section-title">Partners oficiales de las mejores herramientas</h2>
+    <p class="partners-sub">No revendemos licencias — somos partners certificados con soporte local, capacitación y acompañamiento en español.</p>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <div class="p-icon orange" aria-hidden="true">🏆</div>
+        <strong>Articulate</strong>
+        <span>Partner oficial desde 2007. La suite más usada para crear cursos e-learning interactivos en el mundo.</span>
+        <span class="partner-since">Partner desde 2007</span>
+      </div>
+      <div class="partner-card">
+        <div class="p-icon purple" aria-hidden="true">🎬</div>
+        <strong>Vyond</strong>
+        <span>Partner oficial para México y LATAM. La plataforma líder en animación y video corporativo para e-learning.</span>
+        <span class="partner-since">Partner oficial LATAM</span>
+      </div>
+      <div class="partner-card">
+        <div class="p-icon green" aria-hidden="true">🌿</div>
+        <strong>Totara</strong>
+        <span>Partner certificado de Totara Learn, Engage y Perform — el LMS más flexible para grandes organizaciones.</span>
+        <span class="partner-since">Partner certificado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OFICINAS ══ -->
+<section class="oficinas">
+  <div class="oficinas-inner">
+    <p class="section-label">Dónde estamos</p>
+    <h2 class="section-title">Tres oficinas, una misma pasión por el aprendizaje</h2>
+    <div class="oficinas-grid">
+      <div class="oficina-card oficina-hq">
+        <div class="hq-badge">Sede central</div>
+        <div class="oficina-flag" aria-hidden="true">🇲🇽</div>
+        <div class="sede">México</div>
+        <h3>Ciudad de México</h3>
+        <p>Fundada aquí en 2007. Nuestra sede principal, desde donde coordinamos proyectos para todo México y LATAM.</p>
+        <p style="margin-top:12px;font-size:13px;">
+          <a href="tel:5568223300" style="color:var(--blue);font-weight:600;">📞 55 6822 3300</a><br>
+          <a href="mailto:info@taec.com.mx" style="color:var(--blue);font-weight:600;">✉ info@taec.com.mx</a>
+        </p>
+      </div>
+      <div class="oficina-card">
+        <div class="oficina-flag" aria-hidden="true">🇨🇴</div>
+        <div class="sede">Colombia</div>
+        <h3>Bogotá</h3>
+        <p>Nuestra puerta de entrada a Sudamérica. Desde Bogotá atendemos clientes en Colombia, Venezuela, Ecuador, Perú y más.</p>
+      </div>
+      <div class="oficina-card">
+        <div class="oficina-flag" aria-hidden="true">🇨🇱</div>
+        <div class="sede">Chile</div>
+        <h3>Santiago de Chile</h3>
+        <p>Presencia en el Cono Sur para atender a organizaciones en Chile, Argentina y Uruguay con soporte en horario local.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre Quiénes somos?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href="contacto.html" class="btn-primary">Escribirnos →</a>
+<section class="cta-band">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>¿Conversamos sobre tu proyecto?</h2>
+      <p>Una llamada de 30 minutos es suficiente para saber cómo podemos ayudarte.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="https://tidycal.com/slimmasmoudi/consultoria-estrategia" target="_blank" rel="noopener noreferrer" class="btn-cta-band">Agendar diagnóstico →</a>
       <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-wa">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         WhatsApp
@@ -338,17 +642,14 @@
   </div>
 </section>
 
-</main><!-- /#main-content -->
+</main>
 
-<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="../index.html" class="logo-link">
-          <img src="../assets/logo.svg" alt="TAEC" />
-        </a>
-        <p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde CDMX para México y LATAM.</p>
+        <a href="../index.html" class="logo-link"><img src="../assets/logo.svg" alt="TAEC" /></a>
+        <p>Tecnología Avanzada para la Educación y la Capacitación, S.A. de C.V. Desde 2007 en CDMX para México y LATAM.</p>
         <div class="footer-contact">
           <a href="mailto:info@taec.com.mx">✉ info@taec.com.mx</a>
           <a href="tel:5568223300">📞 55 6822 3300</a>
@@ -384,7 +685,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="year"></span> TAEC <span style="opacity:.5;font-size:11px;">(ver 1.8)</span> · Ciudad de México · <a href="#">Aviso de privacidad</a></p>
+      <p>© <span id="year"></span> TAEC <span style="opacity:.5;font-size:11px;">(ver 1.9)</span> · Ciudad de México · <a href="#">Aviso de privacidad</a></p>
       <div class="footer-social">
         <a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" title="LinkedIn">in</a>
         <a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" title="YouTube">YT</a>
@@ -395,28 +696,26 @@
   </div>
 </footer>
 
-<!-- ══ WHATSAPP FLOTANTE ══ -->
 <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC" aria-label="Contactar por WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-  const menuBtn = document.getElementById("menuBtn");
-  const mobileNav = document.getElementById("mobileNav");
-  menuBtn.addEventListener("click", () => {
-    menuBtn.classList.toggle("open");
-    mobileNav.classList.toggle("open");
-    menuBtn.setAttribute("aria-label", mobileNav.classList.contains("open") ? "Cerrar menú" : "Abrir menú");
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    menuBtn.setAttribute('aria-label', mobileNav.classList.contains('open') ? 'Cerrar menú' : 'Abrir menú');
   });
   function toggleMob(sectionId, btnId) {
     const sec = document.getElementById(sectionId);
     const btn = document.getElementById(btnId);
-    sec.classList.toggle("open");
-    btn.classList.toggle("open");
-    btn.setAttribute("aria-expanded", btn.classList.contains("open") ? "true" : "false");
+    sec.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', btn.classList.contains('open') ? 'true' : 'false');
   }
 </script>
-
 </body>
 </html>
