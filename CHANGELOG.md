@@ -4,6 +4,36 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.2 · 15 mar 2026
+
+### Home (`index.html`)
+- **Headline** rediseñado: *"Articulate + Vyond + LMS + capacitación: el stack completo en español"* (reemplaza "resultados reales")
+- **Hero tag** — `white-space: nowrap`: ya no se parte en 2 líneas
+- **Hero sub-copy** — *"Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada."*
+- **Stat** — "+200 proyectos entregados" → "+200 implementaciones enterprise"
+- **Confían en TAEC** — chips de texto → píldoras blancas con logos reales vía Clearbit API (GS1, VivaAerobús, UNICEF, OIM, Mosaic, F. Omar Dengo, Linktech) con fallback a texto
+
+### Vyond — Precios (`vyond-mexico.html`)
+- Sección de precios rediseñada: 3 columnas al estilo Articulate 360
+  - **Demo gratuita** — link directo `think.vyond.com/signup`, sin tarjeta de crédito
+  - **Professional** — US$1,199/año (precio anual único)
+  - **Enterprise** — US$1,649/año · badge "⭐ Mejor opción para equipos"
+- Eliminado: precio mensual, "Multi-seat", "Customer Success TAEC" de tarjetas
+
+### Vyond — Navegación por tabs
+- Pestaña **Vyond** añadida como primera opción en los 4 archivos (mexico, go, studio, mobile)
+- `vyond-mexico.html` ahora tiene barra de tabs completa idéntica a Articulate 360
+
+### Videos Vyond
+- Botón 🔇/🔊 añadido en esquina inferior derecha de los 3 videos hero (go, studio, mobile)
+
+### SEO
+- **`sitemap.xml`** — 40 URLs con prioridades por tipo de página (1.0 home → 0.6 add-ons)
+- **`robots.txt`** — `Allow: /` + referencia a sitemap
+- Pendiente: enviar sitemap en Google Search Console
+
+---
+
 ## v2.1 · 15 mar 2026
 
 ### Vyond — Subpáginas completas
