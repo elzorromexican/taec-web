@@ -478,8 +478,13 @@
   document.getElementById("year").textContent = new Date().getFullYear();
   (function(){
     var p = location.pathname;
-    var secMap = {'Soluciones':/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios|rise-360|storyline-360|studio-360/,'Capacitaci':/capacitacion|7minutes|go1|customguide|curso-/};
-    Object.keys(secMap).forEach(function(sec){ if(secMap[sec].test(p)){ document.querySelectorAll('header button.nav-link').forEach(function(btn){ if(btn.textContent.trim().indexOf(sec)===0) btn.classList.add('active'); }); } });
+    var isCurso = /curso-/.test(p);
+    var secMap = {
+      'Soluciones':    !isCurso && /articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/.test(p),
+      'Capacitaci':    /capacitacion|7minutes|go1|customguide|curso-/.test(p)
+    };
+    Object.keys(secMap).forEach(function(sec){
+      if(secMap[sec]){ document.querySelectorAll('header button.nav-link').forEach(function(btn){ if(btn.textContent.trim().indexOf(sec)===0) btn.classList.add('active'); }); } });
     document.querySelectorAll('header a[href]').forEach(function(a){ var href=a.getAttribute('href')||''; if(!href||href==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0||href.indexOf('http')===0||a.classList.contains('logo-link')||a.classList.contains('btn-cta')) return; if(a.closest('.mega-menu')||a.closest('.simple-dropdown')) return; var linked=href.split('/').pop(); if(linked&&linked===location.pathname.split('/').pop()) a.classList.add('active'); });
   })();
   const menuBtn=document.getElementById("menuBtn"); const mobileNav=document.getElementById("mobileNav");

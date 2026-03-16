@@ -190,6 +190,18 @@
       .how-grid,.uc-grid,.explore-grid{grid-template-columns:1fr}
       .prod-stats-inner{gap:28px}
     }
+    /* ── video player ── */
+    .prod-hero-video-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.4);background:#000;cursor:pointer}
+    .prod-hero-video-wrap video{width:100%;display:block}
+    .prod-video-label{position:absolute;bottom:56px;left:12px;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);color:#fff;font-size:11px;font-weight:600;padding:4px 10px;border-radius:4px;letter-spacing:.4px}
+    .prod-video-mute{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .15s;z-index:3}
+    .prod-video-mute:hover{background:rgba(0,0,0,.8)}
+    .prod-video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;z-index:2}
+    .prod-hero-video-wrap:hover .prod-video-play{opacity:1}
+    .prod-video-play-btn{width:56px;height:56px;background:rgba(255,255,255,.2);backdrop-filter:blur(6px);border:2px solid rgba(255,255,255,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .prod-video-play-btn::after{content:'';border-left:18px solid white;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+    .prod-hero-video-wrap.paused .prod-video-play{opacity:1}
+    .prod-hero-video-wrap.paused .prod-video-play-btn::after{content:'';border-left:5px solid white;border-right:5px solid white;border-top:none;border-bottom:none;width:16px;height:18px;margin-left:0}
 </style>
 </head>
 <body>
@@ -342,7 +354,7 @@
           <source src="../assets/videos/vyond-go.mp4" type="video/mp4">
         </video>
         <button class="prod-video-mute" id="muteBtn" onclick="var v=this.closest('.prod-hero-video-wrap').querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊'" aria-label="Activar sonido">🔇</button>
-        <div class="prod-video-play" onclick="var v=this.closest('.prod-hero-video-wrap').querySelector('video');v.paused?(v.play(),this.classList.remove('paused')):(v.pause(),this.classList.add('paused'))" aria-label="Play/Pausa"></div>
+        <div class="prod-video-play" aria-label="Play/Pausa"><div class="prod-video-play-btn"></div></div>
         <div class="prod-video-label">Demo · Vyond Go</div>
       </div>
       <div class="prod-hero-feats-bar">
@@ -466,14 +478,26 @@
   document.getElementById("year").textContent = new Date().getFullYear();
   (function(){
     var p=location.pathname;
-    var secMap={'Soluciones':/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios|rise-360|storyline-360|studio-360/,'Capacitaci':/capacitacion|7minutes|go1|customguide|curso-/};
-    Object.keys(secMap).forEach(function(sec){if(secMap[sec].test(p)){document.querySelectorAll('header button.nav-link').forEach(function(btn){if(btn.textContent.trim().indexOf(sec)===0)btn.classList.add('active');});}});
+    var isCurso=/curso-/.test(p);
+    var secMap={'Soluciones':!isCurso&&/articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios|rise-360|storyline-360|studio-360/.test(p),'Capacitaci':/capacitacion|7minutes|go1|customguide|curso-/.test(p)};
+    Object.keys(secMap).forEach(function(sec){if(secMap[sec]){document.querySelectorAll('header button.nav-link').forEach(function(btn){if(btn.textContent.trim().indexOf(sec)===0)btn.classList.add('active');});}});
     document.querySelectorAll('header a[href]').forEach(function(a){var href=a.getAttribute('href')||'';if(!href||href==='#'||href.indexOf('mailto:')===0||href.indexOf('tel:')===0||href.indexOf('http')===0||a.classList.contains('logo-link')||a.classList.contains('btn-cta'))return;if(a.closest('.mega-menu')||a.closest('.simple-dropdown'))return;var linked=href.split('/').pop();if(linked&&linked===location.pathname.split('/').pop())a.classList.add('active');});
   })();
   const menuBtn=document.getElementById("menuBtn"),mobileNav=document.getElementById("mobileNav");
   menuBtn.addEventListener("click",()=>{menuBtn.classList.toggle("open");mobileNav.classList.toggle("open");menuBtn.setAttribute("aria-label",mobileNav.classList.contains("open")?"Cerrar menú":"Abrir menú");});
   function toggleMob(sId,bId){var s=document.getElementById(sId),b=document.getElementById(bId);s.classList.toggle("open");b.classList.toggle("open");b.setAttribute("aria-expanded",b.classList.contains("open")?"true":"false");}
   (function(){document.querySelectorAll('.nav-item').forEach(function(item){var btn=item.querySelector('button.nav-link');if(!btn)return;btn.addEventListener('click',function(e){e.stopPropagation();var isOpen=item.classList.contains('open');document.querySelectorAll('.nav-item').forEach(function(i){i.classList.remove('open');var b=i.querySelector('button.nav-link');if(b)b.setAttribute('aria-expanded','false');});if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true');}});});document.addEventListener('click',function(){document.querySelectorAll('.nav-item').forEach(function(i){i.classList.remove('open');var b=i.querySelector('button.nav-link');if(b)b.setAttribute('aria-expanded','false');});});})();
+  // ── Video play/pause
+  document.querySelectorAll('.prod-hero-video-wrap').forEach(function(wrap){
+    var vid = wrap.querySelector('video');
+    if(!vid) return;
+    wrap.addEventListener('click', function(e){
+      if(e.target.closest('.prod-video-mute')) return;
+      if(vid.paused){ vid.play(); wrap.classList.remove('paused'); }
+      else { vid.pause(); wrap.classList.add('paused'); }
+    });
+  });
+
 </script>
 </body>
 </html>
