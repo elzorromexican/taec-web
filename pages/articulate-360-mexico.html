@@ -394,6 +394,12 @@
     .g2-footer { text-align: center; margin-top: 24px; }
     .g2-link { font-size: 13px; color: #64748B; text-decoration: underline; }
     .g2-link:hover { color: #FF492C; }
+    /* ── product tabs ── */
+    .art-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%;overflow-x:auto}
+    .art-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
+    .art-tab{display:inline-flex;align-items:center;padding:14px 18px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+    .art-tab:hover{color:var(--blue)}
+    .art-tab.active{color:var(--navy);border-bottom-color:var(--navy)}
   </style>
 </head>
 <body>
@@ -528,6 +534,19 @@
 </nav>
 
 <main id="main-content">
+
+<!-- ══ PRODUCT TABS ══ -->
+<div class="art-tabs">
+  <div class="art-tabs-inner">
+    <a href="articulate-360-mexico.html" class="art-tab active">Articulate 360</a>
+    <a href="articulate-rise360.html" class="art-tab">Rise 360</a>
+    <a href="articulate-storyline360.html" class="art-tab">Storyline 360</a>
+    <a href="articulate-review360.html" class="art-tab">Review 360</a>
+    <a href="articulate-reach.html" class="art-tab">Reach 360</a>
+    <a href="articulate-ai-assistant.html" class="art-tab">AI Assistant</a>
+    <a href="articulate-localization.html" class="art-tab">Localization</a>
+  </div>
+</div>
 
 <!-- ══ BREADCRUMB ══ -->
 <div class="breadcrumb">
