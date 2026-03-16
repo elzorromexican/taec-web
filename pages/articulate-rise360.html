@@ -83,14 +83,12 @@
     /* ══════════════════════════════════════
        HERO — navy gradient
        ══════════════════════════════════════ */
-    .art-hero{background:linear-gradient(135deg, #020617 0%, #0F172A 40%, #1E3A5F 100%);padding:80px 5% 88px;position:relative;overflow:hidden}
-    .art-hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(49,121,194,.15) 0%,transparent 70%);pointer-events:none}
-    .art-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
-    .art-breadcrumb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 16px;border-radius:20px;margin-bottom:24px}
-    .art-breadcrumb a{color:rgba(255,255,255,.7);transition:color .15s}
-    .art-breadcrumb a:hover{color:white}
-    .art-hero h1{font-size:clamp(28px,3.8vw,48px);font-weight:800;color:white;line-height:1.12;margin-bottom:18px;letter-spacing:-.02em}
-    .art-hero h1 em{font-style:normal;color:var(--art-accent)}
+    /* ── PROPUESTA A: Rise Orange ── */
+    .art-hero{background:linear-gradient(135deg, #010B18 0%, #0D2137 45%, #004775 100%);padding:80px 5% 88px;position:relative;overflow:hidden}
+    .art-hero::before{content:'';position:absolute;top:-30%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(0,71,117,.25) 0%,transparent 65%);pointer-events:none}
+    .art-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}    .art-product-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:var(--art-accent);letter-spacing:-.01em;margin-bottom:10px;line-height:1}
+    .art-hero h1{font-size:clamp(34px,4.2vw,56px);font-weight:900;color:#FFFFFF;line-height:1.08;margin-bottom:18px;letter-spacing:-.03em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+    .art-hero h1 em{font-style:normal;color:#FFA552;}
     .art-hero-sub{font-size:17px;color:rgba(255,255,255,.75);margin-bottom:32px;line-height:1.7;max-width:480px}
     .art-btns{display:flex;gap:12px;flex-wrap:wrap}
     .btn-art-primary{background:var(--blue);color:white;font-weight:700;font-size:14px;padding:13px 28px;border-radius:8px;transition:background .15s;box-shadow:0 4px 16px rgba(49,121,194,.3)}
@@ -348,8 +346,7 @@
 <!-- ══ HERO ══ -->
 <section class="art-hero">
   <div class="art-hero-inner">
-    <div>
-      <span class="art-breadcrumb"><a href="articulate-360-mexico.html">Articulate 360</a> &rsaquo; Rise 360</span>
+    <div>      <p class="art-product-eyebrow">Rise 360</p>
       <h1>Cursos responsivos <em>en horas</em>, no semanas</h1>
       <p class="art-hero-sub">Bloques prediseñados, cero código, 100% web. Arrastra, personaliza y publica.</p>
       <div class="art-btns">
