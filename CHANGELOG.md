@@ -4,6 +4,16 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.3 · 16 mar 2026
+
+### Mega menú — Articulate 360 (5 archivos)
+- **`curso-cerrado-empresa.html`**, **`curso-cerrado-grupos.html`**, **`curso-fundamentos.html`**, **`curso-moodle.html`**, **`curso-vyond.html`**
+- Sublinks Articulate actualizados: de anchors internos (`#rise`, `#storyline`, `#studio`, `#content-library`, `#ai`) a páginas reales (`articulate-rise360.html`, `articulate-storyline360.html`, `articulate-review360.html`, `articulate-reach.html`, `articulate-ai-assistant.html`, `articulate-localization.html`)
+- Sublinks Vyond actualizados: de `#starter` / `#professional` → `vyond-go.html` / `vyond-studio.html` / `vyond-mobile.html`
+- Los otros ~35 archivos ya tenían los links correctos desde v2.2
+
+---
+
 ## v2.2 · 15 mar 2026
 
 ### Home (`index.html`)
