@@ -356,6 +356,12 @@
       .vy-ai-grid { grid-template-columns:1fr; }
       .vy-stats-inner { gap:28px; }
     }
+    .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
+    .prod-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
+    .prod-tab{display:flex;align-items:center;gap:6px;padding:14px 20px;font-size:14px;font-weight:600;color:#64748B;text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+    .prod-tab:hover{color:#111827}
+    .prod-tab.active{color:var(--vy-orange,#C84D16);border-bottom-color:var(--vy-orange,#C84D16)}
+    .prod-tab-icon{font-size:16px}
   </style>
 </head>
 <body>
@@ -450,6 +456,14 @@
       <span></span><span></span><span></span>
     </button>
   </div>
+
+<!-- ══ SUB-NAV TABS ══ -->
+<div class="prod-tabs"><div class="prod-tabs-inner">
+  <a href="vyond-mexico.html" class="prod-tab active"><span class="prod-tab-icon">🎥</span>Vyond</a>
+  <a href="vyond-go.html" class="prod-tab"><span class="prod-tab-icon">🤖</span>Vyond Go</a>
+  <a href="vyond-studio.html" class="prod-tab"><span class="prod-tab-icon">🎬</span>Vyond Studio</a>
+  <a href="vyond-mobile.html" class="prod-tab"><span class="prod-tab-icon">📱</span>Vyond Mobile</a>
+</div></div>
 </header>
 <nav class="mobile-nav" id="mobileNav">
   <button class="mob-toggle" id="mobSol" onclick="toggleMob('mobSolSec','mobSol')" aria-expanded="false" aria-controls="mobSolSec">Soluciones
