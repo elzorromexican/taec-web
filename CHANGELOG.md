@@ -6,6 +6,32 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ## v2.3 · 16 mar 2026
 
+### Vyond — Badge Certified Partner
+- Movido al cuadro derecho del hero (sobre los bullets "Por qué elegir Vyond con TAEC"), quitado de la sección de reconocimientos inferior
+- Separador visual con `border-bottom` incluido
+
+### Vyond — Tabs de navegación
+- Tab activo: eliminado fondo negro, conserva texto naranja `#C84D16` con raya inferior — igual que Articulate
+- Fix aplicado con `!important` en los 4 archivos: `vyond-mexico.html`, `vyond-go.html`, `vyond-studio.html`, `vyond-mobile.html`
+
+### Vyond — Precios (`vyond-mexico.html`)
+- Solo precio anual visible (eliminado precio mensual para evitar confusión)
+- Badge "⭐ Mejor opción para equipos" (antes decía "para empresas")
+- Eliminado: "Multi-seat", "Customer Success TAEC" de las tarjetas
+
+### Rise 360 — Hero visual
+- Imagen externa de Articulate (bloqueada por hotlink) reemplazada por mockup CSS del editor
+- Muestra: sidebar de bloques, canvas con header, bloque de texto y quiz de opción múltiple
+- Cero dependencia externa, carga instantánea
+
+### Eyebrow — Articulate (6 páginas)
+- Color unificado a `#7DD3FC` en: Rise 360, Storyline 360, Review 360, Reach 360, AI Assistant, Localization
+- Mismo tamaño `clamp(22px,2.4vw,32px)` y peso `900` en todas
+
+### Articulate 360 — página principal
+- Badge Authorized Reseller duplicado eliminado del hero (quedaba uno solo en la tarjeta derecha)
+- "PARTNER OFICIAL · MÉXICO Y LATAM" ajustado al mismo estilo eyebrow que las demás páginas
+
 ### Mega menú — Articulate 360 (5 archivos)
 - **`curso-cerrado-empresa.html`**, **`curso-cerrado-grupos.html`**, **`curso-fundamentos.html`**, **`curso-moodle.html`**, **`curso-vyond.html`**
 - Sublinks Articulate actualizados: de anchors internos (`#rise`, `#storyline`, `#studio`, `#content-library`, `#ai`) a páginas reales (`articulate-rise360.html`, `articulate-storyline360.html`, `articulate-review360.html`, `articulate-reach.html`, `articulate-ai-assistant.html`, `articulate-localization.html`)
