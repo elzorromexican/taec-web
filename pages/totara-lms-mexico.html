@@ -897,7 +897,7 @@
   </div>
   <!-- GIF centro — posición absoluta para centrado real -->
   <img src="../assets/download-icon.gif" alt="Descargar"
-       style="position:absolute;left:50%;transform:translateX(-50%);height:72px;width:72px;object-fit:contain;pointer-events:none;" />
+       style="position:absolute;left:50%;transform:translateX(-50%);height:64px;width:auto;pointer-events:none;" />
   <!-- CTA derecha -->
   <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
     <a href="#tot-lead-form" onclick="document.getElementById('tot-sticky-bar').style.transform='translateY(100%)'"
@@ -912,13 +912,16 @@
 (function(){
   var bar = document.getElementById('tot-sticky-bar');
   if(!bar) return;
-  var shown = false;
-  window.addEventListener('scroll', function(){
-    if(!shown && window.scrollY > 600){
+  /* Dispara cuando el usuario llega a la sección de productos */
+  var trigger = document.querySelector('.tot-products') || document.querySelector('.tot-why');
+  if(!trigger){ trigger = document.createElement('div'); trigger.style.cssText='position:absolute;top:40%;left:0;width:1px;height:1px;'; document.body.appendChild(trigger); }
+  var observer = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
       bar.style.transform = 'translateY(0)';
-      shown = true;
+      observer.disconnect();
     }
-  });
+  }, { threshold: 0.1 });
+  observer.observe(trigger);
 })();
 </script>
 
