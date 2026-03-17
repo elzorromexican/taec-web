@@ -4,6 +4,42 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.4 · 16 mar 2026
+
+### Totara LMS — Página completa (`totara-lms-mexico.html`)
+- Reconstrucción total desde "En construcción" a página de producto completa
+- **Hero** — gradiente oscuro navy `#001f3d → #004775 → #0077b6`, eyebrow "Totara LMS" en teal `#A8DBD9`
+- **Reseller badge** — `totara-reseller-vertical.png` en cuadro derecho del hero (sobre bullets), quitado logo genérico Totara
+- **Stats** — 20M+ usuarios · 35+ idiomas · 500+ empresas · 17 países
+- **3 productos** — Totara Learn / Totara Perform / Totara Mobile (Ayleen AI es feature integrado, NO producto separado)
+- **6 tarjetas "Por qué"** — Personalizable, Multidioma, Rutas de aprendizaje, Cumplimiento, App móvil, Soporte TAEC
+- **Badges de reconocimiento** — 4 imágenes reales de totara.com (2025-2026), no CSS cards
+- **G2** — link corregido: `/products/totara-learn/reviews` → `/products/totara-lms/reviews`
+- **Testimonial** — Isabel Flores, ISDIN
+- **FAQ** — 6 preguntas frecuentes
+
+### Totara — Lead Magnet "Novedades V20"
+- Formulario de registro (Nombre, Empresa, Email, Cargo) con EmailJS antes de descarga
+- EmailJS: service `service_v232r5x` / template `template_xjgle2w` / key `wiGRbwHK6dyZcHrUK`
+- Al enviar: formulario se oculta, aparece botón de descarga del PDF
+- **`assets/docs/totara-v20-novedades.pdf`** — PDF oficial Totara V20 (685 KB)
+
+### Totara — Sticky bar de captación
+- Barra fija en la parte inferior: aparece al scrollear 600px (scroll nativo, sin IntersectionObserver)
+- Texto izquierda: "Descarga gratis: Novedades Totara V20" + subtexto
+- **GIF animado** centro: `assets/download-icon.gif` dentro de contenedor circular teal `#A8DBD9` con `mix-blend-mode: multiply` (elimina fondo blanco del GIF sin editar el archivo)
+- Botón CTA derecha: "Descargar →" con animación `pulse-btn`
+- 3 animaciones CSS: `bounce-icon`, `pulse-btn`, `glow-border`
+- Botón × para cerrar
+
+### Assets nuevos
+- **`assets/logos/totara-reseller-vertical.png`** — Badge Totara Authorized Reseller vertical (90 KB)
+- **`assets/logos/totara-reseller-horizontal.png`** — Badge Totara Authorized Reseller horizontal (202 KB, comprimido de 4.9 MB con `sips`)
+- **`assets/docs/totara-v20-novedades.pdf`** — PDF V20 para lead magnet
+- **`assets/download-icon.gif`** — Ícono animado de descarga para sticky bar (90 KB)
+
+---
+
 ## v2.3 · 16 mar 2026
 
 ### Vyond — Badge Certified Partner
