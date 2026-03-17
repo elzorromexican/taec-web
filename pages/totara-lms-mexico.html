@@ -148,6 +148,24 @@
     .footer-social a { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #94A3B8; transition: background .15s, color .15s; }
     .footer-social a:hover { background: var(--blue); color: var(--white); }
 
+    /* ── STICKY BAR ANIMATIONS ── */
+    @keyframes bounce-icon {
+      0%,100% { transform: translateY(0); }
+      30%      { transform: translateY(-8px); }
+      60%      { transform: translateY(-4px); }
+    }
+    @keyframes pulse-btn {
+      0%,100% { box-shadow: 0 0 0 0 rgba(168,219,217,.7); }
+      50%      { box-shadow: 0 0 0 10px rgba(168,219,217,0); }
+    }
+    @keyframes glow-border {
+      0%,100% { border-top-color: #A8DBD9; }
+      50%      { border-top-color: #ffffff; }
+    }
+    .tot-sticky-icon  { animation: bounce-icon 1.6s ease-in-out infinite; display:inline-block; }
+    .tot-sticky-btn   { animation: pulse-btn   1.8s ease-in-out infinite; }
+    #tot-sticky-bar   { animation: glow-border 2s ease-in-out infinite; }
+
     /* ── WHATSAPP FLOTANTE ── */
     .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 52px; height: 52px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); transition: transform .2s; }
     .wa-float:hover { transform: scale(1.1); }
@@ -870,14 +888,14 @@
 <!-- ══ STICKY BAR — PDF ══ -->
 <div id="tot-sticky-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:998;background:#001f3d;border-top:2px solid #A8DBD9;padding:12px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;transform:translateY(100%);transition:transform .4s ease;box-shadow:0 -4px 24px rgba(0,0,0,.25);">
   <div style="display:flex;align-items:center;gap:14px;flex:1;min-width:0;">
-    <span style="font-size:28px;flex-shrink:0;">📄</span>
+    <span class="tot-sticky-icon" style="font-size:28px;flex-shrink:0;">📄</span>
     <div>
       <p style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Descarga gratis: Novedades Totara V20</p>
       <p style="font-size:12px;color:rgba(255,255,255,.6);">PDF oficial · Totara Learn, Perform y Mobile · Ayleen AI</p>
     </div>
   </div>
   <a href="#tot-lead-form" onclick="document.getElementById('tot-sticky-bar').style.transform='translateY(100%)'"
-     style="flex-shrink:0;background:#A8DBD9;color:#001f3d;font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;white-space:nowrap;transition:opacity .15s;">
+     class="tot-sticky-btn" style="flex-shrink:0;background:#A8DBD9;color:#001f3d;font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;white-space:nowrap;transition:opacity .15s;">
     Descargar →
   </a>
   <button onclick="document.getElementById('tot-sticky-bar').style.transform='translateY(100%)'"
