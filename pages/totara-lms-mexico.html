@@ -353,6 +353,9 @@
     }
 
   </style>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('wiGRbwHK6dyZcHrUK');</script>
 </head>
 <body>
 
@@ -672,6 +675,91 @@
   <p class="tot-quote-author">Isabel Flores</p>
   <p class="tot-quote-role">Corporate Training &amp; Learning Manager · ISDIN</p>
 </section>
+
+<!-- ══ LEAD MAGNET ══ -->
+<section style="padding:64px 5%;background:white;border-top:1px solid var(--border);">
+  <div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+
+    <!-- Info -->
+    <div>
+      <p style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--tot);margin-bottom:10px;">Recurso gratuito</p>
+      <h2 style="font-family:var(--font-display);font-size:clamp(22px,2.2vw,30px);font-weight:400;color:#111827;margin-bottom:16px;">Descarga: Novedades de Totara V20</h2>
+      <p style="font-size:15px;color:#64748B;line-height:1.7;margin-bottom:20px;">Todo lo nuevo en la versión 20 de Totara — IA con Ayleen, mejoras en Perform, Mobile y nuevas integraciones. PDF oficial en inglés.</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+        <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>Novedades Totara Learn V20</li>
+        <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>Mejoras en Perform y Mobile</li>
+        <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>IA integrada con Ayleen</li>
+        <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>PDF oficial · 685 KB</li>
+      </ul>
+    </div>
+
+    <!-- Formulario -->
+    <div style="background:#F8FAFC;border:1.5px solid var(--border);border-radius:16px;padding:28px;">
+      <p style="font-size:14px;font-weight:700;color:#111827;margin-bottom:20px;">Completa tus datos para descargar</p>
+      <form id="tot-lead-form" style="display:flex;flex-direction:column;gap:12px;">
+        <input type="text"  id="tot-nombre"  placeholder="Nombre completo *" required
+          style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+          onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+        <input type="text"  id="tot-empresa" placeholder="Empresa *" required
+          style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+          onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+        <input type="email" id="tot-email"   placeholder="Email corporativo *" required
+          style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+          onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+        <input type="text"  id="tot-cargo"   placeholder="Cargo"
+          style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+          onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+        <button type="submit" id="tot-lead-btn"
+          style="background:var(--tot);color:white;font-weight:700;font-size:15px;padding:13px;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;">
+          Descargar PDF gratuito →
+        </button>
+        <p id="tot-lead-msg" style="display:none;font-size:13px;text-align:center;margin-top:4px;"></p>
+      </form>
+      <a id="tot-download-link" href="../assets/docs/totara-v20-novedades.pdf"
+         download="Totara-V20-Novedades-TAEC.pdf"
+         style="display:none;width:100%;text-align:center;background:#10B981;color:white;font-weight:700;font-size:15px;padding:13px;border-radius:8px;margin-top:12px;box-sizing:border-box;">
+        ⬇ Descargar Totara V20 PDF
+      </a>
+      <p style="font-size:11px;color:#94A3B8;text-align:center;margin-top:12px;">Sin spam · Solo información relevante de TAEC</p>
+    </div>
+
+  </div>
+</section>
+<script>
+(function(){
+  var form = document.getElementById('tot-lead-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn  = document.getElementById('tot-lead-btn');
+    var msg  = document.getElementById('tot-lead-msg');
+    var link = document.getElementById('tot-download-link');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    var params = {
+      from_name: document.getElementById('tot-nombre').value,
+      empresa:   document.getElementById('tot-empresa').value,
+      reply_to:  document.getElementById('tot-email').value,
+      message:   'Cargo: ' + (document.getElementById('tot-cargo').value || '—') + '\nRecurso: Totara V20 Novedades PDF'
+    };
+    emailjs.send('service_v232r5x','template_xjgle2w', params)
+      .then(function(){
+        form.style.display = 'none';
+        link.style.display = 'block';
+        msg.style.display  = 'block';
+        msg.style.color    = '#10B981';
+        msg.textContent    = '✓ ¡Listo! Haz clic para descargar.';
+      })
+      .catch(function(){
+        form.style.display = 'none';
+        link.style.display = 'block';
+        msg.style.display  = 'block';
+        msg.style.color    = '#64748B';
+        msg.textContent    = 'Descarga lista.';
+      });
+  });
+})();
+</script>
 
 <!-- ══ FAQ ══ -->
 <section class="tot-faq">
