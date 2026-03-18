@@ -1,0 +1,182 @@
+[
+  {
+    "id": "a001",
+    "fecha": "7 ene 2026",
+    "titulo": "Aprovechando la plasticidad neural para mejorar el aprendizaje en eLearning",
+    "autor": "Slim Masmoudi",
+    "categoria": "Neurociencia",
+    "etiquetas": "Diseño Instruccional, Plasticidad Neural, eLearning, TAEC",
+    "resumen": "",
+    "link": "https://www.linkedin.com/pulse/how-brain-builds-knowledge-simple-guide-elearning-pappas--gtwhf"
+  },
+  {
+    "id": "a002",
+    "fecha": "29 oct 2025",
+    "titulo": "Cómo elegir un LMS sin perder tiempo ni dinero (versión LATAM 2026)",
+    "autor": "Slim Masmoudi",
+    "categoria": "LMS",
+    "etiquetas": "LATAM, Reach360, NetExam, Totara, Articulate 360, TAEC",
+    "resumen": "",
+    "link": "[DATO PENDIENTE]"
+  },
+  {
+    "id": "a003",
+    "fecha": "29 sep 2025",
+    "titulo": "El eLearning no es solo \"tomar un curso en línea\": 10 metodologías que lo demuestran",
+    "autor": "Slim Masmoudi",
+    "categoria": "Metodología",
+    "etiquetas": "Microlearning, Gamificación, Diseño Instruccional, eLearning, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a004",
+    "fecha": "26 ago 2025",
+    "titulo": "Cómo la metodología ADDIE puede mejorar tu estrategia de contenido",
+    "autor": "Slim Masmoudi",
+    "categoria": "ADDIE",
+    "etiquetas": "Diseño Instruccional, Estrategia de Contenido, eLearning, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a005",
+    "fecha": "25 ago 2025",
+    "titulo": "eLearning para PYMEs: cómo capacitar a tu equipo sin gastar de más",
+    "autor": "Slim Masmoudi",
+    "categoria": "PYMEs",
+    "etiquetas": "Capacitación, Transformación Digital, eLearning, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a006",
+    "fecha": "31 jul 2025",
+    "titulo": "Por qué Microsoft eligió Articulate Localization: lecciones para eLearning multilingüe",
+    "autor": "Slim Masmoudi",
+    "categoria": "Articulate",
+    "etiquetas": "Localización, Storyline 360, Rise 360, eLearning Multilingüe, TAEC",
+    "resumen": "",
+    "link": "https://www.articulate.com/resources/case-studies/microsoft-localization"
+  },
+  {
+    "id": "a007",
+    "fecha": "21 jul 2025",
+    "titulo": "eLearning accesible: la tecnología que educa cuando incluye",
+    "autor": "Slim Masmoudi",
+    "categoria": "Accesibilidad",
+    "etiquetas": "Inclusión, Articulate 360, Diseño Instruccional, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a008",
+    "fecha": "5 jul 2025",
+    "titulo": "El rol evolutivo del líder de aprendizaje corporativo en la era de la IA",
+    "autor": "Slim Masmoudi",
+    "categoria": "L&D",
+    "etiquetas": "Liderazgo, ROI, IA, Formación Corporativa, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a009",
+    "fecha": "10 jun 2025",
+    "titulo": "Simulaciones de eLearning para fomentar la empatía y retener clientes",
+    "autor": "Slim Masmoudi",
+    "categoria": "Gamificación",
+    "etiquetas": "Simulaciones, Empatía, Articulate 360, Vyond, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a010",
+    "fecha": "23 abr 2025",
+    "titulo": "El futuro de la educación según Elon Musk: la revolución adaptativa",
+    "autor": "Slim Masmoudi",
+    "categoria": "IA",
+    "etiquetas": "Educación Adaptativa, Personalización, Futuro del Aprendizaje, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a011",
+    "fecha": "22 abr 2025",
+    "titulo": "La IA generativa y adaptativa transforma el eLearning: ¿está tu organización preparada?",
+    "autor": "Slim Masmoudi",
+    "categoria": "IA Generativa",
+    "etiquetas": "IA Adaptativa, LMS, Personalización, TAEC",
+    "resumen": "",
+    "link": "https://tidycal.com/slimmasmoudi/30minutes"
+  },
+  {
+    "id": "a012",
+    "fecha": "10 dic 2024",
+    "titulo": "The Loneliness of AI",
+    "autor": "Slim Masmoudi",
+    "categoria": "IA",
+    "etiquetas": "Ética, Sesgos Algorítmicos, Filosofía, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a013",
+    "fecha": "2 oct 2024",
+    "titulo": "La revolución EdTech: TAEC en el epicentro de la transformación educativa en LATAM",
+    "autor": "Slim Masmoudi",
+    "categoria": "EdTech",
+    "etiquetas": "Articulate, LATAM, Innovación Educativa, TAEC",
+    "resumen": "",
+    "link": "https://time.com/collection/worlds-top-edtech-companies-2024/"
+  },
+  {
+    "id": "a014",
+    "fecha": "26 dic 2024",
+    "titulo": "La paradoja de la capacitación empresarial: entre la obligación y el deseo",
+    "autor": "Slim Masmoudi",
+    "categoria": "Cultura de Aprendizaje",
+    "etiquetas": "L&D, Motivación, Formación Corporativa, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a015",
+    "fecha": "5 dic 2024",
+    "titulo": "Más allá de los grandes módulos e-learning: 10 alternativas creativas",
+    "autor": "Slim Masmoudi",
+    "categoria": "Microlearning",
+    "etiquetas": "Diseño Instruccional, Alternativas, Formación Corporativa, TAEC",
+    "resumen": "",
+    "link": ""
+  },
+  {
+    "id": "a016",
+    "fecha": "22 oct 2024",
+    "titulo": "Marketing y eLearning: estrategias que transforman la educación digital",
+    "autor": "Slim Masmoudi",
+    "categoria": "Marketing Educativo",
+    "etiquetas": "Microlearning, Gamificación, EdTech, TAEC",
+    "resumen": "",
+    "link": "https://www.murcia.com/empresas/noticias/2024/10/17-marketing-e-learning-las-estrategias-que-estan-transformando-la-educacion-digital.asp"
+  },
+  {
+    "id": "a017",
+    "fecha": "17 sep 2024",
+    "titulo": "Es la hora de actualizar su LMS",
+    "autor": "Slim Masmoudi",
+    "categoria": "LMS",
+    "etiquetas": "Totara, Migración, Transformación Digital, TAEC",
+    "resumen": "",
+    "link": "[DATO PENDIENTE]"
+  },
+  {
+    "id": "a018",
+    "fecha": "11 sep 2024",
+    "titulo": "La revolución del aprendizaje adaptativo con IA: más allá de la educación tradicional",
+    "autor": "Slim Masmoudi",
+    "categoria": "IA Adaptativa",
+    "etiquetas": "Personalización, Educación, Futuro del Aprendizaje, TAEC",
+    "resumen": "",
+    "link": ""
+  }
+]

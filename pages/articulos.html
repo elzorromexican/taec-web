@@ -399,8 +399,7 @@
 <!-- ══ ARTÍCULOS ══ -->
 <section class="art-main">
   <div class="art-main-inner" id="artList">
-    <!-- INICIO_ARTICULOS — generado por Apps Script -->
-    <!-- FIN_ARTICULOS -->
+    <!-- contenido inyectado desde data/articulos.json -->
   </div>
   <div class="art-empty" id="artEmpty">
     <p>No se encontraron artículos con ese criterio.</p>
@@ -507,26 +506,51 @@
   }
 
   // ── EXPAND / COLLAPSE ──
-  // Cada .art-card tiene data-titulo, data-tags, data-fecha
   document.addEventListener('click', function(e) {
     var header = e.target.closest('.art-card-header');
-    if(!header) return;
-    var card = header.closest('.art-card');
-    card.classList.toggle('open');
+    if (!header) return;
+    header.closest('.art-card').classList.toggle('open');
   });
 
-  // ── FILTRADO ──
-  (function() {
+  // ── CARGA Y FILTRADO DESDE JSON ──
+  (function () {
     var activeTag = 'TODOS';
     var searchVal = '';
+    var list = document.getElementById('artList');
 
-    function buildFilters() {
-      var cards = document.querySelectorAll('.art-card');
+    function renderCard(a) {
+      var tags = a.etiquetas || '';
+      var linkHtml = a.link && !a.link.includes('DATO PENDIENTE')
+        ? '<a href="' + a.link + '" target="_blank" rel="noopener noreferrer" class="art-link">Leer artículo completo →</a>'
+        : '<p style="color:#64748B;font-size:13px">Artículo próximamente disponible.</p>';
+      var div = document.createElement('div');
+      div.className = 'art-card';
+      div.dataset.titulo = a.titulo;
+      div.dataset.tags = tags;
+      div.dataset.fecha = a.fecha;
+      div.innerHTML =
+        '<div class="art-card-header">' +
+          '<div class="art-card-header-left">' +
+            '<div class="art-card-meta">' +
+              '<span class="art-badge">' + a.categoria + '</span>' +
+              '<span class="art-date">' + a.fecha + '</span>' +
+            '</div>' +
+            '<div class="art-card-title">' + a.titulo + '</div>' +
+            (a.resumen ? '<div class="art-card-excerpt">' + a.resumen + '</div>' : '') +
+          '</div>' +
+          '<div class="art-toggle-icon">+</div>' +
+        '</div>' +
+        '<div class="art-card-body">' +
+          '<div class="art-card-body-content">' + linkHtml + '</div>' +
+        '</div>';
+      return div;
+    }
+
+    function buildFilters(arts) {
       var tagSet = new Set(['TODOS']);
-      cards.forEach(function(c) {
-        (c.dataset.tags || '').split(',').forEach(function(t) {
-          var trimmed = t.trim();
-          if(trimmed) tagSet.add(trimmed);
+      arts.forEach(function(a) {
+        (a.etiquetas || '').split(',').forEach(function(t) {
+          var tr = t.trim(); if (tr) tagSet.add(tr);
         });
       });
       var bar = document.getElementById('artFilterBar');
@@ -537,7 +561,7 @@
         btn.textContent = tag;
         btn.addEventListener('click', function() {
           activeTag = tag;
-          document.querySelectorAll('#artFilterBar .filter-tag').forEach(function(b){ b.classList.remove('active'); });
+          bar.querySelectorAll('.filter-tag').forEach(function(b){ b.classList.remove('active'); });
           btn.classList.add('active');
           applyFilters();
         });
@@ -546,17 +570,16 @@
     }
 
     function applyFilters() {
-      var cards = document.querySelectorAll('.art-card');
+      var cards = list.querySelectorAll('.art-card');
       var visible = 0;
       cards.forEach(function(c) {
         var matchTag    = activeTag === 'TODOS' || (c.dataset.tags || '').includes(activeTag);
         var matchSearch = !searchVal || (c.dataset.titulo || '').toLowerCase().includes(searchVal) || (c.dataset.tags || '').toLowerCase().includes(searchVal);
         var show = matchTag && matchSearch;
         c.style.display = show ? '' : 'none';
-        if(show) visible++;
+        if (show) visible++;
       });
-      var total = cards.length;
-      document.getElementById('artCount').textContent = visible + ' de ' + total + ' artículos';
+      document.getElementById('artCount').textContent = visible + ' de ' + cards.length + ' artículos';
       document.getElementById('artEmpty').style.display = visible === 0 ? 'block' : 'none';
     }
 
@@ -565,8 +588,13 @@
       applyFilters();
     });
 
-    buildFilters();
-    applyFilters();
+    fetch('../data/articulos.json')
+      .then(function(r){ return r.json(); })
+      .then(function(arts) {
+        arts.forEach(function(a){ list.appendChild(renderCard(a)); });
+        buildFilters(arts);
+        applyFilters();
+      });
   })();
 </script>
 
