@@ -251,7 +251,24 @@
         </div>
       </div>
       <a href="nosotros.html">Nosotros</a>
-      <a href="recursos.html">Recursos</a>
+      <div class="nav-item">
+        <button class="nav-link" aria-haspopup="true" aria-expanded="false">Recursos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="simple-dropdown">
+          <div class="mega-col">
+            <a href="blog.html">Blog</a>
+            <a href="articulos.html">Artículos</a>
+            <a href="glosario.html">Glosario e-learning</a>
+            <a href="comparativos.html">Comparativos</a>
+            <a href="estandares.html">Estándares</a>
+            <a href="radar.html">Radar</a>
+            <a href="quiz.html">Quiz &amp; Flashcards</a>
+            <div class="mega-divider"></div>
+            <a href="recursos.html" style="color:var(--blue);font-weight:600">Ver todos →</a>
+          </div>
+        </div>
+      </div>
       <a href="clientes.html">Clientes</a>
       <a href="contacto.html">Contacto</a>
     </nav>
@@ -312,7 +329,19 @@
     <a href="contacto.html">Solicitar programa →</a>
   </div>
   <a href="nosotros.html">Nosotros</a>
-  <a href="recursos.html">Recursos</a>
+  <button class="mob-toggle" id="mobRec" onclick="toggleMob('mobRecSec','mobRec')" aria-expanded="false" aria-controls="mobRecSec">Recursos
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="mob-section" id="mobRecSec">
+    <a href="blog.html">Blog</a>
+    <a href="articulos.html">Artículos</a>
+    <a href="glosario.html">Glosario e-learning</a>
+    <a href="comparativos.html">Comparativos</a>
+    <a href="estandares.html">Estándares</a>
+    <a href="radar.html">Radar</a>
+    <a href="quiz.html">Quiz &amp; Flashcards</a>
+    <a href="recursos.html" style="color:var(--blue);font-weight:600">Ver todos →</a>
+  </div>
   <a href="clientes.html">Clientes</a>
   <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer">Tienda</a>
   <a href="contacto.html">Contacto</a>
