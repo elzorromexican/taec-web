@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAEC · Guiones Llamada · Corporate Learning Summit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --navy: #1B2A4A;
+    --orange: #FF6B35;
+    --orange-light: #FFF0EA;
+    --gray-100: #F5F5F3;
+    --gray-200: #E8E8E4;
+    --gray-400: #9B9B94;
+    --gray-700: #3D3D38;
+    --white: #FFFFFF;
+    --phone-accent: #5B5EA6;
+    --font: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--gray-100);
+    color: var(--gray-700);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+
+  .header {
+    max-width: 900px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .header-left h1 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--phone-accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .header-left h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+  }
+
+  .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tag-version { background: var(--navy); color: var(--white); }
+  .tag-draft { background: var(--orange-light); color: var(--orange); }
+  .tag-channel { background: #EEEEF8; color: var(--phone-accent); }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-client { background: var(--navy); }
+  .dot-prospect { background: var(--orange); }
+
+  .section-label {
+    max-width: 900px;
+    margin: 28px auto 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gray-400);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+  }
+
+  .card-row {
+    max-width: 900px;
+    margin: 0 auto 16px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .segment-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .toque-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.06em;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  /* Script block */
+  .script-block {
+    background: #F8F8F6;
+    border-left: 3px solid var(--phone-accent);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 18px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--navy);
+    font-style: italic;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .script-block.prospect {
+    border-left-color: var(--orange);
+  }
+
+  .script-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gray-400);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-style: normal;
+  }
+
+  /* Branching responses */
+  .branches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .branches { grid-template-columns: 1fr; }
+  }
+
+  .branch {
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 12px 14px;
+    background: var(--white);
+  }
+
+  .branch-trigger {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .branch-trigger.yes { color: #1A7A3E; }
+  .branch-trigger.no { color: #9B3A2A; }
+  .branch-trigger.objection { color: #7A6E1A; }
+
+  .branch-indicator {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  .branch-indicator.yes { background: #25D366; }
+  .branch-indicator.no { background: #FF6B6B; }
+  .branch-indicator.objection { background: #E8C830; }
+
+  .branch-text {
+    font-size: 12.5px;
+    color: var(--gray-700);
+    line-height: 1.55;
+  }
+
+  .card-footer {
+    padding: 10px 20px;
+    background: var(--gray-100);
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .timing {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.04em;
+  }
+
+  .print-note {
+    font-size: 11px;
+    color: var(--gray-400);
+    font-style: italic;
+  }
+
+  .notes-box {
+    max-width: 900px;
+    margin: 28px auto 0;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+
+  .notes-box h3 {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--phone-accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .notes-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .notes-box li {
+    font-size: 12.5px;
+    color: var(--gray-700);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .notes-box li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--phone-accent);
+    font-size: 11px;
+  }
+
+  .alert {
+    background: #FFFBE6;
+    border: 1px solid #E8C830;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #6B5900;
+    margin-bottom: 20px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -8px;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>TAEC · Canal: Llamada Telefónica</h1>
+    <h2>Corporate Learning Summit México</h2>
+    <div class="meta">
+      <span class="tag tag-version">v1.0 · 2026-03-18</span>
+      <span class="tag tag-draft">Borrador</span>
+      <span class="tag tag-channel">Teléfono</span>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="dot dot-client"></div>Clientes</div>
+    <div class="legend-item"><div class="dot dot-prospect"></div>Prospectos</div>
+  </div>
+</div>
+
+<div class="alert">
+  Estos guiones son estructura de referencia — no leer en voz alta. Adaptar tono y ritmo a cada conversación.
+</div>
+
+<!-- CLIENTES -->
+<div class="section-label"><div class="dot dot-client"></div>Clientes actuales</div>
+
+<div class="card-row">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · Toque 1 — Apertura</span>
+      </div>
+      <span class="toque-badge">T1 · Ahora</span>
+    </div>
+    <div class="card-body">
+      <div class="script-block">
+        <div class="script-label">Apertura</div>
+        "[Nombre], ¿cómo estás? Te llamo porque el 7 de mayo vamos a tener un evento ejecutivo presencial junto con Articulate en el St. Regis — el Corporate Learning Summit México. El registro ya está abierto y los lugares son limitados. Pensé en ti porque el programa está armado para líderes que ya están trabajando con estas herramientas y quieren ver hacia dónde va la industria. ¿Puedo pasarte el link ahora?"
+      </div>
+      <div class="branches">
+        <div class="branch">
+          <div class="branch-trigger yes"><div class="branch-indicator yes"></div>Si dice sí</div>
+          <div class="branch-text">Mandar el link por WA o email en ese momento, antes de colgar. No dejarlo para después.</div>
+        </div>
+        <div class="branch">
+          <div class="branch-trigger no"><div class="branch-indicator no"></div>Si no puede asistir</div>
+          <div class="branch-text">"Sin problema. Te comparto el resumen del evento cuando termine. ¿Sigo en [canal] contigo?"</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Primer contacto</span>
+      <span class="print-note">Tener el link a mano antes de marcar</span>
+    </div>
+  </div>
+</div>
+
+<div class="card-row">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · Toque 2 — Seguimiento</span>
+      </div>
+      <span class="toque-badge">T2 · +5–7 días sin respuesta</span>
+    </div>
+    <div class="card-body">
+      <div class="script-block">
+        <div class="script-label">Seguimiento</div>
+        "[Nombre], ¿cómo estás? Te llamo de seguimiento por la invitación que te mandé para el evento del 7 de mayo. ¿Tuviste oportunidad de verla? Los lugares se están ocupando."
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Sin respuesta a T1 · +5–7 días</span>
+    </div>
+  </div>
+</div>
+
+<div class="card-row">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · Toque 3 — Cierre</span>
+      </div>
+      <span class="toque-badge">T3 · Último aviso</span>
+    </div>
+    <div class="card-body">
+      <div class="script-block">
+        <div class="script-label">Cierre</div>
+        "[Nombre], antes de que cierre el registro quería preguntarte directamente si puedo contarte entre los asistentes del 7 de mayo. Es el último aviso que te hago — si no es posible, sin problema."
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">3–4 días antes del corte de registro</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROSPECTOS -->
+<div class="section-label"><div class="dot dot-prospect"></div>Prospectos</div>
+
+<div class="card-row">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · Toque 1 — Apertura</span>
+      </div>
+      <span class="toque-badge">T1 · Ahora</span>
+    </div>
+    <div class="card-body">
+      <div class="script-block prospect">
+        <div class="script-label">Apertura</div>
+        "[Nombre], ¿cómo estás? Te llamo porque el 7 de mayo organizamos junto con Articulate un evento ejecutivo en el St. Regis CDMX — el Corporate Learning Summit México. No es un evento de ventas: es una sesión de trabajo entre líderes de Capacitación y L&D, con casos reales de empresas en la región. El registro es gratuito y el cupo es limitado. ¿Te puedo mandar los detalles por WhatsApp o email?"
+      </div>
+      <div class="branches">
+        <div class="branch">
+          <div class="branch-trigger objection"><div class="branch-indicator objection"></div>Si pregunta qué es Articulate</div>
+          <div class="branch-text">"Es la plataforma de autoría de eLearning más usada en el mercado corporativo. TAEC es su distribuidor exclusivo en México y LATAM."</div>
+        </div>
+        <div class="branch">
+          <div class="branch-trigger no"><div class="branch-indicator no"></div>Si dice que no tiene tiempo</div>
+          <div class="branch-text">"Entendido. ¿Te parece si te mando solo el programa para que lo revises cuando puedas?"</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Primer contacto · Confirmar canal preferido al final</span>
+    </div>
+  </div>
+</div>
+
+<div class="card-row">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · Toque 2 — Seguimiento</span>
+      </div>
+      <span class="toque-badge">T2 · +5–7 días sin respuesta</span>
+    </div>
+    <div class="card-body">
+      <div class="script-block prospect">
+        <div class="script-label">Seguimiento</div>
+        "[Nombre], te llamo de seguimiento por el Corporate Learning Summit del 7 de mayo. ¿Viste la información que te mandé? El registro sigue abierto pero los lugares son limitados."
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Sin respuesta a T1 · +5–7 días</span>
+    </div>
+  </div>
+</div>
+
+<div class="card-row">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · Toque 3 — Cierre</span>
+      </div>
+      <span class="toque-badge">T3 · Último aviso</span>
+    </div>
+    <div class="card-body">
+      <div class="script-block prospect">
+        <div class="script-label">Cierre</div>
+        "[Nombre], antes de que cierre el registro quería preguntarte si tienes interés en el evento del 7 de mayo. Si sí, te reservo el lugar ahora. Si no es el momento, sin problema — te mantengo en la lista para próximas actividades."
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">3–4 días antes del corte de registro</span>
+    </div>
+  </div>
+</div>
+
+<div class="notes-box">
+  <h3>Notas operativas · Llamada</h3>
+  <ul>
+    <li>Tener el link de registro abierto antes de marcar. Si dicen sí, mandarlo en ese momento.</li>
+    <li>Clientes: el agente que lleva la cuenta hace la llamada T1, no delegarlo a Sonia o Margo.</li>
+    <li>Si responden pero no confirman, no avanzar al siguiente toque telefónico — gestionar en el canal donde hubo más respuesta.</li>
+    <li>Llamada T3 es el cierre definitivo: sin seguimiento adicional después de este punto.</li>
+    <li>Registrar el resultado de cada llamada en CRM antes del siguiente contacto.</li>
+  </ul>
+</div>
+
+</body>
+</html>

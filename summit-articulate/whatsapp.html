@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAEC · Outreach WhatsApp · Corporate Learning Summit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --navy: #1B2A4A;
+    --orange: #FF6B35;
+    --orange-light: #FFF0EA;
+    --gray-100: #F5F5F3;
+    --gray-200: #E8E8E4;
+    --gray-400: #9B9B94;
+    --gray-700: #3D3D38;
+    --white: #FFFFFF;
+    --wa-green: #25D366;
+    --wa-bg: #ECE5DD;
+    --wa-bubble: #FFFFFF;
+    --wa-bubble-dark: #D9FDD3;
+    --font: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--gray-100);
+    color: var(--gray-700);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+
+  .header {
+    max-width: 820px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .header-left h1 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--wa-green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .header-left h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+  }
+
+  .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tag-version { background: var(--navy); color: var(--white); }
+  .tag-draft { background: var(--orange-light); color: var(--orange); }
+  .tag-channel { background: #E8F8EE; color: #1A7A3E; }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-client { background: var(--navy); }
+  .dot-prospect { background: var(--orange); }
+
+  .section-label {
+    max-width: 820px;
+    margin: 28px auto 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gray-400);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+  }
+
+  .grid {
+    max-width: 820px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .segment-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  .card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .toque-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.06em;
+  }
+
+  /* WA phone mockup */
+  .wa-preview {
+    background: var(--wa-bg);
+    padding: 16px 14px;
+    min-height: 120px;
+  }
+
+  .wa-bubble {
+    background: var(--wa-bubble-dark);
+    border-radius: 10px 10px 2px 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #111;
+    max-width: 100%;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .wa-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -6px;
+    width: 0; height: 0;
+    border-left: 6px solid var(--wa-bubble-dark);
+    border-bottom: 6px solid transparent;
+  }
+
+  .wa-time {
+    font-size: 10px;
+    color: #667781;
+    text-align: right;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+  }
+
+  .wa-check {
+    color: #53BDEB;
+    font-size: 12px;
+  }
+
+  .link-placeholder {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--orange-light);
+    color: var(--orange);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid #FFD4C0;
+  }
+
+  .card-footer {
+    padding: 10px 14px;
+    background: var(--gray-100);
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .timing {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.04em;
+  }
+
+  .copy-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid var(--gray-200);
+    color: var(--gray-400);
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .copy-btn.copied {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .char-count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    padding: 4px 10px;
+    background: var(--gray-200);
+    border-radius: 4px;
+  }
+
+  .notes-box {
+    max-width: 820px;
+    margin: 28px auto 0;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+
+  .notes-box h3 {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--wa-green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .notes-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .notes-box li {
+    font-size: 12.5px;
+    color: var(--gray-700);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .notes-box li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--wa-green);
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>TAEC · Canal: WhatsApp</h1>
+    <h2>Corporate Learning Summit México</h2>
+    <div class="meta">
+      <span class="tag tag-version">v1.0 · 2026-03-18</span>
+      <span class="tag tag-draft">Borrador</span>
+      <span class="tag tag-channel">WhatsApp</span>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="dot dot-client"></div>Clientes</div>
+    <div class="legend-item"><div class="dot dot-prospect"></div>Prospectos</div>
+  </div>
+</div>
+
+<!-- CLIENTES -->
+<div class="section-label"><div class="dot dot-client"></div>Clientes actuales</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · T1</span>
+      </div>
+      <span class="toque-badge">Ahora</span>
+    </div>
+    <div class="wa-preview">
+      <div class="wa-bubble">
+        <span id="c-wa-t1">[Nombre], te escribo de TAEC. El 7 de mayo organizamos junto con Articulate el Corporate Learning Summit en el St. Regis CDMX. Evento presencial, cupo limitado, registro abierto. Creo que es relevante para ti. ¿Te paso el link?</span>
+        <div class="wa-time">10:42 <span class="wa-check">✓✓</span></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Enviar: ahora</span>
+      <button class="copy-btn" onclick="copyWA('c-wa-t1', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · T2</span>
+      </div>
+      <span class="toque-badge">+5–7 días</span>
+    </div>
+    <div class="wa-preview">
+      <div class="wa-bubble">
+        <span id="c-wa-t2">[Nombre], por si no viste mi mensaje: el registro para el evento del 7 de mayo sigue abierto pero los lugares son limitados. <span class="link-placeholder">[LINK]</span></span>
+        <div class="wa-time">10:42 <span class="wa-check">✓✓</span></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Sin respuesta · +5–7 días</span>
+      <button class="copy-btn" onclick="copyWA('c-wa-t2', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · T3</span>
+      </div>
+      <span class="toque-badge">Cierre</span>
+    </div>
+    <div class="wa-preview">
+      <div class="wa-bubble">
+        <span id="c-wa-t3">[Nombre], el registro cierra pronto. Si quieres confirmar tu lugar: <span class="link-placeholder">[LINK]</span>. Si no puedes, avísame y te comparto el resumen después.</span>
+        <div class="wa-time">10:42 <span class="wa-check">✓✓</span></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">3–4 días antes del corte</span>
+      <button class="copy-btn" onclick="copyWA('c-wa-t3', this)">Copiar</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROSPECTOS -->
+<div class="section-label"><div class="dot dot-prospect"></div>Prospectos</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · T1</span>
+      </div>
+      <span class="toque-badge">Ahora</span>
+    </div>
+    <div class="wa-preview">
+      <div class="wa-bubble">
+        <span id="p-wa-t1">Hola [Nombre], soy [nombre] de TAEC. Organizamos junto con Articulate un evento ejecutivo el 7 de mayo en el St. Regis CDMX — Corporate Learning Summit México. Cupo limitado, sin costo, para líderes de L&D. ¿Te interesa que te comparta el programa?</span>
+        <div class="wa-time">10:42 <span class="wa-check">✓✓</span></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Enviar: ahora</span>
+      <button class="copy-btn" onclick="copyWA('p-wa-t1', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · T2</span>
+      </div>
+      <span class="toque-badge">+5–7 días</span>
+    </div>
+    <div class="wa-preview">
+      <div class="wa-bubble">
+        <span id="p-wa-t2">[Nombre], sigo en contacto por el evento del 7 de mayo. El registro está abierto: <span class="link-placeholder">[LINK]</span>. Es gratuito y de cupo limitado.</span>
+        <div class="wa-time">10:42 <span class="wa-check">✓✓</span></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Sin respuesta · +5–7 días</span>
+      <button class="copy-btn" onclick="copyWA('p-wa-t2', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · T3</span>
+      </div>
+      <span class="toque-badge">Cierre</span>
+    </div>
+    <div class="wa-preview">
+      <div class="wa-bubble">
+        <span id="p-wa-t3">[Nombre], el registro cierra pronto. Si tienes interés en el Corporate Learning Summit del 7 de mayo: <span class="link-placeholder">[LINK]</span>. Si no es el momento, sin problema.</span>
+        <div class="wa-time">10:42 <span class="wa-check">✓✓</span></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">3–4 días antes del corte</span>
+      <button class="copy-btn" onclick="copyWA('p-wa-t3', this)">Copiar</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="notes-box">
+  <h3>Notas operativas · WhatsApp</h3>
+  <ul>
+    <li>Sin emojis salvo que el cliente los use habitualmente en conversaciones previas.</li>
+    <li>T1 para clientes: preguntar antes de mandar el link — no enviar el link sin confirmar interés.</li>
+    <li>T1 para prospectos: presentarse con nombre y empresa en el primer mensaje.</li>
+    <li>Sustituir <strong>[LINK]</strong> antes de enviar. No mandar el placeholder literal.</li>
+    <li>Si el prospecto responde pero no confirma, no avanzar al siguiente toque de WA — gestionar en conversación.</li>
+  </ul>
+</div>
+
+<script>
+function copyWA(id, btn) {
+  const el = document.getElementById(id);
+  let text = el.textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
