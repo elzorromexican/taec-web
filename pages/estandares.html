@@ -175,6 +175,13 @@
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
     @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } .footer-bottom { flex-direction: column; text-align: center; } }
+
+    /* ── REC TABS ── */
+    .rec-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%;overflow-x:auto}
+    .rec-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
+    .rec-tab{display:inline-flex;align-items:center;padding:14px 18px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;text-decoration:none}
+    .rec-tab:hover{color:var(--blue)}
+    .rec-tab.active{color:var(--navy);border-bottom-color:var(--navy)}
   </style>
 </head>
 <body>
@@ -270,6 +277,18 @@
     </button>
   </div>
 </header>
+<div class="rec-tabs">
+  <div class="rec-tabs-inner">
+    <a href="recursos.html" class="rec-tab">Recursos</a>
+    <a href="blog.html" class="rec-tab">Blog</a>
+    <a href="articulos.html" class="rec-tab">Artículos</a>
+    <a href="glosario.html" class="rec-tab">Glosario</a>
+    <a href="comparativos.html" class="rec-tab">Comparativos</a>
+    <a href="estandares.html" class="rec-tab active">Estándares</a>
+    <a href="radar.html" class="rec-tab">Radar</a>
+    <a href="quiz.html" class="rec-tab">Quiz</a>
+  </div>
+</div>
 <nav class="mobile-nav" id="mobileNav">
   <button class="mob-toggle" id="mobSol" onclick="toggleMob('mobSolSec','mobSol')" aria-expanded="false" aria-controls="mobSolSec">Soluciones
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
