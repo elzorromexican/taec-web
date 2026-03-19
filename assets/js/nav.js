@@ -14,32 +14,47 @@
 
 /* ── ACTIVE NAV: marca la ficha de cardex del ítem activo ── */
 (function () {
-  var page = location.pathname.split('/').pop() || 'index.html';
-  var p    = location.pathname;
+  // 1. Obtenemos los valores de forma segura y los pasamos a minúsculas para evitar errores tipográficos
+  var activeSection = (document.body.getAttribute('data-section') || '').toLowerCase();
+  var activePage = (document.body.getAttribute('data-page') || '').toLowerCase();
 
-  var isCurso = /curso-/.test(p);
-  var secMap = {
-    'Soluciones': !isCurso && /articulate|vyond|moodle|totara|ottolearn|lys|bigbluebutton|zoola|class-taec|proctorizer|strikeplagiarism|servicios/.test(p),
-    'Capacitaci': /capacitacion|7minutes|go1|customguide|curso-/.test(p),
-    'Recursos':   /blog|articulos|glosario|comparativos|estandares|radar|quiz|recursos/.test(p)
-  };
+  // 2. Marcar la sección principal (Dropdowns/Botones Y Enlaces directos en el header)
+  if (activeSection) {
+    // Usamos el selector robusto para atrapar '.nav-link' y también <a> sueltos (ej. Nosotros/Clientes)
+    document.querySelectorAll('header .nav-link, header nav > a').forEach(function (el) {
+      var text = el.textContent.trim().toLowerCase();
+      if (text.indexOf(activeSection) === 0) {
+        el.classList.add('active');
+      }
+    });
+  }
 
-  Object.keys(secMap).forEach(function (sec) {
-    if (secMap[sec]) {
-      document.querySelectorAll('header button.nav-link').forEach(function (btn) {
-        if (btn.textContent.trim().indexOf(sec) === 0) btn.classList.add('active');
-      });
-    }
-  });
-
+  // 3. Marcar enlaces individuales directos (para el submenú o casos sin data-section)
+  var path = location.pathname;
+  // Si la ruta termina en '/', asumimos que es index.html
+  var currentPage = path.endsWith('/') ? 'index.html' : path.split('/').pop() || 'index.html';
+  currentPage = currentPage.toLowerCase();
+  
   document.querySelectorAll('header a[href]').forEach(function (a) {
     var href = a.getAttribute('href') || '';
+    
+    // Ignorar links de utilidad o externos
     if (!href || href === '#' || href.indexOf('mailto:') === 0 ||
         href.indexOf('tel:') === 0 || href.indexOf('http') === 0 ||
         a.classList.contains('logo-link') || a.classList.contains('btn-cta')) return;
+    
+    // Ignorar items dentro de los dropdowns si solo queremos marcar el nivel superior
     if (a.closest('.mega-menu') || a.closest('.simple-dropdown')) return;
-    var linked = href.split('/').pop();
-    if (linked && linked === page) a.classList.add('active');
+    
+    var linked = href.endsWith('/') ? 'index.html' : href.split('/').pop() || 'index.html';
+    linked = linked.toLowerCase();
+    
+    // Validar prioridad: data-page estricto > fallback a la URL actual
+    if (activePage) {
+      if (linked === activePage) a.classList.add('active');
+    } else {
+      if (linked === currentPage) a.classList.add('active');
+    }
   });
 })();
 

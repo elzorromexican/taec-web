@@ -17,9 +17,6 @@
   <link rel="stylesheet" href="../assets/css/footer.css" />
 
   <style>
-  header .nav-link.active, header a.nav-link.active { background: #111827 !important; color: #ffffff !important; border-radius: 8px; padding: 5px 14px; font-weight: 700; }
-    header button.nav-link.active { background: #111827 !important; color: #ffffff !important; border-radius: 8px; padding: 5px 14px; font-weight: 700; }
-    header a.active { background: #111827 !important; color: #ffffff !important; border-radius: 8px; padding: 5px 14px; font-weight: 700; text-decoration: none; }
     .nav-item::after { display: none !important; }
     .nav-item.open > .mega-menu { display: grid !important; }
     .nav-item.open > .simple-dropdown { display: grid !important; }
@@ -55,7 +52,6 @@
     .btn-wa-full:hover { background: #1ebe5c; }
     .btn-wa-full svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
 
-    footer { background: #04293F; padding: 56px 5% 28px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
     .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); }
     .footer-brand a img, .footer-brand .logo-link img { height: 34px; filter: brightness(0) invert(1); display:block; }
@@ -67,10 +63,6 @@
     .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
     .footer-col ul li a { font-size: 13px; color: #64748B; text-decoration: none; transition: color .15s; }
     .footer-col ul li a:hover { color: #A8DBD9; }
-    .footer-latam { display: flex; align-items: center; gap: 20px; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.07); flex-wrap: wrap; margin-top: 8px; }
-    .footer-latam-label { font-size: 10px; color: #64748B; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; flex-shrink: 0; }
-    .footer-latam a { font-size: 12px; color: #64748B; text-decoration: none; transition: color .15s; }
-    .footer-latam a:hover { color: #A8DBD9; }
     .footer-bottom { padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid rgba(255,255,255,.07); margin-top: 4px; }
     .footer-bottom p { font-size: 12px; color: #334155; }
     .footer-bottom a { color: #475569; transition: color .15s; text-decoration: none; }
@@ -78,9 +70,6 @@
     .footer-social { display: flex; gap: 10px; }
     .footer-social a { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,.1); display: inline-flex; align-items: center; justify-content: center; color: #64748B; font-size: 11px; font-weight: 700; text-decoration: none; transition: background .15s, color .15s, border-color .15s; }
     .footer-social a:hover { background: #3179C2; color: #fff; border-color: #3179C2; }
-    .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 52px; height: 52px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); transition: transform .2s; }
-    .wa-float:hover { transform: scale(1.1); }
-    .wa-float svg { width: 28px; height: 28px; fill: white; }
     .skip-link { position: absolute; top: -60px; left: 16px; background: var(--navy); color: var(--white); padding: 8px 16px; border-radius: 0 0 8px 8px; font-size: 14px; font-weight: 600; z-index: 9999; text-decoration: none; transition: top .2s; }
     .skip-link:focus { top: 0; }
     *:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
@@ -89,7 +78,7 @@
     @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } }
   </style>
 </head>
-<body>
+<body data-section="Capacitación" data-page="curso-storyline.html">
 
 <a class="skip-link" href="#main-content">Ir al contenido principal</a>
 
@@ -313,7 +302,7 @@
 
 </main>
 
-<footer>
+<footer class="footer--dark">
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">

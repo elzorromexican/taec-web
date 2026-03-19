@@ -15,9 +15,6 @@
   <link rel="stylesheet" href="../assets/css/footer.css" />
 
   <style>
-  header .nav-link.active, header a.nav-link.active { background: #111827 !important; color: #ffffff !important; border-radius: 8px; padding: 5px 14px; font-weight: 700; }
-    header button.nav-link.active { background: #111827 !important; color: #ffffff !important; border-radius: 8px; padding: 5px 14px; font-weight: 700; }
-    header a.active { background: #111827 !important; color: #ffffff !important; border-radius: 8px; padding: 5px 14px; font-weight: 700; text-decoration: none; }
     .nav-item::after { display: none !important; }
     .nav-item.open > .mega-menu { display: grid !important; }
     .nav-item.open > .simple-dropdown { display: grid !important; }
@@ -51,7 +48,6 @@
     .btn-wa-full { display: flex; align-items: center; justify-content: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 20px; border-radius: 9px; font-weight: 700; font-size: 14px; transition: background .15s; }
     .btn-wa-full:hover { background: #1ebe5c; }
     .btn-wa-full svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-    footer { background: #04293F; padding: 56px 5% 28px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
     .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); }
     .footer-brand a img, .footer-brand .logo-link img { height: 34px; filter: brightness(0) invert(1); display:block; }
@@ -63,10 +59,6 @@
     .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
     .footer-col ul li a { font-size: 13px; color: #64748B; text-decoration: none; transition: color .15s; }
     .footer-col ul li a:hover { color: #A8DBD9; }
-    .footer-latam { display: flex; align-items: center; gap: 20px; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.07); flex-wrap: wrap; margin-top: 8px; }
-    .footer-latam-label { font-size: 10px; color: #64748B; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; flex-shrink: 0; }
-    .footer-latam a { font-size: 12px; color: #64748B; text-decoration: none; transition: color .15s; }
-    .footer-latam a:hover { color: #A8DBD9; }
     .footer-bottom { padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid rgba(255,255,255,.07); margin-top: 4px; }
     .footer-bottom p { font-size: 12px; color: #334155; }
     .footer-bottom a { color: #475569; transition: color .15s; text-decoration: none; }
@@ -74,9 +66,6 @@
     .footer-social { display: flex; gap: 10px; }
     .footer-social a { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,.1); display: inline-flex; align-items: center; justify-content: center; color: #64748B; font-size: 11px; font-weight: 700; text-decoration: none; transition: background .15s, color .15s, border-color .15s; }
     .footer-social a:hover { background: #3179C2; color: #fff; border-color: #3179C2; }
-    .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 52px; height: 52px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); transition: transform .2s; }
-    .wa-float:hover { transform: scale(1.1); }
-    .wa-float svg { width: 28px; height: 28px; fill: white; }
     .skip-link { position: absolute; top: -60px; left: 16px; background: var(--navy); color: var(--white); padding: 8px 16px; border-radius: 0 0 8px 8px; font-size: 14px; font-weight: 600; z-index: 9999; text-decoration: none; transition: top .2s; }
     .skip-link:focus { top: 0; }
     *:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
@@ -84,7 +73,7 @@
     @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } }
   </style>
 </head>
-<body>
+<body data-section="Capacitación" data-page="curso-fundamentos.html">
 <a class="skip-link" href="#main-content">Ir al contenido principal</a>
 <header>
   <div class="header-inner">
@@ -226,7 +215,7 @@
 </div>
 </main>
 
-<footer><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="logo-link"><img src="../assets/logo.svg" alt="TAEC" /></a><p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde 2007 en CDMX para México y LATAM.</p><div class="footer-contact"><a href="mailto:info@taec.com.mx">✉ info@taec.com.mx</a><a href="tel:5568223300">📞 55 6822 3300</a><a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a></div></div><div class="footer-col"><h4>Soluciones</h4><ul><li><a href="articulate-360-mexico.html">Articulate 360</a></li><li><a href="vyond-mexico.html">Vyond</a></li><li><a href="moodle-mexico.html">Moodle</a></li><li><a href="totara-lms-mexico.html">Totara LMS</a></li><li><a href="servicios.html">Todas las soluciones →</a></li></ul></div><div class="footer-col"><h4>Blog &amp; Recursos</h4><ul><li><a href="blog.html">Blog</a></li><li><a href="articulos.html">Artículos</a></li><li><a href="glosario.html">Glosario e-learning</a></li><li><a href="comparativos.html">Comparativos</a></li><li><a href="recursos.html">Ver todos →</a></li></ul></div><div class="footer-col"><h4>Empresa</h4><ul><li><a href="nosotros.html">Quiénes somos</a></li><li><a href="clientes.html">Clientes y casos</a></li><li><a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer">Tienda</a></li><li><a href="contacto.html">Contacto</a></li><li><a href="https://www.taec.com.mx/soporte-tecnico.php" target="_blank" rel="noopener noreferrer">Soporte técnico</a></li></ul></div></div><div class="footer-latam"><span class="footer-latam-label">También en:</span><a href="https://www.taec.com.mx/" title="TAEC México">🇲🇽 México &mdash; taec.com.mx</a><a href="https://www.taec.com.co/" target="_blank" rel="noopener noreferrer" title="TAEC Colombia">🇨🇴 Colombia &mdash; taec.com.co</a><a href="https://www.taec.cl/" target="_blank" rel="noopener noreferrer" title="TAEC Chile">🇨🇱 Chile &mdash; taec.cl</a></div><div class="footer-bottom"><p>© <span id="year"></span> TAEC <span style="opacity:.5;font-size:11px;">(ver 2.2)</span> &middot; Ciudad de México &middot; <a href="#">Aviso de privacidad</a></p><div class="footer-social"><a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a><a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a><a href="https://www.facebook.com/TAEC.eLearning" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">fb</a><a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">WA</a></div></div></div></footer>
+<footer class="footer--dark"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><a href="../index.html" class="logo-link"><img src="../assets/logo.svg" alt="TAEC" /></a><p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde 2007 en CDMX para México y LATAM.</p><div class="footer-contact"><a href="mailto:info@taec.com.mx">✉ info@taec.com.mx</a><a href="tel:5568223300">📞 55 6822 3300</a><a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a></div></div><div class="footer-col"><h4>Soluciones</h4><ul><li><a href="articulate-360-mexico.html">Articulate 360</a></li><li><a href="vyond-mexico.html">Vyond</a></li><li><a href="moodle-mexico.html">Moodle</a></li><li><a href="totara-lms-mexico.html">Totara LMS</a></li><li><a href="servicios.html">Todas las soluciones →</a></li></ul></div><div class="footer-col"><h4>Blog &amp; Recursos</h4><ul><li><a href="blog.html">Blog</a></li><li><a href="articulos.html">Artículos</a></li><li><a href="glosario.html">Glosario e-learning</a></li><li><a href="comparativos.html">Comparativos</a></li><li><a href="recursos.html">Ver todos →</a></li></ul></div><div class="footer-col"><h4>Empresa</h4><ul><li><a href="nosotros.html">Quiénes somos</a></li><li><a href="clientes.html">Clientes y casos</a></li><li><a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer">Tienda</a></li><li><a href="contacto.html">Contacto</a></li><li><a href="https://www.taec.com.mx/soporte-tecnico.php" target="_blank" rel="noopener noreferrer">Soporte técnico</a></li></ul></div></div><div class="footer-latam"><span class="footer-latam-label">También en:</span><a href="https://www.taec.com.mx/" title="TAEC México">🇲🇽 México &mdash; taec.com.mx</a><a href="https://www.taec.com.co/" target="_blank" rel="noopener noreferrer" title="TAEC Colombia">🇨🇴 Colombia &mdash; taec.com.co</a><a href="https://www.taec.cl/" target="_blank" rel="noopener noreferrer" title="TAEC Chile">🇨🇱 Chile &mdash; taec.cl</a></div><div class="footer-bottom"><p>© <span id="year"></span> TAEC <span style="opacity:.5;font-size:11px;">(ver 2.2)</span> &middot; Ciudad de México &middot; <a href="#">Aviso de privacidad</a></p><div class="footer-social"><a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a><a href="https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a><a href="https://www.facebook.com/TAEC.eLearning" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">fb</a><a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">WA</a></div></div></div></footer>
 <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC" aria-label="Contactar por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
   <script src="../assets/js/nav.js" defer></script>
 

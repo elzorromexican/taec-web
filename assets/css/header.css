@@ -157,6 +157,10 @@ header a.active {
   text-decoration: none;
 }
 
+/* ── DROPDOWN CLICK-OPEN (añadido por nav.js) ── */
+.nav-item.open > .mega-menu        { display: grid !important; }
+.nav-item.open > .simple-dropdown  { display: grid !important; }
+
 /* ── RESPONSIVE HEADER ── */
 @media (max-width: 768px) {
   .header-inner nav { display: none; }
