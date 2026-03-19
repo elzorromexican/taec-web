@@ -4,6 +4,197 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v3.00 · 18 mar 2026
+
+### Cierre técnico — Fase 1 completa (Fase 1 + Fase 1B)
+
+#### Qué quedó 100% limpio (26 archivos)
+
+Sin redundancia inline de ningún tipo respecto a los 4 archivos externos
+(`base.css`, `header.css`, `footer.css`, `nav.js`):
+
+`index.html` · `articulate-360-mexico` · `contacto` · `7minutes-learning` ·
+`bigbluebutton-mexico` · `capacitacion-abierta` · `capacitacion-cerrada` ·
+`class-taec` · `clientes` · `curso-articulate` · `customguide-mexico` ·
+`go1-mexico` · `lys-mexico` · `moodle-mexico` · `nosotros` · `ottolearn-mexico` ·
+`proctorizer-mexico` · `recursos` · `servicios` · `strikeplagiarism-mexico` ·
+`totara-lms-mexico` · `vyond-mexico` · `zoola-analytics` · `vyond-enterprise` ·
+`vyond-professional` · `vyond-starter`
+
+`nav.js` actualizado: hamburger toggle incluye `setAttribute('aria-label', ...)` para
+accesibilidad ARIA dinámica (cubre ambas variantes de implementación preexistentes).
+
+#### Deuda residual documentada para Fase 2
+
+**Grupo A — `nav-link.active` CSS inline restante (11 archivos):**
+`articulate-ai-assistant` · `articulate-reach` · `articulate-rise360` ·
+`articulate-storyline360` · `articulos` · `blog` · `comparativos` · `estandares` ·
+`glosario` · `quiz` · `radar`
+
+Causa: inline usa selector `header a.active` (más amplio que `header a.nav-link.active`
+en `header.css`). No se eliminó para evitar regresión de selector. Sin impacto visual
+actual (cascade idéntica). Requiere auditoría de selectores antes de limpiar.
+
+**Grupo B — CSS de footer + `nav-link.active` inline (9 archivos):**
+`curso-cerrado-empresa` · `curso-cerrado-grupos` · `curso-fundamentos` ·
+`curso-moodle` · `curso-storyline` · `curso-vyond` · `vyond-go` · `vyond-mobile` ·
+`vyond-studio`
+
+Causa: `footer { background: #04293F }` difiere de `var(--navy)` en `footer.css` —
+variante de diseño de footer intencional. JS global extraído en Fase 1B; solo
+persiste CSS de footer. `vyond-go/mobile/studio` conservan su bloque de video
+(`// ── Video play/pause`) en `<script>` propio.
+
+**Grupo C — Sistema de diseño diferente, diferidos íntegros (2 archivos):**
+`articulate-localization` · `articulate-review360`
+
+Causa: tokens `:root` distintos (`--orange: #F59E0B`, tokens `--art`); sin marcadores
+de sección en CSS ni en JS. Los 3 `<link>` y `nav.js` están añadidos pero CSS y JS
+global permanecen inline. Requieren estrategia de tokens separada en Fase 2.
+
+#### Páginas que requieren QA visual prioritario
+
+1. **`vyond-go` · `vyond-mobile` · `vyond-studio`** — script de video reestructurado;
+   verificar play/pause y mute del hero-video tras el deploy.
+2. **`articulos` · `blog` · `estandares`** — JS de filtrado/búsqueda convive con
+   nav.js en mismo `<script>`; verificar que los filtros funcionan correctamente.
+3. **`articulate-localization` · `articulate-review360`** — dos sistemas de tokens
+   activos simultáneamente (externo + inline); verificar que el diseño no presenta
+   conflictos de color o tipografía visibles.
+4. **`totara-lms-mexico`** — página con formulario EmailJS y scroll-tracking inline;
+   verificar envío de formulario y barra sticky post-extracción de JS global.
+
+#### Qué no se tocó deliberadamente
+
+- `summit-articulate/` (5 archivos): sistema de diseño independiente, IBM Plex Sans,
+  tokens propios, sin header/footer TAEC. Excluido del alcance de Fase 1.
+- CSS de footer en Grupo B (9 archivos): `#04293F` es variante de diseño válida;
+  no se unificó para no alterar diseño visible.
+- `header a.active` inline en 11 archivos: diferencia de selector con consecuencias
+  potenciales; no se eliminó sin auditoría previa.
+- Contenido HTML, URLs públicas, slugs, sitemap — sin modificaciones.
+- Código JavaScript específico de página (filtros, video, formularios, scroll
+  tracking): preservado sin alteración.
+
+#### Métricas consolidadas (Fase 1 + Fase 1B)
+
+- Archivos HTML procesados: 46 de 48 (96 %)
+- Archivos 100 % limpios: 26 (54 %)
+- Archivos con deuda residual documentada: 20 (42 %)
+- Archivos diferidos a Fase 2: 2 (4 %)
+- Archivos excluidos por diseño: 5 (summit-articulate)
+- Código global centralizado: 355 líneas en 4 archivos, sirven 46 páginas
+- Reducción neta estimada: ~8 100 líneas inline eliminadas (≈ −28 %)
+
+#### Recomendaciones para el merge
+
+1. **QA visual mínimo antes de merge a `main`:** verificar las 4 páginas prioritarias
+   listadas arriba en staging (`elzorromexican.github.io/taec-web`).
+2. **Smoke test de navegación:** hamburger, dropdown desktop, acordeón móvil y
+   active-nav en al menos 3 páginas de secciones distintas.
+3. **No mergear** `articulate-localization` ni `articulate-review360` sin revisar
+   manualmente que su diseño visual no presenta regresiones.
+4. **Rama de trabajo:** `refactor/fase1-css-js-global` — merge a `main` solo tras
+   QA aprobado. No hacer squash: preservar historial de Fase 1 y Fase 1B por
+   trazabilidad.
+5. **Fase 2 pendiente:** abrir issue o rama para (a) unificar selector `header a.active`,
+   (b) resolver tokens de footer Grupo B, (c) procesar los 2 archivos Type B.
+
+---
+
+## v2.6 · 18 mar 2026
+
+### Refactor Fase 1 — Externalización CSS/JS global
+
+**Archivos creados:**
+- `assets/css/base.css` — Reset, design tokens `:root`, tipografía base, accesibilidad (50 líneas)
+- `assets/css/header.css` — Header sticky, nav desktop, mega-menu, dropdown, hamburger, nav móvil, active-nav (165 líneas)
+- `assets/css/footer.css` — Footer grid, LATAM strip, WhatsApp flotante, responsive footer (45 líneas)
+- `assets/js/nav.js` — Año dinámico, active nav, hamburger toggle, toggleMob, dropdown click-toggle (93 líneas)
+- `scripts/fase1_externalize.py` — Script de externalización batch
+
+**48 archivos HTML modificados** (47 en `/pages/` + `index.html`):
+- Eliminados bloques CSS inline globales (reset+tokens+header, footer, wa-float, accessibility, footer-latam, active-nav)
+- Eliminados bloques JS inline globales (year, active nav IIFE, hamburger, toggleMob, dropdown IIFE)
+- Añadidos `<link>` a los 3 CSS externos + `<script defer>` a nav.js
+
+**sitemap.xml** — 40 URLs → 48 URLs:
+- Añadidas: Blog & Recursos (8 páginas), capacitacion-abierta/cerrada, servicios, planes Vyond (3)
+- Uniformado `<lastmod>2026-03-18</lastmod>` en todas las URLs
+- `priority` ajustado por tipo: 1.0 home · 0.9 productos principales · 0.8 subproductos · 0.7 cursos/empresa · 0.6 recursos/add-ons
+
+**Métricas:**
+- Líneas HTML antes: 29,303 · después: 21,907 · reducción: **−7,396 líneas (−25%)**
+- Código compartido en 4 archivos: 353 líneas (sirven 48 páginas)
+- `summit-articulate/` excluido (sistema de diseño independiente)
+
+**Notas técnicas:**
+- `articulate-localization.html` y `articulate-review360.html` usan sistema de diseño diferente (tokens distintos, sin marcadores de sección): links añadidos, CSS inline permanece por seguridad. Flaggeados para Fase 2.
+- Páginas `curso-cerrado-*`, `vyond-go/studio/mobile` y otras con footer sin marcadores de comentario: header prefix extraído, footer aún inline (override de cascade garantiza sin regresión visual).
+
+---
+
+## v2.5 · 18 mar 2026
+
+### Blog & Recursos — Sección completa (8 páginas nuevas)
+
+Migración total del contenido de `taec-elearning.neocities.org` al sitio principal.
+Neocities queda en proceso de decommission.
+
+**`pages/recursos.html`** — Hub principal
+- Hero navy gradient, eyebrow "Blog & Recursos"
+- 4 stats: 456 total · 232 glosario · 93 blog · 18 artículos
+- 7 `.sec-card` con links a cada sub-sección; Blog y Artículos con clase `.featured` (acento naranja)
+
+**`pages/blog.html`**
+- Grid 3 columnas `.post-card` con data-titulo, data-tags, data-fecha
+- Barra sticky: búsqueda + conteo dinámico
+- Tags filter construido dinámicamente desde data-tags
+- Injection point `<!-- INICIO_POSTS -->` / `<!-- FIN_POSTS -->`
+
+**`pages/articulos.html`**
+- `.art-card` expandibles (toggle +/×)
+- Filter tags + búsqueda
+- Injection point `<!-- INICIO_ARTICULOS -->` / `<!-- FIN_ARTICULOS -->`
+
+**`pages/glosario.html`**
+- Index alfabético auto-construido desde `.glo-group[data-letra]`
+- `.glo-term` expandibles con data-termino, data-definicion
+- Búsqueda override del filtro alfabético
+- Injection point `<!-- INICIO_GLOSARIO -->` / `<!-- FIN_GLOSARIO -->`
+
+**`pages/comparativos.html`**
+- `.comp-card` expandibles con tablas `.comp-table` internas (th navy, filas alternadas)
+- Injection point `<!-- INICIO_COMPARATIVOS -->` / `<!-- FIN_COMPARATIVOS -->`
+
+**`pages/estandares.html`**
+- Grid 2 col `.est-card` con emoji, nombre, badge categoría, `<dl>` expandible
+- Filter pills por categoría + búsqueda
+- Injection point `<!-- INICIO_ESTANDARES -->` / `<!-- FIN_ESTANDARES -->`
+
+**`pages/radar.html`**
+- Grid 2 col `.rad-card` con badge edición, título, fecha, resumen, "Ver edición →"
+- Búsqueda + conteo
+- Injection point `<!-- INICIO_RADAR -->` / `<!-- FIN_RADAR -->`
+
+**`pages/quiz.html`**
+- CSS 3D flip animation 500ms — navy front / white back
+- Progress bar, Anterior/Siguiente, Barajar (shuffle)
+- Keyboard: Enter/Space flip · ←/→ navegar
+- Injection point `<!-- INICIO_FLASHCARDS -->` / `<!-- FIN_FLASHCARDS -->`
+
+### Nav & Footer — 39 archivos actualizados (batch Python)
+- Añadido `<a href="recursos.html">Recursos</a>` en nav desktop y mobile (entre Nosotros y Clientes)
+- Footer columna "Recursos" → "Blog & Recursos" con links internos (blog, artículos, glosario, comparativos, recursos)
+- Eliminados links externos a Neocities del footer
+
+### Arquitectura de contenido — decisión tomada
+- Contenido se cargará desde **archivos JSON externos** via `fetch()` en runtime
+- Los HTMLs son cascarones ligeros con injection points; el JSON alimenta el render JS
+- `data/blog.json`, `data/glosario.json`, `data/quiz.json`, etc. — pendiente generar desde CSVs
+
+---
+
 ## v2.4 · 16 mar 2026
 
 ### Totara LMS — Página completa (`totara-lms-mexico.html`)
@@ -20,7 +211,7 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ### Totara — Lead Magnet "Novedades V20"
 - Formulario de registro (Nombre, Empresa, Email, Cargo) con EmailJS antes de descarga
-- EmailJS: service `service_v232r5x` / template `template_xjgle2w` / key `wiGRbwHK6dyZcHrUK`
+- EmailJS: servicio de email transaccional configurado (credenciales en variables de entorno)
 - Al enviar: formulario se oculta, aparece botón de descarga del PDF
 - **`assets/docs/totara-v20-novedades.pdf`** — PDF oficial Totara V20 (685 KB)
 
@@ -230,9 +421,9 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 - Footer con YouTube, Facebook, LinkedIn, WhatsApp
 
 ## v1.1 · 13 mar 2026
-- `pages/contacto.html` — Formulario de contacto con EmailJS (service_v232r5x / template_xjgle2w)
+- `pages/contacto.html` — Formulario de contacto con EmailJS (servicio transaccional configurado)
 - Campos: nombre, empresa, email, teléfono, tema, mensaje
-- EmailJS configurado con cuenta smasmoudi@taec.com.mx → entrega a info@taec.com.mx
+- EmailJS configurado para entrega a info@taec.com.mx
 
 ## v1.0 · 12 mar 2026
 - `index.html` — Home page completo
