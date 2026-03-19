@@ -1,5 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+
+const faqsMoodle = [
+  { question: "¿Moodle es realmente gratuito?", answerHtml: "El software Moodle es gratuito y de código abierto. Lo que tiene un costo es el hospedaje (hosting), la implementación y el soporte. El servicio SaaS de TAEC incluye todo eso: infraestructura en la nube, actualizaciones automáticas, backups diarios y soporte técnico en español — sin que tengas que preocuparte por los servidores." },
+  { question: "¿Qué incluye el hosting SaaS de Moodle con TAEC?", answerHtml: "El hosting SaaS incluye: servidor dedicado o compartido según el plan, dominio o subdominio personalizado, certificado SSL, actualizaciones de Moodle y plugins incluidos, backups diarios automatizados, monitoreo de disponibilidad 24/7 y soporte técnico en español en horario de oficina. También incluimos la instalación inicial y configuración básica de la plataforma." },
+  { question: "¿Cuánto tiempo tarda una implementación de Moodle?", answerHtml: "Una implementación estándar (hosting SaaS + configuración inicial + tema básico) está lista en 48 a 72 horas hábiles. Una implementación completa con personalización de tema, plugins a medida, migración de datos e integración con sistemas externos puede tomar entre 2 y 6 semanas dependiendo de la complejidad." },
+  { question: "¿Puedo migrar mi Moodle actual a TAEC?", answerHtml: "Sí. Realizamos migraciones desde otras instancias de Moodle (auto-hospedadas u hospedadas por otros proveedores) conservando cursos, usuarios, calificaciones, foros y toda la información de la plataforma. También podemos migrar desde otras plataformas LMS exportando el contenido en formatos estándar (SCORM, xAPI)." },
+  { question: "¿Cuál es la diferencia entre Moodle LMS y Moodle Workplace?", answerHtml: "Moodle LMS es la plataforma open source estándar, ideal para instituciones educativas y empresas que necesitan un LMS robusto y flexible. Moodle Workplace es la edición enterprise construida sobre Moodle LMS, que agrega gestión multi-empresa, automatizaciones de RR.HH., flujos de trabajo corporativos, reportes avanzados y certificados digitales. Workplace es la opción recomendada para organizaciones con más de 500 usuarios o requerimientos de cumplimiento normativo complejos." },
+  { question: "¿Ofrecen capacitación para administradores de Moodle?", answerHtml: "Sí. TAEC ofrece cursos abiertos de Moodle para administradores de plataforma y cursos cerrados personalizados para equipos de e-learning. También incluimos una capacitación básica de administración en cada implementación nueva. Contáctanos para conocer el calendario de cursos abiertos." }
+];
 ---
 
 <BaseLayout 
@@ -8,7 +20,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   section="Soluciones"
   page="moodle-mexico.html"
 >
-  <style is:global>
+  <style>
     /* ── PRODUCT LOGO ── */
     .product-logo-wrap { display: inline-flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 10px; padding: 10px 20px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
     .product-logo { height: 36px; width: auto; display: block; }
@@ -16,23 +28,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     /* ── MOODLE VARS ── */
     :root { --moo:#F98012; --moo-dark:#C46200; --moo-light:#FFB05A; }
 
-    /* ── HERO ── */
-    .moo-hero { background: linear-gradient(135deg, #1a0600 0%, #3d1500 55%, #7a2e00 100%); padding: 72px 5% 80px; color: white; }
-    .moo-hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-    .moo-eyebrow { font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; color: var(--moo-light); letter-spacing: -.01em; margin-bottom: 10px; line-height: 1; }
-    .moo-hero h1 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); font-weight: 400; color: white; line-height: 1.15; margin-bottom: 20px; }
-    .moo-hero h1 em { color: var(--moo-light); font-style: normal; }
-    .moo-hero-sub { font-size: 17px; color: rgba(255,255,255,.8); line-height: 1.7; margin-bottom: 28px; }
-    .moo-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
-    .btn-moo-primary { background: var(--moo); color: white; font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; transition: opacity .15s; }
-    .btn-moo-primary:hover { opacity: .9; }
-    .btn-moo-ghost { background: transparent; color: white; font-weight: 600; font-size: 15px; padding: 13px 24px; border-radius: 8px; border: 1.5px solid rgba(255,255,255,.4); display: inline-flex; align-items: center; gap: 8px; transition: border-color .15s; }
-    .btn-moo-ghost:hover { border-color: white; }
-    .moo-hero-card { background: rgba(255,255,255,.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.15); border-radius: 20px; padding: 28px 28px 24px; }
-    .moo-hero-feat { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-    .moo-feat-item { font-size: 14px; color: rgba(255,255,255,.9); display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
-    .moo-feat-item:last-child { border-bottom: none; }
-    .moo-feat-item::before { content: "✓"; color: var(--moo-light); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
 
     /* ── STATS ── */
     .moo-stats { background: #110400; padding: 0; }
@@ -102,54 +98,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .moo-quote-author { font-size: 14px; font-weight: 600; color: var(--moo-light); }
     .moo-quote-role { font-size: 13px; color: rgba(255,255,255,.6); }
 
-    /* ── FAQ ── */
-    .moo-faq { padding: 64px 5%; background: white; }
-    .moo-faq-inner { max-width: 800px; margin: 0 auto; }
-    .moo-faq details { border-bottom: 1px solid var(--border); padding: 18px 0; }
-    .moo-faq summary { font-size: 15px; font-weight: 700; color: #111827; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .moo-faq summary::after { content: "＋"; color: var(--moo); font-size: 20px; flex-shrink: 0; transition: transform .2s; }
-    .moo-faq details[open] summary::after { content: "－"; }
-    .moo-faq details p { font-size: 14px; color: #4B5563; line-height: 1.8; padding-top: 12px; }
 
-    /* ── CTA BAND ── */
-    .moo-cta-band { background: var(--moo-dark); padding: 56px 5%; text-align: center; color: white; }
-    .moo-cta-band h2 { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); font-weight: 400; margin-bottom: 12px; }
-    .moo-cta-band p { font-size: 16px; opacity: .85; margin-bottom: 32px; }
-    .moo-cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
   </style>
 
   <main id="main-content">
     <!-- ══ HERO ══ -->
-    <section class="moo-hero">
-      <div class="moo-hero-inner">
-        <div>
-          <p class="moo-eyebrow">Moodle</p>
-          <h1>El LMS de código abierto <em>más usado del mundo</em></h1>
-          <p class="moo-hero-sub">Implementamos, hospedamos y soportamos Moodle en México y LATAM desde 2007. Tu plataforma lista en días — sin preocuparte por servidores, actualizaciones ni seguridad.</p>
-          <div class="moo-hero-btns">
-            <a href="/contacto" class="btn-moo-primary">Solicitar demo gratuita →</a>
-            <a href="/contacto" class="btn-moo-ghost">Hablar con un especialista</a>
-          </div>
-          <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">✓ Hosting SaaS gestionado por TAEC &nbsp;·&nbsp; ✓ Soporte en español &nbsp;·&nbsp; ✓ +18 años de experiencia</p>
-        </div>
-        <div class="moo-hero-card">
-          <div style="display:flex;justify-content:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);">
-            <div class="product-logo-wrap" style="margin-bottom:0;">
-              <img src="/assets/logos/moodle.png" alt="Moodle" class="product-logo" style="height:44px;" />
-            </div>
-          </div>
-          <p style="font-size:12px;font-weight:700;color:var(--moo-light);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Por qué Moodle con TAEC</p>
-          <div class="moo-hero-feat">
-            <div class="moo-feat-item">Hosting SaaS — tu Moodle listo en 48 horas</div>
-            <div class="moo-feat-item">Actualizaciones, backups y seguridad incluidos</div>
-            <div class="moo-feat-item">Soporte técnico dedicado en español</div>
-            <div class="moo-feat-item">Personalización de tema e identidad de marca</div>
-            <div class="moo-feat-item">Factura electrónica mexicana (CFDI)</div>
-            <div class="moo-feat-item">Integración con Articulate 360 y Vyond</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <HeroComercial 
+      theme="moo"
+      eyebrow="Moodle"
+      titleHtml="El LMS de código abierto <em>más usado del mundo</em>"
+      subtitle="Implementamos, hospedamos y soportamos Moodle en México y LATAM desde 2007. Tu plataforma lista en días — sin preocuparte por servidores, actualizaciones ni seguridad."
+      primaryBtn={{ label: "Solicitar demo gratuita →", url: "/contacto" }}
+      secondaryBtn={{ label: "Hablar con un especialista", url: "/contacto" }}
+      bottomText="✓ Hosting SaaS gestionado por TAEC · ✓ Soporte en español · ✓ +18 años de experiencia"
+      cardLogoSrc="/assets/logos/moodle.png"
+      cardBadgeText="Por qué Moodle con TAEC"
+      features={[
+        "Hosting SaaS — tu Moodle listo en 48 horas",
+        "Actualizaciones, backups y seguridad incluidos",
+        "Soporte técnico dedicado en español",
+        "Personalización de tema e identidad de marca",
+        "Factura electrónica mexicana (CFDI)",
+        "Integración con Articulate 360 y Vyond"
+      ]}
+    />
 
     <!-- ══ STATS ══ -->
     <div class="moo-stats">
@@ -352,50 +324,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- ══ FAQ ══ -->
-    <section class="moo-faq">
-      <div class="moo-faq-inner">
-        <p class="moo-section-label" style="text-align:center;color:var(--moo-dark);">Preguntas frecuentes</p>
-        <h2 class="moo-section-title" style="text-align:center;margin-bottom:8px;">Lo que más nos preguntan</h2>
-        <p class="moo-section-sub" style="text-align:center;margin-bottom:40px;">¿No encuentras tu pregunta? <a href="/contacto" style="color:var(--moo);text-decoration:underline;">Escríbenos directamente →</a></p>
-        <details>
-          <summary>¿Moodle es realmente gratuito?</summary>
-          <p>El software Moodle es gratuito y de código abierto. Lo que tiene un costo es el hospedaje (hosting), la implementación y el soporte. El servicio SaaS de TAEC incluye todo eso: infraestructura en la nube, actualizaciones automáticas, backups diarios y soporte técnico en español — sin que tengas que preocuparte por los servidores.</p>
-        </details>
-        <details>
-          <summary>¿Qué incluye el hosting SaaS de Moodle con TAEC?</summary>
-          <p>El hosting SaaS incluye: servidor dedicado o compartido según el plan, dominio o subdominio personalizado, certificado SSL, actualizaciones de Moodle y plugins incluidos, backups diarios automatizados, monitoreo de disponibilidad 24/7 y soporte técnico en español en horario de oficina. También incluimos la instalación inicial y configuración básica de la plataforma.</p>
-        </details>
-        <details>
-          <summary>¿Cuánto tiempo tarda una implementación de Moodle?</summary>
-          <p>Una implementación estándar (hosting SaaS + configuración inicial + tema básico) está lista en 48 a 72 horas hábiles. Una implementación completa con personalización de tema, plugins a medida, migración de datos e integración con sistemas externos puede tomar entre 2 y 6 semanas dependiendo de la complejidad.</p>
-        </details>
-        <details>
-          <summary>¿Puedo migrar mi Moodle actual a TAEC?</summary>
-          <p>Sí. Realizamos migraciones desde otras instancias de Moodle (auto-hospedadas u hospedadas por otros proveedores) conservando cursos, usuarios, calificaciones, foros y toda la información de la plataforma. También podemos migrar desde otras plataformas LMS exportando el contenido en formatos estándar (SCORM, xAPI).</p>
-        </details>
-        <details>
-          <summary>¿Cuál es la diferencia entre Moodle LMS y Moodle Workplace?</summary>
-          <p>Moodle LMS es la plataforma open source estándar, ideal para instituciones educativas y empresas que necesitan un LMS robusto y flexible. Moodle Workplace es la edición enterprise construida sobre Moodle LMS, que agrega gestión multi-empresa, automatizaciones de RR.HH., flujos de trabajo corporativos, reportes avanzados y certificados digitales. Workplace es la opción recomendada para organizaciones con más de 500 usuarios o requerimientos de cumplimiento normativo complejos.</p>
-        </details>
-        <details>
-          <summary>¿Ofrecen capacitación para administradores de Moodle?</summary>
-          <p>Sí. TAEC ofrece cursos abiertos de Moodle para administradores de plataforma y cursos cerrados personalizados para equipos de e-learning. También incluimos una capacitación básica de administración en cada implementación nueva. Contáctanos para conocer el calendario de cursos abiertos.</p>
-        </details>
-      </div>
-    </section>
+    <FAQAccordion 
+      theme="moo"
+      eyebrow="Preguntas frecuentes"
+      title="Lo que más nos preguntan"
+      subtitle="¿No encuentras tu pregunta?"
+      subtitleLink={{ text: "Escríbenos directamente →", url: "/contacto" }}
+      faqs={faqsMoodle}
+    />
 
     <!-- ══ CTA BAND ══ -->
-    <section class="moo-cta-band">
-      <h2>¿Listo para lanzar tu Moodle en México?</h2>
-      <p>Cuéntanos tu proyecto y te preparamos una propuesta en 24 horas hábiles. Sin compromisos.</p>
-      <div class="moo-cta-btns">
-        <a href="/contacto" class="btn-moo-primary" style="background:white;color:var(--moo-dark);">Solicitar propuesta →</a>
-        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:white;font-weight:700;font-size:15px;padding:14px 24px;border-radius:8px;transition:opacity .15s;">
-          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white;flex-shrink:0;" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
-          WhatsApp
-        </a>
-        <a href="https://tidycal.com/slimmasmoudi/consultoria-estrategia" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:white;font-weight:600;font-size:15px;padding:13px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.5);transition:border-color .15s;">Agendar diagnóstico gratuito</a>
-      </div>
-    </section>
+    <CtaFinal 
+      theme="moo"
+      title="¿Listo para lanzar tu Moodle en México?"
+      subtitle="Cuéntanos tu proyecto y te preparamos una propuesta en 24 horas hábiles. Sin compromisos."
+      primaryBtnText="Solicitar propuesta →"
+      primaryBtnUrl="/contacto"
+    />
   </main>
 </BaseLayout>

@@ -1,60 +1,54 @@
+---
+// CHANGELOG: 19/03/2026 - Refactored to use centralized data from src/data/navigation.ts and src/data/contact.ts
+import { mainNav } from '../data/navigation';
+import { contactData } from '../data/contact';
+---
 <nav class="mobile-nav" id="mobileNav">
-  <!-- Soluciones accordion -->
-  <button class="mob-toggle" id="mobSol" aria-expanded="false" aria-controls="mobSolSec" onclick="toggleMob('mobSolSec','mobSol')">
-    Soluciones
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-  <div class="mob-section" id="mobSolSec">
-    <span class="mob-cat">Autoría &amp; Video</span>
-    <a href="/articulate-360-mexico">Articulate 360</a>
-    <a href="/vyond-mexico">Vyond</a>
-    <span class="mob-cat">Plataformas &amp; LMS</span>
-    <a href="/moodle-mexico">Moodle <span class="badge-saas">SaaS</span></a>
-    <a href="/totara-lms-mexico">Totara <span class="badge-saas">SaaS</span></a>
-    <a href="/ottolearn-mexico">Ottolearn</a>
-    <a href="/lys-mexico">Lys</a>
-    <a href="/bigbluebutton-mexico">BigBlueButton</a>
-    <span class="mob-cat">Servicios &amp; Add-ons</span>
-    <a href="/class-taec">Class</a>
-    <a href="/proctorizer-mexico">Proctorizer</a>
-    <a href="/strikeplagiarism-mexico">StrikePlagiarism</a>
-    <a href="/zoola-analytics">Zoola Analytics</a>
-    <span class="mob-cat">Catálogo Listo</span>
-    <a href="/7minutes-learning">7 Minutes</a>
-    <a href="/go1-mexico">GO1</a>
-    <a href="/customguide-mexico">Custom Guide</a>
-  </div>
+  {mainNav.map((item, i) => {
+    if (item.type === "link") {
+      return <a href={item.url}>{item.label}</a>;
+    }
 
-  <!-- Capacitación accordion -->
-  <button class="mob-toggle" id="mobCap" aria-expanded="false" aria-controls="mobCapSec" onclick="toggleMob('mobCapSec','mobCap')">
-    Capacitación
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-  <div class="mob-section" id="mobCapSec">
-    <span class="mob-cat">Cursos Abiertos</span>
-    <a href="/curso-articulate">Articulate 360</a>
-    <a href="/curso-vyond">Vyond</a>
-    <a href="/curso-moodle">Moodle</a>
-    <span class="mob-cat">Cursos Cerrados</span>
-    <a href="/contacto">Solicitar programa →</a>
-  </div>
-
-  <a href="/nosotros">Nosotros</a>
-  <button class="mob-toggle" id="mobRec" aria-expanded="false" aria-controls="mobRecSec" onclick="toggleMob('mobRecSec','mobRec')">Recursos
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-  <div class="mob-section" id="mobRecSec">
-    <a href="/blog">Blog</a>
-    <a href="/articulos">Artículos</a>
-    <a href="/glosario">Glosario e-learning</a>
-    <a href="/comparativos">Comparativos</a>
-    <a href="/estandares">Estándares</a>
-    <a href="/radar">Radar</a>
-    <a href="/quiz">Quiz &amp; Flashcards</a>
-    <a href="/recursos" style="color:var(--blue);font-weight:600">Ver todos →</a>
-  </div>
-  <a href="/clientes">Clientes</a>
-  <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer">Tienda</a>
-  <a href="/contacto">Contacto</a>
-  <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta">WhatsApp →</a>
+    if (item.type === "mega" || item.type === "dropdown") {
+      const mobId = `mob${i}`;
+      const secId = `mobSec${i}`;
+      return (
+        <>
+          <button class="mob-toggle" id={mobId} aria-expanded="false" aria-controls={secId} onclick={`toggleMob('${secId}','${mobId}')`}>
+            {item.label}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mob-section" id={secId}>
+            {item.columns?.map((col) => (
+              <>
+                {col.title && <span class="mob-cat">{col.title}</span>}
+                {col.items.map((link) => {
+                  if (link.isDivider || link.isSubtitle) return null;
+                  return (
+                    <>
+                      <a href={link.url}>
+                        {link.label}
+                        {link.badge && <span class={`badge-${link.badge.type}`}>{link.badge.text}</span>}
+                      </a>
+                      {link.subItems?.map((sub) => (
+                        <a href={sub.url} class="mob-sub-link" style="padding-left:16px;">
+                          {sub.label}
+                          {sub.badge && <span class={`badge-${sub.badge.type}`}>{sub.badge.text}</span>}
+                        </a>
+                      ))}
+                    </>
+                  );
+                })}
+                {col.bottomLink && (
+                  <a href={col.bottomLink.url} style="color:var(--blue);font-weight:600;">{col.bottomLink.label}</a>
+                )}
+              </>
+            ))}
+          </div>
+        </>
+      );
+    }
+  })}
+  <a href={contactData.storeUrl} target="_blank" rel="noopener noreferrer">Tienda</a>
+  <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta">WhatsApp →</a>
 </nav>

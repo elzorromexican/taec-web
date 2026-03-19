@@ -1,0 +1,100 @@
+---
+// CHANGELOG: 19/03/2026 - Extracted GridBeneficios component to remove HTML duplication.
+export interface ContenidoCard {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  cards: ContenidoCard[];
+  columns?: 2 | 3 | 4;
+  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  cards,
+  columns = 3,
+  theme = 'general'
+} = Astro.props;
+---
+<section class={`grid-beneficios theme-${theme}`}>
+  <div class="grid-inner">
+    {eyebrow && <p class="section-label">{eyebrow}</p>}
+    <h2 class="section-title">{title}</h2>
+    {subtitle && <p class="section-sub">{subtitle}</p>}
+    
+    <div class={`cards-grid cols-${columns}`}>
+      {cards.map((card) => (
+        <div class="card-item">
+          <div class="card-icon">{card.icon}</div>
+          <h3 class="card-title">{card.title}</h3>
+          <p class="card-desc">{card.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.grid-beneficios {
+  padding: 72px 5%; background: var(--grid-bg, white);
+}
+.grid-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; 
+  color: var(--grid-accent, #1e3a8a); margin-bottom: 10px; text-align: center;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); 
+  font-weight: 400; color: #111827; text-align: center; margin-bottom: 8px;
+}
+.section-sub {
+  text-align: center; color: #64748B; font-size: 15px; margin-bottom: 48px;
+}
+
+.cards-grid {
+  display: grid; gap: 24px; margin-top: 48px;
+}
+.cards-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.cards-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.cards-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card-item {
+  padding: 28px; border: 1.5px solid var(--border-color, #E2E8F0); 
+  border-radius: 14px; transition: border-color .2s; background: white;
+}
+.card-item:hover {
+  border-color: var(--grid-accent, #3b82f6);
+}
+
+.card-icon {
+  font-size: 32px; margin-bottom: 14px;
+}
+.card-title {
+  font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px;
+}
+.card-desc {
+  font-size: 14px; color: #64748B; line-height: 1.7; margin: 0;
+}
+
+/* THEMES */
+.theme-moo { --grid-bg: white; --grid-accent: #C46200; }
+.theme-tot { --grid-bg: white; --grid-accent: #004775; }
+.theme-art { --grid-bg: white; --grid-accent: #0ea5e9; }
+.theme-vyond{ --grid-bg: white; --grid-accent: #ec4899; }
+.theme-general { --grid-bg: white; --grid-accent: #f97316; }
+
+@media (max-width: 768px) {
+  .cards-grid { grid-template-columns: 1fr !important; margin-top: 32px; }
+}
+</style>

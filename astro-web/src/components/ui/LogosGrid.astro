@@ -1,0 +1,77 @@
+---
+// CHANGELOG: 19/03/2026 - Extracted LogosGrid component to standardize partners and badges.
+export interface LogoItem {
+  type: 'image' | 'text';
+  src?: string;
+  text?: string;
+  alt?: string;
+  badge?: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  logos: LogoItem[];
+  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+}
+
+const { eyebrow, logos, theme = 'general' } = Astro.props;
+---
+<section class={`logos-grid-section theme-${theme}`}>
+  <div class="logos-inner">
+    {eyebrow && <p class="logos-label">{eyebrow}</p>}
+    <div class="logos-row">
+      {logos.map(logo => (
+        <div class="logo-item">
+          {logo.type === 'image' && (
+             <img src={logo.src} alt={logo.alt || ''} class="logo-img" onerror="this.style.display='none'" />
+          )}
+          {logo.type === 'text' && (
+             <div class="logo-text-pill"><span>{logo.text}</span></div>
+          )}
+          {logo.badge && <span class="logo-tag">{logo.badge}</span>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.logos-grid-section { 
+  background: var(--logos-bg, #F8FAFC); 
+  padding: 44px 5%; 
+  border-top: 1px solid var(--border-color, #E2E8F0); 
+  border-bottom: 1px solid var(--border-color, #E2E8F0); 
+}
+.logos-inner { max-width: 960px; margin: 0 auto; text-align: center; }
+.logos-label { 
+  font-size: 13px; font-weight: 700; color: #64748B; 
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; 
+}
+
+.logos-row { 
+  display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; 
+}
+.logo-item { 
+  display: flex; flex-direction: column; align-items: center; gap: 8px; 
+}
+.logo-tag { 
+  font-size: 10px; font-weight: 700; color: #64748B; letter-spacing: .5px; 
+  background: white; padding: 4px 8px; border-radius: 4px; border: 1px solid #E2E8F0; 
+}
+
+.logo-img { height: 110px; width: auto; object-fit: contain; }
+.logo-text-pill { 
+  background: white; padding: 8px 16px; border-radius: 20px; 
+  border: 1.5px solid #E2E8F0; font-weight: 700; color: #475569; 
+}
+
+.theme-moo { --logos-bg: #fff; }
+.theme-tot { --logos-bg: #F8FAFC; }
+.theme-art { --logos-bg: #fff; }
+.theme-general { --logos-bg: #F8FAFC; }
+
+@media (max-width: 768px) {
+  .logo-img { height: 80px; }
+  .logos-row { gap: 16px; }
+}
+</style>

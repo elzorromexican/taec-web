@@ -1,0 +1,88 @@
+---
+// CHANGELOG: 19/03/2026 - Extracted FAQAccordion component to remove duplication across product pages.
+export interface FaqItem {
+  question: string;
+  answerHtml: string;
+}
+
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  subtitleLink?: { text: string; url: string };
+  faqs: FaqItem[];
+  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+}
+
+const {
+  eyebrow = "Preguntas frecuentes",
+  title,
+  subtitle,
+  subtitleLink,
+  faqs,
+  theme = 'general'
+} = Astro.props;
+---
+<section class={`faq-accordion theme-${theme}`}>
+  <div class="faq-inner">
+    <p class="section-label">{eyebrow}</p>
+    <h2 class="section-title">{title}</h2>
+    {subtitle && (
+      <p class="section-sub">
+        {subtitle} {subtitleLink && <a href={subtitleLink.url}>{subtitleLink.text}</a>}
+      </p>
+    )}
+    <div class="faq-list">
+      {faqs.map((faq) => (
+        <details>
+          <summary>{faq.question}</summary>
+          <p set:html={faq.answerHtml}></p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.faq-accordion {
+  padding: 64px 5%;
+  background: var(--faq-bg, white);
+}
+.faq-inner { max-width: 800px; margin: 0 auto; }
+.section-label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; 
+  color: var(--faq-accent, #1e3a8a); margin-bottom: 8px; text-align: center;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); 
+  color: #111827; text-align: center; margin-bottom: 8px;
+}
+.section-sub {
+  text-align: center; color: #64748B; font-size: 15px; margin-bottom: 40px;
+}
+.section-sub a { color: var(--faq-accent, #1e3a8a); text-decoration: underline; }
+
+.faq-list details {
+  border-bottom: 1px solid var(--border-color, #E2E8F0);
+  padding: 18px 0;
+}
+.faq-list summary {
+  font-size: 15px; font-weight: 700; color: #111827; cursor: pointer; list-style: none; 
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after {
+  content: "＋"; color: var(--faq-accent, #1e3a8a); font-size: 20px; flex-shrink: 0; transition: transform .2s;
+}
+.faq-list details[open] summary::after { content: "－"; }
+.faq-list details p {
+  font-size: 14px; color: #4B5563; line-height: 1.8; padding-top: 12px; margin: 0;
+}
+
+/* THEMES */
+.theme-moo { --faq-bg: white; --faq-accent: #C46200; }
+.theme-tot { --faq-bg: #F8FAFC; --faq-accent: #004775; }
+.theme-art { --faq-bg: white; --faq-accent: #0ea5e9; }
+.theme-vyond{ --faq-bg: #F8FAFC; --faq-accent: #ec4899; }
+.theme-general { --faq-bg: white; --faq-accent: #f97316; }
+</style>
