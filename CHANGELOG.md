@@ -4,6 +4,104 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v3.00 · 18 mar 2026
+
+### Cierre técnico — Fase 1 completa (Fase 1 + Fase 1B)
+
+#### Qué quedó 100% limpio (26 archivos)
+
+Sin redundancia inline de ningún tipo respecto a los 4 archivos externos
+(`base.css`, `header.css`, `footer.css`, `nav.js`):
+
+`index.html` · `articulate-360-mexico` · `contacto` · `7minutes-learning` ·
+`bigbluebutton-mexico` · `capacitacion-abierta` · `capacitacion-cerrada` ·
+`class-taec` · `clientes` · `curso-articulate` · `customguide-mexico` ·
+`go1-mexico` · `lys-mexico` · `moodle-mexico` · `nosotros` · `ottolearn-mexico` ·
+`proctorizer-mexico` · `recursos` · `servicios` · `strikeplagiarism-mexico` ·
+`totara-lms-mexico` · `vyond-mexico` · `zoola-analytics` · `vyond-enterprise` ·
+`vyond-professional` · `vyond-starter`
+
+`nav.js` actualizado: hamburger toggle incluye `setAttribute('aria-label', ...)` para
+accesibilidad ARIA dinámica (cubre ambas variantes de implementación preexistentes).
+
+#### Deuda residual documentada para Fase 2
+
+**Grupo A — `nav-link.active` CSS inline restante (11 archivos):**
+`articulate-ai-assistant` · `articulate-reach` · `articulate-rise360` ·
+`articulate-storyline360` · `articulos` · `blog` · `comparativos` · `estandares` ·
+`glosario` · `quiz` · `radar`
+
+Causa: inline usa selector `header a.active` (más amplio que `header a.nav-link.active`
+en `header.css`). No se eliminó para evitar regresión de selector. Sin impacto visual
+actual (cascade idéntica). Requiere auditoría de selectores antes de limpiar.
+
+**Grupo B — CSS de footer + `nav-link.active` inline (9 archivos):**
+`curso-cerrado-empresa` · `curso-cerrado-grupos` · `curso-fundamentos` ·
+`curso-moodle` · `curso-storyline` · `curso-vyond` · `vyond-go` · `vyond-mobile` ·
+`vyond-studio`
+
+Causa: `footer { background: #04293F }` difiere de `var(--navy)` en `footer.css` —
+variante de diseño de footer intencional. JS global extraído en Fase 1B; solo
+persiste CSS de footer. `vyond-go/mobile/studio` conservan su bloque de video
+(`// ── Video play/pause`) en `<script>` propio.
+
+**Grupo C — Sistema de diseño diferente, diferidos íntegros (2 archivos):**
+`articulate-localization` · `articulate-review360`
+
+Causa: tokens `:root` distintos (`--orange: #F59E0B`, tokens `--art`); sin marcadores
+de sección en CSS ni en JS. Los 3 `<link>` y `nav.js` están añadidos pero CSS y JS
+global permanecen inline. Requieren estrategia de tokens separada en Fase 2.
+
+#### Páginas que requieren QA visual prioritario
+
+1. **`vyond-go` · `vyond-mobile` · `vyond-studio`** — script de video reestructurado;
+   verificar play/pause y mute del hero-video tras el deploy.
+2. **`articulos` · `blog` · `estandares`** — JS de filtrado/búsqueda convive con
+   nav.js en mismo `<script>`; verificar que los filtros funcionan correctamente.
+3. **`articulate-localization` · `articulate-review360`** — dos sistemas de tokens
+   activos simultáneamente (externo + inline); verificar que el diseño no presenta
+   conflictos de color o tipografía visibles.
+4. **`totara-lms-mexico`** — página con formulario EmailJS y scroll-tracking inline;
+   verificar envío de formulario y barra sticky post-extracción de JS global.
+
+#### Qué no se tocó deliberadamente
+
+- `summit-articulate/` (5 archivos): sistema de diseño independiente, IBM Plex Sans,
+  tokens propios, sin header/footer TAEC. Excluido del alcance de Fase 1.
+- CSS de footer en Grupo B (9 archivos): `#04293F` es variante de diseño válida;
+  no se unificó para no alterar diseño visible.
+- `header a.active` inline en 11 archivos: diferencia de selector con consecuencias
+  potenciales; no se eliminó sin auditoría previa.
+- Contenido HTML, URLs públicas, slugs, sitemap — sin modificaciones.
+- Código JavaScript específico de página (filtros, video, formularios, scroll
+  tracking): preservado sin alteración.
+
+#### Métricas consolidadas (Fase 1 + Fase 1B)
+
+- Archivos HTML procesados: 46 de 48 (96 %)
+- Archivos 100 % limpios: 26 (54 %)
+- Archivos con deuda residual documentada: 20 (42 %)
+- Archivos diferidos a Fase 2: 2 (4 %)
+- Archivos excluidos por diseño: 5 (summit-articulate)
+- Código global centralizado: 355 líneas en 4 archivos, sirven 46 páginas
+- Reducción neta estimada: ~8 100 líneas inline eliminadas (≈ −28 %)
+
+#### Recomendaciones para el merge
+
+1. **QA visual mínimo antes de merge a `main`:** verificar las 4 páginas prioritarias
+   listadas arriba en staging (`elzorromexican.github.io/taec-web`).
+2. **Smoke test de navegación:** hamburger, dropdown desktop, acordeón móvil y
+   active-nav en al menos 3 páginas de secciones distintas.
+3. **No mergear** `articulate-localization` ni `articulate-review360` sin revisar
+   manualmente que su diseño visual no presenta regresiones.
+4. **Rama de trabajo:** `refactor/fase1-css-js-global` — merge a `main` solo tras
+   QA aprobado. No hacer squash: preservar historial de Fase 1 y Fase 1B por
+   trazabilidad.
+5. **Fase 2 pendiente:** abrir issue o rama para (a) unificar selector `header a.active`,
+   (b) resolver tokens de footer Grupo B, (c) procesar los 2 archivos Type B.
+
+---
+
 ## v2.6 · 18 mar 2026
 
 ### Refactor Fase 1 — Externalización CSS/JS global
