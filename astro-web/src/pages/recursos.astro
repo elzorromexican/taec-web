@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Blog y Recursos – e-learning para México y LATAM | TAEC"
+  description="Glosario de e-learning, artículos, comparativos de herramientas, estándares, radar de tendencias y flashcards. El hub de conocimiento TAEC para profesionales de L&D en México y LATAM."
+  section="Recursos"
+  page="recursos.html"
+>
+  <style is:global>
+
+  /* ── HERO ── */
+    .rec-hero { background: linear-gradient(135deg, #001f3d 0%, #004775 60%, #0077b6 100%); padding: 72px 5% 80px; color: white; }
+    .rec-hero-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .rec-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+    .rec-hero h1 { font-family: var(--font-display); font-size: clamp(32px, 4.5vw, 56px); font-weight: 400; color: white; line-height: 1.15; margin-bottom: 20px; }
+    .rec-hero h1 em { color: var(--teal); font-style: normal; }
+    .rec-hero-sub { font-size: 18px; color: rgba(255,255,255,.75); line-height: 1.7; max-width: 640px; margin: 0 auto 36px; }
+    .rec-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+    .rec-stat { text-align: center; }
+    .rec-stat-num { font-size: 28px; font-weight: 800; color: white; line-height: 1; }
+    .rec-stat-lbl { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 4px; }
+
+    /* ── SECCIONES GRID ── */
+    .rec-sections { padding: 72px 5%; background: var(--light); }
+    .rec-sections-inner { max-width: 1100px; margin: 0 auto; }
+    .rec-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; text-align: center; }
+    .rec-title { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); font-weight: 400; color: var(--text); text-align: center; margin-bottom: 8px; }
+    .rec-subtitle { text-align: center; color: #64748B; font-size: 15px; margin-bottom: 52px; }
+    .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    /* ── SECTION CARD ── */
+    .sec-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 32px 28px; display: flex; flex-direction: column; gap: 0; transition: box-shadow .2s, transform .2s, border-color .2s; text-decoration: none; color: inherit; }
+    .sec-card:hover { box-shadow: 0 8px 32px rgba(49,121,194,.12); transform: translateY(-3px); border-color: var(--blue); }
+    .sec-card-icon { font-size: 36px; margin-bottom: 16px; line-height: 1; }
+    .sec-card-count { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 4px; padding: 2px 8px; margin-bottom: 12px; }
+    .sec-card-name { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 10px; line-height: 1.2; }
+    .sec-card-desc { font-size: 14px; color: #64748B; line-height: 1.7; flex: 1; margin-bottom: 24px; }
+    .sec-card-link { font-size: 14px; font-weight: 700; color: var(--blue); display: flex; align-items: center; gap: 6px; transition: gap .15s; }
+    .sec-card:hover .sec-card-link { gap: 10px; }
+
+    /* ── CARD FEATURED (Blog y Artículos) ── */
+    .sec-card.featured { border-color: var(--navy); }
+    .sec-card.featured:hover { border-color: var(--orange); box-shadow: 0 8px 32px rgba(242,139,28,.12); }
+    .sec-card.featured .sec-card-count { color: var(--orange); background: #FEF3E2; border-color: #FDE68A; }
+    .sec-card.featured .sec-card-link { color: var(--orange); }
+
+    /* ── CTA BOTTOM ── */
+    .rec-cta { background: var(--navy); padding: 56px 5%; text-align: center; color: white; }
+    .rec-cta h2 { font-family: var(--font-display); font-size: clamp(22px, 2.5vw, 32px); font-weight: 400; margin-bottom: 12px; }
+    .rec-cta p { font-size: 16px; color: rgba(255,255,255,.7); margin-bottom: 28px; }
+    .btn-rec-primary { background: var(--orange); color: white; font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; transition: opacity .15s; }
+    .btn-rec-primary:hover { opacity: .9; }
+
+    /* ── WHATSAPP ── */
+
+    /* ── REC TABS ── */
+    .rec-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%;overflow-x:auto}
+    .rec-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
+    .rec-tab{display:inline-flex;align-items:center;padding:14px 18px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;text-decoration:none}
+    .rec-tab:hover{color:var(--blue)}
+    .rec-tab.active{color:var(--navy);border-bottom-color:var(--navy)}
+  
+  </style>
+
+<main id="main-content">
+
+<!-- ══ HERO ══ -->
+<section class="rec-hero">
+  <div class="rec-hero-inner">
+    <p class="rec-eyebrow">Blog &amp; Recursos</p>
+    <h1>Conocimiento práctico para <em>profesionales de e-learning</em></h1>
+    <p class="rec-hero-sub">Glosario, artículos de fondo, comparativos de herramientas, estándares técnicos y más — todo en español, pensado para México y LATAM.</p>
+    <div class="rec-stats">
+      <div class="rec-stat"><div class="rec-stat-num">456</div><div class="rec-stat-lbl">recursos totales</div></div>
+      <div class="rec-stat"><div class="rec-stat-num">232</div><div class="rec-stat-lbl">términos de glosario</div></div>
+      <div class="rec-stat"><div class="rec-stat-num">93</div><div class="rec-stat-lbl">posts de blog</div></div>
+      <div class="rec-stat"><div class="rec-stat-num">18</div><div class="rec-stat-lbl">artículos de profundidad</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECCIONES ══ -->
+<section class="rec-sections">
+  <div class="rec-sections-inner">
+    <p class="rec-label">Explora por sección</p>
+    <h2 class="rec-title">¿Qué estás buscando?</h2>
+    <p class="rec-subtitle">Cada sección tiene un propósito distinto — desde consulta rápida hasta análisis estratégico.</p>
+
+    <div class="rec-grid">
+
+      <!-- Blog -->
+      <a href="/blog" class="sec-card featured">
+        <div class="sec-card-icon">✍️</div>
+        <span class="sec-card-count">93 publicaciones</span>
+        <h3 class="sec-card-name">Blog TAEC</h3>
+        <p class="sec-card-desc">Tendencias, noticias y reflexiones del mundo e-learning. Actualizaciones frecuentes sobre herramientas, metodologías y el mercado de L&D en LATAM.</p>
+        <span class="sec-card-link">Leer el blog →</span>
+      </a>
+
+      <!-- Artículos -->
+      <a href="/articulos" class="sec-card featured">
+        <div class="sec-card-icon">📖</div>
+        <span class="sec-card-count">18 artículos</span>
+        <h3 class="sec-card-name">Artículos</h3>
+        <p class="sec-card-desc">Análisis de fondo sobre diseño instruccional, implementación de LMS, accesibilidad, IA en el aprendizaje y estrategia L&D. Para quienes quieren ir más allá.</p>
+        <span class="sec-card-link">Explorar artículos →</span>
+      </a>
+
+      <!-- Glosario -->
+      <a href="/glosario" class="sec-card">
+        <div class="sec-card-icon">📚</div>
+        <span class="sec-card-count">232 términos</span>
+        <h3 class="sec-card-name">Glosario e-learning</h3>
+        <p class="sec-card-desc">Diccionario de referencia con los términos esenciales del e-learning: SCORM, xAPI, LMS, Kirkpatrick, diseño instruccional y mucho más. Búsqueda instantánea.</p>
+        <span class="sec-card-link">Consultar glosario →</span>
+      </a>
+
+      <!-- Comparativos -->
+      <a href="/comparativos" class="sec-card">
+        <div class="sec-card-icon">⚖️</div>
+        <span class="sec-card-count">2 comparativos</span>
+        <h3 class="sec-card-name">Comparativos</h3>
+        <p class="sec-card-desc">Tablas de comparación detalladas entre herramientas: Articulate vs Captivate vs iSpring, Vyond vs Camtasia vs Genially. Para tomar decisiones informadas.</p>
+        <span class="sec-card-link">Ver comparativos →</span>
+      </a>
+
+      <!-- Estándares -->
+      <a href="/estandares" class="sec-card">
+        <div class="sec-card-icon">📋</div>
+        <span class="sec-card-count">30 fichas</span>
+        <h3 class="sec-card-name">Estándares</h3>
+        <p class="sec-card-desc">Fichas técnicas sobre los estándares del sector: SCORM 1.2, SCORM 2004, xAPI (Tin Can), cmi5, LTI, AICC. Referencia rápida para implementadores.</p>
+        <span class="sec-card-link">Ver estándares →</span>
+      </a>
+
+      <!-- Radar -->
+      <a href="/radar" class="sec-card">
+        <div class="sec-card-icon">📡</div>
+        <span class="sec-card-count">6 ediciones</span>
+        <h3 class="sec-card-name">Radar eLearning</h3>
+        <p class="sec-card-desc">Informe periódico de tendencias e innovaciones en el sector e-learning. Tecnologías emergentes, cambios del mercado y lo que viene para los equipos L&D de LATAM.</p>
+        <span class="sec-card-link">Ver ediciones →</span>
+      </a>
+
+      <!-- Quiz -->
+      <a href="/quiz" class="sec-card">
+        <div class="sec-card-icon">🧠</div>
+        <span class="sec-card-count">75 flashcards</span>
+        <h3 class="sec-card-name">Quiz &amp; Flashcards</h3>
+        <p class="sec-card-desc">Pon a prueba tu conocimiento de e-learning con flashcards interactivas. Ideal para preparar certificaciones, reforzar conceptos o simplemente explorar el campo.</p>
+        <span class="sec-card-link">Empezar el quiz →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="rec-cta">
+  <h2>¿Tienes un proyecto de e-learning en mente?</h2>
+  <p>El conocimiento es el primer paso — el segundo es hablar con alguien que lo haya hecho antes.</p>
+  <a href="/contacto" class="btn-rec-primary">Agendar diagnóstico gratuito →</a>
+</section>
+
+</main>
+<a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+</BaseLayout>

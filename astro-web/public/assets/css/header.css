@@ -1,0 +1,169 @@
+/* ═══════════════════════════════════════════════════════════════
+   TAEC · header.css · Header sticky, nav desktop, nav móvil
+   Extraído de los HTML en Fase 1 (refactor/fase1-css-js-global)
+   Fuente canónica: v2.5 · 18 mar 2026
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── HEADER ── */
+header { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5%; }
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+.logo-link { display: flex; align-items: center; flex-shrink: 0; }
+.logo-link img { height: 38px; width: auto; }
+
+/* ── NAV DESKTOP ── */
+.header-inner nav { display: flex; gap: 2px; align-items: center; }
+.header-inner nav > a,
+.nav-link {
+  font-size: 14px; font-weight: 500; color: var(--dark);
+  padding: 6px 12px; border-radius: 6px;
+  transition: background .15s, color .15s;
+  display: flex; align-items: center; gap: 3px;
+  cursor: pointer; white-space: nowrap;
+  background: none; border: none; font-family: inherit;
+}
+.header-inner nav > a:hover,
+.nav-link:hover,
+.nav-item:hover > .nav-link { background: var(--light); color: var(--blue); }
+.nav-link svg { width: 13px; height: 13px; transition: transform .2s; flex-shrink: 0; }
+.nav-item:hover > .nav-link svg { transform: rotate(180deg); }
+.nav-item { position: relative; }
+
+/* ── MEGA MENU (Soluciones) ── */
+.mega-menu {
+  display: none; position: absolute;
+  top: 100%; left: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.13);
+  padding: 24px 20px; padding-top: 10px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px 24px;
+  min-width: 660px;
+  z-index: 300;
+}
+.nav-item:hover .mega-menu { display: grid; }
+.mega-col { display: flex; flex-direction: column; gap: 2px; }
+.mega-head {
+  font-size: 10px; font-weight: 700; letter-spacing: .9px;
+  text-transform: uppercase; color: var(--muted);
+  padding: 0 8px; margin-bottom: 6px; margin-top: 4px;
+}
+.mega-col > a {
+  font-size: 13px; font-weight: 600; color: var(--dark);
+  padding: 6px 8px; border-radius: 6px;
+  transition: background .15s, color .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.mega-col > a:hover { background: var(--light); color: var(--blue); }
+.mega-sub {
+  padding-left: 12px;
+  border-left: 2px solid var(--border);
+  margin: 2px 0 8px 12px;
+  display: flex; flex-direction: column; gap: 1px;
+}
+.mega-sub a {
+  font-size: 12px; font-weight: 400; color: var(--muted);
+  padding: 4px 8px; border-radius: 5px;
+  transition: background .15s, color .15s;
+  display: flex; align-items: center; gap: 5px;
+}
+.mega-sub a:hover { background: var(--light); color: var(--blue); }
+.badge-saas { font-size: 9px; font-weight: 700; background: rgba(168,219,217,.3); color: var(--navy); padding: 1px 5px; border-radius: 3px; flex-shrink: 0; }
+.badge-new  { font-size: 9px; font-weight: 700; background: var(--orange); color: var(--white); padding: 1px 5px; border-radius: 3px; flex-shrink: 0; }
+.mega-divider { height: 1px; background: var(--border); margin: 8px 4px; }
+
+/* ── SIMPLE DROPDOWN (Capacitación / Recursos) ── */
+.simple-dropdown {
+  display: none; position: absolute;
+  top: 100%; left: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.13);
+  padding: 20px; padding-top: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  min-width: 380px;
+  z-index: 300;
+}
+.nav-item:hover .simple-dropdown { display: grid; }
+
+/* ── ACCIONES DE HEADER ── */
+.header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.btn-tienda {
+  font-size: 13px; font-weight: 600; color: var(--blue);
+  border: 1.5px solid var(--blue); padding: 7px 16px; border-radius: 7px;
+  transition: background .15s, color .15s;
+}
+.btn-tienda:hover { background: var(--blue); color: var(--white); }
+.btn-cta {
+  font-size: 13px; font-weight: 700; color: var(--white);
+  background: var(--orange); padding: 8px 18px; border-radius: 7px;
+  transition: background .15s;
+}
+.btn-cta:hover { background: #d97b0e; }
+
+/* ── HAMBURGER ── */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform .25s, opacity .25s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── NAV MÓVIL ── */
+.mobile-nav {
+  display: none; flex-direction: column; gap: 2px;
+  background: var(--white); padding: 12px 5% 24px;
+  border-bottom: 1px solid var(--border);
+  position: relative; z-index: 199;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav > a { font-size: 15px; font-weight: 500; color: var(--dark); padding: 10px 12px; border-radius: 8px; }
+.mobile-nav > a:hover { background: var(--light); color: var(--blue); }
+.mobile-nav .btn-cta { text-align: center; margin-top: 8px; }
+.mob-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  font-size: 15px; font-weight: 600; color: var(--dark);
+  padding: 10px 12px; border-radius: 8px;
+  background: none; border: none; font-family: inherit; cursor: pointer;
+  transition: background .15s;
+}
+.mob-toggle:hover { background: var(--light); }
+.mob-toggle svg { width: 16px; height: 16px; transition: transform .2s; flex-shrink: 0; }
+.mob-toggle.open svg { transform: rotate(180deg); }
+.mob-section { display: none; flex-direction: column; gap: 0; padding-left: 8px; margin-bottom: 4px; }
+.mob-section.open { display: flex; }
+.mob-cat { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #4B5563; padding: 8px 12px 4px; }
+.mob-section a { font-size: 14px; font-weight: 500; color: var(--text); padding: 8px 12px; border-radius: 7px; display: flex; align-items: center; gap: 6px; }
+.mob-section a:hover { background: var(--light); color: var(--blue); }
+
+/* ── ACTIVE NAV (ficha de cardex) ── */
+header .nav-link.active,
+header a.nav-link.active,
+header button.nav-link.active {
+  background: #111827 !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-weight: 700;
+}
+header a.active {
+  background: #111827 !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ── DROPDOWN CLICK-OPEN (añadido por nav.js) ── */
+.nav-item.open > .mega-menu        { display: grid !important; }
+.nav-item.open > .simple-dropdown  { display: grid !important; }
+
+/* ── RESPONSIVE HEADER ── */
+@media (max-width: 768px) {
+  .header-inner nav { display: none; }
+  .header-actions .btn-tienda, .header-actions .btn-cta { display: none; }
+  .hamburger { display: flex; }
+}

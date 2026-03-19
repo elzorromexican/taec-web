@@ -1,0 +1,50 @@
+/* ═══════════════════════════════════════════════════════════════
+   TAEC · base.css · Reset, design tokens, tipografía global
+   Extraído de los HTML en Fase 1 (refactor/fase1-css-js-global)
+   Fuente canónica: v2.5 · 18 mar 2026
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── DESIGN TOKENS ── */
+:root {
+  --navy:         #004775;
+  --blue:         #3179C2;
+  --teal:         #A8DBD9;
+  --orange:       #F28B1C;
+  --coral:        #D35652;
+  --muted:        #7595AA;
+  --dark:         #4D4D4E;
+  --light:        #F4F7FB;
+  --border:       #E2E8F0;
+  --white:        #FFFFFF;
+  --text:         #111827;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'Inter', sans-serif;
+}
+
+/* ── TIPOGRAFÍA Y ELEMENTOS BASE ── */
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--white);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a   { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ── ACCESIBILIDAD ── */
+.skip-link {
+  position: absolute; top: -60px; left: 16px;
+  background: var(--navy); color: var(--white);
+  padding: 8px 16px; border-radius: 0 0 8px 8px;
+  font-size: 14px; font-weight: 600; z-index: 9999;
+  text-decoration: none; transition: top .2s;
+}
+.skip-link:focus { top: 0; }
+*:focus-visible                    { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }

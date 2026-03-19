@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Calcular años de experiencia en el build de Astro
+const founded = new Date(2007, 9, 11);
+const now = new Date();
+const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
+---
+
+<BaseLayout 
+  title="TAEC – Partner e-learning para empresas | México y LATAM"
+  description="18 años ayudando a empresas en México y LATAM a implementar e-learning."
+  section="Inicio"
+  page="index.html"
+>
+  <link rel="stylesheet" href="/assets/css/index.css" slot="head" />
+  
+  <style is:global>
+    @media (max-width: 768px) {
+      .header-inner nav { display: none; }
+      .header-actions .btn-tienda { display: none; }
+      .header-actions .btn-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero { padding: 48px 5% 56px; }
+      .hero h1 { font-size: 30px; }
+      .hero-sub { font-size: 15px; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+
+      .servicios-grid { grid-template-columns: 1fr 1fr; }
+      .pasos-grid { grid-template-columns: 1fr; gap: 24px; }
+
+      .testi-card { flex: 0 0 280px; }
+
+      .recursos-grid { grid-template-columns: 1fr; }
+
+      .cta-inner { flex-direction: column; text-align: center; }
+      .cta-text h2 { font-size: 24px; }
+      .cta-btns { justify-content: center; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .section-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .servicios-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .hero h1 { font-size: 26px; }
+    }
+
+    /* ── Dropdown open state (JS-managed) ── */
+    .nav-item.open > .mega-menu        { display: grid !important; }
+    .nav-item.open > .simple-dropdown  { display: grid !important; }
+    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
+    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
+  </style>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <span class="hero-tag">Especialistas en e-learning corporativo · México y LATAM · desde 2007</span>
+          <h1>Articulate + Vyond + LMS + capacitación: <em>el stack completo en español</em></h1>
+          <p class="hero-sub">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
+          <div class="hero-actions">
+            <a href="/servicios" class="btn-primary">Ver soluciones →</a>
+            <a href="/contacto" class="btn-ghost-hero">Hablar con un especialista</a>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-num"><em>{anni}</em>+</div>
+              <div class="stat-label">años en el mercado</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">+<em>1,500</em></div>
+              <div class="stat-label">clientes atendidos</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num"><em>22</em></div>
+              <div class="stat-label">países de alcance</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">+<em>200</em></div>
+              <div class="stat-label">implementaciones enterprise</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TICKER ══ -->
+    <div class="ticker">
+      <div class="ticker-inner">
+        <span class="ticker-badge">Blog TAEC</span>
+        <div class="ticker-track" id="tickerTrack">
+          <!-- Cargado por JS desde data/ticker.json -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PARTNERS ══ -->
+    <section class="partners">
+      <div class="partners-inner">
+        <p class="partners-label">Partners y distribuidores oficiales</p>
+        <div class="partners-row">
+          <div class="partner-badge">
+            <div class="partner-logo"><span class="logo-text articulate">articulate</span></div>
+            <span class="partner-tag">Authorized Reseller</span>
+          </div>
+          <div class="partner-badge">
+            <div class="partner-logo"><span class="logo-text articulate">articulate</span></div>
+            <span class="partner-tag">Certified Training Partner</span>
+          </div>
+          <div class="partner-badge">
+            <div class="partner-logo"><span class="logo-text vyond">Vyond</span></div>
+            <span class="partner-tag">Authorized Reseller</span>
+          </div>
+          <div class="partner-badge">
+            <div class="partner-logo"><span class="logo-text totara">totara</span></div>
+            <span class="partner-tag">Solutions Partner</span>
+          </div>
+          <div class="partner-badge">
+            <div class="partner-logo"><span class="logo-text moodle">Moodle</span></div>
+            <span class="partner-tag">Partner</span>
+          </div>
+          <div class="partner-badge">
+            <div class="partner-logo"><span class="logo-text seven">7Min</span></div>
+            <span class="partner-tag">Authorized Reseller</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SERVICIOS ══ -->
+    <section class="servicios">
+      <div class="servicios-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Lo que hacemos</p>
+            <h2 class="section-title">Soluciones de aprendizaje a tu medida</h2>
+            <p class="section-sub">Del diagnóstico a la implementación — cubrimos todo el ecosistema e-learning de tu organización.</p>
+          </div>
+          <a href="/servicios" class="see-all">Ver todas las soluciones →</a>
+        </div>
+        <div class="servicios-grid">
+          <div class="serv-card">
+            <div class="serv-icon">🛠️</div>
+            <h3>Herramientas de autoría</h3>
+            <p>Articulate 360, Vyond y más. Licencias oficiales con soporte en español, factura mexicana y precio en pesos al tipo de cambio del día.</p>
+            <a href="/articulate-360-mexico" class="serv-link">Ver herramientas →</a>
+          </div>
+          <div class="serv-card">
+            <div class="serv-icon">🎬</div>
+            <h3>Desarrollo de cursos a medida</h3>
+            <p>Diseño instruccional + producción en Articulate o Vyond. E-learning, microlearning, blended learning y MOOCs listos para tu LMS.</p>
+            <a href="/servicios#cursos" class="serv-link">Ver proceso →</a>
+          </div>
+          <div class="serv-card">
+            <div class="serv-icon">⚙️</div>
+            <h3>Implementación LMS</h3>
+            <p>Moodle, Totara, Articulate Reach y más. Instalación, configuración, migración de contenidos y capacitación a tu equipo.</p>
+            <a href="/moodle-mexico" class="serv-link">Ver plataformas →</a>
+          </div>
+          <div class="serv-card">
+            <div class="serv-icon">💡</div>
+            <h3>Consultoría L&D</h3>
+            <p>Diagnóstico de brechas, estrategia de capacitación, analítica de aprendizaje y acompañamiento de adopción con metodología probada.</p>
+            <a href="/servicios#consultoria" class="serv-link">Saber más →</a>
+          </div>
+          <div class="serv-card">
+            <div class="serv-icon">📋</div>
+            <h3>Evaluaciones de alta seguridad</h3>
+            <p>Plataforma especializada en exámenes de alta importancia. Diseño y análisis de evaluaciones con estándares para certificación.</p>
+            <a href="/servicios#evaluaciones" class="serv-link">Ver más →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CÓMO TRABAJAMOS ══ -->
+    <section class="como">
+      <div class="como-inner">
+        <div style="text-align:center; margin-bottom: 0;">
+          <p class="section-label" style="justify-content:center;">Nuestro proceso</p>
+          <h2 class="section-title" style="text-align:center; margin-bottom: 8px;">Cómo trabajamos contigo</h2>
+          <p class="section-sub" style="margin: 0 auto; text-align:center;">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
+        </div>
+        <div class="pasos-grid">
+          <div class="paso">
+            <div class="paso-num">1</div>
+            <h3>Diagnóstico</h3>
+            <p>Analizamos tus necesidades reales de capacitación, presupuesto, infraestructura y equipo — no el ideal teórico.</p>
+          </div>
+          <div class="paso">
+            <div class="paso-num">2</div>
+            <h3>Recomendación</h3>
+            <p>Proponemos la solución que funciona para tu contexto específico. No la más cara ni la más popular — la correcta.</p>
+          </div>
+          <div class="paso">
+            <div class="paso-num">3</div>
+            <h3>Implementación</h3>
+            <p>Entregamos, configuramos y capacitamos a tu equipo hasta que dominen las herramientas. En español, desde CDMX.</p>
+          </div>
+          <div class="paso">
+            <div class="paso-num">4</div>
+            <h3>Acompañamiento</h3>
+            <p>Soporte continuo post-implementación. Estamos cuando nos necesitas, no solo en la venta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TESTIMONIOS ══ -->
+    <section class="testimonios">
+      <div class="testimonios-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Clientes que confían en TAEC</p>
+            <h2 class="section-title">Lo que dicen quienes nos eligieron</h2>
+          </div>
+          <a href="/clientes" class="see-all">Ver todos →</a>
+        </div>
+        <div class="testi-carousel-wrapper">
+          <div class="testi-carousel" id="testiCarousel">
+
+            <div class="testi-card">
+              <div class="testi-quote">"</div>
+              <p class="testi-text">La colaboración con TAEC ha sido fructífera, hemos podido implementar exitosamente la plataforma de Totara y nos ayudaron a desarrollar el contenido que necesitábamos para las capacitaciones a distancia.</p>
+              <div class="testi-author">
+                <div class="testi-avatar">GS</div>
+                <div>
+                  <div class="testi-name">GS1 México</div>
+                  <div class="testi-org">Estándares globales de negocio</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Más testimonios pueden copiarse aquí sin duplicar el head o footer -->
+            <div class="testi-card">
+              <div class="testi-quote">"</div>
+              <p class="testi-text">Escogimos a TAEC como nuestro socio en e-learning por su calidad, profesionalismo y conocimiento en la creación de estrategias de capacitación.</p>
+              <div class="testi-author">
+                <div class="testi-avatar">LT</div>
+                <div>
+                  <div class="testi-name">Linktech</div>
+                  <div class="testi-org">Tecnología y capacitación</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /carousel -->
+          <div class="testi-controls">
+            <button class="testi-btn" id="testiPrev" aria-label="Testimonio anterior">&#8592;</button>
+            <button class="testi-btn" id="testiNext" aria-label="Siguiente testimonio">&#8594;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CLIENTES ══ -->
+    <section class="clientes">
+      <div class="clientes-inner">
+        <p class="clientes-label">Confían en TAEC</p>
+        <div class="clientes-row">
+          <div class="cliente-logo-pill"><span>GS1</span></div>
+          <div class="cliente-logo-pill"><span>VivaAerobús</span></div>
+          <div class="cliente-logo-pill"><span>UNICEF</span></div>
+          <div class="cliente-logo-pill"><span>OIM</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ RECURSOS ══ -->
+    <section class="recursos">
+      <div class="recursos-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Biblioteca gratuita</p>
+            <h2 class="section-title">Recursos para equipos L&D</h2>
+          </div>
+          <a href="/recursos" class="see-all">Ver todos los recursos →</a>
+        </div>
+        <div class="recursos-grid">
+          <div class="rec-card">
+            <div class="rec-thumb t1">📋</div>
+            <div class="rec-body">
+              <span class="rec-tag">Guía</span>
+              <h3>Cómo elegir un LMS en México: guía práctica 2026</h3>
+              <p>Checklist de requerimientos, comparativo de plataformas y preguntas clave para tu evaluación.</p>
+            </div>
+            <div class="rec-footer">
+              <span>PDF · Gratis</span>
+              <a href="/contacto">Solicitar →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CTA BAND ══ -->
+    <section class="cta-band">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2>¿Tu organización necesita una estrategia de capacitación?</h2>
+          <p>Una llamada de 30 minutos es suficiente para saber si podemos ayudarte.</p>
+        </div>
+        <div class="cta-btns">
+          <a href="https://tidycal.com/slimmasmoudi/consultoria-estrategia" target="_blank" rel="noopener noreferrer" class="btn-cta-band">Agendar diagnóstico gratuito →</a>
+          <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-wa">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script is:inline>
+    // ── Ticker dinámico
+    (async function() {
+      try {
+        const res   = await fetch('/data/ticker.json');
+        const items = await res.json();
+        const track = document.getElementById('tickerTrack');
+        track.innerHTML = items.map(i =>
+          `<span class="ticker-item"><span class="cat">${i.categoria}</span>${i.titulo}</span>`
+        ).join('<span class="ticker-item" style="color:var(--border)">·</span>');
+      } catch(e) {}
+    })();
+
+    // ── Testimonios carousel
+    const carousel = document.getElementById('testiCarousel');
+    if (carousel) {
+      const cardW    = () => carousel.querySelector('.testi-card').offsetWidth + 20;
+      document.getElementById('testiPrev').addEventListener('click', () => {
+        carousel.scrollBy({ left: -cardW(), behavior: 'smooth' });
+      });
+      document.getElementById('testiNext').addEventListener('click', () => {
+        carousel.scrollBy({ left:  cardW(), behavior: 'smooth' });
+      });
+    }
+  </script>
+</BaseLayout>

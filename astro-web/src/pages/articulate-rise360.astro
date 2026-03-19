@@ -1,0 +1,457 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Rise 360 en México – Cursos eLearning 100% Responsivos | TAEC"
+  description="Rise 360: crea cursos e-learning responsive con bloques prediseñados. Partner oficial Articulate en México. Solicita demo con TAEC."
+  section="Soluciones"
+  page="articulate-rise360.html"
+>
+  <style is:global>
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --navy:#004775; --blue:#3179C2; --teal:#A8DBD9; --orange:#F59E0B; --green:#10B981;
+      --dark:#111827; --muted:#6B7280; --light:#F3F4F6; --white:#FFFFFF; --border:#E5E7EB;
+      --art:#004775; --art-accent:#7DD3FC; --art-glow:rgba(49,121,194,.15);
+    }
+    body { font-family:'Inter',sans-serif; color:var(--dark); background:var(--white); }
+    a { color:inherit; text-decoration:none; }
+
+    /* ── header ── */
+    header { position:sticky; top:0; z-index:100; background:var(--white); border-bottom:1px solid var(--border); }
+    .header-inner { max-width:1200px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; gap:32px; }
+    .logo-link img { height:32px; width:auto; display:block; }
+    header nav { display:flex; align-items:center; gap:4px; flex:1; }
+    .nav-link { background:none; border:none; cursor:pointer; font-family:inherit; font-size:14px; font-weight:600; color:var(--dark); padding:6px 12px; border-radius:8px; display:inline-flex; align-items:center; gap:4px; transition:background .15s,color .15s; }
+    .nav-link svg { width:14px; height:14px; flex-shrink:0; }
+    .header-inner nav > a { font-size:14px; font-weight:600; color:var(--dark); padding:6px 12px; border-radius:8px; transition:background .15s,color .15s; }
+    .header-inner nav > a:hover, .nav-link:hover, .nav-item:hover > .nav-link { background:var(--light); color:var(--blue); }
+    .header-actions { display:flex; align-items:center; gap:12px; margin-left:auto; }
+    .btn-tienda { font-size:13px; font-weight:600; color:var(--blue); border:1.5px solid var(--blue); padding:7px 16px; border-radius:7px; transition:background .15s,color .15s; }
+    .btn-tienda:hover { background:var(--blue); color:var(--white); }
+    .btn-cta { font-size:13px; font-weight:700; background:var(--orange); color:var(--white); padding:8px 18px; border-radius:8px; transition:background .15s; white-space:nowrap; }
+    .btn-cta:hover { background:#d97706; }
+    /* mega menu */
+    .nav-item { position:relative; }
+    .mega-menu { display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); min-width:720px; background:white; border:1px solid var(--border); border-radius:12px; padding:20px; grid-template-columns:repeat(3,1fr); gap:20px; box-shadow:0 8px 32px rgba(0,0,0,.12); z-index:200; }
+    .simple-dropdown { display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); min-width:380px; background:white; border:1px solid var(--border); border-radius:12px; padding:20px; grid-template-columns:repeat(2,1fr); gap:20px; box-shadow:0 8px 32px rgba(0,0,0,.12); z-index:200; }
+    .nav-item:hover > .mega-menu, .nav-item:hover > .simple-dropdown { display:grid; }
+    .mega-col { display:flex; flex-direction:column; gap:6px; }
+    .mega-head { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:2px; }
+    .mega-col > a { font-size:13px; font-weight:500; color:var(--dark); padding:4px 8px; border-radius:6px; }
+    .mega-sub { display:flex; flex-direction:column; gap:3px; padding-left:12px; border-left:2px solid var(--border); margin:2px 0 4px; }
+    .mega-sub a { font-size:12px; color:var(--muted); padding:3px 6px; border-radius:4px; display:flex; align-items:center; gap:6px; }
+    .mega-col > a:hover, .mega-sub a:hover { background:var(--light); color:var(--blue); }
+    .mega-divider { border-top:1px solid var(--border); margin:4px 0; }
+    .badge-new { font-size:9px; font-weight:700; background:rgba(245,158,11,.15); color:#d97706; padding:1px 5px; border-radius:3px; flex-shrink:0; }
+    .badge-saas { font-size:9px; font-weight:700; background:rgba(168,219,217,.3); color:var(--navy); padding:1px 5px; border-radius:3px; flex-shrink:0; }
+    /* hamburger */
+    .hamburger { display:none; background:none; border:none; cursor:pointer; padding:6px; flex-direction:column; gap:5px; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--dark); border-radius:2px; transition:.2s; }
+    /* mobile nav */
+    .mobile-nav { display:none; flex-direction:column; background:white; border-bottom:1px solid var(--border); padding:12px 24px 20px; gap:4px; }
+    .mobile-nav.open { display:flex; }
+    .mob-toggle { background:none; border:none; cursor:pointer; font-size:14px; font-weight:600; color:var(--dark); padding:8px 0; display:flex; justify-content:space-between; align-items:center; width:100%; }
+    .mob-toggle svg { width:16px; height:16px; }
+    .mob-section { display:none; flex-direction:column; gap:2px; padding:4px 0 8px 12px; }
+    .mob-section.open { display:flex; }
+    .mob-cat { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); padding:6px 0 2px; }
+    .mobile-nav > a { font-size:14px; font-weight:600; color:var(--dark); padding:8px 0; border-top:1px solid var(--border); }
+    .mob-section a { font-size:13px; color:var(--dark); padding:5px 8px; border-radius:6px; }
+    .nav-item.open>.mega-menu{display:grid!important}
+    .nav-item.open>.simple-dropdown{display:grid!important}
+    /* skip link */
+    .skip-link{position:absolute;top:-60px;left:16px;background:var(--navy);color:var(--white);padding:8px 16px;border-radius:0 0 8px 8px;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top .2s}
+    .skip-link:focus{top:0}
+    *:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+
+    /* ══════════════════════════════════════
+       PRODUCT TABS — blue Articulate theme
+       ══════════════════════════════════════ */
+    .art-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%;overflow-x:auto}
+    .art-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
+    .art-tab{display:inline-flex;align-items:center;padding:14px 18px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+    .art-tab:hover{color:var(--art)}
+    .art-tab.active{color:var(--art);border-bottom-color:var(--art)}
+
+    /* ══════════════════════════════════════
+       HERO — navy gradient
+       ══════════════════════════════════════ */
+    /* ── PROPUESTA A: Rise Orange ── */
+    .art-hero{background:linear-gradient(135deg, #050E14 0%, #0B3347 45%, #13668D 100%);padding:80px 5% 88px;position:relative;overflow:hidden}
+    .art-hero::before{content:'';position:absolute;top:-30%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(19,102,141,.3) 0%,transparent 65%);pointer-events:none}
+    .art-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}    .art-product-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:#7DD3FC;letter-spacing:-.01em;margin-bottom:10px;line-height:1}
+    .art-hero h1{font-size:clamp(34px,4.2vw,56px);font-weight:900;color:#FFFFFF;line-height:1.08;margin-bottom:18px;letter-spacing:-.03em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+    .art-hero h1 em{font-style:normal;color:#FFA552;}
+    .art-hero-sub{font-size:17px;color:rgba(255,255,255,.75);margin-bottom:32px;line-height:1.7;max-width:480px}
+    .art-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-art-primary{background:var(--blue);color:white;font-weight:700;font-size:14px;padding:13px 28px;border-radius:8px;transition:background .15s;box-shadow:0 4px 16px rgba(49,121,194,.3)}
+    .btn-art-primary:hover{background:#2563EB}
+    .btn-art-ghost{background:rgba(255,255,255,.08);color:white;font-weight:600;font-size:14px;padding:13px 28px;border-radius:8px;border:1.5px solid rgba(255,255,255,.25);transition:background .15s}
+    .btn-art-ghost:hover{background:rgba(255,255,255,.15)}
+    /* hero visual card */
+    .art-hero-visual{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px;position:relative}
+    .art-hero-mockup{width:100%;border-radius:12px;display:block;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .art-hero-visual-label{position:absolute;bottom:12px;right:16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);background:rgba(0,0,0,.4);padding:4px 10px;border-radius:6px}
+
+    /* ══════════════════════════════════════
+       STAT STRIP
+       ══════════════════════════════════════ */
+    .stat-strip{background:#F0F9FF;border-bottom:1px solid #BAE6FD;padding:28px 5%}
+    .stat-strip-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+    .stat-item{display:flex;align-items:center;gap:12px}
+    .stat-number{font-size:28px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+    .stat-label{font-size:13px;color:#475569;line-height:1.35;max-width:140px}
+
+    /* ══════════════════════════════════════
+       FEATURES — icon cards
+       ══════════════════════════════════════ */
+    .art-feats{padding:80px 5%;background:white}
+    .art-feats-inner{max-width:1100px;margin:0 auto}
+    .art-section-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--art);margin-bottom:10px}
+    .art-section-title{font-size:clamp(24px,2.8vw,36px);font-weight:800;color:#111827;margin-bottom:10px}
+    .art-section-sub{font-size:16px;color:#475569;line-height:1.65;margin-bottom:48px;max-width:640px}
+    .art-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .art-feat-card{background:white;border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s,box-shadow .2s}
+    .art-feat-card:hover{border-color:#BAE6FD;box-shadow:0 8px 24px rgba(0,71,117,.08)}
+    .art-feat-icon-wrap{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+    .art-feat-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:8px}
+    .art-feat-desc{font-size:13px;color:#475569;line-height:1.6}
+
+    /* ══════════════════════════════════════
+       SHOWCASE — CSS-only tabs
+       ══════════════════════════════════════ */
+    .showcase{padding:80px 5%;background:#F8FAFC}
+    .showcase-inner{max-width:1100px;margin:0 auto}
+    .showcase input[type="radio"]{display:none}
+    .showcase-tabs{display:flex;gap:6px;margin-bottom:40px;flex-wrap:wrap;justify-content:center}
+    .showcase-tab{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;color:#64748B;background:white;border:1.5px solid var(--border);cursor:pointer;transition:all .2s}
+    .showcase-tab:hover{border-color:#94A3B8;color:var(--dark)}
+    .showcase-panels{position:relative;min-height:320px}
+    .showcase-panel{display:none;animation:panelIn .35s ease}
+    .showcase-panel-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+    .showcase-panel h3{font-size:clamp(20px,2.2vw,28px);font-weight:800;color:#111827;margin-bottom:12px}
+    .showcase-panel p{font-size:15px;color:#475569;line-height:1.7;margin-bottom:20px}
+    .showcase-panel ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+    .showcase-panel li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#334155;line-height:1.5}
+    .showcase-panel li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:7px}
+    .showcase-visual{background:linear-gradient(135deg,#E0F2FE,#F0F9FF);border:1px solid #BAE6FD;border-radius:16px;padding:32px;display:flex;align-items:center;justify-content:center;min-height:280px}
+    .showcase-visual-emoji{font-size:96px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.08))}
+    .showcase-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--blue);transition:gap .2s}
+    .showcase-cta:hover{gap:10px}
+    /* tab state */
+    #tab1:checked ~ .showcase-tabs label[for="tab1"],
+    #tab2:checked ~ .showcase-tabs label[for="tab2"],
+    #tab3:checked ~ .showcase-tabs label[for="tab3"],
+    #tab4:checked ~ .showcase-tabs label[for="tab4"]{background:var(--navy);color:white;border-color:var(--navy)}
+    #tab1:checked ~ .showcase-panels .panel-1,
+    #tab2:checked ~ .showcase-panels .panel-2,
+    #tab3:checked ~ .showcase-panels .panel-3,
+    #tab4:checked ~ .showcase-panels .panel-4{display:block}
+    @keyframes panelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ══════════════════════════════════════
+       QUOTE — navy
+       ══════════════════════════════════════ */
+    .art-quote{background:linear-gradient(135deg, #020617 0%, #0F172A 50%, #1E3A5F 100%);padding:64px 5%;text-align:center}
+    .art-quote-inner{max-width:760px;margin:0 auto}
+    .art-quote-text{font-size:clamp(17px,2vw,22px);color:white;line-height:1.65;font-style:italic;margin-bottom:20px}
+    .art-quote-author{font-size:13px;color:var(--art-accent);font-weight:700}
+    .art-quote-role{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px}
+
+    /* ══════════════════════════════════════
+       CTA BAND — blue
+       ══════════════════════════════════════ */
+    .art-cta-band{background:var(--blue);padding:56px 5%;text-align:center}
+    .art-cta-band h2{font-size:28px;font-weight:800;color:white;margin-bottom:10px}
+    .art-cta-band p{font-size:16px;color:rgba(255,255,255,.85);margin-bottom:28px}
+    .art-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn-cta-white{background:white;color:var(--navy);font-weight:700;font-size:15px;padding:13px 28px;border-radius:8px;transition:transform .15s;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    .btn-cta-white:hover{transform:translateY(-2px)}
+    .btn-cta-ghost{background:transparent;color:white;font-weight:600;font-size:15px;padding:13px 28px;border-radius:8px;border:2px solid rgba(255,255,255,.4);transition:background .15s}
+    .btn-cta-ghost:hover{background:rgba(255,255,255,.1)}
+
+    /* ── responsive ── */
+    @media(max-width:900px){
+      .art-hero-inner{grid-template-columns:1fr;gap:32px}
+      .art-feat-grid{grid-template-columns:1fr 1fr}
+      .showcase-panel-inner{grid-template-columns:1fr;gap:32px}
+      .stat-strip-inner{gap:32px}
+      .header-inner nav, .header-actions .btn-tienda{display:none}
+      .hamburger{display:flex}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+    }
+    @media(max-width:600px){
+      .art-feat-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr;gap:24px}
+      .stat-strip-inner{flex-direction:column;align-items:center;gap:20px;text-align:center}
+      .stat-item{flex-direction:column;gap:4px}
+    }
+  
+  </style>
+
+<main id="main-content">
+<div class="art-tabs"><div class="art-tabs-inner">
+      <a href="/articulate-360-mexico" class="art-tab">Articulate 360</a>
+      <a href="/articulate-rise360" class="art-tab active">Rise 360</a>
+      <a href="/articulate-storyline360" class="art-tab">Storyline 360</a>
+      <a href="/articulate-review360" class="art-tab">Review 360</a>
+      <a href="/articulate-reach" class="art-tab">Reach 360</a>
+      <a href="/articulate-ai-assistant" class="art-tab">AI Assistant</a>
+      <a href="/articulate-localization" class="art-tab">Localization</a>
+    </div></div>
+
+<!-- ══ HERO ══ -->
+<section class="art-hero">
+  <div class="art-hero-inner">
+    <div>      <p class="art-product-eyebrow">Rise 360</p>
+      <h1>Cursos responsivos <em>en horas</em>, no semanas</h1>
+      <p class="art-hero-sub">Bloques prediseñados, cero código, 100% web. Arrastra, personaliza y publica.</p>
+      <div class="art-btns">
+        <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="btn-art-primary">Prueba gratis 30 días →</a>
+        <a href="/contacto" class="btn-art-ghost">Solicitar cotización</a>
+      </div>
+    </div>
+    <div>
+      <div class="art-hero-visual">
+        <!-- Rise 360 CSS Mockup -->
+        <div style="background:#1E293B;border-radius:12px;overflow:hidden;font-family:Inter,sans-serif;">
+          <!-- Browser bar -->
+          <div style="background:#0F172A;padding:10px 14px;display:flex;align-items:center;gap:6px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#EF4444;display:inline-block;"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#F59E0B;display:inline-block;"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#10B981;display:inline-block;"></span>
+            <div style="flex:1;background:#1E293B;border-radius:4px;height:20px;margin-left:8px;display:flex;align-items:center;padding:0 10px;">
+              <span style="font-size:10px;color:#64748B;">articulate.com/rise360</span>
+            </div>
+          </div>
+          <!-- Editor UI -->
+          <div style="display:grid;grid-template-columns:200px 1fr;min-height:280px;">
+            <!-- Sidebar -->
+            <div style="background:#0F172A;padding:14px;border-right:1px solid rgba(255,255,255,.07);">
+              <p style="font-size:9px;font-weight:700;letter-spacing:1px;color:#475569;text-transform:uppercase;margin-bottom:10px;">Bloques</p>
+              <div style="background:#1E293B;border-radius:6px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:14px;">📝</span><span style="font-size:11px;color:#CBD5E1;">Texto</span>
+              </div>
+              <div style="background:#13668D;border-radius:6px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px;border:1px solid #7DD3FC;">
+                <span style="font-size:14px;">🎯</span><span style="font-size:11px;color:#7DD3FC;font-weight:600;">Quiz</span>
+              </div>
+              <div style="background:#1E293B;border-radius:6px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:14px;">🖼️</span><span style="font-size:11px;color:#CBD5E1;">Multimedia</span>
+              </div>
+              <div style="background:#1E293B;border-radius:6px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:14px;">📊</span><span style="font-size:11px;color:#CBD5E1;">Gráfica</span>
+              </div>
+              <div style="background:#1E293B;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:14px;">🔘</span><span style="font-size:11px;color:#CBD5E1;">Botón</span>
+              </div>
+            </div>
+            <!-- Canvas -->
+            <div style="padding:20px;background:#F8FAFC;">
+              <!-- Course header mock -->
+              <div style="background:#13668D;border-radius:8px;padding:14px 16px;margin-bottom:12px;">
+                <div style="height:8px;background:rgba(255,255,255,.3);border-radius:4px;width:60%;margin-bottom:6px;"></div>
+                <div style="height:6px;background:rgba(255,255,255,.2);border-radius:4px;width:40%;"></div>
+              </div>
+              <!-- Text block -->
+              <div style="background:white;border-radius:8px;padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+                <div style="height:6px;background:#E2E8F0;border-radius:3px;width:90%;margin-bottom:5px;"></div>
+                <div style="height:6px;background:#E2E8F0;border-radius:3px;width:75%;margin-bottom:5px;"></div>
+                <div style="height:6px;background:#E2E8F0;border-radius:3px;width:85%;"></div>
+              </div>
+              <!-- Quiz block -->
+              <div style="background:white;border-radius:8px;padding:12px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+                <div style="font-size:10px;font-weight:700;color:#13668D;margin-bottom:8px;">PREGUNTA DE OPCIÓN MÚLTIPLE</div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:4px;padding:5px 8px;font-size:10px;color:#1E40AF;">✓ Opción A</div>
+                  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:4px;padding:5px 8px;font-size:10px;color:#64748B;">○ Opción B</div>
+                  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:4px;padding:5px 8px;font-size:10px;color:#64748B;">○ Opción C</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="art-hero-visual-label">Rise 360 Editor</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STAT STRIP ══ -->
+<section class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="stat-item">
+      <span class="stat-number">40+</span>
+      <span class="stat-label">tipos de bloques interactivos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">responsive sin configuración</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">30</span>
+      <span class="stat-label">días de prueba gratuita</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">4.7/5</span>
+      <span class="stat-label">en G2 (621 reseñas)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="art-feats">
+  <div class="art-feats-inner">
+    <p class="art-section-label">Funcionalidades clave</p>
+    <h2 class="art-section-title">Todo lo que puedes hacer con Rise 360</h2>
+    <p class="art-section-sub">Incluido en tu suscripción Articulate 360 con soporte en español de TAEC.</p>
+    <div class="art-feat-grid">
+        <div class="art-feat-card">
+          <div class="art-feat-icon-wrap" style="background:#E0F2FE"><span style="font-size:24px">📱</span></div>
+          <h3 class="art-feat-title">Responsive automático</h3>
+          <p class="art-feat-desc">Se adapta a móvil, tablet y escritorio sin tocar una sola línea de código.</p>
+        </div>
+        <div class="art-feat-card">
+          <div class="art-feat-icon-wrap" style="background:#FEF3C7"><span style="font-size:24px">🧱</span></div>
+          <h3 class="art-feat-title">40+ bloques prediseñados</h3>
+          <p class="art-feat-desc">Flashcards, quizzes, timelines, pestañas, acordeones y más — listos para usar.</p>
+        </div>
+        <div class="art-feat-card">
+          <div class="art-feat-icon-wrap" style="background:#FCE7F3"><span style="font-size:24px">🎬</span></div>
+          <h3 class="art-feat-title">Video + subtítulos CC</h3>
+          <p class="art-feat-desc">Inserta video y sube subtítulos .vtt para accesibilidad completa.</p>
+        </div>
+        <div class="art-feat-card">
+          <div class="art-feat-icon-wrap" style="background:#ECFDF5"><span style="font-size:24px">📊</span></div>
+          <h3 class="art-feat-title">Exporta a todo</h3>
+          <p class="art-feat-desc">LMS, Reach 360, web, PDF o archivo SCORM/xAPI — tú decides el destino.</p>
+        </div>
+        <div class="art-feat-card">
+          <div class="art-feat-icon-wrap" style="background:#EDE9FE"><span style="font-size:24px">♿</span></div>
+          <h3 class="art-feat-title">Accesible WCAG 2.1</h3>
+          <p class="art-feat-desc">Configuraciones de accesibilidad integradas para cumplir estándares internacionales.</p>
+        </div>
+        <div class="art-feat-card">
+          <div class="art-feat-icon-wrap" style="background:#FFF7ED"><span style="font-size:24px">🔗</span></div>
+          <h3 class="art-feat-title">Incrusta Storyline</h3>
+          <p class="art-feat-desc">Añade actividades interactivas de Storyline 360 directamente dentro de Rise.</p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SHOWCASE — CSS-only tabs ══ -->
+<section class="showcase">
+  <div class="showcase-inner">
+    <p class="art-section-label" style="text-align:center">Explora Rise 360</p>
+    <h2 class="art-section-title" style="text-align:center;margin-bottom:32px">Crea experiencias de aprendizaje visualmente impactantes</h2>
+
+    <input type="radio" name="showcase" id="tab1" checked />
+    <input type="radio" name="showcase" id="tab2" />
+    <input type="radio" name="showcase" id="tab3" />
+    <input type="radio" name="showcase" id="tab4" />
+
+    <div class="showcase-tabs">
+      <label for="tab1" class="showcase-tab">Bloques interactivos</label>
+      <label for="tab2" class="showcase-tab">Evaluaciones</label>
+      <label for="tab3" class="showcase-tab">Colaboración</label>
+      <label for="tab4" class="showcase-tab">Publicación</label>
+    </div>
+
+    <div class="showcase-panels">
+      <div class="showcase-panel panel-1">
+        <div class="showcase-panel-inner">
+          <div>
+            <h3>Bloques que hacen el trabajo por ti</h3>
+            <p>Cada bloque se adapta automáticamente al dispositivo del learner. Sin preview manual, sin ajustes responsive.</p>
+            <ul>
+              <li>Flashcards, acordeones y pestañas</li>
+              <li>Timelines, procesos y listas numeradas</li>
+              <li>Multimedia: video, audio, imagen y GIF</li>
+              <li>Código embebido y contenido de Storyline</li>
+            </ul>
+            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+          </div>
+          <div class="showcase-visual"><span class="showcase-visual-emoji">🧱</span></div>
+        </div>
+      </div>
+      <div class="showcase-panel panel-2">
+        <div class="showcase-panel-inner">
+          <div>
+            <h3>Evaluaciones integradas</h3>
+            <p>Crea quizzes directamente dentro del curso sin necesidad de herramientas externas.</p>
+            <ul>
+              <li>Multiple choice, true/false, matching</li>
+              <li>Fill in the blank y ranking</li>
+              <li>Knowledge checks sin puntaje</li>
+              <li>Bancos de preguntas aleatorias</li>
+            </ul>
+            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+          </div>
+          <div class="showcase-visual"><span class="showcase-visual-emoji">📝</span></div>
+        </div>
+      </div>
+      <div class="showcase-panel panel-3">
+        <div class="showcase-panel-inner">
+          <div>
+            <h3>Colabora en tiempo real</h3>
+            <p>Varios autores trabajan en el mismo curso simultáneamente, con control de versiones automático.</p>
+            <ul>
+              <li>Edición simultánea multi-autor</li>
+              <li>Comentarios y feedback inline</li>
+              <li>Historial de versiones completo</li>
+              <li>Comparte con un link para revisión</li>
+            </ul>
+            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+          </div>
+          <div class="showcase-visual"><span class="showcase-visual-emoji">👥</span></div>
+        </div>
+      </div>
+      <div class="showcase-panel panel-4">
+        <div class="showcase-panel-inner">
+          <div>
+            <h3>Publica donde necesites</h3>
+            <p>Un solo curso, múltiples destinos. Exporta al formato que tu plataforma requiera.</p>
+            <ul>
+              <li>SCORM 1.2 y 2004 para cualquier LMS</li>
+              <li>xAPI (Tin Can) para analytics avanzados</li>
+              <li>Reach 360 para distribución sin LMS</li>
+              <li>Web link y PDF para acceso directo</li>
+            </ul>
+            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+          </div>
+          <div class="showcase-visual"><span class="showcase-visual-emoji">🚀</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUOTE ══ -->
+<section class="art-quote">
+  <div class="art-quote-inner">
+    <p class="art-quote-text">"Con Rise 360 redujimos el tiempo de producción de cursos en un 60%. Lo que antes tomaba semanas, ahora lo hacemos en días."</p>
+    <p class="art-quote-author">Directora de Capacitación</p>
+    <p class="art-quote-role">Empresa financiera · cliente TAEC</p>
+  </div>
+</section>
+
+<!-- ══ CTA BAND ══ -->
+<section class="art-cta-band">
+  <div style="max-width:700px;margin:0 auto;">
+    <h2>¿Listo para probar Rise 360?</h2>
+    <p>Demo en español, onboarding personalizado y soporte local con TAEC — partner oficial de Articulate en México.</p>
+    <div class="art-cta-btns">
+      <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="btn-cta-white">Prueba gratis 30 días →</a>
+      <a href="/contacto" class="btn-cta-ghost">Hablar con un especialista</a>
+    </div>
+  </div>
+</section>
+</main>
+<a href="https://wa.me/5215527758279" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp TAEC">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+</BaseLayout>

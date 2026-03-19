@@ -1,0 +1,549 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Totara LMS en México – Partner oficial | TAEC"
+  description="Totara Learn, Engage y Perform para empresas que necesitan un LMS flexible y extensible. SaaS gestionado por TAEC."
+  section="Soluciones"
+  page="totara-lms-mexico.html"
+>
+  <style is:global>
+    /* ── EN CONSTRUCCIÓN ── */
+    .wip-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(168,219,217,.15); color: var(--teal);
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .wip-icon {
+      font-size: 64px; margin-bottom: 20px; display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
+    }
+    .wip-hero h1 {
+      font-family: var(--font-display); font-size: 40px;
+      color: var(--white); line-height: 1.2; margin-bottom: 16px;
+    }
+    .wip-hero p {
+      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
+    }
+    .wip-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
+    }
+    .wip-card-title {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
+    }
+    .wip-features { display: flex; flex-direction: column; gap: 10px; }
+    .wip-feature {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: #CBD5E1;
+    }
+    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+
+    .wip-cta {
+      background: var(--light); padding: 64px 5%; text-align: center;
+    }
+    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
+    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
+    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
+    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
+    .btn-primary:hover { background: #d97b0e; }
+    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
+    .btn-wa:hover { background: #1ebe5c; }
+    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
+
+    /* ── STICKY BAR ANIMATIONS ── */
+    @keyframes bounce-icon {
+      0%,100% { transform: translateY(0); }
+      30%      { transform: translateY(-8px); }
+      60%      { transform: translateY(-4px); }
+    }
+    @keyframes pulse-btn {
+      0%,100% { box-shadow: 0 0 0 0 rgba(168,219,217,.7); }
+      50%      { box-shadow: 0 0 0 10px rgba(168,219,217,0); }
+    }
+    @keyframes glow-border {
+      0%,100% { border-top-color: #A8DBD9; }
+      50%      { border-top-color: #ffffff; }
+    }
+    .tot-sticky-icon  { animation: bounce-icon 1.6s ease-in-out infinite; display:inline-block; }
+    .tot-sticky-btn   { animation: pulse-btn   1.8s ease-in-out infinite; }
+    #tot-sticky-bar   { animation: glow-border 2s ease-in-out infinite; }
+
+    /* ── PRODUCT LOGO ── */
+    .product-logo-wrap { display: inline-flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 10px; padding: 10px 20px; margin-bottom: 22px; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+    .product-logo { height: 36px; width: auto; display: block; }
+
+    /* ── G2 BADGES ── */
+    .g2-badges-section { background: #F8FAFC; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 44px 5%; }
+    .g2-badges-inner { max-width: 960px; margin: 0 auto; text-align: center; }
+    .g2-badges-title { font-size: 13px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; }
+    .g2-badges-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .g2-badge-card { background: white; border: 1px solid #E2E8F0; border-radius: 10px; padding: 16px 14px; width: 130px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .g2-badge-season { font-size: 9px; font-weight: 700; color: #64748B; letter-spacing: .5px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .g2-badge-g2 { background: #FF492C; color: white; font-size: 9px; font-weight: 900; padding: 2px 5px; border-radius: 3px; }
+    .g2-badge-name { font-size: 15px; font-weight: 900; color: #111827; line-height: 1.2; margin-bottom: 6px; }
+    .g2-badge-cat { font-size: 10px; color: #64748B; font-weight: 600; }
+    .g2-badge-bar { height: 5px; border-radius: 0 0 6px 6px; margin: 10px -14px -16px; }
+    .bar-leader    { background: linear-gradient(90deg, #EF4444, #F97316); }
+    .bar-usability { background: #EAB308; }
+    .bar-results   { background: #7C3AED; }
+    .bar-roi       { background: #7C3AED; }
+    .bar-setup     { background: #38BDF8; }
+    .bar-implement { background: #3B82F6; }
+    .g2-badges-link { font-size: 13px; color: #64748B; text-decoration: underline; }
+    .g2-badges-link:hover { color: #FF492C; }
+
+    /* ── TOTARA VARS ── */
+    :root { --tot:#004775; --tot-light:#0077b6; --tot-teal:#A8DBD9; --tot-dark:#001f3d; }
+
+    /* ── HERO ── */
+    .tot-hero{background:linear-gradient(135deg,#001f3d 0%,#004775 60%,#0077b6 100%);padding:72px 5% 80px;color:white}
+    .tot-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+    .tot-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:var(--tot-teal);letter-spacing:-.01em;margin-bottom:10px;line-height:1}
+    .tot-hero h1{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:400;color:white;line-height:1.15;margin-bottom:20px}
+    .tot-hero h1 em{color:var(--tot-teal);font-style:normal}
+    .tot-hero-sub{font-size:17px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:28px}
+    .tot-hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+    .btn-tot-primary{background:var(--tot-teal);color:#001f3d;font-weight:700;font-size:15px;padding:14px 28px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s}
+    .btn-tot-primary:hover{opacity:.9}
+    .btn-tot-ghost{background:transparent;color:white;font-weight:600;font-size:15px;padding:13px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.4);display:inline-flex;align-items:center;gap:8px;transition:border-color .15s}
+    .btn-tot-ghost:hover{border-color:white}
+    .tot-hero-card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:28px 28px 24px}
+    .tot-hero-feat{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+    .tot-feat-item{font-size:14px;color:rgba(255,255,255,.9);display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+    .tot-feat-item:last-child{border-bottom:none}
+    .tot-feat-item::before{content:"✓";color:var(--tot-teal);font-weight:700;flex-shrink:0;margin-top:1px}
+
+    /* ── STATS ── */
+    .tot-stats{background:#001f3d;padding:0}
+    .tot-stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+    .tot-stat{padding:28px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+    .tot-stat:last-child{border-right:none}
+    .tot-stat-num{font-size:clamp(28px,3vw,38px);font-weight:800;color:var(--tot-teal);line-height:1;margin-bottom:6px}
+    .tot-stat-lbl{font-size:13px;color:rgba(255,255,255,.6);line-height:1.4}
+
+    /* ── PRODUCTS ── */
+    .tot-products{padding:72px 5%;background:#F8FAFC}
+    .tot-products-inner{max-width:1100px;margin:0 auto}
+    .tot-section-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--tot);margin-bottom:10px;text-align:center}
+    .tot-section-title{font-family:var(--font-display);font-size:clamp(24px,2.8vw,36px);font-weight:400;color:#111827;text-align:center;margin-bottom:8px}
+    .tot-section-sub{text-align:center;color:#64748B;font-size:15px;margin-bottom:48px}
+    .tot-products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .tot-product-card{background:white;border:1.5px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:0;transition:box-shadow .2s,transform .2s}
+    .tot-product-card:hover{box-shadow:0 8px 32px rgba(0,71,117,.12);transform:translateY(-2px)}
+    .tot-product-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+    .tot-product-name{font-size:18px;font-weight:800;color:#111827;margin-bottom:8px}
+    .tot-product-tag{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--tot);margin-bottom:12px}
+    .tot-product-desc{font-size:14px;color:#64748B;line-height:1.7;margin-bottom:20px;flex:1}
+    .tot-product-feats{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--border);padding-top:16px}
+    .tot-product-feats li{font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}
+    .tot-product-feats li::before{content:"✓";color:var(--tot);font-weight:700;flex-shrink:0}
+
+    /* ── WHY TOTARA ── */
+    .tot-why{padding:72px 5%;background:white}
+    .tot-why-inner{max-width:1100px;margin:0 auto}
+    .tot-why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+    .tot-why-card{padding:28px;border:1.5px solid var(--border);border-radius:14px;transition:border-color .2s}
+    .tot-why-card:hover{border-color:var(--tot)}
+    .tot-why-icon{font-size:32px;margin-bottom:14px}
+    .tot-why-title{font-size:16px;font-weight:700;color:#111827;margin-bottom:8px}
+    .tot-why-desc{font-size:14px;color:#64748B;line-height:1.7}
+
+    /* ── TESTIMONIAL ── */
+    .tot-testimonial{background:linear-gradient(135deg,#001f3d,#004775);padding:64px 5%;text-align:center;color:white}
+    .tot-quote{font-family:var(--font-display);font-size:clamp(18px,2vw,26px);font-weight:400;color:white;line-height:1.6;max-width:780px;margin:0 auto 28px;font-style:italic}
+    .tot-quote-author{font-size:14px;font-weight:600;color:var(--tot-teal)}
+    .tot-quote-role{font-size:13px;color:rgba(255,255,255,.6)}
+
+    /* ── FAQ ── */
+    .tot-faq{padding:64px 5%;background:#F8FAFC}
+    .tot-faq-inner{max-width:800px;margin:0 auto}
+    .tot-faq details{border-bottom:1px solid var(--border);padding:18px 0}
+    .tot-faq summary{font-size:15px;font-weight:700;color:#111827;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .tot-faq summary::after{content:"＋";color:var(--tot);font-size:20px;flex-shrink:0;transition:transform .2s}
+    .tot-faq details[open] summary::after{content:"－"}
+    .tot-faq details p{font-size:14px;color:#4B5563;line-height:1.8;padding-top:12px}
+
+    /* ── CTA BAND ── */
+    .tot-cta-band{background:var(--tot);padding:56px 5%;text-align:center;color:white}
+    .tot-cta-band h2{font-family:var(--font-display);font-size:clamp(24px,2.8vw,36px);font-weight:400;margin-bottom:12px}
+    .tot-cta-band p{font-size:16px;opacity:.85;margin-bottom:32px}
+    .tot-cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+    /* ── PROD TABS ── */
+    .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
+    .prod-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
+    .prod-tab{display:flex;align-items:center;gap:6px;padding:14px 20px;font-size:14px;font-weight:600;color:#64748B;text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+    .prod-tab:hover{color:#111827}
+    .prod-tab.active{color:var(--tot)!important;border-bottom-color:var(--tot)!important;background:transparent!important;border-radius:0!important}
+    .prod-tab-icon{font-size:16px}
+
+    @media(max-width:768px){
+      .tot-hero-inner{grid-template-columns:1fr}
+      .tot-hero-card{display:none}
+      .tot-stats-inner{grid-template-columns:repeat(2,1fr)}
+      .tot-products-grid{grid-template-columns:1fr}
+      .tot-why-grid{grid-template-columns:1fr}
+    }
+  </style>
+
+  <!-- EmailJS -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script is:inline>emailjs.init('wiGRbwHK6dyZcHrUK');</script>
+
+  <main id="main-content">
+    <!-- ══ TABS ══ -->
+    <div class="prod-tabs"><div class="prod-tabs-inner">
+      <a href="/totara-lms-mexico" class="prod-tab active"><span class="prod-tab-icon">🏢</span>Totara</a>
+    </div></div>
+
+    <!-- ══ HERO ══ -->
+    <section class="tot-hero">
+      <div class="tot-hero-inner">
+        <div>
+          <p class="tot-eyebrow">Totara LMS</p>
+          <h1>La plataforma LMS <em>más flexible</em> para empresas que crecen</h1>
+          <p class="tot-hero-sub">Unifica formación, colaboración y desempeño en un ecosistema potenciado por IA. La solución más innovadora para empresas que quieren escalar el aprendizaje sin límites.</p>
+          <div class="tot-hero-btns">
+            <a href="/contacto" class="btn-tot-primary">Solicitar demo gratuita →</a>
+            <a href="/contacto" class="btn-tot-ghost">Hablar con un especialista</a>
+          </div>
+          <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">✓ Partner oficial Totara · México y LATAM &nbsp;·&nbsp; ✓ SaaS gestionado por TAEC &nbsp;·&nbsp; ✓ Soporte en español</p>
+        </div>
+        <div class="tot-hero-card">
+          <div style="display:flex;justify-content:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);">
+            <img src="/assets/logos/totara-reseller-vertical.png" alt="Totara Authorized Reseller" style="height:90px;width:auto;" />
+          </div>
+          <p style="font-size:12px;font-weight:700;color:var(--tot-teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Por qué Totara con TAEC</p>
+          <div class="tot-hero-feat">
+            <div class="tot-feat-item">Implementación SaaS — tu plataforma lista en días</div>
+            <div class="tot-feat-item">Soporte técnico dedicado en español</div>
+            <div class="tot-feat-item">+500 clientes en 17 países</div>
+            <div class="tot-feat-item">Integración con Articulate 360 y Vyond</div>
+            <div class="tot-feat-item">Factura electrónica mexicana (CFDI)</div>
+            <div class="tot-feat-item">+18 años de experiencia en e-learning</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ STATS ══ -->
+    <div class="tot-stats">
+      <div class="tot-stats-inner">
+        <div class="tot-stat"><div class="tot-stat-num">20M+</div><div class="tot-stat-lbl">usuarios activos</div></div>
+        <div class="tot-stat"><div class="tot-stat-num">35+</div><div class="tot-stat-lbl">idiomas disponibles</div></div>
+        <div class="tot-stat"><div class="tot-stat-num">500+</div><div class="tot-stat-lbl">empresas en el mundo</div></div>
+        <div class="tot-stat"><div class="tot-stat-num">17</div><div class="tot-stat-lbl">países donde opera TAEC</div></div>
+      </div>
+    </div>
+
+    <!-- ══ PRODUCTOS ══ -->
+    <section class="tot-products">
+      <div class="tot-products-inner">
+        <p class="tot-section-label">La suite completa</p>
+        <h2 class="tot-section-title">Tres soluciones, un ecosistema</h2>
+        <p class="tot-section-sub">Totara Suite combina LMS, gestión del talento y aprendizaje móvil en una plataforma flexible — con Ayleen AI integrado en toda la suite.</p>
+        <div class="tot-products-grid">
+
+          <!-- Totara Learn -->
+          <div class="tot-product-card">
+            <div class="tot-product-icon" style="background:#EFF6FF;">🎓</div>
+            <p class="tot-product-tag">LMS empresarial</p>
+            <h3 class="tot-product-name">Totara Learn</h3>
+            <p class="tot-product-desc">El LMS más personalizable del mercado. Gestiona formación, cumplimiento normativo y certificaciones a escala — sin los límites de las plataformas cerradas.</p>
+            <ul class="tot-product-feats">
+              <li>Rutas de aprendizaje personalizadas</li>
+              <li>Gestión de cumplimiento y certificaciones</li>
+              <li>Audiencias dinámicas y asignación automática</li>
+              <li>App móvil Totara Learn</li>
+              <li>Reportes y analíticas flexibles</li>
+            </ul>
+          </div>
+
+          <!-- Totara Perform -->
+          <div class="tot-product-card" style="border-color:#004775;">
+            <div class="tot-product-icon" style="background:#F0FDF4;">🎯</div>
+            <p class="tot-product-tag">Gestión del talento</p>
+            <h3 class="tot-product-name">Totara Perform</h3>
+            <p class="tot-product-desc">Alinea el desarrollo individual con los objetivos de la organización. Evaluaciones, metas, competencias y retroalimentación continua en un solo lugar.</p>
+            <ul class="tot-product-feats">
+              <li>Evaluaciones de desempeño 360°</li>
+              <li>Gestión de metas y OKRs</li>
+              <li>Marcos de competencias</li>
+              <li>Check-ins y retroalimentación continua</li>
+              <li>Análisis de brechas de habilidades</li>
+            </ul>
+          </div>
+
+          <!-- Totara Mobile -->
+          <div class="tot-product-card">
+            <div class="tot-product-icon" style="background:#F0FDF4;">📱</div>
+            <p class="tot-product-tag">Aprendizaje móvil</p>
+            <h3 class="tot-product-name">Totara Mobile</h3>
+            <p class="tot-product-desc">Lleva toda la potencia de Totara Learn a cualquier dispositivo. Permite el aprendizaje sin conexión, notificaciones push y acceso a cursos, tareas y logros desde el móvil.</p>
+            <ul class="tot-product-feats">
+              <li>Acceso offline a cursos y contenidos</li>
+              <li>Notificaciones push de plazos y novedades</li>
+              <li>Sincronización automática al reconectarse</li>
+              <li>Misma experiencia en iOS y Android</li>
+              <li>Marca personalizable con tu identidad corporativa</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ POR QUÉ TOTARA ══ -->
+    <section class="tot-why">
+      <div class="tot-why-inner">
+        <p class="tot-section-label">Ventajas clave</p>
+        <h2 class="tot-section-title">Por qué las empresas eligen Totara</h2>
+        <p class="tot-section-sub">Más de 500 organizaciones en todo el mundo confían en Totara para escalar su aprendizaje.</p>
+        <div class="tot-why-grid">
+          <div class="tot-why-card">
+            <div class="tot-why-icon">⚙️</div>
+            <h3 class="tot-why-title">Personalización sin límites</h3>
+            <p class="tot-why-desc">Código abierto y arquitectura flexible. Adapta la plataforma exactamente a tus procesos, marca y flujos de trabajo — sin depender del proveedor.</p>
+          </div>
+          <div class="tot-why-card">
+            <div class="tot-why-icon">📋</div>
+            <h3 class="tot-why-title">Cumplimiento normativo a escala</h3>
+            <p class="tot-why-desc">Gestiona onboarding, certificaciones y cumplimiento regulatorio para miles de empleados. Automatiza asignaciones, recordatorios y reportes de vencimiento.</p>
+          </div>
+          <div class="tot-why-card">
+            <div class="tot-why-icon">🌎</div>
+            <h3 class="tot-why-title">Escala global, operación local</h3>
+            <p class="tot-why-desc">35+ idiomas, zonas horarias múltiples y gestión multi-tenant. Crece de 100 a 100,000 usuarios sin cambiar de plataforma.</p>
+          </div>
+          <div class="tot-why-card">
+            <div class="tot-why-icon">📊</div>
+            <h3 class="tot-why-title">Impacto medible en el negocio</h3>
+            <p class="tot-why-desc">Reportes avanzados y analíticas que conectan el aprendizaje con resultados de negocio. Demuestra el ROI de tu inversión en formación con datos concretos.</p>
+          </div>
+          <div class="tot-why-card">
+            <div class="tot-why-icon">🔗</div>
+            <h3 class="tot-why-title">Integración con tu ecosistema</h3>
+            <p class="tot-why-desc">Se conecta con Microsoft Teams, HR, ERP, SSO y herramientas de autoría como Articulate 360 y Vyond. API robusta para integraciones personalizadas.</p>
+          </div>
+          <div class="tot-why-card">
+            <div class="tot-why-icon">🤝</div>
+            <h3 class="tot-why-title">Partner local con expertise global</h3>
+            <p class="tot-why-desc">TAEC es partner oficial Totara para México y LATAM. Implementación, soporte en español, factura en MXN y acompañamiento durante toda la vida del contrato.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ G2 BADGES ══ -->
+    <div class="g2-badges-section">
+      <div class="g2-badges-inner">
+        <p class="g2-badges-title">Premios y reconocimientos</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:20px;">
+          <img src="https://www.totara.com/wp-content/uploads/2025/10/Top-10_Best_Enterprise_LMS_2025_badge_.png"
+               alt="Top 10 Best Enterprise LMS 2025 – Talented Learning"
+               style="height:110px;width:auto;object-fit:contain;"
+               onerror="this.style.display='none'" />
+          <img src="https://www.totara.com/wp-content/uploads/2026/01/Award-badges-website-elearningindustry-skills.png"
+               alt="Top LMS Tools For Skills Development And Assessment 2026 – eLearning Industry"
+               style="height:110px;width:auto;object-fit:contain;"
+               onerror="this.style.display='none'" />
+          <img src="https://www.totara.com/wp-content/uploads/2026/02/Top-extended-enterprise-totara-lms-awards-badge.png"
+               alt="Top Extended Enterprise LMS 2026 – eLearning Industry"
+               style="height:110px;width:auto;object-fit:contain;"
+               onerror="this.style.display='none'" />
+          <img src="https://www.totara.com/wp-content/uploads/2025/10/2025-top-20-lms-awards-badge.png"
+               alt="Top 20 LMS 2025 – eLearning Industry"
+               style="height:110px;width:auto;object-fit:contain;"
+               onerror="this.style.display='none'" />
+          <img src="https://www.totara.com/wp-content/uploads/2025/08/Top-Performer-Badge-FeaturedCustomers.png"
+               alt="Top Performer 2025 – FeaturedCustomers"
+               style="height:110px;width:auto;object-fit:contain;"
+               onerror="this.style.display='none'" />
+        </div>
+        <a href="https://www.totara.com/es/premios-y-reconocimientos/" target="_blank" rel="noopener noreferrer" class="g2-badges-link">Ver todos los reconocimientos →</a>
+        &nbsp;&nbsp;
+        <a href="https://www.g2.com/products/totara-lms/reviews" target="_blank" rel="noopener noreferrer" class="g2-badges-link">Ver reseñas en G2 →</a>
+      </div>
+    </div>
+
+    <!-- ══ TESTIMONIAL ══ -->
+    <section class="tot-testimonial">
+      <p class="tot-quote">"Totara no solo nos da una plataforma, nos da la llave para crecer, inspirar y desarrollar todo nuestro talento."</p>
+      <p class="tot-quote-author">Isabel Flores</p>
+      <p class="tot-quote-role">Corporate Training &amp; Learning Manager · ISDIN</p>
+    </section>
+
+    <!-- ══ LEAD MAGNET ══ -->
+    <section style="padding:64px 5%;background:white;border-top:1px solid var(--border);">
+      <div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+
+        <!-- Info -->
+        <div>
+          <p style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--tot);margin-bottom:10px;">Recurso gratuito</p>
+          <h2 style="font-family:var(--font-display);font-size:clamp(22px,2.2vw,30px);font-weight:400;color:#111827;margin-bottom:16px;">Descarga: Novedades de Totara V20</h2>
+          <p style="font-size:15px;color:#64748B;line-height:1.7;margin-bottom:20px;">Todo lo nuevo en la versión 20 de Totara — IA con Ayleen, mejoras en Perform, Mobile y nuevas integraciones. PDF oficial en inglés.</p>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>Novedades Totara Learn V20</li>
+            <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>Mejoras en Perform y Mobile</li>
+            <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>IA integrada con Ayleen</li>
+            <li style="font-size:14px;color:#374151;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--tot);font-weight:700;flex-shrink:0;">✓</span>PDF oficial · 685 KB</li>
+          </ul>
+        </div>
+
+        <!-- Formulario -->
+        <div style="background:#F8FAFC;border:1.5px solid var(--border);border-radius:16px;padding:28px;">
+          <p style="font-size:14px;font-weight:700;color:#111827;margin-bottom:20px;">Completa tus datos para descargar</p>
+          <form id="tot-lead-form" style="display:flex;flex-direction:column;gap:12px;">
+            <input type="text"  id="tot-nombre"  placeholder="Nombre completo *" required
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+            <input type="text"  id="tot-empresa" placeholder="Empresa *" required
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+            <input type="email" id="tot-email"   placeholder="Email corporativo *" required
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+            <input type="text"  id="tot-cargo"   placeholder="Cargo"
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
+              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+            <button type="submit" id="tot-lead-btn"
+              style="background:var(--tot);color:white;font-weight:700;font-size:15px;padding:13px;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;">
+              Descargar PDF gratuito →
+            </button>
+            <p id="tot-lead-msg" style="display:none;font-size:13px;text-align:center;margin-top:4px;"></p>
+          </form>
+          <a id="tot-download-link" href="/assets/docs/totara-v20-novedades.pdf"
+             download="Totara-V20-Novedades-TAEC.pdf"
+             style="display:none;width:100%;text-align:center;background:#10B981;color:white;font-weight:700;font-size:15px;padding:13px;border-radius:8px;margin-top:12px;box-sizing:border-box;">
+            ⬇ Descargar Totara V20 PDF
+          </a>
+          <p style="font-size:11px;color:#94A3B8;text-align:center;margin-top:12px;">Sin spam · Solo información relevante de TAEC</p>
+        </div>
+
+      </div>
+    </section>
+    <script is:inline>
+    (function(){
+      var form = document.getElementById('tot-lead-form');
+      if(!form) return;
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn  = document.getElementById('tot-lead-btn');
+        var msg  = document.getElementById('tot-lead-msg');
+        var link = document.getElementById('tot-download-link');
+        btn.textContent = 'Enviando...';
+        btn.disabled = true;
+        var params = {
+          from_name: document.getElementById('tot-nombre').value,
+          empresa:   document.getElementById('tot-empresa').value,
+          reply_to:  document.getElementById('tot-email').value,
+          message:   'Cargo: ' + (document.getElementById('tot-cargo').value || '—') + '\nRecurso: Totara V20 Novedades PDF'
+        };
+        emailjs.send('service_v232r5x','template_xjgle2w', params)
+          .then(function(){
+            form.style.display = 'none';
+            link.style.display = 'block';
+            msg.style.display  = 'block';
+            msg.style.color    = '#10B981';
+            msg.textContent    = '✓ ¡Listo! Haz clic para descargar.';
+          })
+          .catch(function(){
+            form.style.display = 'none';
+            link.style.display = 'block';
+            msg.style.display  = 'block';
+            msg.style.color    = '#64748B';
+            msg.textContent    = 'Descarga lista.';
+          });
+      });
+    })();
+    </script>
+
+    <!-- ══ FAQ ══ -->
+    <section class="tot-faq">
+      <div class="tot-faq-inner">
+        <p class="tot-section-label" style="text-align:center;">Preguntas frecuentes</p>
+        <h2 class="tot-section-title">Todo lo que necesitas saber sobre Totara</h2>
+        <br>
+        <details>
+          <summary>¿Qué diferencia a Totara de Moodle?</summary>
+          <p>Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.</p>
+        </details>
+        <details>
+          <summary>¿Totara es open source?</summary>
+          <p>Sí. Totara tiene un núcleo de código abierto, lo que permite personalización total sin depender de un solo proveedor. TAEC ofrece la plataforma como SaaS gestionado — tú te concentras en el contenido, nosotros en la infraestructura.</p>
+        </details>
+        <details>
+          <summary>¿Puedo integrar Totara con Articulate 360 o Vyond?</summary>
+          <p>Sí. Totara es compatible con SCORM, xAPI y cmi5. Los cursos creados en Articulate Storyline, Rise 360 o videos de Vyond se publican directamente en Totara Learn. TAEC gestiona la integración completa.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto tiempo toma implementar Totara?</summary>
+          <p>Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días.</p>
+        </details>
+        <details>
+          <summary>¿Puedo gestionar múltiples empresas o subsidiarias?</summary>
+          <p>Sí. Totara soporta arquitecturas multi-tenant y multi-organización. Ideal para corporativos con múltiples filiales, franquicias o para empresas que necesitan capacitar a clientes y partners externos.</p>
+        </details>
+        <details>
+          <summary>¿Cómo funciona el soporte de TAEC?</summary>
+          <p>El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ══ CTA BAND ══ -->
+    <section class="tot-cta-band">
+      <h2>¿Listo para modernizar tu plataforma de aprendizaje?</h2>
+      <p>Agenda una demo con nuestros especialistas y descubre cómo Totara se adapta a tu empresa.</p>
+      <div class="tot-cta-btns">
+        <a href="/contacto" class="btn-tot-primary">Agendar demo gratuita →</a>
+        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-tot-ghost">WhatsApp directo</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══ STICKY BAR — PDF ══ -->
+  <div id="tot-sticky-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:998;background:#001f3d;border-top:2px solid #A8DBD9;padding:12px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;transform:translateY(100%);transition:transform .4s ease;box-shadow:0 -4px 24px rgba(0,0,0,.25);">
+    <!-- Texto izquierda -->
+    <div style="display:flex;align-items:center;gap:14px;flex:1;min-width:0;max-width:38%;">
+      <span class="tot-sticky-icon" style="font-size:24px;flex-shrink:0;">📄</span>
+      <div>
+        <p style="font-size:14px;font-weight:700;color:white;margin-bottom:2px;">Descarga gratis: Novedades Totara V20</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.6);">PDF oficial · Totara Learn, Perform y Mobile · Ayleen AI</p>
+      </div>
+    </div>
+    <!-- GIF centro -->
+    <div style="position:absolute;left:50%;transform:translateX(-50%);width:76px;height:76px;border-radius:50%;background:#A8DBD9;overflow:hidden;display:flex;align-items:center;justify-content:center;pointer-events:none;flex-shrink:0;">
+      <img src="/assets/download-icon.gif" alt="Descargar"
+           style="height:76px;width:76px;object-fit:cover;mix-blend-mode:multiply;" />
+    </div>
+    <!-- CTA derecha -->
+    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <a href="#tot-lead-form" onclick="document.getElementById('tot-sticky-bar').style.transform='translateY(100%)'"
+         class="tot-sticky-btn" style="background:#A8DBD9;color:#001f3d;font-weight:700;font-size:14px;padding:11px 26px;border-radius:8px;white-space:nowrap;display:inline-block;">
+        Descargar →
+      </a>
+      <button onclick="document.getElementById('tot-sticky-bar').style.transform='translateY(100%)'"
+        style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:0 4px;line-height:1;" aria-label="Cerrar">×</button>
+    </div>
+  </div>
+  <script is:inline>
+  (function(){
+    var bar = document.getElementById('tot-sticky-bar');
+    if(!bar) return;
+    var shown = false;
+    window.addEventListener('scroll', function(){
+      if(!shown && window.scrollY > 600){
+        bar.style.transform = 'translateY(0)';
+        shown = true;
+      }
+    }, { passive: true });
+  })();
+  </script>
+</BaseLayout>

@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Articulate Localization – Traduce Cursos con IA a 70+ Idiomas | TAEC"
+  description="Articulate Localization: traduce y localiza cursos de Rise 360 y Storyline con IA. Reduce costos de traducción hasta 90%. Partner oficial en México."
+  section="Soluciones"
+  page="articulate-localization.html"
+>
+  <style is:global>
+    .art-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%;overflow-x:auto}
+    .art-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
+    .art-tab{display:inline-flex;align-items:center;padding:14px 18px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+    .art-tab:hover{color:var(--art)}
+    .art-tab.active{color:var(--art);border-bottom-color:var(--art)}
+    .art-hero{background:linear-gradient(135deg, #050E14 0%, #0B3347 45%, #13668D 100%);padding:72px 5% 80px}
+    .art-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+    .art-product-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:#7DD3FC;letter-spacing:-.01em;margin-bottom:10px;line-height:1}
+    .art-hero h1{font-size:clamp(26px,3.5vw,44px);font-weight:800;color:white;line-height:1.18;margin-bottom:16px}
+    .art-hero h1 em{font-style:normal;color:#A5F3FC}
+    .art-hero-sub{font-size:16px;color:rgba(255,255,255,.8);margin-bottom:28px;line-height:1.65}
+    .art-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-art-primary{background:#0891B2;color:white;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;transition:background .15s}
+    .btn-art-primary:hover{background:#0e7490}
+    .btn-art-ghost{background:rgba(255,255,255,.12);color:white;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);transition:background .15s}
+    .btn-art-ghost:hover{background:rgba(255,255,255,.2)}
+    .art-cap-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:28px}
+    .art-cap-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#A5F3FC;margin-bottom:14px}
+    .art-cap-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .art-cap-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.88);line-height:1.5}
+    .art-feats{padding:72px 5%;background:white}
+    .art-feats-inner{max-width:1100px;margin:0 auto}
+    .art-section-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--art);margin-bottom:10px}
+    .art-section-title{font-size:clamp(22px,2.5vw,32px);font-weight:800;color:#111827;margin-bottom:10px}
+    .art-section-sub{font-size:16px;color:#475569;line-height:1.65;margin-bottom:44px;max-width:640px}
+    .art-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .art-feat-card{background:#F8FAFC;border:1px solid var(--border);border-radius:14px;padding:26px}
+    .art-feat-icon{font-size:30px;margin-bottom:12px}
+    .art-feat-title{font-size:15px;font-weight:700;color:#111827;margin-bottom:8px}
+    .art-feat-desc{font-size:13px;color:#475569;line-height:1.55}
+    .art-quote{background:linear-gradient(135deg, #001018 0%, #003045 60%, #0891B2 100%);padding:56px 5%;text-align:center}
+    .art-quote-inner{max-width:760px;margin:0 auto}
+    .art-quote-text{font-size:clamp(16px,2vw,22px);color:white;line-height:1.65;font-style:italic;margin-bottom:20px}
+    .art-quote-author{font-size:13px;color:#A5F3FC;font-weight:700}
+    .art-quote-role{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px}
+    .art-cta-band{background:var(--art);padding:48px 5%;text-align:center}
+    .art-cta-band h2{font-size:28px;font-weight:800;color:white;margin-bottom:10px}
+    .art-cta-band p{font-size:16px;color:rgba(255,255,255,.85);margin-bottom:28px}
+    .art-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn-cta-white{background:white;color:var(--art);font-weight:700;font-size:15px;padding:13px 28px;border-radius:8px}
+    .btn-cta-ghost{background:transparent;color:white;font-weight:600;font-size:15px;padding:13px 28px;border-radius:8px;border:2px solid rgba(255,255,255,.5)}
+
+    @media(max-width:900px){
+      .art-hero-inner{grid-template-columns:1fr;gap:32px}
+      .art-feat-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:600px){
+      .art-feat-grid{grid-template-columns:1fr}
+    }
+  </style>
+
+  <main id="main-content">
+    <div class="art-tabs">
+      <div class="art-tabs-inner">
+        <a href="/articulate-360-mexico" class="art-tab">Articulate 360</a>
+        <a href="/articulate-rise360" class="art-tab">Rise 360</a>
+        <a href="/articulate-storyline360" class="art-tab">Storyline 360</a>
+        <a href="/articulate-review360" class="art-tab">Review 360</a>
+        <a href="/articulate-reach" class="art-tab">Reach 360</a>
+        <a href="/articulate-ai-assistant" class="art-tab">AI Assistant</a>
+        <a href="/articulate-localization" class="art-tab active">Localization</a>
+      </div>
+    </div>
+
+    <section class="art-hero">
+      <div class="art-hero-inner">
+        <div>
+          <p class="art-product-eyebrow">Localization</p>
+          <h1>Localiza tus cursos a <em>70+ idiomas</em> con IA, sin salir de Articulate</h1>
+          <p class="art-hero-sub">Articulate Localization usa inteligencia artificial para traducir cursos de Rise 360 y Storyline 360 manteniendo el diseño, los interactivos y el formato intactos. Publica cursos globales en horas, no en semanas.</p>
+          <div class="art-btns">
+            <a href="/contacto" class="btn-art-primary">Solicitar información →</a>
+            <a href="/articulate-360-mexico" class="btn-art-ghost">Ver Articulate 360 completo</a>
+          </div>
+        </div>
+        <div>
+          <!-- Localization CSS Mockup -->
+          <div style="background:#1E293B;border-radius:12px;overflow:hidden;font-family:Inter,sans-serif;">
+            <div style="background:#0F172A;padding:10px 14px;display:flex;align-items:center;gap:6px;">
+              <span style="width:10px;height:10px;border-radius:50%;background:#EF4444;display:inline-block;"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#F59E0B;display:inline-block;"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#10B981;display:inline-block;"></span>
+              <div style="flex:1;background:#1E293B;border-radius:4px;height:20px;margin-left:8px;display:flex;align-items:center;padding:0 10px;">
+                <span style="font-size:10px;color:#64748B;">Articulate 360 — Localization</span>
+              </div>
+            </div>
+            <div style="padding:16px;min-height:280px;background:#F8FAFC;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <span style="font-size:11px;font-weight:700;color:#0F172A;">Traducciones</span>
+                <div style="background:#0891B2;border-radius:4px;padding:4px 10px;font-size:9px;color:white;font-weight:700;">+ Idioma</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="background:white;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);">
+                  <span style="font-size:16px;">🇲🇽</span>
+                  <span style="font-size:10px;font-weight:600;color:#0F172A;">Español (México)</span>
+                  <div style="margin-left:auto;background:#DCFCE7;border-radius:3px;padding:2px 7px;font-size:8px;color:#16A34A;font-weight:700;">ORIGINAL</div>
+                </div>
+                <div style="background:white;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);">
+                  <span style="font-size:16px;">🇺🇸</span>
+                  <span style="font-size:10px;font-weight:600;color:#0F172A;">English (US)</span>
+                  <div style="margin-left:auto;background:#DCFCE7;border-radius:3px;padding:2px 7px;font-size:8px;color:#16A34A;font-weight:700;">✓ LISTO</div>
+                </div>
+                <div style="background:white;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);">
+                  <span style="font-size:16px;">🇧🇷</span>
+                  <span style="font-size:10px;font-weight:600;color:#0F172A;">Português (BR)</span>
+                  <div style="margin-left:auto;background:#FEF3C7;border-radius:3px;padding:2px 7px;font-size:8px;color:#D97706;font-weight:700;">EN REVISIÓN</div>
+                </div>
+                <div style="background:white;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);">
+                  <span style="font-size:16px;">🇫🇷</span>
+                  <span style="font-size:10px;font-weight:600;color:#0F172A;">Français</span>
+                  <div style="margin-left:auto;background:#EDE9FE;border-radius:3px;padding:2px 7px;font-size:8px;color:#7C3AED;font-weight:700;">TRADUCIENDO</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="art-feats">
+      <div class="art-feats-inner">
+        <p class="art-section-label">Funcionalidades clave</p>
+        <h2 class="art-section-title">Todo lo que puedes hacer con Localization</h2>
+        <p class="art-section-sub">Incluido en tu suscripción Articulate 360. Soporte en español con TAEC.</p>
+        <div class="art-feat-grid">
+          <div class="art-feat-card">
+            <div class="art-feat-icon">🌐</div>
+            <h3 class="art-feat-title">70+ idiomas con IA</h3>
+            <p class="art-feat-desc">Traducción automática impulsada por IA para más de 70 idiomas, con revisión humana opcional.</p>
+          </div>
+          <div class="art-feat-card">
+            <div class="art-feat-icon">🎨</div>
+            <h3 class="art-feat-title">Diseño 100% preservado</h3>
+            <p class="art-feat-desc">El layout, animaciones, interactivos y multimedia se conservan exactamente igual en el idioma destino.</p>
+          </div>
+          <div class="art-feat-card">
+            <div class="art-feat-icon">📤</div>
+            <h3 class="art-feat-title">Flujo XLIFF</h3>
+            <p class="art-feat-desc">Exporta e importa archivos XLIFF para trabajar con agencias de traducción o traductores propios.</p>
+          </div>
+          <div class="art-feat-card">
+            <div class="art-feat-icon">✅</div>
+            <h3 class="art-feat-title">Revisión y aprobación</h3>
+            <p class="art-feat-desc">Flujo de revisión integrado: traducción automática → revisión humana → aprobación → publicación.</p>
+          </div>
+          <div class="art-feat-card">
+            <div class="art-feat-icon">💰</div>
+            <h3 class="art-feat-title">Reduce costos hasta 90%</h3>
+            <p class="art-feat-desc">La traducción asistida por IA reduce drásticamente el costo frente a traducción humana completa.</p>
+          </div>
+          <div class="art-feat-card">
+            <div class="art-feat-icon">🔄</div>
+            <h3 class="art-feat-title">Rise 360 + Storyline 360</h3>
+            <p class="art-feat-desc">Compatible con ambas herramientas de autoría de Articulate 360 sin configuración extra.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="art-quote">
+      <div class="art-quote-inner">
+        <p class="art-quote-text">"Lo que antes tomaba 3 semanas de coordinación con traductores externos, ahora lo hacemos en un día. Localization cambió nuestra operación global."</p>
+        <p class="art-quote-author">Director de Formación Global</p>
+        <p class="art-quote-role">Empresa multinacional · cliente TAEC</p>
+      </div>
+    </section>
+
+    <section class="art-cta-band">
+      <div style="max-width:700px;margin:0 auto;">
+        <h2>¿Listo para usar Localization?</h2>
+        <p>Como partner oficial de Articulate en México, TAEC te acompaña desde la demo hasta la implementación.</p>
+        <div class="art-cta-btns">
+          <a href="/contacto" class="btn-cta-white">Solicitar información →</a>
+          <a href="/contacto" class="btn-cta-ghost">Hablar con un especialista</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

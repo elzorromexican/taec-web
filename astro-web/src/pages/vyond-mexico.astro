@@ -1,0 +1,478 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Vyond en México – Animación para e-learning | TAEC"
+  description="Crea videos animados profesionales para capacitación corporativa. Partner oficial Vyond para México y LATAM."
+  section="Soluciones"
+  page="vyond-mexico.html"
+>
+  <style is:global>
+
+  /* ── EN CONSTRUCCIÓN ── */
+    .wip-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
+      padding: 72px 5%; text-align: center;
+    }
+    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
+    .wip-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(168,219,217,.15); color: var(--teal);
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .wip-icon {
+      font-size: 64px; margin-bottom: 20px; display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
+    }
+    .wip-hero h1 {
+      font-family: var(--font-display); font-size: 40px;
+      color: var(--white); line-height: 1.2; margin-bottom: 16px;
+    }
+    .wip-hero p {
+      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
+    }
+    .wip-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
+    }
+    .wip-card-title {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
+    }
+    .wip-features { display: flex; flex-direction: column; gap: 10px; }
+    .wip-feature {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: #CBD5E1;
+    }
+    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+
+    .wip-cta {
+      background: var(--light); padding: 64px 5%; text-align: center;
+    }
+    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
+    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
+    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
+    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
+    .btn-primary:hover { background: #d97b0e; }
+    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
+    .btn-wa:hover { background: #1ebe5c; }
+    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
+
+    /* ── Dropdown open state (JS-managed) ── */
+    .nav-item.open > .mega-menu        { display: grid !important; }
+    .nav-item.open > .simple-dropdown  { display: grid !important; }
+    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
+    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
+  
+    /* ── PRODUCT LOGO ── */
+    .product-logo-wrap {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #ffffff; border-radius: 10px;
+      padding: 10px 20px; margin-bottom: 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
+    .product-logo { height: 36px; width: auto; display: block; }
+  
+    /* ── G2 SOCIAL PROOF ── */
+    .g2-section { background: #F8FAFC; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 5%; }
+    .g2-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 48px; flex-wrap: wrap; justify-content: center; }
+    .g2-badge { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px; }
+    .g2-score { font-size: 52px; font-weight: 800; color: #111827; line-height: 1; }
+    .g2-stars { color: #FF492C; font-size: 22px; letter-spacing: 2px; }
+    .g2-label { font-size: 12px; color: #64748B; font-weight: 600; text-align: center; }
+    .g2-logo { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+    .g2-logo-circle { width: 28px; height: 28px; background: #FF492C; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 14px; }
+    .g2-divider { width: 1px; height: 80px; background: var(--border); }
+    .g2-reviews { display: flex; flex-direction: column; gap: 16px; flex: 1; min-width: 280px; }
+    .g2-quote { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+    .g2-quote-text { font-size: 14px; font-weight: 600; color: #111827; margin-bottom: 4px; }
+    .g2-quote-author { font-size: 12px; color: #64748B; }
+    .g2-quote-stars { color: #FF492C; font-size: 12px; }
+    .g2-cta { text-align: center; margin-top: 20px; }
+    .g2-link { font-size: 12px; color: #64748B; text-decoration: underline; }
+    .g2-link:hover { color: #FF492C; }
+  
+    /* ══ VYOND PAGE ══ */
+    :root { --vy-orange:#C84D16; --vy-light:#FFF5F0; }
+
+    /* Hero */
+    .vy-hero { background: linear-gradient(135deg, #1a0a00 0%, #3d1200 60%, #C84D16 100%); padding: 72px 5% 80px; }
+    .vy-hero-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+    .vy-logo-pill { display:inline-flex; background:white; border-radius:10px; padding:10px 20px; margin-bottom:20px; box-shadow:0 2px 12px rgba(0,0,0,.2); }
+    .vy-logo-pill img { height:34px; width:auto; }
+    .vy-tag { display:inline-block; background:rgba(200,77,22,.25); color:#FFCBA4; font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:4px; margin-bottom:16px; }
+    .vy-hero h1 { font-size:clamp(26px,3.5vw,42px); font-weight:800; color:white; line-height:1.2; margin-bottom:16px; }
+    .vy-hero h1 em { color:#FFCBA4; font-style:normal; }
+    .vy-hero-sub { font-size:16px; color:rgba(255,255,255,.8); margin-bottom:28px; line-height:1.6; }
+    .vy-hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-vy-primary { background:var(--vy-orange); color:white; font-weight:700; font-size:14px; padding:12px 24px; border-radius:8px; transition:background .15s; }
+    .btn-vy-primary:hover { background:#a33d10; }
+    .btn-vy-ghost { background:rgba(255,255,255,.12); color:white; font-weight:600; font-size:14px; padding:12px 24px; border-radius:8px; border:1.5px solid rgba(255,255,255,.3); transition:background .15s; }
+    .btn-vy-ghost:hover { background:rgba(255,255,255,.2); }
+    .vy-hero-card { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:16px; padding:28px; }
+    .vy-hero-feat { display:flex; flex-direction:column; gap:10px; }
+    .vy-feat-item { display:flex; align-items:center; gap:10px; font-size:14px; color:rgba(255,255,255,.9); }
+    .vy-feat-item::before { content:'✓'; color:#FFCBA4; font-weight:700; flex-shrink:0; }
+
+    /* Stats bar */
+    .vy-stats { background:white; border-bottom:1px solid var(--border); padding:28px 5%; }
+    .vy-stats-inner { max-width:900px; margin:0 auto; display:flex; justify-content:center; gap:56px; flex-wrap:wrap; }
+    .vy-stat { text-align:center; }
+    .vy-stat-num { font-size:32px; font-weight:800; color:var(--vy-orange); line-height:1; }
+    .vy-stat-label { font-size:12px; color:#64748B; margin-top:4px; }
+
+    /* Sections */
+    .vy-section { padding:64px 5%; }
+    .vy-section-alt { background:#F8FAFC; }
+    .vy-section-inner { max-width:1100px; margin:0 auto; }
+    .vy-section-title { font-size:clamp(22px,2.5vw,32px); font-weight:800; color:#111827; margin-bottom:12px; }
+    .vy-section-sub { font-size:16px; color:#64748B; margin-bottom:40px; max-width:680px; }
+
+    /* Products (Vyond Go / Studio / Mobile) */
+    .vy-products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .vy-product-card { background:white; border:1px solid var(--border); border-radius:14px; padding:28px; }
+    .vy-product-icon { font-size:28px; margin-bottom:14px; }
+    .vy-product-name { font-size:17px; font-weight:700; color:#111827; margin-bottom:10px; }
+    .vy-product-desc { font-size:14px; color:#475569; line-height:1.6; }
+
+    /* AI Features */
+    .vy-ai-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+    .vy-ai-card { background:white; border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; gap:16px; }
+    .vy-ai-icon { font-size:26px; flex-shrink:0; }
+    .vy-ai-title { font-size:15px; font-weight:700; color:#111827; margin-bottom:6px; }
+    .vy-ai-desc { font-size:13px; color:#475569; line-height:1.5; }
+
+    /* Testimonial */
+    .vy-testimonial { background:linear-gradient(135deg,#1a0a00,#3d1200); padding:56px 5%; text-align:center; }
+    .vy-testimonial blockquote { max-width:720px; margin:0 auto; font-size:clamp(16px,2vw,22px); color:white; line-height:1.6; font-style:italic; margin-bottom:20px; }
+    .vy-testimonial cite { font-size:13px; color:#FFCBA4; font-weight:700; font-style:normal; }
+
+    /* FAQ */
+    .vy-faq { padding:64px 5%; }
+    .vy-faq-inner { max-width:760px; margin:0 auto; }
+    .vy-faq details { border-bottom:1px solid var(--border); padding:16px 0; }
+    .vy-faq summary { font-size:15px; font-weight:600; color:#111827; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .vy-faq summary::-webkit-details-marker { display:none; }
+    .vy-faq summary::after { content:'+'; font-size:20px; color:var(--vy-orange); flex-shrink:0; }
+    .vy-faq details[open] summary::after { content:'−'; }
+    .vy-faq-answer { font-size:14px; color:#475569; line-height:1.7; padding-top:12px; }
+
+    /* Badges strip */
+    .vy-badges { background:white; padding:40px 5%; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .vy-badges-inner { max-width:1100px; margin:0 auto; }
+    .vy-badges-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#94A3B8; text-align:center; margin-bottom:24px; }
+    .vy-badges-row { display:flex; align-items:center; justify-content:center; gap:28px; flex-wrap:wrap; }
+    .vy-badge-img { height:110px; width:auto; object-fit:contain; }
+    .vy-partner-badge { height:130px; }
+
+    /* CTA Band */
+    .vy-cta-band { background:var(--vy-orange); padding:48px 5%; text-align:center; }
+    .vy-cta-band h2 { font-size:28px; font-weight:800; color:white; margin-bottom:10px; }
+    .vy-cta-band p { font-size:16px; color:rgba(255,255,255,.85); margin-bottom:24px; }
+    .vy-cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .btn-vy-white { background:white; color:var(--vy-orange); font-weight:700; font-size:15px; padding:12px 28px; border-radius:8px; }
+    .btn-vy-outline { border:2px solid white; color:white; font-weight:600; font-size:15px; padding:12px 28px; border-radius:8px; }
+
+    /* Responsive */
+    @media(max-width:768px){
+      .vy-hero-inner { grid-template-columns:1fr; gap:32px; }
+      .vy-products-grid { grid-template-columns:1fr; }
+      .vy-ai-grid { grid-template-columns:1fr; }
+      .vy-stats-inner { gap:28px; }
+    }
+    .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
+    .prod-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
+    .prod-tab{display:flex;align-items:center;gap:6px;padding:14px 20px;font-size:14px;font-weight:600;color:#64748B;text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+    .prod-tab:hover{color:#111827}
+    .prod-tab.active{color:var(--vy-orange,#C84D16);border-bottom-color:var(--vy-orange,#C84D16);background:transparent!important;border-radius:0!important;padding:14px 20px!important;color:var(--vy-orange,#C84D16)!important}
+    .prod-tab-icon{font-size:16px}
+    .vy-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:#C84D16;letter-spacing:-.01em;margin-bottom:10px;line-height:1}
+  
+  </style>
+
+<main id="main-content">
+
+<!-- ══ HERO ══ -->
+<section class="vy-hero">
+  <div class="vy-hero-inner">
+    <div>
+      <p class="vy-eyebrow">Vyond</p>
+      <h1>La única plataforma <em>todo-en-uno</em> de creación de video con IA</h1>
+      <p class="vy-hero-sub">Crea videos animados, con personajes IA, grabaciones reales y contenido mixto. Todo desde una sola plataforma. TAEC es distribuidor autorizado de Vyond para México y LATAM.</p>
+      <div class="vy-hero-btns">
+        <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-vy-primary">Probar Vyond gratis →</a>
+        <a href="/contacto" class="btn-vy-ghost">Solicitar cotización</a>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">✓ Sin tarjeta de crédito &nbsp;·&nbsp; ✓ Soporte en español &nbsp;·&nbsp; ✓ Factura mexicana (CFDI)</p>
+    </div>
+    <div class="vy-hero-card">
+      <div style="display:flex;justify-content:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);">
+        <img src="/assets/badges/vyond-certified-partner.webp" alt="Vyond Certified Partner" style="height:80px;width:auto;" />
+      </div>
+      <p style="font-size:12px;font-weight:700;color:#FFCBA4;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Por qué elegir Vyond con TAEC</p>
+      <div class="vy-hero-feat">
+        <div class="vy-feat-item">Licencias oficiales con factura en MXN (CFDI)</div>
+        <div class="vy-feat-item">Soporte técnico en español</div>
+        <div class="vy-feat-item">Onboarding y capacitación incluidos</div>
+        <div class="vy-feat-item">Pago en pesos al tipo de cambio oficial</div>
+        <div class="vy-feat-item">+18 años de experiencia en e-learning</div>
+        <div class="vy-feat-item">Acompañamiento en renovaciones</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="vy-stats">
+  <div class="vy-stats-inner">
+    <div class="vy-stat"><div class="vy-stat-num">70+</div><div class="vy-stat-label">Idiomas con traducción automática</div></div>
+    <div class="vy-stat"><div class="vy-stat-num">40K+</div><div class="vy-stat-label">Personajes, props y acciones</div></div>
+    <div class="vy-stat"><div class="vy-stat-num">4M+</div><div class="vy-stat-label">Imágenes, videos y clips de audio</div></div>
+    <div class="vy-stat"><div class="vy-stat-num">20K+</div><div class="vy-stat-label">Empresas en todo el mundo</div></div>
+  </div>
+</div>
+
+<!-- ══ TRES APLICACIONES ══ -->
+<section class="vy-section">
+  <div class="vy-section-inner">
+    <h2 class="vy-section-title">Con tu licencia Vyond obtienes tres aplicaciones</h2>
+    <p class="vy-section-sub">Transición perfecta entre ellas según lo que necesites en cada momento.</p>
+    <div class="vy-products-grid">
+      <div class="vy-product-card">
+        <div class="vy-product-icon">⚡</div>
+        <div class="vy-product-name">Vyond Go</div>
+        <div class="vy-product-desc">Tu creador de video instantáneo con IA. Escribe un prompt como "Curso de onboarding", presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo.</div>
+      </div>
+      <div class="vy-product-card">
+        <div class="vy-product-icon">🎬</div>
+        <div class="vy-product-name">Vyond Studio</div>
+        <div class="vy-product-desc">El editor de video completo con drag-and-drop. Genera fondos e imágenes con IA, sincroniza audio en 70+ idiomas, elimina fondos de fotos, personaliza movimientos de personajes filmando un video como prompt, y crea tu propio avatar desde una foto.</div>
+      </div>
+      <div class="vy-product-card">
+        <div class="vy-product-icon">📱</div>
+        <div class="vy-product-name">Vyond Mobile</div>
+        <div class="vy-product-desc">Creación de video en cualquier lugar. Descarga la app gratuita (Android / iOS), usa Smart Capture para que la IA combine props, fondos y personajes de la librería con tus fotos. Los cambios se sincronizan en todos tus dispositivos al instante.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IA FEATURES ══ -->
+<section class="vy-section vy-section-alt">
+  <div class="vy-section-inner">
+    <h2 class="vy-section-title">Inteligencia artificial en cada paso</h2>
+    <p class="vy-section-sub">Herramientas de IA que hacen el trabajo pesado para que tú te concentres en el mensaje.</p>
+    <div class="vy-ai-grid">
+      <div class="vy-ai-card">
+        <div class="vy-ai-icon">🧑‍💻</div>
+        <div>
+          <div class="vy-ai-title">Avatares IA</div>
+          <div class="vy-ai-desc">Olvídate de los costosos rodajes. Elige entre una amplia gama de avatares realistas que guían a tus aprendices en su propio idioma. Disponibles como add-on para mayor personalización.</div>
+        </div>
+      </div>
+      <div class="vy-ai-card">
+        <div class="vy-ai-icon">🎨</div>
+        <div>
+          <div class="vy-ai-title">Texto a imagen</div>
+          <div class="vy-ai-desc">Describe lo que necesitas y Vyond lo genera en 6 estilos distintos: arte en papel, fotorrealismo, y más. Imágenes y fondos únicos para cada video sin salir de la plataforma.</div>
+        </div>
+      </div>
+      <div class="vy-ai-card">
+        <div class="vy-ai-icon">🌍</div>
+        <div>
+          <div class="vy-ai-title">Localización automática</div>
+          <div class="vy-ai-desc">Texto a voz, subtítulos y guiones — tradúcelos directamente en tu flujo de trabajo. Más de 70 idiomas disponibles, con más en camino. Ideal para organizaciones globales.</div>
+        </div>
+      </div>
+      <div class="vy-ai-card">
+        <div class="vy-ai-icon">✂️</div>
+        <div>
+          <div class="vy-ai-title">Herramientas de edición IA</div>
+          <div class="vy-ai-desc">Elimina fondos de fotos con un clic. Suprime ruido de voz automáticamente. Photo to Character y Video to Action convierten tus archivos en elementos animados al instante.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIAL ══ -->
+<section class="vy-testimonial">
+  <blockquote>"Whenever training requires animated video, I reach for Vyond. The flexibility of their tool makes it easy to demonstrate the emotion of characters in real situations. Stories bring training to life. Vyond brings stories to life."</blockquote>
+  <cite>— Rance Greene · Instructional Designer &amp; Storyteller</cite>
+</section>
+
+<!-- ══ G2 SOCIAL PROOF ══ -->
+<section class="g2-section">
+  <div class="g2-inner">
+    <div class="g2-badge">
+      <div class="g2-score">4.8</div>
+      <div class="g2-stars">★★★★★</div>
+      <div class="g2-label">466 reseñas verificadas</div>
+      <div class="g2-logo">
+        <div class="g2-logo-circle">G</div>
+        <span style="font-size:13px;font-weight:700;color:#111827;">G2</span>
+      </div>
+    </div>
+    <div class="g2-divider"></div>
+    <div class="g2-reviews">
+      <div class="g2-quote">
+        <div class="g2-quote-stars">★★★★★</div>
+        <div class="g2-quote-text">"Easy-to-Use, Powerful Tool for Polished Videos"</div>
+        <div class="g2-quote-author">Usuario actual verificado · Empresa corporativa</div>
+      </div>
+      <div class="g2-quote">
+        <div class="g2-quote-stars">★★★★★</div>
+        <div class="g2-quote-text">"Transformational Tool for Training Videos with Excellent Support"</div>
+        <div class="g2-quote-author">Deepika V. · Trainer · Empresa +1,000 empleados</div>
+      </div>
+    </div>
+  </div>
+  <div class="g2-cta">
+    <a href="https://www.g2.com/products/vyond/reviews" target="_blank" rel="noopener noreferrer" class="g2-link">Ver todas las reseñas en G2 →</a>
+  </div>
+</section>
+
+<!-- ══ BADGES / RECONOCIMIENTOS ══ -->
+<section class="vy-badges">
+  <div class="vy-badges-inner">
+    <p class="vy-badges-label">Reconocimientos G2 Winter 2026</p>
+    <div class="vy-badges-row">
+      <img src="/assets/badges/g2-leader-enterprise.png"   alt="G2 Leader Enterprise Winter 2026"  class="vy-badge-img" />
+      <img src="/assets/badges/g2-best-results.avif"       alt="G2 Best Results Enterprise"        class="vy-badge-img" />
+      <img src="/assets/badges/g2-best-usability.avif"     alt="G2 Best Usability Enterprise"      class="vy-badge-img" />
+      <img src="/assets/badges/g2-best-roi.avif"           alt="G2 Best Estimated ROI Enterprise"  class="vy-badge-img" />
+      <img src="/assets/badges/g2-most-implementable.avif" alt="G2 Most Implementable Enterprise"  class="vy-badge-img" />
+      <img src="/assets/badges/g2-easiest-setup.avif"      alt="G2 Easiest Setup Enterprise"       class="vy-badge-img" />
+    </div>
+  </div>
+</section>
+
+<!-- ══ PLANES ══ -->
+<section id="planes" style="padding:72px 5%;background:#F8FAFC;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--vy-orange);margin-bottom:10px;text-align:center;">Planes y precios</p>
+    <h2 style="font-size:clamp(24px,2.8vw,36px);font-weight:800;color:#111827;text-align:center;margin-bottom:8px;">Planes Vyond</h2>
+    <p style="text-align:center;color:#64748B;font-size:15px;margin-bottom:44px;">Precios en USD sin IVA · facturación anual · pago en MXN al tipo de cambio oficial</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start;">
+
+      <!-- Demo gratuita -->
+      <div style="background:white;border:1.5px solid var(--border);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:0;">
+        <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;background:var(--vy-orange);color:white;font-size:13px;font-weight:800;border-radius:12px;margin-bottom:16px;line-height:1.1;text-align:center;">DEMO<br>FREE</div>
+        <p style="font-size:20px;font-weight:800;color:var(--vy-orange);margin-bottom:4px;">Demo gratuita</p>
+        <p style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#64748B;margin-bottom:16px;">TODAS LAS HERRAMIENTAS</p>
+        <p style="font-size:42px;font-weight:800;color:#111827;line-height:1;margin-bottom:4px;"><sup style="font-size:22px;vertical-align:top;margin-top:8px;">$</sup>0</p>
+        <p style="font-size:12px;color:#94A3B8;margin-bottom:20px;">sin tarjeta de crédito</p>
+        <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;background:#111827;color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">Comenzar demo gratis</a>
+        <p style="text-align:center;font-size:11px;color:#94A3B8;margin-bottom:20px;">Sin tarjeta de crédito</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>Acceso a Vyond Go, Studio y Mobile</li>
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>IA: texto a video, avatares, estilos</li>
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>Exporta y descarga tus videos</li>
+        </ul>
+      </div>
+
+      <!-- Professional -->
+      <div style="background:white;border:1.5px solid var(--border);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:0;">
+        <p style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#64748B;margin-bottom:8px;">Professional</p>
+        <p style="font-size:14px;font-weight:600;color:var(--vy-orange);margin-bottom:12px;">POR USUARIO · ANUAL</p>
+        <p style="font-size:42px;font-weight:800;color:#111827;line-height:1;margin-bottom:2px;"><sup style="font-size:22px;vertical-align:top;margin-top:8px;">US$</sup>1,199</p>
+        <p style="font-size:12px;color:#94A3B8;margin-bottom:20px;">por usuario · un solo pago al año</p>
+        <a href="/contacto" style="display:block;text-align:center;background:var(--vy-orange);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">Solicitar cotización →</a>
+        <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;background:#F1F5F9;color:#111827;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">🛒 Ver en Tienda</a>
+        <p style="text-align:center;font-size:11px;color:#94A3B8;margin-bottom:20px;">Mismo precio en renovaciones</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>Herramientas de colaboración en equipo</li>
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>4M+ assets Shutterstock incluidos</li>
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>Traducción instantánea a 80+ idiomas</li>
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>Avatares generativos desde texto</li>
+          <li style="font-size:13px;color:#374151;display:flex;gap:8px;"><span style="color:var(--vy-orange);font-weight:700;flex-shrink:0;">✓</span>20,000 créditos por usuario/mes</li>
+        </ul>
+      </div>
+
+      <!-- Enterprise — destacado -->
+      <div style="background:linear-gradient(145deg,#1a0a00,#3d1200);border:2px solid var(--vy-orange);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:0;position:relative;">
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--vy-orange);color:white;font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap;">⭐ Mejor opción para equipos</div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#FFCBA4;margin-bottom:8px;">Enterprise</p>
+        <p style="font-size:14px;font-weight:600;color:#FFCBA4;margin-bottom:12px;">POR USUARIO · ANUAL</p>
+        <p style="font-size:42px;font-weight:800;color:white;line-height:1;margin-bottom:2px;"><sup style="font-size:22px;vertical-align:top;margin-top:8px;">US$</sup>1,649</p>
+        <p style="font-size:12px;color:rgba(255,203,164,.5);margin-bottom:20px;">por usuario · un solo pago al año</p>
+        <a href="/contacto" style="display:block;text-align:center;background:var(--vy-orange);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">Solicitar cotización →</a>
+        <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;background:rgba(255,255,255,.1);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,.2);">🛒 Ver en Tienda</a>
+        <p style="text-align:center;font-size:11px;color:rgba(255,203,164,.5);margin-bottom:20px;">Mismo precio en renovaciones</p>
+        <p style="font-size:12px;font-weight:600;color:#FFCBA4;margin-bottom:10px;">Todo lo de Professional, más:</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:13px;color:rgba(255,255,255,.9);display:flex;gap:8px;"><span style="color:#FFCBA4;font-weight:700;flex-shrink:0;">✓</span>130+ voces text-to-speech ultra HD</li>
+          <li style="font-size:13px;color:rgba(255,255,255,.9);display:flex;gap:8px;"><span style="color:#FFCBA4;font-weight:700;flex-shrink:0;">✓</span>Brand Management Suite</li>
+          <li style="font-size:13px;color:rgba(255,255,255,.9);display:flex;gap:8px;"><span style="color:#FFCBA4;font-weight:700;flex-shrink:0;">✓</span>Seguridad empresarial avanzada</li>
+          <li style="font-size:13px;color:rgba(255,255,255,.9);display:flex;gap:8px;"><span style="color:#FFCBA4;font-weight:700;flex-shrink:0;">✓</span>Créditos prácticamente ilimitados</li>
+        </ul>
+      </div>
+
+    </div>
+    <p style="text-align:center;font-size:13px;color:#94A3B8;margin-top:24px;">Precios en USD sin IVA. Como partner oficial, TAEC factura en MXN/COP/CLP al tipo de cambio oficial. <a href="/contacto" style="color:var(--vy-orange);">Solicitar precio en tu moneda →</a></p>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="vy-faq">
+  <div class="vy-faq-inner">
+    <h2 class="vy-section-title" style="text-align:center;margin-bottom:8px;">Preguntas frecuentes</h2>
+    <p style="text-align:center;color:#64748B;font-size:15px;margin-bottom:36px;">Todo lo que necesitas saber antes de empezar</p>
+    <details>
+      <summary>¿Cómo accedo a Vyond Go?</summary>
+      <p class="vy-faq-answer">Todos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando "Crear con IA" desde el botón +Crear en la página de listado de videos.</p>
+    </details>
+    <details>
+      <summary>¿Cuánto tiempo pueden durar los videos creados en Vyond?</summary>
+      <p class="vy-faq-answer">Los usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos.</p>
+    </details>
+    <details>
+      <summary>¿En qué formatos puedo exportar mis videos?</summary>
+      <p class="vy-faq-answer">Los videos de Vyond se exportan fácilmente en los formatos comunes GIF y MP4, compatibles con cualquier LMS, plataforma web o red social.</p>
+    </details>
+    <details>
+      <summary>¿Cuáles son los 3 estilos de personajes disponibles?</summary>
+      <p class="vy-faq-answer">
+        <strong>Whiteboard:</strong> simple, sin color, ideal para entornos educativos donde quieres enfocar la atención del usuario.<br/>
+        <strong>Contemporary:</strong> moderno y colorido, adecuado para casi cualquier propósito.<br/>
+        <strong>Business friendly:</strong> más formal, ideal para presentaciones y material de marketing.
+      </p>
+    </details>
+    <details>
+      <summary>¿Puedo crear mi propio avatar IA personalizado?</summary>
+      <p class="vy-faq-answer">Los avatares personalizados no están incluidos en las licencias base pero se pueden solicitar como add-on. El proceso requiere grabar un video de 2 minutos como entrenamiento. Solo tú tienes acceso a tu avatar, aunque puedes compartirlo con tu equipo. Contáctanos para más información.</p>
+    </details>
+    <details>
+      <summary>¿Cuáles son las diferencias clave entre Enterprise y Professional?</summary>
+      <p class="vy-faq-answer">
+        <strong>Enterprise:</strong> colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.<br/>
+        <strong>Professional:</strong> perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.<br/>
+        Contáctanos y te ayudamos a elegir el plan correcto para tu organización.
+      </p>
+    </details>
+    <details>
+      <summary>¿Hay límite en la generación de imágenes con IA?</summary>
+      <p class="vy-faq-answer">Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ══ -->
+<section class="vy-cta-band">
+  <h2>¿Listo para crear tus primeros videos con IA?</h2>
+  <p>Solicita una demo personalizada o empieza tu prueba gratis. TAEC te acompaña en cada paso.</p>
+  <div class="vy-cta-btns">
+    <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-vy-white">Probar Vyond gratis →</a>
+    <a href="/contacto" class="btn-vy-outline">Hablar con un especialista</a>
+  </div>
+</section>
+
+</main>
+<a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+</BaseLayout>

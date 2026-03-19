@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Blog TAEC – e-learning, L&D y tecnología educativa | TAEC"
+  description="Tendencias, noticias y reflexiones del mundo e-learning en México y LATAM. Publicaciones sobre herramientas, metodologías y estrategia L&D."
+  section="Recursos"
+  page="blog.html"
+>
+  <style is:global>
+
+    .nav-item::after { display: none !important; }
+    .nav-item.open > .mega-menu { display: grid !important; }
+    .nav-item.open > .simple-dropdown { display: grid !important; }
+    .nav-item.open > .nav-link { background: var(--light); color: var(--blue); }
+    .nav-item.open > .nav-link svg { transform: rotate(180deg); }
+
+    /* ── HERO ── */
+    .blog-hero { background: linear-gradient(135deg, #001f3d 0%, #004775 60%, #0077b6 100%); padding: 56px 5% 64px; color: white; }
+    .blog-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .blog-breadcrumb { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 20px; }
+    .blog-breadcrumb a { color: rgba(255,255,255,.5); transition: color .15s; }
+    .blog-breadcrumb a:hover { color: white; }
+    .blog-breadcrumb span { margin: 0 6px; }
+    .blog-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+    .blog-hero h1 { font-family: var(--font-display); font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; color: white; line-height: 1.2; margin-bottom: 12px; }
+    .blog-hero-sub { font-size: 16px; color: rgba(255,255,255,.7); max-width: 560px; }
+
+    /* ── CONTROLES ── */
+    .blog-controls { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 5%; position: sticky; top: 68px; z-index: 100; }
+    .blog-controls-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .blog-search { flex: 1; min-width: 200px; position: relative; }
+    .blog-search input { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 16px 10px 40px; font-size: 14px; font-family: var(--font-body); color: var(--text); background: var(--light); outline: none; transition: border-color .15s; }
+    .blog-search input:focus { border-color: var(--blue); background: white; }
+    .blog-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #94A3B8; pointer-events: none; }
+    .blog-count { font-size: 13px; color: #64748B; white-space: nowrap; flex-shrink: 0; }
+
+    /* ── FILTROS ── */
+    .blog-filters { padding: 16px 5% 0; background: var(--white); }
+    .blog-filters-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .filter-tag { font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; border: 1.5px solid var(--border); color: #64748B; background: var(--white); cursor: pointer; transition: all .15s; white-space: nowrap; }
+    .filter-tag:hover { border-color: var(--blue); color: var(--blue); }
+    .filter-tag.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+    /* ── POSTS GRID ── */
+    .blog-main { padding: 40px 5% 72px; }
+    .blog-main-inner { max-width: 1100px; margin: 0 auto; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    /* ── POST CARD ── */
+    .post-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 0; transition: box-shadow .2s, transform .2s, border-color .2s; cursor: pointer; }
+    .post-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); transform: translateY(-2px); border-color: #CBD5E1; }
+    .post-card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .post-tag { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: #EFF6FF; color: var(--blue); border: 1px solid #BFDBFE; }
+    .post-date { font-size: 12px; color: #94A3B8; }
+    .post-card h3 { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 10px; }
+    .post-card p { font-size: 13px; color: #64748B; line-height: 1.7; flex: 1; }
+
+    /* ── EMPTY STATE ── */
+    .blog-empty { text-align: center; padding: 64px 24px; display: none; }
+    .blog-empty p { font-size: 15px; color: #94A3B8; }
+
+    /* ── REC TABS ── */
+    .rec-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%;overflow-x:auto}
+    .rec-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
+    .rec-tab{display:inline-flex;align-items:center;padding:14px 18px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;text-decoration:none}
+    .rec-tab:hover{color:var(--blue)}
+    .rec-tab.active{color:var(--navy);border-bottom-color:var(--navy)}
+  
+  </style>
+
+<main id="main-content">
+
+<!-- ══ HERO ══ -->
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <p class="blog-breadcrumb"><a href="/recursos">Recursos</a><span>›</span>Blog</p>
+    <p class="blog-eyebrow">Blog TAEC</p>
+    <h1>E-learning, L&D y tecnología educativa</h1>
+    <p class="blog-hero-sub">Tendencias, herramientas y reflexiones del mundo del aprendizaje corporativo en México y LATAM.</p>
+  </div>
+</section>
+
+<!-- ══ CONTROLES ══ -->
+<div class="blog-controls">
+  <div class="blog-controls-inner">
+    <div class="blog-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="blogSearch" placeholder="Buscar por título o tema…" aria-label="Buscar posts" />
+    </div>
+    <span class="blog-count" id="blogCount"></span>
+  </div>
+</div>
+
+<!-- ══ FILTROS ══ -->
+<div class="blog-filters">
+  <div class="blog-filters-inner" id="filterBar">
+    <!-- Generado por JS desde los datos -->
+  </div>
+</div>
+
+<!-- ══ POSTS ══ -->
+<section class="blog-main">
+  <div class="blog-main-inner">
+    <div class="blog-grid" id="blogGrid">
+      <!-- INICIO_POSTS — generado por Apps Script -->
+      <!-- FIN_POSTS -->
+    </div>
+    <div class="blog-empty" id="blogEmpty">
+      <p>No se encontraron posts con ese criterio.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+</BaseLayout>
