@@ -4,6 +4,67 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.5 · 18 mar 2026
+
+### Blog & Recursos — Sección completa (8 páginas nuevas)
+
+Migración total del contenido de `taec-elearning.neocities.org` al sitio principal.
+Neocities queda en proceso de decommission.
+
+**`pages/recursos.html`** — Hub principal
+- Hero navy gradient, eyebrow "Blog & Recursos"
+- 4 stats: 456 total · 232 glosario · 93 blog · 18 artículos
+- 7 `.sec-card` con links a cada sub-sección; Blog y Artículos con clase `.featured` (acento naranja)
+
+**`pages/blog.html`**
+- Grid 3 columnas `.post-card` con data-titulo, data-tags, data-fecha
+- Barra sticky: búsqueda + conteo dinámico
+- Tags filter construido dinámicamente desde data-tags
+- Injection point `<!-- INICIO_POSTS -->` / `<!-- FIN_POSTS -->`
+
+**`pages/articulos.html`**
+- `.art-card` expandibles (toggle +/×)
+- Filter tags + búsqueda
+- Injection point `<!-- INICIO_ARTICULOS -->` / `<!-- FIN_ARTICULOS -->`
+
+**`pages/glosario.html`**
+- Index alfabético auto-construido desde `.glo-group[data-letra]`
+- `.glo-term` expandibles con data-termino, data-definicion
+- Búsqueda override del filtro alfabético
+- Injection point `<!-- INICIO_GLOSARIO -->` / `<!-- FIN_GLOSARIO -->`
+
+**`pages/comparativos.html`**
+- `.comp-card` expandibles con tablas `.comp-table` internas (th navy, filas alternadas)
+- Injection point `<!-- INICIO_COMPARATIVOS -->` / `<!-- FIN_COMPARATIVOS -->`
+
+**`pages/estandares.html`**
+- Grid 2 col `.est-card` con emoji, nombre, badge categoría, `<dl>` expandible
+- Filter pills por categoría + búsqueda
+- Injection point `<!-- INICIO_ESTANDARES -->` / `<!-- FIN_ESTANDARES -->`
+
+**`pages/radar.html`**
+- Grid 2 col `.rad-card` con badge edición, título, fecha, resumen, "Ver edición →"
+- Búsqueda + conteo
+- Injection point `<!-- INICIO_RADAR -->` / `<!-- FIN_RADAR -->`
+
+**`pages/quiz.html`**
+- CSS 3D flip animation 500ms — navy front / white back
+- Progress bar, Anterior/Siguiente, Barajar (shuffle)
+- Keyboard: Enter/Space flip · ←/→ navegar
+- Injection point `<!-- INICIO_FLASHCARDS -->` / `<!-- FIN_FLASHCARDS -->`
+
+### Nav & Footer — 39 archivos actualizados (batch Python)
+- Añadido `<a href="recursos.html">Recursos</a>` en nav desktop y mobile (entre Nosotros y Clientes)
+- Footer columna "Recursos" → "Blog & Recursos" con links internos (blog, artículos, glosario, comparativos, recursos)
+- Eliminados links externos a Neocities del footer
+
+### Arquitectura de contenido — decisión tomada
+- Contenido se cargará desde **archivos JSON externos** via `fetch()` en runtime
+- Los HTMLs son cascarones ligeros con injection points; el JSON alimenta el render JS
+- `data/blog.json`, `data/glosario.json`, `data/quiz.json`, etc. — pendiente generar desde CSVs
+
+---
+
 ## v2.4 · 16 mar 2026
 
 ### Totara LMS — Página completa (`totara-lms-mexico.html`)
@@ -20,7 +81,7 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ### Totara — Lead Magnet "Novedades V20"
 - Formulario de registro (Nombre, Empresa, Email, Cargo) con EmailJS antes de descarga
-- EmailJS: service `service_v232r5x` / template `template_xjgle2w` / key `wiGRbwHK6dyZcHrUK`
+- EmailJS: servicio de email transaccional configurado (credenciales en variables de entorno)
 - Al enviar: formulario se oculta, aparece botón de descarga del PDF
 - **`assets/docs/totara-v20-novedades.pdf`** — PDF oficial Totara V20 (685 KB)
 
@@ -230,9 +291,9 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 - Footer con YouTube, Facebook, LinkedIn, WhatsApp
 
 ## v1.1 · 13 mar 2026
-- `pages/contacto.html` — Formulario de contacto con EmailJS (service_v232r5x / template_xjgle2w)
+- `pages/contacto.html` — Formulario de contacto con EmailJS (servicio transaccional configurado)
 - Campos: nombre, empresa, email, teléfono, tema, mensaje
-- EmailJS configurado con cuenta smasmoudi@taec.com.mx → entrega a info@taec.com.mx
+- EmailJS configurado para entrega a info@taec.com.mx
 
 ## v1.0 · 12 mar 2026
 - `index.html` — Home page completo
