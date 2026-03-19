@@ -4,6 +4,38 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v2.6 · 18 mar 2026
+
+### Refactor Fase 1 — Externalización CSS/JS global
+
+**Archivos creados:**
+- `assets/css/base.css` — Reset, design tokens `:root`, tipografía base, accesibilidad (50 líneas)
+- `assets/css/header.css` — Header sticky, nav desktop, mega-menu, dropdown, hamburger, nav móvil, active-nav (165 líneas)
+- `assets/css/footer.css` — Footer grid, LATAM strip, WhatsApp flotante, responsive footer (45 líneas)
+- `assets/js/nav.js` — Año dinámico, active nav, hamburger toggle, toggleMob, dropdown click-toggle (93 líneas)
+- `scripts/fase1_externalize.py` — Script de externalización batch
+
+**48 archivos HTML modificados** (47 en `/pages/` + `index.html`):
+- Eliminados bloques CSS inline globales (reset+tokens+header, footer, wa-float, accessibility, footer-latam, active-nav)
+- Eliminados bloques JS inline globales (year, active nav IIFE, hamburger, toggleMob, dropdown IIFE)
+- Añadidos `<link>` a los 3 CSS externos + `<script defer>` a nav.js
+
+**sitemap.xml** — 40 URLs → 48 URLs:
+- Añadidas: Blog & Recursos (8 páginas), capacitacion-abierta/cerrada, servicios, planes Vyond (3)
+- Uniformado `<lastmod>2026-03-18</lastmod>` en todas las URLs
+- `priority` ajustado por tipo: 1.0 home · 0.9 productos principales · 0.8 subproductos · 0.7 cursos/empresa · 0.6 recursos/add-ons
+
+**Métricas:**
+- Líneas HTML antes: 29,303 · después: 21,907 · reducción: **−7,396 líneas (−25%)**
+- Código compartido en 4 archivos: 353 líneas (sirven 48 páginas)
+- `summit-articulate/` excluido (sistema de diseño independiente)
+
+**Notas técnicas:**
+- `articulate-localization.html` y `articulate-review360.html` usan sistema de diseño diferente (tokens distintos, sin marcadores de sección): links añadidos, CSS inline permanece por seguridad. Flaggeados para Fase 2.
+- Páginas `curso-cerrado-*`, `vyond-go/studio/mobile` y otras con footer sin marcadores de comentario: header prefix extraído, footer aún inline (override de cascade garantiza sin regresión visual).
+
+---
+
 ## v2.5 · 18 mar 2026
 
 ### Blog & Recursos — Sección completa (8 páginas nuevas)
