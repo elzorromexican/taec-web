@@ -1,5 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+
+const ventajasTot = [
+  { icon: "⚙️", title: "Personalización sin límites", description: "Código abierto y arquitectura flexible. Adapta la plataforma exactamente a tus procesos, marca y flujos de trabajo — sin depender del proveedor." },
+  { icon: "📋", title: "Cumplimiento normativo a escala", description: "Gestiona onboarding, certificaciones y cumplimiento regulatorio para miles de empleados. Automatiza asignaciones, recordatorios y reportes de vencimiento." },
+  { icon: "🌎", title: "Escala global, operación local", description: "35+ idiomas, zonas horarias múltiples y gestión multi-tenant. Crece de 100 a 100,000 usuarios sin cambiar de plataforma." },
+  { icon: "📊", title: "Impacto medible en el negocio", description: "Reportes avanzados y analíticas que conectan el aprendizaje con resultados de negocio. Demuestra el ROI de tu inversión en formación con datos concretos." },
+  { icon: "🔗", title: "Integración con tu ecosistema", description: "Se conecta con Microsoft Teams, HR, ERP, SSO y herramientas de autoría como Articulate 360 y Vyond. API robusta para integraciones personalizadas." },
+  { icon: "🤝", title: "Partner local con expertise global", description: "TAEC es partner oficial Totara para México y LATAM. Implementación, soporte en español, factura en MXN y acompañamiento durante toda la vida del contrato." }
+];
+
+const faqsTot = [
+  { question: "¿Qué diferencia a Totara de Moodle?", answerHtml: "Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa." },
+  { question: "¿Totara es open source?", answerHtml: "Sí. Totara tiene un núcleo de código abierto, lo que permite personalización total sin depender de un solo proveedor. TAEC ofrece la plataforma como SaaS gestionado — tú te concentras en el contenido, nosotros en la infraestructura." },
+  { question: "¿Puedo integrar Totara con Articulate 360 o Vyond?", answerHtml: "Sí. Totara es compatible con SCORM, xAPI y cmi5. Los cursos creados en Articulate Storyline, Rise 360 o videos de Vyond se publican directamente en Totara Learn. TAEC gestiona la integración completa." },
+  { question: "¿Cuánto tiempo toma implementar Totara?", answerHtml: "Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días." },
+  { question: "¿Puedo gestionar múltiples empresas o subsidiarias?", answerHtml: "Sí. Totara soporta arquitecturas multi-tenant y multi-organización. Ideal para corporativos con múltiples filiales, franquicias o para empresas que necesitan capacitar a clientes y partners externos." },
+  { question: "¿Cómo funciona el soporte de TAEC?", answerHtml: "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara." }
+];
 ---
 
 <BaseLayout 
@@ -9,52 +31,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   page="totara-lms-mexico.html"
 >
   <style is:global>
-    /* ── EN CONSTRUCCIÓN ── */
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
-
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
 
     /* ── STICKY BAR ANIMATIONS ── */
     @keyframes bounce-icon {
@@ -74,50 +50,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .tot-sticky-btn   { animation: pulse-btn   1.8s ease-in-out infinite; }
     #tot-sticky-bar   { animation: glow-border 2s ease-in-out infinite; }
 
-    /* ── PRODUCT LOGO ── */
-    .product-logo-wrap { display: inline-flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 10px; padding: 10px 20px; margin-bottom: 22px; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
-    .product-logo { height: 36px; width: auto; display: block; }
-
     /* ── G2 BADGES ── */
     .g2-badges-section { background: #F8FAFC; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 44px 5%; }
     .g2-badges-inner { max-width: 960px; margin: 0 auto; text-align: center; }
     .g2-badges-title { font-size: 13px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; }
-    .g2-badges-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .g2-badge-card { background: white; border: 1px solid #E2E8F0; border-radius: 10px; padding: 16px 14px; width: 130px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
-    .g2-badge-season { font-size: 9px; font-weight: 700; color: #64748B; letter-spacing: .5px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-    .g2-badge-g2 { background: #FF492C; color: white; font-size: 9px; font-weight: 900; padding: 2px 5px; border-radius: 3px; }
-    .g2-badge-name { font-size: 15px; font-weight: 900; color: #111827; line-height: 1.2; margin-bottom: 6px; }
-    .g2-badge-cat { font-size: 10px; color: #64748B; font-weight: 600; }
-    .g2-badge-bar { height: 5px; border-radius: 0 0 6px 6px; margin: 10px -14px -16px; }
-    .bar-leader    { background: linear-gradient(90deg, #EF4444, #F97316); }
-    .bar-usability { background: #EAB308; }
-    .bar-results   { background: #7C3AED; }
-    .bar-roi       { background: #7C3AED; }
-    .bar-setup     { background: #38BDF8; }
-    .bar-implement { background: #3B82F6; }
     .g2-badges-link { font-size: 13px; color: #64748B; text-decoration: underline; }
     .g2-badges-link:hover { color: #FF492C; }
 
     /* ── TOTARA VARS ── */
     :root { --tot:#004775; --tot-light:#0077b6; --tot-teal:#A8DBD9; --tot-dark:#001f3d; }
-
-    /* ── HERO ── */
-    .tot-hero{background:linear-gradient(135deg,#001f3d 0%,#004775 60%,#0077b6 100%);padding:72px 5% 80px;color:white}
-    .tot-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-    .tot-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:var(--tot-teal);letter-spacing:-.01em;margin-bottom:10px;line-height:1}
-    .tot-hero h1{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:400;color:white;line-height:1.15;margin-bottom:20px}
-    .tot-hero h1 em{color:var(--tot-teal);font-style:normal}
-    .tot-hero-sub{font-size:17px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:28px}
-    .tot-hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-    .btn-tot-primary{background:var(--tot-teal);color:#001f3d;font-weight:700;font-size:15px;padding:14px 28px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s}
-    .btn-tot-primary:hover{opacity:.9}
-    .btn-tot-ghost{background:transparent;color:white;font-weight:600;font-size:15px;padding:13px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.4);display:inline-flex;align-items:center;gap:8px;transition:border-color .15s}
-    .btn-tot-ghost:hover{border-color:white}
-    .tot-hero-card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:28px 28px 24px}
-    .tot-hero-feat{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-    .tot-feat-item{font-size:14px;color:rgba(255,255,255,.9);display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-    .tot-feat-item:last-child{border-bottom:none}
-    .tot-feat-item::before{content:"✓";color:var(--tot-teal);font-weight:700;flex-shrink:0;margin-top:1px}
 
     /* ── STATS ── */
     .tot-stats{background:#001f3d;padding:0}
@@ -144,36 +85,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .tot-product-feats li{font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}
     .tot-product-feats li::before{content:"✓";color:var(--tot);font-weight:700;flex-shrink:0}
 
-    /* ── WHY TOTARA ── */
-    .tot-why{padding:72px 5%;background:white}
-    .tot-why-inner{max-width:1100px;margin:0 auto}
-    .tot-why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
-    .tot-why-card{padding:28px;border:1.5px solid var(--border);border-radius:14px;transition:border-color .2s}
-    .tot-why-card:hover{border-color:var(--tot)}
-    .tot-why-icon{font-size:32px;margin-bottom:14px}
-    .tot-why-title{font-size:16px;font-weight:700;color:#111827;margin-bottom:8px}
-    .tot-why-desc{font-size:14px;color:#64748B;line-height:1.7}
-
     /* ── TESTIMONIAL ── */
     .tot-testimonial{background:linear-gradient(135deg,#001f3d,#004775);padding:64px 5%;text-align:center;color:white}
     .tot-quote{font-family:var(--font-display);font-size:clamp(18px,2vw,26px);font-weight:400;color:white;line-height:1.6;max-width:780px;margin:0 auto 28px;font-style:italic}
     .tot-quote-author{font-size:14px;font-weight:600;color:var(--tot-teal)}
     .tot-quote-role{font-size:13px;color:rgba(255,255,255,.6)}
-
-    /* ── FAQ ── */
-    .tot-faq{padding:64px 5%;background:#F8FAFC}
-    .tot-faq-inner{max-width:800px;margin:0 auto}
-    .tot-faq details{border-bottom:1px solid var(--border);padding:18px 0}
-    .tot-faq summary{font-size:15px;font-weight:700;color:#111827;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
-    .tot-faq summary::after{content:"＋";color:var(--tot);font-size:20px;flex-shrink:0;transition:transform .2s}
-    .tot-faq details[open] summary::after{content:"－"}
-    .tot-faq details p{font-size:14px;color:#4B5563;line-height:1.8;padding-top:12px}
-
-    /* ── CTA BAND ── */
-    .tot-cta-band{background:var(--tot);padding:56px 5%;text-align:center;color:white}
-    .tot-cta-band h2{font-family:var(--font-display);font-size:clamp(24px,2.8vw,36px);font-weight:400;margin-bottom:12px}
-    .tot-cta-band p{font-size:16px;opacity:.85;margin-bottom:32px}
-    .tot-cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 
     /* ── PROD TABS ── */
     .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
@@ -184,11 +100,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .prod-tab-icon{font-size:16px}
 
     @media(max-width:768px){
-      .tot-hero-inner{grid-template-columns:1fr}
-      .tot-hero-card{display:none}
       .tot-stats-inner{grid-template-columns:repeat(2,1fr)}
       .tot-products-grid{grid-template-columns:1fr}
-      .tot-why-grid{grid-template-columns:1fr}
     }
   </style>
 
@@ -203,34 +116,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div></div>
 
     <!-- ══ HERO ══ -->
-    <section class="tot-hero">
-      <div class="tot-hero-inner">
-        <div>
-          <p class="tot-eyebrow">Totara LMS</p>
-          <h1>La plataforma LMS <em>más flexible</em> para empresas que crecen</h1>
-          <p class="tot-hero-sub">Unifica formación, colaboración y desempeño en un ecosistema potenciado por IA. La solución más innovadora para empresas que quieren escalar el aprendizaje sin límites.</p>
-          <div class="tot-hero-btns">
-            <a href="/contacto" class="btn-tot-primary">Solicitar demo gratuita →</a>
-            <a href="/contacto" class="btn-tot-ghost">Hablar con un especialista</a>
-          </div>
-          <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">✓ Partner oficial Totara · México y LATAM &nbsp;·&nbsp; ✓ SaaS gestionado por TAEC &nbsp;·&nbsp; ✓ Soporte en español</p>
-        </div>
-        <div class="tot-hero-card">
-          <div style="display:flex;justify-content:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);">
-            <img src="/assets/logos/totara-reseller-vertical.png" alt="Totara Authorized Reseller" style="height:90px;width:auto;" />
-          </div>
-          <p style="font-size:12px;font-weight:700;color:var(--tot-teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Por qué Totara con TAEC</p>
-          <div class="tot-hero-feat">
-            <div class="tot-feat-item">Implementación SaaS — tu plataforma lista en días</div>
-            <div class="tot-feat-item">Soporte técnico dedicado en español</div>
-            <div class="tot-feat-item">+500 clientes en 17 países</div>
-            <div class="tot-feat-item">Integración con Articulate 360 y Vyond</div>
-            <div class="tot-feat-item">Factura electrónica mexicana (CFDI)</div>
-            <div class="tot-feat-item">+18 años de experiencia en e-learning</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <HeroComercial
+      theme="tot"
+      eyebrow="Totara LMS"
+      titleHtml="La plataforma LMS <em>más flexible</em> para empresas que crecen"
+      subtitle="Unifica formación, colaboración y desempeño en un ecosistema potenciado por IA. La solución más innovadora para empresas que quieren escalar el aprendizaje sin límites."
+      features={[
+        "Implementación SaaS — tu plataforma lista en días",
+        "Soporte técnico dedicado en español",
+        "+500 clientes en 17 países",
+        "Integración con Articulate 360 y Vyond",
+        "Factura electrónica mexicana (CFDI)",
+        "+18 años de experiencia en e-learning"
+      ]}
+      primaryBtn={{ label: "Solicitar demo gratuita →", url: "/contacto" }}
+      secondaryBtn={{ label: "Hablar con un especialista", url: "/contacto" }}
+      bottomText="✓ Partner oficial Totara · México y LATAM · ✓ SaaS gestionado por TAEC · ✓ Soporte en español"
+      cardLogoSrc="/assets/logos/totara-reseller-vertical.png"
+      cardLogoStyle="height:90px;width:auto;"
+      cardBadgeText="Por qué Totara con TAEC"
+    />
 
     <!-- ══ STATS ══ -->
     <div class="tot-stats">
@@ -300,45 +205,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- ══ POR QUÉ TOTARA ══ -->
-    <section class="tot-why">
-      <div class="tot-why-inner">
-        <p class="tot-section-label">Ventajas clave</p>
-        <h2 class="tot-section-title">Por qué las empresas eligen Totara</h2>
-        <p class="tot-section-sub">Más de 500 organizaciones en todo el mundo confían en Totara para escalar su aprendizaje.</p>
-        <div class="tot-why-grid">
-          <div class="tot-why-card">
-            <div class="tot-why-icon">⚙️</div>
-            <h3 class="tot-why-title">Personalización sin límites</h3>
-            <p class="tot-why-desc">Código abierto y arquitectura flexible. Adapta la plataforma exactamente a tus procesos, marca y flujos de trabajo — sin depender del proveedor.</p>
-          </div>
-          <div class="tot-why-card">
-            <div class="tot-why-icon">📋</div>
-            <h3 class="tot-why-title">Cumplimiento normativo a escala</h3>
-            <p class="tot-why-desc">Gestiona onboarding, certificaciones y cumplimiento regulatorio para miles de empleados. Automatiza asignaciones, recordatorios y reportes de vencimiento.</p>
-          </div>
-          <div class="tot-why-card">
-            <div class="tot-why-icon">🌎</div>
-            <h3 class="tot-why-title">Escala global, operación local</h3>
-            <p class="tot-why-desc">35+ idiomas, zonas horarias múltiples y gestión multi-tenant. Crece de 100 a 100,000 usuarios sin cambiar de plataforma.</p>
-          </div>
-          <div class="tot-why-card">
-            <div class="tot-why-icon">📊</div>
-            <h3 class="tot-why-title">Impacto medible en el negocio</h3>
-            <p class="tot-why-desc">Reportes avanzados y analíticas que conectan el aprendizaje con resultados de negocio. Demuestra el ROI de tu inversión en formación con datos concretos.</p>
-          </div>
-          <div class="tot-why-card">
-            <div class="tot-why-icon">🔗</div>
-            <h3 class="tot-why-title">Integración con tu ecosistema</h3>
-            <p class="tot-why-desc">Se conecta con Microsoft Teams, HR, ERP, SSO y herramientas de autoría como Articulate 360 y Vyond. API robusta para integraciones personalizadas.</p>
-          </div>
-          <div class="tot-why-card">
-            <div class="tot-why-icon">🤝</div>
-            <h3 class="tot-why-title">Partner local con expertise global</h3>
-            <p class="tot-why-desc">TAEC es partner oficial Totara para México y LATAM. Implementación, soporte en español, factura en MXN y acompañamiento durante toda la vida del contrato.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <GridBeneficios
+      theme="tot"
+      eyebrow="Ventajas clave"
+      title="Por qué las empresas eligen Totara"
+      subtitle="Más de 500 organizaciones en todo el mundo confían en Totara para escalar su aprendizaje."
+      columns={3}
+      cards={ventajasTot}
+    />
 
     <!-- ══ G2 BADGES ══ -->
     <div class="g2-badges-section">
@@ -465,47 +339,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </script>
 
     <!-- ══ FAQ ══ -->
-    <section class="tot-faq">
-      <div class="tot-faq-inner">
-        <p class="tot-section-label" style="text-align:center;">Preguntas frecuentes</p>
-        <h2 class="tot-section-title">Todo lo que necesitas saber sobre Totara</h2>
-        <br>
-        <details>
-          <summary>¿Qué diferencia a Totara de Moodle?</summary>
-          <p>Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.</p>
-        </details>
-        <details>
-          <summary>¿Totara es open source?</summary>
-          <p>Sí. Totara tiene un núcleo de código abierto, lo que permite personalización total sin depender de un solo proveedor. TAEC ofrece la plataforma como SaaS gestionado — tú te concentras en el contenido, nosotros en la infraestructura.</p>
-        </details>
-        <details>
-          <summary>¿Puedo integrar Totara con Articulate 360 o Vyond?</summary>
-          <p>Sí. Totara es compatible con SCORM, xAPI y cmi5. Los cursos creados en Articulate Storyline, Rise 360 o videos de Vyond se publican directamente en Totara Learn. TAEC gestiona la integración completa.</p>
-        </details>
-        <details>
-          <summary>¿Cuánto tiempo toma implementar Totara?</summary>
-          <p>Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días.</p>
-        </details>
-        <details>
-          <summary>¿Puedo gestionar múltiples empresas o subsidiarias?</summary>
-          <p>Sí. Totara soporta arquitecturas multi-tenant y multi-organización. Ideal para corporativos con múltiples filiales, franquicias o para empresas que necesitan capacitar a clientes y partners externos.</p>
-        </details>
-        <details>
-          <summary>¿Cómo funciona el soporte de TAEC?</summary>
-          <p>El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara.</p>
-        </details>
-      </div>
-    </section>
+    <FAQAccordion
+      theme="tot"
+      title="Todo lo que necesitas saber sobre Totara"
+      faqs={faqsTot}
+    />
 
     <!-- ══ CTA BAND ══ -->
-    <section class="tot-cta-band">
-      <h2>¿Listo para modernizar tu plataforma de aprendizaje?</h2>
-      <p>Agenda una demo con nuestros especialistas y descubre cómo Totara se adapta a tu empresa.</p>
-      <div class="tot-cta-btns">
-        <a href="/contacto" class="btn-tot-primary">Agendar demo gratuita →</a>
-        <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-tot-ghost">WhatsApp directo</a>
-      </div>
-    </section>
+    <CtaFinal
+      theme="tot"
+      title="¿Listo para modernizar tu plataforma de aprendizaje?"
+      subtitle="Agenda una demo con nuestros especialistas y descubre cómo Totara se adapta a tu empresa."
+      primaryBtnText="Agendar demo gratuita →"
+      primaryBtnUrl="/contacto"
+    />
   </main>
 
   <!-- ══ STICKY BAR — PDF ══ -->
