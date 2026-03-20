@@ -1,5 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+
+const appsVyond = [
+  { icon: "⚡", title: "Vyond Go", description: "Tu creador de video instantáneo con IA. Escribe un prompt como "Curso de onboarding", presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo." },
+  { icon: "🎬", title: "Vyond Studio", description: "El editor de video completo con drag-and-drop. Genera fondos e imágenes con IA, sincroniza audio en 70+ idiomas, elimina fondos de fotos, personaliza movimientos de personajes filmando un video como prompt, y crea tu propio avatar desde una foto." },
+  { icon: "📱", title: "Vyond Mobile", description: "Creación de video en cualquier lugar. Descarga la app gratuita (Android / iOS), usa Smart Capture para que la IA combine props, fondos y personajes de la librería con tus fotos. Los cambios se sincronizan en todos tus dispositivos al instante." }
+];
+
+const faqsVyond = [
+  { question: "¿Cómo accedo a Vyond Go?", answerHtml: "Todos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando \"Crear con IA\" desde el botón +Crear en la página de listado de videos." },
+  { question: "¿Cuánto tiempo pueden durar los videos creados en Vyond?", answerHtml: "Los usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos." },
+  { question: "¿En qué formatos puedo exportar mis videos?", answerHtml: "Los videos de Vyond se exportan fácilmente en los formatos comunes GIF y MP4, compatibles con cualquier LMS, plataforma web o red social." },
+  { question: "¿Cuáles son los 3 estilos de personajes disponibles?", answerHtml: "<strong>Whiteboard:</strong> simple, sin color, ideal para entornos educativos donde quieres enfocar la atención del usuario.<br/><strong>Contemporary:</strong> moderno y colorido, adecuado para casi cualquier propósito.<br/><strong>Business friendly:</strong> más formal, ideal para presentaciones y material de marketing." },
+  { question: "¿Puedo crear mi propio avatar IA personalizado?", answerHtml: "Los avatares personalizados no están incluidos en las licencias base pero se pueden solicitar como add-on. El proceso requiere grabar un video de 2 minutos como entrenamiento. Solo tú tienes acceso a tu avatar, aunque puedes compartirlo con tu equipo. Contáctanos para más información." },
+  { question: "¿Cuáles son las diferencias clave entre Enterprise y Professional?", answerHtml: "<strong>Enterprise:</strong> colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.<br/><strong>Professional:</strong> perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.<br/>Contáctanos y te ayudamos a elegir el plan correcto para tu organización." },
+  { question: "¿Hay límite en la generación de imágenes con IA?", answerHtml: "Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México." }
+];
 ---
 
 <BaseLayout 
@@ -10,73 +30,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <style is:global>
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
-
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
     /* ── Dropdown open state (JS-managed) ── */
     .nav-item.open > .mega-menu        { display: grid !important; }
     .nav-item.open > .simple-dropdown  { display: grid !important; }
     .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
     .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
-    /* ── PRODUCT LOGO ── */
-    .product-logo-wrap {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: #ffffff; border-radius: 10px;
-      padding: 10px 20px; margin-bottom: 22px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-    }
-    .product-logo { height: 36px; width: auto; display: block; }
-  
+
     /* ── G2 SOCIAL PROOF ── */
     .g2-section { background: #F8FAFC; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 5%; }
     .g2-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 48px; flex-wrap: wrap; justify-content: center; }
@@ -95,28 +54,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .g2-cta { text-align: center; margin-top: 20px; }
     .g2-link { font-size: 12px; color: #64748B; text-decoration: underline; }
     .g2-link:hover { color: #FF492C; }
-  
+
     /* ══ VYOND PAGE ══ */
     :root { --vy-orange:#C84D16; --vy-light:#FFF5F0; }
-
-    /* Hero */
-    .vy-hero { background: linear-gradient(135deg, #1a0a00 0%, #3d1200 60%, #C84D16 100%); padding: 72px 5% 80px; }
-    .vy-hero-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
-    .vy-logo-pill { display:inline-flex; background:white; border-radius:10px; padding:10px 20px; margin-bottom:20px; box-shadow:0 2px 12px rgba(0,0,0,.2); }
-    .vy-logo-pill img { height:34px; width:auto; }
-    .vy-tag { display:inline-block; background:rgba(200,77,22,.25); color:#FFCBA4; font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 12px; border-radius:4px; margin-bottom:16px; }
-    .vy-hero h1 { font-size:clamp(26px,3.5vw,42px); font-weight:800; color:white; line-height:1.2; margin-bottom:16px; }
-    .vy-hero h1 em { color:#FFCBA4; font-style:normal; }
-    .vy-hero-sub { font-size:16px; color:rgba(255,255,255,.8); margin-bottom:28px; line-height:1.6; }
-    .vy-hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
-    .btn-vy-primary { background:var(--vy-orange); color:white; font-weight:700; font-size:14px; padding:12px 24px; border-radius:8px; transition:background .15s; }
-    .btn-vy-primary:hover { background:#a33d10; }
-    .btn-vy-ghost { background:rgba(255,255,255,.12); color:white; font-weight:600; font-size:14px; padding:12px 24px; border-radius:8px; border:1.5px solid rgba(255,255,255,.3); transition:background .15s; }
-    .btn-vy-ghost:hover { background:rgba(255,255,255,.2); }
-    .vy-hero-card { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:16px; padding:28px; }
-    .vy-hero-feat { display:flex; flex-direction:column; gap:10px; }
-    .vy-feat-item { display:flex; align-items:center; gap:10px; font-size:14px; color:rgba(255,255,255,.9); }
-    .vy-feat-item::before { content:'✓'; color:#FFCBA4; font-weight:700; flex-shrink:0; }
 
     /* Stats bar */
     .vy-stats { background:white; border-bottom:1px solid var(--border); padding:28px 5%; }
@@ -132,13 +72,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .vy-section-title { font-size:clamp(22px,2.5vw,32px); font-weight:800; color:#111827; margin-bottom:12px; }
     .vy-section-sub { font-size:16px; color:#64748B; margin-bottom:40px; max-width:680px; }
 
-    /* Products (Vyond Go / Studio / Mobile) */
-    .vy-products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-    .vy-product-card { background:white; border:1px solid var(--border); border-radius:14px; padding:28px; }
-    .vy-product-icon { font-size:28px; margin-bottom:14px; }
-    .vy-product-name { font-size:17px; font-weight:700; color:#111827; margin-bottom:10px; }
-    .vy-product-desc { font-size:14px; color:#475569; line-height:1.6; }
-
     /* AI Features */
     .vy-ai-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
     .vy-ai-card { background:white; border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; gap:16px; }
@@ -151,16 +84,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .vy-testimonial blockquote { max-width:720px; margin:0 auto; font-size:clamp(16px,2vw,22px); color:white; line-height:1.6; font-style:italic; margin-bottom:20px; }
     .vy-testimonial cite { font-size:13px; color:#FFCBA4; font-weight:700; font-style:normal; }
 
-    /* FAQ */
-    .vy-faq { padding:64px 5%; }
-    .vy-faq-inner { max-width:760px; margin:0 auto; }
-    .vy-faq details { border-bottom:1px solid var(--border); padding:16px 0; }
-    .vy-faq summary { font-size:15px; font-weight:600; color:#111827; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; }
-    .vy-faq summary::-webkit-details-marker { display:none; }
-    .vy-faq summary::after { content:'+'; font-size:20px; color:var(--vy-orange); flex-shrink:0; }
-    .vy-faq details[open] summary::after { content:'−'; }
-    .vy-faq-answer { font-size:14px; color:#475569; line-height:1.7; padding-top:12px; }
-
     /* Badges strip */
     .vy-badges { background:white; padding:40px 5%; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .vy-badges-inner { max-width:1100px; margin:0 auto; }
@@ -169,62 +92,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .vy-badge-img { height:110px; width:auto; object-fit:contain; }
     .vy-partner-badge { height:130px; }
 
-    /* CTA Band */
-    .vy-cta-band { background:var(--vy-orange); padding:48px 5%; text-align:center; }
-    .vy-cta-band h2 { font-size:28px; font-weight:800; color:white; margin-bottom:10px; }
-    .vy-cta-band p { font-size:16px; color:rgba(255,255,255,.85); margin-bottom:24px; }
-    .vy-cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-    .btn-vy-white { background:white; color:var(--vy-orange); font-weight:700; font-size:15px; padding:12px 28px; border-radius:8px; }
-    .btn-vy-outline { border:2px solid white; color:white; font-weight:600; font-size:15px; padding:12px 28px; border-radius:8px; }
-
     /* Responsive */
     @media(max-width:768px){
-      .vy-hero-inner { grid-template-columns:1fr; gap:32px; }
-      .vy-products-grid { grid-template-columns:1fr; }
       .vy-ai-grid { grid-template-columns:1fr; }
       .vy-stats-inner { gap:28px; }
     }
-    .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
-    .prod-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
-    .prod-tab{display:flex;align-items:center;gap:6px;padding:14px 20px;font-size:14px;font-weight:600;color:#64748B;text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
-    .prod-tab:hover{color:#111827}
-    .prod-tab.active{color:var(--vy-orange,#C84D16);border-bottom-color:var(--vy-orange,#C84D16);background:transparent!important;border-radius:0!important;padding:14px 20px!important;color:var(--vy-orange,#C84D16)!important}
-    .prod-tab-icon{font-size:16px}
-    .vy-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:#C84D16;letter-spacing:-.01em;margin-bottom:10px;line-height:1}
-  
+
   </style>
 
 <main id="main-content">
 
 <!-- ══ HERO ══ -->
-<section class="vy-hero">
-  <div class="vy-hero-inner">
-    <div>
-      <p class="vy-eyebrow">Vyond</p>
-      <h1>La única plataforma <em>todo-en-uno</em> de creación de video con IA</h1>
-      <p class="vy-hero-sub">Crea videos animados, con personajes IA, grabaciones reales y contenido mixto. Todo desde una sola plataforma. TAEC es distribuidor autorizado de Vyond para México y LATAM.</p>
-      <div class="vy-hero-btns">
-        <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-vy-primary">Probar Vyond gratis →</a>
-        <a href="/contacto" class="btn-vy-ghost">Solicitar cotización</a>
-      </div>
-      <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.5);">✓ Sin tarjeta de crédito &nbsp;·&nbsp; ✓ Soporte en español &nbsp;·&nbsp; ✓ Factura mexicana (CFDI)</p>
-    </div>
-    <div class="vy-hero-card">
-      <div style="display:flex;justify-content:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);">
-        <img src="/assets/badges/vyond-certified-partner.webp" alt="Vyond Certified Partner" style="height:80px;width:auto;" />
-      </div>
-      <p style="font-size:12px;font-weight:700;color:#FFCBA4;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Por qué elegir Vyond con TAEC</p>
-      <div class="vy-hero-feat">
-        <div class="vy-feat-item">Licencias oficiales con factura en MXN (CFDI)</div>
-        <div class="vy-feat-item">Soporte técnico en español</div>
-        <div class="vy-feat-item">Onboarding y capacitación incluidos</div>
-        <div class="vy-feat-item">Pago en pesos al tipo de cambio oficial</div>
-        <div class="vy-feat-item">+18 años de experiencia en e-learning</div>
-        <div class="vy-feat-item">Acompañamiento en renovaciones</div>
-      </div>
-    </div>
-  </div>
-</section>
+<HeroComercial
+  theme="vyond"
+  eyebrow="Vyond"
+  titleHtml="La única plataforma <em>todo-en-uno</em> de creación de video con IA"
+  subtitle="Crea videos animados, con personajes IA, grabaciones reales y contenido mixto. Todo desde una sola plataforma. TAEC es distribuidor autorizado de Vyond para México y LATAM."
+  features={[
+    "Licencias oficiales con factura en MXN (CFDI)",
+    "Soporte técnico en español",
+    "Onboarding y capacitación incluidos",
+    "Pago en pesos al tipo de cambio oficial",
+    "+18 años de experiencia en e-learning",
+    "Acompañamiento en renovaciones"
+  ]}
+  primaryBtn={{ label: "Probar Vyond gratis →", url: "https://think.vyond.com/signup", target: "_blank" }}
+  secondaryBtn={{ label: "Solicitar cotización", url: "/contacto" }}
+  bottomText="✓ Sin tarjeta de crédito · ✓ Soporte en español · ✓ Factura mexicana (CFDI)"
+  cardLogoSrc="/assets/badges/vyond-certified-partner.webp"
+  cardLogoStyle="height:80px;width:auto;"
+  cardBadgeText="Por qué elegir Vyond con TAEC"
+/>
 
 <!-- ══ STATS ══ -->
 <div class="vy-stats">
@@ -237,29 +135,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </div>
 
 <!-- ══ TRES APLICACIONES ══ -->
-<section class="vy-section">
-  <div class="vy-section-inner">
-    <h2 class="vy-section-title">Con tu licencia Vyond obtienes tres aplicaciones</h2>
-    <p class="vy-section-sub">Transición perfecta entre ellas según lo que necesites en cada momento.</p>
-    <div class="vy-products-grid">
-      <div class="vy-product-card">
-        <div class="vy-product-icon">⚡</div>
-        <div class="vy-product-name">Vyond Go</div>
-        <div class="vy-product-desc">Tu creador de video instantáneo con IA. Escribe un prompt como "Curso de onboarding", presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo.</div>
-      </div>
-      <div class="vy-product-card">
-        <div class="vy-product-icon">🎬</div>
-        <div class="vy-product-name">Vyond Studio</div>
-        <div class="vy-product-desc">El editor de video completo con drag-and-drop. Genera fondos e imágenes con IA, sincroniza audio en 70+ idiomas, elimina fondos de fotos, personaliza movimientos de personajes filmando un video como prompt, y crea tu propio avatar desde una foto.</div>
-      </div>
-      <div class="vy-product-card">
-        <div class="vy-product-icon">📱</div>
-        <div class="vy-product-name">Vyond Mobile</div>
-        <div class="vy-product-desc">Creación de video en cualquier lugar. Descarga la app gratuita (Android / iOS), usa Smart Capture para que la IA combine props, fondos y personajes de la librería con tus fotos. Los cambios se sincronizan en todos tus dispositivos al instante.</div>
-      </div>
-    </div>
-  </div>
-</section>
+<GridBeneficios
+  theme="vyond"
+  title="Con tu licencia Vyond obtienes tres aplicaciones"
+  subtitle="Transición perfecta entre ellas según lo que necesites en cada momento."
+  columns={3}
+  cards={appsVyond}
+/>
 
 <!-- ══ IA FEATURES ══ -->
 <section class="vy-section vy-section-alt">
@@ -418,58 +300,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </section>
 
 <!-- ══ FAQ ══ -->
-<section class="vy-faq">
-  <div class="vy-faq-inner">
-    <h2 class="vy-section-title" style="text-align:center;margin-bottom:8px;">Preguntas frecuentes</h2>
-    <p style="text-align:center;color:#64748B;font-size:15px;margin-bottom:36px;">Todo lo que necesitas saber antes de empezar</p>
-    <details>
-      <summary>¿Cómo accedo a Vyond Go?</summary>
-      <p class="vy-faq-answer">Todos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando "Crear con IA" desde el botón +Crear en la página de listado de videos.</p>
-    </details>
-    <details>
-      <summary>¿Cuánto tiempo pueden durar los videos creados en Vyond?</summary>
-      <p class="vy-faq-answer">Los usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos.</p>
-    </details>
-    <details>
-      <summary>¿En qué formatos puedo exportar mis videos?</summary>
-      <p class="vy-faq-answer">Los videos de Vyond se exportan fácilmente en los formatos comunes GIF y MP4, compatibles con cualquier LMS, plataforma web o red social.</p>
-    </details>
-    <details>
-      <summary>¿Cuáles son los 3 estilos de personajes disponibles?</summary>
-      <p class="vy-faq-answer">
-        <strong>Whiteboard:</strong> simple, sin color, ideal para entornos educativos donde quieres enfocar la atención del usuario.<br/>
-        <strong>Contemporary:</strong> moderno y colorido, adecuado para casi cualquier propósito.<br/>
-        <strong>Business friendly:</strong> más formal, ideal para presentaciones y material de marketing.
-      </p>
-    </details>
-    <details>
-      <summary>¿Puedo crear mi propio avatar IA personalizado?</summary>
-      <p class="vy-faq-answer">Los avatares personalizados no están incluidos en las licencias base pero se pueden solicitar como add-on. El proceso requiere grabar un video de 2 minutos como entrenamiento. Solo tú tienes acceso a tu avatar, aunque puedes compartirlo con tu equipo. Contáctanos para más información.</p>
-    </details>
-    <details>
-      <summary>¿Cuáles son las diferencias clave entre Enterprise y Professional?</summary>
-      <p class="vy-faq-answer">
-        <strong>Enterprise:</strong> colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.<br/>
-        <strong>Professional:</strong> perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.<br/>
-        Contáctanos y te ayudamos a elegir el plan correcto para tu organización.
-      </p>
-    </details>
-    <details>
-      <summary>¿Hay límite en la generación de imágenes con IA?</summary>
-      <p class="vy-faq-answer">Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México.</p>
-    </details>
-  </div>
-</section>
+<FAQAccordion
+  theme="vyond"
+  title="Preguntas frecuentes"
+  subtitle="Todo lo que necesitas saber antes de empezar"
+  faqs={faqsVyond}
+/>
 
 <!-- ══ CTA FINAL ══ -->
-<section class="vy-cta-band">
-  <h2>¿Listo para crear tus primeros videos con IA?</h2>
-  <p>Solicita una demo personalizada o empieza tu prueba gratis. TAEC te acompaña en cada paso.</p>
-  <div class="vy-cta-btns">
-    <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-vy-white">Probar Vyond gratis →</a>
-    <a href="/contacto" class="btn-vy-outline">Hablar con un especialista</a>
-  </div>
-</section>
+<CtaFinal
+  theme="vyond"
+  title="¿Listo para crear tus primeros videos con IA?"
+  subtitle="Solicita una demo personalizada o empieza tu prueba gratis. TAEC te acompaña en cada paso."
+  primaryBtnText="Probar Vyond gratis →"
+  primaryBtnUrl="https://think.vyond.com/signup"
+  primaryBtnTarget="_blank"
+/>
 
 </main>
 <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC" aria-label="Contactar por WhatsApp">
