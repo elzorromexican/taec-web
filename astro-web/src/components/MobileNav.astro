@@ -21,7 +21,7 @@ function r(url: string): string {
       const secId = `mobSec${i}`;
       return (
         <>
-          <button class="mob-toggle" id={mobId} aria-expanded="false" aria-controls={secId} onclick={`toggleMob('${secId}','${mobId}')`}>
+          <button class="mob-toggle" id={mobId} aria-expanded="false" aria-controls={secId} type="button">
             {item.label}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
@@ -59,3 +59,18 @@ function r(url: string): string {
   <a href={contactData.storeUrl} target="_blank" rel="noopener noreferrer">Tienda</a>
   <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta">WhatsApp →</a>
 </nav>
+<script is:inline>
+  /* Acordeón móvil — event listeners directos, sin depender de toggleMob global */
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('#mobileNav .mob-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var secId = btn.getAttribute('aria-controls');
+        var sec = secId ? document.getElementById(secId) : null;
+        if (!sec) return;
+        var isOpen = sec.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  });
+</script>

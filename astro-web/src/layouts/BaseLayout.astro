@@ -52,7 +52,7 @@ const ogImageURL = new URL(`${base}assets/logos/taec-og.png`, Astro.site || 'htt
 
   <slot name="head" />
 </head>
-<body data-section={section} data-page={page}>
+<body data-section={section} data-page={page} data-base={base}>
   <a class="skip-link" href="#main-content">Ir al contenido principal</a>
   
   <Header />

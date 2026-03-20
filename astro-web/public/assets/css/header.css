@@ -70,7 +70,8 @@ header { position: sticky; top: 0; z-index: 200; background: var(--white); borde
 }
 .mega-sub a:hover { background: var(--light); color: var(--blue); }
 .badge-saas { font-size: 9px; font-weight: 700; background: rgba(168,219,217,.3); color: var(--navy); padding: 1px 5px; border-radius: 3px; flex-shrink: 0; }
-.badge-new  { font-size: 9px; font-weight: 700; background: var(--orange); color: var(--white); padding: 1px 5px; border-radius: 3px; flex-shrink: 0; }
+.badge-new   { font-size: 9px; font-weight: 700; background: var(--orange); color: var(--white); padding: 1px 5px; border-radius: 3px; flex-shrink: 0; }
+.badge-teams { font-size: 9px; font-weight: 700; background: #DBEAFE; color: #1d4ed8; padding: 1px 5px; border-radius: 3px; flex-shrink: 0; }
 .mega-divider { height: 1px; background: var(--border); margin: 8px 4px; }
 
 /* ── SIMPLE DROPDOWN (Capacitación / Recursos) ── */

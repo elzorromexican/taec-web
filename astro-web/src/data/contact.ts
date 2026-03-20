@@ -16,7 +16,7 @@ export const contactData = {
    * Controla: Header "Agendar diagnóstico", CtaFinal, sidebar de /contacto,
    *           nosotros.astro, index.astro.
    */
-  bookingUrl: "",
+  bookingUrl: "/contacto", // TODO: reemplazar con URL real de Zoho Bookings cuando esté lista
 
   /**
    * Google Apps Script Web App endpoint — formulario de /contacto.

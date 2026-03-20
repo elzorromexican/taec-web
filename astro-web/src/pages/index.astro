@@ -116,27 +116,27 @@ function r(url: string): string {
         <p class="partners-label">Partners y distribuidores oficiales</p>
         <div class="partners-row">
           <div class="partner-badge">
-            <div class="partner-logo"><span class="logo-text articulate">articulate</span></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/articulate-reseller.svg`} alt="Articulate Authorized Reseller" /></div>
             <span class="partner-tag">Authorized Reseller</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><span class="logo-text articulate">articulate</span></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/articulate.png`} alt="Articulate Certified Training Partner" /></div>
             <span class="partner-tag">Certified Training Partner</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><span class="logo-text vyond">Vyond</span></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/vyond.svg`} alt="Vyond" /></div>
             <span class="partner-tag">Authorized Reseller</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><span class="logo-text totara">totara</span></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/totara.png`} alt="Totara" /></div>
             <span class="partner-tag">Solutions Partner</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><span class="logo-text moodle">Moodle</span></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/moodle.png`} alt="Moodle" /></div>
             <span class="partner-tag">Partner</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><span class="logo-text seven">7Min</span></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/7minutes.png`} alt="7 Minutes Learning" /></div>
             <span class="partner-tag">Authorized Reseller</span>
           </div>
         </div>
@@ -329,7 +329,8 @@ function r(url: string): string {
     // ── Ticker dinámico
     (async function() {
       try {
-        const res   = await fetch('/data/ticker.json');
+        const siteBase = document.body.dataset.base || '/';
+        const res   = await fetch(`${siteBase}data/ticker.json`);
         const items = await res.json();
         const track = document.getElementById('tickerTrack');
         track.innerHTML = items.map(i =>
