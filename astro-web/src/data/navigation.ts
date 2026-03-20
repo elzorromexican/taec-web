@@ -31,6 +31,12 @@ export type MainNavItem = {
   columns?: NavColumn[];
 };
 
+export const navigationLabels = {
+  about: "Quiénes somos",
+  clients: "Clientes y casos",
+  resources: "Recursos"
+} as const;
+
 export const mainNav: MainNavItem[] = [
   {
     id: "soluciones",
@@ -72,6 +78,8 @@ export const mainNav: MainNavItem[] = [
       {
         title: "Servicios & Add-ons",
         items: [
+          { label: "Desarrollo de Contenidos", url: "/desarrollo-de-contenidos", badge: { text: "DDC", type: "new" } },
+          { label: "divider", url: "", isDivider: true },
           { label: "Class", url: "/class-taec", subtext: "(videoclases)" },
           { label: "Proctorizer", url: "/proctorizer-mexico" },
           { label: "StrikePlagiarism", url: "/strikeplagiarism-mexico" },
@@ -112,13 +120,13 @@ export const mainNav: MainNavItem[] = [
   },
   {
     id: "nosotros",
-    label: "Nosotros",
+    label: navigationLabels.about,
     type: "link",
     url: "/nosotros"
   },
   {
     id: "recursos",
-    label: "Recursos",
+    label: navigationLabels.resources,
     type: "dropdown",
     columns: [
       {
@@ -139,7 +147,7 @@ export const mainNav: MainNavItem[] = [
   },
   {
     id: "clientes",
-    label: "Clientes",
+    label: navigationLabels.clients,
     type: "link",
     url: "/clientes"
   },
@@ -163,7 +171,7 @@ export const footerLinks = [
     ]
   },
   {
-    title: "Blog & Recursos",
+    title: navigationLabels.resources,
     items: [
       { label: "Blog", url: "/blog" },
       { label: "Artículos", url: "/articulos" },
@@ -175,8 +183,8 @@ export const footerLinks = [
   {
     title: "Empresa",
     items: [
-      { label: "Quiénes somos", url: "/nosotros" },
-      { label: "Clientes y casos", url: "/clientes" },
+      { label: navigationLabels.about, url: "/nosotros" },
+      { label: navigationLabels.clients, url: "/clientes" },
       { label: "Tienda", url: "https://tienda.taec.com.mx" },
       { label: "Contacto", url: "/contacto" },
       { label: "Soporte técnico", url: "https://www.taec.com.mx/soporte-tecnico.php" }
