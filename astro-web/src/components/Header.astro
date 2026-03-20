@@ -1,17 +1,32 @@
 ---
 // CHANGELOG: 19/03/2026 - Refactored to use centralized data from src/data/navigation.ts and src/data/contact.ts
+// CHANGELOG: 19/03/2026 - Use r() helper to prefix internal links with BASE_URL for staging
 import { mainNav } from '../data/navigation';
 import { contactData } from '../data/contact';
+
+const base = import.meta.env.BASE_URL; // '/' prod, '/taec-web/' staging
+
+/**
+ * Resolve a URL:
+ * - External (starts with http/https//) → return as-is
+ * - Internal (starts with /) → prefix with base, removing trailing slash from base
+ */
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) {
+    return url;
+  }
+  return base.replace(/\/$/, '') + url;
+}
 ---
 <header>
   <div class="header-inner">
-    <a href="/" class="logo-link">
-      <img src="/assets/logo.svg" alt="TAEC" />
+    <a href={r('/')} class="logo-link">
+      <img src={`${base}assets/logo.svg`} alt="TAEC" />
     </a>
     <nav>
       {mainNav.map((item) => {
         if (item.type === "link") {
-          return <a href={item.url}>{item.label}</a>;
+          return <a href={r(item.url)}>{item.label}</a>;
         }
         
         if (item.type === "mega") {
@@ -31,7 +46,7 @@ import { contactData } from '../data/contact';
                       
                       return (
                         <>
-                          <a href={link.url}>
+                          <a href={r(link.url)}>
                             {link.label}
                             {link.badge && <span class={`badge-${link.badge.type}`}>{link.badge.text}</span>}
                             {link.subtext && <small style="color:var(--muted);font-weight:400">{link.subtext}</small>}
@@ -39,7 +54,7 @@ import { contactData } from '../data/contact';
                           {link.subItems && (
                             <div class="mega-sub">
                               {link.subItems.map((sub) => (
-                                <a href={sub.url}>
+                                <a href={r(sub.url)}>
                                   {sub.label}
                                   {sub.badge && <span class={`badge-${sub.badge.type}`}>{sub.badge.text}</span>}
                                 </a>
@@ -69,10 +84,10 @@ import { contactData } from '../data/contact';
                     {col.title && <span class="mega-head">{col.title}</span>}
                     {col.items.map((link) => {
                       if (link.isDivider) return <div class="mega-divider"></div>;
-                      return <a href={link.url}>{link.label}</a>;
+                      return <a href={r(link.url)}>{link.label}</a>;
                     })}
                     {col.bottomLink && (
-                      <a href={col.bottomLink.url} style="color:var(--blue);font-weight:600;margin-top:4px">{col.bottomLink.label}</a>
+                      <a href={r(col.bottomLink.url)} style="color:var(--blue);font-weight:600;margin-top:4px">{col.bottomLink.label}</a>
                     )}
                   </div>
                 ))}

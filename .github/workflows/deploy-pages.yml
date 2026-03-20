@@ -1,0 +1,79 @@
+# TAEC — Deploy Astro to GitHub Pages
+# ─────────────────────────────────────────────────────────────────────────────
+# Triggers on every push to main.
+# Builds astro-web/ with the /taec-web/ base path and publishes dist/ to Pages.
+#
+# FIRST-TIME SETUP (do once in GitHub):
+#   Repo → Settings → Pages → Source → "GitHub Actions"
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  # Allow manual trigger from the Actions tab
+  workflow_dispatch:
+
+# Required permissions for the deploy-pages action
+permissions:
+  contents: read
+  pages:    write
+  id-token: write
+
+# Allow only one deployment at a time; cancel in-progress runs
+concurrency:
+  group: "github-pages"
+  cancel-in-progress: true
+
+jobs:
+
+  # ── BUILD ──────────────────────────────────────────────────────────────────
+  build:
+    name: Build Astro
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: astro-web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: astro-web
+        run: npm ci
+
+      - name: Build Astro (staging — base /taec-web/)
+        working-directory: astro-web
+        env:
+          # GitHub Pages serves the repo under /taec-web/
+          # These env vars are read by astro.config.mjs
+          ASTRO_SITE: https://elzorromexican.github.io/taec-web
+          ASTRO_BASE: /taec-web/
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Path to the Astro build output
+          path: astro-web/dist
+
+  # ── DEPLOY ─────────────────────────────────────────────────────────────────
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

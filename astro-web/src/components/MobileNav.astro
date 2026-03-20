@@ -1,12 +1,19 @@
 ---
 // CHANGELOG: 19/03/2026 - Refactored to use centralized data from src/data/navigation.ts and src/data/contact.ts
+// CHANGELOG: 19/03/2026 - Use r() to prefix internal links with BASE_URL for staging support
 import { mainNav } from '../data/navigation';
 import { contactData } from '../data/contact';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 <nav class="mobile-nav" id="mobileNav">
   {mainNav.map((item, i) => {
     if (item.type === "link") {
-      return <a href={item.url}>{item.label}</a>;
+      return <a href={r(item.url)}>{item.label}</a>;
     }
 
     if (item.type === "mega" || item.type === "dropdown") {
@@ -26,12 +33,12 @@ import { contactData } from '../data/contact';
                   if (link.isDivider || link.isSubtitle) return null;
                   return (
                     <>
-                      <a href={link.url}>
+                      <a href={r(link.url)}>
                         {link.label}
                         {link.badge && <span class={`badge-${link.badge.type}`}>{link.badge.text}</span>}
                       </a>
                       {link.subItems?.map((sub) => (
-                        <a href={sub.url} class="mob-sub-link" style="padding-left:16px;">
+                        <a href={r(sub.url)} class="mob-sub-link" style="padding-left:16px;">
                           {sub.label}
                           {sub.badge && <span class={`badge-${sub.badge.type}`}>{sub.badge.text}</span>}
                         </a>
@@ -40,7 +47,7 @@ import { contactData } from '../data/contact';
                   );
                 })}
                 {col.bottomLink && (
-                  <a href={col.bottomLink.url} style="color:var(--blue);font-weight:600;">{col.bottomLink.label}</a>
+                  <a href={r(col.bottomLink.url)} style="color:var(--blue);font-weight:600;">{col.bottomLink.label}</a>
                 )}
               </>
             ))}
