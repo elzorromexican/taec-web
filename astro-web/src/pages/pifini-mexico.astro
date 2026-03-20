@@ -1,0 +1,258 @@
+---
+// CHANGELOG: 2026-03-20 - Nueva landing Pifini Learn (antes NetExam) — LMS #7 mundial Craig Weiss.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+import { getBookingUrl } from '../data/contact';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
+
+const bookingUrl = getBookingUrl();
+
+const ventajas = [
+  {
+    icon: "🏆",
+    title: "#7 mundial — Top 10 Craig Weiss 2025",
+    description: "El analista independiente más respetado del sector calificó a Pifini Learn como el #7 sistema de aprendizaje del mundo, destacando su innovación en capacitación de clientes y socios comerciales."
+  },
+  {
+    icon: "🤖",
+    title: "IA nativa para ventas y partners",
+    description: "Coaching con IA, rutas de aprendizaje adaptativas y análisis de desempeño en tiempo real. Diseñado para que equipos de ventas y canales de distribución vendan mejor."
+  },
+  {
+    icon: "🌐",
+    title: "Especialista en formación externa",
+    description: "A diferencia de los LMS tradicionales, Pifini Learn está optimizado para capacitar clientes, revendedores y socios comerciales — no solo empleados internos."
+  },
+  {
+    icon: "📊",
+    title: "Impacto medible en ingresos",
+    description: "La plataforma conecta aprendizaje con resultados de negocio: certificaciones, habilitación de ventas y métricas de desempeño que impactan directamente en el revenue."
+  },
+  {
+    icon: "🔄",
+    title: "Evolución de NetExam",
+    description: "Pifini Learn es la plataforma antes conocida como NetExam, líder en LMS para canales de distribución. Misma robustez, ahora potenciada con IA generativa y suite Pifini AI."
+  },
+  {
+    icon: "🇲🇽",
+    title: "Implementación y soporte en español",
+    description: "TAEC es tu partner local en México y LATAM: implementación, configuración, capacitación de administradores y soporte técnico en español desde CDMX."
+  }
+];
+
+const faqs = [
+  {
+    question: "¿Pifini Learn y NetExam son lo mismo?",
+    answerHtml: "Sí. <strong>Pifini Learn</strong> es la evolución de <strong>NetExam</strong>, el LMS especializado en formación externa para canales y socios comerciales. La plataforma mantiene toda la funcionalidad de NetExam, ahora integrada en la suite Pifini AI con capacidades de inteligencia artificial generativa."
+  },
+  {
+    question: "¿Para qué tipo de organizaciones es ideal Pifini Learn?",
+    answerHtml: "Pifini Learn está diseñado para empresas que necesitan <strong>capacitar audiencias externas</strong>: clientes, distribuidores, revendedores, franquiciados y socios comerciales. Es especialmente potente en <strong>sales enablement</strong> y <strong>partner training</strong> donde el aprendizaje impacta directamente en las ventas."
+  },
+  {
+    question: "¿Qué lo diferencia de Moodle o Totara?",
+    answerHtml: "Moodle y Totara son excelentes para formación interna de empleados. <strong>Pifini Learn está optimizado para formación externa</strong>: onboarding de canales, certificaciones de producto, rutas de venta y coaching con IA. Incluye funcionalidades específicas para gestionar múltiples organizaciones externas desde una sola plataforma."
+  },
+  {
+    question: "¿Qué incluye la IA de Pifini?",
+    answerHtml: "La suite <strong>Pifini AI</strong> incluye coaching inteligente, generación de rutas de aprendizaje adaptativas, análisis de brechas de conocimiento y recomendaciones personalizadas. La IA conecta el desempeño en los cursos con métricas reales de ventas para identificar qué capacitación genera más impacto."
+  },
+  {
+    question: "¿TAEC implementa y da soporte a Pifini Learn en México?",
+    answerHtml: "Sí. TAEC es el partner autorizado de Pifini Learn en México y LATAM. Ofrecemos implementación completa, personalización de la plataforma, migración desde NetExam u otros LMS, capacitación de administradores y soporte técnico en español en horario de oficina CDMX."
+  },
+  {
+    question: "¿Puedo migrar desde NetExam a Pifini Learn?",
+    answerHtml: "La migración es transparente: <strong>Pifini Learn es la continuación directa de NetExam</strong>. Si ya tienes una instancia de NetExam, la actualización a Pifini Learn mantiene todos tus datos, cursos, usuarios y certificaciones. TAEC coordina el proceso sin interrumpir tu operación."
+  }
+];
+---
+
+<BaseLayout
+  title="Pifini Learn (antes NetExam) en México — LMS #7 Mundial | TAEC"
+  description="Pifini Learn, el LMS antes conocido como NetExam, es el #7 sistema de aprendizaje del mundo (Craig Weiss 2025). Especialista en sales enablement y partner training con IA. TAEC: implementación y soporte en español."
+  section="Soluciones"
+  page="pifini-mexico.html"
+>
+
+  <!-- ── HERO ── -->
+  <HeroComercial
+    eyebrow="Pifini Learn · antes NetExam"
+    titleHtml={`El LMS <em>#7 mundial</em> para ventas y capacitación de canales`}
+    subtitle="Pifini Learn —antes NetExam— es la plataforma de aprendizaje diseñada para que tus equipos de ventas y socios comerciales vendan más. IA nativa, certificaciones de canal y métricas de impacto en revenue."
+    features={[
+      "#7 Top Learning Systems — Craig Weiss 2025",
+      "Sales enablement y partner training nativos",
+      "IA: coaching, rutas adaptativas y analytics",
+      "Multiorganización para canales y distribuidores",
+      "Evolución directa de NetExam",
+      "Soporte e implementación en español · CDMX"
+    ]}
+    primaryBtn={{ label: "Solicitar demo de Pifini →", url: bookingUrl, target: "_blank" }}
+    secondaryBtn={{ label: "Conocer la plataforma", url: "https://pifini.ai", target: "_blank" }}
+    cardBadgeText="LMS · SALES ENABLEMENT · IA"
+    theme="general"
+  />
+
+  <!-- ── BADGE RECONOCIMIENTO ── -->
+  <section class="reconocimiento">
+    <div class="reco-inner">
+      <div class="reco-badge">
+        <span class="reco-num">#7</span>
+        <div class="reco-text">
+          <strong>Top Learning Systems 2025</strong>
+          <span>Craig Weiss Group — analista independiente líder del sector LMS</span>
+        </div>
+      </div>
+      <blockquote class="reco-quote">
+        "La integración de capacidades avanzadas de IA, combinada con su enfoque innovador en la capacitación de clientes y socios, representa una evolución refrescante en el panorama del aprendizaje. Este sistema tiene el potencial de emerger como líder en la industria."
+        <cite>— Craig Weiss, The Craig Weiss Group · Diciembre 2025</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ── ANTES / AHORA ── -->
+  <section class="netexam-evolucion">
+    <div class="nex-inner">
+      <p class="section-label">La evolución que ya conoces</p>
+      <h2 class="section-title">NetExam ahora es Pifini Learn</h2>
+      <p class="section-sub">Misma robustez para formación de canales, ahora con IA generativa integrada y una suite completa de productos Pifini AI.</p>
+      <div class="nex-grid">
+        <div class="nex-card nex-card--before">
+          <div class="nex-label">Antes</div>
+          <h3>NetExam</h3>
+          <ul>
+            <li>LMS líder en formación externa</li>
+            <li>Certificaciones de canal</li>
+            <li>Partner training especializado</li>
+            <li>Multiorganización</li>
+          </ul>
+        </div>
+        <div class="nex-arrow">→</div>
+        <div class="nex-card nex-card--after">
+          <div class="nex-label nex-label--after">Ahora</div>
+          <h3>Pifini Learn</h3>
+          <ul>
+            <li>Todo lo de NetExam +</li>
+            <li>IA nativa: coaching y rutas adaptativas</li>
+            <li>Suite Pifini AI integrada</li>
+            <li>Analytics de impacto en revenue</li>
+            <li>Reconocido #7 mundial Craig Weiss</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFICIOS ── -->
+  <GridBeneficios
+    eyebrow="Por qué Pifini Learn con TAEC"
+    title="El LMS que convierte capacitación en ventas"
+    subtitle="Diseñado para organizaciones que entrenan audiencias externas y necesitan medir el impacto en el negocio."
+    cards={ventajas}
+    columns={3}
+    theme="general"
+  />
+
+  <!-- ── FAQ ── -->
+  <FAQAccordion
+    eyebrow="Preguntas frecuentes"
+    title="Todo sobre Pifini Learn en México"
+    subtitle="¿Buscabas NetExam? Aquí estamos — ahora con más capacidades."
+    faqs={faqs}
+    theme="general"
+  />
+
+  <!-- ── CTA ── -->
+  <CtaFinal
+    title="¿Listo para ver Pifini Learn en acción?"
+    subtitle="Agenda una demo personalizada con nuestro equipo en CDMX. Te mostramos la plataforma con casos reales de sales enablement y partner training."
+    primaryBtnText="Solicitar demo gratuita →"
+    primaryBtnUrl={bookingUrl}
+    primaryBtnTarget="_blank"
+    theme="general"
+  />
+
+</BaseLayout>
+
+<style is:global>
+/* ── RECONOCIMIENTO ── */
+.reconocimiento {
+  background: #0f172a;
+  padding: 48px 5%;
+}
+.reco-inner {
+  max-width: 900px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 28px; align-items: center; text-align: center;
+}
+.reco-badge {
+  display: inline-flex; align-items: center; gap: 20px;
+  background: rgba(249,115,22,.12); border: 1.5px solid rgba(249,115,22,.35);
+  border-radius: 16px; padding: 20px 32px;
+}
+.reco-num {
+  font-size: 52px; font-weight: 900; color: #f97316; line-height: 1; flex-shrink: 0;
+}
+.reco-text { text-align: left; }
+.reco-text strong { display: block; font-size: 17px; color: white; margin-bottom: 4px; }
+.reco-text span { font-size: 13px; color: rgba(255,255,255,.6); }
+.reco-quote {
+  font-size: 16px; color: rgba(255,255,255,.8); line-height: 1.8;
+  font-style: italic; max-width: 720px; margin: 0;
+  border-left: 3px solid #f97316; padding-left: 20px; text-align: left;
+}
+.reco-quote cite {
+  display: block; margin-top: 12px; font-size: 13px;
+  color: rgba(255,255,255,.5); font-style: normal;
+}
+
+/* ── NETEXAM EVOLUCIÓN ── */
+.netexam-evolucion {
+  background: #F8FAFC; padding: 72px 5%;
+}
+.nex-inner { max-width: 900px; margin: 0 auto; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; text-align: center; }
+.section-title { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); color: #111827; text-align: center; margin-bottom: 8px; }
+.section-sub { text-align: center; color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 48px; }
+
+.nex-grid {
+  display: flex; gap: 0; align-items: stretch;
+}
+.nex-card {
+  flex: 1; background: white; border: 1.5px solid #E2E8F0;
+  border-radius: 16px; padding: 32px 28px;
+}
+.nex-card--before { border-color: #CBD5E1; opacity: .75; }
+.nex-card--after  { border-color: #f97316; box-shadow: 0 4px 24px rgba(249,115,22,.15); }
+.nex-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; color: #f97316; font-weight: 900;
+  padding: 0 20px; flex-shrink: 0;
+}
+.nex-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  color: #94A3B8; margin-bottom: 8px;
+}
+.nex-label--after { color: #f97316; }
+.nex-card h3 { font-size: 22px; font-weight: 800; color: #111827; margin-bottom: 20px; }
+.nex-card ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.nex-card ul li { font-size: 14px; color: #4B5563; display: flex; align-items: flex-start; gap: 8px; }
+.nex-card ul li::before { content: "✓"; color: #f97316; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.nex-card--before ul li::before { color: #94A3B8; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .reco-badge { flex-direction: column; text-align: center; }
+  .reco-text { text-align: center; }
+  .nex-grid { flex-direction: column; gap: 16px; }
+  .nex-arrow { transform: rotate(90deg); padding: 8px 0; }
+}
+</style>

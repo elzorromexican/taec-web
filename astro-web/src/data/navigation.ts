@@ -68,11 +68,9 @@ export const mainNav: MainNavItem[] = [
         items: [
           { label: "Moodle", url: "/moodle-mexico", badge: { text: "SaaS", type: "saas" } },
           { label: "Totara", url: "/totara-lms-mexico", badge: { text: "SaaS", type: "saas" } },
+          { label: "Pifini Learn", url: "/pifini-mexico", badge: { text: "SaaS", type: "saas" } },
           { label: "Ottolearn", url: "/ottolearn-mexico", badge: { text: "SaaS", type: "saas" } },
-          { label: "Lys", url: "/lys-mexico", badge: { text: "SaaS", type: "saas" } },
-          { label: "BigBlueButton", url: "/bigbluebutton-mexico", badge: { text: "SaaS", type: "saas" } },
-          { label: "divider", url: "", isDivider: true },
-          { label: "Zoola Analytics", url: "/zoola-analytics" }
+          { label: "Lys", url: "/lys-mexico", badge: { text: "SaaS", type: "saas" } }
         ]
       },
       {
@@ -86,7 +84,6 @@ export const mainNav: MainNavItem[] = [
           { label: "divider", url: "", isDivider: true },
           { label: "Catálogo listo", url: "", isSubtitle: true },
           { label: "7 Minutes", url: "/7minutes-learning" },
-          { label: "GO1", url: "/go1-mexico" },
           { label: "Custom Guide", url: "/customguide-mexico" }
         ]
       }
