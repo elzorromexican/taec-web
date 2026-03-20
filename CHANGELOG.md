@@ -4,6 +4,63 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v1.0-astro-foundation · 19 mar 2026
+
+### Baseline estable Astro — punto formal de rollback
+
+> **Esta versión no es el producto terminado.**
+> Es la primera baseline estable de la migración a Astro: un punto de rollback limpio
+> desde el cual continuar el desarrollo sin riesgo.
+> Tag git: `v1.0-astro-foundation` · commit: `aaab14c`
+
+#### Infraestructura Astro
+
+- **`astro.config.mjs`** — `site: 'https://nuevo.taec.com.mx'`, `trailingSlash: 'ignore'`, `build.format: 'directory'`
+- **`BaseLayout.astro`** — `<link rel="canonical">`, OG meta tags (og:type, og:url, og:title, og:description, og:image), atributos `data-section`/`data-page` para active-nav
+- **`contact.ts`** — fuente única de verdad: WhatsApp, TidyCal, email, tienda, redes sociales, dominios regionales
+- **`navigation.ts`** — menú principal tipado (`MainNavItem`, `NavColumn`, `NavSubItem`) y links de footer
+
+#### Componentes UI reutilizables (`src/components/ui/`)
+
+- **`HeroComercial.astro`** — hero por tema (moo / tot / art / vyond / general), logo de partner, botones con `target?` opcional y `rel="noopener noreferrer"` automático
+- **`GridBeneficios.astro`** — grid de tarjetas de beneficios, 2/3/4 columnas, themed
+- **`FAQAccordion.astro`** — acordeón accesible con `<details>/<summary>` nativo; sin JS; corrige FAQ permanentemente roto en Articulate (JS de toggle nunca existió)
+- **`CtaFinal.astro`** — banda CTA con WhatsApp + TidyCal incluidos por defecto desde `contact.ts`
+- **`LogosGrid.astro`** — grid de logos (imagen o texto), themed; implementado, pendiente de conectar a páginas
+
+#### Páginas comerciales refactorizadas
+
+| Página | Líneas antes | Líneas después | Reducción |
+|---|---|---|---|
+| `moodle-mexico` (piloto) | ~345 | ~230 | −115 |
+| `articulate-360-mexico` | 687 | ~497 | −190 |
+| `vyond-mexico` | ~478 | ~324 | −154 |
+| `totara-lms-mexico` | ~549 | ~360 | −189 |
+
+#### Documentación
+
+- **`COMPONENTS.md`** — guía de uso, props, cuándo usar y cuándo NO usar cada componente UI
+
+#### Verificación de cierre
+
+- Build limpio: **48 páginas, 0 errores, 0 warnings críticos**
+- Rutas públicas intactas (sin cambios de URL ni slugs)
+- Navegación, header y footer correctos en todas las páginas
+- Build time: 834 ms
+
+#### Pendiente para siguientes lotes
+
+- Páginas de producto restantes sin refactorizar (BigBlueButton, CustomGuide, Go1, OttoLearn, Proctorizer, StrikePlagiarism, Zoola, Articulate sub-páginas)
+- `LogosGrid` conectado a páginas reales
+- Página de contacto (formulario + lógica de envío en Astro)
+- Blog / Artículos (rutas existentes con contenido placeholder)
+- Optimización de imágenes con `<Image>` de Astro y lazy loading
+- Testing visual automatizado (snapshot baseline)
+- Pipeline CI/CD a producción
+- Deuda residual de Fase 1 HTML: `articulate-localization`, `articulate-review360` (tokens diferidos), Grupo A/B inline CSS/JS
+
+---
+
 ## v3.00 · 18 mar 2026
 
 ### Cierre técnico — Fase 1 completa (Fase 1 + Fase 1B)
