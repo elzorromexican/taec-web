@@ -148,3 +148,24 @@
   /* footer grid is managed in footer.css */
   .hero h1 { font-size: 36px; }
 }
+
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero { padding: 48px 5% 56px; }
+  .hero h1 { font-size: 30px; }
+  .hero-sub { font-size: 15px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .servicios-grid { grid-template-columns: 1fr 1fr; }
+  .pasos-grid { grid-template-columns: 1fr; gap: 24px; }
+  .testi-card { flex: 0 0 280px; }
+  .recursos-grid { grid-template-columns: 1fr; }
+  .cta-inner { flex-direction: column; text-align: center; }
+  .cta-text h2 { font-size: 24px; }
+  .cta-btns { justify-content: center; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .servicios-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 26px; }
+}
