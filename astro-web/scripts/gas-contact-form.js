@@ -11,7 +11,9 @@
  *   4. Desplegar como Web App (instrucciones al final del archivo)
  *   5. Copiar la URL del despliegue → src/data/contact.ts → formEndpoint
  *
- * Compatibilidad: Frontend astro-web que envía JSON con Content-Type: application/json
+ * Compatibilidad: Frontend astro-web envía JSON con Content-Type: text/plain;charset=utf-8
+ *   → evita el preflight OPTIONS que GAS no maneja. El body sigue siendo JSON válido;
+ *     GAS lo parsea en e.postData.contents con JSON.parse().
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -78,7 +80,8 @@ const SHEET_HEADERS = [
 
 /**
  * Recibe el POST del frontend.
- * El frontend envía Content-Type: application/json → body en e.postData.contents
+ * El frontend envía Content-Type: text/plain;charset=utf-8 (evita preflight CORS).
+ * El body es JSON puro → parseable con JSON.parse(e.postData.contents).
  */
 function doPost(e) {
   // Respuesta base (siempre incluye encabezado CORS)
@@ -403,7 +406,7 @@ function testDoPost() {
   const mockEvent = {
     postData: {
       contents: JSON.stringify(mockPayload),
-      type:     'application/json',
+      type:     'text/plain;charset=utf-8',   // refleja el Content-Type real del frontend
     },
   };
 

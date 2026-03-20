@@ -461,9 +461,11 @@ const whatsappUrl   = contactData.whatsapp.url;
       };
 
       try {
+        // Content-Type: text/plain evita el preflight OPTIONS que Google Apps Script
+        // no maneja. El body sigue siendo JSON — GAS lo parsea en e.postData.contents.
         const res = await fetch(formEndpoint, {
           method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body:    JSON.stringify(payload),
         });
 

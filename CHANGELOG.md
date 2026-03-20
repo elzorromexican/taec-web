@@ -4,6 +4,72 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v1.1 · 19 mar 2026
+
+### GitHub Pages base-path · Formulario de contacto GAS · CORS fix
+
+#### GitHub Pages — corrección completa de base path (staging)
+
+**Problema:** el sitio desplegado en `elzorromexican.github.io/taec-web/` cargaba sin CSS ni assets
+porque todas las rutas internas estaban hardcodeadas como absolutas (`/assets/...`, `/contacto`, etc.)
+y Astro sólo prefija sus propios chunks generados (`_astro/*`), no las rutas en templates.
+
+**Solución:** helper `r()` + literales de template con `${base}` en todos los archivos afectados.
+
+- **`astro.config.mjs`** — `site` y `base` leídos de `ASTRO_SITE`/`ASTRO_BASE` env vars
+- **`.github/workflows/deploy-pages.yml`** — creado; inyecta `ASTRO_SITE` y `ASTRO_BASE=/taec-web/`
+- **`BaseLayout.astro`** — OG image: `new URL('/assets/…')` → `` new URL(`${base}assets/…`) ``; eliminado `const base` duplicado
+- **`Header.astro`**, **`Footer.astro`**, **`MobileNav.astro`** — `r()` añadido; todos los hrefs y logo src corregidos
+- **`HeroComercial.astro`**, **`CtaFinal.astro`**, **`FAQAccordion.astro`** — `r()` añadido para URL props internas
+- **46 páginas** — batch Python: 194 patrones `href="/"` y `src="/assets/"` transformados; `const base` + `r()` añadidos al frontmatter
+- **`articulate-360-mexico.astro`** — `const base`/`r()` movidos al inicio del frontmatter para evitar temporal dead zone con el array de FAQs
+- **`moodle-mexico.astro`**, **`vyond-mexico.astro`**, **`totara-lms-mexico.astro`** — `cardLogoSrc` corregido a `` `${base}assets/...` ``
+- **Regex fix:** batch generó `base.replace(/\/\$/, '')` (incorrecto) → corregido a `base.replace(/\/$/, '')` en todos los archivos
+
+#### Formulario de contacto — migración EmailJS → Google Apps Script
+
+- **`src/data/contact.ts`** — `tidycal` → `bookingUrl` (Zoho Bookings); añadido `formEndpoint` con URL del GAS endpoint
+- **`scripts/gas-contact-form.js`** — nuevo script para desplegar como Web App en apps.script.google.com:
+  guarda leads en Google Sheets, envía notificación interna por email, stub de integración Zoho CRM
+- **`CtaFinal.astro`** — botón "Agendar" actualizado a `contactData.bookingUrl`
+
+#### Fix `define:vars` → `data-*` en `contacto.astro`
+
+**Problema:** `ReferenceError: formEndpoint is not defined` en producción.
+El `<script define:vars={...}>` estaba ubicado **después de `</BaseLayout>`**, lo que hace que Astro
+lo renderice literalmente después de `</html>` — fuera del `<body>` — y la inyección de variables falla.
+
+**Solución:** variables pasadas como atributos `data-*` en el `<form>`; el script las lee vía `form.dataset.*`.
+Script movido dentro de `<BaseLayout>` con `is:inline`.
+
+```html
+<form id="contactForm"
+  data-endpoint={formEndpoint}
+  data-email={contactEmail}
+  data-whatsapp={whatsappUrl}
+>
+```
+
+#### Fix CORS preflight con Google Apps Script
+
+**Problema:** `Content-Type: application/json` es un header "no simple" → dispara preflight OPTIONS.
+GAS no expone handler OPTIONS → el navegador bloquea la petición con error CORS.
+
+**Solución:** `Content-Type: text/plain;charset=utf-8` — es un header "simple" (RFC CORS), no dispara
+preflight. El body sigue siendo JSON puro; GAS lo parsea con `JSON.parse(e.postData.contents)`.
+
+- **`contacto.astro`** — `Content-Type: application/json` → `text/plain;charset=utf-8`
+- **`scripts/gas-contact-form.js`** — comentarios actualizados; `testDoPost()` mock type actualizado
+
+#### Documentación
+
+- **`astro-web/README.md`** — sección "Flujo de contacto" actualizada (GAS/Zoho Bookings);
+  nueva sección "Integración Google Apps Script"; nueva sección "Base path — GitHub Pages vs producción";
+  `data-*` pattern documentado; `emailjs.ts` aclarado como uso sólo-Totara
+- **`astro-web/scripts/gas-contact-form.js`** — comentario de compatibilidad actualizado a `text/plain`
+
+---
+
 ## v1.0-astro-foundation · 19 mar 2026
 
 ### Baseline estable Astro — punto formal de rollback
