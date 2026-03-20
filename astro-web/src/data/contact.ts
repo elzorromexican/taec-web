@@ -34,7 +34,7 @@ export const contactData = {
    *
    * Mientras sea "" el formulario mostrará un mensaje alternativo con WhatsApp y correo.
    */
-  formEndpoint: "",
+  formEndpoint: "https://script.google.com/macros/s/AKfycbxJaUFjGUy7yV31tu2emdLJVL3rWfGi8Dg3nLpxNUWyfkdisjxpZlExSsHP_X1iXPeuuQ/exec",
   socials: {
     linkedin: "https://www.linkedin.com/company/taec",
     youtube: "https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ",

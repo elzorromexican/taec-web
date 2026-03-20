@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { contactData } from '../data/contact';
 
-// Passed to the client script via define:vars (build-time injection)
+// Valores usados en el template HTML y en atributos data-* del formulario.
+// El script cliente los lee via form.dataset — NO se usa define:vars.
 const formEndpoint  = contactData.formEndpoint;   // Google Apps Script Web App URL
 const bookingUrl    = contactData.bookingUrl;      // Zoho Bookings URL
 const contactEmail  = contactData.email;
@@ -278,7 +279,11 @@ const whatsappUrl   = contactData.whatsapp.url;
       <h2>Cuéntanos qué necesitas</h2>
       <p class="form-subtitle">Diagnóstico gratuito · Sin compromiso · Respuesta en menos de 24 h</p>
 
-      <form id="contactForm" novalidate>
+      <form id="contactForm" novalidate
+        data-endpoint={formEndpoint}
+        data-email={contactEmail}
+        data-whatsapp={whatsappUrl}
+      >
 
         <!-- Campos ocultos: trazabilidad del lead -->
         <input type="hidden" id="pagina_origen" name="pagina_origen" value="/contacto" />
@@ -364,13 +369,20 @@ const whatsappUrl   = contactData.whatsapp.url;
 </section>
 
 </main>
-</BaseLayout>
 
-<script define:vars={{ formEndpoint, contactEmail, whatsappUrl }}>
+<script is:inline>
   // ── Formulario de contacto → Google Apps Script Web App
+  // Los valores se leen desde data-* del <form> — no se usa define:vars
+  // para evitar dependencias de compilación de Astro y el bug de script-fuera-de-layout.
   (function () {
 
     const form   = document.getElementById('contactForm');
+    if (!form) return;
+
+    const formEndpoint = form.dataset.endpoint  || '';
+    const contactEmail = form.dataset.email     || '';
+    const whatsappUrl  = form.dataset.whatsapp  || '';
+
     const btn    = document.getElementById('submitBtn');
     const status = document.getElementById('formStatus');
 
@@ -498,3 +510,5 @@ const whatsappUrl   = contactData.whatsapp.url;
 
   })();
 </script>
+
+</BaseLayout>
