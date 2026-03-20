@@ -4,6 +4,92 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v1.2 · 20 mar 2026
+
+### Auditoría de bugs staging — 10 bugs corregidos · Mobile layout fix
+
+#### BUG-2 · Mobile accordion roto (MobileNav.astro)
+
+**Problema:** los botones `.mob-toggle` usaban `onclick="toggleMob(...)"` — función global definida
+en `nav.js` con `defer`. En el momento del click la función aún no existía → acordeón inoperante.
+
+**Solución:** eliminado `onclick` inline. Añadido `<script is:inline>` con `DOMContentLoaded` que
+registra los event listeners directamente en `MobileNav.astro`. Añadido `type="button"` a todos los toggles.
+
+#### BUG-3 · bookingUrl vacío — CTAs sin destino (contact.ts)
+
+**Problema:** `bookingUrl: ""` en `src/data/contact.ts` → todos los botones "Agendar diagnóstico"
+apuntaban a `href=""` (recarga de página).
+
+**Solución:** `bookingUrl` seteado a `"/contacto"` como fallback mientras se configura Zoho Bookings.
+
+#### BUG-8 · Link muerto "Aviso de privacidad" en footer (Footer.astro)
+
+**Problema:** `<a href="#">Aviso de privacidad</a>` en el footer generaba un enlace que hacía scroll-to-top.
+
+**Solución:** reemplazado por `<span style="opacity:.6;">Aviso de privacidad</span>` hasta tener página real.
+
+#### BUG-9 · Logos de partners eran texto, no imágenes (index.astro)
+
+**Problema:** la sección "Partners y distribuidores oficiales" mostraba `<span class="logo-text">` con
+nombres en texto plano en lugar de los logos reales.
+
+**Solución:** reemplazados los 6 spans por `<img>` con paths correctos usando `${base}assets/logos/...`:
+`articulate-reseller.svg`, `articulate.png`, `vyond.svg`, `totara.png`, `moodle.png`, `7minutes.png`.
+
+#### BUG-10 · Ticker no cargaba en staging (index.astro + BaseLayout.astro)
+
+**Problema:** `fetch('/data/ticker.json')` usaba ruta absoluta desde raíz del dominio. En GitHub Pages
+(`/taec-web/`) la ruta correcta es `/taec-web/data/ticker.json`.
+
+**Solución:**
+- `BaseLayout.astro` — añadido `data-base={base}` al `<body>` para exponer `BASE_URL` al runtime
+- `index.astro` — ticker JS cambiado a `` fetch(`${document.body.dataset.base}data/ticker.json`) ``
+
+#### BUG CSS · Clase `.badge-teams` faltante en header (header.css)
+
+**Problema:** el badge "Teams" del ítem "Articulate Reach" en el mega menu no tenía estilos definidos.
+
+**Solución:** añadida `.badge-teams { background: #DBEAFE; color: #1d4ed8; ... }` a `header.css`.
+
+#### Fix · CSS redundante en clientes.astro
+
+**Problema:** bloque `<style is:global>` en `clientes.astro` con reglas copiadas de `index.astro`
+(dropdown open states ya cubiertos en `header.css`).
+
+**Solución:** eliminado el bloque duplicado.
+
+#### Fix · Mobile hero layout roto en staging (index.css)
+
+**Problema:** las reglas responsivas de `.hero-inner`, `.servicios-grid`, `.pasos-grid`, etc. estaban
+en `<style is:global>` de `index.astro` (inline en el HTML). En staging el CSS externo ganaba la cascada
+→ el hero se mostraba en 2 columnas en móvil.
+
+**Solución:** reglas movidas a `public/assets/css/index.css` (stylesheet canónico), eliminado el bloque
+`<style is:global>` de `index.astro`.
+
+#### Fix · Overflow horizontal en mobile (index.css)
+
+**Problema:** `.hero-tag { white-space: nowrap }` con el texto completo
+"ESPECIALISTAS EN E-LEARNING CORPORATIVO · MÉXICO Y LATAM · DESDE 2007" (~580px) generaba
+overflow horizontal en toda la página en viewports móviles (~375px). El h1, botones y stat cards
+se veían cortados a la derecha.
+
+**Solución:** añadido `.hero-tag { white-space: normal }` en el breakpoint `@media (max-width: 768px)`.
+Añadido `overflow-x: hidden` a `.hero` como guardia adicional.
+
+**Archivos modificados en v1.2:**
+- `src/components/MobileNav.astro`
+- `src/components/Footer.astro`
+- `src/data/contact.ts`
+- `src/layouts/BaseLayout.astro`
+- `src/pages/index.astro`
+- `src/pages/clientes.astro`
+- `public/assets/css/header.css`
+- `public/assets/css/index.css`
+
+---
+
 ## v1.1 · 19 mar 2026
 
 ### GitHub Pages base-path · Formulario de contacto GAS · CORS fix
