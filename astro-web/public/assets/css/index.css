@@ -151,9 +151,10 @@
 
 @media (max-width: 768px) {
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-  .hero { padding: 48px 5% 56px; }
+  .hero { padding: 48px 5% 56px; overflow-x: hidden; }
   .hero h1 { font-size: 30px; }
   .hero-sub { font-size: 15px; }
+  .hero-tag { white-space: normal; }
   .stat-grid { grid-template-columns: 1fr 1fr; }
   .servicios-grid { grid-template-columns: 1fr 1fr; }
   .pasos-grid { grid-template-columns: 1fr; gap: 24px; }
