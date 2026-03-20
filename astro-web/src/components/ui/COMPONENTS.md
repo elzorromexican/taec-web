@@ -153,7 +153,7 @@ const faqs = [
 Banda CTA al final de páginas de producto. **Siempre** incluye tres botones:
 1. Botón primario configurable
 2. Botón WhatsApp (desde `contactData.whatsapp.url`)
-3. Botón ghost "Agendar diagnóstico gratuito" (TidyCal desde `contactData.tidycal`)
+3. Botón ghost "Agendar diagnóstico gratuito" (Zoho Bookings desde `contactData.bookingUrl`)
 
 ### Props
 
