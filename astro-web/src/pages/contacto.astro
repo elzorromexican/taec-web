@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { contactData } from '../data/contact';
-import { emailjsConfig } from '../data/emailjs';
 
-const { publicKey, serviceId, templates } = emailjsConfig;
-const templateId = templates.contact;
-const contactEmail = contactData.email;
+// Passed to the client script via define:vars (build-time injection)
+const formEndpoint  = contactData.formEndpoint;   // Google Apps Script Web App URL
+const bookingUrl    = contactData.bookingUrl;      // Zoho Bookings URL
+const contactEmail  = contactData.email;
+const whatsappUrl   = contactData.whatsapp.url;
 ---
 
 <BaseLayout
@@ -95,6 +96,24 @@ const contactEmail = contactData.email;
     }
     .response-badge strong { color: var(--navy); }
 
+    /* ── BOOKING CTA ── */
+    .booking-block { display: flex; flex-direction: column; gap: 10px; }
+    .booking-block h3 {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); margin-bottom: 2px;
+    }
+    .btn-booking {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--navy); color: var(--white);
+      font-size: 14px; font-weight: 700;
+      padding: 13px 20px; border-radius: 10px;
+      border: none; transition: background .15s;
+    }
+    .btn-booking:hover { background: #00355a; color: var(--white); }
+    .btn-booking-sub {
+      font-size: 12px; color: var(--muted); text-align: center;
+    }
+
     /* ── FORM CARD ── */
     .form-card {
       background: var(--white);
@@ -128,7 +147,9 @@ const contactEmail = contactData.email;
       border-color: var(--blue);
       box-shadow: 0 0 0 3px rgba(49,121,194,.1);
     }
-    .field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"] {
+    .field input[aria-invalid="true"],
+    .field select[aria-invalid="true"],
+    .field textarea[aria-invalid="true"] {
       border-color: #EF4444;
     }
     .field-error {
@@ -183,9 +204,6 @@ const contactEmail = contactData.email;
     }
 
   </style>
-
-  <!-- EmailJS CDN — loaded before the form script -->
-  <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <main id="main-content">
 
@@ -242,6 +260,17 @@ const contactEmail = contactData.email;
         <p><strong>Respondemos en menos de 24 h</strong><br>Lunes a viernes, 9:00 – 18:00 (CDMX)</p>
       </div>
 
+      <!-- CTA de agenda — Zoho Bookings -->
+      {bookingUrl && (
+        <div class="booking-block">
+          <h3>¿Prefieres una llamada?</h3>
+          <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="btn-booking">
+            📅 Agendar llamada de 30 min
+          </a>
+          <p class="btn-booking-sub">Sin compromiso · Agenda directo en el calendario</p>
+        </div>
+      )}
+
     </div><!-- /contact-info -->
 
     <!-- Formulario -->
@@ -250,6 +279,10 @@ const contactEmail = contactData.email;
       <p class="form-subtitle">Diagnóstico gratuito · Sin compromiso · Respuesta en menos de 24 h</p>
 
       <form id="contactForm" novalidate>
+
+        <!-- Campos ocultos: trazabilidad del lead -->
+        <input type="hidden" id="pagina_origen" name="pagina_origen" value="/contacto" />
+        <input type="hidden" id="cta_origen"    name="cta_origen"    value="formulario-contacto" />
 
         <div class="form-row">
           <div class="field">
@@ -268,10 +301,10 @@ const contactEmail = contactData.email;
 
         <div class="form-row">
           <div class="field">
-            <label for="email">Correo electrónico <span class="req" aria-hidden="true">*</span></label>
-            <input type="email" id="email" name="email" placeholder="tu@empresa.com"
+            <label for="correo">Correo electrónico <span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="correo" name="correo" placeholder="tu@empresa.com"
               required aria-required="true" autocomplete="email" />
-            <span class="field-error" id="err-email">Por favor ingresa un correo válido.</span>
+            <span class="field-error" id="err-correo">Por favor ingresa un correo válido.</span>
           </div>
           <div class="field">
             <label for="telefono">Teléfono / WhatsApp</label>
@@ -279,19 +312,32 @@ const contactEmail = contactData.email;
           </div>
         </div>
 
-        <div class="field">
-          <label for="tema">¿En qué podemos ayudarte? <span class="req" aria-hidden="true">*</span></label>
-          <select id="tema" name="tema" required aria-required="true">
-            <option value="" disabled selected>Selecciona una opción</option>
-            <option value="Articulate 360">Articulate 360 — licencias / capacitación</option>
-            <option value="Moodle / LMS">Moodle / LMS — implementación y soporte</option>
-            <option value="Vyond">Vyond — licencias y producción de videos</option>
-            <option value="Totara LMS">Totara LMS — plataforma enterprise</option>
-            <option value="Cursos a medida">Cursos a medida (diseño instruccional)</option>
-            <option value="Consultoría L&D">Consultoría L&D / estrategia de capacitación</option>
-            <option value="Otro">Otro</option>
-          </select>
-          <span class="field-error" id="err-tema">Por favor selecciona un tema.</span>
+        <div class="form-row">
+          <div class="field">
+            <label for="pais">País <span class="req" aria-hidden="true">*</span></label>
+            <select id="pais" name="pais" required aria-required="true">
+              <option value="" disabled selected>Tu país</option>
+              <option value="México">🇲🇽 México</option>
+              <option value="Colombia">🇨🇴 Colombia</option>
+              <option value="Chile">🇨🇱 Chile</option>
+              <option value="Otro">Otro país</option>
+            </select>
+            <span class="field-error" id="err-pais">Por favor selecciona tu país.</span>
+          </div>
+          <div class="field">
+            <label for="interes">¿En qué podemos ayudarte? <span class="req" aria-hidden="true">*</span></label>
+            <select id="interes" name="interes" required aria-required="true">
+              <option value="" disabled selected>Selecciona</option>
+              <option value="Articulate 360">Articulate 360 — licencias / capacitación</option>
+              <option value="Moodle / LMS">Moodle / LMS — implementación y soporte</option>
+              <option value="Vyond">Vyond — licencias y producción de videos</option>
+              <option value="Totara LMS">Totara LMS — plataforma enterprise</option>
+              <option value="Cursos a medida">Cursos a medida (diseño instruccional)</option>
+              <option value="Consultoría L&D">Consultoría L&D / estrategia</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <span class="field-error" id="err-interes">Por favor selecciona un tema.</span>
+          </div>
         </div>
 
         <div class="field">
@@ -320,72 +366,114 @@ const contactEmail = contactData.email;
 </main>
 </BaseLayout>
 
-<script define:vars={{ publicKey, serviceId, templateId, contactEmail }}>
-  // ── Form submission via EmailJS
+<script define:vars={{ formEndpoint, contactEmail, whatsappUrl }}>
+  // ── Formulario de contacto → Google Apps Script Web App
   (function () {
-    emailjs.init(publicKey);
 
-    const form      = document.getElementById('contactForm');
-    const btn       = document.getElementById('submitBtn');
-    const status    = document.getElementById('formStatus');
+    const form   = document.getElementById('contactForm');
+    const btn    = document.getElementById('submitBtn');
+    const status = document.getElementById('formStatus');
 
-    // ── Inline validation helpers
-    function setError(inputId, errId, show) {
-      const input = document.getElementById(inputId);
-      const err   = document.getElementById(errId);
-      if (!input || !err) return;
+    // Rellenar pagina_origen con la URL real del browser
+    const origenEl = document.getElementById('pagina_origen');
+    if (origenEl) origenEl.value = window.location.pathname;
+
+    // ── Helpers de validación
+    function setError(id, errId, show) {
+      const el  = document.getElementById(id);
+      const err = document.getElementById(errId);
+      if (!el || !err) return;
       if (show) {
-        input.setAttribute('aria-invalid', 'true');
+        el.setAttribute('aria-invalid', 'true');
         err.classList.add('visible');
       } else {
-        input.removeAttribute('aria-invalid');
+        el.removeAttribute('aria-invalid');
         err.classList.remove('visible');
       }
     }
 
     function validateForm(data) {
-      let valid = true;
-      if (!data.get('nombre').trim())                       { setError('nombre',  'err-nombre',  true);  valid = false; } else { setError('nombre',  'err-nombre',  false); }
-      if (!data.get('empresa').trim())                      { setError('empresa', 'err-empresa', true);  valid = false; } else { setError('empresa', 'err-empresa', false); }
-      const email = data.get('email').trim();
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('email', 'err-email', true); valid = false; } else { setError('email', 'err-email', false); }
-      if (!data.get('tema'))                                { setError('tema',    'err-tema',    true);  valid = false; } else { setError('tema',    'err-tema',    false); }
-      if (!data.get('mensaje').trim())                      { setError('mensaje', 'err-mensaje', true);  valid = false; } else { setError('mensaje', 'err-mensaje', false); }
-      return valid;
+      let ok = true;
+      const checks = [
+        ['nombre',  'err-nombre',  v => !!v.trim()],
+        ['empresa', 'err-empresa', v => !!v.trim()],
+        ['correo',  'err-correo',  v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())],
+        ['pais',    'err-pais',    v => !!v],
+        ['interes', 'err-interes', v => !!v],
+        ['mensaje', 'err-mensaje', v => !!v.trim()],
+      ];
+      checks.forEach(([id, errId, test]) => {
+        const val = data.get(id) || '';
+        const pass = test(val);
+        setError(id, errId, !pass);
+        if (!pass) ok = false;
+      });
+      return ok;
     }
 
+    // ── Submit
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const data = new FormData(form);
       if (!validateForm(data)) return;
 
-      // Loading state
-      btn.disabled = true;
+      // ── Sin endpoint configurado → alternativa inmediata
+      if (!formEndpoint || !formEndpoint.startsWith('https://')) {
+        status.className  = 'form-status error';
+        status.innerHTML  =
+          '⚠ El formulario está en configuración. Escríbenos directamente:<br>' +
+          '<strong><a href="mailto:' + contactEmail + '" style="color:inherit">' + contactEmail + '</a></strong>' +
+          ' o por <strong><a href="' + whatsappUrl + '" target="_blank" rel="noopener noreferrer" style="color:inherit">WhatsApp</a></strong>.';
+        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
+      // ── Envío a Google Apps Script
+      btn.disabled    = true;
       btn.textContent = 'Enviando…';
       status.className = 'form-status';
       status.textContent = '';
 
-      const params = {
-        from_name:    data.get('nombre'),
-        from_company: data.get('empresa'),
-        from_email:   data.get('email'),
-        from_phone:   data.get('telefono') || '—',
-        subject:      data.get('tema'),
-        message:      data.get('mensaje'),
+      /** Payload completo del lead */
+      const payload = {
+        nombre:        data.get('nombre'),
+        empresa:       data.get('empresa'),
+        correo:        data.get('correo'),
+        telefono:      data.get('telefono') || '',
+        pais:          data.get('pais'),
+        interes:       data.get('interes'),
+        mensaje:       data.get('mensaje'),
+        pagina_origen: data.get('pagina_origen') || '/contacto',
+        cta_origen:    data.get('cta_origen')    || 'formulario-contacto',
       };
 
       try {
-        await emailjs.send(serviceId, templateId, params);
-        status.className  = 'form-status success';
-        status.textContent = '✓ Mensaje enviado. Un especialista te contactará en menos de 24 h.';
-        form.reset();
-        // Clear invalid states after reset
-        form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
-        form.querySelectorAll('.field-error.visible').forEach(el => el.classList.remove('visible'));
-      } catch (err) {
+        const res = await fetch(formEndpoint, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+
+        let result = { success: false };
+        try { result = await res.json(); } catch (_) {}
+
+        if (result.success) {
+          status.className   = 'form-status success';
+          status.textContent = '✓ Mensaje enviado. Un especialista te contactará en menos de 24 h.';
+          form.reset();
+          form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+          form.querySelectorAll('.field-error.visible').forEach(el => el.classList.remove('visible'));
+        } else {
+          throw new Error(result.error || 'Error del servidor');
+        }
+
+      } catch (_err) {
         status.className  = 'form-status error';
-        status.textContent = '✗ Hubo un problema al enviar. Escríbenos directamente a ' + contactEmail + ' o por WhatsApp.';
+        status.innerHTML  =
+          '✗ Hubo un problema al enviar. Escríbenos directamente a ' +
+          '<a href="mailto:' + contactEmail + '" style="color:inherit">' + contactEmail + '</a>' +
+          ' o por <a href="' + whatsappUrl + '" target="_blank" rel="noopener noreferrer" style="color:inherit">WhatsApp</a>.';
       } finally {
         btn.disabled    = false;
         btn.textContent = 'Enviar mensaje →';
@@ -393,19 +481,20 @@ const contactEmail = contactData.email;
       }
     });
 
-    // ── Live validation on blur (better UX)
-    ['nombre','empresa','email','tema','mensaje'].forEach(id => {
+    // ── Validación en vivo (blur)
+    ['nombre','empresa','correo','pais','interes','mensaje'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
       el.addEventListener('blur', () => {
-        const val = el.value;
+        const val   = el.value;
         const errId = 'err-' + id;
-        if (id === 'email') {
-          setError(id, errId, !val.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+        if (id === 'correo') {
+          setError(id, errId, !val.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()));
         } else {
           setError(id, errId, !val || !val.trim());
         }
       });
     });
+
   })();
 </script>
