@@ -1,4 +1,5 @@
 // CHANGELOG: 19/03/2026 - Centralized data source for contact info and regional domains.
+// CHANGELOG: 19/03/2026 - Added bookingUrl (Zoho Bookings) and formEndpoint (Google Apps Script).
 
 export const contactData = {
   email: "info@taec.com.mx",
@@ -8,7 +9,32 @@ export const contactData = {
     url: "https://wa.me/5215527758279",
     label: "WhatsApp"
   },
-  tidycal: "https://tidycal.com/slimmasmoudi/consultoria-estrategia",
+
+  /**
+   * URL pública de agenda — Zoho Bookings conectado a Google Calendar.
+   * Reemplazar con la URL real del servicio activo.
+   * Controla: Header "Agendar diagnóstico", CtaFinal, sidebar de /contacto,
+   *           nosotros.astro, index.astro.
+   */
+  bookingUrl: "",
+
+  /**
+   * Google Apps Script Web App endpoint — formulario de /contacto.
+   *
+   * CÓMO CONFIGURAR:
+   * 1. Crear un Google Apps Script con la función doPost(e).
+   * 2. Desplegar → Nuevo despliegue → Web App.
+   *    - Ejecutar como: Yo
+   *    - Quién puede acceder: Cualquier persona
+   * 3. Copiar la URL del despliegue y pegarla aquí.
+   *
+   * El script recibirá un POST con Content-Type: application/json y este payload:
+   *   { nombre, empresa, correo, telefono, pais, interes, mensaje, pagina_origen, cta_origen }
+   * Debe retornar: { "success": true } o { "success": false, "error": "..." }
+   *
+   * Mientras sea "" el formulario mostrará un mensaje alternativo con WhatsApp y correo.
+   */
+  formEndpoint: "",
   socials: {
     linkedin: "https://www.linkedin.com/company/taec",
     youtube: "https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ",
