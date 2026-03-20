@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -123,13 +129,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <main id="main-content">
 <div class="art-tabs"><div class="art-tabs-inner">
-      <a href="/articulate-360-mexico" class="art-tab">Articulate 360</a>
-      <a href="/articulate-rise360" class="art-tab">Rise 360</a>
-      <a href="/articulate-storyline360" class="art-tab active">Storyline 360</a>
-      <a href="/articulate-review360" class="art-tab">Review 360</a>
-      <a href="/articulate-reach" class="art-tab">Reach 360</a>
-      <a href="/articulate-ai-assistant" class="art-tab">AI Assistant</a>
-      <a href="/articulate-localization" class="art-tab">Localization</a>
+      <a href={r('/articulate-360-mexico')} class="art-tab">Articulate 360</a>
+      <a href={r('/articulate-rise360')} class="art-tab">Rise 360</a>
+      <a href={r('/articulate-storyline360')} class="art-tab active">Storyline 360</a>
+      <a href={r('/articulate-review360')} class="art-tab">Review 360</a>
+      <a href={r('/articulate-reach')} class="art-tab">Reach 360</a>
+      <a href={r('/articulate-ai-assistant')} class="art-tab">AI Assistant</a>
+      <a href={r('/articulate-localization')} class="art-tab">Localization</a>
     </div></div>
 
 <!-- ══ HERO ══ -->
@@ -140,7 +146,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="art-hero-sub">Storyline 360 es el estándar de la industria para crear cursos interactivos complejos, simuladores de software, escenarios ramificados y experiencias inmersivas.</p>
       <div class="art-btns">
         <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="btn-art-primary">Solicitar demo gratuita →</a>
-        <a href="/articulate-360-mexico" class="btn-art-ghost">Ver Articulate 360 completo</a>
+        <a href={r('/articulate-360-mexico')} class="btn-art-ghost">Ver Articulate 360 completo</a>
       </div>
     </div>
     <div>
@@ -245,7 +251,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p>Como partner oficial de Articulate en México, TAEC te ofrece demo en español, onboarding y soporte local.</p>
     <div class="art-cta-btns">
       <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="btn-cta-white">Solicitar demo gratuita →</a>
-      <a href="/contacto" class="btn-cta-ghost">Hablar con un especialista</a>
+      <a href={r('/contacto')} class="btn-cta-ghost">Hablar con un especialista</a>
     </div>
   </div>
 </section>

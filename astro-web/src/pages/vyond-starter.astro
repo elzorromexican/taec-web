@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -12,22 +18,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <!-- plan tabs -->
 <div class="plan-selector">
-  <div class="plan-selector-inner"><a href="/vyond-starter" class="plan-tab  active">Vyond Starter</a>
-<a href="/vyond-professional" class="plan-tab">Vyond Professional</a>
-<a href="/vyond-enterprise" class="plan-tab">Vyond Enterprise</a></div>
+  <div class="plan-selector-inner"><a href={r('/vyond-starter')} class="plan-tab  active">Vyond Starter</a>
+<a href={r('/vyond-professional')} class="plan-tab">Vyond Professional</a>
+<a href={r('/vyond-enterprise')} class="plan-tab">Vyond Enterprise</a></div>
 </div>
 
 <!-- hero -->
 <section class="vp-hero" style="background:linear-gradient(135deg, #2d1200 0%, #7B2800 55%, #E86820 100%)">
   <div class="vp-hero-inner">
     <div>
-      <div class="vp-logo-pill"><img src="/assets/logos/vyond.svg" alt="Vyond" /></div>
+      <div class="vp-logo-pill"><img src={`${base}assets/logos/vyond.svg`} alt="Vyond" /></div>
       <span class="vp-tag" style="background:rgba(200,77,22,.2);color:#FFCBA4">Plan de entrada · 1–5 usuarios</span>
       <h1>Crea tus primeros <em style="color:#FFCBA4">videos animados</em> con IA</h1>
       <p class="vp-hero-sub">El punto de partida ideal para diseñadores instruccionales y profesionales de L&D que quieren producir videos de capacitación sin experiencia previa en animación.</p>
       <div class="vp-btns">
         <a href="https://think.vyond.com/signup" class="btn-vp-primary" style="background:white;color:#E86820">Probar Vyond gratis →</a>
-        <a href="/contacto" class="btn-vp-ghost">Hablar con un especialista</a>
+        <a href={r('/contacto')} class="btn-vp-ghost">Hablar con un especialista</a>
       </div>
     </div>
     <div class="vp-hero-card">
@@ -64,7 +70,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <li>5,000 créditos IA/mes</li>
 <li>Colaboración de equipo</li>
 <li>Videos hasta 40 min</li></ul>
-      <a href="/vyond-professional" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
+      <a href={r('/vyond-professional')} class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
     </div>
 <div class="plan-card">
       
@@ -74,7 +80,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <li>Créditos IA ilimitados</li>
 <li>SSO / SCIM / API</li>
 <li>Videos hasta 90 min</li></ul>
-      <a href="/vyond-enterprise" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
+      <a href={r('/vyond-enterprise')} class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
     </div></div>
   </div>
 </section>
@@ -100,7 +106,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="usecase-label">¿Para quién?</div>
       <h2 class="usecase-title">¿Para quién es Vyond Starter?</h2>
       <p class="usecase-sub">Starter es perfecto para profesionales independientes y equipos pequeños que dan sus primeros pasos en la producción de video de capacitación.</p>
-      <a href="/vyond-mexico" style="display:inline-block;margin-top:20px;font-size:13px;font-weight:600;color:var(--vy)">← Ver todos los planes Vyond</a>
+      <a href={r('/vyond-mexico')} style="display:inline-block;margin-top:20px;font-size:13px;font-weight:600;color:var(--vy)">← Ver todos los planes Vyond</a>
     </div>
     <div class="usecase-grid"><div class="usecase-card"><div class="usecase-card-title">🎓 Diseñadores instruccionales</div><div class="usecase-card-desc">Crea videos explicativos, micro-lecciones y escenarios interactivos sin necesidad de un equipo de producción.</div></div>
 <div class="usecase-card"><div class="usecase-card-title">👩‍💼 Freelancers de e-learning</div><div class="usecase-card-desc">Ofrece producción de video como servicio adicional a tus clientes sin invertir en software costoso.</div></div>

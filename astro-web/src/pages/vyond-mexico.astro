@@ -20,6 +20,12 @@ const faqsVyond = [
   { question: "¿Cuáles son las diferencias clave entre Enterprise y Professional?", answerHtml: "<strong>Enterprise:</strong> colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.<br/><strong>Professional:</strong> perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.<br/>Contáctanos y te ayudamos a elegir el plan correcto para tu organización." },
   { question: "¿Hay límite en la generación de imágenes con IA?", answerHtml: "Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México." }
 ];
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -119,7 +125,7 @@ const faqsVyond = [
   primaryBtn={{ label: "Probar Vyond gratis →", url: "https://think.vyond.com/signup", target: "_blank" }}
   secondaryBtn={{ label: "Solicitar cotización", url: "/contacto" }}
   bottomText="✓ Sin tarjeta de crédito · ✓ Soporte en español · ✓ Factura mexicana (CFDI)"
-  cardLogoSrc="/assets/badges/vyond-certified-partner.webp"
+  cardLogoSrc={`${base}assets/badges/vyond-certified-partner.webp`}
   cardLogoStyle="height:80px;width:auto;"
   cardBadgeText="Por qué elegir Vyond con TAEC"
 />
@@ -223,12 +229,12 @@ const faqsVyond = [
   <div class="vy-badges-inner">
     <p class="vy-badges-label">Reconocimientos G2 Winter 2026</p>
     <div class="vy-badges-row">
-      <img src="/assets/badges/g2-leader-enterprise.png"   alt="G2 Leader Enterprise Winter 2026"  class="vy-badge-img" />
-      <img src="/assets/badges/g2-best-results.avif"       alt="G2 Best Results Enterprise"        class="vy-badge-img" />
-      <img src="/assets/badges/g2-best-usability.avif"     alt="G2 Best Usability Enterprise"      class="vy-badge-img" />
-      <img src="/assets/badges/g2-best-roi.avif"           alt="G2 Best Estimated ROI Enterprise"  class="vy-badge-img" />
-      <img src="/assets/badges/g2-most-implementable.avif" alt="G2 Most Implementable Enterprise"  class="vy-badge-img" />
-      <img src="/assets/badges/g2-easiest-setup.avif"      alt="G2 Easiest Setup Enterprise"       class="vy-badge-img" />
+      <img src={`${base}assets/badges/g2-leader-enterprise.png`}   alt="G2 Leader Enterprise Winter 2026"  class="vy-badge-img" />
+      <img src={`${base}assets/badges/g2-best-results.avif`}       alt="G2 Best Results Enterprise"        class="vy-badge-img" />
+      <img src={`${base}assets/badges/g2-best-usability.avif`}     alt="G2 Best Usability Enterprise"      class="vy-badge-img" />
+      <img src={`${base}assets/badges/g2-best-roi.avif`}           alt="G2 Best Estimated ROI Enterprise"  class="vy-badge-img" />
+      <img src={`${base}assets/badges/g2-most-implementable.avif`} alt="G2 Most Implementable Enterprise"  class="vy-badge-img" />
+      <img src={`${base}assets/badges/g2-easiest-setup.avif`}      alt="G2 Easiest Setup Enterprise"       class="vy-badge-img" />
     </div>
   </div>
 </section>
@@ -263,7 +269,7 @@ const faqsVyond = [
         <p style="font-size:14px;font-weight:600;color:var(--vy-orange);margin-bottom:12px;">POR USUARIO · ANUAL</p>
         <p style="font-size:42px;font-weight:800;color:#111827;line-height:1;margin-bottom:2px;"><sup style="font-size:22px;vertical-align:top;margin-top:8px;">US$</sup>1,199</p>
         <p style="font-size:12px;color:#94A3B8;margin-bottom:20px;">por usuario · un solo pago al año</p>
-        <a href="/contacto" style="display:block;text-align:center;background:var(--vy-orange);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">Solicitar cotización →</a>
+        <a href={r('/contacto')} style="display:block;text-align:center;background:var(--vy-orange);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">Solicitar cotización →</a>
         <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;background:#F1F5F9;color:#111827;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">🛒 Ver en Tienda</a>
         <p style="text-align:center;font-size:11px;color:#94A3B8;margin-bottom:20px;">Mismo precio en renovaciones</p>
         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
@@ -282,7 +288,7 @@ const faqsVyond = [
         <p style="font-size:14px;font-weight:600;color:#FFCBA4;margin-bottom:12px;">POR USUARIO · ANUAL</p>
         <p style="font-size:42px;font-weight:800;color:white;line-height:1;margin-bottom:2px;"><sup style="font-size:22px;vertical-align:top;margin-top:8px;">US$</sup>1,649</p>
         <p style="font-size:12px;color:rgba(255,203,164,.5);margin-bottom:20px;">por usuario · un solo pago al año</p>
-        <a href="/contacto" style="display:block;text-align:center;background:var(--vy-orange);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">Solicitar cotización →</a>
+        <a href={r('/contacto')} style="display:block;text-align:center;background:var(--vy-orange);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;">Solicitar cotización →</a>
         <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;background:rgba(255,255,255,.1);color:white;font-weight:700;font-size:14px;padding:13px;border-radius:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,.2);">🛒 Ver en Tienda</a>
         <p style="text-align:center;font-size:11px;color:rgba(255,203,164,.5);margin-bottom:20px;">Mismo precio en renovaciones</p>
         <p style="font-size:12px;font-weight:600;color:#FFCBA4;margin-bottom:10px;">Todo lo de Professional, más:</p>
@@ -295,7 +301,7 @@ const faqsVyond = [
       </div>
 
     </div>
-    <p style="text-align:center;font-size:13px;color:#94A3B8;margin-top:24px;">Precios en USD sin IVA. Como partner oficial, TAEC factura en MXN/COP/CLP al tipo de cambio oficial. <a href="/contacto" style="color:var(--vy-orange);">Solicitar precio en tu moneda →</a></p>
+    <p style="text-align:center;font-size:13px;color:#94A3B8;margin-top:24px;">Precios en USD sin IVA. Como partner oficial, TAEC factura en MXN/COP/CLP al tipo de cambio oficial. <a href={r('/contacto')} style="color:var(--vy-orange);">Solicitar precio en tu moneda →</a></p>
   </div>
 </section>
 

@@ -5,6 +5,12 @@ import GridBeneficios from '../components/ui/GridBeneficios.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
 
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
+
 const ventajasArt = [
   { icon: "🇲🇽", title: "Factura mexicana y pago en pesos", description: "Factura electrónica CFDI para que tu área de compras y contabilidad procesen sin complicaciones. Pago en MXN al tipo de cambio oficial del día." },
   { icon: "🤝", title: "Customer Success incluido en todos los planes", description: "Desde el día uno tienes un punto de contacto en TAEC que te acompaña en el onboarding, resuelve dudas y te ayuda a sacar el máximo provecho de tu licencia." },
@@ -22,8 +28,9 @@ const faqsArt = [
   { question: "¿Articulate 360 Teams es solo para equipos grandes?", answerHtml: "No. Teams empieza desde 2 seats. Es ideal para cualquier equipo de diseño instruccional que necesite colaborar: compartir proyectos, gestionar revisiones con stakeholders y tener reportes centralizados. Si eres solo tú, Personal es suficiente." },
   { question: "¿Puedo solicitar soporte técnico de Articulate 360 con TAEC?", answerHtml: "Sí. Para consultas de uso, dudas sobre funciones o problemas con tu licencia, contáctanos por WhatsApp o correo. Para soporte técnico profundo de la herramienta, Articulate tiene su propio portal de soporte 24/7 en inglés — y nosotros te ayudamos a navegarlo si lo necesitas." },
   { question: "¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo?", answerHtml: "Sí. Impartimos talleres de Storyline 360 y Rise 360 en español, presenciales en CDMX o en línea. Los adaptamos al nivel de tu equipo: desde introducción para autores nuevos hasta técnicas avanzadas de interactividad. Contáctanos para un programa a medida." },
-  { question: "¿Qué otras herramientas de Articulate distribuyen?", answerHtml: 'Además de Articulate 360 (Personal y Teams), distribuimos el add-on de <strong>Articulate AI Assistant</strong> ($250 USD/seat/año) que integra generación de contenido con IA en Storyline y Rise. ¿Necesitas algo más? Consulta también nuestras soluciones de <a href="/vyond-mexico" style="color:var(--blue)">Vyond</a>, <a href="/moodle-mexico" style="color:var(--blue)">Moodle</a> y <a href="/totara-lms-mexico" style="color:var(--blue)">Totara LMS</a>.' }
+  { question: "¿Qué otras herramientas de Articulate distribuyen?", answerHtml: `Además de Articulate 360 (Personal y Teams), distribuimos el add-on de <strong>Articulate AI Assistant</strong> ($250 USD/seat/año) que integra generación de contenido con IA en Storyline y Rise. ¿Necesitas algo más? Consulta también nuestras soluciones de <a href="${r('/vyond-mexico')}" style="color:var(--blue)">Vyond</a>, <a href="${r('/moodle-mexico')}" style="color:var(--blue)">Moodle</a> y <a href="${r('/totara-lms-mexico')}" style="color:var(--blue)">Totara LMS</a>.` }
 ];
+
 ---
 
 <BaseLayout 
@@ -150,13 +157,13 @@ const faqsArt = [
 <!-- ══ PRODUCT TABS ══ -->
 <div class="art-tabs">
   <div class="art-tabs-inner">
-    <a href="/articulate-360-mexico" class="art-tab active">Articulate 360</a>
-    <a href="/articulate-rise360" class="art-tab">Rise 360</a>
-    <a href="/articulate-storyline360" class="art-tab">Storyline 360</a>
-    <a href="/articulate-review360" class="art-tab">Review 360</a>
-    <a href="/articulate-reach" class="art-tab">Reach 360</a>
-    <a href="/articulate-ai-assistant" class="art-tab">AI Assistant</a>
-    <a href="/articulate-localization" class="art-tab">Localization</a>
+    <a href={r('/articulate-360-mexico')} class="art-tab active">Articulate 360</a>
+    <a href={r('/articulate-rise360')} class="art-tab">Rise 360</a>
+    <a href={r('/articulate-storyline360')} class="art-tab">Storyline 360</a>
+    <a href={r('/articulate-review360')} class="art-tab">Review 360</a>
+    <a href={r('/articulate-reach')} class="art-tab">Reach 360</a>
+    <a href={r('/articulate-ai-assistant')} class="art-tab">AI Assistant</a>
+    <a href={r('/articulate-localization')} class="art-tab">Localization</a>
   </div>
 </div>
 
@@ -169,7 +176,7 @@ const faqsArt = [
   primaryBtn={{ label: "Solicitar cotización →", url: "/contacto" }}
   secondaryBtn={{ label: "Prueba gratis 30 días", url: "https://www.articulate.com/es/360/trial/", target: "_blank" }}
   bottomText="✓ Sin tarjeta de crédito requerida · ✓ Acceso completo a toda la suite"
-  cardLogoSrc="/assets/logos/articulate-reseller.svg"
+  cardLogoSrc={`${base}assets/logos/articulate-reseller.svg`}
   cardLogoStyle="height:64px;width:auto;display:block;"
   cardBadgeText="Por qué Articulate con TAEC"
   features={[
@@ -365,7 +372,7 @@ const faqsArt = [
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">🤝</span> Customer Success TAEC</li>
           <li id="ai-feature-personal" style="font-size:13px;color:var(--blue);font-weight:600;display:none;align-items:center;gap:8px;"><span style="font-size:16px;">🤖</span> AI Assistant incluido</li>
         </ul>
-        <a href="/contacto" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
+        <a href={r('/contacto')} style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
         <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;border:1.5px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
         <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones</p>
       </div>
@@ -389,7 +396,7 @@ const faqsArt = [
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Customer Success TAEC incluido</li>
           <li id="ai-feature-teams" style="font-size:13px;color:var(--blue);font-weight:600;display:none;align-items:center;gap:8px;"><span style="font-size:16px;">🤖</span> AI Assistant incluido</li>
         </ul>
-        <a href="/contacto" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
+        <a href={r('/contacto')} style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
         <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;background:var(--navy);color:var(--white);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
         <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones</p>
       </div>

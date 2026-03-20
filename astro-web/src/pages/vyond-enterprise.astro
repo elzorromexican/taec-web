@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -12,22 +18,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <!-- plan tabs -->
 <div class="plan-selector">
-  <div class="plan-selector-inner"><a href="/vyond-starter" class="plan-tab">Vyond Starter</a>
-<a href="/vyond-professional" class="plan-tab">Vyond Professional</a>
-<a href="/vyond-enterprise" class="plan-tab  active">Vyond Enterprise</a></div>
+  <div class="plan-selector-inner"><a href={r('/vyond-starter')} class="plan-tab">Vyond Starter</a>
+<a href={r('/vyond-professional')} class="plan-tab">Vyond Professional</a>
+<a href={r('/vyond-enterprise')} class="plan-tab  active">Vyond Enterprise</a></div>
 </div>
 
 <!-- hero -->
 <section class="vp-hero" style="background:linear-gradient(135deg, #0a0500 0%, #1a0a00 50%, #3d1200 100%)">
   <div class="vp-hero-inner">
     <div>
-      <div class="vp-logo-pill"><img src="/assets/logos/vyond.svg" alt="Vyond" /></div>
+      <div class="vp-logo-pill"><img src={`${base}assets/logos/vyond.svg`} alt="Vyond" /></div>
       <span class="vp-tag" style="background:rgba(255,203,164,.15);color:#FFCBA4">Para grandes organizaciones · Usuarios ilimitados</span>
       <h1>Video corporativo a <em style="color:#FFCBA4">escala empresarial</em></h1>
       <p class="vp-hero-sub">La solución completa para corporativos y organizaciones con cientos de usuarios que necesitan desplegar Vyond de forma segura, centralizada y sin límites.</p>
       <div class="vp-btns">
-        <a href="/contacto" class="btn-vp-primary" style="background:white;color:#C84D16">Hablar con un especialista →</a>
-        <a href="/contacto" class="btn-vp-ghost">Hablar con un especialista</a>
+        <a href={r('/contacto')} class="btn-vp-primary" style="background:white;color:#C84D16">Hablar con un especialista →</a>
+        <a href={r('/contacto')} class="btn-vp-ghost">Hablar con un especialista</a>
       </div>
     </div>
     <div class="vp-hero-card">
@@ -56,7 +62,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <li>Vyond Studio + Mobile</li>
 <li>3,000 créditos IA/mes</li>
 <li>Videos hasta 20 min</li></ul>
-      <a href="/vyond-starter" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
+      <a href={r('/vyond-starter')} class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
     </div>
 <div class="plan-card">
       
@@ -66,7 +72,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <li>5,000 créditos IA/mes</li>
 <li>Colaboración de equipo</li>
 <li>Videos hasta 40 min</li></ul>
-      <a href="/vyond-professional" class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
+      <a href={r('/vyond-professional')} class="plan-card-cta plan-card-cta-outline">Ver plan →</a>
     </div>
 <div class="plan-card current">
       <div class="plan-card-badge">Plan actual</div>
@@ -76,7 +82,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <li>Créditos IA ilimitados</li>
 <li>SSO / SCIM / API</li>
 <li>Videos hasta 90 min</li></ul>
-      <a href="/contacto" class="plan-card-cta plan-card-cta-primary">Hablar con un especialista</a>
+      <a href={r('/contacto')} class="plan-card-cta plan-card-cta-primary">Hablar con un especialista</a>
     </div></div>
   </div>
 </section>
@@ -102,7 +108,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="usecase-label">¿Para quién?</div>
       <h2 class="usecase-title">¿Para quién es Vyond Enterprise?</h2>
       <p class="usecase-sub">Enterprise está pensado para corporativos, organismos gubernamentales y organizaciones educativas que necesitan escala, seguridad y control centralizado.</p>
-      <a href="/vyond-mexico" style="display:inline-block;margin-top:20px;font-size:13px;font-weight:600;color:var(--vy)">← Ver todos los planes Vyond</a>
+      <a href={r('/vyond-mexico')} style="display:inline-block;margin-top:20px;font-size:13px;font-weight:600;color:var(--vy)">← Ver todos los planes Vyond</a>
     </div>
     <div class="usecase-grid"><div class="usecase-card"><div class="usecase-card-title">🏦 Grandes corporativos</div><div class="usecase-card-desc">Cientos de diseñadores y administradores en una sola plataforma con gestión de permisos granular y SSO corporativo.</div></div>
 <div class="usecase-card"><div class="usecase-card-title">🌍 Empresas multinacionales</div><div class="usecase-card-desc">Localización automática de videos a docenas de idiomas para distribuir el mismo contenido en todas tus regiones.</div></div>
@@ -116,7 +122,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <h2>¿Listo para desplegar Vyond en toda tu organización?</h2>
   <p>Agenda una sesión con nuestro equipo para diseñar juntos el plan de adopción y negociar las condiciones de tu licencia Enterprise.</p>
   <div class="vp-cta-btns">
-    <a href="/contacto" class="btn-cta-white" style="color:#C84D16">Hablar con un especialista →</a>
+    <a href={r('/contacto')} class="btn-cta-white" style="color:#C84D16">Hablar con un especialista →</a>
     <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>

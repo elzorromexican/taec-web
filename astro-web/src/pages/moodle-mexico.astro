@@ -4,6 +4,12 @@ import HeroComercial from '../components/ui/HeroComercial.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
 
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
+
 const faqsMoodle = [
   { question: "¿Moodle es realmente gratuito?", answerHtml: "El software Moodle es gratuito y de código abierto. Lo que tiene un costo es el hospedaje (hosting), la implementación y el soporte. El servicio SaaS de TAEC incluye todo eso: infraestructura en la nube, actualizaciones automáticas, backups diarios y soporte técnico en español — sin que tengas que preocuparte por los servidores." },
   { question: "¿Qué incluye el hosting SaaS de Moodle con TAEC?", answerHtml: "El hosting SaaS incluye: servidor dedicado o compartido según el plan, dominio o subdominio personalizado, certificado SSL, actualizaciones de Moodle y plugins incluidos, backups diarios automatizados, monitoreo de disponibilidad 24/7 y soporte técnico en español en horario de oficina. También incluimos la instalación inicial y configuración básica de la plataforma." },
@@ -111,7 +117,7 @@ const faqsMoodle = [
       primaryBtn={{ label: "Solicitar demo gratuita →", url: "/contacto" }}
       secondaryBtn={{ label: "Hablar con un especialista", url: "/contacto" }}
       bottomText="✓ Hosting SaaS gestionado por TAEC · ✓ Soporte en español · ✓ +18 años de experiencia"
-      cardLogoSrc="/assets/logos/moodle.png"
+      cardLogoSrc={`${base}assets/logos/moodle.png`}
       cardBadgeText="Por qué Moodle con TAEC"
       features={[
         "Hosting SaaS — tu Moodle listo en 48 horas",

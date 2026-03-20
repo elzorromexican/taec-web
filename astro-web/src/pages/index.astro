@@ -6,6 +6,12 @@ import { contactData } from '../data/contact';
 const founded = new Date(2007, 9, 11);
 const now = new Date();
 const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -14,7 +20,7 @@ const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.get
   section="Inicio"
   page="index.html"
 >
-  <link rel="stylesheet" href="/assets/css/index.css" slot="head" />
+  <link rel="stylesheet" href={`${base}assets/css/index.css`} slot="head" />
   
   <style is:global>
     @media (max-width: 768px) {
@@ -67,8 +73,8 @@ const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.get
           <h1>Articulate + Vyond + LMS + capacitación: <em>el stack completo en español</em></h1>
           <p class="hero-sub">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
           <div class="hero-actions">
-            <a href="/servicios" class="btn-primary">Ver soluciones →</a>
-            <a href="/contacto" class="btn-ghost-hero">Hablar con un especialista</a>
+            <a href={r('/servicios')} class="btn-primary">Ver soluciones →</a>
+            <a href={r('/contacto')} class="btn-ghost-hero">Hablar con un especialista</a>
           </div>
         </div>
         <div class="hero-stats">
@@ -146,38 +152,38 @@ const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.get
             <h2 class="section-title">Soluciones de aprendizaje a tu medida</h2>
             <p class="section-sub">Del diagnóstico a la implementación — cubrimos todo el ecosistema e-learning de tu organización.</p>
           </div>
-          <a href="/servicios" class="see-all">Ver todas las soluciones →</a>
+          <a href={r('/servicios')} class="see-all">Ver todas las soluciones →</a>
         </div>
         <div class="servicios-grid">
           <div class="serv-card">
             <div class="serv-icon">🛠️</div>
             <h3>Herramientas de autoría</h3>
             <p>Articulate 360, Vyond y más. Licencias oficiales con soporte en español, factura mexicana y precio en pesos al tipo de cambio del día.</p>
-            <a href="/articulate-360-mexico" class="serv-link">Ver herramientas →</a>
+            <a href={r('/articulate-360-mexico')} class="serv-link">Ver herramientas →</a>
           </div>
           <div class="serv-card">
             <div class="serv-icon">🎬</div>
             <h3>Desarrollo de cursos a medida</h3>
             <p>Diseño instruccional + producción en Articulate o Vyond. E-learning, microlearning, blended learning y MOOCs listos para tu LMS.</p>
-            <a href="/servicios#cursos" class="serv-link">Ver proceso →</a>
+            <a href={r('/servicios#cursos')} class="serv-link">Ver proceso →</a>
           </div>
           <div class="serv-card">
             <div class="serv-icon">⚙️</div>
             <h3>Implementación LMS</h3>
             <p>Moodle, Totara, Articulate Reach y más. Instalación, configuración, migración de contenidos y capacitación a tu equipo.</p>
-            <a href="/moodle-mexico" class="serv-link">Ver plataformas →</a>
+            <a href={r('/moodle-mexico')} class="serv-link">Ver plataformas →</a>
           </div>
           <div class="serv-card">
             <div class="serv-icon">💡</div>
             <h3>Consultoría L&D</h3>
             <p>Diagnóstico de brechas, estrategia de capacitación, analítica de aprendizaje y acompañamiento de adopción con metodología probada.</p>
-            <a href="/servicios#consultoria" class="serv-link">Saber más →</a>
+            <a href={r('/servicios#consultoria')} class="serv-link">Saber más →</a>
           </div>
           <div class="serv-card">
             <div class="serv-icon">📋</div>
             <h3>Evaluaciones de alta seguridad</h3>
             <p>Plataforma especializada en exámenes de alta importancia. Diseño y análisis de evaluaciones con estándares para certificación.</p>
-            <a href="/servicios#evaluaciones" class="serv-link">Ver más →</a>
+            <a href={r('/servicios#evaluaciones')} class="serv-link">Ver más →</a>
           </div>
         </div>
       </div>
@@ -224,7 +230,7 @@ const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.get
             <p class="section-label">Clientes que confían en TAEC</p>
             <h2 class="section-title">Lo que dicen quienes nos eligieron</h2>
           </div>
-          <a href="/clientes" class="see-all">Ver todos →</a>
+          <a href={r('/clientes')} class="see-all">Ver todos →</a>
         </div>
         <div class="testi-carousel-wrapper">
           <div class="testi-carousel" id="testiCarousel">
@@ -284,7 +290,7 @@ const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.get
             <p class="section-label">Biblioteca gratuita</p>
             <h2 class="section-title">Recursos para equipos L&D</h2>
           </div>
-          <a href="/recursos" class="see-all">Ver todos los recursos →</a>
+          <a href={r('/recursos')} class="see-all">Ver todos los recursos →</a>
         </div>
         <div class="recursos-grid">
           <div class="rec-card">
@@ -296,7 +302,7 @@ const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.get
             </div>
             <div class="rec-footer">
               <span>PDF · Gratis</span>
-              <a href="/contacto">Solicitar →</a>
+              <a href={r('/contacto')}>Solicitar →</a>
             </div>
           </div>
         </div>

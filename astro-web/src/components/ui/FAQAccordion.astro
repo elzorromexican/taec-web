@@ -1,5 +1,6 @@
 ---
 // CHANGELOG: 19/03/2026 - Extracted FAQAccordion component to remove duplication across product pages.
+// CHANGELOG: 19/03/2026 - Use r() to prefix internal URLs with BASE_URL for staging support.
 export interface FaqItem {
   question: string;
   answerHtml: string;
@@ -22,6 +23,12 @@ const {
   faqs,
   theme = 'general'
 } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 <section class={`faq-accordion theme-${theme}`}>
   <div class="faq-inner">
@@ -29,7 +36,7 @@ const {
     <h2 class="section-title">{title}</h2>
     {subtitle && (
       <p class="section-sub">
-        {subtitle} {subtitleLink && <a href={subtitleLink.url}>{subtitleLink.text}</a>}
+        {subtitle} {subtitleLink && <a href={r(subtitleLink.url)}>{subtitleLink.text}</a>}
       </p>
     )}
     <div class="faq-list">

@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -144,10 +150,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <main id="main-content">
 
-<div class="prod-tabs"><div class="prod-tabs-inner"><a href="/vyond-mexico" class="prod-tab"><span class="prod-tab-icon">🎥</span>Vyond</a>
-<a href="/vyond-go" class="prod-tab"><span class="prod-tab-icon">🤖</span>Vyond Go</a>
-<a href="/vyond-studio" class="prod-tab active"><span class="prod-tab-icon">🎬</span>Vyond Studio</a>
-<a href="/vyond-mobile" class="prod-tab"><span class="prod-tab-icon">📱</span>Vyond Mobile</a></div></div>
+<div class="prod-tabs"><div class="prod-tabs-inner"><a href={r('/vyond-mexico')} class="prod-tab"><span class="prod-tab-icon">🎥</span>Vyond</a>
+<a href={r('/vyond-go')} class="prod-tab"><span class="prod-tab-icon">🤖</span>Vyond Go</a>
+<a href={r('/vyond-studio')} class="prod-tab active"><span class="prod-tab-icon">🎬</span>Vyond Studio</a>
+<a href={r('/vyond-mobile')} class="prod-tab"><span class="prod-tab-icon">📱</span>Vyond Mobile</a></div></div>
 
 <section class="prod-hero" style="background:linear-gradient(135deg, #0f0500 0%, #2a1000 50%, #8B3000 100%)">
   <div class="prod-hero-inner">
@@ -157,13 +163,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="prod-hero-sub">Vyond Studio es un editor drag-and-drop de nivel profesional que combina animación tradicional, avatares IA y mixed media en una sola plataforma. Diseñado para crear impacto a escala.</p>
       <div class="prod-btns">
         <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-prod-primary">Solicitar demo de Vyond Studio →</a>
-        <a href="/contacto" class="btn-prod-ghost">Hablar con TAEC</a>
+        <a href={r('/contacto')} class="btn-prod-ghost">Hablar con TAEC</a>
       </div>
     </div>
     <div>
       <div class="prod-hero-video-wrap">
         <video autoplay muted loop playsinline>
-          <source src="/assets/videos/vyond-studio.mp4" type="video/mp4">
+          <source src={`${base}assets/videos/vyond-studio.mp4`} type="video/mp4">
         </video>
         <button class="prod-video-mute" id="muteBtn" onclick="var v=this.closest('.prod-hero-video-wrap').querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊'" aria-label="Activar sonido">🔇</button>
         <div class="prod-video-play" aria-label="Play/Pausa"><div class="prod-video-play-btn"></div></div>
@@ -222,7 +228,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="explore-inner">
     <div class="how-label">Explora más Vyond</div>
     <h2 class="how-title">También te puede interesar</h2>
-    <div class="explore-grid"><a href="/vyond-go" class="explore-card"><div class="explore-card-icon">🤖</div><div class="explore-card-title">Vyond Go</div><div class="explore-card-desc">Creación ultrarrápida con IA. De texto a video en segundos, sin necesidad de edición manual.</div><div class="explore-card-link">Ver más →</div></a><a href="/vyond-mobile" class="explore-card"><div class="explore-card-icon">📱</div><div class="explore-card-title">Vyond Mobile</div><div class="explore-card-desc">Captura y crea desde tu dispositivo móvil. Perfecto para contenido en campo e inspiración inmediata.</div><div class="explore-card-link">Ver más →</div></a><a href="/vyond-mexico" class="explore-card"><div class="explore-card-icon">📋</div><div class="explore-card-title">Ver planes Vyond</div><div class="explore-card-desc">Compara Demo gratuita, Professional y Enterprise para encontrar el plan ideal para tu equipo.</div><div class="explore-card-link">Ver más →</div></a></div>
+    <div class="explore-grid"><a href={r('/vyond-go')} class="explore-card"><div class="explore-card-icon">🤖</div><div class="explore-card-title">Vyond Go</div><div class="explore-card-desc">Creación ultrarrápida con IA. De texto a video en segundos, sin necesidad de edición manual.</div><div class="explore-card-link">Ver más →</div></a><a href={r('/vyond-mobile')} class="explore-card"><div class="explore-card-icon">📱</div><div class="explore-card-title">Vyond Mobile</div><div class="explore-card-desc">Captura y crea desde tu dispositivo móvil. Perfecto para contenido en campo e inspiración inmediata.</div><div class="explore-card-link">Ver más →</div></a><a href={r('/vyond-mexico')} class="explore-card"><div class="explore-card-icon">📋</div><div class="explore-card-title">Ver planes Vyond</div><div class="explore-card-desc">Compara Demo gratuita, Professional y Enterprise para encontrar el plan ideal para tu equipo.</div><div class="explore-card-link">Ver más →</div></a></div>
   </div>
 </section>
 

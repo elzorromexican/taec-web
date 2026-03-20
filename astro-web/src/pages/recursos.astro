@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -91,7 +97,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="rec-grid">
 
       <!-- Blog -->
-      <a href="/blog" class="sec-card featured">
+      <a href={r('/blog')} class="sec-card featured">
         <div class="sec-card-icon">✍️</div>
         <span class="sec-card-count">93 publicaciones</span>
         <h3 class="sec-card-name">Blog TAEC</h3>
@@ -100,7 +106,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
 
       <!-- Artículos -->
-      <a href="/articulos" class="sec-card featured">
+      <a href={r('/articulos')} class="sec-card featured">
         <div class="sec-card-icon">📖</div>
         <span class="sec-card-count">18 artículos</span>
         <h3 class="sec-card-name">Artículos</h3>
@@ -109,7 +115,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
 
       <!-- Glosario -->
-      <a href="/glosario" class="sec-card">
+      <a href={r('/glosario')} class="sec-card">
         <div class="sec-card-icon">📚</div>
         <span class="sec-card-count">232 términos</span>
         <h3 class="sec-card-name">Glosario e-learning</h3>
@@ -118,7 +124,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
 
       <!-- Comparativos -->
-      <a href="/comparativos" class="sec-card">
+      <a href={r('/comparativos')} class="sec-card">
         <div class="sec-card-icon">⚖️</div>
         <span class="sec-card-count">2 comparativos</span>
         <h3 class="sec-card-name">Comparativos</h3>
@@ -127,7 +133,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
 
       <!-- Estándares -->
-      <a href="/estandares" class="sec-card">
+      <a href={r('/estandares')} class="sec-card">
         <div class="sec-card-icon">📋</div>
         <span class="sec-card-count">30 fichas</span>
         <h3 class="sec-card-name">Estándares</h3>
@@ -136,7 +142,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
 
       <!-- Radar -->
-      <a href="/radar" class="sec-card">
+      <a href={r('/radar')} class="sec-card">
         <div class="sec-card-icon">📡</div>
         <span class="sec-card-count">6 ediciones</span>
         <h3 class="sec-card-name">Radar eLearning</h3>
@@ -145,7 +151,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
 
       <!-- Quiz -->
-      <a href="/quiz" class="sec-card">
+      <a href={r('/quiz')} class="sec-card">
         <div class="sec-card-icon">🧠</div>
         <span class="sec-card-count">75 flashcards</span>
         <h3 class="sec-card-name">Quiz &amp; Flashcards</h3>
@@ -161,7 +167,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <section class="rec-cta">
   <h2>¿Tienes un proyecto de e-learning en mente?</h2>
   <p>El conocimiento es el primer paso — el segundo es hablar con alguien que lo haya hecho antes.</p>
-  <a href="/contacto" class="btn-rec-primary">Agendar diagnóstico gratuito →</a>
+  <a href={r('/contacto')} class="btn-rec-primary">Agendar diagnóstico gratuito →</a>
 </section>
 
 </main>

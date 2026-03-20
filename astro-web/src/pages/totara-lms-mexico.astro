@@ -29,6 +29,12 @@ const faqsTot = [
   { question: "¿Puedo gestionar múltiples empresas o subsidiarias?", answerHtml: "Sí. Totara soporta arquitecturas multi-tenant y multi-organización. Ideal para corporativos con múltiples filiales, franquicias o para empresas que necesitan capacitar a clientes y partners externos." },
   { question: "¿Cómo funciona el soporte de TAEC?", answerHtml: "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara." }
 ];
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -118,7 +124,7 @@ const faqsTot = [
   <main id="main-content">
     <!-- ══ TABS ══ -->
     <div class="prod-tabs"><div class="prod-tabs-inner">
-      <a href="/totara-lms-mexico" class="prod-tab active"><span class="prod-tab-icon">🏢</span>Totara</a>
+      <a href={r('/totara-lms-mexico')} class="prod-tab active"><span class="prod-tab-icon">🏢</span>Totara</a>
     </div></div>
 
     <!-- ══ HERO ══ -->
@@ -138,7 +144,7 @@ const faqsTot = [
       primaryBtn={{ label: "Solicitar demo gratuita →", url: "/contacto" }}
       secondaryBtn={{ label: "Hablar con un especialista", url: "/contacto" }}
       bottomText="✓ Partner oficial Totara · México y LATAM · ✓ SaaS gestionado por TAEC · ✓ Soporte en español"
-      cardLogoSrc="/assets/logos/totara-reseller-vertical.png"
+      cardLogoSrc={`${base}assets/logos/totara-reseller-vertical.png`}
       cardLogoStyle="height:90px;width:auto;"
       cardBadgeText="Por qué Totara con TAEC"
     />
@@ -298,7 +304,7 @@ const faqsTot = [
             </button>
             <p id="tot-lead-msg" style="display:none;font-size:13px;text-align:center;margin-top:4px;"></p>
           </form>
-          <a id="tot-download-link" href="/assets/docs/totara-v20-novedades.pdf"
+          <a id="tot-download-link" href={`${base}assets/docs/totara-v20-novedades.pdf`}
              download="Totara-V20-Novedades-TAEC.pdf"
              style="display:none;width:100%;text-align:center;background:#10B981;color:white;font-weight:700;font-size:15px;padding:13px;border-radius:8px;margin-top:12px;box-sizing:border-box;">
             ⬇ Descargar Totara V20 PDF
@@ -374,7 +380,7 @@ const faqsTot = [
     </div>
     <!-- GIF centro -->
     <div style="position:absolute;left:50%;transform:translateX(-50%);width:76px;height:76px;border-radius:50%;background:#A8DBD9;overflow:hidden;display:flex;align-items:center;justify-content:center;pointer-events:none;flex-shrink:0;">
-      <img src="/assets/download-icon.gif" alt="Descargar"
+      <img src={`${base}assets/download-icon.gif`} alt="Descargar"
            style="height:76px;width:76px;object-fit:cover;mix-blend-mode:multiply;" />
     </div>
     <!-- CTA derecha -->

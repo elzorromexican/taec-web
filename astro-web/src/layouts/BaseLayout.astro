@@ -13,7 +13,9 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nuevo.taec.com.mx');
-const ogImageURL = new URL('/assets/logos/taec-og.png', Astro.site || 'https://nuevo.taec.com.mx');
+// BASE_URL = '/' prod, '/taec-web/' staging — use it to build the absolute OG image URL
+const base = import.meta.env.BASE_URL;
+const ogImageURL = new URL(`${base}assets/logos/taec-og.png`, Astro.site || 'https://nuevo.taec.com.mx');
 
 /**
  * import.meta.env.BASE_URL always ends with '/':
@@ -21,7 +23,6 @@ const ogImageURL = new URL('/assets/logos/taec-og.png', Astro.site || 'https://n
  *   staging     → '/taec-web/'
  * Use it to prefix public-folder asset paths (no leading slash on the path).
  */
-const base = import.meta.env.BASE_URL;
 ---
 <!DOCTYPE html>
 <html lang="es">

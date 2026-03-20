@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+function r(url: string): string {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
+  return base.replace(/\/$/, '') + url;
+}
 ---
 
 <BaseLayout 
@@ -85,7 +91,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <!-- ══ HERO ══ -->
 <section class="glo-hero">
   <div class="glo-hero-inner">
-    <p class="glo-breadcrumb"><a href="/recursos">Recursos</a><span>›</span>Estándares</p>
+    <p class="glo-breadcrumb"><a href={r('/recursos')}>Recursos</a><span>›</span>Estándares</p>
     <p class="glo-eyebrow">Estándares</p>
     <h1>Guía de estándares técnicos e-learning</h1>
     <p class="glo-hero-sub">SCORM, xAPI, cmi5, LTI, AICC — todo lo que necesitas saber para implementar correctamente. 30 fichas de referencia rápida.</p>
