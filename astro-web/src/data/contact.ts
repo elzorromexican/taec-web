@@ -16,7 +16,7 @@ export const contactData = {
    * Controla: Header "Agendar diagnóstico", CtaFinal, sidebar de /contacto,
    *           nosotros.astro, index.astro.
    */
-  bookingUrl: "/contacto", // TODO: reemplazar con URL real de Zoho Bookings cuando esté lista
+  bookingUrl: "https://smasmouditaeccommx.zohobookings.com", // Zoho Bookings — agenda de diagnóstico
 
   /**
    * Google Apps Script Web App endpoint — formulario de /contacto.
@@ -48,3 +48,7 @@ export const contactData = {
   supportUrl: "https://www.taec.com.mx/soporte-tecnico.php",
   storeUrl: "https://tienda.taec.com.mx"
 };
+
+export function getBookingUrl(): string {
+  return contactData.bookingUrl || "/contacto";
+}

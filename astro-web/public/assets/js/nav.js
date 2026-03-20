@@ -18,6 +18,18 @@
   var activeSection = (document.body.getAttribute('data-section') || '').toLowerCase();
   var activePage = (document.body.getAttribute('data-page') || '').toLowerCase();
 
+  // 1b. Fallback por keywords en URL cuando data-section no distingue la sección correcta
+  if (!activeSection) {
+    var urlPath = location.pathname.toLowerCase();
+    var solucionesKeywords = ['articulate', 'vyond', 'totara', 'moodle', 'ottolearn', 'lys', 'bigbluebutton', 'zoola', 'proctorizer', 'strikeplagiarism', '7minutes', 'go1', 'customguide', 'class-taec'];
+    var recursosKeywords   = ['blog', 'glosario', 'comparativos', 'estandares', 'radar', 'quiz', 'articulos', 'recursos'];
+    if (solucionesKeywords.some(function(k) { return urlPath.indexOf(k) !== -1; })) {
+      activeSection = 'soluciones';
+    } else if (recursosKeywords.some(function(k) { return urlPath.indexOf(k) !== -1; })) {
+      activeSection = 'recursos';
+    }
+  }
+
   // 2. Marcar la sección principal (Dropdowns/Botones Y Enlaces directos en el header)
   if (activeSection) {
     // Usamos el selector robusto para atrapar '.nav-link' y también <a> sueltos (ej. Nosotros/Clientes)
