@@ -4,6 +4,13 @@ import HeroComercial from '../components/ui/HeroComercial.astro';
 import GridBeneficios from '../components/ui/GridBeneficios.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
+import { emailjsConfig } from '../data/emailjs';
+
+const totaraEjs = {
+  publicKey:  emailjsConfig.publicKey,
+  serviceId:  emailjsConfig.serviceId,
+  templateId: emailjsConfig.templates.totara,
+};
 
 const ventajasTot = [
   { icon: "⚙️", title: "Personalización sin límites", description: "Código abierto y arquitectura flexible. Adapta la plataforma exactamente a tus procesos, marca y flujos de trabajo — sin depender del proveedor." },
@@ -105,9 +112,8 @@ const faqsTot = [
     }
   </style>
 
-  <!-- EmailJS -->
+  <!-- EmailJS CDN -->
   <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script is:inline>emailjs.init('wiGRbwHK6dyZcHrUK');</script>
 
   <main id="main-content">
     <!-- ══ TABS ══ -->
@@ -302,8 +308,9 @@ const faqsTot = [
 
       </div>
     </section>
-    <script is:inline>
+    <script define:vars={{ totaraEjs }}>
     (function(){
+      emailjs.init(totaraEjs.publicKey);
       var form = document.getElementById('tot-lead-form');
       if(!form) return;
       form.addEventListener('submit', function(e){
@@ -319,7 +326,7 @@ const faqsTot = [
           reply_to:  document.getElementById('tot-email').value,
           message:   'Cargo: ' + (document.getElementById('tot-cargo').value || '—') + '\nRecurso: Totara V20 Novedades PDF'
         };
-        emailjs.send('service_v232r5x','template_xjgle2w', params)
+        emailjs.send(totaraEjs.serviceId, totaraEjs.templateId, params)
           .then(function(){
             form.style.display = 'none';
             link.style.display = 'block';
