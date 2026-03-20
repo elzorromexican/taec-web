@@ -4,6 +4,173 @@ Versiones del sitio nuevo.taec.com.mx (staging: elzorromexican.github.io/taec-we
 
 ---
 
+## v1.5 · 20 mar 2026
+
+### Nuevas landings: DDC + Pifini Learn · Limpieza de navegación · Migración Zoho Bookings
+
+---
+
+#### Migración a Zoho Bookings (contact.ts)
+
+**Cambio:** `bookingUrl` actualizado a `https://smasmouditaeccommx.zohobookings.com`.
+Todos los CTAs de agenda del sitio (Header, CtaFinal, index, nosotros, contacto) consumen
+la URL via `getBookingUrl()` — sin referencias a TidyCal.
+
+---
+
+#### Nueva landing — Desarrollo de Contenidos (DDC)
+
+**Archivo:** `src/pages/desarrollo-de-contenidos.astro` · **Data:** `src/data/ddc.ts`
+
+Página bajo `/desarrollo-de-contenidos/` para el área DDC de TAEC.
+Fuente: PDF estratégico "Info DDC para sitio web" — Directora de Desarrollo de Contenidos.
+
+**Secciones:**
+- Hero: "e-Learning con metodología experta e IA generativa" + 6 features + CTA Zoho
+- Logos: 10 clientes clave (DHL, Eli Lilly, Banorte, MARS, Hyundai, Palacio de Hierro…)
+- Qué incluye: 4 servicios (e-Learning, Video Vyond, Recursos complementarios, IA)
+- Beneficios: 4 tarjetas (Herramientas, IA Generativa, Metodología+Garantía, Transparencia)
+- Proceso Alfa→Beta→Gold: 5 pasos ADDIE + Agile SAM
+- Para quién: 4 tarjetas ICP + dato "50% proyectos internacionales"
+- FAQ: 7 preguntas (cotización, tiempos, SCORM, editables, garantía)
+- CtaFinal con Zoho Bookings
+
+**Navegación:** DDC agregado en Soluciones → Servicios & Add-ons con badge `DDC`.
+
+**Decisiones de copywriting:**
+- Nombre del área: `Desarrollo de Contenidos` (engloba más que "cursos")
+- Garantía técnica 6 meses destacada como diferenciador clave
+- Archivos editables posicionados como política, no como característica opcional
+
+---
+
+#### Nueva landing — Pifini Learn / NetExam LMS+
+
+**Archivo:** `src/pages/pifini-mexico.astro`
+
+Página bajo `/pifini-mexico/` para Pifini Learn (antes NetExam).
+Fuentes: PDF Craig Weiss Top 10 (Dic 2025) · pifini.ai · netexam.com
+
+**Secciones:**
+- Hero: "#7 LMS mundial para canales y sales enablement" + $50/usuario/año
+- Stats bar: #7 Craig Weiss · $50/año · 20 años · AMD 2× participación
+- Tabla de precios: Pifini $50 vs Seismic $300–500 vs Bigtincan $300
+- Logos: AMD, Sabre, Stanley, Omron, Hexagon, Qlik, Bobcat, ABBYY, AVIXA, BlueCross
+- 8 módulos de la suite (LMS+, AI Content Creator, Sales Roleplay, Call Copilot…)
+- GridBeneficios 2 columnas: precio, ranking, especialización externa, caso AMD
+- Quote Craig Weiss completo (Dic 2025)
+- FAQ: 7 preguntas (NetExam vs Pifini, precios, modelos, IA, soporte TAEC)
+- CtaFinal con Zoho Bookings
+
+**Navegación:** Pifini Learn (SaaS) agregado en Plataformas & LMS, después de Totara.
+
+**Nota de producto:** NetExam LMS+ y Pifini.ai son de la misma empresa pero distintos productos.
+NetExam = LMS standalone con pricing personalizado.
+Pifini.ai = suite completa (incluye NetExam) a $50/usuario/año.
+La landing explica ambos con claridad para SEO de búsquedas "NetExam México".
+
+---
+
+#### Limpieza de navegación — Soluciones
+
+Eliminados del menú (páginas conservadas, sin borrar):
+- `BigBlueButton` — retirado de Plataformas & LMS
+- `Zoola Analytics` — retirado de Plataformas & LMS
+- `GO1` — retirado de Servicios & Add-ons (Catálogo listo)
+
+---
+
+## v1.3 · 20 mar 2026
+
+### Coherencia de desarrollo — navegación, CTA de agenda y verificación de rutas
+
+> **Nota de alcance**
+> Esta ronda se hizo con criterio de desarrollo activo.
+> Las páginas en construcción y sus enlaces desde navegación siguen siendo aceptables mientras no se entre a cierre / QA final.
+
+#### Fuente única para CTA de agenda (contact.ts + componentes/páginas)
+
+**Problema:** el fallback de agenda existía, pero estaba consumido de forma dispersa
+(`contactData.bookingUrl` directo en varios archivos y `/contacto` hardcodeado en `/recursos`).
+
+**Solución:** añadido helper `getBookingUrl()` en `src/data/contact.ts` para centralizar el destino
+activo de agenda o su fallback de desarrollo. Actualizados los consumidores principales:
+
+- **`src/components/Header.astro`** — CTA de header usa `getBookingUrl()`
+- **`src/components/ui/CtaFinal.astro`** — botón ghost usa `getBookingUrl()`
+- **`src/pages/index.astro`** — CTA band usa `getBookingUrl()`
+- **`src/pages/nosotros.astro`** — CTAs de hero y banda final usan `getBookingUrl()`
+- **`src/pages/contacto.astro`** — `bookingUrl` deriva de `getBookingUrl()`
+- **`src/pages/recursos.astro`** — CTA final deja de hardcodear `/contacto`
+
+#### Navegación compartida — labels unificados (navigation.ts)
+
+**Problema:** header y footer usaban variantes distintas para los mismos conceptos:
+“Nosotros” / “Quiénes somos”, “Clientes” / “Clientes y casos”, “Recursos” / “Blog & Recursos”.
+
+**Solución:** creadas constantes compartidas en `src/data/navigation.ts`:
+
+- `navigationLabels.about = "Quiénes somos"`
+- `navigationLabels.clients = "Clientes y casos"`
+- `navigationLabels.resources = "Recursos"`
+
+Aplicadas al menú principal y footer para dejar una convención consistente en desarrollo.
+
+#### Menú móvil — comportamiento explícito de primer nivel (MobileNav.astro + header.css)
+
+**Problema:** el comportamiento del menú móvil estaba funcional, pero no dejaba claro
+si `subItems` debían ser submenús colapsables o enlaces hijos simples. Además, el binding
+dependía del momento de carga del DOM.
+
+**Solución:**
+
+- **`src/components/MobileNav.astro`** — documentado inline que el menú móvil actual
+  es acordeón solo de primer nivel
+- binding reforzado con `bindMobileNavAccordions()` para funcionar tanto antes como después
+  de `DOMContentLoaded`
+- prevención de doble registro de listeners con `dataset.bound`
+- añadido enlace móvil directo de “Agendar diagnóstico”
+- **`public/assets/css/header.css`** — añadido estilo `.mob-sub-link` para distinguir hijos
+
+#### Verificación automática de desarrollo (build-based)
+
+**Problema:** no había una comprobación rápida para validar que la salida generada distinguiera
+correctamente `/clientes` de `/nosotros`, que el menú móvil incluyera sus toggles y que los
+CTAs no quedaran con `href=""`.
+
+**Solución:**
+
+- **`astro-web/scripts/verify-dev.mjs`** — nuevo script de verificación sobre `dist/`
+- **`astro-web/package.json`** — añadido script `npm run verify:dev`
+
+El script comprueba:
+
+- `/clientes` contiene su propio contenido y no el heading principal de `/nosotros`
+- el HTML generado incluye `mobileNav`, `mob0`, `mob1`, `mob3` y el script de acordeón
+- no hay `href=""` en CTAs de agenda revisados
+- `/blog`, `/recursos` y `/servicios` conservan su scaffold esperado de desarrollo
+
+#### Verificación ejecutada
+
+- `npm run build` ✅
+- `npm run verify:dev` ✅
+
+**Archivos modificados en v1.3:**
+- `astro-web/package.json`
+- `astro-web/public/assets/css/header.css`
+- `astro-web/src/components/Header.astro`
+- `astro-web/src/components/MobileNav.astro`
+- `astro-web/src/components/ui/CtaFinal.astro`
+- `astro-web/src/data/contact.ts`
+- `astro-web/src/data/navigation.ts`
+- `astro-web/src/pages/contacto.astro`
+- `astro-web/src/pages/index.astro`
+- `astro-web/src/pages/nosotros.astro`
+- `astro-web/src/pages/recursos.astro`
+- `astro-web/scripts/verify-dev.mjs`
+
+---
+
 ## v1.2 · 20 mar 2026
 
 ### Auditoría de bugs staging — 10 bugs corregidos · Mobile layout fix
