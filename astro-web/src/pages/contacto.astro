@@ -1,8 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { contactData } from '../data/contact';
+import { emailjsConfig } from '../data/emailjs';
+
+const { publicKey, serviceId, templates } = emailjsConfig;
+const templateId = templates.contact;
+const contactEmail = contactData.email;
 ---
 
-<BaseLayout 
+<BaseLayout
   title="Contacto – TAEC | Habla con un especialista en e-learning"
   description="Habla con un especialista TAEC. Diagnóstico gratuito para tu estrategia de capacitación corporativa. Respondemos en menos de 24 horas."
   section=""
@@ -122,6 +128,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       border-color: var(--blue);
       box-shadow: 0 0 0 3px rgba(49,121,194,.1);
     }
+    .field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"] {
+      border-color: #EF4444;
+    }
+    .field-error {
+      font-size: 12px; color: #EF4444; margin-top: 2px;
+      display: none;
+    }
+    .field-error.visible { display: block; }
     .field textarea { resize: vertical; min-height: 110px; }
     .field select { cursor: pointer; }
 
@@ -138,8 +152,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: 12px 28px; border-radius: 8px; border: none;
       cursor: pointer; transition: background .15s;
     }
-    .btn-submit:hover { background: #d97b0e; }
-    .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+    .btn-submit:hover:not(:disabled) { background: #d97b0e; }
+    .btn-submit:disabled { background: #94A3B8; cursor: not-allowed; }
 
     /* ── SUCCESS / ERROR STATES ── */
     .form-status {
@@ -158,10 +172,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      nav, .btn-tienda { display: none; }
-      .hamburger { display: flex; }
       .contact-inner { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
       .page-hero h1 { font-size: 28px; }
@@ -169,21 +180,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       .form-row { grid-template-columns: 1fr; }
       .form-footer { flex-direction: column; align-items: stretch; }
       .btn-submit { justify-content: center; }
-      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-    }
-    @media (max-width: 480px) {
-      .header-actions .btn-tienda { display: none; }
     }
 
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
   </style>
 
-  <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" is:inline></script>
+  <!-- EmailJS CDN — loaded before the form script -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <main id="main-content">
 
@@ -209,28 +211,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="info-icon">✉</div>
           <div class="info-content">
             <strong>Correo electrónico</strong>
-            <a href="mailto:info@taec.com.mx">info@taec.com.mx</a>
+            <a href={`mailto:${contactData.email}`}>{contactData.email}</a>
           </div>
         </div>
         <div class="info-item">
           <div class="info-icon">📞</div>
           <div class="info-content">
             <strong>Teléfono CDMX</strong>
-            <a href="tel:5568223300">55 6822 3300</a>
+            <a href={`tel:${contactData.phone.replace(/ /g,'')}`}>{contactData.phone}</a>
           </div>
         </div>
         <div class="info-item">
           <div class="info-icon">💬</div>
           <div class="info-content">
             <strong>WhatsApp</strong>
-            <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer">+52 1 55 2775 8279</a>
+            <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer">+52 1 55 2775 8279</a>
           </div>
         </div>
         <div class="info-item">
           <div class="info-icon">in</div>
           <div class="info-content">
             <strong>LinkedIn</strong>
-            <a href="https://www.linkedin.com/company/taec" target="_blank" rel="noopener noreferrer">linkedin.com/company/taec</a>
+            <a href={contactData.socials.linkedin} target="_blank" rel="noopener noreferrer">linkedin.com/company/taec</a>
           </div>
         </div>
       </div>
@@ -251,28 +253,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         <div class="form-row">
           <div class="field">
-            <label for="nombre">Nombre <span class="req">*</span></label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required aria-required="true" />
+            <label for="nombre">Nombre <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+              required aria-required="true" autocomplete="given-name" />
+            <span class="field-error" id="err-nombre">Por favor ingresa tu nombre.</span>
           </div>
           <div class="field">
-            <label for="empresa">Empresa <span class="req">*</span></label>
-            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu organización" required aria-required="true" />
+            <label for="empresa">Empresa <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu organización"
+              required aria-required="true" autocomplete="organization" />
+            <span class="field-error" id="err-empresa">Por favor ingresa tu empresa.</span>
           </div>
         </div>
 
         <div class="form-row">
           <div class="field">
-            <label for="email">Correo electrónico <span class="req">*</span></label>
-            <input type="email" id="email" name="email" placeholder="tu@empresa.com" required aria-required="true" />
+            <label for="email">Correo electrónico <span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" placeholder="tu@empresa.com"
+              required aria-required="true" autocomplete="email" />
+            <span class="field-error" id="err-email">Por favor ingresa un correo válido.</span>
           </div>
           <div class="field">
             <label for="telefono">Teléfono / WhatsApp</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="+52 55 …" />
+            <input type="tel" id="telefono" name="telefono" placeholder="+52 55 …" autocomplete="tel" />
           </div>
         </div>
 
         <div class="field">
-          <label for="tema">¿En qué podemos ayudarte? <span class="req">*</span></label>
+          <label for="tema">¿En qué podemos ayudarte? <span class="req" aria-hidden="true">*</span></label>
           <select id="tema" name="tema" required aria-required="true">
             <option value="" disabled selected>Selecciona una opción</option>
             <option value="Articulate 360">Articulate 360 — licencias / capacitación</option>
@@ -283,11 +291,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <option value="Consultoría L&D">Consultoría L&D / estrategia de capacitación</option>
             <option value="Otro">Otro</option>
           </select>
+          <span class="field-error" id="err-tema">Por favor selecciona un tema.</span>
         </div>
 
         <div class="field">
-          <label for="mensaje">Cuéntanos más <span class="req">*</span></label>
-          <textarea id="mensaje" name="mensaje" placeholder="¿Cuántas personas? ¿Qué herramientas usan hoy? ¿Cuál es el reto principal?…" required aria-required="true"></textarea>
+          <label for="mensaje">Cuéntanos más <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="mensaje" name="mensaje"
+            placeholder="¿Cuántas personas? ¿Qué herramientas usan hoy? ¿Cuál es el reto principal?…"
+            required aria-required="true"></textarea>
+          <span class="field-error" id="err-mensaje">Por favor escribe tu mensaje.</span>
         </div>
 
         <div class="form-footer">
@@ -297,7 +309,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </button>
         </div>
 
-        <div class="form-status" id="formStatus"></div>
+        <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
 
       </form>
     </div><!-- /form-card -->
@@ -306,8 +318,94 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </section>
 
 </main>
-<a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="wa-float" title="WhatsApp TAEC">
-  <span class="wa-tooltip">¿Hablamos?</span>
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-</a>
 </BaseLayout>
+
+<script define:vars={{ publicKey, serviceId, templateId, contactEmail }}>
+  // ── Form submission via EmailJS
+  (function () {
+    emailjs.init(publicKey);
+
+    const form      = document.getElementById('contactForm');
+    const btn       = document.getElementById('submitBtn');
+    const status    = document.getElementById('formStatus');
+
+    // ── Inline validation helpers
+    function setError(inputId, errId, show) {
+      const input = document.getElementById(inputId);
+      const err   = document.getElementById(errId);
+      if (!input || !err) return;
+      if (show) {
+        input.setAttribute('aria-invalid', 'true');
+        err.classList.add('visible');
+      } else {
+        input.removeAttribute('aria-invalid');
+        err.classList.remove('visible');
+      }
+    }
+
+    function validateForm(data) {
+      let valid = true;
+      if (!data.get('nombre').trim())                       { setError('nombre',  'err-nombre',  true);  valid = false; } else { setError('nombre',  'err-nombre',  false); }
+      if (!data.get('empresa').trim())                      { setError('empresa', 'err-empresa', true);  valid = false; } else { setError('empresa', 'err-empresa', false); }
+      const email = data.get('email').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('email', 'err-email', true); valid = false; } else { setError('email', 'err-email', false); }
+      if (!data.get('tema'))                                { setError('tema',    'err-tema',    true);  valid = false; } else { setError('tema',    'err-tema',    false); }
+      if (!data.get('mensaje').trim())                      { setError('mensaje', 'err-mensaje', true);  valid = false; } else { setError('mensaje', 'err-mensaje', false); }
+      return valid;
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      if (!validateForm(data)) return;
+
+      // Loading state
+      btn.disabled = true;
+      btn.textContent = 'Enviando…';
+      status.className = 'form-status';
+      status.textContent = '';
+
+      const params = {
+        from_name:    data.get('nombre'),
+        from_company: data.get('empresa'),
+        from_email:   data.get('email'),
+        from_phone:   data.get('telefono') || '—',
+        subject:      data.get('tema'),
+        message:      data.get('mensaje'),
+      };
+
+      try {
+        await emailjs.send(serviceId, templateId, params);
+        status.className  = 'form-status success';
+        status.textContent = '✓ Mensaje enviado. Un especialista te contactará en menos de 24 h.';
+        form.reset();
+        // Clear invalid states after reset
+        form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+        form.querySelectorAll('.field-error.visible').forEach(el => el.classList.remove('visible'));
+      } catch (err) {
+        status.className  = 'form-status error';
+        status.textContent = '✗ Hubo un problema al enviar. Escríbenos directamente a ' + contactEmail + ' o por WhatsApp.';
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Enviar mensaje →';
+        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
+    // ── Live validation on blur (better UX)
+    ['nombre','empresa','email','tema','mensaje'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur', () => {
+        const val = el.value;
+        const errId = 'err-' + id;
+        if (id === 'email') {
+          setError(id, errId, !val.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+        } else {
+          setError(id, errId, !val || !val.trim());
+        }
+      });
+    });
+  })();
+</script>
