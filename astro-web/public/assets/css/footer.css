@@ -25,6 +25,19 @@ footer { background: var(--navy); padding: 56px 5% 24px; }
 .footer-social a { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #94A3B8; transition: background .15s, color .15s; }
 .footer-social a:hover { background: var(--blue); color: var(--white); }
 
+/* ── BUILD BADGE (solo staging — eliminar antes de producción) ── */
+.build-badge {
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 10px;
+  color: #334155;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-left: 8px;
+  letter-spacing: .3px;
+}
+
 /* ── VARIANTE FOOTER OSCURO (Grupo C) ── */
 .footer--dark { background: #04293F; }
 

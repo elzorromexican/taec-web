@@ -1,6 +1,8 @@
 ---
 // CHANGELOG: 19/03/2026 - Refactored to use centralized data from src/data/navigation.ts and src/data/contact.ts
 // CHANGELOG: 19/03/2026 - Use r() to prefix internal links with BASE_URL for staging support
+// CHANGELOG: 2026-03-20 - Version badge: package.json version + git commit hash + build date
+//   → Eliminar las 3 constantes buildHash/buildDate/buildVersion antes de ir a producción
 import { footerLinks } from '../data/navigation';
 import { contactData } from '../data/contact';
 
@@ -11,6 +13,14 @@ function r(url: string): string {
 }
 
 const currentYear = new Date().getFullYear();
+
+// ── BUILD INFO (solo staging — eliminar antes de producción) ──────────────────
+const buildHash   = (import.meta.env.PUBLIC_BUILD_HASH  || 'local').slice(0, 7);
+const buildRaw    = import.meta.env.PUBLIC_BUILD_DATE || '';
+const buildDate   = buildRaw
+  ? new Date(buildRaw).toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' })
+  : 'local';
+const buildVersion = '3.0.0'; // Sincronizar con package.json · npm version patch|minor|major para subir
 ---
 <footer>
   <div class="footer-inner">
@@ -47,7 +57,7 @@ const currentYear = new Date().getFullYear();
     </div>
     
     <div class="footer-bottom">
-      <p>© {currentYear} TAEC <span style="opacity:.5;font-size:11px;">(ver 2.2)</span> &middot; Ciudad de México &middot; <span style="opacity:.6;">Aviso de privacidad</span></p>
+      <p>© {currentYear} TAEC &middot; Ciudad de México &middot; <span style="opacity:.6;">Aviso de privacidad</span> <span class="build-badge">v{buildVersion} · {buildHash} · {buildDate}</span></p>
       <div class="footer-social">
         <a href={contactData.socials.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
         <a href={contactData.socials.youtube} target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>

@@ -56,6 +56,10 @@ jobs:
           # These env vars are read by astro.config.mjs
           ASTRO_SITE: https://elzorromexican.github.io/taec-web
           ASTRO_BASE: /taec-web/
+          # Version info — injected into footer at build time
+          # Remove PUBLIC_BUILD_HASH and PUBLIC_BUILD_DATE before going to production
+          PUBLIC_BUILD_HASH: ${{ github.sha }}
+          PUBLIC_BUILD_DATE: ${{ github.event.head_commit.timestamp }}
         run: npm run build
 
       - name: Upload Pages artifact
