@@ -6,7 +6,7 @@ author: "TAEC"
 tags: ["blog"]
 ---
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2020/07/senior-man-taking-an-online-class-on-his-computer.jpg)](https://blog.taec.com.mx/wp-content/uploads/2020/07/senior-man-taking-an-online-class-on-his-computer.jpg)
+![](https://blog.taec.com.mx/wp-content/uploads/2020/07/senior-man-taking-an-online-class-on-his-computer.jpg)
 
 La mayoría de las direcciones empresariales y escolares que aplican técnicas de e-learning suelen estar, de antemano, conscientes de los beneficios que pueden atraer. Por otro lado, aquellas que no lo aplican suelen no tener este conocimiento…
 
@@ -122,7 +122,7 @@ Con la tecnología en la Nube (SaaS) ya no necesitas instalar físicamente los s
 
 Algunos ejemplos de SaaS son: AWS (Amazon), Microsoft Azure, Google Cloud. Los tres citados son los más grandes del mercado, pero existen empresas más chicas que también ofrecen buenos servicios.
 
-Es sumamente provechoso contratar un esquema SaaS para alojar el LMS de tu elección. [Para escoger el que más te conviene necesitas conocer las características de cada SaaS](https://blog.taec.com.mx/?p=1332).
+Es sumamente provechoso contratar un esquema SaaS para alojar el LMS de tu elección. Para escoger el que más te conviene necesitas conocer las características de cada SaaS.
 
  Este servicio cuenta con profesionales que se dedican a solucionar los problemas de software y hardware de la institución educativa. Ahorra evitando invertir tiempo y energía excesiva solucionando problemas de tecnología.
 

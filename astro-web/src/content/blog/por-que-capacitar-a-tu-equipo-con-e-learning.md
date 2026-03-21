@@ -48,6 +48,6 @@ Las metodologías activas del e-learning y la naturaleza digital de las mismas, 
 
 Implementar una solución e-learning traerá un sinfín de ventajas para tu organización, su crecimiento y desarrollo, [contáctanos](https://www.taec.com.mx/contacto.php) para alcanzar un nuevo nivel de integración y preparación en tu empresa.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

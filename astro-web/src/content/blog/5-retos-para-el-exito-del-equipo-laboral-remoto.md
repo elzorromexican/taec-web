@@ -106,7 +106,7 @@ Para adaptar a tu personal a los nuevos ambientes existe la posibilidad de crear
 
 Haz tutoriales acerca de cómo usar las nuevas herramientas que ahora los interconectan vía internet. Otorga a tu personal la información requerida.
 
-Si no tienes ninguna solución preestablecida para crear tutoriales, puedes contratar catálogos en línea de micro-aprendizaje (micro-learning) o [crear tus propios tutoriales grabando videoconferencias y screencast](https://blog.taec.com.mx/?p=1661). Necesitas llevar a los miembros paso a paso por cada funcionalidad básica de las aplicaciones y dar el espacio para dudas, observaciones y preguntas.
+Si no tienes ninguna solución preestablecida para crear tutoriales, puedes contratar catálogos en línea de micro-aprendizaje (micro-learning) o crear tus propios tutoriales grabando videoconferencias y screencast. Necesitas llevar a los miembros paso a paso por cada funcionalidad básica de las aplicaciones y dar el espacio para dudas, observaciones y preguntas.
 
 2.  ¿Cómo crear e-learning de manera profesional?
 

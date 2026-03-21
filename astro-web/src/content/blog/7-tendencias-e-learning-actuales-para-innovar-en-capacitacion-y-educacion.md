@@ -68,7 +68,7 @@ Si a estos juegos les añadimos redes sociales alrededor de las actividades para
 
 Ya existen ejemplos de videojuegos que han resultado en juegos formativos. Es el caso de MineCraft Education Edition en donde de manera muy placentera y desafiante a la vez, alguien puede aprender cómo funcionan los circuitos electrónicos en simulación que pueden ser recreadas en el juego o incluso aprender de arquitectura y materiales.
 
-SI deseas conocer acerca de la teoría de los juegos serios y cómo aplicarlos al e-learning haz [**clic aquí**](https://blog.taec.com.mx/?p=1290).
+SI deseas conocer acerca de la teoría de los juegos serios y cómo aplicarlos al e-learning haz **clic aquí**.
 
 ### 4\. Micro aprendizaje
 
@@ -114,6 +114,6 @@ Seguir un modelo que se inventó en la post guerra no va a resultar en las mejor
 
 Es por eso que ahora se considera que el diseñador del curso debería de considerarse a sí mismo un diseñador de experiencias educativas y no solo de instrucciones. 
 
-Si deseas saber más sobre el LxD y las LxP, no dudes en leer nuestro [**artículo**](https://blog.taec.com.mx/?p=1568).
+Si deseas saber más sobre el LxD y las LxP, no dudes en leer nuestro **artículo**.
 
 Para cualquier solución de e-learning que necesitas contacta ahora con [**TAEC**](https://www.taec.com.mx/contacto.php).

@@ -94,7 +94,7 @@ Es difícil mantenerlos atentos en una clase tradicional de exposición de conte
 
 **Nosotros tenemos que direccionar correctamente** la utilización natural de la tecnología que estos tienen integrados profundamente en su vida. No es limitarla sino que aprendan a darle un uso responsable y medido.
 
-Las líneas educativas del futuro pasan por [**la integración de herramientas tecnológicas (TICs) por medio de metodologías**](https://blog.taec.com.mx/?p=1683) que proporcionen recursos fáciles de encontrar, de entender y de utilizar. Además, es necesario que estas herramientas estén bien diseñadas y que se dispongan en un entorno lógico, intuitivo y accesible por el alumno. Así lograremos una mayor atención y rendimiento de los nativos digitales en lo referente a información, contenidos y tareas.
+Las líneas educativas del futuro pasan por **la integración de herramientas tecnológicas (TICs) por medio de metodologías** que proporcionen recursos fáciles de encontrar, de entender y de utilizar. Además, es necesario que estas herramientas estén bien diseñadas y que se dispongan en un entorno lógico, intuitivo y accesible por el alumno. Así lograremos una mayor atención y rendimiento de los nativos digitales en lo referente a información, contenidos y tareas.
 
 ### 5\. Cuidado con la sobre exposición a las pantallas recreativas
 

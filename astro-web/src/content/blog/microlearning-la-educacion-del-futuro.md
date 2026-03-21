@@ -45,6 +45,6 @@ El proveer información a través de pequeñas cápsulas, también permite su f�
 
 Contar con una plataforma LMS que te permita implementar cursos con metodología de microaprendizaje te dará grandes resultados. En TAEC contamos con [OttoLearn](https://taec.com.mx/ottolearn.php), una plataforma capaz de poner en marcha cursos con inteligencia artificial y rutas personalizadas de desarrollo, [contáctanos](http://taec.com.mx/contacto.php) para ayudarte a llevar a tu organización al siguiente nivel.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

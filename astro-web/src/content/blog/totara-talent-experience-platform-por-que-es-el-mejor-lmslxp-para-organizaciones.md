@@ -6,7 +6,7 @@ author: "TAEC"
 tags: ["blog"]
 ---
 
-[Preview(opens in a new tab)](https://blog.taec.com.mx/?p=1556&preview=true)
+Preview(opens in a new tab)
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/TOTARA.jpg)
 

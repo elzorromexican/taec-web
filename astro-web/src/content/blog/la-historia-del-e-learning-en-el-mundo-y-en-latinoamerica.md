@@ -97,7 +97,7 @@ En Latinoamérica, la tecnificación de la sociedad por medio de los teléfonos 
 > [Hansiswany  Kamarga.  “Constructing  online  based  history  learning:  comparison  of learning content management system (LCMS) to learning management system (LMS),  
 > Historia. Vol.12, No. 2 (2011): 225-273.](https://www.google.com/search?q=Hansiswany+Kamarga.+%E2%80%9CConstructing+online+based+history+learning&rlz=1C1ALOY_esMX957MX957&oq=Hansiswany++Kamarga.++%E2%80%9CConstructing++online++based++history++learning&aqs=chrome..69i57.831j0j7&sourceid=chrome&ie=UTF-8)
 
-Si quieres saber más acerca del e-learning a partir de la pandemia del COVID-19 y su penetración historica, visita nuestro blog: [E-learning de calidad ante el COVID-19](https://blog.taec.com.mx/?p=1627)
+Si quieres saber más acerca del e-learning a partir de la pandemia del COVID-19 y su penetración historica, visita nuestro blog: E-learning de calidad ante el COVID-19
 
 Si deseas implementar el e-learning con los mejores profesionales de LATAM, [contacta ahora con **TAEC**.](https://www.taec.com.mx/contacto.php)
 

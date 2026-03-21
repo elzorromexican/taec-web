@@ -50,6 +50,6 @@ Las metodologías de educación en línea seguirán evolucionando y transformán
 
 Ahora que ya conoces un poco más sobre el _blended learning_ puedes considerar esta como una nueva opción para la formación de tus equipos. Y si aún no sabes qué metodología es la mejor para tus aprendices… [contáctanos.](http://taec.com.mx/contacto.phptaec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

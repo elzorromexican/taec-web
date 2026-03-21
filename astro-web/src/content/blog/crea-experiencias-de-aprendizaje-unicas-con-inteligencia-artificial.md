@@ -50,6 +50,6 @@ En resumen, el aprendizaje adaptativo es un nuevo paradigma de la capacitación 
 
 Lleva la enseñanza de tus colaboradores o alumnos a un ambiente dinámico y personalizado con el aprendizaje adaptativo. Si estás listo para esta implementación, [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

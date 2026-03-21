@@ -52,6 +52,6 @@ Trabajar la memoria de largo plazo requiere pequeños esfuerzos divididos en la 
 
 Así que ya lo sabes, menos, es más. Y si quieres crear cursos de gran impacto y asegurándote de evitar la sobrecarga cognitiva, [contáctanos.](https://taec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

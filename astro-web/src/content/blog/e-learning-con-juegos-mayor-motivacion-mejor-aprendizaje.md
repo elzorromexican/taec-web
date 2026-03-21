@@ -42,7 +42,7 @@ También se ha comprobado que al ver multimedia, estos niveles de atención aume
 
 Finalmente, los últimos hallazgos han demostrado que al penetrar en un simulador en modo de juego serio, la adquisición y memoria del aprendizaje aumenta drásticamente. Al entrar en una experiencia de gamificación la persona se transforma en el actor central y juega.  Existen diferentes modalidades de juego que sirven como metodologías para activar el cerebro de cierta forma y que este obtenga el conocimiento que se le quiere inculcar.
 
-[Visita nuestro blog y aprende de taxonomías de juegos, reglas y principios](https://blog.taec.com.mx/?p=1290).
+Visita nuestro blog y aprende de taxonomías de juegos, reglas y principios.
 
 ### 2\. APOYATE EN EL E LEARNING GAMIFICADO PARA ENSEÑAR
 
@@ -53,7 +53,7 @@ Gracias a la aproximación tecnológica de la educación, con el e-learning pued
 
 Después de que la motivación por el contenido ha nacido en el usuario es que los expertos en la materia van a poder entregar su conocimiento. Aunque no tengan las capacidades pedagógicas para generar el estado de ánimo necesario en el alumno, gracias a que la gamificación hace esto por ellos, ellos podrán ahora transmitir su conocimiento.
 
-[Descubre todos los mecanismos motivacionales que activa el e-learning](https://blog.taec.com.mx/?p=1303)
+Descubre todos los mecanismos motivacionales que activa el e-learning
 
 ### 3\. EL SECRETO DETRÁS  DE LA EFECTIVIDAD DEL E LEARNING GAMIFICADO
 
@@ -67,7 +67,7 @@ Los aspectos que grandes empresas han descubierto al instaurar e-learning gamifi
 2.  El aspecto de la socialización e intercambio en línea es clave.
 3.  El esfuerzo implementado en la animación que se instaura detrás de un serious game resulta en una aceptación inicial positiva por parte de la comunidad de usuarios.
 
-[Identifica los elementos que generan diseño instruccional persuasivo en nuestro artículo.](https://blog.taec.com.mx/?p=1303)
+Identifica los elementos que generan diseño instruccional persuasivo en nuestro artículo.
 
 ### 5\. INVERSIÓN Y RETORNO DE INVERSIÓN AL APLICAR E-LEARNING GAMIFICADO
 
@@ -79,7 +79,7 @@ Con esta perspectiva es que afirmamos que aunque tenga un costo adicional añadi
 
  En el corazón del aprendizaje debe existir siempre una conexión con los otros aprendices.
 
-[Descubre cómo manejar una red social en el esquema del e-learning gamificado en nuestro artículo. Aprende qué hacer y qué no hacer.](https://blog.taec.com.mx/?p=1372)
+Descubre cómo manejar una red social en el esquema del e-learning gamificado en nuestro artículo. Aprende qué hacer y qué no hacer.
 
 ### 6\. AYUDA AUTOMATIZADA PARA LA ADMINISTRACIÓN
 

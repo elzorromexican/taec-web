@@ -8,7 +8,7 @@ tags: ["blog"]
 
 Si estás dentro del mundo de la enseñanza en línea, seguramente ya sabes que el **contar historias para compartir o reforzar un conocimiento es una herramienta muy efectiva,** ¿por qué es importante usar el storytelling en el e-learning? Las historias ayudan a los aprendices a **obtener información de forma didáctica y fácil;** además, **recordar la información es más fácil cuando tenemos una historia que nos guía.**
 
-Recientemente, hablábamos de crear picos positivos y momentos eureka dentro de los cursos e-learning para poder generar un gran impacto en la adquisición de conocimiento, si no sabes de qué estamos hablando, [da clic aquí.](https://blog.taec.com.mx/?p=2288)
+Recientemente, hablábamos de crear picos positivos y momentos eureka dentro de los cursos e-learning para poder generar un gran impacto en la adquisición de conocimiento, si no sabes de qué estamos hablando, da clic aquí.
 
 Ahora, ¿qué tienen que ver aquí estos conceptos? Dichos conceptos tratan sobre **crear momentos de clímax y de revelación durante el proceso de aprendizaje,** así que implementarlos en el storytelling es una gran forma de usarlos ¿Qué mejor que aprender con una breve historia que transmita el conocimiento con personajes, introducción, clímax, desenlace, etc.?
 
@@ -50,6 +50,6 @@ El storytelling es, además, **una gran herramienta capaz de motivar a la audien
 
 Ahora ya lo sabes, utiliza el storytelling para crear experiencias de aprendizaje únicas. Y recuerda, si necesitas ayuda para construirlas e implementarlas exitosamente… [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

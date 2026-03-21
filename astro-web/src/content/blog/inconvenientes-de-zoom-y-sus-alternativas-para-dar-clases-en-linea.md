@@ -196,7 +196,7 @@ _Investigación fue realizada en México por el equipo de TAEC durante el mes de
 
 ## 4\. **Siempre verificar el acuerdo de nivel de servicio que ofrece el proveedor**
 
-Si en este post tuviéramos que dar una recomendación para lograr llegar a una alternativa de Zoom conveniente para instituciones, sería sin duda un servicio de aplicación en conjunto con un distribuidor de servicio que pueda ofrecer un Acuerdo [**SLA\*** (Acuerdo de nivel de servicio – _Service Level Agreement\*_)](https://blog.taec.com.mx/?p=1357).
+Si en este post tuviéramos que dar una recomendación para lograr llegar a una alternativa de Zoom conveniente para instituciones, sería sin duda un servicio de aplicación en conjunto con un distribuidor de servicio que pueda ofrecer un Acuerdo **SLA\*** (Acuerdo de nivel de servicio – _Service Level Agreement\*_).
 
 Este acuerdo constituye un punto de referencia para que ambos lados implicados entiendan cuál va a ser el proceso de mejora continua que va a implementarse periódicamente. 
 

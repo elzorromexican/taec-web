@@ -20,47 +20,47 @@ Por esta razón, es sumamente importante que dentro del desarrollo de los materi
 
 Richard Mayer nos da una pequeña guía para desarrollar materiales multimedia coherentes y capaces de transmitir el conocimiento de forma didáctica y efectiva. Aquí te presentamos estos principios:
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/contenido.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/contenido.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/contenido.png)
 
 *   **Principio multimedia:** El aprendizaje es mayor cuando **la información combina texto e imágenes.** Este principio es la piedra angular de todo material multimedia y aunque estamos seguros de que lo sabes, considera que las imágenes que añadas a tus materiales siempre **deben reforzar el contenido verbal** y no solo “rellenar” el espacio.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/slide.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/slide.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/slide.png)
 
 *   **Principio de contigüidad:** Esta idea no solo es parte del aprendizaje multimedia, sino también, un básico del diseño; pues consiste en que la información textual y las imágenes que hablan de un mismo punto, se encuentren una cerca de la otra.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/stopwatch.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/stopwatch.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/stopwatch.png)
 
 *   **Principio de temporalidad:** ¿Estás haciendo un video o un material interactivo? Asegúrate de que los elementos vinculados a un mismo punto se desplieguen de manera simultánea.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/online-lesson.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/online-lesson.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/online-lesson.png)
 
 *   **Principio de modalidad:** Nuestro cerebro es capaz de procesar imágenes 60,000 veces más rápido que un texto, así mismo, es posible reforzar el aprendizaje estimulando la audición; de manera que, los materiales multimedia que incluyan una narración de las imágenes lograrán un mayor impacto. Es decir, la combinación imagen + texto es buena. La combinación imagen + narración es muy buena.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/video-tutorial.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/video-tutorial.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/video-tutorial.png)
 
 *   **Principio de redundancia:** Los materiales de aprendizaje multimedia son más efectivos cuando la imagen se explica puntualmente a través de un texto o de una narración, pero no con los 3 elementos al mismo tiempo. Si quieres utilizar una narración para describir una imagen y, además, quieres utilizar texto, te recomendamos únicamente resaltar las palabras o frases clave de tu narración y asegurarte de sincronizar perfectamente su aparición con el audio.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/informative.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/informative.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/informative.png)
 
 *   **Principio de coherencia:** Todos los elementos que integran los materiales de aprendizaje deberán tener relación entre sí, ya sean imágenes, texto, narración o sonidos. Si no es relevante y no alimenta el aprendizaje, elimínalo.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/signpost.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/signpost.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/signpost.png)
 
 *   **Principio de señalización:** Así como en las autopistas los letreros nos indican hacia dónde ir, también debemos hacerlo para guiar el aprendizaje, ¿cómo? Utiliza elementos gráficos que indiquen dónde poner atención. Estos elementos pueden ser flechas, círculos, “manitas”, negritas, acercamiento, entre otros.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/list.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/list.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/list.png)
 
 *   **Principio de segmentación:** Divide el aprendizaje en lecciones cortas que permitan navegar libre y fácilmente, ¿esto qué quiere decir? Que puedes darle a tus alumnos la oportunidad de revisar los contenidos a su ritmo. Tú decides las reglas, puedes permitir que revisen lecciones más avanzadas o permitir que consulten contenidos anteriores.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/teacher.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/teacher.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/teacher.png)
 
 *   **Principio de pre-entrenamiento:** Es prácticamente dar una introducción de la lección a revisar. Aquí puedes introducir los conceptos e ideas principales del tema para que tus usuarios o alumnos sepan a qué deben prestar mayor atención.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/high-five.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/high-five.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/high-five.png)
 
 *   **Principio de personalización:** ¿Cómo te gusta que se dirijan a ti cuando recibes algún entrenamiento? Es posible que sientas mayor confianza si el contenido y la narración del mismo es en un lenguaje más amigable que formal. Te recomendamos crear contenidos que siempre se encuentren dirigidos en primera persona.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/voice-assistant.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/voice-assistant.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/voice-assistant.png)
 
 *   **Principio de la voz:** Si estás presentando tus contenidos con una narración, busca que la voz sea humana antes de recurrir a softwares de audio, así tendrás un mayor impacto en el aprendizaje.
 
@@ -70,6 +70,6 @@ Recuerda que el éxito de toda enseñanza, también depende de **crear experienc
 
 Si además, quieres crear experiencias increíbles en las que puedas generar interacción entre la comunidad, nosotros podemos ayudarte, [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

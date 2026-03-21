@@ -48,6 +48,6 @@ El _b-learning_ es una gran alternativa para la formación de tu equipo. Sobre
 
 ¿Listo para implementar una estrategia de _blended learning_ con tu equipo? ¡Sabemos que sí! Pero si necesitas más ayuda… [contáctanos.](http://taec.com.mx/contacto.phptaec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

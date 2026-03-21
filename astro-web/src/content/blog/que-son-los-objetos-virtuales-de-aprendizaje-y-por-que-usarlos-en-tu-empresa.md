@@ -44,6 +44,6 @@ Hoy día existen múltiples [plataformas para crear Objetos Virtuales de Aprendi
 
 Por otra parte, si te gustó la idea de trabajar con Vyond para elaborar materiales audiovisuales animados, [¡contáctanos!](https://www.taec.com.mx/contacto.php) Nosotros podemos acercarte a esta plataforma y enseñarte cómo aprovecharla al máximo.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

@@ -6,7 +6,7 @@ author: "TAEC"
 tags: ["blog"]
 ---
 
-[![technology](https://blog.taec.com.mx/wp-content/uploads/2009/03/technology-300x200.jpg)](https://blog.taec.com.mx/wp-content/uploads/2009/03/technology.jpg)
+!technology
 
 El siguiente post está basado en un artículo sobre la [pedagogía de Moodle](https://web.archive.org/web/20090404045543/http://docs.moodle.org/en/Pedagogy). No intento hacer una traducción literal sino más bien ir comentándolo y analizándolo.
 

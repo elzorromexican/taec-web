@@ -68,6 +68,6 @@ Y finalmente, pasaremos a la “Verificación”, que es la etapa en la que reci
 
 La creatividad es una herramienta sumamente valiosa para cualquier aspecto de la vida. Quizá pareciera un mito, pero la realidad es que, aunque no lo parezca, siempre estamos siendo creativos, por ejemplo, al pensar en una solución a un problema complejo sin importar si es sobre arte o si es sobre análisis de datos. En este sentido, nuestro pensamiento creativo no está limitado por la naturaleza de las necesidades que buscamos atender, pero sí por nuestra capacidad de proponer soluciones funcionales. Si buscas crear cursos e-learning creativos, dinámicos e interactivos, [¡contáctanos!](https://taec.com.mx/contacto.php) Nosotros podemos ayudarte.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

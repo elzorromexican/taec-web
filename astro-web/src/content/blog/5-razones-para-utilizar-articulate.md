@@ -10,7 +10,7 @@ Articulate 360 es la plataforma de creación de cursos e-learning más robusta q
 
 A través de la suite de Articulate es posible crear materiales de aprendizaje aptos para cualquier dispositivo y cualquier sistema operativo. La naturaleza responsiva de muchos de los contenidos que pueden producirse gracias a esta herramienta, convierte a Articulate en la opción más completa para todo Diseñador Instruccional u organización que busque crear cursos interactivos, de calidad y aptos para cualquier plataforma. A continuación, te compartimos 5 razones por las que debes comenzar a utilizar Articulate en tu institución.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2023/03/Articulate-360-Logo-1-Day-Class.jpg)](https://blog.taec.com.mx/wp-content/uploads/2023/03/Articulate-360-Logo-1-Day-Class.jpg)
+![](https://blog.taec.com.mx/wp-content/uploads/2023/03/Articulate-360-Logo-1-Day-Class.jpg)
 
 ## **Librería multimedia**
 

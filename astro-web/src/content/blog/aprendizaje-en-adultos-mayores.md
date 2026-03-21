@@ -6,7 +6,7 @@ author: "TAEC"
 tags: ["blog"]
 ---
 
-[![articleLarge](https://blog.taec.com.mx/wp-content/uploads/2010/01/articleLarge.jpg)](https://blog.taec.com.mx/wp-content/uploads/2010/01/articleLarge.jpg)
+!articleLarge
 
 El pasado 29 de diciembre el New York Times publicó un intersante artículo sobre el aprendizaje en adultos mayores desde la perspectiva de la neurociencia.
 

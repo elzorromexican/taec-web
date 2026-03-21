@@ -10,7 +10,7 @@ STEAM es una metodología de aprendizaje innovadora en la que convergen diversas
 
 STEAM apuesta por resolver problemas de forma ágil a través del cuestionamiento continuo; al tiempo que desarrolla la capacidad de proponer soluciones innovadoras que atiendan las necesidades del mundo actual.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2023/01/image-2.png)](https://blog.taec.com.mx/wp-content/uploads/2023/01/image-2.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2023/01/image-2.png)
 
 ## ¿Cómo funciona la pedagogía STEAM?
 
@@ -22,7 +22,7 @@ La investigación educativa con mirada transdisciplinar permite la conformación
 
 El combustible de la pedagogía STEAM se encuentra principalmente en la curiosidad… ese vehículo maravilloso capaz de alimentar el conocimiento a través de redes de aprendizaje basadas en los intereses del propio aprendiz, de esta manera él se convierte en el protagonista de su propio desarrollo cognitivo.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2023/01/pexels-erika-cristina-2332030-1024x683.jpg)](https://blog.taec.com.mx/wp-content/uploads/2023/01/pexels-erika-cristina-2332030-scaled.jpg)
+![](https://blog.taec.com.mx/wp-content/uploads/2023/01/pexels-erika-cristina-2332030-1024x683.jpg)
 
 ## La enseñanza en STEAM
 

@@ -143,7 +143,7 @@ Por ejemplo, en EU los planes de celular de internet ilimitado son comunes y cos
 
 Además, esta división también tiene su origen en la habilidad y capacidad de utilizar la tecnología. (no obligatoriamente por que no tengan acceso sino por falta de instrucción o interés). 
 
-Se habla de los nativos digitales (la generación Z) pero numerosos estudios han demostrado que si bien estos jóvenes son buenos para consumir en internet. Pocos de hecho cuentan con habilidades desarrolladas en el uso técnico de la tecnología. Lee más en nuestro artículo: [Potencial y dificultades de los nativos digitales en el e-learning.](https://blog.taec.com.mx/?p=1838)
+Se habla de los nativos digitales (la generación Z) pero numerosos estudios han demostrado que si bien estos jóvenes son buenos para consumir en internet. Pocos de hecho cuentan con habilidades desarrolladas en el uso técnico de la tecnología. Lee más en nuestro artículo: Potencial y dificultades de los nativos digitales en el e-learning.
 
 Aprende a desarrollar la identidad de los alumnos y usuarios de tus cursos, con la máxima seguridad y eficiencia. Apóyate y [contacta a **TAEC**](https://www.taec.com.mx/contacto.php).
 

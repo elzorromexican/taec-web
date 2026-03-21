@@ -6,7 +6,7 @@ author: "TAEC"
 tags: ["blog"]
 ---
 
-[![shutterstock_92363491](https://blog.taec.com.mx/wp-content/uploads/2009/01/shutterstock_92363491-300x225.jpg)](https://blog.taec.com.mx/wp-content/uploads/2009/01/shutterstock_92363491.jpg)
+!shutterstock_92363491
 
 Recientemente Articulate liberó su nueva versión, Articulate ‘09.  Articulate es una familia de productos de software para el rapid e-learning que facilitan la creación de cursos en línea.  Articulate tiene por objetivo que los cursos sean fáciles de hacer, pero al mismo tiempo atractivos y eficaces.  Con esto en mente Articulate se diseñó para permitir la creación de cursos a partir de PowerPoint, ya que esta es la herramienta conocida por el mayor número de personas en el mundo.  Además, existe una gran cantidad de contenido, incluso cursos, ya existentes como presentaciones Power Point, las cuales pueden ser convertidas a presentaciones en Flash o cursos SCORM de manera automática,  logrando efectos visuales profesionales.
 

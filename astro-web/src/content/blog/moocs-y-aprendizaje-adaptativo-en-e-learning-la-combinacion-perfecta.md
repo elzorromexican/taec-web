@@ -109,6 +109,6 @@ Se crearon dos grupos. A ambos se les dio un texto. Al primero se le pidió leer
 
 Finalmente, esto nos habla de la importancia de la experimentación y ejercitación en cualquier entorno de aprendizaje. A este aspecto el E-learning debe de enfocarse para crear experiencias que sobre todo apuntan al ejercicio y experimentación acompañado por una lección impartida de manera tradicional pero que tienda a ser corta.
 
-Para entender más profundamente cómo lograr esta organización pedagógica puedes leer nuestro [artículo acerca del diseño de la experiencia de aprendizaje](https://blog.taec.com.mx/wp-admin/post.php?post=1616&action=edit) (LxD) en dónde exponemos el modelo de aprendizaje |70 | 20 | 10 | (que significa 70 %  del aprendizaje se genera en experimentación práctica, 20 % en intercambio social y retroalimentación del tutor, y 10 % a través de lecciones tradicionales presenciales) y mucho más.
+Para entender más profundamente cómo lograr esta organización pedagógica puedes leer nuestro artículo acerca del diseño de la experiencia de aprendizaje (LxD) en dónde exponemos el modelo de aprendizaje |70 | 20 | 10 | (que significa 70 %  del aprendizaje se genera en experimentación práctica, 20 % en intercambio social y retroalimentación del tutor, y 10 % a través de lecciones tradicionales presenciales) y mucho más.
 
 ¿Necesitas asesoría y profesionales para gestionar el aprendizaje en línea de los alumnos o empleados? Contacta ya con [**TAEC**](https://www.taec.com.mx/contacto.php).

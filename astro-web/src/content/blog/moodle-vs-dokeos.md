@@ -6,7 +6,7 @@ author: "TAEC"
 tags: ["blog"]
 ---
 
-[![new-technology_shutterstock_120035881](https://blog.taec.com.mx/wp-content/uploads/2009/04/new-technology_shutterstock_120035881-300x200.jpg)](https://blog.taec.com.mx/wp-content/uploads/2009/04/new-technology_shutterstock_120035881.jpg)
+!new-technology_shutterstock_120035881
 
 **Moodle vs Dokeos**
 

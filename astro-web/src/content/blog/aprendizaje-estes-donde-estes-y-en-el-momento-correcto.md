@@ -6,7 +6,7 @@ author: "TAEC"
 tags: ["blog"]
 ---
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2024/11/Arte-blog-1024x576.jpg)](https://blog.taec.com.mx/wp-content/uploads/2024/11/Arte-blog-scaled.jpg)
+![](https://blog.taec.com.mx/wp-content/uploads/2024/11/Arte-blog-1024x576.jpg)
 
 El trabajo hoy adquiere nuevas formas y se cruza con la rutina diaria, fuera de los espacios tradicionales. 
 

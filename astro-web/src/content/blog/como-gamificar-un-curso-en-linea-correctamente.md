@@ -35,7 +35,7 @@ El éxito de un juego se basa en sus reglas. Es bastante simple: **si el juego t
 
 A continuación, exponemos el esquema que David Parlett (historiador y experto en juegos) expone. Este sirve para **mostrar las relaciones que existen entre los diferentes tipos de reglas** y sobre todo, la forma en la que influyen unas en otras.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2020/09/REGLAS-DEL-JUEGO-1024x627.jpg)](https://blog.taec.com.mx/wp-content/uploads/2020/09/REGLAS-DEL-JUEGO.jpg)
+![](https://blog.taec.com.mx/wp-content/uploads/2020/09/REGLAS-DEL-JUEGO-1024x627.jpg)
 
 Tener reglas bien estructuradas ofrece una experiencia lúdica singular y desarrolla la voluntad de jugar. Esta intención siempre se traduce a la voluntad de aprender cómo jugar, para saber cómo ganar.
 

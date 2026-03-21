@@ -24,13 +24,13 @@ Uno de los puntos más importantes de la metodología SCRUM es conocer cuándo s
 
 SCRUM es una metodología integral en la que convergen diversos conceptos que, dentro de la ejecución, lograrán el éxito del proyecto. A continuación los explicamos brevemente.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/12/roles.png)](https://blog.taec.com.mx/wp-content/uploads/2022/12/roles.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/12/roles.png)
 
 ### Roles
 
 Primero, es necesario conocer los roles que forman parte de esta metodología y definir quiénes los llevarán a cabo dentro del equipo.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/12/board.png)](https://blog.taec.com.mx/wp-content/uploads/2022/12/board.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/12/board.png)
 
 ### Tablero SCRUM
 
@@ -46,19 +46,19 @@ El tablero SCRUM es el lugar en el que se colocarán todas las tareas y roles in
 
 Para llenar el tablero SCRUM es necesario arrancar el proyecto con una junta de planeación en la que se asignarán las tareas a los diversos roles del equipo y se definirán los sprints y los entregables.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/12/agile.png)](https://blog.taec.com.mx/wp-content/uploads/2022/12/agile.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/12/agile.png)
 
 ### Sprints
 
 Este es uno de los conceptos más frecuentes en la metodología SCRUM, consiste en determinar cuáles serán los entregables de cada etapa. Regularmente todos los sprints tienen una duración de entre 1 y 2 semanas.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/12/retrospective.png)](https://blog.taec.com.mx/wp-content/uploads/2022/12/retrospective.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/12/retrospective.png)
 
 ### Retrospectiva
 
 Tras la finalización de cada uno de los sprints del proyecto, el equipo debe reunirse para comprobar que cada uno de los involucrados en el proyecto cumplió su tarea. En las reuniones de retrospectiva se revisan los materiales que se han entregado para definir qué se queda y qué es necesario pulir dentro del siguiente sprint.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/12/pexels-cottonbro-studio-7437491-1024x683.jpg)](https://blog.taec.com.mx/wp-content/uploads/2022/12/pexels-cottonbro-studio-7437491-scaled.jpg)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/12/pexels-cottonbro-studio-7437491-1024x683.jpg)
 
 Los roles de la metodología SCRUM
 

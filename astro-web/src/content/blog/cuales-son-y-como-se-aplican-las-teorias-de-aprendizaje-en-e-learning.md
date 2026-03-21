@@ -62,6 +62,6 @@ El diseño instruccional busca analizar las necesidades de enseñanza y aprendiz
 
 Cada tema, cada organización y cada individuo son distintos, si necesitas ayuda para implementar un e-learning efectivo, [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

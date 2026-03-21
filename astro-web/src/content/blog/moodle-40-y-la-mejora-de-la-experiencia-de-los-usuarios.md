@@ -50,6 +50,6 @@ Sin duda, esta nueva versión de Moodle es un nuevo rostro, más amigable, hacia
 
 ¿Quieres conocer esta nueva versión de Moodle y crear experiencias de aprendizaje únicas? Contáctanos.
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).

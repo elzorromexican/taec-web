@@ -75,7 +75,7 @@ Las estructuras que maneja están hechas para una época en dónde no existía e
 
 El sentido del aprendizaje, el “por qué”, es la base sobre la que se tiene que basar cualquier tipo de intención didáctica posterior. Hablar de motivación para aprender es difícil pues para lograrla tenemos que conectar con la personalidad, carácter y perspectiva de los alumnos. 
 
-El aprendizaje centrado en el alumno se ve muy beneficiado al ser soportado en la tecnología. Gracias a ella podemos aplicar “[flipped learning](https://blog.taec.com.mx/?p=1964)“\* lo que ayudará al profesor a ahorrar tiempo y ganar enfoque en los alumnos más que en el programa educativo.
+El aprendizaje centrado en el alumno se ve muy beneficiado al ser soportado en la tecnología. Gracias a ella podemos aplicar “flipped learning“\* lo que ayudará al profesor a ahorrar tiempo y ganar enfoque en los alumnos más que en el programa educativo.
 
 Además se sustenta en analítica avanzada para poder tener un seguimiento de los alumnos más preciso. Incluso el sistema puede alertar acerca de anomalías que demanden una atención mayor por parte del docente hacia alumnos particulares. Hace que los esfuerzos invertido por el profesor en el cara a cara sean aprovechados al máximo.
 

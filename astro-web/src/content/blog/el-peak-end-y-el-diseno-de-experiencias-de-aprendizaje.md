@@ -40,6 +40,6 @@ Desarrollar una experiencia e-learning en la que no solo se coloque a la persona
 
 ¡Cambia el juego y comienza a diseñar experiencias de aprendizaje humanizadas e impactantes! Si necesitas ayuda para lograrlo, [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-[![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
 
 Texto escrito por Elba Loera (@elba\_loera).
