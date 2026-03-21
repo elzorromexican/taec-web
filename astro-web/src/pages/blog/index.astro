@@ -7,8 +7,10 @@ import { r } from '../../utils/paths';
 const posts = await getCollection('blog');
 posts.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
 
-// Extraer tags únicos
-const tags = [...new Set(posts.flatMap(p => p.data.tags || []))].sort();
+// Extraer los 6 tags más utilizados para no saturar la interfaz de usuario (Feedback del cliente)
+const tagCounts: Record<string, number> = {};
+posts.forEach(p => (p.data.tags || []).forEach(t => tagCounts[t] = (tagCounts[t] || 0) + 1));
+const tags = Object.entries(tagCounts).sort((a,b) => b[1] - a[1]).slice(0, 6).map(e => e[0]).sort();
 ---
 
 <BaseLayout 
@@ -34,6 +36,9 @@ const tags = [...new Set(posts.flatMap(p => p.data.tags || []))].sort();
         <input 
           type="text" 
           id="search-input" 
+          autocomplete="off"
+          name="search-query-taec-blog"
+          spellcheck="false"
           placeholder="Buscar artículos en el blog..." 
           style="width: 100%; padding: 16px 20px 16px 48px; font-size: 16px; border: 1.5px solid #e7e3db; border-radius: 8px; outline: none; font-family: var(--font-body, sans-serif); transition: border-color 0.2s; -webkit-appearance: none;"
         />
@@ -150,6 +155,12 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
         filterBtns.forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
         currentTag = e.target.getAttribute('data-tag');
+        
+        if (searchInput) {
+          searchInput.value = '';
+          currentSearch = '';
+        }
+        
         filterItems();
       });
     });

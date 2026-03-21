@@ -41,7 +41,9 @@ const letters = [...new Set(terms.map(t => {
         </svg>
         <input 
           type="text" 
-          id="search-input" 
+          id="search-input"
+          autocomplete="off"
+          spellcheck="false" 
           placeholder="Buscar por término o palabra clave en la definición..." 
           style="width: 100%; padding: 16px 20px 16px 48px; font-size: 16px; border: 1.5px solid #e7e3db; border-radius: 8px; outline: none; font-family: var(--font-body, sans-serif); transition: border-color 0.2s; -webkit-appearance: none;"
         />
@@ -180,6 +182,13 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
         
         // Actualizar filtro
         currentLetter = e.target.getAttribute('data-letter');
+        
+        // UX Fix: Limpiar la búsqueda textual al cambiar de letra para no dejarlo en 0 resultados ocultos
+        if (searchInput) {
+          searchInput.value = '';
+          currentSearch = '';
+        }
+        
         filterItems();
       });
     });

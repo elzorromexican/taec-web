@@ -4,7 +4,7 @@ author: "slim masmoudi"
 date: "26 de diciembre de 2024"
 category: "Cultura de Aprendizaje"
 tags:
-  - "l&amp;d"
+  - "l&d"
   - "motivación"
   - "formación"
   - "corporativa"

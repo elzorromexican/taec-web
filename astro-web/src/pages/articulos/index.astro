@@ -32,7 +32,9 @@ const categories = [...new Set(items.map(p => p.data.category).filter(Boolean))]
         </svg>
         <input 
           type="text" 
-          id="search-input" 
+          id="search-input"
+          autocomplete="off"
+          spellcheck="false" 
           placeholder="Buscar artículos..." 
           style="width: 100%; padding: 16px 20px 16px 48px; font-size: 16px; border: 1.5px solid #e7e3db; border-radius: 8px; outline: none; font-family: var(--font-body, sans-serif); transition: border-color 0.2s;"
         />
@@ -154,6 +156,12 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
         filterBtns.forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
         currentCat = e.target.getAttribute('data-cat');
+        
+        if (searchInput) {
+          searchInput.value = '';
+          currentSearch = '';
+        }
+        
         filterItems();
       });
     });

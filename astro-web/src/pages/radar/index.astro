@@ -32,7 +32,9 @@ items.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
         </svg>
         <input 
           type="text" 
-          id="search-input" 
+          id="search-input"
+          autocomplete="off"
+          spellcheck="false" 
           placeholder="Buscar ediciones anteriores del Radar..." 
           style="width: 100%; padding: 16px 20px 16px 48px; font-size: 16px; border: 1.5px solid #e7e3db; border-radius: 8px; outline: none; font-family: var(--font-body, sans-serif); transition: border-color 0.2s;"
         />
