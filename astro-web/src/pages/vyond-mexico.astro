@@ -21,11 +21,7 @@ const faqsVyond = [
   { question: "¿Hay límite en la generación de imágenes con IA?", answerHtml: "Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México." }
 ];
 
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+import { r, base } from '../utils/paths';
 ---
 
 <BaseLayout 

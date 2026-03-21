@@ -138,6 +138,7 @@ header { position: sticky; top: 0; z-index: 200; background: var(--white); borde
 .mob-cat { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #4B5563; padding: 8px 12px 4px; }
 .mob-section a { font-size: 14px; font-weight: 500; color: var(--text); padding: 8px 12px; border-radius: 7px; display: flex; align-items: center; gap: 6px; }
 .mob-section a:hover { background: var(--light); color: var(--blue); }
+.mob-sub-link { padding-left: 20px !important; font-size: 13px !important; color: var(--muted) !important; }
 
 /* ── ACTIVE NAV (ficha de cardex) ── */
 header .nav-link.active,

@@ -5,20 +5,27 @@ export interface Props {
   eyebrow: string;
   titleHtml: string;
   subtitle: string;
-  features: string[];
-  primaryBtn: { label: string; url: string; target?: string };
+  features?: string[];
+  primaryBtn?: { label: string; url: string; target?: string };
   secondaryBtn?: { label: string; url: string; target?: string };
   bottomText?: string;
   cardLogoSrc?: string;
   cardLogoStyle?: string;
   cardBadgeText?: string;
   theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+  brandColor?: string;   // Sobreescribe --hero-primary y --hero-accent
+  btnTextDark?: boolean; // true = texto oscuro en botón (para colores claros como amarillo/ámbar)
 }
 
 const {
   eyebrow, titleHtml, subtitle, features, primaryBtn, secondaryBtn,
-  bottomText, cardLogoSrc, cardLogoStyle = "height:44px;width:auto;", cardBadgeText, theme = 'general'
+  bottomText, cardLogoSrc, cardLogoStyle = "height:44px;width:auto;", cardBadgeText,
+  theme = 'general', brandColor, btnTextDark = false
 } = Astro.props;
+
+const brandStyle = brandColor
+  ? `--hero-primary:${brandColor};--hero-accent:${brandColor};${btnTextDark ? '--btn-text:#0f172a;' : ''}`
+  : '';
 
 const base = import.meta.env.BASE_URL;
 function r(url: string): string {
@@ -26,16 +33,18 @@ function r(url: string): string {
   return base.replace(/\/$/, '') + url;
 }
 ---
-<section class={`hero-comercial theme-${theme}`}>
+<section class={`hero-comercial theme-${theme}`} style={brandStyle}>
   <div class="hero-inner">
     <div>
       <p class="hero-eyebrow">{eyebrow}</p>
       <h1 set:html={titleHtml}></h1>
       <p class="hero-sub">{subtitle}</p>
+      {(primaryBtn || secondaryBtn) && (
       <div class="hero-btns">
-        <a href={r(primaryBtn.url)} class="btn-primary" target={primaryBtn.target} rel={primaryBtn.target === '_blank' ? 'noopener noreferrer' : undefined}>{primaryBtn.label}</a>
+        {primaryBtn && <a href={r(primaryBtn.url)} class="btn-primary" target={primaryBtn.target} rel={primaryBtn.target === '_blank' ? 'noopener noreferrer' : undefined}>{primaryBtn.label}</a>}
         {secondaryBtn && <a href={r(secondaryBtn.url)} class="btn-ghost" target={secondaryBtn.target} rel={secondaryBtn.target === '_blank' ? 'noopener noreferrer' : undefined}>{secondaryBtn.label}</a>}
       </div>
+      )}
       {bottomText && <p class="hero-bottom-text">{bottomText}</p>}
     </div>
     <div class="hero-card">
@@ -45,9 +54,11 @@ function r(url: string): string {
         </div>
       )}
       {cardBadgeText && <p class="card-badge">{cardBadgeText}</p>}
+      {features && features.length > 0 && (
       <div class="hero-features">
         {features.map((feat) => <div class="feat-item">{feat}</div>)}
       </div>
+      )}
     </div>
   </div>
 </section>

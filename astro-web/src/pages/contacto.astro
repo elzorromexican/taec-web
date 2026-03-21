@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { contactData } from '../data/contact';
+import { contactData, getBookingUrl } from '../data/contact';
 
 // Valores usados en el template HTML y en atributos data-* del formulario.
 // El script cliente los lee via form.dataset — NO se usa define:vars.
 const formEndpoint  = contactData.formEndpoint;   // Google Apps Script Web App URL
-const bookingUrl    = contactData.bookingUrl;      // Zoho Bookings URL
+const bookingUrl    = getBookingUrl();             // URL de agenda activa o fallback de desarrollo
 const contactEmail  = contactData.email;
 const whatsappUrl   = contactData.whatsapp.url;
 ---

@@ -7,11 +7,7 @@ import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
 import { getBookingUrl } from '../data/contact';
 
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+import { r } from '../utils/paths';
 const bookingUrl = getBookingUrl();
 
 const beneficios = [
@@ -91,6 +87,7 @@ const faqs = [
     secondaryBtn={{ label: "Hablar con un especialista", url: r('/contacto') }}
     cardBadgeText="INTEGRIDAD ACADÉMICA · IA · LMS"
     theme="general"
+    brandColor="#7f1933"
   />
 
   <!-- ── EL PROBLEMA ── -->

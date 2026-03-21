@@ -5,11 +5,7 @@ import GridBeneficios from '../components/ui/GridBeneficios.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
 
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+import { r, base } from '../utils/paths';
 
 const ventajasArt = [
   { icon: "🇲🇽", title: "Factura mexicana y pago en pesos", description: "Factura electrónica CFDI para que tu área de compras y contabilidad procesen sin complicaciones. Pago en MXN al tipo de cambio oficial del día." },

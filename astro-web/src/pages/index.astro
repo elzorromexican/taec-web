@@ -1,17 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { contactData } from '../data/contact';
+import { contactData, getBookingUrl } from '../data/contact';
 
 // Calcular años de experiencia en el build de Astro
 const founded = new Date(2007, 9, 11);
 const now = new Date();
 const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
 
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+import { r, base } from '../utils/paths';
 ---
 
 <BaseLayout 
@@ -275,7 +271,7 @@ function r(url: string): string {
           <p>Una llamada de 30 minutos es suficiente para saber si podemos ayudarte.</p>
         </div>
         <div class="cta-btns">
-          <a href={contactData.bookingUrl} target="_blank" rel="noopener noreferrer" class="btn-cta-band">Agendar diagnóstico gratuito →</a>
+          <a href={getBookingUrl()} target="_blank" rel="noopener noreferrer" class="btn-cta-band">Agendar diagnóstico gratuito →</a>
           <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-wa">WhatsApp</a>
         </div>
       </div>

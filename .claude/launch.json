@@ -4,8 +4,8 @@
     {
       "name": "taec-web",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8080"],
-      "port": 8080
+      "runtimeArgs": ["-m", "http.server", "4321", "--directory", "/Users/slimmasmoudi/taec-web/astro-web/dist"],
+      "port": 4321
     }
   ]
 }

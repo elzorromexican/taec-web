@@ -2,7 +2,7 @@
 // CHANGELOG: 19/03/2026 - Refactored to use centralized data from src/data/navigation.ts and src/data/contact.ts
 // CHANGELOG: 19/03/2026 - Use r() helper to prefix internal links with BASE_URL for staging
 import { mainNav } from '../data/navigation';
-import { contactData } from '../data/contact';
+import { contactData, getBookingUrl } from '../data/contact';
 
 const base = import.meta.env.BASE_URL; // '/' prod, '/taec-web/' staging
 
@@ -99,7 +99,7 @@ function r(url: string): string {
     </nav>
     <div class="header-actions">
       <a href={contactData.storeUrl} target="_blank" rel="noopener noreferrer" class="btn-tienda">Tienda</a>
-      <a href={contactData.bookingUrl} target="_blank" rel="noopener noreferrer" class="btn-cta">Agendar diagnóstico →</a>
+      <a href={getBookingUrl()} target="_blank" rel="noopener noreferrer" class="btn-cta">Agendar diagnóstico →</a>
     </div>
     <button class="hamburger" id="menuBtn" aria-label="Abrir menú">
       <span></span><span></span><span></span>

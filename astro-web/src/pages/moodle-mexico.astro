@@ -4,11 +4,7 @@ import HeroComercial from '../components/ui/HeroComercial.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
 
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+import { r, base } from '../utils/paths';
 
 const faqsMoodle = [
   { question: "¿Moodle es realmente gratuito?", answerHtml: "El software Moodle es gratuito y de código abierto. Lo que tiene un costo es el hospedaje (hosting), la implementación y el soporte. El servicio SaaS de TAEC incluye todo eso: infraestructura en la nube, actualizaciones automáticas, backups diarios y soporte técnico en español — sin que tengas que preocuparte por los servidores." },

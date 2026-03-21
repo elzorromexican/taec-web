@@ -60,7 +60,7 @@ Producción futura: `https://nuevo.taec.com.mx`
 - `/nosotros` · `/clientes` · `/contacto` · `/servicios`
 
 #### Páginas fuera de menú (conservadas)
-- `/bigbluebutton-mexico` · `/zoola-analytics` · `/go1-mexico`
+- (Ninguna actualmente, productos descontinuados eliminados)
 
 ---
 
@@ -90,12 +90,8 @@ Producción futura: `https://nuevo.taec.com.mx`
 ### Patrones de desarrollo establecidos
 
 ```typescript
-// BASE URL — siempre al inicio del frontmatter
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+// BASE URL — centralizado (importar en el frontmatter de cada página)
+import { r } from '../utils/paths';
 
 // BASE en runtime (para fetch/JS inline)
 // BaseLayout inyecta data-base en <body>
@@ -150,3 +146,6 @@ Vyond                                             7 Minutes
 
 ## Próximos cambios se registran aquí ↓
 
+### 20 mar 2026 — Refactorización y Limpieza
+- **Refactor (DRY):** Se extrajo la lógica de rutas absolutas `r(url)` que estaba duplicada en 49 páginas hacia el nuevo archivo central `src/utils/paths.ts`.
+- **Limpieza (Purga):** Se eliminaron definitivamente las páginas y las referencias en la interfaz gráfica de los productos descontinuados: **Zoola Analytics**, **BigBlueButton** y **GO1**.

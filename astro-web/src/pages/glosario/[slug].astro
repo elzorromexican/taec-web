@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { r } from '../../utils/paths';
+
+// Genera todas las rutas posibles basándose en los .md de src/content/glosario
+export async function getStaticPaths() {
+  const terms = await getCollection('glosario');
+  return terms.map(term => ({
+    params: { slug: term.id.replace(/\.mdx?$/, '') },
+    props: { term },
+  }));
+}
+
+const { term } = Astro.props;
+---
+
+<BaseLayout 
+  title={`${term.data.title} - Glosario e-learning | TAEC`}
+  description={term.data.description}
+  section="Recursos"
+>
+  <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
+    <div style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: 48px; box-shadow: 0 4px 16px rgba(0,0,0,0.05);">
+      
+      <a href={r('/glosario')} style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: #78716c; margin-bottom: 32px; display: inline-block; transition: color 0.15s;">
+        &larr; Volver al Glosario
+      </a>
+      
+      <div style="font-family: monospace; font-size: 11px; color: #1d4ed8; text-transform: uppercase; margin-bottom: 10px; background: #eff6ff; display: inline-block; padding: 4px 10px; border-radius: 4px;">
+        {term.data.category || 'Término'}
+      </div>
+      
+      <h1 style="font-family: var(--font-display, Georgia, serif); font-size: clamp(2rem, 3.5vw, 2.5rem); font-weight: 700; color: #1c1917; margin-top: 0; margin-bottom: 24px; line-height: 1.15; letter-spacing: -0.01em;">
+        {term.data.title}
+      </h1>
+      
+      <div style="font-size: 1.05rem; line-height: 1.75; color: #44403c;">
+        {term.data.description}
+      </div>
+      
+      {term.data.related && term.data.related.length > 0 && (
+        <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e7e3db;">
+          <h3 style="font-size: 14px; font-weight: 600; color: #1c1917; margin-bottom: 12px; margin-top:0;">Términos relacionados:</h3>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            {term.data.related.map(rTag => (
+              <span style="font-family: monospace; background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;">
+                {rTag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </main>
+</BaseLayout>

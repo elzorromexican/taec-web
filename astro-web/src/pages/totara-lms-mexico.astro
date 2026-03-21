@@ -30,11 +30,7 @@ const faqsTot = [
   { question: "¿Cómo funciona el soporte de TAEC?", answerHtml: "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara." }
 ];
 
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+import { r, base } from '../utils/paths';
 ---
 
 <BaseLayout 
