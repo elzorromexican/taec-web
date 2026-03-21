@@ -181,6 +181,78 @@ const logos = [
     theme="general"
   />
 
+  <!-- ── EL PROBLEMA ── -->
+  <section class="pifini-problema">
+    <div class="pp-inner">
+      <p class="section-label">El reto real</p>
+      <h2 class="section-title">El reto no es solo capacitar canales.<br>El reto es lograr que vendan mejor.</h2>
+      <p class="section-sub">Muchas organizaciones ya tienen un LMS. Lo que no tienen es una forma de conectar ese aprendizaje con el desempeño comercial de sus distribuidores y socios.</p>
+      <div class="problema-grid">
+        <div class="prob-card">
+          <span class="prob-icon">📦</span>
+          <h3>Canales sin conocimiento actualizado</h3>
+          <p>Tus distribuidores y revendedores venden tu producto sin conocerlo bien. La capacitación llega tarde, es genérica o simplemente no llega.</p>
+        </div>
+        <div class="prob-card">
+          <span class="prob-icon">🏆</span>
+          <h3>Certificaciones que no se sostienen</h3>
+          <p>Los programas de certificación de canal son difíciles de gestionar a escala: rutas distintas, niveles diferentes, cumplimiento disperso y sin trazabilidad real.</p>
+        </div>
+        <div class="prob-card">
+          <span class="prob-icon">📊</span>
+          <h3>Aprendizaje desconectado del revenue</h3>
+          <p>No sabes si el partner que tomó el curso vende más. El LMS registra completaciones, no resultados de negocio. No hay forma de cerrar ese ciclo.</p>
+        </div>
+        <div class="prob-card">
+          <span class="prob-icon">🤖</span>
+          <h3>IA de ventas fuera del alcance</h3>
+          <p>Roleplay con IA, coaching en llamadas en vivo y análisis de impacto comercial son herramientas que hoy cuestan $300–$600/usuario/año en plataformas separadas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PERFIL IDEAL ── -->
+  <section class="pifini-perfil">
+    <div class="ppf-inner">
+      <p class="section-label">¿Para quién es?</p>
+      <h2 class="section-title">Pifini encaja mejor cuando tienes canales, partners o clientes que capacitar</h2>
+      <div class="perfil-grid">
+        <div class="perfil-col">
+          <h3>Perfil de organización ideal</h3>
+          <ul>
+            <li>Fabricantes con red de distribuidores o revendedores</li>
+            <li>Empresas que venden a través de canales indirectos</li>
+            <li>Marcas que necesitan certificar partners o clientes externos</li>
+            <li>Organizaciones con programas de habilitación comercial</li>
+            <li>Asociaciones que actualizan a sus miembros de forma continua</li>
+          </ul>
+        </div>
+        <div class="perfil-col">
+          <h3>Casos de uso principales</h3>
+          <ul>
+            <li>Channel partner enablement y certificación</li>
+            <li>Customer education — de onboarding a advocacy</li>
+            <li>Sales enablement para equipos y socios comerciales</li>
+            <li>Compliance y certificación regulatoria externa</li>
+            <li>Habilitación de asociaciones y membresías</li>
+          </ul>
+        </div>
+        <div class="perfil-col perfil-col--taec">
+          <h3>Lo que TAEC hace por ti</h3>
+          <ul>
+            <li>Lectura consultiva de tu caso de canal</li>
+            <li>Definición del alcance y arquitectura del programa</li>
+            <li>Apoyo para mapear certificación, rutas y habilitación</li>
+            <li>Implementación y soporte en español · CDMX</li>
+            <li>Facturación en pesos mexicanos con CFDI</li>
+          </ul>
+          <p class="perfil-cierre">No se trata de comprar una plataforma con muchas funciones. Se trata de alinear capacitación, certificación y desempeño comercial en un mismo sistema.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── MÓDULOS ── -->
   <section class="pifini-modulos">
     <div class="pm-inner">
@@ -288,6 +360,28 @@ const logos = [
 .pv-features--comp li { color: #94A3B8; }
 .pv-features--comp li::before { content: "–"; color: #CBD5E1; }
 
+/* ── EL PROBLEMA ── */
+.pifini-problema { background: #F8FAFC; padding: 72px 5%; }
+.pp-inner { max-width: 1100px; margin: 0 auto; }
+.problema-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+.prob-card { background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 28px 22px; }
+.prob-icon { font-size: 26px; display: block; margin-bottom: 12px; }
+.prob-card h3 { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.4; }
+.prob-card p  { font-size: 13px; color: #64748B; line-height: 1.65; }
+
+/* ── PERFIL IDEAL ── */
+.pifini-perfil { background: #0f172a; padding: 72px 5%; }
+.ppf-inner { max-width: 1100px; margin: 0 auto; }
+.pifini-perfil .section-label { color: #f97316; }
+.pifini-perfil .section-title { color: white; margin-bottom: 40px; }
+.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.perfil-col h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
+.perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.perfil-col ul li { font-size: 14px; color: #CBD5E1; line-height: 1.5; padding-left: 18px; position: relative; }
+.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: #f97316; font-weight: 700; }
+.perfil-col--taec { background: rgba(255,255,255,.04); border: 1px solid rgba(249,115,22,.2); border-radius: 14px; padding: 24px; }
+.perfil-cierre { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.7; font-style: italic; border-top: 1px solid rgba(255,255,255,.08); padding-top: 16px; }
+
 /* ── MÓDULOS ── */
 .pifini-modulos { background: white; padding: 72px 5%; }
 .pm-inner { max-width: 1100px; margin: 0 auto; }
@@ -328,11 +422,14 @@ const logos = [
   .modulos-grid { grid-template-columns: repeat(2, 1fr); }
   .pv-grid { grid-template-columns: 1fr; }
   .pv-card--comp { display: none; }
+  .problema-grid { grid-template-columns: repeat(2, 1fr); }
+  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
 }
 @media (max-width: 768px) {
   .ps-inner { grid-template-columns: 1fr 1fr; }
   .ps-divider { display: none; }
   .modulos-grid { grid-template-columns: 1fr; }
+  .problema-grid { grid-template-columns: 1fr; }
   .pifini-quote blockquote { font-size: 16px; }
 }
 </style>
