@@ -1,115 +1,315 @@
 ---
+// CHANGELOG: 2026-03-20 - Landing OttoLearn completa. Contenido basado en doc estratégico DDC.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+import { getBookingUrl } from '../data/contact';
 
 const base = import.meta.env.BASE_URL;
 function r(url: string): string {
   if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
   return base.replace(/\/$/, '') + url;
 }
+const bookingUrl = getBookingUrl();
+
+const beneficios = [
+  { icon: "🧠", title: "Microlearning adaptativo", description: "OttoLearn ajusta el ritmo y los contenidos según el nivel de dominio de cada persona. No todos aprenden igual ni al mismo ritmo." },
+  { icon: "🔁", title: "Repetición espaciada", description: "El algoritmo determina cuándo y qué reforzar para maximizar la retención a largo plazo, no solo la completación del módulo." },
+  { icon: "🏆", title: "Gamificación útil", description: "Leaderboards, concursos, puntos, insignias y recompensas. La gamificación que motiva sin distraer del objetivo de aprendizaje." },
+  { icon: "📱", title: "Mobile-first y authoring integrado", description: "Acceso desde cualquier dispositivo. Creación de contenido directo en la plataforma, sin herramientas externas requeridas." }
+];
+
+const funcionalidades = [
+  { icon: "🎯", label: "Microlearning adaptativo", desc: "Sesiones breves personalizadas según el nivel de dominio del usuario." },
+  { icon: "🔁", label: "Repetición espaciada", desc: "El sistema decide cuándo y qué reforzar para maximizar retención." },
+  { icon: "🏆", label: "Gamificación", desc: "Leaderboards, concursos, puntos, insignias y recompensas configurables." },
+  { icon: "✏️", label: "Authoring integrado", desc: "Crea y edita contenido directamente en la plataforma, sin herramientas extra." },
+  { icon: "📋", label: "Knowledge cards", desc: "Apoyo al desempeño y consultas rápidas dentro de la misma experiencia." },
+  { icon: "📱", label: "Mobile-first", desc: "Experiencia optimizada para celular — funciona donde está el usuario." },
+  { icon: "📊", label: "Analítica y dashboards", desc: "Visibilidad de dominio, brechas y avance por persona, equipo o grupo." },
+  { icon: "🌐", label: "Multilingüe y accesible", desc: "Soporte para múltiples idiomas y estándares de accesibilidad." }
+];
+
+const pasos = [
+  { num: "01", title: "Definir qué debe saber cada perfil", desc: "Mapeas qué conocimientos son críticos para cada rol, área o proceso. OttoLearn estructura el contenido por objetivos de dominio." },
+  { num: "02", title: "Organizar el contenido", desc: "Usas el authoring integrado para crear o cargar los materiales. Cards cortas, preguntas, escenarios — formatos diseñados para retención." },
+  { num: "03", title: "Entrenar en sesiones breves", desc: "Los usuarios practican en sesiones de 5–10 minutos. El algoritmo adapta qué reforzar según el desempeño de cada persona." },
+  { num: "04", title: "Medir y adaptar", desc: "Los dashboards muestran el nivel de dominio real, no solo completaciones. Identificas brechas y ajustas el programa con datos." }
+];
+
+const faqs = [
+  {
+    question: "¿OttoLearn es un LMS?",
+    answerHtml: "No exactamente. OttoLearn es una <strong>plataforma de microlearning adaptativo</strong>, no un sistema de gestión de aprendizaje tradicional. Está diseñada para <em>reforzar</em> conocimiento — complementa a un LMS, no lo reemplaza. Si buscas un LMS completo, te podemos orientar hacia Moodle, Totara o Pifini según tu caso."
+  },
+  {
+    question: "¿Para qué sirve OttoLearn en onboarding?",
+    answerHtml: "Muy bien para el <strong>refuerzo post-onboarding</strong>. Después de las primeras semanas donde el nuevo colaborador recibe mucha información, OttoLearn mantiene activo el aprendizaje con sesiones cortas que consolidan lo más importante antes de que se olvide."
+  },
+  {
+    question: "¿Sirve para compliance y seguridad?",
+    answerHtml: "Sí. Es uno de sus casos de uso más fuertes. Los temas de compliance se olvidan rápido si solo se toman una vez al año. OttoLearn mantiene el conocimiento activo con refuerzo periódico, detecta quién tiene brechas y garantiza que el conocimiento crítico esté disponible cuando se necesita."
+  },
+  {
+    question: "¿Funciona en celular?",
+    answerHtml: "Sí, es <strong>mobile-first</strong>. Las sesiones están diseñadas para completarse en 5–10 minutos desde cualquier dispositivo. Ideal para personal en campo, equipos distribuidos y usuarios con poco tiempo en escritorio."
+  },
+  {
+    question: "¿Permite crear contenido dentro de la plataforma?",
+    answerHtml: "Sí. OttoLearn incluye <strong>authoring integrado</strong>. Puedes crear cards de conocimiento, preguntas, escenarios y materiales de apoyo directamente en la plataforma, sin necesidad de herramientas externas como Articulate o Vyond (aunque se pueden integrar si ya las tienes)."
+  },
+  {
+    question: "¿TAEC puede implementar OttoLearn en México?",
+    answerHtml: "Sí. TAEC acompaña todo el proceso: evaluación del encaje para tu caso de uso, demo en español, implementación, definición de casos de uso y diseño o adaptación de contenido. También ofrecemos soporte local y seguimiento cercano en horario CDMX."
+  }
+];
 ---
 
-<BaseLayout 
-  title="OttoLearn en México – Microlearning adaptativo | TAEC"
-  description="Plataforma de microlearning adaptativo con IA. Refuerzo continuo del conocimiento para equipos de trabajo."
+<BaseLayout
+  title="OttoLearn en México | Microlearning adaptativo y gamificado | TAEC"
+  description="Conoce OttoLearn con TAEC. Plataforma de microlearning adaptativo para onboarding, compliance y capacitación continua. Demo, asesoría y soporte en español."
   section="Soluciones"
   page="ottolearn-mexico.html"
 >
-  <style is:global>
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+  <!-- ── HERO ── -->
+  <HeroComercial
+    eyebrow="OttoLearn · Microlearning adaptativo"
+    titleHtml={`Capacitación continua<br>que <em>sí</em> se recuerda`}
+    subtitle="OttoLearn es una plataforma de microlearning adaptativo y gamificado que refuerza conocimientos, cierra brechas y mantiene el aprendizaje activo — en sesiones cortas, frecuentes y personalizadas."
+    features={[
+      "Microlearning adaptativo con IA — sesiones de 5–10 min",
+      "Repetición espaciada para retención real",
+      "Gamificación: leaderboards, insignias y concursos",
+      "Authoring integrado — crea contenido sin salir de la plataforma",
+      "Mobile-first — funciona donde está el usuario",
+      "Implementación y soporte en español · CDMX"
+    ]}
+    primaryBtn={{ label: "Solicitar demo gratuita →", url: bookingUrl, target: "_blank" }}
+    secondaryBtn={{ label: "Hablar con un especialista", url: r('/contacto') }}
+    cardBadgeText="MICROLEARNING · RETENCIÓN · GAMIFICACIÓN"
+    theme="general"
+  />
 
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
-  </style>
-
-<main id="main-content">
-
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Plataformas &amp; LMS</span>
-    <span class="wip-icon" role="img" aria-label="OttoLearn en México">🤖</span>
-    <h1>OttoLearn en México</h1>
-    <p>Plataforma de microlearning adaptativo con IA. Refuerzo continuo del conocimiento para equipos de trabajo.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+  <!-- ── QUÉ ES ── -->
+  <section class="otto-quees">
+    <div class="oq-inner">
+      <div class="oq-text">
+        <p class="section-label">¿Qué es OttoLearn?</p>
+        <h2>No sustituye tu estrategia de aprendizaje. La refuerza donde más suele fallar.</h2>
+        <p>OttoLearn es una plataforma enfocada en microlearning adaptativo. En lugar de depender solo de cursos largos que se toman una vez y luego se olvidan, entrega entrenamiento en sesiones breves, personalizadas y recurrentes.</p>
+        <p>Su propuesta combina <strong>microlearning, adaptación al nivel del usuario, repetición espaciada, gamificación y analítica</strong> en una sola plataforma diseñada para lograr retención, constancia y transferencia al trabajo.</p>
+      </div>
+      <div class="oq-highlight">
+        <span class="oq-icon">🎯</span>
+        <p>No sustituye cualquier estrategia de aprendizaje. La refuerza donde más suele fallar la capacitación: en la <strong>retención, la constancia y la transferencia al trabajo.</strong></p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre OttoLearn en México?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href={r('/contacto')} class="btn-primary">Escribirnos →</a>
-      <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-wa">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
+  <!-- ── EL PROBLEMA ── -->
+  <section class="otto-problema">
+    <div class="op-inner">
+      <p class="section-label">El reto real</p>
+      <h2 class="section-title">El problema no es capacitar.<br>El problema es que se olvida.</h2>
+      <p class="section-sub">Muchas organizaciones ya tienen cursos, LMS, manuales y procesos. Lo que no siempre tienen es una forma práctica de lograr que la gente recuerde, aplique y mantenga lo aprendido.</p>
+      <div class="problema-cols">
+        <div class="prob-item">
+          <span class="prob-num">01</span>
+          <h3>Cursos que se toman una vez y se olvidan</h3>
+          <p>El 70% del contenido de un curso se olvida en los primeros días. Sin refuerzo continuo, la inversión en capacitación tiene un retorno marginal.</p>
+        </div>
+        <div class="prob-item">
+          <span class="prob-num">02</span>
+          <h3>Sin visibilidad real del dominio</h3>
+          <p>Sabes quién completó el curso. No sabes quién realmente aprendió. Las tasas de completación no son métricas de aprendizaje.</p>
+        </div>
+        <div class="prob-item">
+          <span class="prob-num">03</span>
+          <h3>Equipos sin tiempo para formatos largos</h3>
+          <p>Personal en campo, equipos distribuidos o áreas con alta carga operativa no pueden tomar cursos de 2 horas. La capacitación tiene que caber en su día de trabajo.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-</main>
+  <!-- ── CÓMO FUNCIONA ── -->
+  <section class="otto-pasos">
+    <div class="opasos-inner">
+      <p class="section-label">Proceso</p>
+      <h2 class="section-title">Cómo funciona OttoLearn</h2>
+      <div class="pasos-grid">
+        {pasos.map(p => (
+          <div class="paso-card">
+            <span class="paso-num">{p.num}</span>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FUNCIONALIDADES ── -->
+  <section class="otto-funciones">
+    <div class="of-inner">
+      <p class="section-label">Suite completa</p>
+      <h2 class="section-title">Funcionalidades clave</h2>
+      <div class="func-grid">
+        {funcionalidades.map(f => (
+          <div class="func-card">
+            <span class="func-icon">{f.icon}</span>
+            <h3>{f.label}</h3>
+            <p>{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFICIOS ── -->
+  <GridBeneficios
+    eyebrow="Por qué OttoLearn"
+    title="Retención real, no solo completaciones"
+    subtitle="Para organizaciones que ya capacitan y quieren que el conocimiento se quede — no que se olvide al día siguiente."
+    cards={beneficios}
+    columns={2}
+    theme="general"
+  />
+
+  <!-- ── PERFIL IDEAL ── -->
+  <section class="otto-perfil">
+    <div class="opf-inner">
+      <p class="section-label">¿Para quién es?</p>
+      <h2 class="section-title">OttoLearn encaja mejor cuando…</h2>
+      <div class="perfil-grid">
+        <div class="perfil-col">
+          <h3>Perfil de organización ideal</h3>
+          <ul>
+            <li>Equipos distribuidos o en múltiples ubicaciones</li>
+            <li>Personal operativo, comercial o frontline</li>
+            <li>Onboarding frecuente de colaboradores</li>
+            <li>Procesos de compliance y seguridad críticos</li>
+            <li>Productos o procesos que cambian con frecuencia</li>
+            <li>Necesidad de reforzar después del curso inicial</li>
+          </ul>
+        </div>
+        <div class="perfil-col">
+          <h3>Casos de uso principales</h3>
+          <ul>
+            <li>Onboarding — consolidar lo aprendido en las primeras semanas</li>
+            <li>Compliance y seguridad — retención continua, no solo anual</li>
+            <li>Fuerza comercial — producto, argumentos y manejo de objeciones</li>
+            <li>Operación y personal en campo — conocimiento disponible en móvil</li>
+            <li>Refuerzo post-curso — extender el valor de la capacitación formal</li>
+          </ul>
+        </div>
+        <div class="perfil-col perfil-col--taec">
+          <h3>Lo que TAEC hace por ti</h3>
+          <ul>
+            <li>Asesoría comercial y funcional en español</li>
+            <li>Acompañamiento para evaluación y demo</li>
+            <li>Apoyo en definición de casos de uso reales</li>
+            <li>Diseño o adaptación de contenido si lo necesitas</li>
+            <li>Integración con tu estrategia general de capacitación</li>
+            <li>Soporte local y seguimiento cercano · CDMX</li>
+          </ul>
+          <p class="perfil-cierre">No se trata de meter otra herramienta a la colección. Se trata de resolver un problema concreto de retención, refuerzo y desempeño.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <FAQAccordion
+    eyebrow="Preguntas frecuentes"
+    title="Todo sobre OttoLearn en México"
+    faqs={faqs}
+    theme="general"
+  />
+
+  <!-- ── CTA ── -->
+  <CtaFinal
+    title="¿Quieres ver si OttoLearn aplica para tu organización?"
+    subtitle="Agenda una sesión con nuestro equipo. Te mostramos la plataforma con casos reales y te ayudamos a evaluar si es el fit correcto — sin costo, sin compromiso."
+    primaryBtnText="Solicitar diagnóstico →"
+    primaryBtnUrl={bookingUrl}
+    primaryBtnTarget="_blank"
+    theme="general"
+  />
+
 </BaseLayout>
+
+<style is:global>
+/* ── QUÉ ES ── */
+.otto-quees { background: white; padding: 72px 5%; }
+.oq-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+.oq-text .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; display: block; }
+.oq-text h2 { font-family: var(--font-display); font-size: clamp(22px, 2.5vw, 30px); color: #111827; margin-bottom: 20px; line-height: 1.3; }
+.oq-text p { font-size: 15px; color: #4B5563; line-height: 1.8; margin-bottom: 14px; }
+.oq-highlight { background: #FFF7ED; border: 1.5px solid #FED7AA; border-radius: 16px; padding: 32px; text-align: center; }
+.oq-icon { font-size: 40px; display: block; margin-bottom: 16px; }
+.oq-highlight p { font-size: 15px; color: #92400E; line-height: 1.75; margin: 0; }
+
+/* ── EL PROBLEMA ── */
+.otto-problema { background: #F8FAFC; padding: 72px 5%; }
+.op-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; display: block; }
+.section-title { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); color: #111827; margin-bottom: 12px; }
+.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 48px; max-width: 700px; }
+.problema-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.prob-item { background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 28px 24px; }
+.prob-num { font-size: 32px; font-weight: 900; color: #E2E8F0; display: block; margin-bottom: 10px; line-height: 1; }
+.prob-item h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 10px; line-height: 1.4; }
+.prob-item p { font-size: 13px; color: #64748B; line-height: 1.7; }
+
+/* ── CÓMO FUNCIONA ── */
+.otto-pasos { background: #0f172a; padding: 72px 5%; }
+.opasos-inner { max-width: 1100px; margin: 0 auto; }
+.otto-pasos .section-label { color: #f97316; }
+.otto-pasos .section-title { color: white; margin-bottom: 40px; }
+.pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.paso-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px 22px; }
+.paso-num { font-size: 36px; font-weight: 900; color: #f97316; opacity: .4; display: block; margin-bottom: 12px; line-height: 1; }
+.paso-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.4; }
+.paso-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+/* ── FUNCIONALIDADES ── */
+.otto-funciones { background: white; padding: 72px 5%; }
+.of-inner { max-width: 1100px; margin: 0 auto; }
+.func-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+.func-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
+.func-card:hover { border-color: #f97316; }
+.func-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+.func-card h3 { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.func-card p { font-size: 12px; color: #64748B; line-height: 1.6; }
+
+/* ── PERFIL IDEAL ── */
+.otto-perfil { background: #F8FAFC; padding: 72px 5%; }
+.opf-inner { max-width: 1100px; margin: 0 auto; }
+.opf-inner .section-title { margin-bottom: 40px; }
+.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
+.perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.perfil-col ul li { font-size: 14px; color: #374151; line-height: 1.5; padding-left: 18px; position: relative; }
+.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: #f97316; font-weight: 700; }
+.perfil-col--taec { background: white; border: 1.5px solid #FED7AA; border-radius: 14px; padding: 24px; }
+.perfil-col--taec h3 { color: #92400E; }
+.perfil-col--taec ul li { color: #374151; }
+.perfil-cierre { margin-top: 20px; font-size: 13px; color: #9CA3AF; line-height: 1.7; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 16px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .oq-inner { grid-template-columns: 1fr; gap: 40px; }
+  .problema-cols { grid-template-columns: 1fr; }
+  .pasos-grid { grid-template-columns: repeat(2, 1fr); }
+  .func-grid { grid-template-columns: repeat(2, 1fr); }
+  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 768px) {
+  .pasos-grid { grid-template-columns: 1fr; }
+  .func-grid { grid-template-columns: 1fr; }
+}
+</style>
