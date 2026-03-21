@@ -6,13 +6,17 @@ import { getCollection } from 'astro:content';
 const items = await getCollection('quiz');
 
 // Preparar los datos reales para el componente interactivo en cliente
-const quizData = items.map((t, index) => ({
-  id: index + 1,
-  q: t.data.description || t.data.title, // La pregunta es la descripción o el título corto
-  a: t.body // La respuesta (Markdown body)
-}));
+const quizData = items.map((t, index) => {
+  // Remover "**Respuesta:**" si viene en el body, para que las opciones sean limpias
+  const cleanAns = (t.body || '').replace(/\*\*Respuesta:\*\*\s*/i, '').trim();
+  const cleanQ = (t.data.description || t.data.title).replace(/\*\*Pregunta:\*\*\s*/i, '').trim();
+  return {
+    id: index + 1,
+    q: cleanQ,
+    a: cleanAns
+  };
+});
 
-// Pasar los datos a JSON string
 const quizDataStr = JSON.stringify(quizData);
 ---
 
@@ -25,58 +29,106 @@ const quizDataStr = JSON.stringify(quizData);
   <HeroComercial 
     eyebrow="TAEC · Recursos"
     titleHtml="Pon a prueba tus <br/><span class='text-accent'>Conocimientos</span>"
-    subtitle="Conceptos de e-learning, IA educativa, estándares y L&D. Estudia las tarjetas interactivas."
+    subtitle="Conceptos de e-learning, IA educativa, estándares y L&D. Estudia con tarjetas o realiza el test."
     theme="general"
   />
 
   <main style="max-width: 800px; margin: 64px auto; padding: 0 24px 80px;">
     
     <div style="background: #ffffff; border: 1px solid #e7e3db; border-radius: 12px; padding: 16px 24px; font-size: 14px; color: #78716c; margin-bottom: 40px; line-height: 1.5; text-align: center;">
-      Todas las respuestas están en el sitio. Consulta el 
+      Todas las respuestas están documentadas. Consulta el 
       <a href="/glosario" style="color: #1d4ed8; font-weight: 600; text-decoration: none;">Glosario</a> y los 
-      <a href="/estandares" style="color: #1d4ed8; font-weight: 600; text-decoration: none;">Estándares</a> de TAEC para repasar cualquier concepto.
+      <a href="/estandares" style="color: #1d4ed8; font-weight: 600; text-decoration: none;">Estándares</a> de TAEC para repasar.
     </div>
 
-    <!-- Módulo Flashcards (Estudio Interactívo) -->
-    <div id="flashcard-app" data-cards={quizDataStr}>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <div style="font-family: monospace; font-size: 12px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;" id="study-counter">
-          Cargando tarjetas...
-        </div>
-      </div>
+    <!-- Mode Switcher -->
+    <div style="display: flex; justify-content: center; margin-bottom: 32px; gap: 12px;">
+      <button class="mode-tab active" data-mode="study">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+        Modo Estudio
+      </button>
+      <button class="mode-tab" data-mode="quiz">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        Modo Examen
+      </button>
+    </div>
+
+    <div id="quiz-app" data-cards={quizDataStr}>
       
-      <div style="height: 4px; background: #e7e3db; border-radius: 2px; margin-bottom: 32px; overflow: hidden;">
-        <div id="study-bar" style="height: 100%; width: 0%; background: #1d4ed8; border-radius: 2px; transition: width 0.3s ease;"></div>
-      </div>
-
-      <div class="flip-scene" id="flip-scene" style="perspective: 1000px; width: 100%; margin: 0 auto 32px; cursor: pointer;">
-        <div class="flip-card" id="flip-card" style="width: 100%; min-height: 280px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
-          
-          <div class="flip-face flip-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: #1c1917; color: #ffffff; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-            <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 16px;">Pregunta</div>
-            <div id="study-q" style="font-family: var(--font-body, sans-serif); font-size: 1.2rem; line-height: 1.5; text-align: center; font-weight: 500;">
-              [...]
-            </div>
-            <div style="font-family: monospace; font-size: 10px; opacity: 0.4; margin-top: 32px; border: 1px solid rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px;">Click para revelar</div>
+      <!-- ================= MODO ESTUDIO (FLASHCARDS) ================= -->
+      <div id="view-study" class="view-panel active-view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div style="font-family: monospace; font-size: 12px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;" id="study-counter">
+            Cargando tarjetas...
           </div>
-          
-          <div class="flip-face flip-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: #ffffff; color: #1c1917; border: 2px solid #e7e3db; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-            <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d4ed8; font-weight: 600; margin-bottom: 16px;">Respuesta</div>
-            <div id="study-a" style="font-family: var(--font-body, sans-serif); font-size: 1.1rem; line-height: 1.6; text-align: center;">
-              [...]
+        </div>
+        
+        <div style="height: 4px; background: #e7e3db; border-radius: 2px; margin-bottom: 32px; overflow: hidden;">
+          <div id="study-bar" style="height: 100%; width: 0%; background: #1d4ed8; border-radius: 2px; transition: width 0.3s ease;"></div>
+        </div>
+
+        <div class="flip-scene" id="flip-scene" style="perspective: 1000px; width: 100%; margin: 0 auto 32px; cursor: pointer;">
+          <div class="flip-card" id="flip-card" style="width: 100%; min-height: 320px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+            <div class="flip-face flip-front">
+              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 24px;">Pregunta</div>
+              <div id="study-q" class="md-content">[...]</div>
+              <div style="font-family: monospace; font-size: 10px; opacity: 0.4; margin-top: auto; border: 1px solid rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px;">Toque para revelar</div>
+            </div>
+            <div class="flip-face flip-back">
+              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d4ed8; font-weight: 600; margin-bottom: 24px;">Respuesta</div>
+              <div id="study-a" class="md-content">[...]</div>
             </div>
           </div>
+        </div>
 
+        <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px;">
+          <button id="btn-prev" class="ctrl-btn">&larr; Anterior</button>
+          <button id="btn-shuffle" class="ctrl-btn shuffle-btn">
+            <svg style="width: 14px; height: 14px; margin-right: 6px; display: inline-block; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+            Mezclar
+          </button>
+          <button id="btn-next" class="ctrl-btn" style="background: #1c1917; color: #fff; border-color: #1c1917;">Siguiente &rarr;</button>
         </div>
       </div>
 
-      <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px;">
-        <button id="btn-prev" class="ctrl-btn">&larr; Anterior</button>
-        <button id="btn-shuffle" class="ctrl-btn shuffle-btn">
-          <svg style="width: 14px; height: 14px; margin-right: 6px; display: inline-block; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
-          Mezclar
-        </button>
-        <button id="btn-next" class="ctrl-btn" style="background: #1c1917; color: #fff; border-color: #1c1917;">Siguiente &rarr;</button>
+      <!-- ================= MODO QUIZ ================= -->
+      <div id="view-quiz" class="view-panel" style="display: none;">
+        
+        <!-- Estado Inicial -->
+        <div id="quiz-start" style="text-align: center; padding: 48px 24px; background: #ffffff; border: 1px solid #e7e3db; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+          <div style="width: 64px; height: 64px; background: #eff6ff; color: #1d4ed8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+            <svg style="width: 32px; height: 32px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+          </div>
+          <h3 style="font-size: 1.5rem; color: #1c1917; margin-bottom: 12px; font-weight: 700;">Simulador de Examen</h3>
+          <p style="color: #44403c; margin-bottom: 32px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.6;">Demuestra tus conocimientos en e-learning. Responderás 10 preguntas aleatorias de opción múltiple.</p>
+          <button id="btn-start-quiz" class="btn-primary">Comenzar Evaluación</button>
+        </div>
+
+        <!-- Estado Jugando -->
+        <div id="quiz-play" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <div style="font-family: monospace; font-size: 12px; color: #78716c; text-transform: uppercase; font-weight: 600;" id="quiz-counter">Pregunta 1/10</div>
+            <div style="font-family: monospace; font-size: 14px; color: #166534; font-weight: 700; background: #f0fdf4; padding: 4px 12px; border-radius: 12px;" id="quiz-score">Score: 0</div>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid #e7e3db; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 24px;">
+            <div id="quiz-q" class="md-content" style="font-size: 1.2rem; font-weight: 600; color: #1c1917; margin-bottom: 32px; text-align: center;"></div>
+            
+            <div id="quiz-options" style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- Opciones inyectadas por JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Estado Final -->
+        <div id="quiz-end" style="display: none; text-align: center; background: #ffffff; border: 1px solid #e7e3db; border-radius: 16px; padding: 48px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+          <div style="font-size: 48px; margin-bottom: 16px;">🎓</div>
+          <h3 style="font-size: 1.8rem; color: #1c1917; margin-bottom: 8px; font-weight: 700;">¡Evaluación Completada!</h3>
+          <p style="color: #44403c; margin-bottom: 24px;">Has obtenido <strong id="final-score" style="color: #1d4ed8; font-size: 1.2rem;">0/10</strong> respuestas correctas.</p>
+          <div id="quiz-feedback" style="margin-bottom: 32px; font-weight: 600; color: #059669;"></div>
+          <button id="btn-restart-quiz" class="btn-primary">Volver a Intentar</button>
+        </div>
+
       </div>
 
     </div>
@@ -85,32 +137,94 @@ const quizDataStr = JSON.stringify(quizData);
 </BaseLayout>
 
 <style>
+/* Pestañas */
+.mode-tab { display: flex; align-items: center; font-family: var(--font-body, sans-serif); font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 30px; border: 1.5px solid #e7e3db; background: transparent; color: #78716c; cursor: pointer; transition: all 0.2s; }
+.mode-tab svg { width: 18px; height: 18px; margin-right: 8px; }
+.mode-tab:hover { background: #f5f5f4; color: #44403c; }
+.mode-tab.active { background: #1c1917; border-color: #1c1917; color: #ffffff; }
+
+/* Flip Card (Estudio) */
+.flip-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; }
+.flip-front { background: #1c1917; color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.flip-back { background: #ffffff; color: #1c1917; border: 2px solid #e7e3db; transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .flip-card.flipped { transform: rotateY(180deg); }
 
+/* MD Content común */
+.md-content { font-family: var(--font-body, sans-serif); line-height: 1.6; text-align: center; }
+.md-content strong { font-weight: 700; color: inherit; }
+.md-content em { font-style: italic; opacity: 0.9; }
+
+/* Controles Base */
 .ctrl-btn { font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; padding: 10px 20px; border-radius: 8px; border: 1.5px solid #e7e3db; background: #ffffff; color: #44403c; cursor: pointer; transition: all 0.2s; font-weight: 600; }
 .ctrl-btn:hover:not(:disabled) { border-color: #a8a29e; background: #f5f5f4; }
 .ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
 .shuffle-btn { color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff; }
 .shuffle-btn:hover:not(:disabled) { border-color: #1d4ed8; background: #dbeafe; color: #1e3a8a; }
+
+/* Botones Principales (Quiz) */
+.btn-primary { font-family: var(--font-body, sans-serif); background: #1d4ed8; color: #ffffff; font-size: 15px; font-weight: 600; padding: 12px 32px; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2); }
+.btn-primary:hover { background: #1e3a8a; }
+
+/* Botones Opciones (Quiz) */
+.quiz-opt { width: 100%; text-align: left; background: #ffffff; border: 1.5px solid #e7e3db; border-radius: 8px; padding: 16px 20px; font-family: var(--font-body, sans-serif); font-size: 15px; color: #44403c; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+.quiz-opt:hover:not(:disabled) { border-color: #1d4ed8; background: #f8fafc; color: #1c1917; }
+.quiz-opt:disabled { cursor: default; }
+
+.quiz-opt.opt-correct { background: #f0fdf4; border-color: #22c55e; color: #166534; font-weight: 600; }
+.quiz-opt.opt-wrong { background: #fef2f2; border-color: #ef4444; color: #991b1b; opacity: 0.8; }
 </style>
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    const appEl = document.getElementById('flashcard-app');
+    const appEl = document.getElementById('quiz-app');
     if(!appEl) return;
     
-    // Parsear datos inyectados por Astro
-    const CARDS = JSON.parse(appEl.getAttribute('data-cards') || '[]');
-    let N = CARDS.length;
-    
-    if(N === 0) {
-      document.getElementById('study-q').textContent = "No hay tarjetas disponibles.";
-      document.getElementById('study-a').textContent = "-";
-      return;
+    // Parse the 75 entries
+    const RAW_CARDS = JSON.parse(appEl.getAttribute('data-cards') || '[]');
+    let N = RAW_CARDS.length;
+
+    // Tabs logic
+    const tabs = document.querySelectorAll('.mode-tab');
+    const viewStudy = document.getElementById('view-study');
+    const viewQuiz = document.getElementById('view-quiz');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        tabs.forEach(t => t.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        const mode = e.currentTarget.getAttribute('data-mode');
+        if(mode === 'study'){
+          viewStudy.style.display = 'block';
+          viewQuiz.style.display = 'none';
+        } else {
+          viewStudy.style.display = 'none';
+          viewQuiz.style.display = 'block';
+        }
+      });
+    });
+
+    // Helper genérico para markdown
+    function parseMD(str) {
+      if(!str) return '';
+      return str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br/>');
     }
 
-    let studyOrder = CARDS.map((_,i) => i);
+    // Helper para barajar arreglos (Fisher-Yates)
+    function shuffle(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1)); 
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    // ==========================================
+    // MODO ESTUDIO (FLASHCARDS)
+    // ==========================================
+    let studyOrder = RAW_CARDS.map((_,i) => i);
     let studyIdx = 0;
 
     const qEl = document.getElementById('study-q');
@@ -123,62 +237,127 @@ const quizDataStr = JSON.stringify(quizData);
     const btnShuffle = document.getElementById('btn-shuffle');
     const sceneEl = document.getElementById('flip-scene');
 
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1)); 
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
     function renderStudy() {
-      const card = CARDS[studyOrder[studyIdx]];
-      
-      // Función para convertir markdown básico a HTML antes de inyectar
-      function parseMD(str) {
-        if(!str) return '';
-        return str
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\*(.*?)\*/g, '<em>$1</em>')
-          .replace(/\n/g, '<br/>');
-      }
-
-      // Remover flipped si estaba abierta
+      if(N === 0) return;
+      const card = RAW_CARDS[studyOrder[studyIdx]];
       cardEl.classList.remove('flipped');
-      
-      // Esperar la animación css (0.6s) o cambiar tras un reflow rápido
       setTimeout(() => {
         qEl.innerHTML = parseMD(card.q);
         aEl.innerHTML = parseMD(card.a);
         counterEl.textContent = `Tarjeta ${studyIdx + 1} de ${N}`;
         barEl.style.width = `${((studyIdx + 1) / N) * 100}%`;
-        
         btnPrev.disabled = studyIdx === 0;
         btnNext.disabled = studyIdx === N - 1;
       }, cardEl.classList.contains('flipped') ? 300 : 0);
     }
 
-    sceneEl.addEventListener('click', () => {
-      cardEl.classList.toggle('flipped');
-    });
-
-    btnPrev.addEventListener('click', () => {
-      studyIdx = Math.max(0, studyIdx - 1);
-      renderStudy();
-    });
-
-    btnNext.addEventListener('click', () => {
-      studyIdx = Math.min(N - 1, studyIdx + 1);
-      renderStudy();
-    });
-
-    btnShuffle.addEventListener('click', () => {
-      shuffle(studyOrder);
-      studyIdx = 0;
-      renderStudy();
-    });
-
-    // Iniciar
+    if(sceneEl) sceneEl.addEventListener('click', () => cardEl.classList.toggle('flipped'));
+    if(btnPrev) btnPrev.addEventListener('click', () => { studyIdx = Math.max(0, studyIdx - 1); renderStudy(); });
+    if(btnNext) btnNext.addEventListener('click', () => { studyIdx = Math.min(N - 1, studyIdx + 1); renderStudy(); });
+    if(btnShuffle) btnShuffle.addEventListener('click', () => { studyOrder = shuffle(studyOrder); studyIdx = 0; renderStudy(); });
+    
     renderStudy();
+
+    // ==========================================
+    // MODO QUIZ INTERACTÍVO (Auto Generado)
+    // ==========================================
+    const QUIZ_LENGTH = 10;
+    let quizBank = [];
+    let currentQuizIndex = 0;
+    let currentScore = 0;
+
+    const uiStart = document.getElementById('quiz-start');
+    const uiPlay = document.getElementById('quiz-play');
+    const uiEnd = document.getElementById('quiz-end');
+    
+    const uiCounter = document.getElementById('quiz-counter');
+    const uiScore = document.getElementById('quiz-score');
+    const uiQuestion = document.getElementById('quiz-q');
+    const uiOptions = document.getElementById('quiz-options');
+    
+    document.getElementById('btn-start-quiz').addEventListener('click', startQuiz);
+    document.getElementById('btn-restart-quiz').addEventListener('click', startQuiz);
+
+    function startQuiz() {
+      uiStart.style.display = 'none';
+      uiEnd.style.display = 'none';
+      uiPlay.style.display = 'block';
+      
+      // Seleccionar X preguntas aleatorias para este round
+      const pool = shuffle(RAW_CARDS);
+      quizBank = pool.slice(0, Math.min(QUIZ_LENGTH, N));
+      currentQuizIndex = 0;
+      currentScore = 0;
+      
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      uiCounter.textContent = `Pregunta ${currentQuizIndex + 1}/${quizBank.length}`;
+      uiScore.textContent = `Score: ${currentScore}`;
+      
+      const currentItem = quizBank[currentQuizIndex];
+      uiQuestion.innerHTML = parseMD(currentItem.q);
+      
+      // Generar 3 distractores (respuestas falsas) aleatorias de OTRAS tarjetas
+      const otherCards = RAW_CARDS.filter(c => c.id !== currentItem.id);
+      const distractors = shuffle(otherCards).slice(0, 3).map(c => c.a);
+      
+      // Mezclar con la correcta
+      const allOptions = shuffle([currentItem.a, ...distractors]);
+      
+      uiOptions.innerHTML = '';
+      allOptions.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt';
+        btn.innerHTML = parseMD(opt);
+        btn.onclick = () => handleAnswer(btn, opt === currentItem.a);
+        uiOptions.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(btnClicked, isCorrect) {
+      // Deshabilitar todos
+      const buttons = Array.from(uiOptions.children);
+      buttons.forEach(b => b.disabled = true);
+      
+      if (isCorrect) {
+        btnClicked.classList.add('opt-correct');
+        currentScore++;
+        uiScore.textContent = `Score: ${currentScore}`;
+      } else {
+        btnClicked.classList.add('opt-wrong');
+        // Marcar la correcta también
+        const correctBtn = buttons.find(b => {
+          // buscar quién tiene la respuesta original
+          return b.innerHTML === parseMD(quizBank[currentQuizIndex].a);
+        });
+        if(correctBtn) correctBtn.classList.add('opt-correct');
+      }
+
+      // Siguiente pregunta o fin
+      setTimeout(() => {
+        currentQuizIndex++;
+        if (currentQuizIndex < quizBank.length) {
+          renderQuizQuestion();
+        } else {
+          endQuiz();
+        }
+      }, 1800);
+    }
+
+    function endQuiz() {
+      uiPlay.style.display = 'none';
+      uiEnd.style.display = 'block';
+      
+      document.getElementById('final-score').textContent = `${currentScore}/${quizBank.length}`;
+      const feedback = document.getElementById('quiz-feedback');
+      
+      const pct = currentScore / quizBank.length;
+      if(pct === 1) { feedback.textContent = "¡Perfecto! Eres un experto en e-learning y L&D."; feedback.style.color = "#059669"; }
+      else if(pct >= 0.7) { feedback.textContent = "¡Gran trabajo! Tienes sólidos conocimientos."; feedback.style.color = "#1d4ed8"; }
+      else if(pct >= 0.4) { feedback.textContent = "Buen intento. Puedes usar el modo de estudio para repasar."; feedback.style.color = "#d97706"; }
+      else { feedback.textContent = "Hay mucho por aprender. ¡Sigue utilizando las tarjetas de estudio!"; feedback.style.color = "#dc2626"; }
+    }
   });
 </script>
