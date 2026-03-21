@@ -2,7 +2,7 @@
 title: "¿Cómo gamificar un curso en línea correctamente?"
 description: "¿Cómo gamificar un curso en línea correctamente?"
 date: "22 febrero, 2022"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["aprendizaje", "clases", "en", "linea", "compromiso", "educación", "exito", "gamificación", "juegos", "serios"]
 ---
 

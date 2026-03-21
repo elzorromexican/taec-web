@@ -2,7 +2,7 @@
 title: "Desarrollo y flexibilidad: impulsando equipos de alto desempeño"
 description: "Desarrollo y flexibilidad: impulsando equipos de alto desempeño"
 date: "6 febrero, 2024"
-author: "TAEC"
+author: "elba loera"
 tags: ["alto", "desempeño", "rendimiento", "capacitación"]
 ---
 

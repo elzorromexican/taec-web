@@ -2,7 +2,7 @@
 title: "Reconoce 3 claves para aplicar DI responsable en tus clases en linea"
 description: "Reconoce 3 claves para aplicar DI responsable en tus clases en linea"
 date: "5 octubre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["clases", "en", "linea", "inclusividad", "objetivo", "de", "aprendizaje", "responsabilidad", "tiempo"]
 ---
 

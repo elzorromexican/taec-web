@@ -2,7 +2,7 @@
 title: "Exámenes en línea: estrategias para garantizar la integridad académica"
 description: "Exámenes en línea: estrategias para garantizar la integridad académica"
 date: "5 marzo, 2024"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "e-learning", "educación", "instruccional", "lms"]
 ---
 

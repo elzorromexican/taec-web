@@ -2,7 +2,7 @@
 title: "5 razones para utilizar Articulate"
 description: "5 razones para utilizar Articulate"
 date: "8 marzo, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "exito", "instruccional", "lms", "tecnología"]
 ---
 

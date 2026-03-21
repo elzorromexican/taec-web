@@ -2,7 +2,7 @@
 title: "Cautiva a tus estudiantes con videos educativos: estrategias y beneficios"
 description: "Cautiva a tus estudiantes con videos educativos: estrategias y beneficios"
 date: "10 junio, 2024"
-author: "TAEC"
+author: "elba loera"
 tags: ["video", "e-learning", "educación"]
 ---
 

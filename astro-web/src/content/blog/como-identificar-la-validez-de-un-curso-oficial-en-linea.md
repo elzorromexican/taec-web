@@ -2,7 +2,7 @@
 title: "¿Cómo identificar la validez de un curso oficial, en línea?"
 description: "¿Cómo identificar la validez de un curso oficial, en línea?"
 date: "18 enero, 2022"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["autentificación", "certificación", "e-learning", "k12", "rvoe", "seguridad", "validez"]
 ---
 

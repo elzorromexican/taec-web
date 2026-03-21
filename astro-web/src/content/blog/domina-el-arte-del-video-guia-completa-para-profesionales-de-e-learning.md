@@ -2,7 +2,7 @@
 title: "Domina el arte del video: Guía completa para profesionales de e-Learning"
 description: "Domina el arte del video: Guía completa para profesionales de e-Learning"
 date: "10 junio, 2024"
-author: "TAEC"
+author: "elba loera"
 tags: ["video", "e-learning", "producción"]
 ---
 

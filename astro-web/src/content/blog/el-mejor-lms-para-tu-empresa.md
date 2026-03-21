@@ -2,7 +2,7 @@
 title: "El mejor LMS para tu empresa"
 description: "El mejor LMS para tu empresa"
 date: "9 noviembre, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "educación", "elearning", "exito", "instruccional", "lms"]
 ---
 

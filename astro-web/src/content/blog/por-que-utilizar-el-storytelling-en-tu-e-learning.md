@@ -2,7 +2,7 @@
 title: "¿Por qué utilizar el storytelling en tu e-learning?"
 description: "¿Por qué utilizar el storytelling en tu e-learning?"
 date: "16 agosto, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "e-learning", "educación", "exito", "storytelling", "tecnología"]
 ---
 

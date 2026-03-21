@@ -2,7 +2,7 @@
 title: "El “peak-end” y el diseño de experiencias de aprendizaje"
 description: "El “peak-end” y el diseño de experiencias de aprendizaje"
 date: "13 julio, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "lms", "tecnología"]
 ---
 

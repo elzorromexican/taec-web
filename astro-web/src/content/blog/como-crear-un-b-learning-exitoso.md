@@ -2,7 +2,7 @@
 title: "Cómo crear un b-learning exitoso"
 description: "Cómo crear un b-learning exitoso"
 date: "20 septiembre, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "b-learning", "capacitación", "e-learning", "elearning", "exito", "lms"]
 ---
 

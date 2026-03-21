@@ -2,7 +2,7 @@
 title: "4 estándares técnicos internacionales para LMS de alta calidad"
 description: "4 estándares técnicos internacionales para LMS de alta calidad"
 date: "19 octubre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["aicc", "estandares", "experience", "api", "ims", "internacionales", "lms", "scorm", "xapi"]
 ---
 

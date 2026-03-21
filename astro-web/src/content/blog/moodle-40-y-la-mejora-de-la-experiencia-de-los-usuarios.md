@@ -2,7 +2,7 @@
 title: "Moodle 4.0 y la mejora de la experiencia de los usuarios"
 description: "Moodle 4.0 y la mejora de la experiencia de los usuarios"
 date: "1 junio, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "e-learning", "educación", "lms", "moodle"]
 ---
 

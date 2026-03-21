@@ -2,7 +2,7 @@
 title: "“Learning and Design” moderno para dar e-learning útil"
 description: "“Learning and Design” moderno para dar e-learning útil"
 date: "23 agosto, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["corporativos", "cursos", "diseño", "e-learning", "instruccional", "l&d", "lms", "lxp"]
 ---
 

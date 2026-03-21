@@ -2,7 +2,7 @@
 title: "Habilidades necesarias para la alfabetización digital"
 description: "Habilidades necesarias para la alfabetización digital"
 date: "12 agosto, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["digitales", "e-learning", "habilidades", "investigación", "tecnologías"]
 ---
 

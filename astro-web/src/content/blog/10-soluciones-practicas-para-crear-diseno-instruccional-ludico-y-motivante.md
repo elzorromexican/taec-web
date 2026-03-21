@@ -2,7 +2,7 @@
 title: "10 soluciones prácticas para crear diseño instruccional lúdico y motivante"
 description: "10 soluciones prácticas para crear diseño instruccional lúdico y motivante"
 date: "30 noviembre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "gamificación", "instruccional", "ludificación", "motivar"]
 ---
 

@@ -2,7 +2,7 @@
 title: "E-learning en el mundo post-pandemia: Blended learning"
 description: "E-learning en el mundo post-pandemia: Blended learning"
 date: "1 septiembre, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "blended", "learning", "capacitación", "diseño", "e-learning", "elearning", "instruccional", "lms"]
 ---
 

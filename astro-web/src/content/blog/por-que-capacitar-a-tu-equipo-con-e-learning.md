@@ -2,7 +2,7 @@
 title: "¿Por qué capacitar a tu equipo con e-learning?"
 description: "¿Por qué capacitar a tu equipo con e-learning?"
 date: "6 julio, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "instruccional", "lms", "tecnología"]
 ---
 

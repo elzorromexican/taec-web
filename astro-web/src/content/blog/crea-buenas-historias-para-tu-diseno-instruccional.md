@@ -2,7 +2,7 @@
 title: "Crea buenas historias para tu diseño instruccional"
 description: "Crea buenas historias para tu diseño instruccional"
 date: "5 enero, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["conflicto", "diseño", "dopamina", "historia", "instruccional", "neurotransmisores", "oxitocina", "personaje"]
 ---
 

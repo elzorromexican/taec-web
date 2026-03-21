@@ -2,7 +2,7 @@
 title: "Taxonomía de Bloom para TICS: SAMR y TPACK"
 description: "Taxonomía de Bloom para TICS: SAMR y TPACK"
 date: "19 abril, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["aprendizaje", "bloom", "capacitación", "educación", "metodologías", "samr", "taxonomía", "tics", "tpack"]
 ---
 

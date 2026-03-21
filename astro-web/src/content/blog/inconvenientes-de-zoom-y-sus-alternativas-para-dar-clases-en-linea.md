@@ -2,7 +2,7 @@
 title: "Inconvenientes de Zoom y sus alternativas para dar clases en línea"
 description: "Inconvenientes de Zoom y sus alternativas para dar clases en línea"
 date: "2 febrero, 2022"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["alternativas", "falla", "video", "llamadas", "zoom"]
 ---
 

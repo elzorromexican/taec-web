@@ -2,7 +2,7 @@
 title: "Habilidades para el diseño instruccional y el desarrollo de un curso e-learning"
 description: "Habilidades para el diseño instruccional y el desarrollo de un curso e-learning"
 date: "18 enero, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["board", "desarrollo", "diseño", "instruccional", "e-learning", "producción", "programación", "sme", "storyboard"]
 ---
 

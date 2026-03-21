@@ -2,7 +2,7 @@
 title: "Cómo alfabetizar en Inteligencia Artificial a tu organización"
 description: "Cómo alfabetizar en Inteligencia Artificial a tu organización"
 date: "9 mayo, 2024"
-author: "TAEC"
+author: "elba loera"
 tags: ["ia", "alfabetización", "aprendizaje", "capacitación", "e-learning", "inteligencia", "artificial", "lms", "tecnología"]
 ---
 

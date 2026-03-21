@@ -2,7 +2,7 @@
 title: "La revolución de la Inteligencia Artificial en el Diseño Instruccional"
 description: "La revolución de la Inteligencia Artificial en el Diseño Instruccional"
 date: "27 junio, 2024"
-author: "TAEC"
+author: "elba loera"
 tags: ["inteligencia", "artificial", "diseño", "instruccional", "e-learning"]
 ---
 

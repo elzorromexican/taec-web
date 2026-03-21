@@ -2,7 +2,7 @@
 title: "Microlearning, aprender valorando cada minuto"
 description: "Microlearning, aprender valorando cada minuto"
 date: "29 octubre, 2024"
-author: "TAEC"
+author: "juan hernández"
 tags: ["cursos", "e-learning", "elearning", "microaprendizaje"]
 ---
 

@@ -2,7 +2,7 @@
 title: "Hacer buen e-learning integral a partir de 4 pilares fundamentales"
 description: "Hacer buen e-learning integral a partir de 4 pilares fundamentales"
 date: "18 noviembre, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["administración", "diseño", "docentes", "evaluaciones", "e-learning", "exito", "gerencia", "instruccional"]
 ---
 

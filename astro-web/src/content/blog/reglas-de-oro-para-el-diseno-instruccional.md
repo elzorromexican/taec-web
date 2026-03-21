@@ -2,7 +2,7 @@
 title: "Reglas de oro para el Diseño Instruccional"
 description: "Reglas de oro para el Diseño Instruccional"
 date: "11 mayo, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "multimedia", "capacitación", "diseño", "instruccional", "e-learning"]
 ---
 

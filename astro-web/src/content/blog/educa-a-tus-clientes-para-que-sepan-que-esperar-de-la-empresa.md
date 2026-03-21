@@ -2,7 +2,7 @@
 title: "Educa a tus clientes para que sepan qué esperar de la empresa"
 description: "Educa a tus clientes para que sepan qué esperar de la empresa"
 date: "7 diciembre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["capacitación", "clientes", "educación", "empresas", "exito", "solución"]
 ---
 

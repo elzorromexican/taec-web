@@ -2,7 +2,7 @@
 title: "Pedagogía STEAM: la educación para el futuro"
 description: "Pedagogía STEAM: la educación para el futuro"
 date: "18 enero, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "e-learning", "educación", "steam", "tecnología"]
 ---
 

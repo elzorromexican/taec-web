@@ -2,7 +2,7 @@
 title: "In memoriam: Blas Gómez"
 description: "In memoriam: Blas Gómez"
 date: "13 abril, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["blog"]
 ---
 

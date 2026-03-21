@@ -2,7 +2,7 @@
 title: "Aplica ciencia cognitiva al aprendizaje con tecnología e-learning"
 description: "Aplica ciencia cognitiva al aprendizaje con tecnología e-learning"
 date: "22 marzo, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["aprendizaje", "capacitación", "ciencia", "cognitiva", "e-learning", "machine", "learning", "tecnología"]
 ---
 

@@ -2,7 +2,7 @@
 title: "Microlearning, la educación del futuro"
 description: "Microlearning, la educación del futuro"
 date: "19 julio, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "instruccional", "lms", "microaprendizaje", "microlearning", "ottolearn"]
 ---
 

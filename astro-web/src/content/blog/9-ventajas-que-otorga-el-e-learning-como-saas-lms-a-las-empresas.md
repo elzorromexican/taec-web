@@ -2,7 +2,7 @@
 title: "9 ventajas que otorga el e-learning como SaaS LMS a las empresas"
 description: "9 ventajas que otorga el e-learning como SaaS LMS a las empresas"
 date: "26 octubre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["capacitación", "e-learning", "empresas", "lms", "saas", "ventajas"]
 ---
 

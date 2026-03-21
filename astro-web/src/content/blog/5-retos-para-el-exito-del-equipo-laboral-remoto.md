@@ -2,7 +2,7 @@
 title: "5 retos para el éxito del equipo laboral remoto"
 description: "5 retos para el éxito del equipo laboral remoto"
 date: "26 enero, 2022"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["conexión", "empleados", "equipo", "exito", "pandemia", "remoto", "retos", "trabajo", "desde", "casa"]
 ---
 

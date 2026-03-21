@@ -2,7 +2,7 @@
 title: "4 beneficios al hospedar tu LMS en la nube"
 description: "4 beneficios al hospedar tu LMS en la nube"
 date: "12 octubre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["cloud", "lms", "nube", "tecnología"]
 ---
 

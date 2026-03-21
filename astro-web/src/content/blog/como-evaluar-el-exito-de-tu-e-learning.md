@@ -2,7 +2,7 @@
 title: "Cómo evaluar el éxito de tu e-learning"
 description: "Cómo evaluar el éxito de tu e-learning"
 date: "16 marzo, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "e-learning", "evaluar", "éxito", "retroalimentación", "tasa", "de", "finalización"]
 ---
 

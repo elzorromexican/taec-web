@@ -2,7 +2,7 @@
 title: "¿Cuáles son y cómo se aplican las teorías de aprendizaje en e-learning?"
 description: "¿Cuáles son y cómo se aplican las teorías de aprendizaje en e-learning?"
 date: "13 junio, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "instruccional", "e-learning", "lms", "teorías", "del"]
 ---
 

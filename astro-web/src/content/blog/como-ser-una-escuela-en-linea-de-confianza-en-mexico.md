@@ -2,7 +2,7 @@
 title: "¿Cómo ser una escuela en línea de confianza en México?"
 description: "¿Cómo ser una escuela en línea de confianza en México?"
 date: "18 enero, 2022"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["certificación", "escuelas", "k12", "rvoe", "sep", "validez"]
 ---
 

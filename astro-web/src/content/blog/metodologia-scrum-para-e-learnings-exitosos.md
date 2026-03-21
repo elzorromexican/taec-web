@@ -2,7 +2,7 @@
 title: "Metodología SCRUM para e-learnings exitosos"
 description: "Metodología SCRUM para e-learnings exitosos"
 date: "30 diciembre, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "elearning", "instruccional", "lms", "metodologías", "ágiles", "scrum", "tecnología"]
 ---
 

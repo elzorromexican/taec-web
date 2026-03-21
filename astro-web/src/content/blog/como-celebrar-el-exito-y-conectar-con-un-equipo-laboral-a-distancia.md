@@ -2,7 +2,7 @@
 title: "Cómo celebrar el éxito y conectar con un equipo laboral a distancia"
 description: "Cómo celebrar el éxito y conectar con un equipo laboral a distancia"
 date: "14 septiembre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["capacitación", "celebrar", "empresas", "exito", "homeoffice", "trabajo", "en", "casa", "remoto"]
 ---
 

@@ -2,7 +2,7 @@
 title: "El nacimiento del internet y la evolución del e-learning"
 description: "El nacimiento del internet y la evolución del e-learning"
 date: "18 enero, 2022"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["capacitación", "diseño", "instruccional", "e-learning", "evaluación", "saas", "trabajo", "a", "distancia"]
 ---
 

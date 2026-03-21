@@ -2,7 +2,7 @@
 title: "¿Reconoces a estos 4 usuarios necesarios para el preescolar en línea?"
 description: "¿Reconoces a estos 4 usuarios necesarios para el preescolar en línea?"
 date: "28 septiembre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["educación", "en", "linea", "exito", "escolar", "kinder", "niños", "preescolar", "tecnología"]
 ---
 

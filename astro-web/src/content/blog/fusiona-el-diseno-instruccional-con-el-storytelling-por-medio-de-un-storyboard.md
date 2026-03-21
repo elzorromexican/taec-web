@@ -2,7 +2,7 @@
 title: "Fusiona el Diseño Instruccional con el Storytelling por medio de un Storyboard"
 description: "Fusiona el Diseño Instruccional con el Storytelling por medio de un Storyboard"
 date: "11 enero, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["diseño", "instruccional", "narrativo", "storyboard", "storytelling"]
 ---
 

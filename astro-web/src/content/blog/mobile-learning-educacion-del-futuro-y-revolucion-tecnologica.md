@@ -2,7 +2,7 @@
 title: "Mobile learning: educación del futuro y revolución tecnológica"
 description: "Mobile learning: educación del futuro y revolución tecnológica"
 date: "30 mayo, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "e-learning", "educación", "lms", "mobile", "learning"]
 ---
 

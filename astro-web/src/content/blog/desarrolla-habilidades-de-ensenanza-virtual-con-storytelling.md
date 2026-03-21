@@ -2,7 +2,7 @@
 title: "Desarrolla habilidades de enseñanza virtual con Storytelling."
 description: "Desarrolla habilidades de enseñanza virtual con Storytelling."
 date: "28 diciembre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["diseño", "enseñanza", "escritura", "instruccional", "storytelling"]
 ---
 

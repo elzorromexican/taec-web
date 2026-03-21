@@ -2,7 +2,7 @@
 title: "La creatividad en el mundo del e-learning"
 description: "La creatividad en el mundo del e-learning"
 date: "20 septiembre, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["capacitación", "creatividad", "cursos", "e-learning", "diseño", "instruccional", "materiales", "multimedia"]
 ---
 

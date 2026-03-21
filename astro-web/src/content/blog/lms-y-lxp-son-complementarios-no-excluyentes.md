@@ -2,7 +2,7 @@
 title: "LMS y LXP son complementarios, no excluyentes"
 description: "LMS y LXP son complementarios, no excluyentes"
 date: "1 marzo, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["e-learning", "lms", "lxp", "plataforma", "tecnología"]
 ---
 

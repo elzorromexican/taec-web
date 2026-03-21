@@ -2,7 +2,7 @@
 title: "Microlearning: el aprendizaje más innovador"
 description: "Microlearning: el aprendizaje más innovador"
 date: "15 marzo, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "elearning", "innovación", "lms", "microlearning", "productividad"]
 ---
 

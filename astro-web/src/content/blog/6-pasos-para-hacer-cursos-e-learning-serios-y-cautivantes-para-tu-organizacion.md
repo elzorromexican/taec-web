@@ -2,7 +2,7 @@
 title: "6 pasos para hacer cursos e-learning serios y cautivantes para tu organización"
 description: "6 pasos para hacer cursos e-learning serios y cautivantes para tu organización"
 date: "2 noviembre, 2020"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["actividad", "diseño", "enfoque", "historia", "humor", "instruccional"]
 ---
 

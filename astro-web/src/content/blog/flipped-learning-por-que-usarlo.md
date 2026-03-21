@@ -2,7 +2,7 @@
 title: "Flipped learning: ¿por qué usarlo?"
 description: "Flipped learning: ¿por qué usarlo?"
 date: "2 mayo, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "aula", "invertida", "capacitación", "e-learning", "educación", "flipped", "learning", "tecnología"]
 ---
 

@@ -2,7 +2,7 @@
 title: "Tendencias en producción de videos para e-learning"
 description: "Tendencias en producción de videos para e-learning"
 date: "5 abril, 2021"
-author: "TAEC"
+author: "stephan goirand"
 tags: ["e-learning", "grabación", "moda", "pantallas", "screencast", "tendencia", "videos", "vyond"]
 ---
 

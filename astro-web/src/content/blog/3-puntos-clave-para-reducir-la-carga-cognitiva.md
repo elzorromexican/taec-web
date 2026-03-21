@@ -2,7 +2,7 @@
 title: "3 puntos clave para reducir la carga cognitiva"
 description: "3 puntos clave para reducir la carga cognitiva"
 date: "1 septiembre, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "carga", "cognitiva", "diseño", "instruccional", "e-learning", "elearning", "lms", "memoria", "de", "trabajo"]
 ---
 

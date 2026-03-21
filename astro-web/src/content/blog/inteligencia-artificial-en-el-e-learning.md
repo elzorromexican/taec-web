@@ -2,7 +2,7 @@
 title: "Inteligencia artificial en el e-learning"
 description: "Inteligencia artificial en el e-learning"
 date: "9 mayo, 2024"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "articulate", "360", "chatgpt", "dall-e", "e-learning", "elearning", "ia", "inteligencia", "artificial", "tecnología"]
 ---
 

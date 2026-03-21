@@ -2,7 +2,7 @@
 title: "Tendencias educativas 2023"
 description: "Tendencias educativas 2023"
 date: "18 enero, 2023"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "aulas", "colaborativas", "capacitación", "diseño", "e-learning", "gamificación", "instruccional", "lms", "steam"]
 ---
 

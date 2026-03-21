@@ -2,7 +2,7 @@
 title: "Aprendizaje, estés donde estés y en el momento correcto"
 description: "Aprendizaje, estés donde estés y en el momento correcto"
 date: "6 noviembre, 2024"
-author: "TAEC"
+author: "juan hernández"
 tags: ["cursos", "e-learning", "elearning", "microaprendizaje"]
 ---
 

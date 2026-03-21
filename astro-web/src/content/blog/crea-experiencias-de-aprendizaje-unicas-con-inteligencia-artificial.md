@@ -2,7 +2,7 @@
 title: "Crea experiencias de aprendizaje únicas con inteligencia artificial"
 description: "Crea experiencias de aprendizaje únicas con inteligencia artificial"
 date: "24 mayo, 2022"
-author: "TAEC"
+author: "elba loera"
 tags: ["aprendizaje", "adaptativo", "capacitación", "diseño", "instruccional", "e-learning", "inteligencia", "artificial", "lms", "rutas", "de"]
 ---
 
