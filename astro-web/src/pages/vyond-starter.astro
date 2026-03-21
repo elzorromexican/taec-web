@@ -1,4 +1,6 @@
 ---
+import { vendors } from '../data/vendors';
+import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r, base } from '../utils/paths';
@@ -28,7 +30,7 @@ import { r, base } from '../utils/paths';
       <h1>Crea tus primeros <em style="color:#FFCBA4">videos animados</em> con IA</h1>
       <p class="vp-hero-sub">El punto de partida ideal para diseñadores instruccionales y profesionales de L&D que quieren producir videos de capacitación sin experiencia previa en animación.</p>
       <div class="vp-btns">
-        <a href="https://think.vyond.com/signup" class="btn-vp-primary" style="background:white;color:#E86820">Probar Vyond gratis →</a>
+        <a href={vendors.vyond.signup} class="btn-vp-primary" style="background:white;color:#E86820">Probar Vyond gratis →</a>
         <a href={r('/contacto')} class="btn-vp-ghost">Hablar con un especialista</a>
       </div>
     </div>
@@ -56,7 +58,7 @@ import { r, base } from '../utils/paths';
 <li>Vyond Studio + Mobile</li>
 <li>3,000 créditos IA/mes</li>
 <li>Videos hasta 20 min</li></ul>
-      <a href="https://think.vyond.com/signup" class="plan-card-cta plan-card-cta-primary">Probar Vyond gratis</a>
+      <a href={vendors.vyond.signup} class="plan-card-cta plan-card-cta-primary">Probar Vyond gratis</a>
     </div>
 <div class="plan-card">
       
@@ -116,8 +118,8 @@ import { r, base } from '../utils/paths';
   <h2>¿Listo para empezar con Vyond Starter?</h2>
   <p>Prueba gratis por 14 días o consulta con nuestro equipo la licencia anual con soporte en español.</p>
   <div class="vp-cta-btns">
-    <a href="https://think.vyond.com/signup" class="btn-cta-white" style="color:#E86820">Probar Vyond gratis →</a>
-    <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
+    <a href={vendors.vyond.signup} class="btn-cta-white" style="color:#E86820">Probar Vyond gratis →</a>
+    <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>
 

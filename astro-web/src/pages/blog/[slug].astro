@@ -4,23 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogComments from '../../components/blog/BlogComments.astro';
 import { r } from '../../utils/paths';
 
-export async function getStaticPaths() {
-  const monthMap: Record<string, number> = {
-    'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5, 'junio': 6,
-    'julio': 7, 'agosto': 8, 'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12
-  };
+import { parseDate } from '../../utils/dateParser';
 
-  function parseDate(dateStr: string) {
-    if (!dateStr) return 0;
-    const match = dateStr.match(/(\d+)\s+(?:de\s+)?([a-z]+)[,\s]+(\d+)/i);
-    if (match) {
-      const day = parseInt(match[1], 10);
-      const month = monthMap[match[2].toLowerCase()] || 1;
-      const year = parseInt(match[3], 10);
-      return new Date(year, month - 1, day).getTime();
-    }
-    return 0;
-  }
+export async function getStaticPaths() {
 
   const posts = await getCollection('blog');
   
@@ -94,7 +80,7 @@ const { Content } = await render(post);
       <nav style="display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 64px; padding-top: 40px; border-top: 2px dashed #e7e3db; @media(min-width: 640px) { grid-template-columns: 1fr 1fr; }">
         
         {prevPost ? (
-          <a href={r(`/blog/${prevPost.id.replace(/\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; justify-content: center; padding: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.06)'; this.style.borderColor='#cbd5e1';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)'; this.style.borderColor='#e2e8f0';">
+          <a href={r(`/blog/${prevPost.id.replace(/\.mdx?$/, '')}`)} class="post-nav-card">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -109,7 +95,7 @@ const { Content } = await render(post);
         ) : <div></div>}
         
         {nextPost ? (
-          <a href={r(`/blog/${nextPost.id.replace(/\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end; text-align: right; padding: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.06)'; this.style.borderColor='#cbd5e1';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)'; this.style.borderColor='#e2e8f0';">
+          <a href={r(`/blog/${nextPost.id.replace(/\.mdx?$/, '')}`)} class="post-nav-card right">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
               <span style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; font-weight: 600;">Siguiente Artículo</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -142,4 +128,13 @@ const { Content } = await render(post);
 .prose-content li { margin-bottom: 0.5em; }
 .prose-content hr { border: none; border-top: 1px solid #e7e3db; margin: 3em 0; }
 .prose-content img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+.post-nav-card {
+  display: flex; flex-direction: column; justify-content: center; padding: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.post-nav-card:hover, .post-nav-card:focus-visible {
+  transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); border-color: #cbd5e1; outline: none;
+}
+.post-nav-card.right {
+  align-items: flex-end; text-align: right;
+}
 </style>

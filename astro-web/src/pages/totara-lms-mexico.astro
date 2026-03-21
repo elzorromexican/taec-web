@@ -115,7 +115,7 @@ import { r, base } from '../utils/paths';
   </style>
 
   <!-- EmailJS CDN -->
-  <script is:inline src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script is:inline defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <main id="main-content">
     <!-- ══ TABS ══ -->
@@ -230,24 +230,31 @@ import { r, base } from '../utils/paths';
           <img src="https://www.totara.com/wp-content/uploads/2025/10/Top-10_Best_Enterprise_LMS_2025_badge_.png"
                alt="Top 10 Best Enterprise LMS 2025 – Talented Learning"
                style="height:110px;width:auto;object-fit:contain;"
-               onerror="this.style.display='none'" />
+               class="totara-award-badge" />
           <img src="https://www.totara.com/wp-content/uploads/2026/01/Award-badges-website-elearningindustry-skills.png"
                alt="Top LMS Tools For Skills Development And Assessment 2026 – eLearning Industry"
                style="height:110px;width:auto;object-fit:contain;"
-               onerror="this.style.display='none'" />
+               class="totara-award-badge" />
           <img src="https://www.totara.com/wp-content/uploads/2026/02/Top-extended-enterprise-totara-lms-awards-badge.png"
                alt="Top Extended Enterprise LMS 2026 – eLearning Industry"
                style="height:110px;width:auto;object-fit:contain;"
-               onerror="this.style.display='none'" />
+               class="totara-award-badge" />
           <img src="https://www.totara.com/wp-content/uploads/2025/10/2025-top-20-lms-awards-badge.png"
                alt="Top 20 LMS 2025 – eLearning Industry"
                style="height:110px;width:auto;object-fit:contain;"
-               onerror="this.style.display='none'" />
+               class="totara-award-badge" />
           <img src="https://www.totara.com/wp-content/uploads/2025/08/Top-Performer-Badge-FeaturedCustomers.png"
                alt="Top Performer 2025 – FeaturedCustomers"
                style="height:110px;width:auto;object-fit:contain;"
-               onerror="this.style.display='none'" />
+               class="totara-award-badge" />
         </div>
+        <script is:inline>
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.totara-award-badge').forEach(img => {
+              img.addEventListener('error', function() { this.style.display = 'none'; });
+            });
+          });
+        </script>
         <a href="https://www.totara.com/es/premios-y-reconocimientos/" target="_blank" rel="noopener noreferrer" class="g2-badges-link">Ver todos los reconocimientos →</a>
         &nbsp;&nbsp;
         <a href="https://www.g2.com/products/totara-lms/reviews" target="_blank" rel="noopener noreferrer" class="g2-badges-link">Ver reseñas en G2 →</a>
@@ -283,17 +290,13 @@ import { r, base } from '../utils/paths';
           <p style="font-size:14px;font-weight:700;color:#111827;margin-bottom:20px;">Completa tus datos para descargar</p>
           <form id="tot-lead-form" style="display:flex;flex-direction:column;gap:12px;">
             <input type="text"  id="tot-nombre"  placeholder="Nombre completo *" required
-              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
-              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;" class="tot-input" />
             <input type="text"  id="tot-empresa" placeholder="Empresa *" required
-              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
-              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;" class="tot-input" />
             <input type="email" id="tot-email"   placeholder="Email corporativo *" required
-              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
-              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;" class="tot-input" />
             <input type="text"  id="tot-cargo"   placeholder="Cargo"
-              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;"
-              onfocus="this.style.borderColor='#004775'" onblur="this.style.borderColor='#E2E8F0'" />
+              style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;" class="tot-input" />
             <button type="submit" id="tot-lead-btn"
               style="background:var(--tot);color:white;font-weight:700;font-size:15px;padding:13px;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;">
               Descargar PDF gratuito →
@@ -381,11 +384,11 @@ import { r, base } from '../utils/paths';
     </div>
     <!-- CTA derecha -->
     <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
-      <a href="#tot-lead-form" onclick="document.getElementById('tot-sticky-bar').style.transform='translateY(100%)'"
+      <a href="#tot-lead-form" id="tot-sticky-down"
          class="tot-sticky-btn" style="background:#A8DBD9;color:#001f3d;font-weight:700;font-size:14px;padding:11px 26px;border-radius:8px;white-space:nowrap;display:inline-block;">
         Descargar →
       </a>
-      <button onclick="document.getElementById('tot-sticky-bar').style.transform='translateY(100%)'"
+      <button id="tot-sticky-close"
         style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:0 4px;line-height:1;" aria-label="Cerrar">×</button>
     </div>
   </div>
@@ -394,6 +397,12 @@ import { r, base } from '../utils/paths';
     var bar = document.getElementById('tot-sticky-bar');
     if(!bar) return;
     var shown = false;
+    var btnDown = document.getElementById('tot-sticky-down');
+    var btnClose= document.getElementById('tot-sticky-close');
+    var hideBar = function() { bar.style.transform = 'translateY(100%)'; };
+    if(btnDown) btnDown.addEventListener('click', hideBar);
+    if(btnClose) btnClose.addEventListener('click', hideBar);
+
     window.addEventListener('scroll', function(){
       if(!shown && window.scrollY > 600){
         bar.style.transform = 'translateY(0)';
@@ -402,4 +411,7 @@ import { r, base } from '../utils/paths';
     }, { passive: true });
   })();
   </script>
+  <style is:global>
+    .tot-input:focus { border-color: #004775 !important; }
+  </style>
 </BaseLayout>

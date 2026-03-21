@@ -1,7 +1,10 @@
 ---
+import { vendors } from '../data/vendors';
+import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r, base } from '../utils/paths';
+import VideoMuteButton from '../components/ui/VideoMuteButton.astro';
 ---
 
 <BaseLayout 
@@ -158,7 +161,7 @@ import { r, base } from '../utils/paths';
       <h1>De texto a video en <em>segundos</em></h1>
       <p class="prod-hero-sub">Vyond Go transforma instantáneamente tu idea, URL o documento en un video animado profesional. Sin experiencia en diseño, sin tiempos de producción largos.</p>
       <div class="prod-btns">
-        <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-prod-primary">Probar Vyond Go gratis →</a>
+        <a href={vendors.vyond.signup} target="_blank" rel="noopener noreferrer" class="btn-prod-primary">Probar Vyond Go gratis →</a>
         <a href={r('/contacto')} class="btn-prod-ghost">Hablar con TAEC</a>
       </div>
     </div>
@@ -167,7 +170,7 @@ import { r, base } from '../utils/paths';
         <video autoplay muted loop playsinline>
           <source src={`${base}assets/videos/vyond-go.mp4`} type="video/mp4">
         </video>
-        <button class="prod-video-mute" id="muteBtn" onclick="var v=this.closest('.prod-hero-video-wrap').querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊'" aria-label="Activar sonido">🔇</button>
+        <VideoMuteButton />
         <div class="prod-video-play" aria-label="Play/Pausa"><div class="prod-video-play-btn"></div></div>
         <div class="prod-video-label">Demo · Vyond Go</div>
       </div>
@@ -229,8 +232,8 @@ import { r, base } from '../utils/paths';
   <h2>¿Listo para crear tu primer video con IA?</h2>
   <p>Prueba Vyond Go gratis 14 días o consulta con el equipo TAEC la licencia que mejor se adapta a tu organización.</p>
   <div class="prod-cta-btns">
-    <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-cta-white">Probar Vyond Go gratis →</a>
-    <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
+    <a href={vendors.vyond.signup} target="_blank" rel="noopener noreferrer" class="btn-cta-white">Probar Vyond Go gratis →</a>
+    <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>
 

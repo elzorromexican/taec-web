@@ -1,7 +1,10 @@
 ---
+import { vendors } from '../data/vendors';
+import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r, base } from '../utils/paths';
+import VideoMuteButton from '../components/ui/VideoMuteButton.astro';
 ---
 
 <BaseLayout 
@@ -158,7 +161,7 @@ import { r, base } from '../utils/paths';
       <h1>El editor de video que <em>tu equipo</em> ya estaba esperando</h1>
       <p class="prod-hero-sub">Vyond Studio es un editor drag-and-drop de nivel profesional que combina animación tradicional, avatares IA y mixed media en una sola plataforma. Diseñado para crear impacto a escala.</p>
       <div class="prod-btns">
-        <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-prod-primary">Solicitar demo de Vyond Studio →</a>
+        <a href={vendors.vyond.signup} target="_blank" rel="noopener noreferrer" class="btn-prod-primary">Solicitar demo de Vyond Studio →</a>
         <a href={r('/contacto')} class="btn-prod-ghost">Hablar con TAEC</a>
       </div>
     </div>
@@ -167,7 +170,7 @@ import { r, base } from '../utils/paths';
         <video autoplay muted loop playsinline>
           <source src={`${base}assets/videos/vyond-studio.mp4`} type="video/mp4">
         </video>
-        <button class="prod-video-mute" id="muteBtn" onclick="var v=this.closest('.prod-hero-video-wrap').querySelector('video');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊'" aria-label="Activar sonido">🔇</button>
+        <VideoMuteButton />
         <div class="prod-video-play" aria-label="Play/Pausa"><div class="prod-video-play-btn"></div></div>
         <div class="prod-video-label">Demo · Vyond Studio</div>
       </div>
@@ -232,8 +235,8 @@ import { r, base } from '../utils/paths';
   <h2>Empieza a producir video como una agencia — desde adentro</h2>
   <p>Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido.</p>
   <div class="prod-cta-btns">
-    <a href="https://think.vyond.com/signup" target="_blank" rel="noopener noreferrer" class="btn-cta-white">Solicitar demo de Vyond Studio →</a>
-    <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
+    <a href={vendors.vyond.signup} target="_blank" rel="noopener noreferrer" class="btn-cta-white">Solicitar demo de Vyond Studio →</a>
+    <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>
 

@@ -1,0 +1,26 @@
+---
+// VideoMuteButton.astro
+// Botón accesible que permite silenciar/activar el audio de los videos de producto
+// Reemplaza los atributos `onclick` repetidos con un event listener centralizado.
+---
+
+<button class="prod-video-mute" aria-label="Activar o desactivar sonido" type="button">🔇</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const muteButtons = document.querySelectorAll('.prod-video-mute');
+    muteButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const wrap = target.closest('.prod-hero-video-wrap');
+        if (wrap) {
+          const video = wrap.querySelector('video');
+          if (video) {
+            video.muted = !video.muted;
+            target.textContent = video.muted ? '🔇' : '🔊';
+          }
+        }
+      });
+    });
+  });
+</script>

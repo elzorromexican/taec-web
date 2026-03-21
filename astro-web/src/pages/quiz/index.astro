@@ -216,6 +216,8 @@ const quizDataStr = JSON.stringify(quizData);
     // Helper genérico para markdown
     function parseMD(str) {
       if(!str) return '';
+      // Sanitización XSS básica
+      str = str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       return str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
                 .replace(/\n/g, '<br/>');

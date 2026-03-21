@@ -7,6 +7,7 @@ const founded = new Date(2007, 9, 11);
 const now = new Date();
 const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
 
+import tickerData from '../../public/data/ticker.json';
 import { r, base } from '../utils/paths';
 ---
 
@@ -59,7 +60,12 @@ import { r, base } from '../utils/paths';
       <div class="ticker-inner">
         <span class="ticker-badge">Blog TAEC</span>
         <div class="ticker-track" id="tickerTrack">
-          <!-- Cargado por JS desde data/ticker.json -->
+          {tickerData.map((i, idx) => (
+            <>
+              <span class="ticker-item"><span class="cat">{i.categoria}</span>{i.titulo}</span>
+              {idx < tickerData.length - 1 && <span class="ticker-item" style="color:var(--border)">·</span>}
+            </>
+          ))}
         </div>
       </div>
     </div>
@@ -70,27 +76,27 @@ import { r, base } from '../utils/paths';
         <p class="partners-label">Partners y distribuidores oficiales</p>
         <div class="partners-row">
           <div class="partner-badge">
-            <div class="partner-logo"><img src={`${base}assets/logos/articulate-reseller.svg`} alt="Articulate Authorized Reseller" /></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/articulate-reseller.svg`} alt="Articulate Authorized Reseller" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Authorized Reseller</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><img src={`${base}assets/logos/articulate.png`} alt="Articulate Certified Training Partner" /></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/articulate.png`} alt="Articulate Certified Training Partner" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Certified Training Partner</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><img src={`${base}assets/logos/vyond.svg`} alt="Vyond" /></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/vyond.svg`} alt="Vyond" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Authorized Reseller</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><img src={`${base}assets/logos/totara.png`} alt="Totara" /></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/totara.png`} alt="Totara" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Solutions Partner</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><img src={`${base}assets/logos/moodle.png`} alt="Moodle" /></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/moodle.png`} alt="Moodle" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Partner</span>
           </div>
           <div class="partner-badge">
-            <div class="partner-logo"><img src={`${base}assets/logos/7minutes.png`} alt="7 Minutes Learning" /></div>
+            <div class="partner-logo"><img src={`${base}assets/logos/7minutes.png`} alt="7 Minutes Learning" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Authorized Reseller</span>
           </div>
         </div>
@@ -280,19 +286,6 @@ import { r, base } from '../utils/paths';
   </main>
 
   <script is:inline>
-    // ── Ticker dinámico
-    (async function() {
-      try {
-        const siteBase = document.body.dataset.base || '/';
-        const res   = await fetch(`${siteBase}data/ticker.json`);
-        const items = await res.json();
-        const track = document.getElementById('tickerTrack');
-        track.innerHTML = items.map(i =>
-          `<span class="ticker-item"><span class="cat">${i.categoria}</span>${i.titulo}</span>`
-        ).join('<span class="ticker-item" style="color:var(--border)">·</span>');
-      } catch(e) {}
-    })();
-
     // ── Testimonios carousel
     const carousel = document.getElementById('testiCarousel');
     if (carousel) {

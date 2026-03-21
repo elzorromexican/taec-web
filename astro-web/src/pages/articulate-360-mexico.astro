@@ -1,4 +1,5 @@
 ---
+import { vendors } from '../data/vendors';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroComercial from '../components/ui/HeroComercial.astro';
 import GridBeneficios from '../components/ui/GridBeneficios.astro';
@@ -170,7 +171,7 @@ const faqsArt = [
   titleHtml={`Articulate 360 en <em>México</em> — licencias, soporte y capacitación`}
   subtitle="Compra Articulate 360 con soporte en español, factura mexicana y pago en pesos al tipo de cambio oficial del día. TAEC es distribuidor autorizado desde 2007."
   primaryBtn={{ label: "Solicitar cotización →", url: "/contacto" }}
-  secondaryBtn={{ label: "Prueba gratis 30 días", url: "https://www.articulate.com/es/360/trial/", target: "_blank" }}
+  secondaryBtn={{ label: "Prueba gratis 30 días", url: vendors.articulate.trial, target: "_blank" }}
   bottomText="✓ Sin tarjeta de crédito requerida · ✓ Acceso completo a toda la suite"
   cardLogoSrc={`${base}assets/logos/articulate-reseller.svg`}
   cardLogoStyle="height:64px;width:auto;display:block;"
@@ -346,7 +347,7 @@ const faqsArt = [
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Respondemos tus dudas técnicas</li>
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Sin tarjeta de crédito</li>
         </ul>
-        <a href="https://www.articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--blue);color:var(--white);font-weight:700;font-size:14px;">Comenzar gratis</a>
+        <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--blue);color:var(--white);font-weight:700;font-size:14px;">Comenzar gratis</a>
         <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px;">Sin tarjeta de crédito</p>
       </div>
 

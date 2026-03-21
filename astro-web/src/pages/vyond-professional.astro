@@ -1,4 +1,5 @@
 ---
+import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r, base } from '../utils/paths';
@@ -118,7 +119,7 @@ import { r, base } from '../utils/paths';
   <p>Solicita una demo personalizada para tu equipo o cotiza las licencias anuales con soporte TAEC incluido.</p>
   <div class="vp-cta-btns">
     <a href={r('/contacto')} class="btn-cta-white" style="color:#C84D16">Solicitar cotización →</a>
-    <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
+    <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>
 

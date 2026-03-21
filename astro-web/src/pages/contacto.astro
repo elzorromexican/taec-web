@@ -279,6 +279,7 @@ const whatsappUrl   = contactData.whatsapp.url;
       <h2>Cuéntanos qué necesitas</h2>
       <p class="form-subtitle">Diagnóstico gratuito · Sin compromiso · Respuesta en menos de 24 h</p>
 
+      <!-- GAS Endpoint: Se expone por diseño (arquitectura estática) al no contar con backend intermedio -->
       <form id="contactForm" novalidate
         data-endpoint={formEndpoint}
         data-email={contactEmail}
@@ -433,10 +434,15 @@ const whatsappUrl   = contactData.whatsapp.url;
       // ── Sin endpoint configurado → alternativa inmediata
       if (!formEndpoint || !formEndpoint.startsWith('https://')) {
         status.className  = 'form-status error';
-        status.innerHTML  =
-          '⚠ El formulario está en configuración. Escríbenos directamente:<br>' +
-          '<strong><a href="mailto:' + contactEmail + '" style="color:inherit">' + contactEmail + '</a></strong>' +
-          ' o por <strong><a href="' + whatsappUrl + '" target="_blank" rel="noopener noreferrer" style="color:inherit">WhatsApp</a></strong>.';
+        status.innerHTML  = '';
+        const wrn = document.createElement('span');
+        wrn.textContent = '⚠ El formulario está en configuración. Escríbenos directamente: ';
+        const lnk = document.createElement('a');
+        lnk.href = 'mailto:' + contactEmail;
+        lnk.style.color = 'inherit';
+        lnk.textContent = contactEmail;
+        status.appendChild(wrn);
+        status.appendChild(lnk);
         status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
       }
@@ -484,10 +490,15 @@ const whatsappUrl   = contactData.whatsapp.url;
 
       } catch (_err) {
         status.className  = 'form-status error';
-        status.innerHTML  =
-          '✗ Hubo un problema al enviar. Escríbenos directamente a ' +
-          '<a href="mailto:' + contactEmail + '" style="color:inherit">' + contactEmail + '</a>' +
-          ' o por <a href="' + whatsappUrl + '" target="_blank" rel="noopener noreferrer" style="color:inherit">WhatsApp</a>.';
+        status.innerHTML = '';
+        const wrn2 = document.createElement('span');
+        wrn2.textContent = '✗ Hubo un problema al enviar. Escríbenos directamente a: ';
+        const lnk2 = document.createElement('a');
+        lnk2.href = 'mailto:' + contactEmail;
+        lnk2.style.color = 'inherit';
+        lnk2.textContent = contactEmail;
+        status.appendChild(wrn2);
+        status.appendChild(lnk2);
       } finally {
         btn.disabled    = false;
         btn.textContent = 'Enviar mensaje →';

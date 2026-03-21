@@ -1,4 +1,5 @@
 ---
+import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r, base } from '../utils/paths';
@@ -119,7 +120,7 @@ import { r, base } from '../utils/paths';
   <p>Agenda una sesión con nuestro equipo para diseñar juntos el plan de adopción y negociar las condiciones de tu licencia Enterprise.</p>
   <div class="vp-cta-btns">
     <a href={r('/contacto')} class="btn-cta-white" style="color:#C84D16">Hablar con un especialista →</a>
-    <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
+    <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>
 

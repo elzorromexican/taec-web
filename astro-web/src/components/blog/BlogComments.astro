@@ -12,16 +12,14 @@
     Tu dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *
   </p>
 
-  <form id="comment-form" class="comment-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('¡Gracias por tu comentario! El sistema de moderación lo ha recibido.');">
+  <form id="comment-form" class="comment-form" action="#" method="POST">
     
     <div class="form-group" style="margin-bottom: 20px;">
       <label for="comment" style="display: block; font-family: var(--font-body, sans-serif); font-size: 0.95rem; font-weight: 500; color: #44403c; margin-bottom: 8px;">
         Comentario <span style="color: #ef4444;">*</span>
       </label>
       <textarea id="comment" name="comment" required rows="6" placeholder="Escribe tu comentario aquí..." 
-        style="width: 100%; padding: 12px 16px; border: 1px solid #d6d3d1; border-radius: 6px; font-family: var(--font-body, sans-serif); font-size: 1rem; color: #1c1917; resize: vertical; transition: border-color 0.2s;"
-        onfocus="this.style.borderColor='#1d4ed8'; this.style.outline='none';"
-        onblur="this.style.borderColor='#d6d3d1';"
+        class="comment-input" style="resize: vertical;"
       ></textarea>
     </div>
 
@@ -30,22 +28,14 @@
         <label for="author" style="display: block; font-family: var(--font-body, sans-serif); font-size: 0.95rem; font-weight: 500; color: #44403c; margin-bottom: 8px;">
           Nombre <span style="color: #ef4444;">*</span>
         </label>
-        <input type="text" id="author" name="author" required
-          style="width: 100%; padding: 12px 16px; border: 1px solid #d6d3d1; border-radius: 6px; font-family: var(--font-body, sans-serif); font-size: 1rem; color: #1c1917; transition: border-color 0.2s;"
-          onfocus="this.style.borderColor='#1d4ed8'; this.style.outline='none';"
-          onblur="this.style.borderColor='#d6d3d1';"
-        />
+        <input type="text" id="author" name="author" required class="comment-input" />
       </div>
 
       <div class="form-group" style="flex: 1;">
         <label for="email" style="display: block; font-family: var(--font-body, sans-serif); font-size: 0.95rem; font-weight: 500; color: #44403c; margin-bottom: 8px;">
           Correo electrónico <span style="color: #ef4444;">*</span>
         </label>
-        <input type="email" id="email" name="email" required
-          style="width: 100%; padding: 12px 16px; border: 1px solid #d6d3d1; border-radius: 6px; font-family: var(--font-body, sans-serif); font-size: 1rem; color: #1c1917; transition: border-color 0.2s;"
-          onfocus="this.style.borderColor='#1d4ed8'; this.style.outline='none';"
-          onblur="this.style.borderColor='#d6d3d1';"
-        />
+        <input type="email" id="email" name="email" required class="comment-input" />
       </div>
     </div>
 
@@ -53,11 +43,7 @@
       <label for="url" style="display: block; font-family: var(--font-body, sans-serif); font-size: 0.95rem; font-weight: 500; color: #44403c; margin-bottom: 8px;">
         Web
       </label>
-      <input type="url" id="url" name="url" placeholder="https://"
-        style="width: 100%; padding: 12px 16px; border: 1px solid #d6d3d1; border-radius: 6px; font-family: var(--font-body, sans-serif); font-size: 1rem; color: #1c1917; transition: border-color 0.2s;"
-        onfocus="this.style.borderColor='#1d4ed8'; this.style.outline='none';"
-        onblur="this.style.borderColor='#d6d3d1';"
-      />
+      <input type="url" id="url" name="url" placeholder="https://" class="comment-input" />
     </div>
 
     <div class="form-group checkbox-group" style="margin-bottom: 32px; display: flex; align-items: flex-start; gap: 12px;">
@@ -67,15 +53,18 @@
       </label>
     </div>
 
-    <button type="submit" style="background: #1d4ed8; color: #ffffff; border: none; padding: 14px 28px; border-radius: 6px; font-family: var(--font-display, monospace, sans-serif); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: background 0.2s, transform 0.1s; box-shadow: 0 4px 6px -1px rgba(29, 78, 216, 0.2);"
-      onmouseover="this.style.background='#1e40af'; this.style.transform='translateY(-1px)';"
-      onmouseout="this.style.background='#1d4ed8'; this.style.transform='translateY(0)';"
-      onmousedown="this.style.transform='translateY(1px)';"
-    >
-      Publicar Comentario
+    <button type="button" class="comment-btn" disabled style="opacity: 0.6; cursor: not-allowed; pointer-events: none;">
+      Comentarios Desactivados
     </button>
   </form>
 </div>
+
+<script>
+  document.getElementById('comment-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Los comentarios están desactivados temporalmente. Escríbenos directamente a través de nuestra página de Contacto.');
+  });
+</script>
 
 <style>
   /* Responsive grid adjustments inside the component scoped styles */
@@ -83,5 +72,20 @@
     .form-row {
       flex-direction: row !important;
     }
+  }
+  .comment-input {
+    width: 100%; padding: 12px 16px; border: 1px solid #d6d3d1; border-radius: 6px; font-family: var(--font-body, sans-serif); font-size: 1rem; color: #1c1917; transition: border-color 0.2s; outline: none;
+  }
+  .comment-input:focus-visible {
+    border-color: #1d4ed8;
+  }
+  .comment-btn {
+    background: #1d4ed8; color: #ffffff; border: none; padding: 14px 28px; border-radius: 6px; font-family: var(--font-display, monospace, sans-serif); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: background 0.2s, transform 0.1s; box-shadow: 0 4px 6px -1px rgba(29, 78, 216, 0.2);
+  }
+  .comment-btn:hover, .comment-btn:focus-visible {
+    background: #1e40af; transform: translateY(-1px); outline: none;
+  }
+  .comment-btn:active {
+    transform: translateY(1px);
   }
 </style>

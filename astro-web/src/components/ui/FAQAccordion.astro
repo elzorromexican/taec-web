@@ -24,11 +24,7 @@ const {
   theme = 'general'
 } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
-function r(url: string): string {
-  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+import { r } from '../../utils/paths';
 ---
 <section class={`faq-accordion theme-${theme}`}>
   <div class="faq-inner">
@@ -43,6 +39,7 @@ function r(url: string): string {
       {faqs.map((faq) => (
         <details>
           <summary>{faq.question}</summary>
+          <!-- trusted internal data only -->
           <p set:html={faq.answerHtml}></p>
         </details>
       ))}

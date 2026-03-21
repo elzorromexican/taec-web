@@ -23,7 +23,7 @@ const { eyebrow, logos, theme = 'general' } = Astro.props;
       {logos.map(logo => (
         <div class="logo-item">
           {logo.type === 'image' && (
-             <img src={logo.src} alt={logo.alt || ''} class="logo-img" onerror="this.style.display='none'" />
+             <img src={logo.src} alt={logo.alt || logo.text || 'Partner logo'} class="logo-img" />
           )}
           {logo.type === 'text' && (
              <div class="logo-text-pill"><span>{logo.text}</span></div>
@@ -34,6 +34,17 @@ const { eyebrow, logos, theme = 'general' } = Astro.props;
     </div>
   </div>
 </section>
+
+<script>
+  // Hide broken logos gracefully without inline handlers
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.logo-img').forEach(img => {
+      img.addEventListener('error', function() {
+        (this as HTMLElement).style.display = 'none';
+      });
+    });
+  });
+</script>
 
 <style>
 .logos-grid-section { 

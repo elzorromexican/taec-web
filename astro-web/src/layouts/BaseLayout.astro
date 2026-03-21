@@ -9,13 +9,14 @@ const {
   title = "TAEC – Partner e-learning para empresas | México y LATAM",
   description = "18 años ayudando a empresas en México y LATAM a implementar e-learning.",
   section = "",
-  page = ""
+  page = "",
+  image = ""
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nuevo.taec.com.mx');
 // BASE_URL = '/' prod, '/taec-web/' staging — use it to build the absolute OG image URL
 const base = import.meta.env.BASE_URL;
-const ogImageURL = new URL(`${base}assets/logos/taec-og.png`, Astro.site || 'https://nuevo.taec.com.mx');
+const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}${image.replace(/^\//,'')}`) : `${base}assets/logos/taec-og.png`, Astro.site || 'https://nuevo.taec.com.mx');
 
 /**
  * import.meta.env.BASE_URL always ends with '/':
@@ -41,6 +42,13 @@ const ogImageURL = new URL(`${base}assets/logos/taec-og.png`, Astro.site || 'htt
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImageURL} />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={canonicalURL} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

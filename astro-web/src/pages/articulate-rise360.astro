@@ -1,4 +1,5 @@
 ---
+import { vendors } from '../data/vendors';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r } from '../utils/paths';
@@ -213,7 +214,7 @@ import { r } from '../utils/paths';
       <h1>Cursos responsivos <em>en horas</em>, no semanas</h1>
       <p class="art-hero-sub">Bloques prediseñados, cero código, 100% web. Arrastra, personaliza y publica.</p>
       <div class="art-btns">
-        <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="btn-art-primary">Prueba gratis 30 días →</a>
+        <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" class="btn-art-primary">Prueba gratis 30 días →</a>
         <a href={r('/contacto')} class="btn-art-ghost">Solicitar cotización</a>
       </div>
     </div>
@@ -375,7 +376,7 @@ import { r } from '../utils/paths';
               <li>Multimedia: video, audio, imagen y GIF</li>
               <li>Código embebido y contenido de Storyline</li>
             </ul>
-            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+            <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
           </div>
           <div class="showcase-visual"><span class="showcase-visual-emoji">🧱</span></div>
         </div>
@@ -391,7 +392,7 @@ import { r } from '../utils/paths';
               <li>Knowledge checks sin puntaje</li>
               <li>Bancos de preguntas aleatorias</li>
             </ul>
-            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+            <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
           </div>
           <div class="showcase-visual"><span class="showcase-visual-emoji">📝</span></div>
         </div>
@@ -407,7 +408,7 @@ import { r } from '../utils/paths';
               <li>Historial de versiones completo</li>
               <li>Comparte con un link para revisión</li>
             </ul>
-            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+            <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
           </div>
           <div class="showcase-visual"><span class="showcase-visual-emoji">👥</span></div>
         </div>
@@ -423,7 +424,7 @@ import { r } from '../utils/paths';
               <li>Reach 360 para distribución sin LMS</li>
               <li>Web link y PDF para acceso directo</li>
             </ul>
-            <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
+            <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" class="showcase-cta">Probar Rise 360 gratis →</a>
           </div>
           <div class="showcase-visual"><span class="showcase-visual-emoji">🚀</span></div>
         </div>
@@ -447,7 +448,7 @@ import { r } from '../utils/paths';
     <h2>¿Listo para probar Rise 360?</h2>
     <p>Demo en español, onboarding personalizado y soporte local con TAEC — partner oficial de Articulate en México.</p>
     <div class="art-cta-btns">
-      <a href="https://articulate.com/es/360/trial/" target="_blank" rel="noopener noreferrer" class="btn-cta-white">Prueba gratis 30 días →</a>
+      <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" class="btn-cta-white">Prueba gratis 30 días →</a>
       <a href={r('/contacto')} class="btn-cta-ghost">Hablar con un especialista</a>
     </div>
   </div>
