@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import { r } from '../../utils/paths';
 
 const items = await getCollection('articulos');
-items.sort((a, b) => b.data.date?.localeCompare(a.data.date) || 0);
+items.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
 
 const categories = [...new Set(items.map(p => p.data.category).filter(Boolean))].sort();
 ---

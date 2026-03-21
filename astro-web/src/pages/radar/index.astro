@@ -6,7 +6,7 @@ import { r } from '../../utils/paths';
 
 const items = await getCollection('radar');
 // Sort by date mostly
-items.sort((a, b) => b.data.date?.localeCompare(a.data.date) || 0);
+items.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
 
 ---
 
