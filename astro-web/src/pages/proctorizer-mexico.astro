@@ -1,115 +1,328 @@
 ---
+// CHANGELOG: 2026-03-20 - Landing Proctorizer completa. Contenido basado en doc estratégico DDC.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+import { getBookingUrl } from '../data/contact';
 
 const base = import.meta.env.BASE_URL;
 function r(url: string): string {
   if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
   return base.replace(/\/$/, '') + url;
 }
+const bookingUrl = getBookingUrl();
+
+const beneficios = [
+  { icon: "🔍", title: "Verificación de identidad", description: "Confirma que quien responde el examen es quien dice ser. Foto, documento y análisis de rostro antes de comenzar." },
+  { icon: "🚨", title: "Detección automática de incidentes", description: "Detecta cambios de pestaña, segunda pantalla, personas adicionales en la sala, audio sospechoso y movimiento fuera de cámara." },
+  { icon: "🔒", title: "Navegador seguro — Proctorizer Lock", description: "Bloquea copiar, pegar, capturas de pantalla, impresión, descargas, aplicaciones no permitidas y segundo monitor." },
+  { icon: "📊", title: "Reportes y evidencia accionable", description: "Dashboard con timeline de incidentes, filtros, exportación en PDF y evidencia clara para apelaciones o auditorías." }
+];
+
+const modalidades = [
+  {
+    letra: "A",
+    title: "Supervisión integrada con LMS",
+    desc: "Se conecta directamente con Moodle, Canvas, Blackboard, Open LMS y Chamilo. El alumno toma el examen en su LMS habitual con supervisión activa en segundo plano.",
+    tags: ["Moodle", "Canvas", "Blackboard", "Open LMS", "Chamilo"]
+  },
+  {
+    letra: "B",
+    title: "Proctorizer Lock — Navegador seguro",
+    desc: "Bloquea el entorno del equipo durante el examen: sin copiar/pegar, sin capturas, sin impresión, sin aplicaciones paralelas, sin segundo monitor. Funciona sin integración LMS.",
+    tags: ["Sin LMS requerido", "Windows y Mac", "Configuración simple"]
+  },
+  {
+    letra: "C",
+    title: "Plataforma completa de exámenes supervisados",
+    desc: "Gestión integral: banco de preguntas, asignación de exámenes, supervisión remota y reportes en un solo sistema. Ideal para organizaciones sin LMS propio.",
+    tags: ["Todo en uno", "Sin LMS propio", "Para instituciones"]
+  }
+];
+
+const capacidades = [
+  { icon: "👁️", label: "Supervisión remota automatizada", desc: "IA que monitorea en tiempo real sin requerir un supervisor humano dedicado por sesión." },
+  { icon: "🪪", label: "Verificación de identidad", desc: "Foto + documento + análisis facial antes de comenzar. Sin suplantación." },
+  { icon: "⚠️", label: "Detección de incidentes", desc: "Cambios de pestaña, personas adicionales, audio, movimiento fuera de cámara — todo registrado." },
+  { icon: "🔒", label: "Navegador seguro", desc: "Proctorizer Lock bloquea el entorno del equipo durante el examen." },
+  { icon: "📋", label: "Dashboard intuitivo", desc: "Timeline de incidentes, filtros, exportación PDF y evidencia lista para usar." },
+  { icon: "🔗", label: "Integración con LMS", desc: "Moodle, Canvas, Blackboard, Open LMS, Chamilo — conexión directa vía API." },
+  { icon: "🏷️", label: "Personalización de marca", desc: "Logo, colores y dominio de tu institución en la experiencia del evaluado." },
+  { icon: "🇲🇽", label: "Soporte en español", desc: "Equipo de soporte en horario LATAM. Más de 120 instituciones en la región." }
+];
+
+const faqs = [
+  {
+    question: "¿Proctorizer requiere que el alumno instale algo?",
+    answerHtml: "Depende de la modalidad. La <strong>supervisión integrada con LMS</strong> funciona desde el navegador sin instalación. <strong>Proctorizer Lock</strong> requiere descargar el navegador seguro — proceso simple de 2–3 minutos que el alumno hace una sola vez."
+  },
+  {
+    question: "¿Funciona con Moodle?",
+    answerHtml: "Sí. Proctorizer tiene integración nativa con <strong>Moodle, Canvas, Blackboard, Open LMS y Chamilo</strong>. El alumno toma el examen en el LMS habitual y Proctorizer supervisa en segundo plano sin interrumpir la experiencia."
+  },
+  {
+    question: "¿Qué pasa si el alumno no tiene cámara o internet estable?",
+    answerHtml: "Proctorizer tiene configuraciones de tolerancia ajustables. Puedes definir qué nivel de supervisión requiere cada examen: desde verificación básica de identidad hasta supervisión completa con detección de incidentes. Si el caso requiere condiciones específicas de conectividad, lo evaluamos juntos."
+  },
+  {
+    question: "¿Cuántos exámenes simultáneos puede manejar?",
+    answerHtml: "La plataforma tiene capacidad documentada para <strong>más de 100,000 exámenes simultáneos</strong>. Es adecuada tanto para aplicaciones pequeñas (20–50 alumnos) como para eventos masivos de certificación o admisión."
+  },
+  {
+    question: "¿Cómo se manejan las apelaciones o disputas?",
+    answerHtml: "Cada sesión genera un <strong>reporte con evidencia</strong>: timeline de incidentes, capturas del momento, audio y video del evento. Esa evidencia es exportable en PDF y está disponible para el área académica o de RH para tomar decisiones con respaldo documental."
+  },
+  {
+    question: "¿TAEC puede implementar Proctorizer en mi institución en México?",
+    answerHtml: "Sí. TAEC es el partner de Proctorizer en México y LATAM. Acompañamos desde la evaluación del caso de uso, la integración con tu LMS, la capacitación de administradores y el soporte operativo en español. Contáctanos para una demo con casos reales de instituciones en la región."
+  }
+];
 ---
 
-<BaseLayout 
-  title="Proctorizer – Vigilancia de exámenes online | TAEC"
-  description="Vigilancia inteligente de exámenes en línea. Garantiza la integridad académica con IA y sin necesidad de supervisor humano."
+<BaseLayout
+  title="Proctorizer en México | Proctoring y supervisión remota de exámenes | TAEC"
+  description="Proctorizer con TAEC: supervisión remota de exámenes, verificación de identidad, navegador seguro e integración con LMS. Más de 120 instituciones en LATAM. Demo en español."
   section="Soluciones"
   page="proctorizer-mexico.html"
 >
-  <style is:global>
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+  <!-- ── HERO ── -->
+  <HeroComercial
+    eyebrow="Proctorizer · e-Proctoring para LATAM"
+    titleHtml={`Exámenes en línea con más control,<br>más evidencia y <em>menos improvisación</em>`}
+    subtitle="Proctorizer ayuda a supervisar evaluaciones en línea, proteger la integridad del examen y dar visibilidad real sobre lo que ocurrió en cada sesión. Con integración a LMS, navegador seguro y soporte en español."
+    features={[
+      "Supervisión remota automatizada — sin supervisor humano por sesión",
+      "Verificación de identidad antes de comenzar",
+      "Proctorizer Lock — navegador seguro que bloquea el entorno",
+      "+120 instituciones en Latinoamérica",
+      "+100,000 exámenes simultáneos de capacidad",
+      "Integración con Moodle, Canvas, Blackboard y más"
+    ]}
+    primaryBtn={{ label: "Solicitar demo gratuita →", url: bookingUrl, target: "_blank" }}
+    secondaryBtn={{ label: "Hablar con un especialista", url: r('/contacto') }}
+    cardBadgeText="PROCTORING · INTEGRIDAD · LMS"
+    theme="general"
+  />
 
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
-  </style>
-
-<main id="main-content">
-
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Servicios &amp; Add-ons</span>
-    <span class="wip-icon" role="img" aria-label="Proctorizer">🔒</span>
-    <h1>Proctorizer</h1>
-    <p>Vigilancia inteligente de exámenes en línea. Garantiza la integridad académica con IA y sin necesidad de supervisor humano.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+  <!-- ── STATS ── -->
+  <section class="proct-stats">
+    <div class="prs-inner">
+      <div class="prs-stat">
+        <span class="prs-num">120+</span>
+        <span class="prs-lbl">instituciones<br>en Latinoamérica</span>
+      </div>
+      <div class="prs-divider"></div>
+      <div class="prs-stat">
+        <span class="prs-num">100K+</span>
+        <span class="prs-lbl">exámenes<br>simultáneos</span>
+      </div>
+      <div class="prs-divider"></div>
+      <div class="prs-stat">
+        <span class="prs-num">5</span>
+        <span class="prs-lbl">LMS con integración<br>nativa</span>
+      </div>
+      <div class="prs-divider"></div>
+      <div class="prs-stat">
+        <span class="prs-num">3</span>
+        <span class="prs-lbl">modalidades de<br>supervisión</span>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre Proctorizer?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href={r('/contacto')} class="btn-primary">Escribirnos →</a>
-      <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-wa">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
+  <!-- ── EL PROBLEMA ── -->
+  <section class="proct-problema">
+    <div class="pp-inner">
+      <p class="section-label">El reto real</p>
+      <h2 class="section-title">El problema no es aplicar un examen online.<br>El problema es sostener su validez.</h2>
+      <p class="section-sub">Cuando no hay supervisión real, el examen pierde peso. Las preguntas que quedan sin respuesta después de una evaluación online mal controlada son difíciles de ignorar.</p>
+      <div class="preguntas-grid">
+        <div class="pregunta-card">¿Quién respondió realmente?</div>
+        <div class="pregunta-card">¿Usó apoyo externo?</div>
+        <div class="pregunta-card">¿Hubo otra persona en la sala?</div>
+        <div class="pregunta-card">¿Salió del examen en algún momento?</div>
+        <div class="pregunta-card">¿Se protegió el banco de preguntas?</div>
+        <div class="pregunta-card">¿Hay evidencia si hay una apelación?</div>
+      </div>
+      <p class="problema-cierre">Proctorizer da respuesta documentada a cada una de estas preguntas.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-</main>
+  <!-- ── 3 MODALIDADES ── -->
+  <section class="proct-modalidades">
+    <div class="pm-inner">
+      <p class="section-label">Tres formas de usar Proctorizer</p>
+      <h2 class="section-title">Elige el nivel de control que necesitas</h2>
+      <div class="modal-grid">
+        {modalidades.map(m => (
+          <div class="modal-card">
+            <span class="modal-letra">{m.letra}</span>
+            <h3>{m.title}</h3>
+            <p>{m.desc}</p>
+            <div class="modal-tags">
+              {m.tags.map(t => <span class="modal-tag">{t}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CAPACIDADES ── -->
+  <section class="proct-caps">
+    <div class="pc-inner">
+      <p class="section-label">Capacidades clave</p>
+      <h2 class="section-title">Todo lo que necesitas para supervisar con seriedad</h2>
+      <div class="caps-grid">
+        {capacidades.map(c => (
+          <div class="cap-card">
+            <span class="cap-icon">{c.icon}</span>
+            <h3>{c.label}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFICIOS ── -->
+  <GridBeneficios
+    eyebrow="Por qué Proctorizer con TAEC"
+    title="Control, evidencia y orden en la evaluación en línea"
+    subtitle="Para instituciones y organizaciones que necesitan que sus exámenes en línea tengan el mismo peso que los presenciales."
+    cards={beneficios}
+    columns={2}
+    theme="general"
+  />
+
+  <!-- ── PERFIL IDEAL ── -->
+  <section class="proct-perfil">
+    <div class="ppf-inner">
+      <p class="section-label">¿Para quién es?</p>
+      <h2 class="section-title">Proctorizer encaja cuando la integridad del examen no es opcional</h2>
+      <div class="perfil-grid">
+        <div class="perfil-col">
+          <h3>Casos de uso principales</h3>
+          <ul>
+            <li>Educación superior — exámenes parciales, finales y admisión</li>
+            <li>Certificación profesional y organismos de gobierno</li>
+            <li>Reclutamiento — pruebas técnicas y psicométricas</li>
+            <li>Academias y formación especializada</li>
+            <li>Organizaciones sin LMS propio que aplican exámenes</li>
+          </ul>
+        </div>
+        <div class="perfil-col">
+          <h3>Perfil de organización ideal</h3>
+          <ul>
+            <li>Universidades con modalidad híbrida o totalmente en línea</li>
+            <li>Organismos certificadores con exámenes regulados</li>
+            <li>Empresas con pruebas de admisión o capacitación crítica</li>
+            <li>Instituciones con procesos de apelación formales</li>
+            <li>Operaciones en Latinoamérica que requieren soporte en español</li>
+          </ul>
+        </div>
+        <div class="perfil-col perfil-col--taec">
+          <h3>Lo que TAEC hace por ti</h3>
+          <ul>
+            <li>Evaluación del caso de uso y nivel de supervisión requerido</li>
+            <li>Integración con tu LMS actual</li>
+            <li>Capacitación de administradores en español</li>
+            <li>Soporte operativo en horario CDMX</li>
+            <li>Acompañamiento en la primera aplicación</li>
+          </ul>
+          <p class="perfil-cierre">No se trata de vigilar por vigilar. Se trata de darle seriedad, evidencia y orden a la evaluación en línea.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <FAQAccordion
+    eyebrow="Preguntas frecuentes"
+    title="Todo sobre Proctorizer en México"
+    faqs={faqs}
+    theme="general"
+  />
+
+  <!-- ── CTA ── -->
+  <CtaFinal
+    title="¿Listo para supervisar exámenes con más control y menos riesgos?"
+    subtitle="Agenda una demo con nuestro equipo en CDMX. Te mostramos la plataforma con casos reales de instituciones en México y LATAM — sin costo, sin compromiso."
+    primaryBtnText="Solicitar demo gratuita →"
+    primaryBtnUrl={bookingUrl}
+    primaryBtnTarget="_blank"
+    theme="general"
+  />
+
 </BaseLayout>
+
+<style is:global>
+/* ── STATS ── */
+.proct-stats { background: #0f172a; padding: 0; }
+.prs-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: center; }
+.prs-stat { padding: 32px 20px; text-align: center; }
+.prs-num { display: block; font-size: clamp(28px, 3vw, 40px); font-weight: 900; color: #f97316; line-height: 1; margin-bottom: 6px; }
+.prs-lbl { font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.5; }
+.prs-divider { width: 1px; height: 48px; background: rgba(255,255,255,.1); }
+
+/* ── EL PROBLEMA ── */
+.proct-problema { background: #F8FAFC; padding: 72px 5%; }
+.pp-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; display: block; }
+.section-title { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); color: #111827; margin-bottom: 12px; }
+.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 40px; max-width: 720px; }
+.preguntas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+.pregunta-card { background: white; border: 1.5px solid #E2E8F0; border-radius: 10px; padding: 18px 20px; font-size: 14px; font-weight: 600; color: #374151; text-align: center; }
+.problema-cierre { font-size: 15px; color: #111827; font-weight: 600; text-align: center; padding: 20px; background: #FFF7ED; border: 1.5px solid #FED7AA; border-radius: 10px; }
+
+/* ── MODALIDADES ── */
+.proct-modalidades { background: white; padding: 72px 5%; }
+.pm-inner { max-width: 1100px; margin: 0 auto; }
+.modal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+.modal-card { border: 1.5px solid #E2E8F0; border-radius: 16px; padding: 32px 28px; position: relative; }
+.modal-letra { position: absolute; top: -16px; left: 28px; background: #f97316; color: white; font-size: 13px; font-weight: 800; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.modal-card h3 { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 12px; line-height: 1.3; }
+.modal-card p { font-size: 13px; color: #64748B; line-height: 1.7; margin-bottom: 20px; }
+.modal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.modal-tag { font-size: 11px; font-weight: 600; background: #F1F5F9; color: #475569; padding: 3px 10px; border-radius: 20px; }
+
+/* ── CAPACIDADES ── */
+.proct-caps { background: #F8FAFC; padding: 72px 5%; }
+.pc-inner { max-width: 1100px; margin: 0 auto; }
+.pc-inner .section-title { margin-bottom: 40px; }
+.caps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.cap-card { background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
+.cap-card:hover { border-color: #f97316; }
+.cap-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+.cap-card h3 { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.cap-card p { font-size: 12px; color: #64748B; line-height: 1.6; }
+
+/* ── PERFIL IDEAL ── */
+.proct-perfil { background: #0f172a; padding: 72px 5%; }
+.ppf-inner { max-width: 1100px; margin: 0 auto; }
+.proct-perfil .section-label { color: #f97316; }
+.proct-perfil .section-title { color: white; margin-bottom: 40px; }
+.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
+.perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.perfil-col ul li { font-size: 14px; color: #CBD5E1; line-height: 1.5; padding-left: 18px; position: relative; }
+.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: #f97316; font-weight: 700; }
+.perfil-col--taec { background: rgba(255,255,255,.04); border: 1px solid rgba(249,115,22,.2); border-radius: 14px; padding: 24px; }
+.perfil-cierre { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.7; font-style: italic; border-top: 1px solid rgba(255,255,255,.08); padding-top: 16px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .prs-inner { grid-template-columns: 1fr 1fr; }
+  .prs-divider { display: none; }
+  .preguntas-grid { grid-template-columns: repeat(2, 1fr); }
+  .modal-grid { grid-template-columns: 1fr; }
+  .caps-grid { grid-template-columns: repeat(2, 1fr); }
+  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 768px) {
+  .preguntas-grid { grid-template-columns: 1fr; }
+  .caps-grid { grid-template-columns: 1fr; }
+}
+</style>
