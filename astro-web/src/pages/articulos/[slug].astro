@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { r } from '../../utils/paths';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('articulos');
+  return posts.map(post => ({
+    params: { slug: post.id.replace(/\.mdx?$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout 
+  title={`${post.data.title} - Artículo | TAEC`}
+  description={post.data.description || post.data.title}
+  section="Recursos"
+>
+  <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
+    <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: 48px; box-shadow: 0 4px 16px rgba(0,0,0,0.05);">
+      
+      <a href={r('/articulos')} style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: #78716c; margin-bottom: 32px; display: inline-block; transition: color 0.15s;">
+        &larr; Volver a Artículos
+      </a>
+      
+      <header style="margin-bottom: 32px; border-bottom: 1px solid #e7e3db; padding-bottom: 24px;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+          {post.data.category && (
+            <span style="font-family: monospace; background: #e0e7ff; color: #3730a3; padding: 4px 12px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;">
+              {post.data.category}
+            </span>
+          )}
+        </div>
+        
+        <h1 style="font-family: var(--font-display, Georgia, serif); font-size: clamp(2rem, 3.5vw, 2.5rem); font-weight: 700; color: #1c1917; margin-top: 0; margin-bottom: 16px; line-height: 1.15; letter-spacing: -0.01em;">
+          {post.data.title}
+        </h1>
+
+        <div style="font-family: monospace; font-size: 11px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;">
+          {post.data.date} · {post.data.author || 'TAEC'}
+        </div>
+      </header>
+      
+      {post.data.description && (
+        <div style="font-size: 1.15rem; line-height: 1.6; color: #44403c; font-style: italic; margin-bottom: 32px; padding-left: 20px; border-left: 4px solid #1d4ed8;">
+          {post.data.description}
+        </div>
+      )}
+      
+      {post.data.link && (
+        <div style="margin-bottom: 32px; padding: 16px 20px; background: #eff6ff; border-radius: 8px; border: 1px solid #bfdbfe;">
+           <span style="font-family: monospace; font-size: 12px; font-weight: 600; color: #1e40af;">Fuente:</span> 
+           <span style="color: #1e40af; font-size: 14px; margin-left: 8px;">Publicado originalmente en un sitio externo. 
+             <a href={post.data.link} target="_blank" rel="noopener noreferrer" style="color: #1d4ed8; text-decoration: underline; font-weight: 600;">Ir al artículo original &rarr;</a>
+           </span>
+        </div>
+      )}
+
+      <!-- Contenido Markdown -->
+      <div class="prose-content" style="font-family: var(--font-body, sans-serif); font-size: 1.05rem; line-height: 1.75; color: #1c1917;">
+        <Content />
+      </div>
+
+    </article>
+  </main>
+</BaseLayout>
+
+<style is:global>
+.prose-content h2 { font-family: var(--font-display, Georgia, serif); font-size: 1.8rem; margin-top: 2em; margin-bottom: 0.8em; color: #1c1917; }
+.prose-content h3 { font-size: 1.3rem; margin-top: 1.5em; margin-bottom: 0.6em; color: #1c1917; }
+.prose-content p { margin-bottom: 1.5em; }
+.prose-content a { color: #1d4ed8; text-decoration: underline; }
+.prose-content ul, .prose-content ol { margin-bottom: 1.5em; padding-left: 1.5em; }
+.prose-content li { margin-bottom: 0.5em; }
+</style>

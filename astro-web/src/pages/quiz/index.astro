@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroComercial from '../../components/ui/HeroComercial.astro';
+import { getCollection } from 'astro:content';
+
+const items = await getCollection('quiz');
+
+// Preparar los datos reales para el componente interactivo en cliente
+const quizData = items.map((t, index) => ({
+  id: index + 1,
+  q: t.data.description || t.data.title, // La pregunta es la descripción o el título corto
+  a: t.body // La respuesta (Markdown body)
+}));
+
+// Pasar los datos a JSON string
+const quizDataStr = JSON.stringify(quizData);
+---
+
+<BaseLayout 
+  title="Quiz e-learning y L&D | TAEC"
+  description="Pon a prueba tus conocimientos de e-learning, LMS, IA educativa y L&D con este formato interactivo de TAEC."
+  section="Recursos"
+  page="quiz.html"
+>
+  <HeroComercial 
+    eyebrow="TAEC · Recursos"
+    titleHtml="Pon a prueba tus <br/><span class='text-accent'>Conocimientos</span>"
+    subtitle="Conceptos de e-learning, IA educativa, estándares y L&D. Estudia las tarjetas interactivas."
+    theme="general"
+  />
+
+  <main style="max-width: 800px; margin: 64px auto; padding: 0 24px 80px;">
+    
+    <div style="background: #ffffff; border: 1px solid #e7e3db; border-radius: 12px; padding: 16px 24px; font-size: 14px; color: #78716c; margin-bottom: 40px; line-height: 1.5; text-align: center;">
+      Todas las respuestas están en el sitio. Consulta el 
+      <a href="/glosario" style="color: #1d4ed8; font-weight: 600; text-decoration: none;">Glosario</a> y los 
+      <a href="/estandares" style="color: #1d4ed8; font-weight: 600; text-decoration: none;">Estándares</a> de TAEC para repasar cualquier concepto.
+    </div>
+
+    <!-- Módulo Flashcards (Estudio Interactívo) -->
+    <div id="flashcard-app" data-cards={quizDataStr}>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="font-family: monospace; font-size: 12px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;" id="study-counter">
+          Cargando tarjetas...
+        </div>
+      </div>
+      
+      <div style="height: 4px; background: #e7e3db; border-radius: 2px; margin-bottom: 32px; overflow: hidden;">
+        <div id="study-bar" style="height: 100%; width: 0%; background: #1d4ed8; border-radius: 2px; transition: width 0.3s ease;"></div>
+      </div>
+
+      <div class="flip-scene" id="flip-scene" style="perspective: 1000px; width: 100%; margin: 0 auto 32px; cursor: pointer;">
+        <div class="flip-card" id="flip-card" style="width: 100%; min-height: 280px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+          
+          <div class="flip-face flip-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: #1c1917; color: #ffffff; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 16px;">Pregunta</div>
+            <div id="study-q" style="font-family: var(--font-body, sans-serif); font-size: 1.2rem; line-height: 1.5; text-align: center; font-weight: 500;">
+              [...]
+            </div>
+            <div style="font-family: monospace; font-size: 10px; opacity: 0.4; margin-top: 32px; border: 1px solid rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px;">Click para revelar</div>
+          </div>
+          
+          <div class="flip-face flip-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: #ffffff; color: #1c1917; border: 2px solid #e7e3db; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+            <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d4ed8; font-weight: 600; margin-bottom: 16px;">Respuesta</div>
+            <div id="study-a" style="font-family: var(--font-body, sans-serif); font-size: 1.1rem; line-height: 1.6; text-align: center;">
+              [...]
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px;">
+        <button id="btn-prev" class="ctrl-btn">&larr; Anterior</button>
+        <button id="btn-shuffle" class="ctrl-btn shuffle-btn">
+          <svg style="width: 14px; height: 14px; margin-right: 6px; display: inline-block; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+          Mezclar
+        </button>
+        <button id="btn-next" class="ctrl-btn" style="background: #1c1917; color: #fff; border-color: #1c1917;">Siguiente &rarr;</button>
+      </div>
+
+    </div>
+
+  </main>
+</BaseLayout>
+
+<style>
+.flip-card.flipped { transform: rotateY(180deg); }
+
+.ctrl-btn { font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; padding: 10px 20px; border-radius: 8px; border: 1.5px solid #e7e3db; background: #ffffff; color: #44403c; cursor: pointer; transition: all 0.2s; font-weight: 600; }
+.ctrl-btn:hover:not(:disabled) { border-color: #a8a29e; background: #f5f5f4; }
+.ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.shuffle-btn { color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff; }
+.shuffle-btn:hover:not(:disabled) { border-color: #1d4ed8; background: #dbeafe; color: #1e3a8a; }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const appEl = document.getElementById('flashcard-app');
+    if(!appEl) return;
+    
+    // Parsear datos inyectados por Astro
+    const CARDS = JSON.parse(appEl.getAttribute('data-cards') || '[]');
+    let N = CARDS.length;
+    
+    if(N === 0) {
+      document.getElementById('study-q').textContent = "No hay tarjetas disponibles.";
+      document.getElementById('study-a').textContent = "-";
+      return;
+    }
+
+    let studyOrder = CARDS.map((_,i) => i);
+    let studyIdx = 0;
+
+    const qEl = document.getElementById('study-q');
+    const aEl = document.getElementById('study-a');
+    const cardEl = document.getElementById('flip-card');
+    const counterEl = document.getElementById('study-counter');
+    const barEl = document.getElementById('study-bar');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const btnShuffle = document.getElementById('btn-shuffle');
+    const sceneEl = document.getElementById('flip-scene');
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1)); 
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function renderStudy() {
+      const card = CARDS[studyOrder[studyIdx]];
+      
+      // Remover flipped si estaba abierta
+      cardEl.classList.remove('flipped');
+      
+      // Esperar la animación css (0.6s) o cambiar tras un reflow rápido
+      setTimeout(() => {
+        qEl.textContent = card.q;
+        aEl.textContent = card.a;
+        counterEl.textContent = `Tarjeta ${studyIdx + 1} de ${N}`;
+        barEl.style.width = `${((studyIdx + 1) / N) * 100}%`;
+        
+        btnPrev.disabled = studyIdx === 0;
+        btnNext.disabled = studyIdx === N - 1;
+      }, cardEl.classList.contains('flipped') ? 300 : 0);
+    }
+
+    sceneEl.addEventListener('click', () => {
+      cardEl.classList.toggle('flipped');
+    });
+
+    btnPrev.addEventListener('click', () => {
+      studyIdx = Math.max(0, studyIdx - 1);
+      renderStudy();
+    });
+
+    btnNext.addEventListener('click', () => {
+      studyIdx = Math.min(N - 1, studyIdx + 1);
+      renderStudy();
+    });
+
+    btnShuffle.addEventListener('click', () => {
+      shuffle(studyOrder);
+      studyIdx = 0;
+      renderStudy();
+    });
+
+    // Iniciar
+    renderStudy();
+  });
+</script>

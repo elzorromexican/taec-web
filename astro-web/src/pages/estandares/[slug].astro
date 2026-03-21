@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { r } from '../../utils/paths';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('estandares');
+  return posts.map(post => ({
+    params: { slug: post.id.replace(/\.mdx?$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout 
+  title={`${post.data.acronym} - Estándares de eLearning | TAEC`}
+  description={post.data.description || post.data.title}
+  section="Recursos"
+>
+  <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
+    <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: 48px; box-shadow: 0 4px 16px rgba(0,0,0,0.05);">
+      
+      <a href={r('/estandares')} style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: #78716c; margin-bottom: 32px; display: inline-block; transition: color 0.15s;">
+        &larr; Volver a Estándares
+      </a>
+      
+      <header style="margin-bottom: 32px; border-bottom: 1px solid #e7e3db; padding-bottom: 24px;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+          {post.data.category && (
+            <span style="font-family: monospace; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;">
+              {post.data.category}
+            </span>
+          )}
+        </div>
+        
+        <div style="font-family: monospace; font-size: 1.5rem; font-weight: 600; color: #1d4ed8; margin-bottom: 8px; letter-spacing: 0.02em;">
+          {post.data.acronym}
+        </div>
+
+        <h1 style="font-family: var(--font-display, Georgia, serif); font-size: clamp(2rem, 3vw, 2.2rem); font-weight: 700; color: #1c1917; margin-top: 0; margin-bottom: 16px; line-height: 1.15; letter-spacing: -0.01em;">
+          {post.data.title}
+        </h1>
+
+        {post.data.version && (
+          <div style="font-family: monospace; font-size: 11px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;">
+            Versión: <strong style="color: #44403c;">{post.data.version}</strong>
+          </div>
+        )}
+      </header>
+      
+      <div style="font-size: 1.05rem; line-height: 1.75; color: #44403c; margin-bottom: 32px;">
+        {post.data.description}
+      </div>
+      
+      {post.data.link && (
+        <div style="margin-bottom: 32px; padding: 16px 20px; background: #eff6ff; border-radius: 8px; border: 1px solid #bfdbfe;">
+           <span style="color: #1e40af; font-size: 14px;">Para información técnica y oficial sobre este estándar, consulta la documentación pertinente.
+             <a href={post.data.link} target="_blank" rel="noopener noreferrer" style="color: #1d4ed8; text-decoration: underline; font-weight: 600; display: inline-block; margin-top: 8px;">Documentación Oficial &rarr;</a>
+           </span>
+        </div>
+      )}
+
+      <!-- Contenido Markdown -->
+      <div class="prose-content" style="font-family: var(--font-body, sans-serif); font-size: 1.05rem; line-height: 1.75; color: #1c1917;">
+        <Content />
+      </div>
+
+    </article>
+  </main>
+</BaseLayout>
+
+<style is:global>
+.prose-content h2 { font-family: var(--font-display, Georgia, serif); font-size: 1.8rem; margin-top: 2em; margin-bottom: 0.8em; color: #1c1917; }
+.prose-content h3 { font-size: 1.3rem; margin-top: 1.5em; margin-bottom: 0.6em; color: #1c1917; }
+.prose-content p { margin-bottom: 1.5em; }
+.prose-content a { color: #1d4ed8; text-decoration: underline; }
+.prose-content ul, .prose-content ol { margin-bottom: 1.5em; padding-left: 1.5em; }
+.prose-content li { margin-bottom: 0.5em; }
+</style>
