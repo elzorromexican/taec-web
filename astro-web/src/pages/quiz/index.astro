@@ -56,13 +56,13 @@ const quizDataStr = JSON.stringify(quizData);
       </button>
       <button class="mode-tab" data-mode="quiz">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-        Modo Examen
+        Modo Quiz
       </button>
     </div>
 
     <div id="quiz-app" data-cards={quizDataStr}>
       
-      <!-- ================= MODO ESTUDIO (FLASHCARDS) ================= -->
+      <!-- ================= MODO ESTUDIO (FLASHCARDS ORIGINAL 1.0) ================= -->
       <div id="view-study" class="view-panel active-view">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div style="font-family: monospace; font-size: 12px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;" id="study-counter">
@@ -75,16 +75,23 @@ const quizDataStr = JSON.stringify(quizData);
         </div>
 
         <div class="flip-scene" id="flip-scene" style="perspective: 1000px; width: 100%; margin: 0 auto 32px; cursor: pointer;">
-          <div class="flip-card" id="flip-card" style="width: 100%; min-height: 320px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
-            <div class="flip-face flip-front">
-              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 24px;">Pregunta</div>
-              <div id="study-q" class="md-content">[...]</div>
-              <div style="font-family: monospace; font-size: 10px; opacity: 0.4; margin-top: auto; border: 1px solid rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px;">Toque para revelar</div>
+          <div class="flip-card" id="flip-card" style="width: 100%; min-height: 280px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+            
+            <div class="flip-face flip-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: #1c1917; color: #ffffff; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 16px;">Pregunta</div>
+              <div id="study-q" style="font-family: var(--font-body, sans-serif); font-size: 1.2rem; line-height: 1.5; text-align: center; font-weight: 500;">
+                [...]
+              </div>
+              <div style="font-family: monospace; font-size: 10px; opacity: 0.4; margin-top: 32px; border: 1px solid rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px;">Click para revelar</div>
             </div>
-            <div class="flip-face flip-back">
-              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d4ed8; font-weight: 600; margin-bottom: 24px;">Respuesta</div>
-              <div id="study-a" class="md-content">[...]</div>
+            
+            <div class="flip-face flip-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: #ffffff; color: #1c1917; border: 2px solid #e7e3db; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d4ed8; font-weight: 600; margin-bottom: 16px;">Respuesta</div>
+              <div id="study-a" style="font-family: var(--font-body, sans-serif); font-size: 1.1rem; line-height: 1.6; text-align: center;">
+                [...]
+              </div>
             </div>
+
           </div>
         </div>
 
@@ -119,7 +126,7 @@ const quizDataStr = JSON.stringify(quizData);
           </div>
 
           <div style="background: #ffffff; border: 1px solid #e7e3db; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 24px;">
-            <div id="quiz-q" class="md-content" style="font-size: 1.2rem; font-weight: 600; color: #1c1917; margin-bottom: 32px; text-align: center;"></div>
+            <div id="quiz-q" style="font-size: 1.2rem; font-weight: 600; color: #1c1917; margin-bottom: 32px; text-align: center; line-height: 1.6;"></div>
             
             <div id="quiz-options" style="display: flex; flex-direction: column; gap: 12px;">
               <!-- Opciones inyectadas por JS -->
@@ -150,16 +157,12 @@ const quizDataStr = JSON.stringify(quizData);
 .mode-tab:hover { background: #f5f5f4; color: #44403c; }
 .mode-tab.active { background: #1c1917; border-color: #1c1917; color: #ffffff; }
 
-/* Flip Card (Estudio) */
-.flip-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; }
-.flip-front { background: #1c1917; color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-.flip-back { background: #ffffff; color: #1c1917; border: 2px solid #e7e3db; transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+/* Flip Card CSS Nativo de la V1 */
 .flip-card.flipped { transform: rotateY(180deg); }
 
-/* MD Content común */
-.md-content { font-family: var(--font-body, sans-serif); line-height: 1.6; text-align: center; }
-.md-content strong { font-weight: 700; color: inherit; }
-.md-content em { font-style: italic; opacity: 0.9; }
+/* MD Content (solo para strongs/ems ya que la class fue retirada para usar inline) */
+#study-q strong, #study-a strong, #quiz-q strong { font-weight: 700; color: inherit; }
+#study-q em, #study-a em, #quiz-q em { font-style: italic; opacity: 0.9; }
 
 /* Controles Base */
 .ctrl-btn { font-family: monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; padding: 10px 20px; border-radius: 8px; border: 1.5px solid #e7e3db; background: #ffffff; color: #44403c; cursor: pointer; transition: all 0.2s; font-weight: 600; }
@@ -173,7 +176,7 @@ const quizDataStr = JSON.stringify(quizData);
 .btn-primary:hover { background: #1e3a8a; }
 
 /* Botones Opciones (Quiz) */
-.quiz-opt { width: 100%; text-align: left; background: #ffffff; border: 1.5px solid #e7e3db; border-radius: 8px; padding: 16px 20px; font-family: var(--font-body, sans-serif); font-size: 15px; color: #44403c; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+.quiz-opt { width: 100%; text-align: left; background: #ffffff; border: 1.5px solid #e7e3db; border-radius: 8px; padding: 16px 20px; font-family: var(--font-body, sans-serif); font-size: 15px; color: #44403c; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; line-height: 1.5; }
 .quiz-opt:hover:not(:disabled) { border-color: #1d4ed8; background: #f8fafc; color: #1c1917; }
 .quiz-opt:disabled { cursor: default; }
 
@@ -186,7 +189,7 @@ const quizDataStr = JSON.stringify(quizData);
     const appEl = document.getElementById('quiz-app');
     if(!appEl) return;
     
-    // Parse the 75 entries
+    // Parse the entries
     const RAW_CARDS = JSON.parse(appEl.getAttribute('data-cards') || '[]');
     let N = RAW_CARDS.length;
 
@@ -229,7 +232,7 @@ const quizDataStr = JSON.stringify(quizData);
     }
 
     // ==========================================
-    // MODO ESTUDIO (FLASHCARDS)
+    // MODO ESTUDIO (FLASHCARDS ORIGINAL 1.0)
     // ==========================================
     let studyOrder = RAW_CARDS.map((_,i) => i);
     let studyIdx = 0;
@@ -258,10 +261,31 @@ const quizDataStr = JSON.stringify(quizData);
       }, cardEl.classList.contains('flipped') ? 300 : 0);
     }
 
-    if(sceneEl) sceneEl.addEventListener('click', () => cardEl.classList.toggle('flipped'));
-    if(btnPrev) btnPrev.addEventListener('click', () => { studyIdx = Math.max(0, studyIdx - 1); renderStudy(); });
-    if(btnNext) btnNext.addEventListener('click', () => { studyIdx = Math.min(N - 1, studyIdx + 1); renderStudy(); });
-    if(btnShuffle) btnShuffle.addEventListener('click', () => { studyOrder = shuffle(studyOrder); studyIdx = 0; renderStudy(); });
+    if(sceneEl) {
+      sceneEl.addEventListener('click', () => {
+        cardEl.classList.toggle('flipped');
+      });
+    }
+
+    if(btnPrev) {
+      btnPrev.addEventListener('click', () => { 
+        studyIdx = Math.max(0, studyIdx - 1); 
+        renderStudy(); 
+      });
+    }
+    if(btnNext) {
+      btnNext.addEventListener('click', () => { 
+        studyIdx = Math.min(N - 1, studyIdx + 1); 
+        renderStudy(); 
+      });
+    }
+    if(btnShuffle) {
+      btnShuffle.addEventListener('click', () => { 
+        studyOrder = shuffle(studyOrder); 
+        studyIdx = 0; 
+        renderStudy(); 
+      });
+    }
     
     renderStudy();
 
@@ -290,12 +314,10 @@ const quizDataStr = JSON.stringify(quizData);
       uiEnd.style.display = 'none';
       uiPlay.style.display = 'block';
       
-      // Seleccionar X preguntas aleatorias para este round
       const pool = shuffle(RAW_CARDS);
       quizBank = pool.slice(0, Math.min(QUIZ_LENGTH, N));
       currentQuizIndex = 0;
       currentScore = 0;
-      
       renderQuizQuestion();
     }
 
@@ -306,13 +328,11 @@ const quizDataStr = JSON.stringify(quizData);
       const currentItem = quizBank[currentQuizIndex];
       uiQuestion.innerHTML = parseMD(currentItem.q);
       
-      // Generar 3 distractores (respuestas falsas) aleatorias de OTRAS tarjetas
+      // Select false answers from other cards
       const otherCards = RAW_CARDS.filter(c => c.id !== currentItem.id);
       let distractors = shuffle(otherCards).slice(0, 3).map(c => c.a);
       
-      // Mezclar con la correcta
       const allOptions = shuffle([currentItem.a, ...distractors]);
-      
       uiOptions.innerHTML = '';
       allOptions.forEach(opt => {
         const btn = document.createElement('button');
@@ -324,7 +344,6 @@ const quizDataStr = JSON.stringify(quizData);
     }
 
     function handleAnswer(btnClicked, isCorrect) {
-      // Deshabilitar todos
       const buttons = Array.from(uiOptions.children);
       buttons.forEach(b => b.disabled = true);
       
@@ -334,15 +353,10 @@ const quizDataStr = JSON.stringify(quizData);
         uiScore.textContent = `Score: ${currentScore}`;
       } else {
         btnClicked.classList.add('opt-wrong');
-        // Marcar la correcta también
-        const correctBtn = buttons.find(b => {
-          // buscar quién tiene la respuesta original
-          return b.innerHTML === parseMD(quizBank[currentQuizIndex].a);
-        });
+        const correctBtn = buttons.find(b => b.innerHTML === parseMD(quizBank[currentQuizIndex].a));
         if(correctBtn) correctBtn.classList.add('opt-correct');
       }
 
-      // Siguiente pregunta o fin
       setTimeout(() => {
         currentQuizIndex++;
         if (currentQuizIndex < quizBank.length) {
