@@ -3,7 +3,7 @@ title: "Tendencias en producción de videos para e-learning"
 description: "Tendencias en producción de videos para e-learning"
 date: "5 abril, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "grabación", "moda", "pantallas", "screencast", "tendencia", "videos", "vyond"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/04/INFLUENCER_662x367.jpg)

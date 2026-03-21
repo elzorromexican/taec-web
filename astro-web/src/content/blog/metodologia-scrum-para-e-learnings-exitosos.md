@@ -3,7 +3,7 @@ title: "Metodología SCRUM para e-learnings exitosos"
 description: "Metodología SCRUM para e-learnings exitosos"
 date: "30 diciembre, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "elearning", "instruccional", "lms", "metodologías", "ágiles", "scrum", "tecnología"]
 ---
 
 Las metodologías ágiles son cada vez más comunes en el día a día y las escuchamos con frecuencia dentro de los entornos organizacionales eficientes del mundo actual. Una de estas metodologías es SCRUM y el día de hoy hablaremos sobre ella y **cómo aprovecharla para desarrollar proyectos e-learning exitosos.**

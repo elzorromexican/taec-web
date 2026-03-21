@@ -3,7 +3,7 @@ title: "Desarrollo y flexibilidad: impulsando equipos de alto desempeño"
 description: "Desarrollo y flexibilidad: impulsando equipos de alto desempeño"
 date: "6 febrero, 2024"
 author: "TAEC"
-tags: ["blog"]
+tags: ["alto", "desempeño", "rendimiento", "capacitación"]
 ---
 
 En el dinámico escenario empresarial actual, la formación de equipos de alto rendimiento y la flexibilidad en la capacitación se alzan como pilares fundamentales para el éxito organizacional. En este blog, abordamos cómo la integración de equipos de alto desempeño y la adopción de tecnologías educativas pueden impulsar conjuntamente el crecimiento y la eficiencia en una organización.

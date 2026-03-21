@@ -3,7 +3,7 @@ title: "Cautiva a tus estudiantes con videos educativos: estrategias y beneficio
 description: "Cautiva a tus estudiantes con videos educativos: estrategias y beneficios"
 date: "10 junio, 2024"
 author: "TAEC"
-tags: ["blog"]
+tags: ["video", "e-learning", "educación"]
 ---
 
 En un mundo donde la tecnología avanza a pasos agigantados, los métodos tradicionales de enseñanza se están quedando atrás. Los estudiantes de hoy en día están acostumbrados a consumir contenido multimedia y esperan la misma dinámica en sus aulas. Integrar videos educativos en tus clases no solo moderniza tu enfoque pedagógico, sino que también puede aumentar significativamente la retención y el engagement de los estudiantes. Este blog te mostrará cómo puedes transformar tu aula con videos educativos, ofreciendo estrategias prácticas y ejemplos de éxito.

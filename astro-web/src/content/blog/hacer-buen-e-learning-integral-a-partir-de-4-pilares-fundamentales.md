@@ -3,7 +3,7 @@ title: "Hacer buen e-learning integral a partir de 4 pilares fundamentales"
 description: "Hacer buen e-learning integral a partir de 4 pilares fundamentales"
 date: "18 noviembre, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["administración", "diseño", "docentes", "evaluaciones", "e-learning", "exito", "gerencia", "instruccional"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/11/PUERTA_GRIEGA_662x367.jpg)

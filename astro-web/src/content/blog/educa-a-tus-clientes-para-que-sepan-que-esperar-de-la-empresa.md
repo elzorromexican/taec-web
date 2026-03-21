@@ -3,7 +3,7 @@ title: "Educa a tus clientes para que sepan qué esperar de la empresa"
 description: "Educa a tus clientes para que sepan qué esperar de la empresa"
 date: "7 diciembre, 2020"
 author: "TAEC"
-tags: ["blog"]
+tags: ["capacitación", "clientes", "educación", "empresas", "exito", "solución"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/01/image1.png)

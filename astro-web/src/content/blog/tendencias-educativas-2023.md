@@ -3,7 +3,7 @@ title: "Tendencias educativas 2023"
 description: "Tendencias educativas 2023"
 date: "18 enero, 2023"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "aulas", "colaborativas", "capacitación", "diseño", "e-learning", "gamificación", "instruccional", "lms", "steam"]
 ---
 
 El mundo avanza a una velocidad vertiginosa y con él, las ideas, las herramientas y recursos educativos también evolucionan. Esta convergencia entre la teoría y la práctica se hace cada vez más tangible gracias a las diversas metodologías de educación que día a día se robustecen.

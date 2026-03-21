@@ -3,7 +3,7 @@ title: "Pedagogía STEAM: la educación para el futuro"
 description: "Pedagogía STEAM: la educación para el futuro"
 date: "18 enero, 2023"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "e-learning", "educación", "steam", "tecnología"]
 ---
 
 STEAM es una metodología de aprendizaje innovadora en la que convergen diversas disciplinas para enriquecer el proceso de enseñanza. STEAM es un acrónimo de las palabras Ciencia, Tecnología, Ingeniería, Artes y Matemáticas en inglés. Y aunque se creó en 1990, su metodología está tomando más relevancia que nunca pues tiene el firme propósito de desarrollar habilidades y conocimientos de gran importancia para la era digital actual.

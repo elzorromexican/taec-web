@@ -3,7 +3,7 @@ title: "¿Por qué capacitar a tu equipo con e-learning?"
 description: "¿Por qué capacitar a tu equipo con e-learning?"
 date: "6 julio, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "instruccional", "lms", "tecnología"]
 ---
 
 Hoy día, la capacitación empresarial realizada a través de plataformas digitales es una gran solución a diversas problemáticas, tales como la inversión de tiempo y dinero que implica el desarrollo de talento humano. Aquí platicaremos sobre las razones para capacitar a tu equipo con e-learning.

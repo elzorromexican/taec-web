@@ -3,7 +3,7 @@ title: "E-learning de calidad ante el COVID-19"
 description: "E-learning de calidad ante el COVID-19"
 date: "15 marzo, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["capacitación", "covid", "e-learning", "evolución", "retos", "tecnología"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/CORONAVIRUS_662x367.jpg)

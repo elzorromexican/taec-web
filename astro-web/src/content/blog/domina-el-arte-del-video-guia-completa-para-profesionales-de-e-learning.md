@@ -3,7 +3,7 @@ title: "Domina el arte del video: Guía completa para profesionales de e-Learnin
 description: "Domina el arte del video: Guía completa para profesionales de e-Learning"
 date: "10 junio, 2024"
 author: "TAEC"
-tags: ["blog"]
+tags: ["video", "e-learning", "producción"]
 ---
 
 En la era digital actual, los videos han revolucionado la forma en que aprendemos y enseñamos. Ya sea en el ámbito educativo, empresarial o personal, los videos se han convertido en una herramienta esencial para transmitir conocimientos de manera efectiva. Este blog explorará cómo crear videos de alta calidad que capturen la atención de tu audiencia y maximicen el aprendizaje.

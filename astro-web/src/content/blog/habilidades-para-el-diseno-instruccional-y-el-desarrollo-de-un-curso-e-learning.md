@@ -3,7 +3,7 @@ title: "Habilidades para el diseño instruccional y el desarrollo de un curso e-
 description: "Habilidades para el diseño instruccional y el desarrollo de un curso e-learning"
 date: "18 enero, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["board", "desarrollo", "diseño", "instruccional", "e-learning", "producción", "programación", "sme", "storyboard"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/image01.jpeg)

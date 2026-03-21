@@ -3,7 +3,7 @@ title: "Cómo utilizar SCRUM para crear E-learning"
 description: "Cómo utilizar SCRUM para crear E-learning"
 date: "15 febrero, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["ágil", "equipo", "iterativo", "metodología", "negocio", "scrum"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/SCRUM_662x367.jpg)

@@ -3,7 +3,7 @@ title: "La historia del E-learning en el mundo y en Latinoamérica"
 description: "La historia del E-learning en el mundo y en Latinoamérica"
 date: "21 junio, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "historia", "latinoamérica"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/06/EVOLUTION.jpg)

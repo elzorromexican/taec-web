@@ -3,7 +3,7 @@ title: "5 razones para utilizar Articulate"
 description: "5 razones para utilizar Articulate"
 date: "8 marzo, 2023"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "exito", "instruccional", "lms", "tecnología"]
 ---
 
 Articulate 360 es la plataforma de creación de cursos e-learning más robusta que existe y se ha consolidado como la herramienta más relevante para los Diseñadores Instruccionales. Desde su creación en 2016, Articulate solo se ha dedicado a implementar mejoras en su plataforma y a ofrecer mayores niveles de interactividad a los usuarios dentro de un ambiente colaborativo.

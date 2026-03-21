@@ -3,7 +3,7 @@ title: "Mobile learning: educación del futuro y revolución tecnológica"
 description: "Mobile learning: educación del futuro y revolución tecnológica"
 date: "30 mayo, 2023"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "e-learning", "educación", "lms", "mobile", "learning"]
 ---
 
 El _mobile learning_ es una de las metodologías de aprendizaje más innovadoras. Con la creciente dependencia de los teléfonos inteligentes y el avance vertiginoso de las tecnologías móviles, el _mobile learning_ se ha convertido en una forma eficaz y efectiva para aprender; además, la accesibilidad al conocimiento se ve enormemente facilitada, pues es posible acceder al móvil en cualquier momento y en cualquier lugar. Hoy hablaremos sobre el _mobile learning_ y su relevancia en la educación y la revolución tecnológica.

@@ -3,7 +3,7 @@ title: "El “peak-end” y el diseño de experiencias de aprendizaje"
 description: "El “peak-end” y el diseño de experiencias de aprendizaje"
 date: "13 julio, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "lms", "tecnología"]
 ---
 
 Diseñar experiencias de aprendizaje es una tarea compleja que, complementada con los elementos adecuados, puede lograr una experiencia sumamente relevante y, sobre todo, memorable.

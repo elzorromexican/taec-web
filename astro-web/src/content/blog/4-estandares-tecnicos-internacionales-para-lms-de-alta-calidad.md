@@ -3,7 +3,7 @@ title: "4 estándares técnicos internacionales para LMS de alta calidad"
 description: "4 estándares técnicos internacionales para LMS de alta calidad"
 date: "19 octubre, 2020"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aicc", "estandares", "experience", "api", "ims", "internacionales", "lms", "scorm", "xapi"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/APROBACIÓN_662x367.jpg)

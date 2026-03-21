@@ -3,7 +3,7 @@ title: "5 bases para implementar e-learning en una organización"
 description: "5 bases para implementar e-learning en una organización"
 date: "18 enero, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["a", "distancia", "diseño", "instruccional", "e-learning", "escuelas", "evaluación", "iaas", "rapid", "remoto", "saas"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2020/07/senior-man-taking-an-online-class-on-his-computer.jpg)

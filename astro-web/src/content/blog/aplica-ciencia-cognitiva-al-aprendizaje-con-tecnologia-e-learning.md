@@ -3,7 +3,7 @@ title: "Aplica ciencia cognitiva al aprendizaje con tecnología e-learning"
 description: "Aplica ciencia cognitiva al aprendizaje con tecnología e-learning"
 date: "22 marzo, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "ciencia", "cognitiva", "e-learning", "machine", "learning", "tecnología"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/AI_662x367.jpg)

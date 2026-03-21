@@ -3,7 +3,7 @@ title: "Microlearning, aprender valorando cada minuto"
 description: "Microlearning, aprender valorando cada minuto"
 date: "29 octubre, 2024"
 author: "TAEC"
-tags: ["blog"]
+tags: ["cursos", "e-learning", "elearning", "microaprendizaje"]
 ---
 
 Detente un momento y piensa: ¿cuál es tu posesión más valiosa?

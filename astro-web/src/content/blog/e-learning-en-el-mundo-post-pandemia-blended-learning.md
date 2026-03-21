@@ -3,7 +3,7 @@ title: "E-learning en el mundo post-pandemia: Blended learning"
 description: "E-learning en el mundo post-pandemia: Blended learning"
 date: "1 septiembre, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "blended", "learning", "capacitación", "diseño", "e-learning", "elearning", "instruccional", "lms"]
 ---
 
 El _blended learning_ es una práctica educativa que aunque existía con anterioridad, vino a tomar una gran relevancia durante la pandemia por Covid-19. Hoy, aunque poco a poco estamos regresando a las aulas y las oficinas, el _blended learning_ o “aprendizaje semipresencial”, sigue vigente y en constante evolución. Hoy hablaremos sobre qué es y cómo aprovecharlo al máximo.

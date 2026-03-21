@@ -3,7 +3,7 @@ title: "Moodle 4.0 y la mejora de la experiencia de los usuarios"
 description: "Moodle 4.0 y la mejora de la experiencia de los usuarios"
 date: "1 junio, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "e-learning", "educación", "lms", "moodle"]
 ---
 
 El pasado abril Moodle lanzó la versión más reciente versión de su plataforma: Moodle 4.0. En este lanzamiento, la plataforma busca disminuir las posibles fricciones de la misma con sus usuarios a través de una interfaz más intuitiva y contemporánea.

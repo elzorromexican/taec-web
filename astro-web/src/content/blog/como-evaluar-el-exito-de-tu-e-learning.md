@@ -3,7 +3,7 @@ title: "Cómo evaluar el éxito de tu e-learning"
 description: "Cómo evaluar el éxito de tu e-learning"
 date: "16 marzo, 2023"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "e-learning", "evaluar", "éxito", "retroalimentación", "tasa", "de", "finalización"]
 ---
 
 El e-learning es una de las herramientas más innovadoras para el desarrollo profesional dentro de la era digital y es por esta misma razón que su popularidad ha crecido de gran manera; esto aunado a su accesibilidad y flexibilidad. Sin embargo, aunque su aplicación es amplia y variada, algunas veces puede resultar complicado medir el éxito de un curso e-learning. Hoy hablaremos sobre algunas de las métricas clave para evaluarlo.

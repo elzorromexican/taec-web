@@ -3,7 +3,7 @@ title: "Articulate ’09, nuevas y mejores funcionalidades."
 description: "Articulate ’09, nuevas y mejores funcionalidades."
 date: "30 enero, 2009"
 author: "TAEC"
-tags: ["blog"]
+tags: ["elearning", "taec"]
 ---
 
 !shutterstock_92363491

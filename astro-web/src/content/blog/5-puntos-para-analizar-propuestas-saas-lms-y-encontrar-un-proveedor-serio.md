@@ -3,7 +3,7 @@ title: "5 puntos para analizar propuestas SaaS LMS y encontrar un proveedor seri
 description: "5 puntos para analizar propuestas SaaS LMS y encontrar un proveedor serio"
 date: "16 noviembre, 2020"
 author: "TAEC"
-tags: ["blog"]
+tags: ["calidad", "excelencia", "lms", "propuestas", "proveedores", "saas", "usabilidad"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/GENERACIÓN_662x367-1.jpg)

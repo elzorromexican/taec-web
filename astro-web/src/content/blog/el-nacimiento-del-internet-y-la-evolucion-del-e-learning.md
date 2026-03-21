@@ -3,7 +3,7 @@ title: "El nacimiento del internet y la evolución del e-learning"
 description: "El nacimiento del internet y la evolución del e-learning"
 date: "18 enero, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["capacitación", "diseño", "instruccional", "e-learning", "evaluación", "saas", "trabajo", "a", "distancia"]
 ---
 
 ![](https://lh4.googleusercontent.com/gNWJliKbpd3qZl-9QeGbyCCt_Q58EkiuN745mZZkuetnZopbQb5wGHs5OZDNJd9_AVkMUzDFGhegyYT5rBiJuYxCbCLOHoBKS3mmxCDOlP5RI4tYE6gUEdB8Yh-OtKBM92Rukck)

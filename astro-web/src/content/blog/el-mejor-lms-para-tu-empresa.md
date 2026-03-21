@@ -3,7 +3,7 @@ title: "El mejor LMS para tu empresa"
 description: "El mejor LMS para tu empresa"
 date: "9 noviembre, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "educación", "elearning", "exito", "instruccional", "lms"]
 ---
 
 La vertiginosidad con la que el mundo cambia actualmente, obliga a los profesionales a permanecer en un estado constante de formación y desarrollo que les permita hacer frente a las exigencias del entorno. Es así como los sistemas de gestión del aprendizaje (LMS, por sus siglas en inglés), se vuelven una gran alternativa para el crecimiento personal y profesional.

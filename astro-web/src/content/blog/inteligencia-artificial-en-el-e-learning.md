@@ -3,7 +3,7 @@ title: "Inteligencia artificial en el e-learning"
 description: "Inteligencia artificial en el e-learning"
 date: "9 mayo, 2024"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "articulate", "360", "chatgpt", "dall-e", "e-learning", "elearning", "ia", "inteligencia", "artificial", "tecnología"]
 ---
 
 La inteligencia artificial (IA) ha sido durante mucho tiempo un concepto fascinante y prometedor en el mundo de la tecnología. Sin embargo, en los últimos años, su impacto en el ámbito educativo, particularmente en el aprendizaje electrónico (e-learning), ha sido revolucionario. Herramientas como ChatGPT y DALL-E han llevado la IA al centro de atención al ofrecer la capacidad de generar contenido de manera rápida y personalizada con solo unas pocas indicaciones.

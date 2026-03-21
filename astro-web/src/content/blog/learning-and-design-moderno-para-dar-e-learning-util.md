@@ -3,7 +3,7 @@ title: "“Learning and Design” moderno para dar e-learning útil"
 description: "“Learning and Design” moderno para dar e-learning útil"
 date: "23 agosto, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["corporativos", "cursos", "diseño", "e-learning", "instruccional", "l&d", "lms", "lxp"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/09/REGANDO_IDEAS662x367.jpg)

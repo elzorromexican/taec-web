@@ -3,7 +3,7 @@ title: "La revolución de la Inteligencia Artificial en el Diseño Instruccional
 description: "La revolución de la Inteligencia Artificial en el Diseño Instruccional"
 date: "27 junio, 2024"
 author: "TAEC"
-tags: ["blog"]
+tags: ["inteligencia", "artificial", "diseño", "instruccional", "e-learning"]
 ---
 
 La inteligencia artificial (IA) está transformando múltiples sectores, y el diseño instruccional no es la excepción. Las herramientas de IA, como Articulate AI, están cambiando la forma en que diseñadores instruccionales crean experiencias de aprendizaje, permitiendo concentrarse en tareas estratégicas y creativas de mayor nivel. Aquí exploramos cómo la IA está revolucionando el diseño instruccional, mejorando la efectividad, atractivo e integralidad de las experiencias de aprendizaje.
