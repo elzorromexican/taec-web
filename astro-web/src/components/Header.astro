@@ -18,7 +18,7 @@ function r(url: string): string {
   return base.replace(/\/$/, '') + url;
 }
 ---
-<header>
+<header style="position: sticky; top: 0; z-index: 999999; background: #ffffff;">
   <div class="header-inner">
     <a href={r('/')} class="logo-link">
       <img src={`${base}assets/logo.svg`} alt="TAEC" />
