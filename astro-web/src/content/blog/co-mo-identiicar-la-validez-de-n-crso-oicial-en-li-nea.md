@@ -11,6 +11,5 @@ tags:
   - "rvoe"
   - "seguridad"
   - "validez"
-link: "https://blog.taec.com.mx/?p=2166"
 ---
 

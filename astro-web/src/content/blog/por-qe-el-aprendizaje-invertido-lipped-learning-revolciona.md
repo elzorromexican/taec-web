@@ -14,6 +14,5 @@ tags:
   - "taxonomía"
   - "de"
   - "bloom"
-link: "https://blog.taec.com.mx/?p=1964"
 ---
 

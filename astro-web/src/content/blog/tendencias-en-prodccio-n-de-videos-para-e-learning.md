@@ -12,6 +12,5 @@ tags:
   - "tendencia"
   - "videos"
   - "vyond"
-link: "https://blog.taec.com.mx/?p=1661"
 ---
 

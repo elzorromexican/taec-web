@@ -7,6 +7,5 @@ tags:
   - "bienvenida"
   - "elearning"
   - "taec"
-link: "https://blog.taec.com.mx/?p=6"
 ---
 

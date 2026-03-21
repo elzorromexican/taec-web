@@ -10,6 +10,5 @@ tags:
   - "empresas"
   - "exito"
   - "solución"
-link: "https://blog.taec.com.mx/?p=1375"
 ---
 

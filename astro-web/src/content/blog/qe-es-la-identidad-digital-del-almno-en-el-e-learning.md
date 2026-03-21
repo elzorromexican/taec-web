@@ -9,6 +9,5 @@ tags:
   - "identidad"
   - "privacidad"
   - "seguridad"
-link: "https://blog.taec.com.mx/?p=1897"
 ---
 

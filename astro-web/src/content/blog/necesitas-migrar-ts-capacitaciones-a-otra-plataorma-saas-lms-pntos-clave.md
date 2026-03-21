@@ -13,6 +13,5 @@ tags:
   - "solución"
   - "tecnología"
   - "usuarios"
-link: "https://blog.taec.com.mx/?p=1348"
 ---
 

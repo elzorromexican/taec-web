@@ -12,6 +12,5 @@ tags:
   - "neurotransmisores"
   - "oxitocina"
   - "personaje"
-link: "https://blog.taec.com.mx/?p=1433"
 ---
 

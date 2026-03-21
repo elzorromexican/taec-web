@@ -12,6 +12,5 @@ tags:
   - "lxp"
   - "m-learning"
   - "tendencias"
-link: "https://blog.taec.com.mx/?p=1882"
 ---
 

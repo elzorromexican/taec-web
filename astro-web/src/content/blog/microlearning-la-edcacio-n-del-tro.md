@@ -13,6 +13,5 @@ tags:
   - "microaprendizaje"
   - "microlearning"
   - "ottolearn"
-link: "https://blog.taec.com.mx/?p=2292"
 ---
 

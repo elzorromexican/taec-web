@@ -14,6 +14,5 @@ tags:
   - "de"
   - "aprendizaje"
   - "ova"
-link: "https://blog.taec.com.mx/?p=2221"
 ---
 

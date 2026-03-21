@@ -9,6 +9,5 @@ tags:
   - "instruccional"
   - "e-learning"
   - "iterativo"
-link: "https://blog.taec.com.mx/?p=1492"
 ---
 

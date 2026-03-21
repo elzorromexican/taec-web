@@ -10,6 +10,5 @@ tags:
   - "metodología"
   - "negocio"
   - "scrum"
-link: "https://blog.taec.com.mx/?p=1530"
 ---
 

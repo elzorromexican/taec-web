@@ -8,6 +8,5 @@ tags:
   - "lms"
   - "nube"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=1332"
 ---
 

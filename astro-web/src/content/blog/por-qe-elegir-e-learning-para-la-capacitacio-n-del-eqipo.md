@@ -10,6 +10,5 @@ tags:
   - "motivación"
   - "trabajo"
   - "virtual"
-link: "https://blog.taec.com.mx/?p=1798"
 ---
 

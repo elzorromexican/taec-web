@@ -13,6 +13,5 @@ tags:
   - "elearning"
   - "instruccional"
   - "lms"
-link: "https://blog.taec.com.mx/?p=2302"
 ---
 

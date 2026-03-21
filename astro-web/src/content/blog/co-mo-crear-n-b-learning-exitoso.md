@@ -11,6 +11,5 @@ tags:
   - "elearning"
   - "exito"
   - "lms"
-link: "https://blog.taec.com.mx/?p=2315"
 ---
 

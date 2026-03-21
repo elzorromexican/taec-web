@@ -10,6 +10,5 @@ tags:
   - "e-learning"
   - "innovación"
   - "neuroaprendizaje"
-link: "https://blog.taec.com.mx/?p=1724"
 ---
 

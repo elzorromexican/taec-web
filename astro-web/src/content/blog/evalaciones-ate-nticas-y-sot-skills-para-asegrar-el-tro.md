@@ -12,6 +12,5 @@ tags:
   - "skills"
   - "soft"
   - "skills"
-link: "https://blog.taec.com.mx/?p=2083"
 ---
 

@@ -12,6 +12,5 @@ tags:
   - "homeoffice"
   - "microgestionar"
   - "responsabilidad"
-link: "https://blog.taec.com.mx/?p=1403"
 ---
 

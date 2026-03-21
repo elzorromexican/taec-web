@@ -9,6 +9,5 @@ tags:
   - "e-learning"
   - "elearning"
   - "microaprendizaje"
-link: "https://blog.taec.com.mx/?p=2502"
 ---
 

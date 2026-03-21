@@ -6,6 +6,5 @@ date: "30 de enero de 2009"
 tags:
   - "elearning"
   - "taec"
-link: "https://blog.taec.com.mx/?p=80"
 ---
 

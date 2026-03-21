@@ -12,6 +12,5 @@ tags:
   - "mobile"
   - "mobile"
   - "learning"
-link: "https://blog.taec.com.mx/?p=2383"
 ---
 

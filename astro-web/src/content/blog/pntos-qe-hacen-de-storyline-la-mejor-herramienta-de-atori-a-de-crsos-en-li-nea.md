@@ -13,6 +13,5 @@ tags:
   - "instruccional"
   - "storyline"
   - "360"
-link: "https://blog.taec.com.mx/?p=1370"
 ---
 

@@ -13,6 +13,5 @@ tags:
   - "trabajo"
   - "a"
   - "distancia"
-link: "https://blog.taec.com.mx/?p=2160"
 ---
 

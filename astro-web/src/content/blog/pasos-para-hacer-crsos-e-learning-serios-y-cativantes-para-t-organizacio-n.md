@@ -10,6 +10,5 @@ tags:
   - "historia"
   - "humor"
   - "instruccional"
-link: "https://blog.taec.com.mx/?p=1344"
 ---
 

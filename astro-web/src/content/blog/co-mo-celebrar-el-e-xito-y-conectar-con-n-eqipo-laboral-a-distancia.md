@@ -14,6 +14,5 @@ tags:
   - "casa"
   - "trabajo"
   - "remoto"
-link: "https://blog.taec.com.mx/?p=1298"
 ---
 

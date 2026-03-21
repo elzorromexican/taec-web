@@ -9,6 +9,5 @@ tags:
   - "diseño"
   - "instruccional"
   - "e-learning"
-link: "https://blog.taec.com.mx/?p=2476"
 ---
 

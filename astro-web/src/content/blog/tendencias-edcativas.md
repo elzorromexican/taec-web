@@ -14,6 +14,5 @@ tags:
   - "instruccional"
   - "lms"
   - "steam"
-link: "https://blog.taec.com.mx/?p=2337"
 ---
 

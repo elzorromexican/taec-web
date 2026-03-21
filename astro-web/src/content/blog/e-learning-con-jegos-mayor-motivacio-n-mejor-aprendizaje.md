@@ -9,6 +9,5 @@ tags:
   - "e-learning"
   - "educación"
   - "gamificación"
-link: "https://blog.taec.com.mx/?p=1851"
 ---
 

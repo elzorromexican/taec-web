@@ -14,6 +14,5 @@ tags:
   - "gamificación"
   - "juegos"
   - "serios"
-link: "https://blog.taec.com.mx/?p=1290"
 ---
 

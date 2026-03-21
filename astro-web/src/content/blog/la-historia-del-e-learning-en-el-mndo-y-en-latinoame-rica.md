@@ -7,6 +7,5 @@ tags:
   - "e-learning"
   - "historia"
   - "latinoamérica"
-link: "https://blog.taec.com.mx/?p=1863"
 ---
 

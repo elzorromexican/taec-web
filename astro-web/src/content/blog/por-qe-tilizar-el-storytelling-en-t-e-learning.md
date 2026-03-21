@@ -11,6 +11,5 @@ tags:
   - "exito"
   - "storytelling"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=2298"
 ---
 

@@ -11,6 +11,5 @@ tags:
   - "maestro"
   - "método"
   - "tradicional"
-link: "https://blog.taec.com.mx/?p=1417"
 ---
 

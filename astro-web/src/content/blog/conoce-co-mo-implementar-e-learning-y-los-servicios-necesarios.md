@@ -7,6 +7,5 @@ tags:
   - "aplicaciones"
   - "integraciones"
   - "lms"
-link: "https://blog.taec.com.mx/?p=1984"
 ---
 

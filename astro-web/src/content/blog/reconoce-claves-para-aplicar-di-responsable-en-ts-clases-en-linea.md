@@ -13,6 +13,5 @@ tags:
   - "aprendizaje"
   - "responsabilidad"
   - "tiempo"
-link: "https://blog.taec.com.mx/?p=1329"
 ---
 

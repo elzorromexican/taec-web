@@ -10,6 +10,5 @@ tags:
   - "lxp"
   - "organizaciones"
   - "totara"
-link: "https://blog.taec.com.mx/?p=1556"
 ---
 

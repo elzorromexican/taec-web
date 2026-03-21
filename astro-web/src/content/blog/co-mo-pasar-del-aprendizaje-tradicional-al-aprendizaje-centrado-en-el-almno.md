@@ -12,6 +12,5 @@ tags:
   - "invertido"
   - "modelo"
   - "tradicional"
-link: "https://blog.taec.com.mx/?p=2080"
 ---
 

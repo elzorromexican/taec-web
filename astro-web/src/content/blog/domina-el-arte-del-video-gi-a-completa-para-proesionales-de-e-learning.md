@@ -7,6 +7,5 @@ tags:
   - "video"
   - "e-learning"
   - "producción"
-link: "https://blog.taec.com.mx/?p=2470"
 ---
 

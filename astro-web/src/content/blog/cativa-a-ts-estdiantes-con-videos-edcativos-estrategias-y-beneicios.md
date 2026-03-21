@@ -7,6 +7,5 @@ tags:
   - "video"
   - "e-learning"
   - "educación"
-link: "https://blog.taec.com.mx/?p=2472"
 ---
 

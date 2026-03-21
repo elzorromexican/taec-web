@@ -15,6 +15,5 @@ tags:
   - "ágiles"
   - "scrum"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=2326"
 ---
 

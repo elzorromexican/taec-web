@@ -10,6 +10,5 @@ tags:
   - "evolución"
   - "retos"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=1627"
 ---
 

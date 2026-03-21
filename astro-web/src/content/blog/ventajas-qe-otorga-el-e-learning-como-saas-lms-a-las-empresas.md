@@ -10,6 +10,5 @@ tags:
   - "lms"
   - "saas"
   - "ventajas"
-link: "https://blog.taec.com.mx/?p=1341"
 ---
 

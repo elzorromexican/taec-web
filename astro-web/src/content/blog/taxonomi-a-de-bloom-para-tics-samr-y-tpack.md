@@ -13,6 +13,5 @@ tags:
   - "taxonomía"
   - "tics"
   - "tpack"
-link: "https://blog.taec.com.mx/?p=1683"
 ---
 

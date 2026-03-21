@@ -13,6 +13,5 @@ tags:
   - "lms"
   - "microlearning"
   - "productividad"
-link: "https://blog.taec.com.mx/?p=2355"
 ---
 

@@ -8,6 +8,5 @@ tags:
   - "educación"
   - "elearning"
   - "taec"
-link: "https://blog.taec.com.mx/?p=74"
 ---
 

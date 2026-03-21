@@ -10,6 +10,5 @@ tags:
   - "rvoe"
   - "sep"
   - "validez"
-link: "https://blog.taec.com.mx/?p=2162"
 ---
 

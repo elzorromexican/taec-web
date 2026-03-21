@@ -11,6 +11,5 @@ tags:
   - "instruccional"
   - "e-learning"
   - "multimedia"
-link: "https://blog.taec.com.mx/?p=2231"
 ---
 

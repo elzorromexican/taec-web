@@ -10,6 +10,5 @@ tags:
   - "instruccional"
   - "lxd"
   - "ux"
-link: "https://blog.taec.com.mx/?p=1616"
 ---
 

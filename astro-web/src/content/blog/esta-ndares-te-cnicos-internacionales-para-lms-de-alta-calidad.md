@@ -13,6 +13,5 @@ tags:
   - "lms"
   - "scorm"
   - "xapi"
-link: "https://blog.taec.com.mx/?p=1335"
 ---
 

@@ -9,6 +9,5 @@ tags:
   - "alto"
   - "rendimiento"
   - "capacitación"
-link: "https://blog.taec.com.mx/?p=2399"
 ---
 

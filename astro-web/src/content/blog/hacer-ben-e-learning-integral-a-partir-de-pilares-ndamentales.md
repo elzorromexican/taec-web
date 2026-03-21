@@ -12,6 +12,5 @@ tags:
   - "exito"
   - "gerencia"
   - "instruccional"
-link: "https://blog.taec.com.mx/?p=2088"
 ---
 

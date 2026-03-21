@@ -16,6 +16,5 @@ tags:
   - "e-learning"
   - "remoto"
   - "saas"
-link: "https://blog.taec.com.mx/?p=2158"
 ---
 

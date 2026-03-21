@@ -10,6 +10,5 @@ tags:
   - "educación"
   - "lms"
   - "moodle"
-link: "https://blog.taec.com.mx/?p=2269"
 ---
 

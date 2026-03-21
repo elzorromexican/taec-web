@@ -9,6 +9,5 @@ tags:
   - "blended"
   - "cognitivo"
   - "mooc"
-link: "https://blog.taec.com.mx/?p=1761"
 ---
 

@@ -9,6 +9,5 @@ tags:
   - "video"
   - "llamadas"
   - "zoom"
-link: "https://blog.taec.com.mx/?p=1284"
 ---
 

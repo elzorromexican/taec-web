@@ -9,6 +9,5 @@ tags:
   - "educación"
   - "sociedad"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=1914"
 ---
 

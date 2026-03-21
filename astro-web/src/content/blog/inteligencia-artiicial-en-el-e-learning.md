@@ -15,6 +15,5 @@ tags:
   - "inteligencia"
   - "artificial"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=2460"
 ---
 

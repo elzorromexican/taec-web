@@ -10,6 +10,5 @@ tags:
   - "e-learning"
   - "lms"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=2288"
 ---
 

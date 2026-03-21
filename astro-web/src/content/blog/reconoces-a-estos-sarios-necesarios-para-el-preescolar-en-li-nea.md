@@ -13,6 +13,5 @@ tags:
   - "niños"
   - "preescolar"
   - "tecnología"
-link: "https://blog.taec.com.mx/?p=1325"
 ---
 

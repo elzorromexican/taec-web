@@ -13,6 +13,5 @@ tags:
   - "tasa"
   - "de"
   - "finalización"
-link: "https://blog.taec.com.mx/?p=2360"
 ---
 

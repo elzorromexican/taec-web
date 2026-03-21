@@ -16,6 +16,5 @@ tags:
   - "memoria"
   - "de"
   - "trabajo"
-link: "https://blog.taec.com.mx/?p=2305"
 ---
 

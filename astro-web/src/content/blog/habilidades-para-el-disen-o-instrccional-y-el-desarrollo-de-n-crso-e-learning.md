@@ -13,6 +13,5 @@ tags:
   - "programación"
   - "sme"
   - "storyboard"
-link: "https://blog.taec.com.mx/?p=1483"
 ---
 

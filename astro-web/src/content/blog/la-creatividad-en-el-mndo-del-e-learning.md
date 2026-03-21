@@ -13,6 +13,5 @@ tags:
   - "e-learning"
   - "materiales"
   - "multimedia"
-link: "https://blog.taec.com.mx/?p=2309"
 ---
 

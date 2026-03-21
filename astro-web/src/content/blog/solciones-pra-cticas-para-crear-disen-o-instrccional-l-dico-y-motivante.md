@@ -12,6 +12,5 @@ tags:
   - "instruccional"
   - "ludificación"
   - "motivar"
-link: "https://blog.taec.com.mx/?p=1372"
 ---
 
