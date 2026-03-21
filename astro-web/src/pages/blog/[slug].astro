@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogComments from '../../components/blog/BlogComments.astro';
 import { r } from '../../utils/paths';
 
 const monthMap: Record<string, number> = {
@@ -113,6 +114,9 @@ const { Content } = await render(post);
           )}
         </div>
       </nav>
+
+      <!-- Panel de Comentarios -->
+      <BlogComments />
 
     </article>
   </main>
