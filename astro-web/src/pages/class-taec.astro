@@ -1,126 +1,310 @@
 ---
+// CHANGELOG: 2026-03-20 - Landing Class completa. Contenido basado en doc estratégico DDC.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+import { getBookingUrl } from '../data/contact';
 
 const base = import.meta.env.BASE_URL;
 function r(url: string): string {
   if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
   return base.replace(/\/$/, '') + url;
 }
+const bookingUrl = getBookingUrl();
+
+const beneficios = [
+  { icon: "🎛️", title: "Control total para el instructor", description: "Gestión de breakout rooms, silenciar participantes, ceder el micrófono, tomar asistencia y monitorear engagement — todo desde un solo panel." },
+  { icon: "📊", title: "Métricas reales de participación", description: "Engagement scoring, asistencia, actividad en chat, respuestas a encuestas y tiempo activo — no solo quién se conectó, sino quién participó." },
+  { icon: "🔗", title: "Integración con LMS", description: "Se conecta con Docebo, Cornerstone, Canvas, D2L, Blackboard y Open LMS. Las sesiones quedan registradas en el sistema de aprendizaje." },
+  { icon: "🎬", title: "Grabaciones interactivas y persistencia", description: "Las sesiones se gravan y el contenido persiste como recurso de aprendizaje. El alumno puede revisarla con los materiales del curso disponibles." }
+];
+
+const capacidades = [
+  { icon: "🖥️", label: "Aula sobre Zoom, Teams y web", desc: "Class corre sobre Zoom o Microsoft Teams — no requiere cambiar la infraestructura de videoconferencia que ya tienes." },
+  { icon: "🏠", label: "Breakout rooms mejorados", desc: "Grupos configurables, temporizadores, rotación automática y visibilidad del instructor en todas las salas." },
+  { icon: "💬", label: "Chat avanzado y encuestas", desc: "Chat con moderación, encuestas en tiempo real, whiteboards colaborativos y Q&A estructurado." },
+  { icon: "📋", label: "Course templates y persistencia", desc: "Estructura el curso completo antes de la sesión: agenda, materiales, actividades y recursos quedan disponibles para el alumno." },
+  { icon: "📈", label: "Dashboard y engagement scoring", desc: "Visibilidad de participación individual y grupal. Exportable para reportes de RH o área académica." },
+  { icon: "✅", label: "Asistencia e ID verification", desc: "Registro automático de asistencia y verificación de identidad para sesiones con requisitos de compliance." },
+  { icon: "🤖", label: "AI Assistant para instructores", desc: "Sugerencias en tiempo real para el facilitador: preguntas para activar la discusión, resúmenes de sesión y detección de bajo engagement." },
+  { icon: "♿", label: "Accesibilidad y escalabilidad", desc: "WCAG 2.1, subtítulos automáticos, soporte HIPAA (healthcare) y FedRAMP (gobierno). Escala desde 20 hasta miles de participantes." }
+];
+
+const pasos = [
+  { num: "01", title: "Preparar la experiencia", desc: "Configuras el curso con agenda, materiales, actividades y breakout rooms antes de la sesión. Todo disponible para el alumno desde el día uno." },
+  { num: "02", title: "Facilitar mejor la sesión", desc: "El instructor tiene un panel de control completo: silenciar, activar, mover a breakout, lanzar encuestas, monitorear engagement — sin salir de Zoom o Teams." },
+  { num: "03", title: "Medir lo que pasó", desc: "Al terminar la sesión tienes: asistencia, tiempo activo, participación en encuestas, engagement score y eventos del chat. Sin pedirle nada al alumno." },
+  { num: "04", title: "Extender el aprendizaje", desc: "La grabación queda disponible con el contenido del curso. El alumno puede revisarla con materiales, recursos y actividades en el mismo entorno." }
+];
+
+const integraciones = ["Docebo", "Cornerstone", "Canvas", "D2L / Brightspace", "Blackboard", "Open LMS"];
+
+const faqs = [
+  {
+    question: "¿Class reemplaza a Zoom o Microsoft Teams?",
+    answerHtml: "No. Class funciona <strong>sobre Zoom o Microsoft Teams</strong> — es una capa especializada de virtual classroom que agrega funciones de L&D a la infraestructura de videoconferencia que ya tienes. No necesitas cambiar ni cancelar tu licencia de Zoom o Teams."
+  },
+  {
+    question: "¿Qué diferencia hay entre Class y una sesión de Zoom normal?",
+    answerHtml: "Zoom está diseñado para reuniones. Class está diseñado para <strong>enseñar</strong>. Agrega: gestión de breakout rooms avanzada, materiales persistentes, engagement scoring, asistencia automática, verificación de identidad, gradebook, AI assistant para el instructor y grabaciones interactivas vinculadas al contenido del curso."
+  },
+  {
+    question: "¿Funciona con el LMS que ya tenemos?",
+    answerHtml: "Sí, si usas <strong>Docebo, Cornerstone, Canvas, D2L, Blackboard u Open LMS</strong>. La integración sincroniza inscripciones, asistencia y registros de sesión directamente en tu LMS. Si usas otro LMS, evaluamos la compatibilidad juntos."
+  },
+  {
+    question: "¿Para cuántos participantes escala?",
+    answerHtml: "Class escala desde sesiones pequeñas de 20 personas hasta eventos con miles de participantes. La capacidad depende del plan y del proveedor de videoconferencia subyacente (Zoom o Teams)."
+  },
+  {
+    question: "¿Qué pasa con las grabaciones?",
+    answerHtml: "Las sesiones se graban y quedan disponibles como recurso de aprendizaje dentro de Class. El alumno puede revisarlas con los materiales del curso activos — no es solo un video, es la experiencia del curso en modo revisión."
+  },
+  {
+    question: "¿TAEC puede implementar Class en México?",
+    answerHtml: "Sí. TAEC acompaña desde la evaluación del modelo de capacitación sincrónica, la integración con tu LMS, la capacitación de instructores y administradores, y el soporte operativo en español. Contáctanos para una demo con casos reales."
+  }
+];
 ---
 
-<BaseLayout 
-  title="Class – Videoclases sobre Zoom | TAEC"
-  description="Plataforma de clases en vivo sobre Zoom con herramientas de participación, asistencia y reportes para formadores."
+<BaseLayout
+  title="Class en México | Aula virtual avanzada para capacitación en vivo | TAEC"
+  description="Class convierte Zoom y Teams en un aula virtual para L&D: breakout rooms, engagement scoring, asistencia automática e integración con LMS. Demo en español con TAEC."
   section="Soluciones"
   page="class-taec.html"
 >
-  <style is:global>
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+  <!-- ── HERO ── -->
+  <HeroComercial
+    eyebrow="Class · Aula virtual para L&D"
+    titleHtml={`La capacitación virtual en vivo<br>no tiene que sentirse como<br><em>una videollamada más</em>`}
+    subtitle="Class convierte Zoom y Microsoft Teams en un aula virtual pensada para enseñar: breakout rooms avanzados, métricas de participación, asistencia automática e integración con LMS."
+    features={[
+      "Funciona sobre Zoom y Microsoft Teams — sin cambiar infraestructura",
+      "Engagement scoring, asistencia e ID verification automáticos",
+      "Breakout rooms mejorados con control total del instructor",
+      "AI Assistant para facilitar mejor cada sesión",
+      "Integración con Docebo, Cornerstone, Canvas, D2L y más",
+      "Implementación y soporte en español · CDMX"
+    ]}
+    primaryBtn={{ label: "Solicitar demo gratuita →", url: bookingUrl, target: "_blank" }}
+    secondaryBtn={{ label: "Hablar con un especialista", url: r('/contacto') }}
+    cardBadgeText="VILT · AULA VIRTUAL · ZOOM · TEAMS"
+    theme="general"
+  />
 
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
-    /* ── PRODUCT LOGO ── */
-    .product-logo-wrap {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: #ffffff; border-radius: 10px;
-      padding: 10px 20px; margin-bottom: 22px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-    }
-    .product-logo { height: 36px; width: auto; display: block; }
-  
-  </style>
-
-<main id="main-content">
-
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Servicios &amp; Add-ons</span>
-    <span class="wip-icon" role="img" aria-label="Class (videoclases)">🎥</span>
-    
-      <div class="product-logo-wrap"><img src={`${base}assets/logos/class-taec.png`} alt="Class TAEC" class="product-logo" /></div>
-      <h1>Class (videoclases)</h1>
-    <p>Plataforma de clases en vivo sobre Zoom con herramientas de participación, asistencia y reportes para formadores.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+  <!-- ── EL PROBLEMA ── -->
+  <section class="class-problema">
+    <div class="cp-inner">
+      <p class="section-label">El reto real</p>
+      <h2 class="section-title">El problema no es conectarse.<br>El problema es enseñar bien, mantener participación<br>y saber qué pasó en la sesión.</h2>
+      <div class="problema-cols">
+        <div class="prob-item">
+          <span class="prob-icon">😶</span>
+          <h3>Cámaras apagadas, nadie participa</h3>
+          <p>Una sesión de Zoom sin estructura ni control no es formación — es una presentación a pantallas negras. El instructor no tiene visibilidad real de lo que pasa.</p>
+        </div>
+        <div class="prob-item">
+          <span class="prob-icon">📋</span>
+          <h3>Asistencia manual y reportes inexistentes</h3>
+          <p>Pasar lista a mano, capturar screenshots o confiar en la memoria del instructor para los reportes de RH es lento, impreciso y no escala.</p>
+        </div>
+        <div class="prob-item">
+          <span class="prob-icon">🗂️</span>
+          <h3>El contenido no persiste después de la sesión</h3>
+          <p>Una vez que se cierra Zoom, los materiales, el chat y los recursos desaparecen. No hay forma de que el alumno revise lo que vio sin buscar entre carpetas compartidas.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre Class (videoclases)?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href={r('/contacto')} class="btn-primary">Escribirnos →</a>
-      <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-wa">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
+  <!-- ── CÓMO FUNCIONA ── -->
+  <section class="class-pasos">
+    <div class="cls-inner">
+      <p class="section-label">Proceso</p>
+      <h2 class="section-title">Cómo funciona Class</h2>
+      <div class="pasos-grid">
+        {pasos.map(p => (
+          <div class="paso-card">
+            <span class="paso-num">{p.num}</span>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-</main>
+  <!-- ── CAPACIDADES ── -->
+  <section class="class-caps">
+    <div class="cc-inner">
+      <p class="section-label">Capacidades clave</p>
+      <h2 class="section-title">Todo lo que necesitas para facilitar capacitación virtual en serio</h2>
+      <div class="caps-grid">
+        {capacidades.map(c => (
+          <div class="cap-card">
+            <span class="cap-icon">{c.icon}</span>
+            <h3>{c.label}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFICIOS ── -->
+  <GridBeneficios
+    eyebrow="Por qué Class con TAEC"
+    title="De videollamada a experiencia de aprendizaje estructurada"
+    subtitle="Para equipos de L&D que ya usan Zoom o Teams y quieren sacarle más a cada sesión en vivo."
+    cards={beneficios}
+    columns={2}
+    theme="general"
+  />
+
+  <!-- ── INTEGRACIONES LMS ── -->
+  <section class="class-integraciones">
+    <div class="ci-inner">
+      <p class="section-label">Integraciones LMS</p>
+      <h2 class="section-title">Se conecta con el LMS que ya tienes</h2>
+      <p class="section-sub">Las sesiones de Class quedan registradas directamente en tu plataforma de aprendizaje — inscripciones, asistencia y reportes sincronizados automáticamente.</p>
+      <div class="int-grid">
+        {integraciones.map(i => (
+          <div class="int-chip">{i}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PERFIL IDEAL ── -->
+  <section class="class-perfil">
+    <div class="cpf-inner">
+      <p class="section-label">¿Para quién es?</p>
+      <h2 class="section-title">Class encaja cuando la formación en vivo es parte del modelo</h2>
+      <div class="perfil-grid">
+        <div class="perfil-col">
+          <h3>Perfil de organización ideal</h3>
+          <ul>
+            <li>Empresas con fuerte componente VILT (Virtual Instructor-Led Training)</li>
+            <li>Academias corporativas con programas en vivo recurrentes</li>
+            <li>Equipos de onboarding con sesiones de bienvenida e inducción</li>
+            <li>Programas de desarrollo de liderazgo con facilitación experta</li>
+            <li>Proveedores de formación que entregan capacitación a clientes</li>
+            <li>Entornos de compliance donde la asistencia es obligatoria</li>
+          </ul>
+        </div>
+        <div class="perfil-col">
+          <h3>Casos de uso principales</h3>
+          <ul>
+            <li>Onboarding virtual — inducción estructurada desde el día uno</li>
+            <li>Academias internas con instructores propios</li>
+            <li>Compliance — asistencia verificable y evidencia documental</li>
+            <li>Desarrollo de liderazgo con sesiones de alto impacto</li>
+            <li>Entrenamiento técnico con prácticas y demos en vivo</li>
+            <li>Training providers que entregan VILT a sus clientes</li>
+          </ul>
+        </div>
+        <div class="perfil-col perfil-col--taec">
+          <h3>Lo que TAEC hace por ti</h3>
+          <ul>
+            <li>Evaluación del modelo de capacitación sincrónica</li>
+            <li>Apoyo para mapear integración con tu LMS actual</li>
+            <li>Capacitación de instructores y administradores</li>
+            <li>Soporte operativo en español · CDMX</li>
+            <li>Acompañamiento en las primeras sesiones en vivo</li>
+          </ul>
+          <p class="perfil-cierre">No se trata de ponerle maquillaje a una videollamada. Se trata de convertir la capacitación en vivo en una experiencia más seria, participativa y medible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <FAQAccordion
+    eyebrow="Preguntas frecuentes"
+    title="Todo sobre Class en México"
+    faqs={faqs}
+    theme="general"
+  />
+
+  <!-- ── CTA ── -->
+  <CtaFinal
+    title="¿Listo para transformar tus sesiones en vivo en capacitación real?"
+    subtitle="Agenda una demo con nuestro equipo en CDMX. Te mostramos Class con casos reales de organizaciones que ya usan Zoom o Teams — sin costo, sin compromiso."
+    primaryBtnText="Solicitar demo gratuita →"
+    primaryBtnUrl={bookingUrl}
+    primaryBtnTarget="_blank"
+    theme="general"
+  />
+
 </BaseLayout>
+
+<style is:global>
+/* ── EL PROBLEMA ── */
+.class-problema { background: #F8FAFC; padding: 72px 5%; }
+.cp-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; display: block; }
+.section-title { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); color: #111827; margin-bottom: 12px; line-height: 1.25; }
+.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 40px; max-width: 700px; }
+.problema-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+.prob-item { background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 28px 24px; }
+.prob-icon { font-size: 32px; display: block; margin-bottom: 12px; }
+.prob-item h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 10px; line-height: 1.4; }
+.prob-item p { font-size: 13px; color: #64748B; line-height: 1.7; }
+
+/* ── CÓMO FUNCIONA ── */
+.class-pasos { background: #0f172a; padding: 72px 5%; }
+.cls-inner { max-width: 1100px; margin: 0 auto; }
+.class-pasos .section-label { color: #f97316; }
+.class-pasos .section-title { color: white; margin-bottom: 40px; }
+.pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.paso-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px 22px; }
+.paso-num { font-size: 36px; font-weight: 900; color: #f97316; opacity: .4; display: block; margin-bottom: 12px; line-height: 1; }
+.paso-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.4; }
+.paso-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+/* ── CAPACIDADES ── */
+.class-caps { background: white; padding: 72px 5%; }
+.cc-inner { max-width: 1100px; margin: 0 auto; }
+.cc-inner .section-title { margin-bottom: 40px; }
+.caps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.cap-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
+.cap-card:hover { border-color: #f97316; }
+.cap-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+.cap-card h3 { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.cap-card p { font-size: 12px; color: #64748B; line-height: 1.6; }
+
+/* ── INTEGRACIONES ── */
+.class-integraciones { background: #F8FAFC; padding: 64px 5%; }
+.ci-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.ci-inner .section-title { margin-bottom: 12px; }
+.int-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+.int-chip { background: white; border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 10px 22px; font-size: 14px; font-weight: 600; color: #374151; }
+
+/* ── PERFIL IDEAL ── */
+.class-perfil { background: #F8FAFC; padding: 72px 5%; }
+.cpf-inner { max-width: 1100px; margin: 0 auto; }
+.cpf-inner .section-title { margin-bottom: 40px; }
+.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
+.perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.perfil-col ul li { font-size: 14px; color: #374151; line-height: 1.5; padding-left: 18px; position: relative; }
+.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: #f97316; font-weight: 700; }
+.perfil-col--taec { background: white; border: 1.5px solid #FED7AA; border-radius: 14px; padding: 24px; }
+.perfil-col--taec h3 { color: #92400E; }
+.perfil-cierre { margin-top: 20px; font-size: 13px; color: #9CA3AF; line-height: 1.7; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 16px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .problema-cols { grid-template-columns: 1fr; }
+  .pasos-grid { grid-template-columns: repeat(2, 1fr); }
+  .caps-grid { grid-template-columns: repeat(2, 1fr); }
+  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 768px) {
+  .pasos-grid { grid-template-columns: 1fr; }
+  .caps-grid { grid-template-columns: 1fr; }
+}
+</style>
