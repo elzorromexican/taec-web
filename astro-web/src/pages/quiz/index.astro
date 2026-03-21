@@ -134,13 +134,22 @@ const quizDataStr = JSON.stringify(quizData);
     function renderStudy() {
       const card = CARDS[studyOrder[studyIdx]];
       
+      // Función para convertir markdown básico a HTML antes de inyectar
+      function parseMD(str) {
+        if(!str) return '';
+        return str
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.*?)\*/g, '<em>$1</em>')
+          .replace(/\n/g, '<br/>');
+      }
+
       // Remover flipped si estaba abierta
       cardEl.classList.remove('flipped');
       
       // Esperar la animación css (0.6s) o cambiar tras un reflow rápido
       setTimeout(() => {
-        qEl.textContent = card.q;
-        aEl.textContent = card.a;
+        qEl.innerHTML = parseMD(card.q);
+        aEl.innerHTML = parseMD(card.a);
         counterEl.textContent = `Tarjeta ${studyIdx + 1} de ${N}`;
         barEl.style.width = `${((studyIdx + 1) / N) * 100}%`;
         
