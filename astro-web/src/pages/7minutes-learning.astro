@@ -1,126 +1,284 @@
 ---
+// CHANGELOG: 2026-03-20 - Landing 7Minutes completa. Contenido basado en doc estratégico DDC.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+import { getBookingUrl } from '../data/contact';
 
 const base = import.meta.env.BASE_URL;
 function r(url: string): string {
   if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
   return base.replace(/\/$/, '') + url;
 }
+const bookingUrl = getBookingUrl();
+
+const categorias = [
+  { icon: "🤝", label: "Habilidades blandas", desc: "Comunicación, liderazgo, trabajo en equipo, inteligencia emocional y negociación." },
+  { icon: "📊", label: "Management", desc: "Gestión de equipos, toma de decisiones, feedback y desarrollo de personas." },
+  { icon: "✅", label: "Compliance", desc: "Ética empresarial, prevención de riesgos, normativas y conducta organizacional." },
+  { icon: "💻", label: "Transformación digital", desc: "Herramientas digitales, agilidad organizacional y cultura de innovación." },
+  { icon: "📈", label: "Ventas y marketing", desc: "Técnicas de venta, atención al cliente, marketing digital y negociación comercial." },
+  { icon: "🎓", label: "Desarrollo personal", desc: "Gestión del tiempo, productividad, bienestar y crecimiento profesional." }
+];
+
+const beneficios = [
+  { icon: "⏱️", title: "Micro, Mobile and Open — los 3 ejes", description: "Cursos con duración media de 7 minutos, optimizados para celular y accesibles desde cualquier dispositivo sin fricción de instalación." },
+  { icon: "🔗", title: "Integración flexible con cualquier LMS", description: "Contenido compatible con SCORM para usar en Moodle, Totara, Canvas o cualquier LMS. También disponible en la plataforma propia de 7Minutes." },
+  { icon: "📚", title: "Catálogo listo para usar — sin desarrollo", description: "Cursos producidos y actualizados por expertos. Sin tiempos de producción, sin costo de autoría — el contenido está disponible desde el primer día." },
+  { icon: "🎙️", title: "7Minutes Coaching opcional", description: "Encuentros online con los autores y expertos del catálogo. Una capa adicional de profundidad para quienes quieren ir más allá del microlearning." }
+];
+
+const faqs = [
+  {
+    question: "¿7Minutes es solo microlearning o también tiene cursos largos?",
+    answerHtml: "El formato principal es <strong>microlearning</strong> — cursos con duración media de 7 minutos. El catálogo está diseñado específicamente para este formato: no son cursos largos cortados, son módulos construidos desde cero para ser consumidos en sesiones breves y frecuentes."
+  },
+  {
+    question: "¿El contenido está en español?",
+    answerHtml: "El catálogo está disponible en varios idiomas incluyendo español. Te recomendamos validar la disponibilidad de los temas específicos que necesitas durante la demo — el catálogo se actualiza regularmente."
+  },
+  {
+    question: "¿Se puede usar en nuestro LMS?",
+    answerHtml: "Sí. 7Minutes ofrece <strong>integración flexible</strong>: el contenido puede distribuirse en SCORM para cargarlo en tu LMS (Moodle, Totara, Canvas, etc.) o usarse en la <strong>plataforma propia de 7Minutes</strong> si no tienes LMS o prefieres un entorno separado."
+  },
+  {
+    question: "¿Qué diferencia a 7Minutes de OttoLearn?",
+    answerHtml: "<strong>7Minutes</strong> es un catálogo de contenido listo para usar — soft skills, management, compliance. <strong>OttoLearn</strong> es una plataforma de microlearning adaptativo para reforzar conocimiento propio de la organización con repetición espaciada. Son complementarios: 7Minutes aporta el contenido, OttoLearn aporta el mecanismo de retención."
+  },
+  {
+    question: "¿Qué es 7Minutes Coaching?",
+    answerHtml: "Es un complemento opcional: <strong>sesiones en vivo</strong> con los autores y expertos del catálogo para profundizar en los temas que el equipo ya trabajó en formato micro. No es coaching ejecutivo individual — es un encuentro grupal con el experto del contenido, ideal para cerrar el ciclo formativo."
+  },
+  {
+    question: "¿TAEC puede ayudarnos a elegir el catálogo correcto?",
+    answerHtml: "Sí. TAEC acompaña la evaluación del catálogo según tu audiencia y necesidades de formación, la configuración de acceso en tu LMS o la plataforma propia de 7Minutes, y el soporte posterior. Contáctanos para una demo con acceso al catálogo completo."
+  }
+];
 ---
 
-<BaseLayout 
-  title="7 Minutes Learning – Microlearning | TAEC"
-  description="Biblioteca de contenidos de microlearning listos para usar. Más de 3,500 cápsulas en múltiples idiomas."
+<BaseLayout
+  title="7Minutes en México | Microlearning corporativo móvil y flexible | TAEC"
+  description="7Minutes con TAEC: microlearning corporativo listo para usar. Soft skills, management, compliance y más. Integración con LMS o plataforma propia. Demo en español."
   section="Soluciones"
   page="7minutes-learning.html"
 >
-  <style is:global>
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+  <!-- ── HERO ── -->
+  <HeroComercial
+    eyebrow="7Minutes Learning · Microlearning corporativo"
+    titleHtml={`Capacitación breve, móvil y lista<br>para usarse <em>cuando el tiempo no alcanza</em>`}
+    subtitle="7Minutes ayuda a llevar formación a equipos que viven ocupados, en movimiento y con poco margen para cursos largos. Catálogo corporativo listo para usar — sin tiempos de producción, sin fricción."
+    features={[
+      "Cursos con duración media de 7 minutos — Micro, Mobile, Open",
+      "Catálogo: soft skills, management, compliance, ventas y más",
+      "Compatible con SCORM — integración con cualquier LMS",
+      "Plataforma propia disponible si no tienes LMS",
+      "7Minutes Coaching — sesiones con autores y expertos del catálogo",
+      "Implementación y soporte en español · CDMX"
+    ]}
+    primaryBtn={{ label: "Solicitar demo del catálogo →", url: bookingUrl, target: "_blank" }}
+    secondaryBtn={{ label: "Hablar con un especialista", url: r('/contacto') }}
+    cardBadgeText="MICROLEARNING · CATÁLOGO · MOBILE"
+    theme="general"
+  />
 
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
-    /* ── PRODUCT LOGO ── */
-    .product-logo-wrap {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: #ffffff; border-radius: 10px;
-      padding: 10px 20px; margin-bottom: 22px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-    }
-    .product-logo { height: 36px; width: auto; display: block; }
-  
-  </style>
-
-<main id="main-content">
-
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Catálogo Listo</span>
-    <span class="wip-icon" role="img" aria-label="7 Minutes Learning">⏱️</span>
-    
-      <div class="product-logo-wrap"><img src={`${base}assets/logos/7minutes.png`} alt="7 Minutes Learning" class="product-logo" /></div>
-      <h1>7 Minutes Learning</h1>
-    <p>Biblioteca de contenidos de microlearning listos para usar. Más de 3,500 cápsulas en múltiples idiomas.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+  <!-- ── EL PROBLEMA ── -->
+  <section class="sm-problema">
+    <div class="smp-inner">
+      <p class="section-label">El reto real</p>
+      <h2 class="section-title">La gente no tiene tiempo ni paciencia<br>para formatos eternos.</h2>
+      <p class="section-sub">Cursos de 2–3 horas, baja adopción, poca continuidad y fricción en móvil. El problema no es que la gente no quiera aprender — es que el formato no cabe en su día de trabajo.</p>
+      <div class="prob-cols">
+        <div class="prob-item">
+          <span class="prob-num">01</span>
+          <h3>Cursos largos que nadie termina</h3>
+          <p>La tasa de completación de cursos de más de 60 minutos en entornos corporativos rara vez supera el 40%. El formato es el obstáculo, no la falta de interés.</p>
+        </div>
+        <div class="prob-item">
+          <span class="prob-num">02</span>
+          <h3>Contenido que tarda meses en producirse</h3>
+          <p>Desarrollar un curso de soft skills o compliance desde cero requiere tiempo de diseño instruccional, producción y revisión. Un catálogo listo elimina esa fricción.</p>
+        </div>
+        <div class="prob-item">
+          <span class="prob-num">03</span>
+          <h3>Equipos distribuidos sin acceso consistente</h3>
+          <p>Personal en campo, en múltiples sedes o con movilidad alta necesita acceso desde el celular, sin VPN, sin instalaciones y sin depender de una conexión estable.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre 7 Minutes Learning?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href={r('/contacto')} class="btn-primary">Escribirnos →</a>
-      <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-wa">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
+  <!-- ── CATÁLOGO ── -->
+  <section class="sm-catalogo">
+    <div class="smc-inner">
+      <p class="section-label">El catálogo</p>
+      <h2 class="section-title">Contenido listo para usar en los temas que más se necesitan</h2>
+      <p class="section-sub">Cursos producidos y actualizados por expertos. Disponibles desde el primer día — sin tiempo de desarrollo, sin costo de autoría.</p>
+      <div class="cat-grid">
+        {categorias.map(c => (
+          <div class="cat-card">
+            <span class="cat-icon">{c.icon}</span>
+            <h3>{c.label}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-</main>
+  <!-- ── 3 EJES ── -->
+  <section class="sm-ejes">
+    <div class="sme-inner">
+      <p class="section-label">La propuesta</p>
+      <h2 class="section-title">Micro · Mobile · Open</h2>
+      <div class="ejes-grid">
+        <div class="eje-card">
+          <span class="eje-icon">⏱️</span>
+          <h3>Micro</h3>
+          <p>Duración media de 7 minutos. Diseñados para ser consumidos en una pausa, en el transporte o entre reuniones — no en bloques de estudio.</p>
+        </div>
+        <div class="eje-card">
+          <span class="eje-icon">📱</span>
+          <h3>Mobile</h3>
+          <p>Experiencia optimizada para celular desde el origen. Sin descargas, sin VPN, sin fricción de acceso desde cualquier dispositivo.</p>
+        </div>
+        <div class="eje-card">
+          <span class="eje-icon">🔓</span>
+          <h3>Open</h3>
+          <p>Integración flexible: SCORM para tu LMS o plataforma propia de 7Minutes. El contenido llega donde ya está el usuario — sin cambiar infraestructura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFICIOS ── -->
+  <GridBeneficios
+    eyebrow="Por qué 7Minutes con TAEC"
+    title="El formato correcto cuando el tiempo ya no tolera cursos pesados"
+    subtitle="Para equipos con poco tiempo disponible, alta movilidad y necesidad de formación transversal sin arrancar desde cero."
+    cards={beneficios}
+    columns={2}
+    theme="general"
+  />
+
+  <!-- ── PERFIL IDEAL ── -->
+  <section class="sm-perfil">
+    <div class="smpf-inner">
+      <p class="section-label">¿Para quién es?</p>
+      <h2 class="section-title">7Minutes encaja cuando el tiempo, la atención y la operación no toleran cursos pesados</h2>
+      <div class="perfil-grid">
+        <div class="perfil-col">
+          <h3>Perfil de organización ideal</h3>
+          <ul>
+            <li>Equipos con poco tiempo disponible para formación</li>
+            <li>Personal distribuido o con alta movilidad</li>
+            <li>Empresas que buscan formación rápida en temas transversales</li>
+            <li>Organizaciones con LMS que quieren un catálogo ágil</li>
+            <li>Equipos de RH o L&D con poco tiempo de desarrollo de contenido</li>
+          </ul>
+        </div>
+        <div class="perfil-col">
+          <h3>Casos de uso principales</h3>
+          <ul>
+            <li>Refuerzo de habilidades blandas y management para mandos medios</li>
+            <li>Compliance y actualización frecuente en normativas</li>
+            <li>Formación en ventas, marketing y transformación digital</li>
+            <li>Capa complementaria dentro de un ecosistema LMS existente</li>
+            <li>Programas de desarrollo para equipos con alta rotación</li>
+          </ul>
+        </div>
+        <div class="perfil-col perfil-col--taec">
+          <h3>Lo que TAEC hace por ti</h3>
+          <ul>
+            <li>Evaluación del catálogo según tu audiencia y necesidades</li>
+            <li>Configuración en tu LMS (SCORM) o plataforma propia</li>
+            <li>Apoyo para integrar 7Minutes en la estrategia de L&D</li>
+            <li>Soporte en español · CDMX</li>
+          </ul>
+          <p class="perfil-cierre">No se trata de sumar cursos cortos por moda. Se trata de usar el formato correcto cuando el tiempo, la atención y la operación ya no toleran cursos pesados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <FAQAccordion
+    eyebrow="Preguntas frecuentes"
+    title="Todo sobre 7Minutes en México"
+    faqs={faqs}
+    theme="general"
+  />
+
+  <!-- ── CTA ── -->
+  <CtaFinal
+    title="¿Quieres ver el catálogo con tu equipo?"
+    subtitle="Agenda una demo con acceso al catálogo completo. Te ayudamos a evaluar qué temas aplican para tu audiencia — sin costo, sin compromiso."
+    primaryBtnText="Solicitar demo del catálogo →"
+    primaryBtnUrl={bookingUrl}
+    primaryBtnTarget="_blank"
+    theme="general"
+  />
+
 </BaseLayout>
+
+<style is:global>
+/* ── EL PROBLEMA ── */
+.sm-problema { background: #F8FAFC; padding: 72px 5%; }
+.smp-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; display: block; }
+.section-title { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); color: #111827; margin-bottom: 12px; line-height: 1.25; }
+.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 40px; max-width: 700px; }
+.prob-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+.prob-item { background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 28px 24px; }
+.prob-num { font-size: 32px; font-weight: 900; color: #E2E8F0; display: block; margin-bottom: 10px; line-height: 1; }
+.prob-item h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 10px; line-height: 1.4; }
+.prob-item p { font-size: 13px; color: #64748B; line-height: 1.7; }
+
+/* ── CATÁLOGO ── */
+.sm-catalogo { background: white; padding: 72px 5%; }
+.smc-inner { max-width: 1100px; margin: 0 auto; }
+.smc-inner .section-title { margin-bottom: 12px; }
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+.cat-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
+.cat-card:hover { border-color: #f97316; }
+.cat-icon { font-size: 28px; display: block; margin-bottom: 10px; }
+.cat-card h3 { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.cat-card p { font-size: 13px; color: #64748B; line-height: 1.6; }
+
+/* ── 3 EJES ── */
+.sm-ejes { background: #0f172a; padding: 72px 5%; }
+.sme-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.sm-ejes .section-label { color: #f97316; }
+.sm-ejes .section-title { color: white; margin-bottom: 48px; }
+.ejes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.eje-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 32px 24px; }
+.eje-icon { font-size: 36px; display: block; margin-bottom: 14px; }
+.eje-card h3 { font-size: 20px; font-weight: 800; color: #f97316; margin-bottom: 12px; }
+.eje-card p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.75; }
+
+/* ── PERFIL IDEAL ── */
+.sm-perfil { background: #F8FAFC; padding: 72px 5%; }
+.smpf-inner { max-width: 1100px; margin: 0 auto; }
+.smpf-inner .section-title { margin-bottom: 40px; }
+.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
+.perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.perfil-col ul li { font-size: 14px; color: #374151; line-height: 1.5; padding-left: 18px; position: relative; }
+.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: #f97316; font-weight: 700; }
+.perfil-col--taec { background: white; border: 1.5px solid #FED7AA; border-radius: 14px; padding: 24px; }
+.perfil-col--taec h3 { color: #92400E; }
+.perfil-cierre { margin-top: 20px; font-size: 13px; color: #9CA3AF; line-height: 1.7; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 16px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .prob-cols { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .ejes-grid { grid-template-columns: 1fr; }
+  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 768px) {
+  .cat-grid { grid-template-columns: 1fr; }
+}
+</style>
