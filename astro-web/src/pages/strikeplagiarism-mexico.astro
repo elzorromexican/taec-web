@@ -1,115 +1,292 @@
 ---
+// CHANGELOG: 2026-03-20 - Landing StrikePlagiarism completa. Contenido basado en doc estratégico DDC.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+import { getBookingUrl } from '../data/contact';
 
 const base = import.meta.env.BASE_URL;
 function r(url: string): string {
   if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) return url;
   return base.replace(/\/$/, '') + url;
 }
+const bookingUrl = getBookingUrl();
+
+const beneficios = [
+  { icon: "🤖", title: "Detección de IA en español >99% precisión", description: "Identifica contenido generado por IA en más de 30 idiomas. En español: precisión superior al 99% con menos del 1% de falsos positivos — dato publicado por el proveedor." },
+  { icon: "🌐", title: "Bases de datos globales y repositorios", description: "Comparación contra revistas científicas, repositorios institucionales, publicaciones académicas, fuentes abiertas de internet y archivos internos de la institución." },
+  { icon: "🔗", title: "Integración nativa con LMS vía LTI 1.3", description: "Conexión directa con Canvas, Blackboard, Moodle, Brightspace y OJS. El flujo de entrega y revisión no sale del LMS — sin cambiar procesos existentes." },
+  { icon: "🔒", title: "RGPD, ISO 27001 y opción on-premise", description: "Servidores en la Unión Europea, cifrado SSL, certificación ISO/IEC 27001:2022. Para instituciones con requisitos estrictos de privacidad: opción de instalación on-premise." }
+];
+
+const capacidades = [
+  { icon: "📊", label: "Informe de similitud interactivo", desc: "Coeficientes por fuente, desglose de coincidencias, análisis de citas, alertas de parafraseo y manipulación detectada." },
+  { icon: "🤖", label: "Detección de contenido IA", desc: "Más de 30 idiomas. En español: >99% precisión, <1% falsos positivos. Identificación de texto generado por herramientas como ChatGPT." },
+  { icon: "🌐", label: "Verificación en múltiples bases de datos", desc: "Revistas científicas, repositorios, publicaciones, fuentes de internet y archivos institucionales propios." },
+  { icon: "🔗", label: "LTI 1.3 — integración con LMS", desc: "Canvas, Blackboard, Moodle, Brightspace, OJS. El proceso de entrega no sale del LMS habitual." },
+  { icon: "📋", label: "Gestión de asignaciones", desc: "Configura reglas de entrega, plazos, permisos y acceso al informe por alumno o institución." },
+  { icon: "🪪", label: "LDAP y SSO", desc: "Autenticación centralizada integrada con el directorio institucional — sin cuentas adicionales." },
+  { icon: "🏗️", label: "Opción on-premise", desc: "Instalación en servidores propios para instituciones con políticas estrictas de soberanía de datos." },
+  { icon: "🌍", label: "Soporte en +15 idiomas", desc: "Interfaz, informes y soporte disponible en más de 15 idiomas, incluido español." }
+];
+
+const pasos = [
+  { num: "01", title: "El alumno entrega su trabajo", desc: "Desde el LMS habitual (Canvas, Moodle, etc.) o directamente en StrikePlagiarism. El proceso no cambia para el alumno." },
+  { num: "02", title: "El sistema analiza el documento", desc: "Comparación contra bases de datos globales, repositorios y archivos internos. Detección simultánea de similitud, parafraseo y posible contenido generado por IA." },
+  { num: "03", title: "El revisor obtiene el informe", desc: "Informe interactivo con coeficiente de similitud, fuentes identificadas, fragmentos marcados, análisis de citas y alertas de manipulación. Disponible en minutos." },
+  { num: "04", title: "Decisión con respaldo documental", desc: "El informe es exportable y está disponible como evidencia para apelaciones, comités académicos o auditorías editoriales." }
+];
+
+const faqs = [
+  {
+    question: "¿StrikePlagiarism detecta contenido generado por ChatGPT o IA?",
+    answerHtml: "Sí. StrikePlagiarism incluye <strong>detección de contenido generado por IA</strong> en más de 30 idiomas. En español, el proveedor publica una precisión superior al 99% con menos del 1% de falsos positivos. Es uno de sus diferenciadores más relevantes dado el contexto actual."
+  },
+  {
+    question: "¿En qué se diferencia de Turnitin?",
+    answerHtml: "Las diferencias principales: <strong>precio más accesible</strong> para instituciones latinoamericanas, <strong>opción on-premise</strong> (Turnitin no la ofrece), <strong>servidores en la UE</strong> con cumplimiento RGPD, y soporte comercial y técnico en español con presencia local en LATAM a través de TAEC."
+  },
+  {
+    question: "¿Funciona con Moodle?",
+    answerHtml: "Sí. StrikePlagiarism tiene integración nativa vía <strong>LTI 1.3</strong> con Moodle, Canvas, Blackboard, Brightspace y OJS. El alumno entrega desde el LMS habitual y el instructor recibe el informe directamente en la misma plataforma."
+  },
+  {
+    question: "¿Los documentos de los alumnos quedan almacenados?",
+    answerHtml: "Depende de la configuración. Por defecto, los documentos pueden agregarse al repositorio institucional para comparaciones futuras — una práctica estándar en plataformas de integridad académica. Para instituciones con requisitos de privacidad específicos, existe la <strong>opción on-premise</strong> con control total de los datos."
+  },
+  {
+    question: "¿Solo sirve para universidades?",
+    answerHtml: "No. Además de educación superior, StrikePlagiarism sirve para <strong>editoriales y publicaciones científicas</strong> (verificación pre-publicación), <strong>centros de investigación</strong>, <strong>organismos certificadores</strong> con producción de materiales y <strong>organizaciones con LMS</strong> que requieren integridad en evaluaciones escritas."
+  },
+  {
+    question: "¿TAEC puede implementar StrikePlagiarism en México?",
+    answerHtml: "Sí. TAEC acompaña desde la evaluación de la necesidad, la integración con tu LMS, la configuración de políticas de integridad y la capacitación del equipo académico. Soporte en español y seguimiento cercano en horario CDMX."
+  }
+];
 ---
 
-<BaseLayout 
-  title="StrikePlagiarism – Detección de plagio | TAEC"
-  description="Detección de plagio para cursos, evaluaciones y contenidos de capacitación. Compatible con Moodle y Totara."
+<BaseLayout
+  title="StrikePlagiarism en México | Integridad académica, similitud e IA | TAEC"
+  description="StrikePlagiarism con TAEC: detección de similitud, parafraseo y contenido generado por IA. Integración con Moodle, Canvas y Blackboard. Más de 1,500 instituciones. Demo en español."
   section="Soluciones"
   page="strikeplagiarism-mexico.html"
 >
-  <style is:global>
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
+  <!-- ── HERO ── -->
+  <HeroComercial
+    eyebrow="StrikePlagiarism · Integridad académica"
+    titleHtml={`Integridad académica con más evidencia<br>y <em>menos adivinanza</em>`}
+    subtitle="StrikePlagiarism ayuda a detectar similitud, parafraseo avanzado y posible contenido generado por IA — con informes claros, integración con LMS y evidencia lista para usar."
+    features={[
+      "Detección de IA en español: >99% precisión, <1% falsos positivos",
+      "Comparación contra bases de datos globales y repositorios",
+      "Integración nativa LTI 1.3 — Moodle, Canvas, Blackboard, Brightspace",
+      "Más de 1,500 organizaciones en el mundo",
+      "RGPD · ISO/IEC 27001:2022 · Opción on-premise",
+      "Implementación y soporte en español · CDMX"
+    ]}
+    primaryBtn={{ label: "Solicitar demo gratuita →", url: bookingUrl, target: "_blank" }}
+    secondaryBtn={{ label: "Hablar con un especialista", url: r('/contacto') }}
+    cardBadgeText="INTEGRIDAD ACADÉMICA · IA · LMS"
+    theme="general"
+  />
 
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
-  </style>
-
-<main id="main-content">
-
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Servicios &amp; Add-ons</span>
-    <span class="wip-icon" role="img" aria-label="StrikePlagiarism">🛡️</span>
-    <h1>StrikePlagiarism</h1>
-    <p>Detección de plagio para cursos, evaluaciones y contenidos de capacitación. Compatible con Moodle y Totara.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+  <!-- ── EL PROBLEMA ── -->
+  <section class="sp-problema">
+    <div class="spp-inner">
+      <p class="section-label">El reto real</p>
+      <h2 class="section-title">El problema no es solo encontrar texto parecido.<br>El problema es sostener una política seria de integridad.</h2>
+      <p class="section-sub">El contexto cambió. Más entregas digitales, parafraseo sofisticado y herramientas de IA generativa cambiaron la naturaleza del problema — y el nivel de evidencia que se necesita para tomar decisiones.</p>
+      <div class="sp-retos">
+        <div class="sp-reto">
+          <span class="sp-reto-icon">✍️</span>
+          <div>
+            <h3>Parafraseo que los detectores básicos no capturan</h3>
+            <p>Cambiar sinónimos o reordenar oraciones ya no es la técnica más común. Los detectores que solo buscan coincidencias textuales son insuficientes para el nivel actual de sofisticación.</p>
+          </div>
+        </div>
+        <div class="sp-reto">
+          <span class="sp-reto-icon">🤖</span>
+          <div>
+            <h3>IA generativa como nuevo estándar del fraude</h3>
+            <p>Texto generado por ChatGPT u otras herramientas tiene baja similitud con fuentes existentes — un detector de similitud solo no es suficiente para identificarlo con precisión.</p>
+          </div>
+        </div>
+        <div class="sp-reto">
+          <span class="sp-reto-icon">⚖️</span>
+          <div>
+            <h3>Decisiones sin evidencia defendible</h3>
+            <p>Sin un informe documentado y trazable, las apelaciones de los alumnos son difíciles de resolver. La integridad académica necesita el mismo rigor documental que cualquier proceso formal.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre StrikePlagiarism?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href={r('/contacto')} class="btn-primary">Escribirnos →</a>
-      <a href="https://wa.me/5215527758279" target="_blank" rel="noopener noreferrer" class="btn-wa">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
+  <!-- ── CÓMO FUNCIONA ── -->
+  <section class="sp-pasos">
+    <div class="sp-pasos-inner">
+      <p class="section-label">Proceso</p>
+      <h2 class="section-title">Cómo funciona StrikePlagiarism</h2>
+      <div class="pasos-grid">
+        {pasos.map(p => (
+          <div class="paso-card">
+            <span class="paso-num">{p.num}</span>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-</main>
+  <!-- ── CAPACIDADES ── -->
+  <section class="sp-caps">
+    <div class="spc-inner">
+      <p class="section-label">Capacidades clave</p>
+      <h2 class="section-title">Un sistema de integridad completo, no solo un detector</h2>
+      <div class="caps-grid">
+        {capacidades.map(c => (
+          <div class="cap-card">
+            <span class="cap-icon">{c.icon}</span>
+            <h3>{c.label}</h3>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFICIOS ── -->
+  <GridBeneficios
+    eyebrow="Por qué StrikePlagiarism con TAEC"
+    title="Evidencia real para decisiones serias"
+    subtitle="Para instituciones y organizaciones que necesitan que su proceso de revisión sea robusto, trazable y defendible."
+    cards={beneficios}
+    columns={2}
+    theme="general"
+  />
+
+  <!-- ── PERFIL IDEAL ── -->
+  <section class="sp-perfil">
+    <div class="sppf-inner">
+      <p class="section-label">¿Para quién es?</p>
+      <h2 class="section-title">StrikePlagiarism encaja cuando la integridad del contenido es parte del proceso</h2>
+      <div class="perfil-grid">
+        <div class="perfil-col">
+          <h3>Casos de uso principales</h3>
+          <ul>
+            <li>Educación superior — tesis, trabajos finales y evaluaciones escritas</li>
+            <li>Editoriales y publicaciones científicas — verificación pre-publicación</li>
+            <li>Certificación y evaluación formal con producción de materiales</li>
+            <li>Instituciones con LMS que requieren integridad en entregas</li>
+            <li>Organizaciones con alta exigencia de privacidad y soberanía de datos</li>
+          </ul>
+        </div>
+        <div class="perfil-col">
+          <h3>Perfil de organización ideal</h3>
+          <ul>
+            <li>Universidades con procesos formales de revisión académica</li>
+            <li>Editoriales académicas y centros de investigación</li>
+            <li>Organismos certificadores con materiales producidos externamente</li>
+            <li>Instituciones con LMS que buscan flujo integrado de entrega y revisión</li>
+            <li>Más de 1,500 organizaciones en el mundo ya lo usan</li>
+          </ul>
+        </div>
+        <div class="perfil-col perfil-col--taec">
+          <h3>Lo que TAEC hace por ti</h3>
+          <ul>
+            <li>Evaluación de la necesidad y política de integridad</li>
+            <li>Integración con tu LMS actual (Moodle, Canvas, etc.)</li>
+            <li>Configuración de reglas y flujos de revisión</li>
+            <li>Capacitación del equipo académico en español</li>
+            <li>Soporte operativo en horario CDMX</li>
+          </ul>
+          <p class="perfil-cierre">No se trata de perseguir coincidencias. Se trata de construir un proceso de revisión más serio, más claro y más defendible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <FAQAccordion
+    eyebrow="Preguntas frecuentes"
+    title="Todo sobre StrikePlagiarism en México"
+    faqs={faqs}
+    theme="general"
+  />
+
+  <!-- ── CTA ── -->
+  <CtaFinal
+    title="¿Listo para construir un proceso de integridad con respaldo real?"
+    subtitle="Agenda una demo con nuestro equipo en CDMX. Te mostramos StrikePlagiarism con casos reales de instituciones en México y LATAM — sin costo, sin compromiso."
+    primaryBtnText="Solicitar demo gratuita →"
+    primaryBtnUrl={bookingUrl}
+    primaryBtnTarget="_blank"
+    theme="general"
+  />
+
 </BaseLayout>
+
+<style is:global>
+/* ── EL PROBLEMA ── */
+.sp-problema { background: #F8FAFC; padding: 72px 5%; }
+.spp-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; display: block; }
+.section-title { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 34px); color: #111827; margin-bottom: 12px; line-height: 1.25; }
+.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 40px; max-width: 720px; }
+.sp-retos { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+.sp-reto { display: flex; gap: 20px; background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px; align-items: flex-start; }
+.sp-reto-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.sp-reto h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.4; }
+.sp-reto p { font-size: 13px; color: #64748B; line-height: 1.7; margin: 0; }
+
+/* ── CÓMO FUNCIONA ── */
+.sp-pasos { background: #0f172a; padding: 72px 5%; }
+.sp-pasos-inner { max-width: 1100px; margin: 0 auto; }
+.sp-pasos .section-label { color: #f97316; }
+.sp-pasos .section-title { color: white; margin-bottom: 40px; }
+.pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.paso-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px 22px; }
+.paso-num { font-size: 36px; font-weight: 900; color: #f97316; opacity: .4; display: block; margin-bottom: 12px; line-height: 1; }
+.paso-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.4; }
+.paso-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+/* ── CAPACIDADES ── */
+.sp-caps { background: white; padding: 72px 5%; }
+.spc-inner { max-width: 1100px; margin: 0 auto; }
+.spc-inner .section-title { margin-bottom: 40px; }
+.caps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.cap-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
+.cap-card:hover { border-color: #f97316; }
+.cap-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+.cap-card h3 { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.cap-card p { font-size: 12px; color: #64748B; line-height: 1.6; }
+
+/* ── PERFIL IDEAL ── */
+.sp-perfil { background: #F8FAFC; padding: 72px 5%; }
+.sppf-inner { max-width: 1100px; margin: 0 auto; }
+.sppf-inner .section-title { margin-bottom: 40px; }
+.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
+.perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.perfil-col ul li { font-size: 14px; color: #374151; line-height: 1.5; padding-left: 18px; position: relative; }
+.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: #f97316; font-weight: 700; }
+.perfil-col--taec { background: white; border: 1.5px solid #FED7AA; border-radius: 14px; padding: 24px; }
+.perfil-col--taec h3 { color: #92400E; }
+.perfil-cierre { margin-top: 20px; font-size: 13px; color: #9CA3AF; line-height: 1.7; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 16px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .pasos-grid { grid-template-columns: repeat(2, 1fr); }
+  .caps-grid { grid-template-columns: repeat(2, 1fr); }
+  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 768px) {
+  .pasos-grid { grid-template-columns: 1fr; }
+  .caps-grid { grid-template-columns: 1fr; }
+  .sp-reto { flex-direction: column; gap: 12px; }
+}
+</style>
