@@ -3,7 +3,7 @@ title: "Qué es LxD – Diseño de experiencias de aprendizaje, entre el Diseño
 description: "Qué es LxD – Diseño de experiencias de aprendizaje, entre el Diseño Instruccional y la UX"
 date: "8 marzo, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["aprendizaje", "diseño", "experiencia", "instruccional", "lxd", "ux"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/SATELITE_retocado-1.jpg)

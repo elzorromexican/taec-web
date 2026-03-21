@@ -73,8 +73,8 @@ const { Content } = await render(post);
 /* Minimal prose styles for the markdown body */
 .prose-content h2 { font-family: var(--font-display, Georgia, serif); font-size: 1.8rem; margin-top: 2em; margin-bottom: 0.8em; color: #1c1917; }
 .prose-content h3 { font-size: 1.3rem; margin-top: 1.5em; margin-bottom: 0.6em; color: #1c1917; }
-.prose-content p { margin-bottom: 1.5em; }
-.prose-content a { color: #1d4ed8; text-decoration: underline; }
+.prose-content p { margin-bottom: 1.5em; overflow-wrap: break-word; }
+.prose-content a { color: #1d4ed8; text-decoration: underline; overflow-wrap: break-word; word-break: break-word; }
 .prose-content ul, .prose-content ol { margin-bottom: 1.5em; padding-left: 1.5em; }
 .prose-content li { margin-bottom: 0.5em; }
 .prose-content hr { border: none; border-top: 1px solid #e7e3db; margin: 3em 0; }

@@ -3,7 +3,7 @@ title: "Totara Talent Experience Platform: ¿Por qué es el mejor LMS/LXP para o
 description: "Totara Talent Experience Platform: ¿Por qué es el mejor LMS/LXP para organizaciones?"
 date: "22 febrero, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "lms", "lxp", "totara", "capacitación", "plataformas"]
 ---
 
 Preview(opens in a new tab)
