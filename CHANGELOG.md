@@ -149,3 +149,10 @@ Vyond                                             7 Minutes
 ### 20 mar 2026 — Refactorización y Limpieza
 - **Refactor (DRY):** Se extrajo la lógica de rutas absolutas `r(url)` que estaba duplicada en 49 páginas hacia el nuevo archivo central `src/utils/paths.ts`.
 - **Limpieza (Purga):** Se eliminaron definitivamente las páginas y las referencias en la interfaz gráfica de los productos descontinuados: **Zoola Analytics**, **BigBlueButton** y **GO1**.
+
+### 21 mar 2026 — Auditoría de Liberación y Refactorización Final (v3.1.0)
+- **Higiene DOM y Eventos:** Eliminados todos los handlers Javascript _inline_ (como `onerror` y `onclick`) en favor de delegación limpia mediante `<script>`.
+- **DRY y Centralización:** Extracción masiva de URLs _hardcodeadas_ hacia `src/data/vendors.ts` y data de contacto. Abstracción del parseador de fechas a `src/utils/dateParser.ts`.
+- **Accesibilidad y UX:** Corrección exhaustiva de atributos `alt` faltantes, inyección de `width/height` en logotipos para prevención de *Cumulative Layout Shift* (CLS), y desactivación guiada del formulario de comentarios.
+- **Seguridad y Documentación:** Sanitización de métodos asíncronos (`createElement` vs `innerHTML`) y anotaciones de excepciones para esquemas locales de Zod y variables de entorno del endpoint GAS estático.
+- **Punto Fix Final:** 0 advertencias de compilación; 425 páginas generadas en ~3s. Proyecto aprobado para el ambiente productivo.
