@@ -7,8 +7,15 @@ const items = await getCollection('quiz');
 
 // Preparar los datos reales para el componente interactivo en cliente
 const quizData = items.map((t, index) => {
-  // Remover "**Respuesta:**" si viene en el body, para que las opciones sean limpias
-  const cleanAns = (t.body || '').replace(/\*\*Respuesta:\*\*\s*/i, '').trim();
+  // Extraer SOLAMENTE la parte de la respuesta (ignorando la pregunta en el markdown)
+  let cleanAns = t.body || '';
+  const matchResp = cleanAns.match(/\*\*Respuesta:\*\*([\s\S]*)/i);
+  if (matchResp) {
+    cleanAns = matchResp[1].trim();
+  } else {
+    cleanAns = cleanAns.replace(/\*\*Pregunta:\*\*.*?\n/i, '').trim();
+  }
+
   const cleanQ = (t.data.description || t.data.title).replace(/\*\*Pregunta:\*\*\s*/i, '').trim();
   return {
     id: index + 1,
@@ -55,24 +62,39 @@ const quizDataStr = JSON.stringify(quizData);
 
     <div id="quiz-app" data-cards={quizDataStr}>
       
-      <!-- ================= MODO ESTUDIO (FLASHCARDS EN GRID) ================= -->
+      <!-- ================= MODO ESTUDIO (FLASHCARDS) ================= -->
       <div id="view-study" class="view-panel active-view">
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px;">
-          {quizData.map((card, i) => (
-            <div class="flip-scene-grid" style="perspective: 1000px; width: 100%; height: 260px; cursor: pointer;">
-              <div class="flip-card-grid" style="width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
-                <div class="flip-face flip-front">
-                  <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 16px;">Pregunta {i+1}</div>
-                  <div class="md-content" style="flex-grow: 1; display:flex; align-items:center; font-size: 1.05rem;" set:html={card.q.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br/>')}></div>
-                  <div style="font-family: monospace; font-size: 10px; opacity: 0.4; margin-top: 16px; border: 1px solid rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px;">Clic para revelar</div>
-                </div>
-                <div class="flip-face flip-back">
-                  <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d4ed8; font-weight: 600; margin-bottom: 16px;">Respuesta</div>
-                  <div class="md-content" style="flex-grow: 1; display:flex; align-items:center; font-size: 0.95rem; overflow-y: auto;" set:html={card.a.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br/>')}></div>
-                </div>
-              </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div style="font-family: monospace; font-size: 12px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;" id="study-counter">
+            Cargando tarjetas...
+          </div>
+        </div>
+        
+        <div style="height: 4px; background: #e7e3db; border-radius: 2px; margin-bottom: 32px; overflow: hidden;">
+          <div id="study-bar" style="height: 100%; width: 0%; background: #1d4ed8; border-radius: 2px; transition: width 0.3s ease;"></div>
+        </div>
+
+        <div class="flip-scene" id="flip-scene" style="perspective: 1000px; width: 100%; margin: 0 auto 32px; cursor: pointer;">
+          <div class="flip-card" id="flip-card" style="width: 100%; min-height: 320px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+            <div class="flip-face flip-front">
+              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 24px;">Pregunta</div>
+              <div id="study-q" class="md-content">[...]</div>
+              <div style="font-family: monospace; font-size: 10px; opacity: 0.4; margin-top: auto; border: 1px solid rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px;">Toque para revelar</div>
             </div>
-          ))}
+            <div class="flip-face flip-back">
+              <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #1d4ed8; font-weight: 600; margin-bottom: 24px;">Respuesta</div>
+              <div id="study-a" class="md-content">[...]</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px;">
+          <button id="btn-prev" class="ctrl-btn">&larr; Anterior</button>
+          <button id="btn-shuffle" class="ctrl-btn shuffle-btn">
+            <svg style="width: 14px; height: 14px; margin-right: 6px; display: inline-block; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+            Mezclar
+          </button>
+          <button id="btn-next" class="ctrl-btn" style="background: #1c1917; color: #fff; border-color: #1c1917;">Siguiente &rarr;</button>
         </div>
       </div>
 
@@ -129,10 +151,10 @@ const quizDataStr = JSON.stringify(quizData);
 .mode-tab.active { background: #1c1917; border-color: #1c1917; color: #ffffff; }
 
 /* Flip Card (Estudio) */
-.flip-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; }
+.flip-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; box-sizing: border-box; }
 .flip-front { background: #1c1917; color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .flip-back { background: #ffffff; color: #1c1917; border: 2px solid #e7e3db; transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-.flip-card-grid.flipped { transform: rotateY(180deg); }
+.flip-card.flipped { transform: rotateY(180deg); }
 
 /* MD Content común */
 .md-content { font-family: var(--font-body, sans-serif); line-height: 1.6; text-align: center; }
@@ -207,16 +229,41 @@ const quizDataStr = JSON.stringify(quizData);
     }
 
     // ==========================================
-    // MODO ESTUDIO (GRID FLIPCARDS)
+    // MODO ESTUDIO (FLASHCARDS)
     // ==========================================
-    // Event listener dinámico para voltear cualquier tarjeta del Grid
-    const gridScenes = document.querySelectorAll('.flip-scene-grid');
-    gridScenes.forEach(scene => {
-      scene.addEventListener('click', () => {
-        const card = scene.querySelector('.flip-card-grid');
-        if(card) card.classList.toggle('flipped');
-      });
-    });
+    let studyOrder = RAW_CARDS.map((_,i) => i);
+    let studyIdx = 0;
+
+    const qEl = document.getElementById('study-q');
+    const aEl = document.getElementById('study-a');
+    const cardEl = document.getElementById('flip-card');
+    const counterEl = document.getElementById('study-counter');
+    const barEl = document.getElementById('study-bar');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const btnShuffle = document.getElementById('btn-shuffle');
+    const sceneEl = document.getElementById('flip-scene');
+
+    function renderStudy() {
+      if(N === 0) return;
+      const card = RAW_CARDS[studyOrder[studyIdx]];
+      cardEl.classList.remove('flipped');
+      setTimeout(() => {
+        qEl.innerHTML = parseMD(card.q);
+        aEl.innerHTML = parseMD(card.a);
+        counterEl.textContent = `Tarjeta ${studyIdx + 1} de ${N}`;
+        barEl.style.width = `${((studyIdx + 1) / N) * 100}%`;
+        btnPrev.disabled = studyIdx === 0;
+        btnNext.disabled = studyIdx === N - 1;
+      }, cardEl.classList.contains('flipped') ? 300 : 0);
+    }
+
+    if(sceneEl) sceneEl.addEventListener('click', () => cardEl.classList.toggle('flipped'));
+    if(btnPrev) btnPrev.addEventListener('click', () => { studyIdx = Math.max(0, studyIdx - 1); renderStudy(); });
+    if(btnNext) btnNext.addEventListener('click', () => { studyIdx = Math.min(N - 1, studyIdx + 1); renderStudy(); });
+    if(btnShuffle) btnShuffle.addEventListener('click', () => { studyOrder = shuffle(studyOrder); studyIdx = 0; renderStudy(); });
+    
+    renderStudy();
 
     // ==========================================
     // MODO QUIZ INTERACTÍVO (Auto Generado)
@@ -261,7 +308,7 @@ const quizDataStr = JSON.stringify(quizData);
       
       // Generar 3 distractores (respuestas falsas) aleatorias de OTRAS tarjetas
       const otherCards = RAW_CARDS.filter(c => c.id !== currentItem.id);
-      const distractors = shuffle(otherCards).slice(0, 3).map(c => c.a);
+      let distractors = shuffle(otherCards).slice(0, 3).map(c => c.a);
       
       // Mezclar con la correcta
       const allOptions = shuffle([currentItem.a, ...distractors]);
