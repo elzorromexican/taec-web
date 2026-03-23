@@ -1,4 +1,14 @@
 ---
+/**
+ * @name Glossary Taxonomy Route
+ * @version 1.0
+ * @description Ruta dinámica que agrupa todos los conceptos del Glosario vinculados a través del array 'related' en su frontmatter.
+ * @inputs tag (Parámetro dinámico de la URL)
+ * @outputs HTML estático con listado de términos hipervinculados
+ * @author TAEC
+ * @created 2026-03-22
+ * @updated 2026-03-22
+ */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { r } from '../../../utils/paths';
