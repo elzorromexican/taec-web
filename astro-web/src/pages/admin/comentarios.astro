@@ -1,0 +1,215 @@
+---
+/**
+ * @name comentarios.astro (Admin Dashboard)
+ * @version 1.0.0
+ * @description Dashboard privado para la moderación de comentarios.
+ * @inputs N/A
+ * @outputs Interfaz de administración protegida por login.
+ * @dependencies BaseLayout.astro, Supabase Auth REST
+ * @created 2026-03-23
+ * @updated 2026-03-23 12:05:00
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Moderación de Comentarios | TAEC" 
+  description="Panel de administración de comentarios del blog."
+>
+  <main style="background: #fdfbf9; min-height: 100vh; padding: 60px 20px;">
+    <div style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h1 style="font-family: var(--font-display, serif); color: #1c1917; font-size: 2rem; margin: 0;">Moderación de Comentarios</h1>
+        <button id="logout-btn" style="display: none; background: transparent; border: 1px solid #d6d3d1; padding: 8px 16px; border-radius: 6px; cursor: pointer; color: #44403c;">Cerrar sesión</button>
+      </div>
+
+      <!-- VISTA DE LOGIN -->
+      <div id="login-view">
+        <p style="color: #78716c; margin-bottom: 24px;">Ingresa tus credenciales de administrador de Supabase para moderar.</p>
+        <form id="login-form" style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+          <input type="email" id="email" placeholder="Correo electrónico" required style="padding: 12px; border: 1px solid #d6d3d1; border-radius: 6px; width: 100%;" />
+          <input type="password" id="password" placeholder="Contraseña" required style="padding: 12px; border: 1px solid #d6d3d1; border-radius: 6px; width: 100%;" />
+          <button type="submit" style="background: #1d4ed8; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer;">Ingresar</button>
+        </form>
+        <p id="login-feedback" style="color: #ef4444; margin-top: 12px; display: none;"></p>
+      </div>
+
+      <!-- VISTA DEL DASHBOARD -->
+      <div id="dashboard-view" style="display: none;">
+        <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+          <button class="tab-btn active" data-status="pending" style="background: #1d4ed8; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer;">Pendientes</button>
+          <button class="tab-btn" data-status="approved" style="background: #e7e3db; color: #44403c; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer;">Aprobados</button>
+          <button class="tab-btn" data-status="rejected" style="background: #e7e3db; color: #44403c; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer;">Rechazados</button>
+        </div>
+
+        <div id="comments-container" style="display: flex; flex-direction: column; gap: 16px;">
+          <p style="color: #78716c;">Cargando comentarios...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+    let accessToken = localStorage.getItem('sb-access-token');
+    let currentStatus = 'pending';
+
+    const loginView = document.getElementById('login-view');
+    const dashboardView = document.getElementById('dashboard-view');
+    const loginForm = document.getElementById('login-form');
+    const logoutBtn = document.getElementById('logout-btn');
+    const loginFeedback = document.getElementById('login-feedback');
+    const commentsContainer = document.getElementById('comments-container');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+
+    // Inicialización
+    if (accessToken) {
+      showDashboard();
+    }
+
+    // LOGIN
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
+          method: 'POST',
+          headers: { 'apikey': supabaseAnonKey, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        
+        if (data.error) throw new Error(data.error_description || 'Credenciales inválidas');
+        
+        accessToken = data.access_token;
+        localStorage.setItem('sb-access-token', accessToken);
+        showDashboard();
+      } catch (err) {
+        loginFeedback.textContent = err.message;
+        loginFeedback.style.display = 'block';
+      }
+    });
+
+    // LOGOUT
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('sb-access-token');
+      accessToken = null;
+      loginView.style.display = 'block';
+      dashboardView.style.display = 'none';
+      logoutBtn.style.display = 'none';
+    });
+
+    // TABS
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        tabBtns.forEach(b => {
+          b.style.background = '#e7e3db';
+          b.style.color = '#44403c';
+        });
+        e.target.style.background = '#1d4ed8';
+        e.target.style.color = 'white';
+        currentStatus = e.target.dataset.status;
+        loadComments();
+      });
+    });
+
+    function showDashboard() {
+      loginView.style.display = 'none';
+      dashboardView.style.display = 'block';
+      logoutBtn.style.display = 'block';
+      loadComments();
+    }
+
+    // CARGAR COMENTARIOS
+    async function loadComments() {
+      commentsContainer.innerHTML = '<p style="color: #78716c;">Cargando...</p>';
+      try {
+        const res = await fetch(`${supabaseUrl}/rest/v1/comments?status=eq.${currentStatus}&order=created_at.desc`, {
+          headers: {
+            'apikey': supabaseAnonKey,
+            'Authorization': `Bearer ${accessToken}`
+          }
+        });
+        
+        if (res.status === 401) {
+          logoutBtn.click(); // Token expirado
+          return;
+        }
+
+        const comments = await res.json();
+        
+        if (comments.length === 0) {
+          commentsContainer.innerHTML = '<p style="color: #78716c;">No hay comentarios en esta lista.</p>';
+          return;
+        }
+
+        commentsContainer.innerHTML = '';
+        comments.forEach(c => {
+          const formattedDate = new Date(c.created_at).toLocaleString('es-MX');
+          
+          let actionButtons = '';
+          if (currentStatus === 'pending') {
+            actionButtons = `
+              <button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✅ Aprobar</button>
+              <button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">🗑️ Rechazar</button>
+            `;
+          } else if (currentStatus === 'approved') {
+            actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Mover a Rechazados</button>`;
+          } else {
+            actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Aprobar y Restaurar</button>`;
+          }
+
+          commentsContainer.innerHTML += `
+            <div style="border: 1px solid #e7e3db; padding: 16px; border-radius: 8px; background: white;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <strong style="color: #1c1917;">${c.author_name} (<a href="mailto:${c.author_email}">${c.author_email}</a>)</strong>
+                <span style="color: #78716c; font-size: 0.85rem;">${formattedDate}</span>
+              </div>
+              <p style="font-size: 0.85rem; color: #1d4ed8; margin-bottom: 12px;">En artículo: <code>/blog/${c.post_slug}</code></p>
+              <p style="color: #44403c; margin-bottom: 16px; white-space: pre-wrap;">${c.content}</p>
+              <div style="display: flex; gap: 8px;">
+                ${actionButtons}
+              </div>
+            </div>
+          `;
+        });
+      } catch (err) {
+        console.error(err);
+        commentsContainer.innerHTML = '<p style="color: #ef4444;">Error al cargar datos.</p>';
+      }
+    }
+
+    // ACTUALIZAR ESTADO (Global for onclick)
+    window.updateCommentStatus = async function(id, newStatus) {
+      if (!confirm(`¿Seguro que deseas cambiar el estado a ${newStatus}?`)) return;
+
+      try {
+        const res = await fetch(`${supabaseUrl}/rest/v1/comments?id=eq.${id}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': supabaseAnonKey,
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) {
+          loadComments(); // Recargar la lista actual
+        } else {
+          alert('Error al actualizar el comentario (Verifica tus permisos RLS).');
+        }
+      } catch (err) {
+        alert('Error de conexión.');
+      }
+    }
+  });
+</script>

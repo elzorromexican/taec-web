@@ -20,8 +20,8 @@ const { Content } = await render(post);
   description={post.data.description || post.data.title}
   section="Recursos"
 >
-  <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
-    <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: 48px; box-shadow: 0 4px 16px rgba(0,0,0,0.05);">
+  <main style="background: #faf8f3; min-height: 70vh; padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 24px) 80px;">
+    <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: clamp(24px, 5vw, 48px); box-shadow: 0 4px 16px rgba(0,0,0,0.05); overflow: hidden;">
       
       <a href={r('/articulos')} style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: #78716c; margin-bottom: 32px; display: inline-block; transition: color 0.15s;">
         &larr; Volver a Artículos
@@ -76,4 +76,6 @@ const { Content } = await render(post);
 .prose-content a { color: #1d4ed8; text-decoration: underline; }
 .prose-content ul, .prose-content ol { margin-bottom: 1.5em; padding-left: 1.5em; }
 .prose-content li { margin-bottom: 0.5em; }
+.prose-content img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+.prose-content p, .prose-content a { overflow-wrap: break-word; word-break: break-word; }
 </style>

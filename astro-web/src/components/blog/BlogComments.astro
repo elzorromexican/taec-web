@@ -1,4 +1,14 @@
 ---
+/**
+ * @name BlogComments.astro
+ * @version 1.1.0
+ * @description Componente de UI interactivo para renderizar y capturar comentarios de blog.
+ * @inputs N/A
+ * @outputs Formulario y lista de comentarios validada.
+ * @dependencies Cloudflare Turnstile, Supabase REST API
+ * @created 2026-03-23
+ * @updated 2026-03-23 12:05:00
+ */
 // Componente de UI para Replicar el Formulario de Comentarios de WordPress
 // Para que esto funcione en un sitio estático Astro sin base de datos nativa,
 // puedes posteriormente enlazar su 'action' a Formspree, Netlify Forms o Supabase.
@@ -11,6 +21,11 @@
   <p style="font-family: var(--font-body, sans-serif); font-size: 0.95rem; color: #78716c; margin-bottom: 24px;">
     Tu dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *
   </p>
+
+  <!-- Contenedor Dinámico para renderizar comentarios aprobados -->
+  <div id="comments-list" style="margin-bottom: 40px; display: flex; flex-direction: column; gap: 24px;">
+    <!-- Los comentarios se inyectarán aquí vía JS -->
+  </div>
 
   <form id="comment-form" class="comment-form" action="#" method="POST">
     
@@ -53,16 +68,157 @@
       </label>
     </div>
 
-    <button type="button" class="comment-btn" disabled style="opacity: 0.6; cursor: not-allowed; pointer-events: none;">
-      Comentarios Desactivados
+    <!-- Cloudflare Turnstile Widget -->
+    <!-- Reemplazar el data-sitekey con la llave pública de Cloudflare -->
+    <div class="form-group" style="margin-bottom: 24px;">
+      <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+    </div>
+
+    <div id="form-feedback" style="display: none; margin-bottom: 20px; padding: 12px; border-radius: 6px; font-family: var(--font-body, sans-serif); font-size: 0.9rem;"></div>
+
+    <button type="submit" id="submit-btn" class="comment-btn">
+      Publicar comentario
     </button>
   </form>
 </div>
 
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-  document.getElementById('comment-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('Los comentarios están desactivados temporalmente. Escríbenos directamente a través de nuestra página de Contacto.');
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('comment-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const feedbackBox = document.getElementById('form-feedback');
+    const commentsList = document.getElementById('comments-list');
+
+    // Extraer slug del artículo actual (ej: /blog/el-rol-del-liderazgo -> el-rol-del-liderazgo)
+    const urlParts = window.location.pathname.split('/').filter(Boolean);
+    const postSlug = urlParts[urlParts.length - 1];
+
+    // Variables de Entorno Supabase (Definidas por Astro en compilación o window.env)
+    // Para que esto funcione en GitHub Pages, debes añadir estas variables a tu .env
+    // PUBLIC_SUPABASE_URL=https://tuid.supabase.co
+    // PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+    // --- 1. CARGA DE COMENTARIOS APROBADOS ---
+    async function loadComments() {
+      if (!supabaseUrl || !supabaseAnonKey) return;
+      
+      try {
+        const response = await fetch(`${supabaseUrl}/rest/v1/comments?post_slug=eq.${postSlug}&select=*&order=created_at.asc`, {
+          headers: {
+            'apikey': supabaseAnonKey,
+            'Authorization': `Bearer ${supabaseAnonKey}`
+          }
+        });
+        
+        if (!response.ok) throw new Error('Error al cargar comentarios');
+        const comments = await response.json();
+        
+        if (comments.length > 0) {
+          commentsList.innerHTML = `<h4 style="font-family: var(--font-display, serif); font-size: 1.25rem; color: #1c1917; margin-bottom: 12px;">${comments.length} Comentario(s)</h4>`;
+          comments.forEach(c => {
+            const date = new Date(c.created_at).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+            commentsList.innerHTML += `
+              <div style="background: #fdfbf9; padding: 20px; border: 1px solid #e7e3db; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <div style="width: 40px; height: 40px; background: #e7e3db; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #44403c; font-family: var(--font-display, serif);">
+                    ${c.author_name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <strong style="display: block; font-family: var(--font-body, sans-serif); color: #1c1917;">
+                      ${c.author_url ? `<a href="${c.author_url}" target="_blank" rel="nofollow noopener" style="color: inherit; text-decoration: none;">${c.author_name}</a>` : c.author_name}
+                    </strong>
+                    <span style="font-size: 0.85rem; color: #78716c; font-family: var(--font-body, sans-serif);">${date}</span>
+                  </div>
+                </div>
+                <p style="font-family: var(--font-body, sans-serif); color: #44403c; line-height: 1.6; margin: 0; white-space: pre-wrap;">${c.content.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+              </div>
+            `;
+          });
+        }
+      } catch (err) {
+        console.error('No se pudieron cargar los comentarios:', err);
+      }
+    }
+    
+    // Iniciar carga al montar
+    loadComments();
+
+    // --- 2. ENVÍO DE COMENTARIOS ---
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const turnstileToken = formData.get('cf-turnstile-response');
+
+      if (!turnstileToken) {
+        showFeedback('Por favor, completa la verificación de seguridad.', 'error');
+        return;
+      }
+
+      if (!supabaseUrl || !supabaseAnonKey) {
+        showFeedback('El sistema de comentarios no está configurado (Faltan variables de entorno).', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.style.opacity = '0.7';
+
+      const payload = {
+        post_slug: postSlug,
+        author_name: formData.get('author'),
+        author_email: formData.get('email'),
+        author_url: formData.get('url') || null,
+        content: formData.get('comment'),
+        status: 'pending' // Forzado además por el Trigger en BD
+      };
+
+      try {
+        const response = await fetch(`${supabaseUrl}/rest/v1/comments`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': supabaseAnonKey,
+            'Authorization': `Bearer ${supabaseAnonKey}`,
+            'Prefer': 'return=minimal' // No retorna la fila completa, solo un 201
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          showFeedback('¡Gracias! Tu comentario ha sido enviado y está pendiente de moderación.', 'success');
+          form.reset();
+          if (window.turnstile) turnstile.reset();
+        } else {
+          throw new Error('Error en el servidor Supabase');
+        }
+      } catch (error) {
+        console.error('Error enviando comentario:', error);
+        showFeedback('Ocurrió un error al enviar el comentario. Inténtalo más tarde.', 'error');
+        if (window.turnstile) turnstile.reset();
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Publicar comentario';
+        submitBtn.style.opacity = '1';
+      }
+    });
+
+    function showFeedback(msg, type) {
+      feedbackBox.style.display = 'block';
+      feedbackBox.textContent = msg;
+      if (type === 'success') {
+        feedbackBox.style.backgroundColor = '#ecfdf5';
+        feedbackBox.style.color = '#047857';
+        feedbackBox.style.border = '1px solid #a7f3d0';
+      } else {
+        feedbackBox.style.backgroundColor = '#fef2f2';
+        feedbackBox.style.color = '#b91c1c';
+        feedbackBox.style.border = '1px solid #fecaca';
+      }
+    }
   });
 </script>
 

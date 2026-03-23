@@ -3,6 +3,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+import node from '@astrojs/node';
+
+import react from '@astrojs/react';
+
 /**
  * DEPLOY TARGETS
  * ─────────────────────────────────────────────────────────────────────────
@@ -24,7 +28,16 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   trailingSlash: 'ignore',
+
   build: {
     format: 'directory' // Generates /moodle-mexico/index.html etc.
-  }
+  },
+
+  output: 'static',
+
+  adapter: node({
+    mode: 'standalone'
+  }),
+
+  integrations: [react()]
 });

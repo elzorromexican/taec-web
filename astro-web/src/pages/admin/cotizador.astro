@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CotizadorDDC from '../../components/cotizador/CotizadorDDC.tsx';
+---
+
+<BaseLayout 
+  title="Cotizador DDC Interno | TAEC" 
+  description="Panel privado para estimación de proyectos de Desarrollo de Contenidos."
+>
+  <main style="background: #f3f4f6; min-height: 100vh; padding: 60px 20px;">
+    
+    <!-- WRAPPER PARA PROTECCIÓN DE RUTA TIPO 'comentarios.astro' -->
+    <div id="auth-wrapper" style="max-width: 800px; margin: 0 auto; display: none;">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div style="background: #e0e7ff; color: #3730a3; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">
+          Entorno Restringido — USO INTERNO
+        </div>
+        <button id="logout-btn" style="background: transparent; border: 1px solid #d1d5db; padding: 6px 12px; border-radius: 6px; cursor: pointer; color: #4b5563; font-size: 0.85rem;">Salir</button>
+      </div>
+
+      <!-- ISLAND DE REACT (El cotizador no sabe que está protegido, simplemente renderiza) -->
+      <CotizadorDDC client:only="react" />
+      
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div id="login-view" style="max-width: 400px; margin: 100px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center;">
+      <h2 style="margin-top: 0; color: #111827; font-size: 1.5rem;">Acceso Requerido</h2>
+      <p style="color: #6b7280; font-size: 0.95rem; margin-bottom: 24px;">Ingresa tus credenciales de Supabase para utilizar el cotizador DDC.</p>
+      
+      <form id="login-form" style="display: flex; flex-direction: column; gap: 16px;">
+        <input type="email" id="email" placeholder="Correo electrónico" required style="padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; width: 100%; box-sizing: border-box;" />
+        <input type="password" id="password" placeholder="Contraseña" required style="padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; width: 100%; box-sizing: border-box;" />
+        <button type="submit" style="background: #1d4ed8; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 1rem;">Acceder</button>
+      </form>
+      <p id="login-feedback" style="color: #ef4444; margin-top: 16px; display: none; font-size: 0.9rem;"></p>
+    </div>
+
+  </main>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Si la instancia local en staging no tiene auth keys, fallback temporalmente para no bloquear testing.
+    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+    let accessToken = localStorage.getItem('sb-access-token');
+
+    const loginView = document.getElementById('login-view');
+    const authWrapper = document.getElementById('auth-wrapper');
+    const loginForm = document.getElementById('login-form');
+    const logoutBtn = document.getElementById('logout-btn');
+    const loginFeedback = document.getElementById('login-feedback');
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      // Entorno de desarrollo local sin .env configurado
+      showDashboard();
+      return;
+    }
+
+    if (accessToken) {
+      showDashboard();
+    }
+
+    loginForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const password = (document.getElementById('password') as HTMLInputElement).value;
+
+      try {
+        const res = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
+          method: 'POST',
+          headers: { 'apikey': supabaseAnonKey, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        
+        if (data.error) throw new Error(data.error_description || 'Credenciales inválidas');
+        
+        accessToken = data.access_token;
+        localStorage.setItem('sb-access-token', accessToken);
+        showDashboard();
+      } catch (err: any) {
+        if (loginFeedback) {
+          loginFeedback.textContent = err.message;
+          loginFeedback.style.display = 'block';
+        }
+      }
+    });
+
+    logoutBtn?.addEventListener('click', () => {
+      localStorage.removeItem('sb-access-token');
+      accessToken = null;
+      if (loginView && authWrapper) {
+        loginView.style.display = 'block';
+        authWrapper.style.display = 'none';
+      }
+    });
+
+    function showDashboard() {
+      if (loginView && authWrapper) {
+        loginView.style.display = 'none';
+        authWrapper.style.display = 'block';
+      }
+    }
+  });
+</script>

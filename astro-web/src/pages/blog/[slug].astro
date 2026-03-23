@@ -39,8 +39,8 @@ const relatedPosts = allPosts
   description={post.data.description || post.data.title}
   section="Recursos"
 >
-  <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
-    <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: 48px; box-shadow: 0 4px 16px rgba(0,0,0,0.05);">
+  <main style="background: #faf8f3; min-height: 70vh; padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 24px) 80px;">
+    <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: clamp(24px, 5vw, 48px); box-shadow: 0 4px 16px rgba(0,0,0,0.05); overflow: hidden;">
       
       <a href={r('/blog')} style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: #78716c; margin-bottom: 32px; display: inline-block; transition: color 0.15s;">
         &larr; Volver al Blog
@@ -98,7 +98,7 @@ const relatedPosts = allPosts
         </div>
       )}
 
-      <nav style="display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 64px; padding-top: 40px; border-top: 2px dashed #e7e3db; @media(min-width: 640px) { grid-template-columns: 1fr 1fr; }">
+      <nav class="post-nav-container">
         
         {prevPost ? (
           <a href={r(`/blog/${prevPost.id.replace(/\.mdx?$/, '')}`)} class="post-nav-card">
@@ -156,6 +156,12 @@ const relatedPosts = allPosts
 }
 .post-nav-card:hover, .post-nav-card:focus-visible {
   transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); border-color: #cbd5e1; outline: none;
+}
+.post-nav-container {
+  display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 64px; padding-top: 40px; border-top: 2px dashed #e7e3db;
+}
+@media(min-width: 640px) {
+  .post-nav-container { grid-template-columns: 1fr 1fr; }
 }
 .post-nav-card.right {
   align-items: flex-end; text-align: right;
