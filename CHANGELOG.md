@@ -156,3 +156,9 @@ Vyond                                             7 Minutes
 - **Accesibilidad y UX:** Corrección exhaustiva de atributos `alt` faltantes, inyección de `width/height` en logotipos para prevención de *Cumulative Layout Shift* (CLS), y desactivación guiada del formulario de comentarios.
 - **Seguridad y Documentación:** Sanitización de métodos asíncronos (`createElement` vs `innerHTML`) y anotaciones de excepciones para esquemas locales de Zod y variables de entorno del endpoint GAS estático.
 - **Punto Fix Final:** 0 advertencias de compilación; 425 páginas generadas en ~3s. Proyecto aprobado para el ambiente productivo.
+
+### 22 mar 2026 — Arquitectura de Taxonomías y Sanitización de Datos
+- **Ecosistemas Auto-Contenidos (Blog y Glosario):** Despliegue de ecosistemas independientes con rutas dinámicas de colección (`/blog/etiqueta/[tag]` y `/glosario/etiqueta/[tag]`) para aglutinar contenido en cuadrículas, eliminando la navegación fragmentada.
+- **Recomendaciones Híbridas Automáticas:** Implementación de tarjetas relacionales (*Artículos Recomendados* y *Términos Recomendados*) al pie de cada lectura basadas en la abstracción cruzada de etiquetas del Frontmatter.
+- **Sanitización Algorítmica Global:** Ejecución de automatización Node.js para eliminar la etiqueta basura `"blog"` que enlodaba 16 posts de la arquitectura SEO, empujando simultáneamente heurísticas en 91 artículos para asegurar que todos cuenten nativamente con +3 etiquetas contextualizadas, minimizando la carga editorial.
+- **Resolución de Error Estructural Astro:** Supresión de barreras espaciales dobles (`---`) en los cabezales de `BaseLayout.astro`, `Header.astro` y `MobileNav.astro` que interrumpían fatalmente la compilación de producción. Resultado final: Base generada en VSS sube orgánicamente a 817 rutas exitosas a un promedio de renderizado total de ~4 segundos.
