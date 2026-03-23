@@ -4,6 +4,8 @@
 ## 📌 Operaciones Recientes (Corto Plazo)
 - [x] Concluir ajustes de Quality Assurance (QA) fotográfico o estilístico en dispositivos móviles para las colecciones secundarias.
 - [x] Preparación y revisión final previo al Embalaje / Deployment para entorno de Producción.
+- [x] Parche Urgente de Producción: Corrección en `paths.ts` forzando el *Trailing Slash* en Astro (`import.meta.env.BASE_URL`) para solventar la pérdida de Assets CSS (404) en GitHub Pages.
+- [x] Saneamiento Quirúrgico (Anti-FOUC): Purga de `>800` líneas de CSS redundante (Mega Menú y Footer) de 11 landings de Articulate y Vyond para lograr 100% de herencia del layout unificado sin parpadeos de renderizado.
 
 ## 🛠️ Cotizador DDC (Estimador de Costos Web)
 **Fase de Definición**
