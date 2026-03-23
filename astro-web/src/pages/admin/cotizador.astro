@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CotizadorDDC from '../../components/cotizador/CotizadorDDC.tsx';
+import CotizadorDDC from '../../components/ui/CotizadorDDC.astro';
 ---
 
 <BaseLayout 
@@ -11,7 +11,7 @@ import CotizadorDDC from '../../components/cotizador/CotizadorDDC.tsx';
   <main style="background: #f3f4f6; min-height: 100vh; padding: 60px 20px;">
     
     <!-- WRAPPER PARA PROTECCIÓN DE RUTA TIPO 'comentarios.astro' -->
-    <div id="auth-wrapper" style="max-width: 800px; margin: 0 auto; display: none;">
+    <div id="auth-wrapper" style="max-width: 1200px; margin: 0 auto; display: none;">
       
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
         <div style="background: #e0e7ff; color: #3730a3; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">
@@ -20,8 +20,8 @@ import CotizadorDDC from '../../components/cotizador/CotizadorDDC.tsx';
         <button id="logout-btn" style="background: transparent; border: 1px solid #d1d5db; padding: 6px 12px; border-radius: 6px; cursor: pointer; color: #4b5563; font-size: 0.85rem;">Salir</button>
       </div>
 
-      <!-- ISLAND DE REACT (El cotizador no sabe que está protegido, simplemente renderiza) -->
-      <CotizadorDDC client:only="react" />
+      <!-- COMPONENTE ASTRO (Matriz Comercial Segura) -->
+      <CotizadorDDC />
       
     </div>
 

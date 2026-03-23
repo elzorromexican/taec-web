@@ -168,10 +168,10 @@ Vyond                                             7 Minutes
 - **CSS Estructural e Imágenes:** Corrección de la estructura interna del `<nav>` del blog para inyectar correctamente Media Queries CSS extraída a clases globales validas, además de delimitar los anchos máximos (`max-width: 100%`) y el `overflow-wrap` para imágenes y textos en MDX/Markdown pre-parseado, cortando el rebase horizontal en pantallas pequeñas.
 - **Validación SSG Final:** El pipeline de Astro Builder (`npm run build`) validó exitosamente 818 páginas SSG sin ninguna ruptura, sellando la compilación final candidata para ambiente productivo.
 
-### 23 mar 2026 — Motor de Cotización DDC (SSR & React Island)
-- **Infraestructura Backend Híbrida:** Transición de `astro.config.mjs` a compatibilidad SSR (`@astrojs/node`) para habilitar *Endpoints* dinámicos robustos (`calcular-cotizacion-ddc.ts`).
-- **Motor Financiero Algorítmico & Zod:** Extracción exitosa de inteligencia logística de Excel (Rise, Storyline, Vyond) hacia una Matriz JSON optimizada en código. Integración de Schemas *Zod* para validación y sanitización en API.
-- **UI Frontend "React Island":** Diseño interactivo para la selección de variables de cursos vía React 19 y Vanilla CSS.
+### 23 mar 2026 — Motor de Cotización DDC (Secure SSR & Astro UI)
+- **Infraestructura Backend Híbrida:** Transición de `astro.config.mjs` a compatibilidad SSR (`@astrojs/node`) para habilitar *Endpoints* dinámicos robustos (`calcular-cotizacion-ddc.ts` y `quote-ddc.ts`).
+- **Backend API (quote-ddc) & Matriz JSON:** Endpoint cerrado que consulta la matriz `ddc-pricing-matrix.json` (extraída desde CSVs originales) y calcula con validación Zod las variaciones comerciales de forma segura, escondiendo los precios base.
+- **UI Frontend "Vanilla Native":** Réplica 1:1 de los criterios comerciales heredados (layout de 3 columnas, conversión de extensiones manual) renderizados puramente en Astro y Vanilla CSS/JS para un Performance óptimo, sustituyendo el inseguro React Island previo.
 - **Ruta Protegida Interna:** UI del Cotizador protegida bajo validación activa de Tokens *Supabase* en `/admin/cotizador.astro`.
 
 ### 23 mar 2026 — SEO Estructural y GEO (Quick Wins P0)

@@ -1,0 +1,595 @@
+---
+// CotizadorDDC.astro
+---
+
+<div class="ddc-wrapper">
+  
+  <header class="ddc-header">
+    <div class="header-top">
+      <h1>TAEC</h1>
+      <nav>
+        <a href="#" class="active">Cotizador</a>
+        <a href="#">Descripciones</a>
+      </nav>
+      <div class="header-actions">
+        <span>⚙ Opciones ▾</span>
+        <span>☀ ▾</span>
+      </div>
+    </div>
+    <h2>Cotiza tu proyecto</h2>
+  </header>
+
+  <div class="ddc-grid">
+    
+    <!-- COLUMNA 1: CURSOS -->
+    <div class="ddc-column">
+      <h3>Cursos</h3>
+      
+      <div class="ddc-form-group">
+        <label>Tipo de recurso:</label>
+        <select id="course-type" class="ddc-input">
+          <option value="none">Seleccione un tipo de recurso *</option>
+          <option value="storyline">A medida (Storyline)</option>
+          <option value="rise">Responsivo y ágil (Rise)</option>
+        </select>
+      </div>
+
+      <div class="ddc-form-group">
+        <label>Medida de extensión:</label>
+        <select id="course-measure" class="ddc-input">
+          <option value="none">Seleccione una medida de extensión *</option>
+          <option value="minutes">Duración específica (minutos)</option>
+          <option value="slides">Diapositivas / Pantallas</option>
+          <option value="blocks">Páginas o Bloques</option>
+        </select>
+      </div>
+
+      <a href="#" class="info-link">ⓘ ¿Qué incluye este nivel?</a>
+
+      <div class="ddc-form-group">
+        <label>Cantidad de datos según medida de extensión *</label>
+        <input type="number" id="course-quantity" class="ddc-input" min="0" placeholder="0" />
+      </div>
+
+      <div class="ddc-form-group">
+        <label class="disabled-label">Duración estimada (minutos)</label>
+        <input type="number" id="course-duration-computed" class="ddc-input disabled-input" readonly value="0" />
+      </div>
+
+      <div class="ddc-form-group">
+        <label>Multimedia:</label>
+        <select id="course-multimedia" class="ddc-input">
+          <option value="none">Seleccione un nivel *</option>
+          <option value="basic">Básico</option>
+          <option value="medium">Medio</option>
+          <option value="advanced">Alto / Especializado</option>
+        </select>
+      </div>
+      
+      <a href="#" class="info-link">ⓘ ¿Qué incluye este nivel?</a>
+
+      <div class="ddc-form-group">
+        <label>Instruccional:</label>
+        <select id="course-instructional" class="ddc-input">
+          <option value="none">Seleccione un nivel *</option>
+          <option value="none">Sin DI (Guion del cliente)</option>
+          <option value="basic">Básico</option>
+          <option value="medium">Medio</option>
+          <option value="advanced">Alto</option>
+        </select>
+      </div>
+      
+      <a href="#" class="info-link">ⓘ ¿Qué incluye este nivel?</a>
+
+      <button id="btn-quote-course" class="btn-primary">Cotizar curso</button>
+    </div>
+
+    <!-- COLUMNA 2: VIDEOS -->
+    <div class="ddc-column">
+      <h3>Videos</h3>
+      
+      <div class="ddc-form-group">
+        <label>Tipo de recurso:</label>
+        <select id="video-type" class="ddc-input">
+          <option value="none">Seleccione un tipo de recurso *</option>
+          <option value="vyond">Video animado (Vyond)</option>
+          <option value="adobe_video">Video a medida (Adobe)</option>
+        </select>
+      </div>
+
+      <div class="ddc-form-group">
+        <label>Medida de extensión:</label>
+        <select id="video-measure" class="ddc-input">
+          <option value="none">Seleccione una medida de extensión *</option>
+          <option value="minutes">Duración específica (minutos)</option>
+        </select>
+      </div>
+
+      <a href="#" class="info-link">ⓘ ¿Qué incluye este nivel?</a>
+
+      <div class="ddc-form-group">
+        <label>Cantidad de datos según medida de extensión *</label>
+        <input type="number" id="video-quantity" class="ddc-input" min="0" placeholder="0" />
+      </div>
+
+      <div class="ddc-form-group">
+        <label class="disabled-label">Duración estimada (minutos)</label>
+        <input type="number" id="video-duration-computed" class="ddc-input disabled-input" readonly value="0" />
+      </div>
+
+      <div class="ddc-form-group">
+        <label>Multimedia:</label>
+        <select id="video-multimedia" class="ddc-input">
+          <option value="none">Seleccione un nivel *</option>
+          <option value="basic">Básico</option>
+          <option value="medium">Medio</option>
+          <option value="advanced">Alto</option>
+        </select>
+      </div>
+
+      <a href="#" class="info-link">ⓘ ¿Qué incluye este nivel?</a>
+
+      <div class="ddc-form-group">
+        <label>Instruccional:</label>
+        <select id="video-instructional" class="ddc-input">
+          <option value="none">Seleccione un nivel *</option>
+          <option value="none">Sin DI (Guion del cliente)</option>
+          <option value="basic">Básico</option>
+          <option value="medium">Medio</option>
+          <option value="advanced">Alto</option>
+        </select>
+      </div>
+
+      <a href="#" class="info-link">ⓘ ¿Qué incluye este nivel?</a>
+
+      <button id="btn-quote-video" class="btn-primary">Cotizar video</button>
+    </div>
+
+    <!-- COLUMNA 3: RESUMEN -->
+    <div class="ddc-column summary-column">
+      <h3>Resumen</h3>
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Subtotal cursos:</span>
+          <span id="label-subtotal-courses" class="value">---</span>
+        </div>
+        <hr />
+        <div class="summary-row">
+          <span>Subtotal videos:</span>
+          <span id="label-subtotal-videos" class="value">---</span>
+        </div>
+        <hr class="total-hr" />
+        <div class="summary-row total-row">
+          <span>Total:</span>
+          <span id="label-total" class="value">$0</span>
+        </div>
+      </div>
+      
+      <!-- Opciones globales que añadieron en la arquitectura v3, ocultas de la vista normal para mantener la interfaz idéntica, pero las aplicaremos con defaults 
+           Se pueden mostrar con un toggle si el usuario lo requiere -->
+      <div class="global-settings" style="margin-top: 24px; padding: 16px; background: #f9fafb; border: 1px dashed #d1d5db; border-radius: 8px;">
+        <h4 style="margin:0 0 12px 0; font-size: 0.85rem; color: #6b7280; text-transform:uppercase;">Parámetros Avanzados (Arq v3)</h4>
+        <div class="ddc-form-group" style="margin-bottom: 8px;">
+           <label style="font-size:0.85rem;">Locución:</label>
+           <select id="global-voice" class="ddc-input" style="padding: 6px;">
+             <option value="none">Sin Locución / Incluida</option>
+             <option value="tts">Voz Sintética (IA)</option>
+             <option value="semi_pro">Locución Semi-Pro</option>
+             <option value="professional">Locución Profesional</option>
+           </select>
+        </div>
+        <div class="ddc-form-group">
+           <label style="font-size:0.85rem;">Volumen de proyecto:</label>
+           <select id="global-volume" class="ddc-input" style="padding: 6px;">
+             <option value="1">1 Unidad</option>
+             <option value="2_5">2 a 5 Unidades</option>
+             <option value="6_10">6 a 10 Unidades</option>
+             <option value="11_plus">Más de 10 Unidades</option>
+           </select>
+        </div>
+      </div>
+      
+    </div>
+
+  </div> <!-- end grid -->
+
+  <div class="ddc-footer">
+    <button id="btn-cancel" class="btn-secondary">Cancelar</button>
+  </div>
+
+</div>
+
+<style>
+/* Estilos replicando el pantallazo de UI proporcionado (Limpios, claros, corporativos) */
+.ddc-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.ddc-header {
+  padding: 24px;
+}
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+.header-top h1 {
+  color: #3b82f6;
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+.header-top nav {
+  display: flex;
+  gap: 24px;
+}
+.header-top nav a {
+  text-decoration: none;
+  color: #6b7280;
+  font-weight: 500;
+  padding-bottom: 16px;
+  margin-bottom: -17px;
+}
+.header-top nav a.active {
+  color: #2563eb;
+  border-bottom: 2px solid #2563eb;
+}
+.header-actions {
+  display: flex;
+  gap: 16px;
+  color: #6b7280;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.ddc-header h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  margin: 16px 0;
+  color: #111827;
+}
+
+.ddc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  padding: 0 32px 32px 32px;
+}
+
+@media (max-width: 900px) {
+  .ddc-grid { grid-template-columns: 1fr; }
+}
+
+.ddc-column h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+.ddc-form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ddc-form-group label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 4px;
+  position: absolute;
+  margin-top: 6px;
+  margin-left: 12px;
+  pointer-events: none;
+}
+.ddc-form-group .disabled-label {
+  color: #9ca3af;
+}
+
+.ddc-form-group select.ddc-input {
+  padding-top: 24px;
+  padding-bottom: 8px;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: center;
+}
+.ddc-form-group input.ddc-input {
+  padding-top: 24px;
+  padding-bottom: 8px;
+}
+
+.ddc-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding-left: 12px;
+  font-size: 0.95rem;
+  color: #111827;
+  background-color: #fff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.ddc-input:focus {
+  border-color: #3b82f6;
+}
+.disabled-input {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  border-color: #e5e7eb;
+}
+
+.info-link {
+  display: block;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-decoration: none;
+  margin-top: -10px;
+  margin-bottom: 16px;
+}
+.info-link:hover { text-decoration: underline; }
+
+.btn-primary {
+  width: 100%;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background-color 0.2s;
+}
+.btn-primary:hover { background-color: #005bb5; }
+
+.ddc-footer {
+  padding: 0 32px 32px 32px;
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* to match the columns width approx */
+}
+.btn-secondary {
+  width: 100%;
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-secondary:hover { background-color: #4b5563; }
+
+/* Summary Box */
+.summary-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.summary-row.total-row {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+.summary-box hr {
+  border: 0;
+  border-top: 1px solid #f3f4f6;
+  margin: 12px 0;
+}
+.summary-box hr.total-hr {
+  border-top: 1px solid #d1d5db;
+}
+.value {
+  color: #111827;
+  font-weight: 600;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Formatters
+  const formatMoney = (amount) => {
+    return new Intl.NumberFormat('es-MX', {
+      style: 'currency',
+      currency: 'MXN',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount);
+  };
+
+  // State variables for the summary
+  let coursesTotalRange = null; // { from, to }
+  let videosTotalRange = null;
+
+  const getNearestBand = (minutes, isVyond) => {
+    const min = parseInt(minutes, 10);
+    if (isNaN(min) || min <= 0) return isVyond ? "1" : "5";
+    if (isVyond) {
+      if (min > 10) return "10";
+      return min.toString();
+    } else {
+      if (min > 60) return "60";
+      return (Math.ceil(min / 5) * 5).toString();
+    }
+  };
+
+  const computeDisplayTotal = () => {
+    const lblCursos = document.getElementById('label-subtotal-courses');
+    const lblVideos = document.getElementById('label-subtotal-videos');
+    const lblTotal = document.getElementById('label-total');
+
+    let totalFrom = 0; let totalTo = 0;
+
+    if (coursesTotalRange) {
+      lblCursos.innerText = `${formatMoney(coursesTotalRange.from)} - ${formatMoney(coursesTotalRange.to)}`;
+      totalFrom += coursesTotalRange.from;
+      totalTo += coursesTotalRange.to;
+    } else {
+      lblCursos.innerText = "---";
+    }
+
+    if (videosTotalRange) {
+      lblVideos.innerText = `${formatMoney(videosTotalRange.from)} - ${formatMoney(videosTotalRange.to)}`;
+      totalFrom += videosTotalRange.from;
+      totalTo += videosTotalRange.to;
+    } else {
+      lblVideos.innerText = "---";
+    }
+
+    if (totalFrom === 0 && totalTo === 0) {
+      lblTotal.innerText = "$0";
+    } else {
+      lblTotal.innerText = `${formatMoney(totalFrom)} - ${formatMoney(totalTo)}`;
+    }
+  };
+
+  // Autocalculate duration minutes based on measure type
+  const measureCursos = document.getElementById('course-measure');
+  const qtyCursos = document.getElementById('course-quantity');
+  const durationCursos = document.getElementById('course-duration-computed');
+
+  const updateCursoDuration = () => {
+    const type = measureCursos.value;
+    const qty = parseFloat(qtyCursos.value) || 0;
+    if (type === 'minutes') {
+      durationCursos.value = qty;
+    } else if (type === 'slides') {
+      // 1 slide = 1 min approx
+      durationCursos.value = qty;
+    } else if (type === 'blocks') {
+      // 1 minute = ~3.75 pages/blocks approx based on CSV lookup
+      durationCursos.value = Math.ceil(qty / 3.75);
+    } else {
+      durationCursos.value = 0;
+    }
+  };
+
+  measureCursos.addEventListener('change', updateCursoDuration);
+  qtyCursos.addEventListener('input', updateCursoDuration);
+
+  // Same for videos
+  const measureVideos = document.getElementById('video-measure');
+  const qtyVideos = document.getElementById('video-quantity');
+  const durationVideos = document.getElementById('video-duration-computed');
+  
+  const updateVideoDuration = () => {
+     durationVideos.value = parseFloat(qtyVideos.value) || 0;
+  };
+  measureVideos.addEventListener('change', updateVideoDuration);
+  qtyVideos.addEventListener('input', updateVideoDuration);
+
+  // API Calls
+  const fetchQuote = async (payload) => {
+    const res = await fetch('/api/quote-ddc', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  };
+
+  document.getElementById('btn-quote-course').addEventListener('click', async () => {
+    const product = document.getElementById('course-type').value;
+    const instructionalLevel = document.getElementById('course-instructional').value;
+    const visualLevel = document.getElementById('course-multimedia').value;
+    const minutes = durationCursos.value;
+
+    if (product === 'none' || instructionalLevel === 'none' || visualLevel === 'none' || !minutes || minutes == 0) {
+      alert("Por favor rellene todos los campos requeridos de Cursos.");
+      return;
+    }
+
+    document.getElementById('btn-quote-course').innerText = "Cotizando...";
+
+    const res = await fetchQuote({
+      product,
+      durationBand: getNearestBand(minutes, false),
+      instructionalLevel,
+      visualLevel,
+      voiceType: document.getElementById('global-voice').value,
+      volumeBand: document.getElementById('global-volume').value,
+      clientProfile: 'average'
+    });
+
+    document.getElementById('btn-quote-course').innerText = "Cotizar curso";
+
+    if (res.errorCode) {
+       alert("Error Cursos: " + res.message);
+       coursesTotalRange = null;
+    } else {
+       coursesTotalRange = { from: res.estimatedFrom, to: res.estimatedTo };
+    }
+    computeDisplayTotal();
+  });
+
+  document.getElementById('btn-quote-video').addEventListener('click', async () => {
+    const product = document.getElementById('video-type').value;
+    const instructionalLevel = document.getElementById('video-instructional').value;
+    const visualLevel = document.getElementById('video-multimedia').value;
+    const minutes = durationVideos.value;
+
+    if (product === 'none' || instructionalLevel === 'none' || visualLevel === 'none' || !minutes || minutes == 0) {
+      alert("Por favor rellene todos los campos requeridos de Videos.");
+      return;
+    }
+
+    document.getElementById('btn-quote-video').innerText = "Cotizando...";
+
+    const res = await fetchQuote({
+      product,
+      durationBand: getNearestBand(minutes, true),
+      instructionalLevel,
+      visualLevel,
+      voiceType: document.getElementById('global-voice').value,
+      volumeBand: document.getElementById('global-volume').value,
+      clientProfile: 'average'
+    });
+
+    document.getElementById('btn-quote-video').innerText = "Cotizar video";
+
+    if (res.errorCode) {
+       alert("Error Videos: " + res.message);
+       videosTotalRange = null;
+    } else {
+       videosTotalRange = { from: res.estimatedFrom, to: res.estimatedTo };
+    }
+    computeDisplayTotal();
+  });
+
+  document.getElementById('btn-cancel').addEventListener('click', () => {
+    document.querySelectorAll('select').forEach(s => s.value = 'none');
+    document.querySelectorAll('input').forEach(i => i.value = '');
+    document.getElementById('global-voice').value = 'none';
+    document.getElementById('global-volume').value = '1';
+    durationCursos.value = 0;
+    durationVideos.value = 0;
+    coursesTotalRange = null;
+    videosTotalRange = null;
+    computeDisplayTotal();
+  });
+
+});
+</script>
