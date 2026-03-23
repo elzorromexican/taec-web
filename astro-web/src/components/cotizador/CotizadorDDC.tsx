@@ -71,9 +71,13 @@ export default function CotizadorDDC() {
       subtotal = subtotal * getVoiceMargin(voiceType);
       subtotal = subtotal * (1 - getVolumeDiscount(volumeBand));
 
-      const marginRange = 0.15;
-      const estimatedFrom = Math.floor(subtotal * (1 - marginRange));
-      const estimatedTo = Math.ceil(subtotal * (1 + marginRange));
+      // REGLA COMERCIAL: El subtotal calculado YA INCLUYE el margen de la tarifa por hora ($680). 
+      // Por lo tanto, el subtotal debe ser siempre el PISO MÍNIMO, nunca pivotar hacia abajo para no romper el suelo de rentabilidad.
+      const estimatedFrom = Math.floor(subtotal);
+      
+      // Hacia arriba, dejamos una ventana presupuestal para contingencias/scope-creep del 20%.
+      const marginCeiling = 1.20;
+      const estimatedTo = Math.ceil(subtotal * marginCeiling);
 
       setResult({
         product,
