@@ -61,7 +61,7 @@ const { theme = 'default' } = Astro.props;
     </div>
     
     <div class="footer-bottom">
-      <p>© {currentYear} TAEC &middot; Ciudad de México &middot; <a href="https://www.taec.com.mx/privacidad.php" target="_blank" rel="noopener noreferrer" style="opacity:.6; color: inherit; text-decoration: underline;">Aviso de privacidad</a> 
+      <p>© {currentYear} TAEC &middot; Ciudad de México &middot; <a href={r('/aviso-de-privacidad')} style="opacity:.6; color: inherit; text-decoration: underline; margin-right: 8px;">Aviso de privacidad</a> <a href={r('/terminos-y-condiciones')} style="opacity:.6; color: inherit; text-decoration: underline;">Términos y condiciones</a> 
       {!import.meta.env.PROD && <span class="build-badge">v{buildVersion} · {buildHash} · {buildDate}</span>}</p>
       <div class="footer-social">
         <a href={contactData.socials.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
