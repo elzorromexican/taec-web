@@ -288,7 +288,7 @@ import { r, base } from '../utils/paths';
         <!-- Formulario -->
         <div style="background:#F8FAFC;border:1.5px solid var(--border);border-radius:16px;padding:28px;">
           <p style="font-size:14px;font-weight:700;color:#111827;margin-bottom:20px;">Completa tus datos para descargar</p>
-          <form id="tot-lead-form" style="display:flex;flex-direction:column;gap:12px;">
+          <form id="tot-lead-form" data-keys={JSON.stringify(totaraEjs)} style="display:flex;flex-direction:column;gap:12px;">
             <input type="text"  id="tot-nombre"  placeholder="Nombre completo *" required
               style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;" class="tot-input" />
             <input type="text"  id="tot-empresa" placeholder="Empresa *" required
@@ -313,42 +313,7 @@ import { r, base } from '../utils/paths';
 
       </div>
     </section>
-    <script define:vars={{ totaraEjs }}>
-    (function(){
-      emailjs.init(totaraEjs.publicKey);
-      var form = document.getElementById('tot-lead-form');
-      if(!form) return;
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        var btn  = document.getElementById('tot-lead-btn');
-        var msg  = document.getElementById('tot-lead-msg');
-        var link = document.getElementById('tot-download-link');
-        btn.textContent = 'Enviando...';
-        btn.disabled = true;
-        var params = {
-          from_name: document.getElementById('tot-nombre').value,
-          empresa:   document.getElementById('tot-empresa').value,
-          reply_to:  document.getElementById('tot-email').value,
-          message:   'Cargo: ' + (document.getElementById('tot-cargo').value || '—') + '\nRecurso: Totara V20 Novedades PDF'
-        };
-        emailjs.send(totaraEjs.serviceId, totaraEjs.templateId, params)
-          .then(function(){
-            form.style.display = 'none';
-            link.style.display = 'block';
-            msg.style.display  = 'block';
-            msg.style.color    = '#10B981';
-            msg.textContent    = '✓ ¡Listo! Haz clic para descargar.';
-          })
-          .catch(function(){
-            form.style.display = 'none';
-            link.style.display = 'block';
-            msg.style.display  = 'block';
-            msg.style.color    = '#64748B';
-            msg.textContent    = 'Descarga lista.';
-          });
-      });
-    })();
-    </script>
+    <!-- EmailJS Logic delegada a src/scripts/totara-interactions.ts -->
 
     <!-- ══ FAQ ══ -->
     <FAQAccordion
@@ -392,25 +357,7 @@ import { r, base } from '../utils/paths';
         style="background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:0 4px;line-height:1;" aria-label="Cerrar">×</button>
     </div>
   </div>
-  <script is:inline>
-  (function(){
-    var bar = document.getElementById('tot-sticky-bar');
-    if(!bar) return;
-    var shown = false;
-    var btnDown = document.getElementById('tot-sticky-down');
-    var btnClose= document.getElementById('tot-sticky-close');
-    var hideBar = function() { bar.style.transform = 'translateY(100%)'; };
-    if(btnDown) btnDown.addEventListener('click', hideBar);
-    if(btnClose) btnClose.addEventListener('click', hideBar);
-
-    window.addEventListener('scroll', function(){
-      if(!shown && window.scrollY > 600){
-        bar.style.transform = 'translateY(0)';
-        shown = true;
-      }
-    }, { passive: true });
-  })();
-  </script>
+  <script src="../scripts/totara-interactions.ts"></script>
   <style is:global>
     .tot-input:focus { border-color: #004775 !important; }
   </style>
