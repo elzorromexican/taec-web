@@ -25,9 +25,10 @@ const {
   footerTheme = "default"
 } = Astro.props;
 
+import { base } from '../utils/paths';
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nuevo.taec.com.mx');
 // BASE_URL = '/' prod, '/taec-web/' staging — use it to build the absolute OG image URL
-const base = import.meta.env.BASE_URL;
 const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}${image.replace(/^\//,'')}`) : `${base}assets/logos/taec-og.png`, Astro.site || 'https://nuevo.taec.com.mx');
 
 /**
