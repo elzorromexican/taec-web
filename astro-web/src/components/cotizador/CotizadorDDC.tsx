@@ -21,7 +21,7 @@ export default function CotizadorDDC() {
     setResult(null);
 
     try {
-      const res = await fetch('/api/calcular-cotizacion-ddc', {
+      const res = await fetch(import.meta.env.BASE_URL + 'api/calcular-cotizacion-ddc', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -35,12 +35,32 @@ export default function CotizadorDDC() {
         })
       });
 
-      const data = await res.json();
+      const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseErr) {
+        // Fallback cuando GitHub Pages devuelve el 404.html por falta de SSR
+        throw new Error('SSR_UNAVAILABLE');
+      }
+
       if (!res.ok) throw new Error(data.message || 'Error calculando cotización.');
 
       setResult(data);
     } catch (err: any) {
-      setError(err.message);
+      if (err.message === 'SSR_UNAVAILABLE' || err.message.includes('Failed to fetch')) {
+        // Proveer MOCK DATA seguro para que la UI no reviente y el usuario pueda probar el flujo visual
+        setResult({
+          estimatedFrom: 45000,
+          estimatedTo: 65000,
+          currency: 'MXN',
+          deliveryRange: '4 a 6 semanas',
+          disclaimer: '⚠️ ESTIMACIÓN DE MUESTRA (Modo Demo). El cálculo real está resguardado en el servidor, característica inactiva en GitHub Pages.',
+          leadMessage: 'Para obtener una cotización real y precisa, contáctanos.'
+        });
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
