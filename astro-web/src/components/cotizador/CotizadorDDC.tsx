@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CotizadorDDC.css';
+import pricingMatrix from '../../data/ddc-pricing-matrix.json';
 
 export default function CotizadorDDC() {
   const [product, setProduct] = useState('storyline');
@@ -21,46 +22,71 @@ export default function CotizadorDDC() {
     setResult(null);
 
     try {
-      const res = await fetch(import.meta.env.BASE_URL + 'api/calcular-cotizacion-ddc', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          product,
-          durationBand,
-          instructionalLevel,
-          visualLevel: product !== 'vyond' ? visualLevel : undefined,
-          animationLevel: product === 'vyond' ? animationLevel : undefined,
-          voiceType,
-          volumeBand
-        })
+      // Bypass: Motor Client-Side temporal para GitHub Pages
+      const TARIFA_HH = 680; // Hardcode temporal del ENV
+      
+      const getVoiceMargin = (type: string) => {
+        if (type === 'tts') return 1.05;
+        if (type === 'semi_pro') return 1.10;
+        if (type === 'professional') return 1.20;
+        return 1.0;
+      };
+
+      const getVolumeDiscount = (band: string) => {
+        if (band === '2_5') return 0.05;
+        if (band === '6_10') return 0.08;
+        if (band === '11_plus') return 0.10;
+        return 0.0;
+      };
+      
+      const mapLevel = (level: string) => {
+        if (level === 'none') return 'Sin DI';
+        if (level === 'basic') return 'Básico';
+        if (level === 'medium') return 'Medio';
+        if (level === 'advanced') return 'Alto';
+        return 'Básico';
+      };
+
+      const mapDuration = (band: string) => {
+        const parts = String(band).split('_');
+        return parts[parts.length - 1]; 
+      };
+
+      // Simular delay de cálculo para la UX de React
+      await new Promise(r => setTimeout(r, 600));
+
+      let targetMatrix = (pricingMatrix as any)[product];
+      let dmLevel = mapLevel((product === 'vyond' ? animationLevel : visualLevel) || 'basic');
+      let diLevel = mapLevel(instructionalLevel);
+      let durationKey = mapDuration(durationBand);
+      
+      let matrixKey = `${dmLevel}_${diLevel}`;
+      let baseHH = targetMatrix?.[matrixKey]?.[durationKey] || 0;
+
+      if (!baseHH) {
+        throw new Error('No hay tarifas base definidas para esta combinación exacta de niveles y duración. Ajusta los parámetros.');
+      }
+
+      let subtotal = baseHH * TARIFA_HH;
+      subtotal = subtotal * getVoiceMargin(voiceType);
+      subtotal = subtotal * (1 - getVolumeDiscount(volumeBand));
+
+      const marginRange = 0.15;
+      const estimatedFrom = Math.floor(subtotal * (1 - marginRange));
+      const estimatedTo = Math.ceil(subtotal * (1 + marginRange));
+
+      setResult({
+        product,
+        estimatedFrom,
+        estimatedTo,
+        currency: 'MXN',
+        deliveryRange: '15-20 días hábiles (Promedio)',
+        disclaimer: '⚠️ ESTIMADOR INTERNO (Modo Client-Side). El componente React ha procesado exitosamente la matemática del JSON base sin depender del Backend SSG.',
+        leadMessage: 'Si los números cuadran a las métricas del Q2, podemos habilitar esta matriz oficial en Vercel.'
       });
 
-      const text = await res.text();
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (parseErr) {
-        // Fallback cuando GitHub Pages devuelve el 404.html por falta de SSR
-        throw new Error('SSR_UNAVAILABLE');
-      }
-
-      if (!res.ok) throw new Error(data.message || 'Error calculando cotización.');
-
-      setResult(data);
     } catch (err: any) {
-      if (err.message === 'SSR_UNAVAILABLE' || err.message.includes('Failed to fetch')) {
-        // Proveer MOCK DATA seguro para que la UI no reviente y el usuario pueda probar el flujo visual
-        setResult({
-          estimatedFrom: 45000,
-          estimatedTo: 65000,
-          currency: 'MXN',
-          deliveryRange: '4 a 6 semanas',
-          disclaimer: '⚠️ ESTIMACIÓN DE MUESTRA (Modo Demo). El cálculo real está resguardado en el servidor, característica inactiva en GitHub Pages.',
-          leadMessage: 'Para obtener una cotización real y precisa, contáctanos.'
-        });
-      } else {
-        setError(err.message);
-      }
+      setError(err.message);
     } finally {
       setLoading(false);
     }
