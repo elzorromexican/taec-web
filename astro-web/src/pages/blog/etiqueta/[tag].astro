@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { r } from '../../../utils/paths';
+
+const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
+export async function getStaticPaths() {
+  const _slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  const allPosts = await getCollection('blog');
+  const uniqueTags = [...new Set(allPosts.map(p => p.data.tags || []).flat())];
+
+  return uniqueTags.map((tag: string) => {
+    const slug = _slugify(tag);
+    return {
+      params: { tag: slug },
+      props: { 
+        tagName: tag, 
+        posts: allPosts.filter(p => p.data.tags?.map((t:string) => _slugify(t)).includes(slug))
+      },
+    };
+  });
+}
+
+const { tagName, posts } = Astro.props;
+---
+
+<BaseLayout 
+  title={`Artículos sobre "${tagName}" | Blog TAEC`}
+  description={`Explora todos los artículos del blog TAEC que hablan sobre ${tagName}.`}
+  section="Recursos"
+>
+  <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      
+      <a href={r('/blog')} style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: #78716c; margin-bottom: 32px; display: inline-block;">
+        &larr; Volver al Blog general
+      </a>
+      
+      <header style="margin-bottom: 48px; padding-bottom: 24px; border-bottom: 2px solid #e7e3db;">
+        <span style="font-family: monospace; background: #f0fdf4; color: #166534; padding: 6px 16px; border-radius: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em;">
+          Explorando la serie: {tagName}
+        </span>
+        <h1 style="font-family: var(--font-display, Georgia, serif); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; color: #1c1917; margin-top: 24px; line-height: 1.15; letter-spacing: -0.01em;">
+          {posts.length} artículo{posts.length === 1 ? '' : 's'} disponible{posts.length === 1 ? '' : 's'}
+        </h1>
+      </header>
+
+      <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+        {posts.map((post: any) => (
+          <a href={r(`/blog/${post.id.replace(/\\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; background: #ffffff; transition: transform 0.2s, box-shadow 0.2s;" class="post-rel-card">
+            <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.25rem; color: #0f172a; font-weight: 600; line-height: 1.35; margin-bottom: 12px;">{post.data.title}</span>
+            <p style="font-size: 14px; color: #475569; margin-bottom: 16px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{post.data.description || ''}</p>
+            <span style="font-family: monospace; font-size: 11px; color: #1d4ed8; margin-top: auto; font-weight: 600;">Leer completo &rarr;</span>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<style is:global>
+.post-rel-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+</style>

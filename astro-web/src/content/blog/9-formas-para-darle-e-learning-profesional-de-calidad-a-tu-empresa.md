@@ -3,7 +3,7 @@ title: "9 FORMAS PARA DARLE E-LEARNING PROFESIONAL DE CALIDAD A TU EMPRESA"
 description: "9 FORMAS PARA DARLE E-LEARNING PROFESIONAL DE CALIDAD A TU EMPRESA"
 date: "31 mayo, 2021"
 author: "stephan goirand"
-tags: ["aprendizaje", "blended", "calidad", "e-learning"]
+tags: ["Aprendizaje", "Blended", "Calidad", "e-learning"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/06/EDUCATION_PURPLE.jpg)

@@ -3,7 +3,7 @@ title: "La creatividad en el mundo del e-learning"
 description: "La creatividad en el mundo del e-learning"
 date: "20 septiembre, 2022"
 author: "elba loera"
-tags: ["capacitación", "creatividad", "cursos", "e-learning", "diseño", "instruccional", "materiales", "multimedia"]
+tags: ["Capacitación", "Creatividad", "Cursos", "e-learning", "Diseño", "Instruccional", "Materiales", "Multimedia"]
 ---
 
 ¿Por qué la creatividad es importante al crear cursos e-learning? El desarrollar materiales de aprendizaje efectivos y dinámicos no es una tarea hecha para mentes cuadradas. La realidad es que un diseñador instruccional debe tener un pensamiento creativo capaz de estructurar la información de la manera más impactante posible.

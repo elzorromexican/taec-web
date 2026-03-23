@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { r } from '../../utils/paths';
 
+const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
 // Genera todas las rutas posibles basándose en los .md de src/content/glosario
 export async function getStaticPaths() {
   const terms = await getCollection('glosario');
@@ -13,6 +15,19 @@ export async function getStaticPaths() {
 }
 
 const { term } = Astro.props;
+
+// Obtener los términos del glosario que comparten etiquetas (Circular Interlinking Glosario-a-Glosario)
+const allTerms = await getCollection('glosario');
+const relatedTermsFound = allTerms
+  .filter(t => t.id !== term.id && t.data.related?.some((rTag: string) => term.data.related?.includes(rTag)))
+  .slice(0, 3);
+
+// Obtener los artículos del blog que referencian este término (Circular Interlinking)
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts.filter(post => {
+  if (!post.data.related_terms) return false;
+  return post.data.related_terms.some((ref: any) => ref.id === term.id);
+});
 ---
 
 <BaseLayout 
@@ -41,12 +56,26 @@ const { term } = Astro.props;
       
       {term.data.related && term.data.related.length > 0 && (
         <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e7e3db;">
-          <h3 style="font-size: 14px; font-weight: 600; color: #1c1917; margin-bottom: 12px; margin-top:0;">Términos relacionados:</h3>
+          <h3 style="font-size: 14px; font-weight: 600; color: #1c1917; margin-bottom: 12px; margin-top:0;">Explorar etiquetas:</h3>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            {term.data.related.map(rTag => (
-              <span style="font-family: monospace; background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;">
+            {term.data.related.map((rTag: string) => (
+              <a href={r(`/glosario/etiqueta/${slugify(rTag)}`)} class="hover-tag" style="font-family: monospace; background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; transition: background 0.2s;">
                 {rTag}
-              </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {relatedTermsFound.length > 0 && (
+        <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e7e3db;">
+          <h3 style="font-size: 14px; font-weight: 600; color: #1c1917; margin-bottom: 16px; margin-top:0;">Términos Recomendados:</h3>
+          <div style="display: grid; gap: 16px;">
+            {relatedTermsFound.map((t: any) => (
+              <a href={r(`/glosario/${t.id.replace(/\\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; background: #f8fafc; transition: transform 0.2s;" class="term-rel-card">
+                <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.1rem; color: #0f172a; font-weight: 600; margin-bottom: 6px;">{t.data.title}</span>
+                <span style="font-family: monospace; font-size: 11px; color: #64748b;">Concepto &rarr;</span>
+              </a>
             ))}
           </div>
         </div>
@@ -55,3 +84,8 @@ const { term } = Astro.props;
     </div>
   </main>
 </BaseLayout>
+
+<style is:global>
+.hover-tag:hover { background: #dcfce7 !important; color: #14532d !important; }
+.term-rel-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+</style>

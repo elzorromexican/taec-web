@@ -3,7 +3,7 @@ title: "Cómo pasar del aprendizaje tradicional al aprendizaje centrado en el al
 description: "Cómo pasar del aprendizaje tradicional al aprendizaje centrado en el alumno: BREVE COMPARACIÓN."
 date: "20 octubre, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "Capacitación", "Aprendizaje"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/11/ESFERA_CIRCULO_662x367.jpg)

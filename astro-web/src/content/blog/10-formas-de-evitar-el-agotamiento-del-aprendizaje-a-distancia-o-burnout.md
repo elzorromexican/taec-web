@@ -3,7 +3,7 @@ title: "10 formas de evitar el agotamiento del aprendizaje a distancia o burnout
 description: "10 formas de evitar el agotamiento del aprendizaje a distancia o burnout"
 date: "5 octubre, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Salud mental", "Educación a distancia", "Inteligencia artificial"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/10/BURNOUT_662x367.jpg)

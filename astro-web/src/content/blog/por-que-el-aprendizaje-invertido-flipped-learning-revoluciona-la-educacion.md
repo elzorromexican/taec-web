@@ -3,7 +3,7 @@ title: "Por qué el aprendizaje invertido (Flipped Learning) revoluciona la educ
 description: "Por qué el aprendizaje invertido (Flipped Learning) revoluciona la educación"
 date: "7 septiembre, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "Capacitación", "Aprendizaje"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/09/LECTURA_DE_CABEZA_662x367.jpg)

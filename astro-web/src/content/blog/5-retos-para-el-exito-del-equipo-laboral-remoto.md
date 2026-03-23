@@ -3,7 +3,7 @@ title: "5 retos para el éxito del equipo laboral remoto"
 description: "5 retos para el éxito del equipo laboral remoto"
 date: "26 enero, 2022"
 author: "stephan goirand"
-tags: ["conexión", "empleados", "equipo", "exito", "pandemia", "remoto", "retos", "trabajo", "desde", "casa"]
+tags: ["Conexión", "Empleados", "Equipo", "Exito", "Pandemia", "Remoto", "Retos", "Trabajo", "Desde", "Casa"]
 ---
 
 ![](https://lh3.googleusercontent.com/ZKsQynel6QTUunzxCGUOdKYZj_MvMU2T5HeKsDVLd6_LNgCidX_dDuqphJBM6qVTMZRbTM9hOiBDnUynbf1iQz73NrPAUhdkQEGeJNpc89brpRypr0Od4upDubL_GdP-UowSByo)

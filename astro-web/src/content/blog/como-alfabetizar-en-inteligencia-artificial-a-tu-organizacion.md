@@ -3,7 +3,7 @@ title: "Cómo alfabetizar en Inteligencia Artificial a tu organización"
 description: "Cómo alfabetizar en Inteligencia Artificial a tu organización"
 date: "9 mayo, 2024"
 author: "elba loera"
-tags: ["ia", "alfabetización", "aprendizaje", "capacitación", "e-learning", "inteligencia", "artificial", "lms", "tecnología"]
+tags: ["Ia", "Alfabetización", "Aprendizaje", "Capacitación", "e-learning", "Inteligencia", "Artificial", "LMS", "Tecnología"]
 ---
 
 La Inteligencia Artificial (IA) se ha integrado profundamente en nuestras vidas diarias, influyendo en áreas que a menudo pasan desapercibidas. Desde las recomendaciones personalizadas en plataformas de streaming hasta los asistentes virtuales en nuestros teléfonos, la IA está en todas partes, remodelando industrias y transformando nuestra interacción con el mundo.

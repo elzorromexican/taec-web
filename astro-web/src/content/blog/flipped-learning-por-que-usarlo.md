@@ -3,7 +3,7 @@ title: "Flipped learning: ¿por qué usarlo?"
 description: "Flipped learning: ¿por qué usarlo?"
 date: "2 mayo, 2023"
 author: "elba loera"
-tags: ["aprendizaje", "aula", "invertida", "capacitación", "e-learning", "educación", "flipped", "learning", "tecnología"]
+tags: ["Aprendizaje", "Aula", "Invertida", "Capacitación", "e-learning", "Educación", "Flipped", "Learning", "Tecnología"]
 ---
 
 El aula invertida es una metodología de enseñanza que va tomando más importancia poco a poco. En el _flipped learning_ los estudiantes se vuelven **más participativos en su propio camino de aprendizaje,** pues a través de la orientación del profesor, pueden continuar su enseñanza **de manera autónoma fuera del aula de clase.**

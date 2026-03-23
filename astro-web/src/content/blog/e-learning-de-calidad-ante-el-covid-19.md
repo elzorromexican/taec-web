@@ -3,7 +3,7 @@ title: "E-learning de calidad ante el COVID-19"
 description: "E-learning de calidad ante el COVID-19"
 date: "15 marzo, 2021"
 author: "stephan goirand"
-tags: ["capacitación", "covid", "e-learning", "evolución", "retos", "tecnología"]
+tags: ["Capacitación", "Covid", "e-learning", "Evolución", "Retos", "Tecnología"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/CORONAVIRUS_662x367.jpg)

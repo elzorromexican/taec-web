@@ -3,7 +3,7 @@ title: "Crea buenas historias para tu diseño instruccional"
 description: "Crea buenas historias para tu diseño instruccional"
 date: "5 enero, 2021"
 author: "stephan goirand"
-tags: ["conflicto", "diseño", "dopamina", "historia", "instruccional", "neurotransmisores", "oxitocina", "personaje"]
+tags: ["Conflicto", "Diseño", "Dopamina", "Historia", "Instruccional", "Neurotransmisores", "Oxitocina", "Personaje"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/WHATS_YOUR_STORY_662x367.jpg)

@@ -3,7 +3,7 @@ title: "Microlearning: el aprendizaje más innovador"
 description: "Microlearning: el aprendizaje más innovador"
 date: "15 marzo, 2023"
 author: "elba loera"
-tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "elearning", "innovación", "lms", "microlearning", "productividad"]
+tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Elearning", "Innovación", "LMS", "Microlearning", "Productividad"]
 ---
 
 El microlearning es una metodología de aprendizaje basada en la dosificación de la información y se ha convertido en una herramienta muy valiosa para las organizaciones en el mundo actual. Esta técnica de formación es una de las más innovadoras, pues es capaz de adaptarse a las necesidades de los aprendices y por esta razón, su efectividad y eficiencia es mucho mayor.

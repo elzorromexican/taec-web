@@ -3,7 +3,7 @@ title: "¿Cómo gamificar un curso en línea correctamente?"
 description: "¿Cómo gamificar un curso en línea correctamente?"
 date: "22 febrero, 2022"
 author: "stephan goirand"
-tags: ["aprendizaje", "clases", "en", "linea", "compromiso", "educación", "exito", "gamificación", "juegos", "serios"]
+tags: ["Aprendizaje", "Clases", "En", "Linea", "Compromiso", "Educación", "Exito", "Gamificación", "Juegos", "Serios"]
 ---
 
 ![](https://lh6.googleusercontent.com/6cFAs3JKRIe4X9rJMmDu6MXBM5NJGDlE6tXSS9S7Kvlp099JoE85CuCRlbyCQ1Vt_MRbaVp1v-JG9Tvjij71y4iPlC8tnHNCF9Us9V4pULqVSVVB8b-Ga5eKA5Sv-5pShBn5ICE)

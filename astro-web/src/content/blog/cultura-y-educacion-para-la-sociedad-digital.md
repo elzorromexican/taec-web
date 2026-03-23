@@ -3,7 +3,7 @@ title: "Cultura y educación para la sociedad digital"
 description: "Cultura y educación para la sociedad digital"
 date: "28 julio, 2021"
 author: "stephan goirand"
-tags: ["cultura", "digital", "educación", "sociedad", "tecnología"]
+tags: ["Cultura", "Digital", "Educación", "Sociedad", "Tecnología"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/07/WORLD_BLUE_CONNECTIONx367.jpg)

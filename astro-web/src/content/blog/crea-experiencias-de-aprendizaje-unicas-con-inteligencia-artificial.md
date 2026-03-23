@@ -3,7 +3,7 @@ title: "Crea experiencias de aprendizaje únicas con inteligencia artificial"
 description: "Crea experiencias de aprendizaje únicas con inteligencia artificial"
 date: "24 mayo, 2022"
 author: "elba loera"
-tags: ["aprendizaje", "adaptativo", "capacitación", "diseño", "instruccional", "e-learning", "inteligencia", "artificial", "lms", "rutas", "de"]
+tags: ["Aprendizaje", "Adaptativo", "Capacitación", "Diseño", "Instruccional", "e-learning", "Inteligencia", "Artificial", "LMS", "Rutas", "De"]
 ---
 
 La inteligencia artificial está abarcando cada vez más aspectos de la vida cotidiana y quizá puede sonar a un concepto del futuro que está lejos de nuestras manos, pero la realidad es que está inmersa en (casi) todo lo que hacemos día con día y hasta en la forma de enseñar. Hoy te contaremos cómo **crear experiencias de aprendizaje únicas con la inteligencia artificial (IA).**

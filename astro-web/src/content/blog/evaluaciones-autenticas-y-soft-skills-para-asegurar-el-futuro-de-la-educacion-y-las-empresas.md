@@ -3,7 +3,7 @@ title: "Evaluaciones auténticas y “soft-skills” para asegurar el futuro de 
 description: "Evaluaciones auténticas y “soft-skills” para asegurar el futuro de la educación y las empresas"
 date: "3 noviembre, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Evaluación", "Soft skills", "e-learning"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/11/CHAT_662x367.jpg)

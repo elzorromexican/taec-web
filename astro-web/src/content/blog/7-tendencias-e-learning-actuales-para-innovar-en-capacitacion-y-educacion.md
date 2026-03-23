@@ -3,7 +3,7 @@ title: "7 tendencias e-learning actuales para innovar en capacitación y educaci
 description: "7 tendencias e-learning actuales para innovar en capacitación y educación"
 date: "28 junio, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Inteligencia artificial", "e-learning", "Capacitación"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/06/INCREMENTO_662x367.jpg)

@@ -1,0 +1,467 @@
+<!--
+/**
+ * @name CodeSentinel (Code Reviewer)
+ * @version 3.2 (Ultimate Local Edition)
+ * @description Auditor de código independiente con arquitectura local. No integra Backend por diseño.
+ * @inputs Código fuente y API Key guardada en localStorage.
+ * @outputs Reporte de auditoría Markdown interactivo y descargable.
+ * @dependencies Marked.js, Highlight.js, DOMPurify
+ * @created 2026-03-22
+ * @updated 2026-03-22 12:25:00
+ */
+-->
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CodeSentinel | Auditor de Código Web Local</title>
+  <meta name="description" content="Herramienta local sin servidor para auditar la calidad, accesibilidad y SEO de tu código Frontend.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.taec.com.mx/codesentinel/">
+  <meta name="author" content="CodeSentinel TAEC">
+  <meta name="theme-color" content="#0f172a">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:title" content="CodeSentinel | Auditor de código web con IA">
+  <meta property="og:description" content="Revisa accesibilidad, SEO y rendimiento en un solo reporte descargable.">
+  <meta property="og:url" content="https://www.taec.com.mx/codesentinel/">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --danger: #ef4444;
+      --success: #10b981;
+      --border: #475569;
+      --radius: 8px;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 2rem; min-height: 100vh; display: flex; flex-direction: column; gap: 1.5rem; }
+    
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 10000; }
+    .skip-link:focus { left: 1rem; top: 1rem; background: white; color: black; padding: 0.5rem; border-radius: 4px; }
+    
+    .btn:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, .drop-zone:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+
+    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+    h1 { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+    
+    .btn { background: var(--primary); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: var(--radius); cursor: pointer; font-weight: 500; transition: background 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;}
+    .btn:hover { background: var(--primary-hover); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: var(--card); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; flex: 1; min-height: 0; }
+    
+    .editor-panel, .preview-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; overflow: hidden; }
+    .panel-header { background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border); padding: 0.8rem 1rem; font-weight: 600; font-size: 0.9rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center;}
+    
+    /* Drag & Drop */
+    .drop-zone { flex: 1; display: flex; flex-direction: column; position: relative;}
+    .upload-actions { padding: 1rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; background: rgba(0,0,0,0.1); }
+    .upload-actions .btn { padding: 0.4rem 0.8rem; font-size: 0.85rem;}
+    .drop-zone.dragover { background: rgba(59, 130, 246, 0.1); }
+    textarea { flex: 1; width: 100%; resize: none; background: transparent; border: none; color: var(--text); font-family: monospace; font-size: 0.9rem; padding: 1rem; outline: none; }
+    
+    /* Output */
+    .output-content { padding: 1.5rem; overflow-y: auto; flex: 1; line-height: 1.6; font-size: 0.95rem; }
+    .output-content h2, .output-content h3 { margin-block: 1rem 0.5rem; }
+    .output-content p { margin-bottom: 1rem; color: #cbd5e1; }
+    .output-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+    .output-content pre { margin: 1rem 0; border-radius: var(--radius); position: relative;}
+    
+    .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(255,255,255,0.1); border: none; color: white; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
+    .output-content pre:hover .copy-btn, .copy-btn:focus { opacity: 1; }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); }
+
+    /* Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--card); padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border); width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .input-group { margin-bottom: 1.5rem; }
+    .input-group label { display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 500; }
+    .input-group input, .input-group select { width: 100%; padding: 0.6rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); color: white; transition: border-color 0.2s; outline: none;}
+    
+    /* Toasts CSS States */
+    #appMessage { position: fixed; bottom: 20px; right: 20px; background: var(--card); border: 1px solid var(--border); padding: 1rem 1.5rem; border-radius: var(--radius); box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000; transition: transform 0.3s, opacity 0.3s; opacity: 0; transform: translateY(20px);}
+    #appMessage:not([hidden]) { opacity: 1; transform: translateY(0); }
+    #appMessage[data-type="error"] { border-left: 4px solid var(--danger); }
+    #appMessage[data-type="success"] { border-left: 4px solid var(--success); }
+    #appMessage[data-type="info"] { border-left: 4px solid var(--primary); }
+
+    /* Badge CSS States */
+    #statusBadge[data-state="idle"] { color: var(--muted); }
+    #statusBadge[data-state="loading"] { color: var(--primary); }
+    #statusBadge[data-state="success"] { color: var(--success); }
+    #statusBadge[data-state="error"] { color: var(--danger); }
+
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--muted); text-align: center; gap: 1rem;}
+    .spinner { border: 3px solid rgba(255,255,255,0.1); border-left-color: var(--primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: none; }
+    .loading .spinner { display: inline-block; }
+    .loading .btn-text { display: none; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <a href="#mainContent" class="skip-link">Saltar al contenido principal</a>
+  <div id="appMessage" role="alert" aria-live="assertive" hidden></div>
+
+  <!-- Modal Selector -->
+  <div class="modal-overlay" id="apiKeyModal" role="dialog" aria-modal="true" aria-labelledby="apiKeyModalTitle" aria-hidden="true">
+    <div class="modal">
+      <h2 id="apiKeyModalTitle" style="margin-bottom:0.5rem;">🔑 Proveedor IA</h2>
+      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">Esta herramienta corre 100% local en tu navegador. Tu llave se queda solo en tu dispositivo.</p>
+      
+      <div class="input-group">
+        <label for="providerSelect">Modelo Preferido</label>
+        <select id="providerSelect">
+          <option value="gemini">Google Gemini (Óptimo para Frontend)</option>
+          <option value="anthropic">Anthropic Claude</option>
+          <option value="openai">OpenAI ChatGPT</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="apiKeyInput" id="apiKeyLabel">API Key</label>
+        <input type="password" id="apiKeyInput" autocomplete="off" placeholder="Ingresa tu llave secreta">
+      </div>
+      
+      <button class="btn" id="saveKeyBtn" type="button" style="width: 100%; justify-content: center;">Guardar Credencial</button>
+      <button class="btn btn-outline" id="closeKeyBtn" type="button" style="width: 100%; justify-content: center; margin-top:0.5rem; display: none;">Cancelar</button>
+    </div>
+  </div>
+
+  <header>
+    <h1>🛡️ CodeSentinel</h1>
+    <div>
+      <span id="providerBadge" style="font-size:0.75rem; background:rgba(255,255,255,0.1); padding:0.3rem 0.6rem; border-radius:4px; margin-right:1rem; display:none;"></span>
+      <button class="btn btn-outline" id="manageKeyBtn" type="button">⚙️ Configurar</button>
+      <button class="btn" id="analyzeBtn" type="button">
+        <span class="spinner"></span>
+        <span class="btn-text">Auditar Código →</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="mainContent" class="container">
+    
+    <section class="editor-panel" aria-labelledby="sourcePanelTitle">
+      <div class="panel-header" id="sourcePanelTitle">
+        <span>Fuente de Código</span>
+      </div>
+      <div class="drop-zone" id="dropZone">
+        <div class="upload-actions">
+          <button type="button" class="btn btn-outline" id="uploadTrigger" aria-label="Adjuntar archivo local">Adjuntar Archivo</button>
+          <span style="font-size:0.8rem; color:var(--muted)">o simplemente pega el código ↓</span>
+        </div>
+        <input type="file" id="fileInput" accept=".html,.htm,.js,.css,.astro,.md,.txt,.json" hidden>
+        <textarea id="codeInput" placeholder="<!-- Pega tu código aquí... -->" spellcheck="false" aria-label="Editor de código fuente"></textarea>
+      </div>
+    </section>
+
+    <section class="preview-panel" aria-labelledby="reportPanelTitle">
+      <div class="panel-header" id="reportPanelTitle">
+        <span>Análisis de Auditoría</span>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <span id="statusBadge" role="status" aria-live="polite" aria-atomic="true" data-state="idle" style="font-size: 0.75rem;">Esperando...</span>
+          <button class="btn btn-outline" id="downloadBtn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem; display:none;" type="button">⬇️ Descargar .md</button>
+        </div>
+      </div>
+      <div class="output-content" id="outputContent">
+        <div class="empty-state">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 6v6l4 2"/></svg>
+          <p>La herramienta está lista. Selecciona un archivo o pega el código.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_PROVIDER = 'codesentinel_provider';
+    const PROMPT = `Eres CodeSentinel, Auditor de Código. Evalúa WAI-ARIA (Accesibilidad), SEO/GeoTags LATAM, y Performance/Clean Code. Devuelve la salida en Markdown con Tablas y bloques de Fix Sugeridos limpios.`;
+
+    let appInitialized = false;
+    let toastTimer;
+    let lastGeneratedMarkdown = ""; 
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await ensureLibraries();
+      initApp();
+    });
+
+    async function ensureLibraries() {
+      const loadScript = (src) => new Promise((res, rej) => {
+        if (document.querySelector(`script[src="${src}"]`)) return res();
+        const s = document.createElement('script'); s.src = src;
+        s.onload = res; s.onerror = rej; document.head.appendChild(s);
+      });
+      await loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js');
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js');
+    }
+
+    function initApp() {
+      if (appInitialized) return;
+      appInitialized = true;
+
+      document.getElementById('manageKeyBtn').addEventListener('click', openModal);
+      document.getElementById('saveKeyBtn').addEventListener('click', saveApiKey);
+      document.getElementById('closeKeyBtn').addEventListener('click', closeModal);
+      document.getElementById('analyzeBtn').addEventListener('click', analyzeCode);
+      document.getElementById('downloadBtn').addEventListener('click', downloadReport);
+      
+      // Auto-load proper API key into modal when provider changes
+      document.getElementById('providerSelect').addEventListener('change', (e) => {
+         const prov = e.target.value;
+         document.getElementById('apiKeyInput').value = localStorage.getItem(`codesentinel_key_${prov}`) || '';
+         document.getElementById('apiKeyLabel').textContent = `API Key de ${prov.charAt(0).toUpperCase() + prov.slice(1)}`;
+      });
+      
+      const uploadTrigger = document.getElementById('uploadTrigger');
+      const fileInput = document.getElementById('fileInput');
+      const dropZone = document.getElementById('dropZone');
+
+      uploadTrigger.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (file) handleFile(file);
+      });
+
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); }));
+      ['dragenter', 'dragover'].forEach(evt => dropZone.addEventListener(evt, () => dropZone.classList.add('dragover')));
+      ['dragleave', 'drop'].forEach(evt => dropZone.addEventListener(evt, () => dropZone.classList.remove('dragover')));
+
+      dropZone.addEventListener('drop', e => {
+        const file = e.dataTransfer?.files?.[0];
+        if (file) handleFile(file);
+      });
+
+      // Trap Focus robusto
+      const modalCont = document.querySelector('#apiKeyModal .modal');
+      trapFocus(modalCont);
+      checkConfig();
+    }
+
+    /* Utilerías UI */
+    function setBadgeStatus(msg, state = 'idle') {
+      const badge = document.getElementById('statusBadge');
+      badge.textContent = msg;
+      badge.dataset.state = state;
+    }
+
+    function renderMessage(msg, type = 'info') {
+      const box = document.getElementById('appMessage');
+      clearTimeout(toastTimer);
+      box.textContent = msg; 
+      box.dataset.type = type; 
+      box.hidden = false;
+      toastTimer = setTimeout(() => box.hidden = true, 4000);
+    }
+
+    /* Lógica Configuración Local */
+    function checkConfig() {
+      const provider = localStorage.getItem(STORAGE_PROVIDER);
+      const provBadge = document.getElementById('providerBadge');
+      
+      if (!provider || !localStorage.getItem(`codesentinel_key_${provider}`)) {
+        document.getElementById('closeKeyBtn').style.display = 'none';
+        provBadge.style.display = 'none';
+        openModal();
+      } else {
+        provBadge.style.display = 'inline-block';
+        provBadge.textContent = provider.charAt(0).toUpperCase() + provider.slice(1);
+      }
+    }
+
+    function openModal() {
+      const modal = document.getElementById('apiKeyModal');
+      modal.classList.add('active'); modal.setAttribute('aria-hidden', 'false');
+      
+      const prov = localStorage.getItem(STORAGE_PROVIDER) || 'gemini';
+      document.getElementById('providerSelect').value = prov;
+      document.getElementById('closeKeyBtn').style.display = localStorage.getItem(`codesentinel_key_${prov}`) ? 'inline-flex' : 'none';
+      
+      const input = document.getElementById('apiKeyInput');
+      input.value = localStorage.getItem(`codesentinel_key_${prov}`) || '';
+      document.getElementById('apiKeyLabel').textContent = `API Key de ${prov.charAt(0).toUpperCase() + prov.slice(1)}`;
+      input.focus();
+    }
+
+    function closeModal() {
+      const provider = localStorage.getItem(STORAGE_PROVIDER);
+      if (!provider || !localStorage.getItem(`codesentinel_key_${provider}`)) return;
+      const modal = document.getElementById('apiKeyModal');
+      modal.classList.remove('active'); modal.setAttribute('aria-hidden', 'true');
+      document.getElementById('manageKeyBtn').focus();
+    }
+
+    function saveApiKey() {
+      const prov = document.getElementById('providerSelect').value;
+      const key = document.getElementById('apiKeyInput').value.trim();
+      
+      if (!key) return renderMessage('La llave no puede estar vacía', 'error');
+      
+      localStorage.setItem(STORAGE_PROVIDER, prov);
+      localStorage.setItem(`codesentinel_key_${prov}`, key);
+      closeModal();
+      checkConfig();
+      renderMessage(`Conectado a ${prov} exitosamente.`, 'success');
+    }
+
+    function trapFocus(container) {
+      container.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const focusable = Array.from(container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(el => !el.disabled && el.offsetParent !== null);
+        if(!focusable.length) return;
+        const first = focusable[0]; const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } 
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
+      // Cierre con Escape
+      container.parentElement.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+      container.parentElement.addEventListener('click', (e) => {
+        if (e.target === container.parentElement) closeModal();
+      });
+    }
+
+    function handleFile(file) {
+      const fileInput = document.getElementById('fileInput');
+      if (file.size > 1024 * 1024 * 3) {
+        renderMessage('El archivo supera los 3MB.', 'error');
+        fileInput.value = ''; return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => { 
+        document.getElementById('codeInput').value = e.target.result || ''; 
+        renderMessage(`Archivo cargado: ${file.name}`, 'success');
+        fileInput.value = '';
+      };
+      reader.onerror = () => { renderMessage('Error leyendo el archivo.', 'error'); fileInput.value = ''; }
+      reader.readAsText(file);
+    }
+
+    async function analyzeCode() {
+      const provider = localStorage.getItem(STORAGE_PROVIDER);
+      const key = localStorage.getItem(`codesentinel_key_${provider}`);
+      if (!key) return openModal();
+      
+      const code = document.getElementById('codeInput').value.trim();
+      const maxChars = 120000;
+      
+      if (!code) return renderMessage("Pega código o adjunta un archivo", "error");
+      if (code.length > maxChars) return renderMessage("El archivo es demasiado grande (Límite local: 120k letras). Divídelo en partes.", "error");
+
+      const btn = document.getElementById('analyzeBtn');
+      const out = document.getElementById('outputContent');
+      
+      btn.classList.add('loading'); btn.disabled = true;
+      document.getElementById('downloadBtn').style.display = 'none';
+      
+      out.innerHTML = `<div class="empty-state"><div class="spinner" style="display:block;"></div><p>Auditando con ${provider} (esto toma de 10 a 20 s)...</p></div>`;
+      setBadgeStatus("Analizando...", "loading");
+
+      try {
+        if (provider === 'gemini') {
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${key}`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: `INSTRUCCIONES DE SISTEMA: ${PROMPT}\n\nCODIGO:\n${code}` }] }] })
+          });
+          if(!res.ok) throw new Error("Llave de Gemini inválida o rechazada.");
+          const data = await res.json();
+          lastGeneratedMarkdown = data.candidates[0].content.parts[0].text;
+          
+        } else if (provider === 'anthropic') {
+          const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01',
+              'anthropic-dangerous-direct-browser-access': 'true' // Habilitado intencionalmente para la app local.
+            },
+            body: JSON.stringify({
+              model: 'claude-3-5-sonnet-latest', max_tokens: 4000, system: PROMPT,
+              messages: [{ role: 'user', content: `Analiza este código:\n\n${code}` }]
+            })
+          });
+          if(!res.ok) throw new Error("Llave de Anthropic inválida o falta crédito.");
+          const data = await res.json();
+          lastGeneratedMarkdown = data.content[0].text;
+
+        } else {
+          // openai
+          const res = await fetch('https://api.openai.com/v1/chat/completions', {
+             method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+             body: JSON.stringify({
+                model: 'gpt-4-turbo-preview', temperature: 0.2,
+                messages: [{ role: "system", content: PROMPT }, { role: "user", content: `Analiza este código:\n\n${code}` }]
+             })
+          });
+          if(!res.ok) throw new Error("Fallo en OpenAI. Puede ser tu llave o la restricción estricta de CORS de red abierta.");
+          const data = await res.json();
+          lastGeneratedMarkdown = data.choices[0].message.content;
+        }
+
+        renderMarkdown(lastGeneratedMarkdown);
+        setBadgeStatus("Completado", "success");
+        document.getElementById('downloadBtn').style.display = 'inline-block';
+        renderMessage('Auditoría completada exitosamente', 'success');
+
+      } catch (err) {
+        out.innerHTML = `<div style="padding:1rem; border:1px solid var(--danger); background:rgba(239,68,68,0.1); border-radius:8px;"><h3 style="color:var(--danger)">Error de Red</h3><p>${err.message}</p></div>`;
+        setBadgeStatus("Error", "error");
+        renderMessage('Ha ocurrido un error en la auditoría.', 'error');
+      } finally {
+        btn.classList.remove('loading'); btn.disabled = false;
+      }
+    }
+
+    function renderMarkdown(md) {
+      const rawHtml = marked.parse(md);
+      const container = document.getElementById('outputContent');
+      container.innerHTML = DOMPurify.sanitize(rawHtml, { USE_PROFILES: { html: true } });
+      
+      container.querySelectorAll('pre code').forEach(block => {
+        if(window.hljs) window.hljs.highlightElement(block);
+        
+        const pre = block.parentElement;
+        if (!pre.querySelector('.copy-btn')) {
+          const btn = document.createElement('button');
+          btn.type = 'button'; btn.innerHTML = '📋 Copiar'; btn.className = 'copy-btn';
+          btn.setAttribute('aria-label', 'Copiar código al portapapeles');
+          btn.onclick = async () => {
+             await navigator.clipboard.writeText(block.innerText);
+             btn.innerHTML = '✅ OK'; setTimeout(() => btn.innerHTML = '📋 Copiar', 2000);
+          };
+          pre.appendChild(btn);
+        }
+      });
+    }
+
+    function downloadReport() {
+      if (!lastGeneratedMarkdown) return;
+      const blob = new Blob([lastGeneratedMarkdown], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `CodeSentinel_Report_${new Date().toISOString().slice(0,10)}.md`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

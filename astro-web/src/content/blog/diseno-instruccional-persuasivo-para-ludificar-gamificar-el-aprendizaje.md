@@ -3,7 +3,7 @@ title: "Diseño instruccional persuasivo para ludificar (gamificar) el aprendiza
 description: "Diseño instruccional persuasivo para ludificar (gamificar) el aprendizaje"
 date: "21 septiembre, 2020"
 author: "stephan goirand"
-tags: ["clases", "diseño", "gamificación", "instrucción", "instruccional", "llamativo", "persuasión"]
+tags: ["Clases", "Diseño", "Gamificación", "Instrucción", "Instruccional", "Llamativo", "Persuasión"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/05/DISEÑADORES_662x367.jpg)

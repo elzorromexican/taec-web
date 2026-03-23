@@ -1,4 +1,14 @@
 ---
+/**
+ * @name BaseLayout
+ * @version 1.1
+ * @description Layout principal que provee la estructura HTML, el <head> global con SEO, Header y Footer.
+ * @inputs title, description, section, page, image
+ * @outputs Estructura HTML completa 
+ * @dependencies Header.astro, Footer.astro, MobileNav.astro
+ * @created 2026-03-22
+ * @updated 2026-03-22
+ */
 // CHANGELOG: 19/03/2026 - Centralized SEO logic and dynamic canonical URLs
 // CHANGELOG: 19/03/2026 - Use BASE_URL for asset paths to support GitHub Pages staging
 import Header from '../components/Header.astro';
@@ -34,6 +44,14 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <meta name="description" content={description} />
   <meta name="robots" content="index, follow" />
   
+  <!-- Geo & Regional Tags -->
+  <meta name="geo.region" content="MX" />
+  <meta name="geo.placename" content="Ciudad de México" />
+  <link rel="alternate" hreflang="es-419" href={Astro.site || 'https://nuevo.taec.com.mx/'} />
+
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
   <link rel="canonical" href={canonicalURL} />
 
   <!-- OpenGraph / Social -->
@@ -57,6 +75,22 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <link rel="stylesheet" href={`${base}assets/css/base.css`} />
   <link rel="stylesheet" href={`${base}assets/css/header.css`} />
   <link rel="stylesheet" href={`${base}assets/css/footer.css`} />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" is:inline set:html={`
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "TAEC",
+    "url": "https://nuevo.taec.com.mx",
+    "logo": "https://nuevo.taec.com.mx/assets/logo.svg",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+52-55-2775-8279",
+      "contactType": "customer service"
+    }
+  }
+  `} />
 
   <slot name="head" />
 </head>

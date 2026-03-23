@@ -3,7 +3,7 @@ title: "El construccionismo social desde Moodle"
 description: "El construccionismo social desde Moodle"
 date: "5 marzo, 2009"
 author: "ulises avendaño"
-tags: ["alternativas", "educación", "elearning", "taec"]
+tags: ["Alternativas", "Educación", "Elearning", "Taec"]
 ---
 
 !technology

@@ -3,7 +3,7 @@ title: "El potencial y las dificultades de los nativos digitales frente al E-lea
 description: "El potencial y las dificultades de los nativos digitales frente al E-learning"
 date: "9 junio, 2021"
 author: "stephan goirand"
-tags: ["aprendizaje", "digital", "e-learning", "generación", "milenial", "tecnología", "tendencias"]
+tags: ["Aprendizaje", "Digital", "e-learning", "Generación", "Milenial", "Tecnología", "Tendencias"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/06/zz_662x367-1.jpg)

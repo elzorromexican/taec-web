@@ -3,7 +3,7 @@ title: "In memoriam: Blas Gómez"
 description: "In memoriam: Blas Gómez"
 date: "13 abril, 2023"
 author: "elba loera"
-tags: ["blog"]
+tags: ["Inteligencia artificial", "e-learning", "Capacitación"]
 ---
 
 Es con gran respeto y gratitud que honramos la vida de **Blas Gómez Rangel**, quien fue un miembro excepcional de nuestro equipo en TAEC. Un ingeniero apasionado que colaboró con nosotros durante más de una década, dejando a su paso **un recuerdo imborrable en nuestra empresa y en nuestras vidas.**

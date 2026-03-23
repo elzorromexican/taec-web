@@ -3,7 +3,7 @@ title: "Microlearning, la educación del futuro"
 description: "Microlearning, la educación del futuro"
 date: "19 julio, 2022"
 author: "elba loera"
-tags: ["aprendizaje", "capacitación", "diseño", "e-learning", "instruccional", "lms", "microaprendizaje", "microlearning", "ottolearn"]
+tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Instruccional", "LMS", "Microaprendizaje", "Microlearning", "Ottolearn"]
 ---
 
 En el año 2000 el intervalo de atención de la mente humana rondaba los 12 segundos, para 2015 este intervalo se redujo a tan solo 8 segundos, mientras que el intervalo de atención de un pez dorado es de 9 segundos… es decir, **¡prestamos menos atención que un pez!** Por esta razón, el microlearning o microaprendizaje se está convirtiendo en una de las tendencias de mayor impacto para la educación y formación de talento.

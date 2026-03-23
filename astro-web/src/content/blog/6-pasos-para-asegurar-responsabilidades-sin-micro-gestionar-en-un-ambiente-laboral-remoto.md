@@ -3,7 +3,7 @@ title: "6 pasos para asegurar responsabilidades sin micro-gestionar en un ambien
 description: "6 pasos para asegurar responsabilidades sin micro-gestionar en un ambiente laboral remoto"
 date: "14 diciembre, 2020"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Trabajo remoto", "e-learning", "Capacitación"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2020/12/image0.jpeg)

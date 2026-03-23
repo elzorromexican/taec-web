@@ -3,7 +3,7 @@ title: "¿Necesitas migrar tus capacitaciones a otra plataforma SaaS LMS? 6 punt
 description: "¿Necesitas migrar tus capacitaciones a otra plataforma SaaS LMS? 6 puntos clave para tener éxito"
 date: "9 noviembre, 2020"
 author: "TAEC"
-tags: ["blog"]
+tags: ["LMS", "e-learning", "Capacitación"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2020/11/BLOG-1024x535.jpg)

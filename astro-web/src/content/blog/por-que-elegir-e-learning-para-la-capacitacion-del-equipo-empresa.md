@@ -3,7 +3,7 @@ title: "¿Por qué elegir E-learning para la capacitación del equipo? | Empresa
 description: "¿Por qué elegir E-learning para la capacitación del equipo? | Empresa"
 date: "24 mayo, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "Capacitación", "Aprendizaje"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/05/HAND_TABLET_WORLD.jpg)

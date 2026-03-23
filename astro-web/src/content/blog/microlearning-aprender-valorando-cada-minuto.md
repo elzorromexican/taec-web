@@ -3,7 +3,7 @@ title: "Microlearning, aprender valorando cada minuto"
 description: "Microlearning, aprender valorando cada minuto"
 date: "29 octubre, 2024"
 author: "juan hernández"
-tags: ["cursos", "e-learning", "elearning", "microaprendizaje"]
+tags: ["Cursos", "e-learning", "Elearning", "Microaprendizaje"]
 ---
 
 Detente un momento y piensa: ¿cuál es tu posesión más valiosa?

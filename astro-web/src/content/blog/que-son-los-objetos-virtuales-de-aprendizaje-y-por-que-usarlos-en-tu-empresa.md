@@ -3,7 +3,7 @@ title: "¿Qué son los Objetos Virtuales de Aprendizaje y por qué usarlos en tu
 description: "¿Qué son los Objetos Virtuales de Aprendizaje y por qué usarlos en tu empresa?"
 date: "22 abril, 2022"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "Capacitación", "Aprendizaje"]
 ---
 
 ¿Alguna vez has escuchado sobre los Objetos Virtuales de Aprendizaje? También les llaman “OVA’s” y si bien, puede que no te resulte un concepto familiar, estamos seguros de que ya los conoces.

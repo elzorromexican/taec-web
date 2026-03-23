@@ -3,7 +3,7 @@ title: "6 elementos de un buen maestro que el diseño de e-learning debe replica
 description: "6 elementos de un buen maestro que el diseño de e-learning debe replicar"
 date: "21 diciembre, 2020"
 author: "stephan goirand"
-tags: ["clases", "digitales", "e-learning", "estrategia", "maestro", "método", "tradicional"]
+tags: ["Clases", "Digitales", "e-learning", "Estrategia", "Maestro", "Método", "Tradicional"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/STRONG_LEADER_662x367.jpg)

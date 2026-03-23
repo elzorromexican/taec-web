@@ -3,7 +3,7 @@ title: "El nacimiento del internet y la evolución del e-learning"
 description: "El nacimiento del internet y la evolución del e-learning"
 date: "18 enero, 2022"
 author: "stephan goirand"
-tags: ["capacitación", "diseño", "instruccional", "e-learning", "evaluación", "saas", "trabajo", "a", "distancia"]
+tags: ["Capacitación", "Diseño", "Instruccional", "e-learning", "Evaluación", "Saas", "Trabajo", "A", "Distancia"]
 ---
 
 ![](https://lh4.googleusercontent.com/gNWJliKbpd3qZl-9QeGbyCCt_Q58EkiuN745mZZkuetnZopbQb5wGHs5OZDNJd9_AVkMUzDFGhegyYT5rBiJuYxCbCLOHoBKS3mmxCDOlP5RI4tYE6gUEdB8Yh-OtKBM92Rukck)

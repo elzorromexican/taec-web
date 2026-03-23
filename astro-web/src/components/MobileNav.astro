@@ -1,4 +1,14 @@
 ---
+/**
+ * @name MobileNav
+ * @version 1.1
+ * @description Navegación móvil tipo acordeón para versión responsive.
+ * @inputs N/A
+ * @outputs <nav id="mobileNav">
+ * @dependencies src/data/navigation.ts, src/data/contact.ts
+ * @created 2026-03-22
+ * @updated 2026-03-22
+ */
 // CHANGELOG: 19/03/2026 - Refactored to use centralized data from src/data/navigation.ts and src/data/contact.ts
 // CHANGELOG: 19/03/2026 - Use r() to prefix internal links with BASE_URL for staging support
 import { mainNav } from '../data/navigation';
@@ -21,9 +31,9 @@ import { r, base } from '../utils/paths';
               Los subItems se muestran como enlaces hijos indentados dentro de la sección abierta. */}
           <button class="mob-toggle" id={mobId} aria-expanded="false" aria-controls={secId} type="button">
             {item.label}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <div class="mob-section" id={secId}>
+          <div class="mob-section" id={secId} role="region" aria-labelledby={mobId}>
             {item.columns?.map((col) => (
               <>
                 {col.title && <span class="mob-cat">{col.title}</span>}

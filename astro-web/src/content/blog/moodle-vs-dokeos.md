@@ -3,7 +3,7 @@ title: "Moodle vs Dokeos"
 description: "Moodle vs Dokeos"
 date: "4 abril, 2009"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Moodle", "LMS", "e-learning"]
 ---
 
 !new-technology_shutterstock_120035881

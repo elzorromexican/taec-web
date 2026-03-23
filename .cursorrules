@@ -1,0 +1,17 @@
+# Reglas Generales del Proyecto taec-web
+
+## 1. Trazabilidad y Documentación de Código
+CRÍTICO: Cada vez que crees un NUEVO archivo de código (.js, .mjs, .astro, .css, etc.) o modifiques uno existente que no tenga metadatos, DEBES incluir obligatoriamente la siguiente plantilla de metadatos en la línea 1 del archivo. Usa la sintaxis de comentarios adecuada para el lenguaje abordado (ej. `/** ... */` para JS/TS, `<!-- ... -->` para HTML/Astro y `/* ... */` para CSS).
+
+FORMATO REQUERIDO:
+@name [Nombre o Título del Archivo]
+@version [1.0 para nuevos, v1.x para cambios, v2.0 para reescrituras]
+@description [Descripción de 1-2 líneas sobre qué hace el archivo]
+@inputs [Datos que recibe, props, o N/A]
+@outputs [Qué devuelve, exporta o renderiza]
+@dependencies [Librerías, componentes o archivos que importa/usa]
+@created YYYY-MM-DD
+@updated YYYY-MM-DD HH:MM:SS
+
+## 2. Refactorización (Regla del Boy Scout)
+Al modificar código EXISTENTE que no tenga la cabecera anterior documentada, antes de dar por terminada la tarea, inserta el bloque de metadatos en la parte superior con los datos que correspondan según tu comprensión del archivo. Mantén la fecha de creación en "YYYY-MM-DD" o intenta deducirla, y pon la fecha actual con HORA EXACTA local en "updated".

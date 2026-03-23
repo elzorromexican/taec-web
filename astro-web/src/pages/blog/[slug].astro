@@ -5,6 +5,7 @@ import BlogComments from '../../components/blog/BlogComments.astro';
 import { r } from '../../utils/paths';
 
 import { parseDate } from '../../utils/dateParser';
+const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
 export async function getStaticPaths() {
 
@@ -25,6 +26,12 @@ export async function getStaticPaths() {
 
 const { post, prevPost, nextPost } = Astro.props;
 const { Content } = await render(post);
+
+// Relacionados Blog-a-Blog
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(p => p.id !== post.id && p.data.tags?.some((t: string) => post.data.tags?.includes(t)))
+  .slice(0, 3);
 ---
 
 <BaseLayout 
@@ -42,9 +49,9 @@ const { Content } = await render(post);
       <header style="margin-bottom: 32px; border-bottom: 1px solid #e7e3db; padding-bottom: 24px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
           {(post.data.tags || []).map((tag: string) => (
-            <span style="font-family: monospace; background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;">
+            <a href={r(`/blog/etiqueta/${slugify(tag)}`)} class="hover-tag" style="font-family: monospace; background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; transition: background 0.2s;">
               {tag}
-            </span>
+            </a>
           ))}
         </div>
         
@@ -76,6 +83,20 @@ const { Content } = await render(post);
       <div class="prose-content" style="font-family: var(--font-body, sans-serif); font-size: 1.05rem; line-height: 1.75; color: #1c1917;">
         <Content />
       </div>
+
+      {relatedPosts.length > 0 && (
+        <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e7e3db;">
+          <h3 style="font-size: 18px; font-weight: 700; color: #1c1917; margin-bottom: 24px; font-family: var(--font-display, Georgia, serif);">También podría interesarte:</h3>
+          <div style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            {relatedPosts.map((p: any) => (
+              <a href={r(`/blog/${p.id.replace(/\\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; background: #f8fafc; transition: transform 0.2s, box-shadow 0.2s;" class="post-rel-card">
+                <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.15rem; color: #0f172a; font-weight: 600; line-height: 1.35; margin-bottom: 8px;">{p.data.title}</span>
+                <span style="font-family: monospace; font-size: 11px; color: #64748b; margin-top: auto;">Sigue leyendo &rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       <nav style="display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 64px; padding-top: 40px; border-top: 2px dashed #e7e3db; @media(min-width: 640px) { grid-template-columns: 1fr 1fr; }">
         
@@ -128,6 +149,8 @@ const { Content } = await render(post);
 .prose-content li { margin-bottom: 0.5em; }
 .prose-content hr { border: none; border-top: 1px solid #e7e3db; margin: 3em 0; }
 .prose-content img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+.hover-tag:hover { background: #dcfce7 !important; color: #14532d !important; }
+.post-rel-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); border-color: #cbd5e1; }
 .post-nav-card {
   display: flex; flex-direction: column; justify-content: center; padding: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }

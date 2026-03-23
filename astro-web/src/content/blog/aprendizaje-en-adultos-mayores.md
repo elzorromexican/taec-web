@@ -3,7 +3,7 @@ title: "Aprendizaje en adultos mayores"
 description: "Aprendizaje en adultos mayores"
 date: "11 enero, 2010"
 author: "ulises avendaño"
-tags: ["bienvenida", "elearning", "taec"]
+tags: ["Bienvenida", "Elearning", "Taec"]
 ---
 
 !articleLarge

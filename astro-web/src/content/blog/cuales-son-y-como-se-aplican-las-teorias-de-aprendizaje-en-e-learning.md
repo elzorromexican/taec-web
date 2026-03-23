@@ -3,7 +3,7 @@ title: "¿Cuáles son y cómo se aplican las teorías de aprendizaje en e-learni
 description: "¿Cuáles son y cómo se aplican las teorías de aprendizaje en e-learning?"
 date: "13 junio, 2022"
 author: "elba loera"
-tags: ["aprendizaje", "capacitación", "diseño", "instruccional", "e-learning", "lms", "teorías", "del"]
+tags: ["Aprendizaje", "Capacitación", "Diseño", "Instruccional", "e-learning", "LMS", "Teorías", "Del"]
 ---
 
 Una gran incógnita perseguida desde hace mucho tiempo es “¿Cómo funciona la mente?” y no es necesario ir tan lejos y comprender el nivel de complejidad en los procesos cognitivos, basta con preguntarnos “¿Cómo aprenden los humanos?” y para responder esta pregunta se han formulado diversas teorías del aprendizaje que buscan explicar cómo se transmite y almacena el conocimiento.

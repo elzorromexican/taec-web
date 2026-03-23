@@ -3,7 +3,7 @@ title: "Evoluciona de proceso en cascada a procesos iterativos en la producción
 description: "Evoluciona de proceso en cascada a procesos iterativos en la producción de e-learning (de ADDIE a SAM)"
 date: "25 enero, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "Capacitación", "Aprendizaje"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/DEV_OPS_662x367.jpg)

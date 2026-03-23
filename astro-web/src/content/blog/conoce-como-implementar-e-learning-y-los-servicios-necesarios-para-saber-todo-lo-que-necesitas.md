@@ -3,7 +3,7 @@ title: "Conoce cómo implementar e-learning y los servicios necesarios para sabe
 description: "Conoce cómo implementar e-learning y los servicios necesarios para saber todo lo que necesitas"
 date: "22 septiembre, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["e-learning", "Capacitación", "Aprendizaje"]
 ---
 
 *   ![](https://blog.taec.com.mx/wp-content/uploads/2021/10/GIRL_THINKING_662x367.jpg)

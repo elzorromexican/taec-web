@@ -3,7 +3,7 @@ title: "MOOCs y APRENDIZAJE ADAPTATIVO EN E-LEARNING: la combinación perfecta"
 description: "MOOCs y APRENDIZAJE ADAPTATIVO EN E-LEARNING: la combinación perfecta"
 date: "17 mayo, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Aprendizaje adaptativo", "e-learning", "Capacitación"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/05/MOOC_662x367.jpg)

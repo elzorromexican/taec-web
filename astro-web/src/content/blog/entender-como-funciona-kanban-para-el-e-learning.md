@@ -3,7 +3,7 @@ title: "Entender cómo funciona KANBAN para el e-learning"
 description: "Entender cómo funciona KANBAN para el e-learning"
 date: "8 febrero, 2021"
 author: "stephan goirand"
-tags: ["ágil", "diseño", "elearning", "kanban", "management", "metodología", "organización"]
+tags: ["Ágil", "Diseño", "Elearning", "Kanban", "Management", "Metodología", "Organización"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/04/KANBAN-BOARD_662x3671.jpg)

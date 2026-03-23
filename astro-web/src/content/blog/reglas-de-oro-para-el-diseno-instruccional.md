@@ -3,7 +3,7 @@ title: "Reglas de oro para el Diseño Instruccional"
 description: "Reglas de oro para el Diseño Instruccional"
 date: "11 mayo, 2022"
 author: "elba loera"
-tags: ["aprendizaje", "multimedia", "capacitación", "diseño", "instruccional", "e-learning"]
+tags: ["Aprendizaje", "Multimedia", "Capacitación", "Diseño", "Instruccional", "e-learning"]
 ---
 
 El Diseño Instruccional tiene diversas metodologías y sustentos psicopedagógicos que buscan lograr que el aprendizaje en línea sea efectivo.

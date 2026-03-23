@@ -3,7 +3,7 @@ title: "¿Cómo ser una escuela en línea de confianza en México?"
 description: "¿Cómo ser una escuela en línea de confianza en México?"
 date: "18 enero, 2022"
 author: "stephan goirand"
-tags: ["certificación", "escuelas", "k12", "rvoe", "sep", "validez"]
+tags: ["Certificación", "Escuelas", "K12", "Rvoe", "Sep", "Validez"]
 ---
 
 ![](https://lh6.googleusercontent.com/51DogzYx4C9iOfPw7CwJ6ognPR8fYtSkPN1hC8Ed9lCDC3JMwdb9ZcBgT3FPay9W4L3acbXPJHWiN9fdqceqMvosELNUROrydbE1SNRCZQdiRBR553vGLB8qFBOkgevsBdbA9lg)

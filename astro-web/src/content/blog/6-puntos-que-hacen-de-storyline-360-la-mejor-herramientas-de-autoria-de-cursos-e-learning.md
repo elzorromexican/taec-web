@@ -3,7 +3,7 @@ title: "6 puntos que hacen de Storyline 360 la MEJOR herramientas de autoría de
 description: "6 puntos que hacen de Storyline 360 la MEJOR herramientas de autoría de cursos e-learning"
 date: "23 noviembre, 2020"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Storyline", "Inteligencia artificial", "e-learning"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/01/89F75FA8-C65E-4563-82AC-45BEF3778D63-1.png)

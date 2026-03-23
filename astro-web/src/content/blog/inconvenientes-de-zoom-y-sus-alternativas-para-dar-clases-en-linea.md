@@ -3,7 +3,7 @@ title: "Inconvenientes de Zoom y sus alternativas para dar clases en línea"
 description: "Inconvenientes de Zoom y sus alternativas para dar clases en línea"
 date: "2 febrero, 2022"
 author: "stephan goirand"
-tags: ["alternativas", "falla", "video", "llamadas", "zoom"]
+tags: ["Alternativas", "Falla", "Video", "Llamadas", "Zoom"]
 ---
 
 ![](https://lh4.googleusercontent.com/sDbSxVilWDgAOc5uGyFLkFXHHnEWrSkMbrjaS23oG9aXudBJShx52qVxAis8Z-7nFad4FAwZgw30bTvZDvBtxGlc-ejx7FniNZQK9XiufPLdcnUcBAUXr93U9BdhPKSB9FJfamw)

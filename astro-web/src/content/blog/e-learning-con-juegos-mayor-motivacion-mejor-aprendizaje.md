@@ -3,7 +3,7 @@ title: "E-learning con juegos: mayor motivación, mejor aprendizaje"
 description: "E-learning con juegos: mayor motivación, mejor aprendizaje"
 date: "14 junio, 2021"
 author: "stephan goirand"
-tags: ["capacitación", "docente", "e-learning", "educación", "gamificación"]
+tags: ["Capacitación", "Docente", "e-learning", "Educación", "Gamificación"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/06/AJEDREZ.jpg)

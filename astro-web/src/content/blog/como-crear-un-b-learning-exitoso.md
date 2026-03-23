@@ -3,7 +3,7 @@ title: "Cómo crear un b-learning exitoso"
 description: "Cómo crear un b-learning exitoso"
 date: "20 septiembre, 2022"
 author: "elba loera"
-tags: ["aprendizaje", "b-learning", "capacitación", "e-learning", "elearning", "exito", "lms"]
+tags: ["Aprendizaje", "B-learning", "Capacitación", "e-learning", "Elearning", "Exito", "LMS"]
 ---
 
 Recientemente, platicamos sobre qué es el _blended learning_ o aprendizaje semipresencial, cuáles son sus ventajas y cómo aplicarlo de manera exitosa en la formación de nuestro equipo. Hoy, vamos a platicar más a fondo sobre cómo diseñar un b-learning exitoso.

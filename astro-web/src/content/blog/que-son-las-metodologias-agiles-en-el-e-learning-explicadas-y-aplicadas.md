@@ -3,7 +3,7 @@ title: "¿Qué son las Metodologías Agiles en el e-learning? explicadas y aplic
 description: "¿Qué son las Metodologías Agiles en el e-learning? explicadas y aplicadas"
 date: "1 febrero, 2021"
 author: "TAEC"
-tags: ["blog"]
+tags: ["Agile", "Inteligencia artificial", "e-learning"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/AGIELE_TRADITIONAL_662x367.jpg)

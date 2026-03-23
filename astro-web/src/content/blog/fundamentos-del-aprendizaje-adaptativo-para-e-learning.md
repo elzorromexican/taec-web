@@ -3,7 +3,7 @@ title: "Fundamentos del aprendizaje adaptativo para e-learning"
 description: "Fundamentos del aprendizaje adaptativo para e-learning"
 date: "3 mayo, 2021"
 author: "stephan goirand"
-tags: ["adaptativo", "aprendizaje", "cognitiva", "e-learning", "innovación", "neuroaprendizaje"]
+tags: ["Adaptativo", "Aprendizaje", "Cognitiva", "e-learning", "Innovación", "Neuroaprendizaje"]
 ---
 
 ![](https://blog.taec.com.mx/wp-content/uploads/2021/05/BRAIN-2_662x367.jpg)

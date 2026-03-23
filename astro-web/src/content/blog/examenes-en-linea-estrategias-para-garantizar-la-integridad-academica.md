@@ -3,7 +3,7 @@ title: "Exámenes en línea: estrategias para garantizar la integridad académic
 description: "Exámenes en línea: estrategias para garantizar la integridad académica"
 date: "5 marzo, 2024"
 author: "elba loera"
-tags: ["aprendizaje", "capacitación", "e-learning", "educación", "instruccional", "lms"]
+tags: ["Aprendizaje", "Capacitación", "e-learning", "Educación", "Instruccional", "LMS"]
 ---
 
 En la era digital, la aplicación de exámenes en línea se ha convertido en una práctica común, especialmente con la creciente demanda de educación virtual. Sin embargo, con esta transición también surgen desafíos importantes, entre ellos, la suplantación de identidad, un problema que amenaza la integridad y la calidad de los exámenes virtuales, así como el tráfico de respuestas y el uso de celulares o navegadores durante las evaluaciones.
