@@ -7,6 +7,8 @@ import node from '@astrojs/node';
 
 import react from '@astrojs/react';
 
+import sitemap from '@astrojs/sitemap';
+
 /**
  * DEPLOY TARGETS
  * ─────────────────────────────────────────────────────────────────────────
@@ -39,5 +41,5 @@ export default defineConfig({
     mode: 'standalone'
   }),
 
-  integrations: [react()]
+  integrations: [react(), sitemap()]
 });

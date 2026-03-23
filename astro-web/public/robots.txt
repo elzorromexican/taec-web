@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Evitar indexación de páginas no públicas en caso de que existan enlaces forzados
+Disallow: /admin/
+Disallow: /comentarios/
+Disallow: /test/
+
+Sitemap: https://nuevo.taec.com.mx/sitemap-index.xml

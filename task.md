@@ -71,3 +71,9 @@
 - [ ] Añadir animaciones progresivas (Framer Motion / Viewport) a la landing DDC.
 - [ ] Implementar Chatbot de IA (RAG) consumiendo Blog y Glosario.
 - [ ] Construir Centro de Webinars On-Demand (captura de leads) y Hero Banner inteligente.
+
+## 🔎 Ejecución Auditoría SEO/GEO (Quick Wins P0)
+- [x] Instalar y configurar `@astrojs/sitemap`.
+- [x] Crear `robots.txt` estático.
+- [x] Ajustar `BaseLayout.astro` para control granular del tag `robots`.
+- [x] Configurar Schema Markups (`FAQPage`, `DefinedTerm`, `Article`).

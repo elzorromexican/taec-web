@@ -169,7 +169,12 @@ Vyond                                             7 Minutes
 - **Validación SSG Final:** El pipeline de Astro Builder (`npm run build`) validó exitosamente 818 páginas SSG sin ninguna ruptura, sellando la compilación final candidata para ambiente productivo.
 
 ### 23 mar 2026 — Motor de Cotización DDC (SSR & React Island)
-- **Infraestructura Backend Híbrida:** Transición de `astro.config.mjs` hacia la compatibilidad SSR (`@astrojs/node` en modo `standalone`) para habilitar *Endpoints* dinámicos sin penalizar la velocidad de páginas estáticas. Implementación de una API segura para `calcular-cotizacion-ddc.ts`.
-- **Motor Financiero Algorítmico & Zod:** Extracción exitosa de lógicas pesadas de negocio desde archivos de Excel históricos (Rise, Storyline, Vyond) hacia una Matriz JSON optimizada en código base. Integración estricta de Schemas *Zod* para validación y sanitización de *payloads* en la API.
-- **UI Frontend "React Island":** Diseño interactivo (usando integración de React 19) del Panel Frontend para la selección de complejidad de cursos. Reforzado con Vanilla CSS y animaciones limpias de carga.
-- **Ruta Protegida Interna:** Empaquetamiento de la UI del Cotizador DDC dentro de `/admin/cotizador.astro`, resguardado por validación activa de Tokens *Supabase* (idéntico flujo arquitectónico al muro de comentarios), protegiendo la confidencialidad de los cotizadores antes de ser públicos.
+- **Infraestructura Backend Híbrida:** Transición de `astro.config.mjs` a compatibilidad SSR (`@astrojs/node`) para habilitar *Endpoints* dinámicos robustos (`calcular-cotizacion-ddc.ts`).
+- **Motor Financiero Algorítmico & Zod:** Extracción exitosa de inteligencia logística de Excel (Rise, Storyline, Vyond) hacia una Matriz JSON optimizada en código. Integración de Schemas *Zod* para validación y sanitización en API.
+- **UI Frontend "React Island":** Diseño interactivo para la selección de variables de cursos vía React 19 y Vanilla CSS.
+- **Ruta Protegida Interna:** UI del Cotizador protegida bajo validación activa de Tokens *Supabase* en `/admin/cotizador.astro`.
+
+### 23 mar 2026 — SEO Estructural y GEO (Quick Wins P0)
+- **Sitemaps XML Automatizados:** Implementación de la suite oficial `@astrojs/sitemap` para el auto-rastreo completo del directorio estático. Emisión del mapa dinámico ligada a variables de entorno de staging y prod en `astro.config.mjs`.
+- **Blindaje Pre-Lanzamiento (Robots.txt):** Creación del rastreo nativo `public/robots.txt` desautorizando el tráfico a zonas administrativas (`/admin/`, `/test/`). Habilitación granular de un flag relacional `robots="noindex, nofollow"` desde el `BaseLayout.astro`.
+- **Generative Engine Optimization (JSON-LD P0):** Inyección de un script `<script type="application/ld+json">` dinámico adaptado a directrices del W3C bajo `<slot name="head">`. Activado schema formativo `FAQPage` para más de 40 componentes nativos y esquema `DefinedTerm` para todo el diccionario E-learning del catálogo.
