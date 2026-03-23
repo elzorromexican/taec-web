@@ -10,58 +10,10 @@ import { r } from '../utils/paths';
   description="Review 360: herramienta web para revisar y aprobar cursos e-learning con tu equipo. Comentarios, versiones y acceso por enlace. Partner Articulate en México."
   section="Soluciones"
   page="articulate-review360.html"
+  footerTheme="dark"
 >
   <style is:global>
 
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    :root{--navy:#004775;--blue:#3179C2;--orange:#F59E0B;--dark:#111827;--muted:#6B7280;--light:#F3F4F6;--white:#FFFFFF;--border:#E5E7EB;--art:#16A34A}
-    body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--white)}
-    a{color:inherit;text-decoration:none}
-    header{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border)}
-    .header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:32px}
-    .logo-link img{height:32px;width:auto;display:block}
-    header nav{display:flex;align-items:center;gap:4px;flex:1}
-    .nav-link{background:none;border:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:var(--dark);padding:6px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:4px;transition:background .15s,color .15s}
-    .nav-link svg{width:14px;height:14px;flex-shrink:0}
-    .header-inner nav>a{font-size:14px;font-weight:600;color:var(--dark);padding:6px 12px;border-radius:8px;transition:background .15s,color .15s}
-    .header-inner nav>a:hover,.nav-link:hover,.nav-item:hover>.nav-link{background:var(--light);color:var(--blue)}
-    .header-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
-    .btn-tienda{font-size:13px;font-weight:600;color:var(--blue);border:1.5px solid var(--blue);padding:7px 16px;border-radius:7px;transition:background .15s,color .15s}
-    .btn-tienda:hover{background:var(--blue);color:var(--white)}
-    .btn-cta{font-size:13px;font-weight:700;background:var(--orange);color:var(--white);padding:8px 18px;border-radius:8px;transition:background .15s;white-space:nowrap}
-    .btn-cta:hover{background:#d97706}
-    .nav-item{position:relative}
-    .mega-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:720px;background:white;border:1px solid var(--border);border-radius:12px;padding:20px;grid-template-columns:repeat(3,1fr);gap:20px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:200}
-    .simple-dropdown{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:380px;background:white;border:1px solid var(--border);border-radius:12px;padding:20px;grid-template-columns:repeat(2,1fr);gap:20px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:200}
-    .nav-item:hover>.mega-menu,.nav-item:hover>.simple-dropdown{display:grid}
-    .mega-col{display:flex;flex-direction:column;gap:6px}
-    .mega-head{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:2px}
-    .mega-col>a{font-size:13px;font-weight:500;color:var(--dark);padding:4px 8px;border-radius:6px}
-    .mega-sub{display:flex;flex-direction:column;gap:3px;padding-left:12px;border-left:2px solid var(--border);margin:2px 0 4px}
-    .mega-sub a{font-size:12px;color:var(--muted);padding:3px 6px;border-radius:4px;display:flex;align-items:center;gap:6px}
-    .mega-col>a:hover,.mega-sub a:hover{background:var(--light);color:var(--blue)}
-    .mega-divider{border-top:1px solid var(--border);margin:4px 0}
-    .badge-new{font-size:9px;font-weight:700;background:rgba(245,158,11,.15);color:#d97706;padding:1px 5px;border-radius:3px;flex-shrink:0}
-    .badge-saas{font-size:9px;font-weight:700;background:rgba(168,219,217,.3);color:var(--navy);padding:1px 5px;border-radius:3px;flex-shrink:0}
-    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px}
-    .hamburger span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px;transition:.2s}
-    .mobile-nav{display:none;flex-direction:column;background:white;border-bottom:1px solid var(--border);padding:12px 24px 20px;gap:4px}
-    .mobile-nav.open{display:flex}
-    .mob-toggle{background:none;border:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--dark);padding:8px 0;display:flex;justify-content:space-between;align-items:center;width:100%}
-    .mob-toggle svg{width:16px;height:16px}
-    .mob-section{display:none;flex-direction:column;gap:2px;padding:4px 0 8px 12px}
-    .mob-section.open{display:flex}
-    .mob-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:6px 0 2px}
-    .mobile-nav>a{font-size:14px;font-weight:600;color:var(--dark);padding:8px 0;border-top:1px solid var(--border)}
-    .mob-section a{font-size:13px;color:var(--dark);padding:5px 8px;border-radius:6px}
-    header .nav-link.active,header button.nav-link.active{background:#111827!important;color:#fff!important;border-radius:8px;padding:5px 14px;font-weight:700}
-    header a.active{background:#111827!important;color:#fff!important;border-radius:8px;padding:5px 14px;font-weight:700;text-decoration:none}
-    .nav-item.open>.mega-menu{display:grid!important}
-    .nav-item.open>.simple-dropdown{display:grid!important}
-    .skip-link{position:absolute;top:-60px;left:16px;background:var(--navy);color:var(--white);padding:8px 16px;border-radius:0 0 8px 8px;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top .2s}
-    .skip-link:focus{top:0}
-    *:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
     .art-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%;overflow-x:auto}
     .art-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0}
     .art-tab{display:inline-flex;align-items:center;padding:14px 18px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
@@ -103,25 +55,6 @@ import { r } from '../utils/paths';
     .art-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn-cta-white{background:white;color:var(--art);font-weight:700;font-size:15px;padding:13px 28px;border-radius:8px}
     .btn-cta-ghost{background:transparent;color:white;font-weight:600;font-size:15px;padding:13px 28px;border-radius:8px;border:2px solid rgba(255,255,255,.5)}
-    .footer{background:#111827;color:#9CA3AF;padding:48px 5% 24px}
-    .footer-inner{max-width:1200px;margin:0 auto}
-    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-    .footer-brand p{font-size:13px;line-height:1.65;margin-top:10px;max-width:260px}
-    .footer-col h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#E5E7EB;margin-bottom:12px}
-    .footer-col a{display:block;font-size:13px;color:#9CA3AF;margin-bottom:6px;transition:color .15s}
-    .footer-col a:hover{color:white}
-    .footer-bottom{border-top:1px solid #374151;padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    .footer-bottom p{font-size:12px}
-    .footer-socials{display:flex;gap:12px}
-    .footer-socials a{font-size:12px;color:#9CA3AF;transition:color .15s}
-    .footer-socials a:hover{color:white}
-    .footer-latam{background:#0f172a;padding:10px 5%;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
-    .footer-latam-label{font-size:10px;color:#64748B;font-weight:700;text-transform:uppercase;letter-spacing:.8px;flex-shrink:0}
-    .footer-latam a{font-size:12px;color:#475569;transition:color .15s}
-    .footer-latam a:hover{color:#94A3B8}
-    .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;background:#25D366;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:transform .2s}
-    .wa-float:hover{transform:scale(1.1)}
-    .wa-float svg{width:28px;height:28px;fill:white}
     @media(max-width:900px){
       .art-hero-inner{grid-template-columns:1fr;gap:32px}
       .art-feat-grid{grid-template-columns:1fr 1fr}

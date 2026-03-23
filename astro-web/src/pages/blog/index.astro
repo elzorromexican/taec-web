@@ -106,63 +106,68 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
 .grid-item article:hover span:last-child { color: #1e3a8a; text-decoration: underline; }
 </style>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('search-input');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.grid-item');
-    const noResults = document.getElementById('no-results');
-    const resultsCount = document.getElementById('results-count');
-    
-    let currentSearch = '';
-    let currentTag = 'ALL';
+<script>
+  import { r } from '../../utils/paths';
 
-    const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.grid-item');
+  const noResults = document.getElementById('no-results');
+  const resultsCount = document.getElementById('results-count');
+  
+  let currentSearch = '';
+  let currentTag = 'ALL';
 
-    function filterItems() {
-      let visibleCount = 0;
-      const searchNorm = normalize(currentSearch);
+  const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-      items.forEach(item => {
-        const titleStr = normalize(item.getAttribute('data-title') || '');
-        const descStr = normalize(item.getAttribute('data-desc') || '');
-        const tagsStr = item.getAttribute('data-tags') || '';
-        
-        let matchesSearch = searchNorm ? (titleStr.includes(searchNorm) || descStr.includes(searchNorm)) : true;
-        let matchesTag = currentTag !== 'ALL' ? (tagsStr.includes(currentTag)) : true;
-        
-        if (matchesSearch && matchesTag) {
-          item.style.display = 'block';
-          visibleCount++;
-        } else {
-          item.style.display = 'none';
-        }
-      });
+  function filterItems() {
+    let visibleCount = 0;
+    const searchNorm = normalize(currentSearch);
+
+    items.forEach(item => {
+      const titleStr = normalize(item.getAttribute('data-title') || '');
+      const descStr = normalize(item.getAttribute('data-desc') || '');
+      const tagsStr = item.getAttribute('data-tags') || '';
       
-      resultsCount.textContent = `${visibleCount} post` + (visibleCount !== 1 ? 's' : '');
-      if(noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      let matchesSearch = searchNorm ? (titleStr.includes(searchNorm) || descStr.includes(searchNorm)) : true;
+      let matchesTag = currentTag !== 'ALL' ? (tagsStr.includes(currentTag)) : true;
+      
+      if (matchesSearch && matchesTag) {
+        (item as HTMLElement).style.display = 'block';
+        visibleCount++;
+      } else {
+        (item as HTMLElement).style.display = 'none';
+      }
+    });
+    
+    if (resultsCount) {
+      resultsCount.textContent = `${visibleCount} post${visibleCount !== 1 ? 's' : ''}`;
     }
-
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        currentSearch = e.target.value.trim();
-        filterItems();
-      });
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
+  }
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        currentTag = e.target.getAttribute('data-tag');
-        
-        if (searchInput) {
-          searchInput.value = '';
-          currentSearch = '';
-        }
-        
-        filterItems();
-      });
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = (e.target as HTMLInputElement).value.trim();
+      filterItems();
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      const target = e.target as HTMLElement;
+      target.classList.add('active');
+      currentTag = target.getAttribute('data-tag') || 'ALL';
+      
+      if (searchInput) {
+        searchInput.value = '';
+        currentSearch = '';
+      }
+      
+      filterItems();
     });
   });
 </script>

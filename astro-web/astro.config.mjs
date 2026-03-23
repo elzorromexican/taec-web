@@ -3,8 +3,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-import node from '@astrojs/node';
-
 import react from '@astrojs/react';
 
 import sitemap from '@astrojs/sitemap';
@@ -29,17 +27,13 @@ const BASE = process.env.ASTRO_BASE || '/';
 export default defineConfig({
   site: SITE,
   base: BASE,
-  trailingSlash: 'ignore',
+  trailingSlash: 'never',
 
   build: {
     format: 'directory' // Generates /moodle-mexico/index.html etc.
   },
 
   output: 'static',
-
-  adapter: node({
-    mode: 'standalone'
-  }),
 
   integrations: [react(), sitemap()]
 });

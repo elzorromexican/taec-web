@@ -4,7 +4,7 @@
 // CHANGELOG: 2026-03-20 - Version badge: package.json version + git commit hash + build date
 //   → Eliminar las 3 constantes buildHash/buildDate/buildVersion antes de ir a producción
 import { footerLinks } from '../data/navigation';
-import { contactData } from '../data/contact';
+import { contactData, getBookingUrl } from '../data/contact';
 
 import { r, base } from '../utils/paths';
 
@@ -16,9 +16,11 @@ const buildRaw    = import.meta.env.PUBLIC_BUILD_DATE || '';
 const buildDate   = buildRaw
   ? new Date(buildRaw).toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' })
   : 'local';
-const buildVersion = '3.0.0'; // Sincronizar con package.json · npm version patch|minor|major para subir
+const buildVersion = '4.0.0'; // Sincronizar con package.json · npm version patch|minor|major para subir
+
+const { theme = 'default' } = Astro.props;
 ---
-<footer>
+<footer class={theme === 'dark' ? 'footer--dark' : ''}>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -51,9 +53,15 @@ const buildVersion = '3.0.0'; // Sincronizar con package.json · npm version pat
         </a>
       ))}
     </div>
+
+    <div class="footer-cta" style="text-align: center; margin: 32px 0 16px;">
+      <a href={getBookingUrl()} target="_blank" rel="noopener noreferrer" style="display: inline-block; background: var(--orange, #ff6b35); color: #fff; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.2s;">
+        Agendar diagnóstico gratuito →
+      </a>
+    </div>
     
     <div class="footer-bottom">
-      <p>© {currentYear} TAEC &middot; Ciudad de México &middot; <a href={r('/aviso-de-privacidad')} style="opacity:.6; color: inherit; text-decoration: underline;">Aviso de privacidad</a> 
+      <p>© {currentYear} TAEC &middot; Ciudad de México &middot; <a href="https://www.taec.com.mx/privacidad.php" target="_blank" rel="noopener noreferrer" style="opacity:.6; color: inherit; text-decoration: underline;">Aviso de privacidad</a> 
       {!import.meta.env.PROD && <span class="build-badge">v{buildVersion} · {buildHash} · {buildDate}</span>}</p>
       <div class="footer-social">
         <a href={contactData.socials.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>

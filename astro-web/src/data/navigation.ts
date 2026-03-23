@@ -58,7 +58,10 @@ export const mainNav: MainNavItem[] = [
           { label: "Vyond", url: "/vyond-mexico", subItems: [
               { label: "Vyond Go", url: "/vyond-go", badge: { text: "IA", type: "new" } },
               { label: "Vyond Studio", url: "/vyond-studio" },
-              { label: "Vyond Mobile", url: "/vyond-mobile" }
+              { label: "Vyond Mobile", url: "/vyond-mobile" },
+              { label: "Enterprise", url: "/vyond-enterprise" },
+              { label: "Professional", url: "/vyond-professional" },
+              { label: "Starter", url: "/vyond-starter" }
             ]
           }
         ]
@@ -164,7 +167,7 @@ export const footerLinks = [
       { label: "Vyond", url: "/vyond-mexico" },
       { label: "Moodle", url: "/moodle-mexico" },
       { label: "Totara LMS", url: "/totara-lms-mexico" },
-      { label: "Todas las soluciones →", url: "/servicios" }
+      { label: "Todas las soluciones →", url: "/contacto" }
     ]
   },
   {

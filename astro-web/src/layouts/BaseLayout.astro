@@ -21,7 +21,8 @@ const {
   section = "",
   page = "",
   image = "",
-  robots = "index, follow"
+  robots = "index, follow",
+  footerTheme = "default"
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nuevo.taec.com.mx');
@@ -51,7 +52,7 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <link rel="alternate" hreflang="es-419" href={Astro.site || 'https://nuevo.taec.com.mx/'} />
 
   <!-- Sitemap -->
-  <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+  <link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
 
   <link rel="canonical" href={canonicalURL} />
 
@@ -93,6 +94,31 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   }
   `} />
 
+  <!-- Breadcrumbs Dinámicos -->
+  {() => {
+    const pathParts = Astro.url.pathname.split('/').filter(Boolean);
+    if (pathParts.length === 0) return null;
+    
+    const breadcrumbItems = pathParts.map((part, index) => {
+      const url = `https://nuevo.taec.com.mx/${pathParts.slice(0, index + 1).join('/')}/`;
+      const name = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, ' ');
+      return {
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": name,
+        "item": url
+      };
+    });
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbItems
+    };
+
+    return <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />;
+  }}
+
   <slot name="head" />
 </head>
 <body data-section={section} data-page={page} data-base={base}>
@@ -103,7 +129,7 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   
   <slot />
   
-  <Footer />
+  <Footer theme={footerTheme} />
   
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
 </body>

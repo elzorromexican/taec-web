@@ -13,6 +13,22 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.description || post.data.title,
+  "datePublished": post.data.date,
+  "author": {
+    "@type": "Organization",
+    "name": post.data.author || "TAEC"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TAEC"
+  }
+};
 ---
 
 <BaseLayout 
@@ -20,6 +36,10 @@ const { Content } = await render(post);
   description={post.data.description || post.data.title}
   section="Recursos"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+
   <main style="background: #faf8f3; min-height: 70vh; padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 24px) 80px;">
     <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: clamp(24px, 5vw, 48px); box-shadow: 0 4px 16px rgba(0,0,0,0.05); overflow: hidden;">
       

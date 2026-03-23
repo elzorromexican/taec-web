@@ -39,6 +39,7 @@ const { tagName, terms } = Astro.props;
   title={`Términos asociados a "${tagName}" | Glosario TAEC`}
   description={`Glosario TAEC: Conceptos y definiciones clave relacionadas con el tema ${tagName}.`}
   section="Recursos"
+  robots={terms.length < 3 ? "noindex, nofollow" : "index, follow"}
 >
   <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
     <div style="max-width: 800px; margin: 0 auto;">

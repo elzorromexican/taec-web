@@ -71,7 +71,7 @@
     <!-- Cloudflare Turnstile Widget -->
     <!-- Reemplazar el data-sitekey con la llave pública de Cloudflare -->
     <div class="form-group" style="margin-bottom: 24px;">
-      <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+      <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_CF_TURNSTILE_KEY} data-theme="light"></div>
     </div>
 
     <div id="form-feedback" style="display: none; margin-bottom: 20px; padding: 12px; border-radius: 6px; font-family: var(--font-body, sans-serif); font-size: 0.9rem;"></div>

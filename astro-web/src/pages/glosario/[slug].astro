@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { r } from '../../utils/paths';
 
-const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+import { slugify } from '../../utils/slugify';
 
 // Genera todas las rutas posibles basándose en los .md de src/content/glosario
 export async function getStaticPaths() {
@@ -22,12 +22,7 @@ const relatedTermsFound = allTerms
   .filter(t => t.id !== term.id && t.data.related?.some((rTag: string) => term.data.related?.includes(rTag)))
   .slice(0, 3);
 
-// Obtener los artículos del blog que referencian este término (Circular Interlinking)
-const allPosts = await getCollection('blog');
-const relatedPosts = allPosts.filter(post => {
-  if (!post.data.related_terms) return false;
-  return post.data.related_terms.some((ref: any) => ref.id === term.id);
-});
+// relatedPosts query eliminado por no existencia en schema (H-08)
 
 const schema = {
   "@context": "https://schema.org",

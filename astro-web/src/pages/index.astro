@@ -38,7 +38,7 @@ import { r, base } from '../utils/paths';
           <h1>Articulate + Vyond + LMS + capacitación: <em>el stack completo en español</em></h1>
           <p class="hero-sub">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
           <div class="hero-actions">
-            <a href={r('/servicios')} class="btn-primary">Ver soluciones →</a>
+            <a href={r('/contacto')} class="btn-primary">Ver soluciones →</a>
             <a href={r('/contacto')} class="btn-ghost-hero">Hablar con un especialista</a>
           </div>
         </div>
@@ -72,7 +72,7 @@ import { r, base } from '../utils/paths';
         <div class="ticker-track" id="tickerTrack">
           {tickerData.map((i, idx) => (
             <>
-              <span class="ticker-item"><span class="cat">{i.categoria}</span>{i.titulo}</span>
+              <a href={r('/blog')} class="ticker-item" style="text-decoration:none; color:inherit;"><span class="cat">{i.categoria}</span>{i.titulo}</a>
               {idx < tickerData.length - 1 && <span class="ticker-item" style="color:var(--border)">·</span>}
             </>
           ))}
@@ -135,7 +135,7 @@ import { r, base } from '../utils/paths';
             <div class="serv-icon">🎬</div>
             <h3>Desarrollo de cursos a medida</h3>
             <p>Diseño instruccional + producción en Articulate o Vyond. E-learning, microlearning, blended learning y MOOCs listos para tu LMS.</p>
-            <a href={r('/servicios#cursos')} class="serv-link">Ver proceso →</a>
+            <a href={r('/desarrollo-de-contenidos')} class="serv-link">Ver proceso →</a>
           </div>
           <div class="serv-card">
             <div class="serv-icon">⚙️</div>
@@ -147,13 +147,13 @@ import { r, base } from '../utils/paths';
             <div class="serv-icon">💡</div>
             <h3>Consultoría L&D</h3>
             <p>Diagnóstico de brechas, estrategia de capacitación, analítica de aprendizaje y acompañamiento de adopción con metodología probada.</p>
-            <a href={r('/servicios#consultoria')} class="serv-link">Saber más →</a>
+            <a href={r('/nosotros')} class="serv-link">Saber más →</a>
           </div>
           <div class="serv-card">
             <div class="serv-icon">📋</div>
             <h3>Evaluaciones de alta seguridad</h3>
             <p>Plataforma especializada en exámenes de alta importancia. Diseño y análisis de evaluaciones con estándares para certificación.</p>
-            <a href={r('/servicios#evaluaciones')} class="serv-link">Ver más →</a>
+            <a href={r('/contacto')} class="serv-link">Ver más →</a>
           </div>
         </div>
       </div>

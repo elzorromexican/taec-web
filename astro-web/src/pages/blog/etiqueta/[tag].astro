@@ -39,6 +39,7 @@ const { tagName, posts } = Astro.props;
   title={`Artículos sobre "${tagName}" | Blog TAEC`}
   description={`Explora todos los artículos del blog TAEC que hablan sobre ${tagName}.`}
   section="Recursos"
+  robots={posts.length < 3 ? "noindex, nofollow" : "index, follow"}
 >
   <main style="background: #faf8f3; min-height: 70vh; padding: 64px 24px 80px;">
     <div style="max-width: 800px; margin: 0 auto;">

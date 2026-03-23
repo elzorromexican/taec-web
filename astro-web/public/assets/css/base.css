@@ -21,6 +21,7 @@ html { scroll-behavior: smooth; }
   --border:       #E2E8F0;
   --white:        #FFFFFF;
   --text:         #111827;
+  --art:          #16A34A;
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body:    'Inter', sans-serif;
 }
