@@ -47,8 +47,8 @@ export default function PortfolioDynamicGrid() {
   const types = ["Todos", ...Array.from(new Set(items.map(item => item.Tipo).filter(Boolean)))].slice(0, 8); // top 8 categories
 
   const filteredItems = activeFilter === "Todos" 
-    ? items.slice(0, 16) // Limit to top 16 initially to not overwhelm the UI
-    : items.filter(i => i.Tipo === activeFilter).slice(0, 16);
+    ? items 
+    : items.filter(i => i.Tipo === activeFilter);
 
     const isIframeable = (url: string) => {
       if (!url) return false;
