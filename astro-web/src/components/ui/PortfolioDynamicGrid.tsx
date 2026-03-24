@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import * as Papa from 'papaparse';
 
 interface PortfolioItem {
   Software: string;
@@ -23,15 +22,21 @@ export default function PortfolioDynamicGrid() {
     fetch(endpoint)
       .then(res => res.text())
       .then(csv => {
-        Papa.parse<PortfolioItem>(csv, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            const data = results.data.filter(d => Boolean(d['URL del Demo']));
-            setItems(data);
-            setLoading(false);
-          },
-        });
+        // Parseador CSV nativo simple para evitar crash de Vite/CJS
+        const lines = csv.split('\n').filter(line => line.trim() !== '');
+        if (lines.length > 1) {
+          const headers = lines[0].split(',').map(h => h.trim());
+          const data = lines.slice(1).map(line => {
+            const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            return headers.reduce((obj: any, header, i) => {
+              obj[header] = values[i] ? values[i].replace(/^"|"$/g, '').trim() : '';
+              return obj;
+            }, {} as PortfolioItem);
+          });
+          const validData = data.filter(d => Boolean(d['URL del Demo']));
+          setItems(validData);
+        }
+        setLoading(false);
       })
       .catch(err => {
         console.error("Error cargando portafolio:", err);
