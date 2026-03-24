@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Papa from 'papaparse';
-import './PortfolioDynamicGrid.css';
+import * as Papa from 'papaparse';
 
 interface PortfolioItem {
   Software: string;
