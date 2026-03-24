@@ -134,7 +134,7 @@ Vyond                                             7 Minutes
 ### Pendiente de próximas sesiones
 
 - [ ] Zoho Bookings — cambiar subdominio a URL branded (`taec.zohobookings.com`)
-- [ ] `aviso-de-privacidad` — página real (ahora es `<span>` desactivado en footer)
+- [x] `aviso-de-privacidad` y `terminos-y-condiciones` — páginas reales implementadas en Astro nativo.
 - [ ] Logos reales para Pifini/NetExam, DDC y socios en LogosGrid
 - [ ] `/blog` y `/articulos` — contenido real (ahora scaffold)
 - [ ] Optimización de imágenes con `<Image>` de Astro
@@ -178,6 +178,10 @@ Vyond                                             7 Minutes
 - **Sitemaps XML Automatizados:** Implementación de la suite oficial `@astrojs/sitemap` para el auto-rastreo completo del directorio estático. Emisión del mapa dinámico ligada a variables de entorno de staging y prod en `astro.config.mjs`.
 - **Blindaje Pre-Lanzamiento (Robots.txt):** Creación del rastreo nativo `public/robots.txt` desautorizando el tráfico a zonas administrativas (`/admin/`, `/test/`). Habilitación granular de un flag relacional `robots="noindex, nofollow"` desde el `BaseLayout.astro`.
 - **Generative Engine Optimization (JSON-LD P0):** Inyección de un script `<script type="application/ld+json">` dinámico adaptado a directrices del W3C bajo `<slot name="head">`. Activado schema formativo `FAQPage` para más de 40 componentes nativos y esquema `DefinedTerm` para todo el diccionario E-learning del catálogo.
+
+### 23 mar 2026 — Páginas Legales y Componentes Globales
+- **Migración Legal:** Extracción masiva de textos legales heredados en formato PHP hacia las nuevas rutas estáticas `aviso-de-privacidad.astro` y `terminos-y-condiciones.astro` renderizadas bajo `BaseLayout.astro`.
+- **Integración Global:** Actualización de las anclas `<a>` en el Footer principal de la aplicación para desviar el tráfico a los nodos locales.
 
 ### 23 mar 2026 — Arquitectura Desacoplada y Limpieza Híbrida (v4.0.0)
 - **Refactorización Core CSS (Fase 3):** Consolidación histórica de la cascada de estilos. Se pulverizó el CSS inline redundante que simulaba el estado activo de navegación en el `<header>` de más de 11 páginas de producto.
