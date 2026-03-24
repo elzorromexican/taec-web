@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAEC · Outreach LinkedIn · Corporate Learning Summit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --navy: #1B2A4A;
+    --orange: #FF6B35;
+    --orange-light: #FFF0EA;
+    --gray-100: #F5F5F3;
+    --gray-200: #E8E8E4;
+    --gray-400: #9B9B94;
+    --gray-700: #3D3D38;
+    --white: #FFFFFF;
+    --li-blue: #0A66C2;
+    --li-bg: #F3F2EF;
+    --li-bubble: #EEF3F8;
+    --font: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--gray-100);
+    color: var(--gray-700);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+
+  .header {
+    max-width: 820px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .header-left h1 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--li-blue);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .header-left h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+  }
+
+  .meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tag-version { background: var(--navy); color: var(--white); }
+  .tag-draft { background: var(--orange-light); color: var(--orange); }
+  .tag-channel { background: #E8F0F9; color: var(--li-blue); }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-client { background: var(--navy); }
+  .dot-prospect { background: var(--orange); }
+
+  .section-label {
+    max-width: 820px;
+    margin: 28px auto 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gray-400);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+  }
+
+  .grid {
+    max-width: 820px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .segment-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  .card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .toque-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.06em;
+  }
+
+  /* LinkedIn DM mockup */
+  .li-preview {
+    background: var(--li-bg);
+    padding: 16px 14px;
+    min-height: 140px;
+  }
+
+  .li-dm-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .li-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+
+  .li-bubble {
+    background: var(--li-bubble);
+    border-radius: 12px 12px 2px 12px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #191919;
+    max-width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+
+  .li-time {
+    font-size: 10px;
+    color: #666;
+    margin-top: 5px;
+    align-self: flex-end;
+  }
+
+  .link-placeholder {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--orange-light);
+    color: var(--orange);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid #FFD4C0;
+  }
+
+  .char-bar {
+    height: 2px;
+    background: var(--gray-200);
+    margin: 0;
+    position: relative;
+  }
+
+  .char-fill {
+    height: 100%;
+    background: var(--li-blue);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .card-footer {
+    padding: 10px 14px;
+    background: var(--gray-100);
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .timing {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.04em;
+  }
+
+  .copy-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid var(--gray-200);
+    color: var(--gray-400);
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .copy-btn.copied {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .notes-box {
+    max-width: 820px;
+    margin: 28px auto 0;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+
+  .notes-box h3 {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--li-blue);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .notes-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .notes-box li {
+    font-size: 12.5px;
+    color: var(--gray-700);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .notes-box li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--li-blue);
+    font-size: 11px;
+  }
+
+  /* Connection request note */
+  .conn-note {
+    max-width: 820px;
+    margin: 0 auto 20px;
+    background: #E8F0F9;
+    border: 1px solid #C0D4ED;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #0A4A8A;
+  }
+
+  .conn-note strong {
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>TAEC · Canal: LinkedIn DM</h1>
+    <h2>Corporate Learning Summit México</h2>
+    <div class="meta">
+      <span class="tag tag-version">v1.0 · 2026-03-18</span>
+      <span class="tag tag-draft">Borrador</span>
+      <span class="tag tag-channel">LinkedIn</span>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="dot dot-client"></div>Clientes</div>
+    <div class="legend-item"><div class="dot dot-prospect"></div>Prospectos</div>
+  </div>
+</div>
+
+<div class="conn-note">
+  <strong>Prospectos sin conexión:</strong> enviar solicitud de conexión primero con nota breve — "Hola [Nombre], te quiero compartir una invitación a un evento que organizamos con Articulate el 7 de mayo. ¿Conectamos?" — y esperar aceptación antes de mandar el DM T1.
+</div>
+
+<!-- CLIENTES -->
+<div class="section-label"><div class="dot dot-client"></div>Clientes actuales</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · T1</span>
+      </div>
+      <span class="toque-badge">Ahora</span>
+    </div>
+    <div class="li-preview">
+      <div class="li-dm-wrap">
+        <div class="li-avatar">TM</div>
+        <div class="li-bubble" id="c-li-t1">[Nombre], te escribo porque el 7 de mayo organizamos junto con Articulate el Corporate Learning Summit México en el St. Regis CDMX. Evento presencial, cupo limitado, registro abierto. El programa está orientado a líderes de L&D que quieren ver casos reales de IA aplicada al aprendizaje corporativo. ¿Te comparto el link de registro?</div>
+        <div class="li-time">Visto · 10:42</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Enviar: ahora</span>
+      <button class="copy-btn" onclick="copyLI('c-li-t1', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · T2</span>
+      </div>
+      <span class="toque-badge">+5–7 días</span>
+    </div>
+    <div class="li-preview">
+      <div class="li-dm-wrap">
+        <div class="li-avatar">TM</div>
+        <div class="li-bubble" id="c-li-t2">[Nombre], por si no viste mi mensaje anterior — el registro para el evento del 7 de mayo sigue abierto pero los lugares se están ocupando. Si te interesa: <span class="link-placeholder">[LINK]</span></div>
+        <div class="li-time">Visto · 10:42</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Sin respuesta · +5–7 días</span>
+      <button class="copy-btn" onclick="copyLI('c-li-t2', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--navy)"></div>
+        <span class="card-title">Cliente · T3</span>
+      </div>
+      <span class="toque-badge">Cierre</span>
+    </div>
+    <div class="li-preview">
+      <div class="li-dm-wrap">
+        <div class="li-avatar">TM</div>
+        <div class="li-bubble" id="c-li-t3">[Nombre], el registro cierra pronto. Si quieres asistir al Corporate Learning Summit del 7 de mayo: <span class="link-placeholder">[LINK]</span></div>
+        <div class="li-time">Visto · 10:42</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">3–4 días antes del corte</span>
+      <button class="copy-btn" onclick="copyLI('c-li-t3', this)">Copiar</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROSPECTOS -->
+<div class="section-label"><div class="dot dot-prospect"></div>Prospectos</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · T1</span>
+      </div>
+      <span class="toque-badge">Tras aceptar conexión</span>
+    </div>
+    <div class="li-preview">
+      <div class="li-dm-wrap">
+        <div class="li-avatar">TM</div>
+        <div class="li-bubble" id="p-li-t1">[Nombre], te escribo porque organizamos junto con Articulate un evento ejecutivo presencial el 7 de mayo en el St. Regis CDMX: Corporate Learning Summit México. Cupo limitado, sin costo, para líderes de Capacitación y L&D. El foco es cómo las organizaciones están usando IA para escalar el aprendizaje con impacto en el negocio. ¿Te interesa que te comparta el programa?</div>
+        <div class="li-time">Visto · 10:42</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Después de aceptar solicitud</span>
+      <button class="copy-btn" onclick="copyLI('p-li-t1', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · T2</span>
+      </div>
+      <span class="toque-badge">+5–7 días</span>
+    </div>
+    <div class="li-preview">
+      <div class="li-dm-wrap">
+        <div class="li-avatar">TM</div>
+        <div class="li-bubble" id="p-li-t2">[Nombre], sigo en contacto por el Corporate Learning Summit del 7 de mayo. El registro está abierto: <span class="link-placeholder">[LINK]</span></div>
+        <div class="li-time">Visto · 10:42</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">Sin respuesta · +5–7 días</span>
+      <button class="copy-btn" onclick="copyLI('p-li-t2', this)">Copiar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="segment-dot" style="background:var(--orange)"></div>
+        <span class="card-title">Prospecto · T3</span>
+      </div>
+      <span class="toque-badge">Cierre</span>
+    </div>
+    <div class="li-preview">
+      <div class="li-dm-wrap">
+        <div class="li-avatar">TM</div>
+        <div class="li-bubble" id="p-li-t3">[Nombre], el registro cierra pronto. Si tienes interés en el Corporate Learning Summit del 7 de mayo: <span class="link-placeholder">[LINK]</span>. Si no es el momento, sin problema.</div>
+        <div class="li-time">Visto · 10:42</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="timing">3–4 días antes del corte</span>
+      <button class="copy-btn" onclick="copyLI('p-li-t3', this)">Copiar</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="notes-box">
+  <h3>Notas operativas · LinkedIn DM</h3>
+  <ul>
+    <li>Prospectos sin conexión: enviar solicitud primero y esperar aceptación — nunca InMail frío para este tipo de invitación.</li>
+    <li>Tono más formal que WhatsApp, más directo que email. Sin saludos largos ni cierres ceremoniales.</li>
+    <li>Si el prospecto responde pero no confirma, continuar la conversación en LinkedIn — no saltar a otro canal sin su indicación.</li>
+    <li>Sustituir <strong>[LINK]</strong> antes de enviar. El T1 de clientes cierra con pregunta para confirmar interés antes de mandar el link.</li>
+    <li>LinkedIn limita mensajes largos en móvil — verificar que el texto T1 de prospectos no supere ~500 caracteres en pantalla de vista previa.</li>
+  </ul>
+</div>
+
+<script>
+function copyLI(id, btn) {
+  const el = document.getElementById(id);
+  let text = el.textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
