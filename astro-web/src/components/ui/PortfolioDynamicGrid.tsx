@@ -50,47 +50,61 @@ export default function PortfolioDynamicGrid() {
     ? items.slice(0, 16) // Limit to top 16 initially to not overwhelm the UI
     : items.filter(i => i.Tipo === activeFilter).slice(0, 16);
 
-  return (
-    <div className="portfolio-section">
-      <div className="portfolio-header">
-        <h2 className="section-title">Portafolio de Trabajo</h2>
-        <p className="section-sub">Explora +120 casos de éxito reales desarrollados por TAEC.</p>
-        
-        {/* Capa 1: Filtros de Píldoras */}
-        {loading ? (
-          <p>Cargando portafolio interáctivo...</p>
-        ) : (
-          <div className="portfolio-filters">
-            {types.map(tipo => (
-              <button
-                key={tipo}
-                onClick={() => setActiveFilter(tipo)}
-                className={`filter-pill ${activeFilter === tipo ? 'active' : ''}`}
-              >
-                {tipo}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+    const isIframeable = (url: string) => {
+      if (!url) return false;
+      // Articulate Review bloquea activamente ser incrustado (X-Frame-Options)
+      if (url.includes('360.articulate.com/review')) return false;
+      // Otros dominios corporativos pueden requerir abrir por fuera
+      return true;
+    };
 
-      {/* Capa 2: Muro de Inspiración (Grid) */}
-      <div className="portfolio-grid">
-        {filteredItems.map((item, i) => (
-          <div className="portfolio-card" key={i}>
-            <div className="card-badge">{item.Software}</div>
-            <div className="card-body">
-              <h3 className="card-title">{item["Nombre del Curso"] || "Demo de Capacitación"}</h3>
-              <p className="card-meta"><strong>Tipo:</strong> {item.Tipo}</p>
+    return (
+      <div className="portfolio-section">
+        <div className="portfolio-header">
+          <h2 className="section-title">Portafolio de Trabajo</h2>
+          <p className="section-sub">Explora +120 casos de éxito reales desarrollados por TAEC.</p>
+          
+          {/* Capa 1: Filtros de Píldoras */}
+          {loading ? (
+            <p>Cargando portafolio interactivo...</p>
+          ) : (
+            <div className="portfolio-filters">
+              {types.map(tipo => (
+                <button
+                  key={tipo}
+                  onClick={() => setActiveFilter(tipo)}
+                  className={`filter-pill ${activeFilter === tipo ? 'active' : ''}`}
+                >
+                  {tipo}
+                </button>
+              ))}
             </div>
-            <div className="card-footer">
-              <button className="btn-view" onClick={() => setActiveItem(item)}>
-                Interactuar con Demo
-              </button>
+          )}
+        </div>
+
+        {/* Capa 2: Muro de Inspiración (Grid) */}
+        <div className="portfolio-grid">
+          {filteredItems.map((item, i) => (
+            <div className="portfolio-card" key={i}>
+              <div className="card-badge">{item.Software}</div>
+              <div className="card-body">
+                <h3 className="card-title">{item["Nombre del Curso"] || "Demo de Capacitación"}</h3>
+                <p className="card-meta"><strong>Tipo:</strong> {item.Tipo}</p>
+              </div>
+              <div className="card-footer">
+                <button className="btn-view" onClick={() => {
+                  if (isIframeable(item['URL del Demo'])) {
+                    setActiveItem(item);
+                  } else {
+                    window.open(item['URL del Demo'], '_blank');
+                  }
+                }}>
+                  {isIframeable(item['URL del Demo']) ? "Interactuar con Demo" : "Abrir Curso ↗"}
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
       {/* Capa 3: El "Teatro" interactivo (Lightbox de Consumo) */}
       {activeItem && (
@@ -98,7 +112,15 @@ export default function PortfolioDynamicGrid() {
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>
             <div className="lightbox-header">
               <h3>{activeItem["Nombre del Curso"]}</h3>
-              <button className="btn-close" onClick={() => setActiveItem(null)}>✕ Lector Cerrar</button>
+              <div style={{display: 'flex', gap: '16px'}}>
+                <button className="btn-close" onClick={() => {
+                  window.open(activeItem['URL del Demo'], '_blank');
+                  setActiveItem(null);
+                }}>
+                  Abrir pantalla completa ↗
+                </button>
+                <button className="btn-close" onClick={() => setActiveItem(null)}>✕ Cerrar</button>
+              </div>
             </div>
             <div className="lightbox-body">
               <iframe
@@ -106,6 +128,8 @@ export default function PortfolioDynamicGrid() {
                 className="demo-iframe"
                 frameBorder="0"
                 allowFullScreen
+                allow="autoplay; fullscreen"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
               />
             </div>
           </div>
