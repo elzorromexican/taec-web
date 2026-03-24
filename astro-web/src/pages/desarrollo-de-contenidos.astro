@@ -12,6 +12,7 @@ import {
   ddcProceso, ddcFaqs, ddcLogos, ddcCta
 } from '../data/ddc';
 import { getBookingUrl } from '../data/contact';
+import PortfolioDynamicGrid from '../components/ui/PortfolioDynamicGrid';
 
 import { r } from '../utils/paths';
 
@@ -61,6 +62,11 @@ const bookingUrl = getBookingUrl();
       </div>
       <p class="scorm-note">Todos los entregables pueden publicarse en <strong>SCORM 1.2 · SCORM 2004 · xAPI</strong> — compatibles con cualquier LMS o LXP.</p>
     </div>
+  </section>
+
+  <!-- ── PORTAFOLIO DE DEMOS ── -->
+  <section class="ddc-portafolio">
+    <PortfolioDynamicGrid client:load />
   </section>
 
   <!-- ── BENEFICIOS ── -->
