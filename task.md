@@ -36,6 +36,7 @@
 ## 💼 Portafolio y Centro de Demos DDC
 - [x] Analizar base de datos de Demos (Google Sheets) para integrar un "Portafolio / Centro de Demos" interactivo a la página de DDC.
 - [x] Estructurar la UI/UX del portafolio.
+- [x] Separar el portafolio en una URL/Página estática independiente (`/portafolio`) para limpiar el diseño de la landing base.
 
 ## 🗺️ Roadmap Fase 2 (Detallado)
 **1. Reestructuración Profunda de Menú y UX (Postergado para el Final)**

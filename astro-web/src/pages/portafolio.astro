@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PortfolioDynamicGrid from '../components/ui/PortfolioDynamicGrid';
+import '../components/ui/PortfolioDynamicGrid.css';
+---
+
+<Layout title="Portafolio de Proyectos y Casos de Éxito | TAEC">
+  <main class="portafolio-page">
+    <PortfolioDynamicGrid client:load />
+  </main>
+</Layout>
+
+<style>
+  .portafolio-page {
+    padding-top: 100px; /* Previene superposición con el navbar fijo */
+    min-height: 80vh;
+    background-color: #ffffff;
+  }
+</style>

@@ -12,8 +12,6 @@ import {
   ddcProceso, ddcFaqs, ddcLogos, ddcCta
 } from '../data/ddc';
 import { getBookingUrl } from '../data/contact';
-import PortfolioDynamicGrid from '../components/ui/PortfolioDynamicGrid';
-import '../components/ui/PortfolioDynamicGrid.css';
 
 import { r } from '../utils/paths';
 
@@ -65,9 +63,13 @@ const bookingUrl = getBookingUrl();
     </div>
   </section>
 
-  <!-- ── PORTAFOLIO DE DEMOS ── -->
-  <section class="ddc-portafolio">
-    <PortfolioDynamicGrid client:load />
+  <!-- ── PORTAFOLIO DE DEMOS (CTA hacia la nueva página) ── -->
+  <section class="ddc-portafolio-cta">
+    <div class="cta-banner">
+      <h2 class="cta-banner-title">Transformamos la teoría en experiencias memorables</h2>
+      <p class="cta-banner-text">Explora más de 120 casos de éxito reales donde hemos digitalizado el conocimiento corporativo usando las herramientas líderes del mercado.</p>
+      <a href="/portafolio" class="btn-portafolio">Explorar Portafolio Interactivo →</a>
+    </div>
   </section>
 
   <!-- ── BENEFICIOS ── -->
@@ -230,5 +232,56 @@ const bookingUrl = getBookingUrl();
 @media (max-width: 768px) {
   .servicios-grid { grid-template-columns: 1fr; }
   .pq-grid { grid-template-columns: 1fr; }
+}
+
+/* ── BANNER PORTAFOLIO CTA ── */
+.ddc-portafolio-cta {
+  padding: 80px 5%;
+  background: #f8fafc;
+  display: flex;
+  justify-content: center;
+}
+.cta-banner {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-radius: 20px;
+  padding: 60px 40px;
+  max-width: 900px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+.cta-banner-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #f97316, #fb923c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cta-banner-text {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-portafolio {
+  display: inline-block;
+  background: #f97316;
+  color: white;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3);
+}
+.btn-portafolio:hover {
+  background: #ea580c;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.4);
 }
 </style>
