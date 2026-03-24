@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 interface PortfolioItem {
-  Software: string;
-  Industria: string;
+  Software?: string;
+  Industria?: string;
   Tipo: string;
   "Nombre del Curso": string;
   "URL del Demo": string;
+  Thumbnail?: string;
 }
 
 export default function PortfolioDynamicGrid() {
@@ -15,9 +16,8 @@ export default function PortfolioDynamicGrid() {
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
 
   useEffect(() => {
-    // Aquí el usuario cambiará el endpoint por el de su Google Apps Script, 
-    // pero temporalmente leemos el CSV limpio generado.
-    const endpoint = '/data/demos_publicos.csv';
+    // Endpoint conectado a Google Sheets en tiempo real
+    const endpoint = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQlAX64aluC1BzreG4nLQuOoCbA1M7hfef-mk1b9J1bx1_Zwfnm6_-UT46xk9mesIvrAvJdsPvaZGOb/pub?output=csv';
 
     fetch(endpoint)
       .then(res => res.text())
@@ -86,7 +86,14 @@ export default function PortfolioDynamicGrid() {
         <div className="portfolio-grid">
           {filteredItems.map((item, i) => (
             <div className="portfolio-card" key={i}>
-              <div className="card-badge">{item.Software}</div>
+              {item.Thumbnail ? (
+                <div className="card-thumbnail" style={{ backgroundImage: `url(${item.Thumbnail})` }} />
+              ) : (
+                <div className="card-thumbnail placeholder">
+                  <span className="placeholder-icon">🎥</span>
+                </div>
+              )}
+              {item.Software && <div className="card-badge">{item.Software}</div>}
               <div className="card-body">
                 <h3 className="card-title">{item["Nombre del Curso"] || "Demo de Capacitación"}</h3>
                 <p className="card-meta"><strong>Tipo:</strong> {item.Tipo}</p>
