@@ -9,6 +9,7 @@
 - [x] **Blindaje JavaScript (Hallazgo P0 de Auditoría):** Extracción, tipado y desacoplamiento de *scripts* pesados en `blog/`, `articulos/`, `totara-lms` y red `vyond`. Se migraron los inyectores `define:vars` a variables `data-keys` nativas en DOM para evitar bloqueos del Main Thread.
 - [x] **Actualización de UI DDC:** Reemplazo de bloque de texto ("Cómo trabajamos") por diagrama visual del ciclo ágil SAM + ADDIE en `desarrollo-de-contenidos.astro`.
 - [x] **Correcciones DDC (Revisión PDF):** Extraer e implementar todos los comentarios de `docs/Revisión sitio DDC 2026.pdf` en la landing de Desarrollo de Contenidos.
+- [x] **Páginas Legales:** Migración completa de php a Astro para `/aviso-de-privacidad` y `/terminos-y-condiciones`.
 
 ## 🛠️ Cotizador DDC (Estimador de Costos Web)
 **Fase de Definición**
@@ -24,14 +25,14 @@
 - [x] Crear la Astro API Route `src/pages/api/calcular-cotizacion-ddc.ts` (Desactivado temporalmente).
 - [x] Implementar validador Zod Schema para sanitizar los payloads entrantes.
 - [x] Codificar el motor de estimación derivado de 3 productos limitados (Storyline, Rise, Vyond).
-- [ ] Validar EndPoint contra 5 cotizaciones históricas reales sacadas del Excel (margen de error ≤ ±15%).
+- [ ] *(POSTERGADO)* Validar EndPoint contra 5 cotizaciones históricas reales sacadas del Excel (margen de error ≤ ±15%).
 
 **Fase Frontend**
 - [x] Diseñar Componente Island en React o Svelte (`CotizadorDDC`) embebido en la landing.
 - [x] Integrar el formulario de inputs limpios estandarizados para el usuario.
 - [x] Realizar Fetch pasivo y asíncrono al endpoint.
 - [x] Mostrar en UI el resultado encapsulado (`"Desde $XX,XXX MXN"`) e inyectar *disclaimer* legal.
-- [ ] Hacer POST webhook enviando los datos cotizados hacia Zoho CRM si capturamos el lead.
+- [ ] *(POSTERGADO)* Hacer POST webhook enviando los datos cotizados hacia Zoho CRM si capturamos el lead.
 
 ## 💼 Portafolio y Centro de Demos DDC
 - [x] Analizar base de datos de Demos (Google Sheets) para integrar un "Portafolio / Centro de Demos" interactivo a la página de DDC.
