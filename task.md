@@ -8,6 +8,7 @@
 - [x] Saneamiento Quirúrgico (Anti-FOUC): Purga de `>800` líneas de CSS redundante (Mega Menú y Footer) de 11 landings de Articulate y Vyond para lograr 100% de herencia del layout unificado sin parpadeos de renderizado.
 - [x] **Blindaje JavaScript (Hallazgo P0 de Auditoría):** Extracción, tipado y desacoplamiento de *scripts* pesados en `blog/`, `articulos/`, `totara-lms` y red `vyond`. Se migraron los inyectores `define:vars` a variables `data-keys` nativas en DOM para evitar bloqueos del Main Thread.
 - [x] **Actualización de UI DDC:** Reemplazo de bloque de texto ("Cómo trabajamos") por diagrama visual del ciclo ágil SAM + ADDIE en `desarrollo-de-contenidos.astro`.
+- [x] **Correcciones DDC (Revisión PDF):** Extraer e implementar todos los comentarios de `docs/Revisión sitio DDC 2026.pdf` en la landing de Desarrollo de Contenidos.
 
 ## 🛠️ Cotizador DDC (Estimador de Costos Web)
 **Fase de Definición**

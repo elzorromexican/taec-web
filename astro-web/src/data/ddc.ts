@@ -28,7 +28,7 @@ export const ddcServicios = [
   {
     icon: "🎬",
     label: "Video formativo",
-    desc: "Animación 2D con Vyond, Motion Graphic a la medida y video 3D. Montaje en objetos SCORM para registro en LMS e interactividad opcional."
+    desc: "Animación 2D con Vyond y Motion Graphic a la medida. Videos SCORM o montaje para su registro en LMS e interactividad opcional."
   },
   {
     icon: "📋",
@@ -38,7 +38,7 @@ export const ddcServicios = [
   {
     icon: "✨",
     label: "Servicios de IA",
-    desc: "Locución digital realista, avatares animados, gemelos digitales y multiidioma automatizado. Guiones y storyboards potenciados con IA generativa en Articulate y Vyond."
+    desc: "Transformamos contenidos base en cursos e-learning y videos en cuestión de minutos. Mediante la IA Generativa, potenciamos la información para crear contenidos, guiones y evaluaciones. Incluimos locución digital realista, avatares animados y gemelos digitales. Contamos con un sistema de traducción inmediata y multiidioma automatizado."
   }
 ];
 
@@ -47,18 +47,13 @@ export const ddcBeneficios = {
   eyebrow: "Por qué TAEC DDC",
   title: "Cuatro razones para confiar tu e-learning a TAEC",
   subtitle: "Más de 18 años produciendo cursos a medida para corporativos en México, LATAM, Europa y Estados Unidos.",
-  columns: 4 as const,
+  columns: 3 as const,
   theme: "general" as const,
   cards: [
     {
       icon: "🛠️",
       title: "Herramientas líderes globales",
       description: "Desarrollamos con Articulate 360 (Storyline, Rise) y Vyond: la combinación más potente del mercado para cursos interactivos, animación 2D, Motion Graphic y video formativo."
-    },
-    {
-      icon: "🤖",
-      title: "IA Generativa integrada",
-      description: "Locución digital realista, avatares animados, gemelos digitales y traducción multiidioma automática. Mayor velocidad de producción sin sacrificar identidad ni calidad instruccional."
     },
     {
       icon: "🏆",
@@ -115,7 +110,7 @@ export const ddcFaqs = [
   },
   {
     question: "¿Necesito tener el contenido listo para cotizar?",
-    answerHtml: "Para una cotización precisa necesitamos el <strong>contenido fuente final y validado</strong>. A partir de él estimamos duración, nivel de interactividad y costo real. Si el contenido está en borrador, podemos hacer una estimación preliminar en sesión; los ajustes se afinarán una vez validado."
+    answerHtml: "Para una cotización precisa necesitamos el <strong>contenido fuente final y validado</strong>. A partir de él estimamos duración, nivel de interactividad y costo real. Si el contenido está en borrador, podemos hacer una estimación preliminar en sesión; los ajustes se afinarán una vez validado. Si no cuentas con el contenido final, platiquemos sobre la duración esperada para estimar un costo."
   },
   {
     question: "¿Cuánto tiempo toma producir un curso?",
@@ -147,8 +142,10 @@ export const ddcLogos = [
   { type: "text" as const, text: "Banorte" },
   { type: "text" as const, text: "MARS" },
   { type: "text" as const, text: "Hyundai" },
-  { type: "text" as const, text: "Palacio de Hierro" },
-  { type: "text" as const, text: "Unilever" },
+  { type: "text" as const, text: "GS1" },
+  { type: "text" as const, text: "Grisi" },
+  { type: "text" as const, text: "OIM (ONU)" },
+  { type: "text" as const, text: "Banco Multiva" },
   { type: "text" as const, text: "Volaris" },
   { type: "text" as const, text: "BID" },
   { type: "text" as const, text: "Daimler Trucks" }
