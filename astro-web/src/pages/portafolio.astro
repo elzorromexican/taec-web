@@ -1,14 +1,18 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import PortfolioDynamicGrid from '../components/ui/PortfolioDynamicGrid';
 import '../components/ui/PortfolioDynamicGrid.css';
 ---
 
-<Layout title="Portafolio de Proyectos y Casos de Éxito | TAEC">
+<BaseLayout 
+  title="Portafolio de Proyectos y Casos de Éxito | TAEC"
+  description="Explora más de 120 casos de éxito reales donde hemos digitalizado el conocimiento corporativo en formato e-learning."
+  section="Soluciones"
+>
   <main class="portafolio-page">
     <PortfolioDynamicGrid client:load />
   </main>
-</Layout>
+</BaseLayout>
 
 <style>
   .portafolio-page {
