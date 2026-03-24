@@ -79,17 +79,9 @@ const bookingUrl = getBookingUrl();
       <p class="section-label">Cómo trabajamos</p>
       <h2 class="section-title">Proceso Alfa → Beta → Gold</h2>
       <p class="section-sub">ADDIE para diseño instruccional · Agile SAM para producción multimedia · Tu PM controla tiempos y calidad.</p>
-      <div class="proceso-steps">
-        {ddcProceso.map(p => (
-          <div class="paso">
-            <div class="paso-num">{p.paso}</div>
-            <div class="paso-body">
-              <h3>{p.titulo}</h3>
-              <span class="paso-sub">{p.subtitulo}</span>
-              <p>{p.desc}</p>
-            </div>
-          </div>
-        ))}
+      <div class="proceso-image-container">
+        <!-- Imagen original: Cómo trabajamos.jpeg -->
+        <img src="/assets/como-trabajamos.jpeg" alt="Cómo trabajamos" class="proceso-image" />
       </div>
       <div class="proceso-nota">
         <strong>Revisiones incluidas</strong> — El guión se revisa sobre el documento o en sesión remota. La producción multimedia se revisa en <strong>Articulate Review 360</strong>, herramienta de control de cambios en tiempo real de libre acceso para el cliente.
@@ -189,33 +181,19 @@ const bookingUrl = getBookingUrl();
 }
 
 /* ── PROCESO ── */
-.proceso-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.proceso-image-container {
   margin-top: 40px;
-  border: 1.5px solid #E2E8F0;
+  text-align: center;
+}
+.proceso-image {
+  max-width: 100%;
+  height: auto;
   border-radius: 16px;
-  overflow: hidden;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  display: block;
+  margin: 0 auto;
 }
-.paso {
-  display: flex;
-  align-items: flex-start;
-  gap: 28px;
-  padding: 28px 32px;
-  border-bottom: 1px solid #E2E8F0;
-  background: white;
-  transition: background .15s;
-}
-.paso:last-child { border-bottom: none; }
-.paso:hover { background: #FAFAFA; }
-.paso-num {
-  font-size: 28px; font-weight: 900; color: #f97316;
-  min-width: 48px; line-height: 1; flex-shrink: 0; padding-top: 2px;
-}
-.paso-body h3 { font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 4px; }
-.paso-sub { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #f97316; display: block; margin-bottom: 8px; }
-.paso-body p { font-size: 14px; color: #4B5563; line-height: 1.75; margin: 0; }
 .proceso-nota {
   margin-top: 28px; font-size: 14px; color: #4B5563; line-height: 1.75;
   background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 10px; padding: 18px 24px;
@@ -250,7 +228,5 @@ const bookingUrl = getBookingUrl();
 @media (max-width: 768px) {
   .servicios-grid { grid-template-columns: 1fr; }
   .pq-grid { grid-template-columns: 1fr; }
-  .paso { flex-direction: column; gap: 12px; padding: 22px 20px; }
-  .paso-num { font-size: clamp(28px, 3vw, 40px); }
 }
 </style>
