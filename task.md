@@ -12,6 +12,13 @@
 - [x] **Páginas Legales:** Migración completa de php a Astro para `/aviso-de-privacidad` y `/terminos-y-condiciones`.
 - [x] **Auditoría Arquitectónica de IA (DeepSeek):** Implementación de mejoras estructurales globales: `README.md`, limpieza asíncrona de Git tracking (`OLDYS`), `dependabot.yml`, plantilla segura de `.env.example`, inyección nativa de SEO en Layout Principal y retraso de ejecución (*lazy loading* `client:visible`) en componentes puros de React.
 
+## 🛑 Tareas Congeladas (Requieren VoBo Interno Taec)
+- [ ] **Validación Vyond:** Revisión final de la página curso con Ana M.
+- [ ] **Validación Articulate:** Revisión de la visibilidad de herramientas en curso Articulate y curso Fundamentos (Ana M).
+- [ ] **Validación Reach 360:** Determinar modelo final para web vs PDF.
+- [ ] **Decisión UI (Header Articulate):** Remover fondos azules y reemplazar textos por logotipos gráficos directos en cabeceras.
+- [ ] **Incrustación Calendario de Moodle:** Esperando el iFrame público para añadir o incrustar directo la ruta de aprendizaje de Cursos.
+
 ## 🛠️ Cotizador DDC (Estimador de Costos Web)
 **Fase de Definición**
 - [x] Extraer tabuladores fantasma del Excel original: `pmFromInstructionalDesign` y `pmFromGraphicDesign`.
