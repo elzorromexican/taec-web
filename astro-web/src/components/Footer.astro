@@ -54,12 +54,7 @@ const { theme = 'default' } = Astro.props;
       ))}
     </div>
 
-    <div class="footer-cta" style="text-align: center; margin: 32px 0 16px;">
-      <a href={getBookingUrl()} target="_blank" rel="noopener noreferrer" style="display: inline-block; background: var(--orange, #ff6b35); color: #fff; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.2s;">
-        Agendar diagnóstico gratuito →
-      </a>
-    </div>
-    
+
     <div class="footer-bottom">
       <p>© {currentYear} TAEC &middot; Ciudad de México &middot; <a href={r('/aviso-de-privacidad')} style="margin-right: 8px;">Aviso de privacidad</a> <a href={r('/terminos-y-condiciones')}>Términos y condiciones</a> 
       {!import.meta.env.PROD && <span class="build-badge">v{buildVersion} · {buildHash} · {buildDate}</span>}</p>

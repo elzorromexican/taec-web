@@ -16,6 +16,7 @@
 - [x] **Depuración de Catálogo Comercial Vyond:** Eliminación definitiva del plan "Vyond Starter" del simulador de tarjetas cruzadas y menús principales.
 - [x] **Restauración de Infraestructura CSS CSS:** Inyección de 60 líneas de maquetación Flexbox extraviadas para rehabilitar la estructura gráfica rota de Vyond Professional y Enterprise.
 - [x] **Unificación de Navegación Secundaria (Vyond):** Extracción del catálogo en bruto hacia un nuevo componente agnóstico (`VyondNav.astro`) e inyección transversal en las 6 páginas de producto/planes para homologar la experiencia con el menú de Articulate.
+- [x] **Auditoría de Accesibilidad (Footer):** Rediseño paramétrico de contrastes en `footer.css` (de Slate 500 a Slate 200/Blanco), incremento en pesos de fuente y eliminación de opacidades restrictivas en enlaces legales para cumplir estándares WCAG.
 
 ## 🛑 Tareas Congeladas (Requieren VoBo Interno Taec)
 - [ ] **Validación Vyond:** Revisión final de la página curso con Ana M.
