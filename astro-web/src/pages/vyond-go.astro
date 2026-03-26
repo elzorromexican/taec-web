@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r, base } from '../utils/paths';
 import VideoMuteButton from '../components/ui/VideoMuteButton.astro';
+import VyondNav from '../components/ui/VyondNav.astro';
 ---
 
 <BaseLayout 
@@ -15,13 +16,6 @@ import VideoMuteButton from '../components/ui/VideoMuteButton.astro';
 >
   <style is:global>
 
-    /* product pages */
-    .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
-    .prod-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
-    .prod-tab{display:inline-flex;align-items:center;gap:7px;padding:16px 22px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
-    .prod-tab:hover{color:var(--vy)}
-    .prod-tab.active{color:var(--vy);border-bottom-color:var(--vy);background:transparent!important;border-radius:0!important;padding:14px 20px!important;color:var(--vy-orange,#C84D16)!important}
-    .prod-tab-icon{font-size:15px}
     /* hero */
     .prod-hero{padding:72px 5% 80px}
     .prod-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
@@ -127,11 +121,7 @@ import VideoMuteButton from '../components/ui/VideoMuteButton.astro';
 
 <main id="main-content">
 
-<div class="prod-tabs"><div class="prod-tabs-inner"><a href={r('/vyond-mexico')} class="prod-tab"><span class="prod-tab-icon">🎥</span>Vyond</a>
-<a href={r('/vyond-go')} class="prod-tab active"><span class="prod-tab-icon">🤖</span>Vyond Go</a>
-<a href={r('/vyond-studio')} class="prod-tab"><span class="prod-tab-icon">🎬</span>Vyond Studio</a>
-<a href={r('/vyond-mobile')} class="prod-tab"><span class="prod-tab-icon">📱</span>Vyond Mobile</a></div></div>
-
+<VyondNav />
 <section class="prod-hero" style="background:linear-gradient(135deg, #1a0a00 0%, #3d1200 50%, #C84D16 100%)">
   <div class="prod-hero-inner">
     <div>

@@ -11,6 +11,10 @@
 - [x] **Correcciones DDC (Revisión PDF):** Extraer e implementar todos los comentarios de `docs/Revisión sitio DDC 2026.pdf` en la landing de Desarrollo de Contenidos.
 - [x] **Páginas Legales:** Migración completa de php a Astro para `/aviso-de-privacidad` y `/terminos-y-condiciones`.
 - [x] **Auditoría Arquitectónica de IA (DeepSeek):** Implementación de mejoras estructurales globales: `README.md`, limpieza asíncrona de Git tracking (`OLDYS`), `dependabot.yml`, plantilla segura de `.env.example`, inyección nativa de SEO en Layout Principal y retraso de ejecución (*lazy loading* `client:visible`) en componentes puros de React.
+- [x] **Triage de Revisión (Pastel):** Aplicación de correcciones de redactura fina (USA y Europa, Escríbenos, Triggers, On-line, Show/Try/Do) e iconografía (Reemplazar Clip por Tachuela).
+- [x] **Corrección de Contraste (Vyond Go/Mobile/Studio):** Inyección de bloques CSS omitidos para renderizar fuentes color blanco legibles en hero cards.
+- [x] **Depuración de Catálogo Comercial Vyond:** Eliminación definitiva del plan "Vyond Starter" del simulador de tarjetas cruzadas y menús principales.
+- [x] **Restauración de Infraestructura CSS CSS:** Inyección de 60 líneas de maquetación Flexbox extraviadas para rehabilitar la estructura gráfica rota de Vyond Professional y Enterprise.
 
 ## 🛑 Tareas Congeladas (Requieren VoBo Interno Taec)
 - [ ] **Validación Vyond:** Revisión final de la página curso con Ana M.

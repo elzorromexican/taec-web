@@ -5,6 +5,7 @@ import HeroComercial from '../components/ui/HeroComercial.astro';
 import GridBeneficios from '../components/ui/GridBeneficios.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
+import VyondNav from '../components/ui/VyondNav.astro';
 
 const appsVyond = [
   { icon: "⚡", title: "Vyond Go", description: "Tu creador de video instantáneo con IA. Escribe un prompt como «Curso de onboarding», presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo." },
@@ -104,6 +105,7 @@ import { r, base } from '../utils/paths';
   </style>
 
 <main id="main-content">
+<VyondNav />
 
 <!-- ══ HERO ══ -->
 <HeroComercial

@@ -1,0 +1,38 @@
+---
+import { r } from '../../utils/paths';
+const currentPath = Astro.url.pathname;
+
+const tabs = [
+  { label: 'Vyond', icon: '🎥', path: '/vyond-mexico' },
+  { label: 'Vyond Go', icon: '🤖', path: '/vyond-go' },
+  { label: 'Vyond Studio', icon: '🎬', path: '/vyond-studio' },
+  { label: 'Vyond Mobile', icon: '📱', path: '/vyond-mobile' },
+  { label: 'Professional', icon: '💼', path: '/vyond-professional' },
+  { label: 'Enterprise', icon: '🏢', path: '/vyond-enterprise' },
+];
+---
+
+<style is:global>
+  .prod-tabs{background:#F8FAFC;border-bottom:1px solid var(--border);padding:0 5%}
+  .prod-tabs-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
+  .prod-tabs-inner::-webkit-scrollbar { height: 0px; } /* hide scrollbar for horizontal scroll if any */
+  .prod-tab{display:inline-flex;align-items:center;gap:7px;padding:16px 22px;font-size:13px;font-weight:600;color:#64748B;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;text-decoration:none}
+  .prod-tab:hover{color:var(--vy-orange, #C84D16)}
+  .prod-tab.active{color:var(--vy-orange, #C84D16)!important;border-bottom-color:var(--vy-orange, #C84D16)!important;background:transparent!important;border-radius:0!important;padding:16px 22px!important}
+  .prod-tab-icon{font-size:15px}
+</style>
+
+<div class="prod-tabs">
+  <div class="prod-tabs-inner">
+    {tabs.map(tab => {
+      // Consider it active if the current path includes the tab path
+      const isActive = currentPath.replace(/\/$/, '').endsWith(tab.path) || currentPath.includes(tab.path + '.html');
+      return (
+        <a href={r(tab.path)} class={`prod-tab ${isActive ? 'active' : ''}`}>
+          <span class="prod-tab-icon">{tab.icon}</span>
+          {tab.label}
+        </a>
+      )
+    })}
+  </div>
+</div>
