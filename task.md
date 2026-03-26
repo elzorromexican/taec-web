@@ -10,6 +10,7 @@
 - [x] **Actualización de UI DDC:** Reemplazo de bloque de texto ("Cómo trabajamos") por diagrama visual del ciclo ágil SAM + ADDIE en `desarrollo-de-contenidos.astro`.
 - [x] **Correcciones DDC (Revisión PDF):** Extraer e implementar todos los comentarios de `docs/Revisión sitio DDC 2026.pdf` en la landing de Desarrollo de Contenidos.
 - [x] **Páginas Legales:** Migración completa de php a Astro para `/aviso-de-privacidad` y `/terminos-y-condiciones`.
+- [x] **Auditoría Arquitectónica de IA (DeepSeek):** Implementación de mejoras estructurales globales: `README.md`, limpieza asíncrona de Git tracking (`OLDYS`), `dependabot.yml`, plantilla segura de `.env.example`, inyección nativa de SEO en Layout Principal y retraso de ejecución (*lazy loading* `client:visible`) en componentes puros de React.
 
 ## 🛠️ Cotizador DDC (Estimador de Costos Web)
 **Fase de Definición**
