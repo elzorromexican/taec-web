@@ -61,7 +61,7 @@ export const mainNav: MainNavItem[] = [
               { label: "Vyond Mobile", url: "/vyond-mobile" },
               { label: "Enterprise", url: "/vyond-enterprise" },
               { label: "Professional", url: "/vyond-professional" },
-              { label: "Starter", url: "/vyond-starter" }
+
             ]
           }
         ]

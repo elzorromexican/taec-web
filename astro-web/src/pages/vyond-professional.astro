@@ -11,6 +11,76 @@ import { r, base } from '../utils/paths';
   section="Soluciones"
   page="vyond-professional.html"
 >
+<style is:global>
+  .plan-selector{background:#F8FAFC;padding:16px 5%;border-bottom:1px solid var(--border)}
+  .plan-selector-inner{max-width:1100px;margin:0 auto;display:flex;gap:24px;align-items:center}
+  .plan-tab{font-size:14px;font-weight:600;color:#64748B;padding-bottom:8px;border-bottom:2px solid transparent;position:relative;top:1px}
+  .plan-tab.active{color:#C84D16;border-bottom-color:#C84D16}
+  .plan-tab:hover:not(.active){color:#111827}
+  
+  .vp-hero{padding:80px 5%;color:white}
+  .vp-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+  .vp-logo-pill img{height:20px;width:auto}
+  .vp-logo-pill{display:inline-block;background:white;padding:6px 16px;border-radius:20px;margin-bottom:16px}
+  .vp-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:16px}
+  .vp-hero h1{font-size:clamp(32px,4vw,48px);font-weight:900;line-height:1.1;margin-bottom:20px}
+  .vp-hero-sub{font-size:18px;color:rgba(255,255,255,.9);margin-bottom:32px;line-height:1.5}
+  .vp-btns{display:flex;gap:16px;align-items:center}
+  .btn-vp-primary{padding:12px 24px;border-radius:8px;font-weight:700;text-align:center}
+  .btn-vp-ghost{padding:12px 24px;border-radius:8px;font-weight:700;color:white;border:1px solid rgba(255,255,255,.3);text-align:center}
+  .vp-hero-card{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:32px}
+  .vp-hero-feats{display:flex;flex-direction:column;gap:12px}
+  .vp-feat{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,.9)}
+  .vp-feat-check{color:#FFCBA4;font-weight:700}
+  
+  .plan-cards{padding:80px 5%;background:#F8FAFC}
+  .plan-cards-inner{max-width:1100px;margin:0 auto}
+  .plan-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
+  .plan-card{background:white;border-radius:16px;padding:32px;border:1px solid var(--border);position:relative;display:flex;flex-direction:column}
+  .plan-card.current{border-color:#C84D16;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+  .plan-card-badge{position:absolute;top:-12px;left:32px;background:#C84D16;color:white;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;text-transform:uppercase}
+  .plan-card-name{font-size:24px;font-weight:800;color:#111827;margin-bottom:8px}
+  .plan-card-desc{font-size:14px;color:#64748B;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+  .plan-card-feats{list-style:none;padding:0;margin:0 0 32px 0;display:flex;flex-direction:column;gap:12px;flex:1}
+  .plan-card-feats li{position:relative;padding-left:24px;font-size:14px;color:#334155}
+  .plan-card-feats li::before{content:"✓";position:absolute;left:0;color:#C84D16;font-weight:700}
+  .plan-card-cta{text-align:center;padding:12px;border-radius:8px;font-weight:700;display:block}
+  .plan-card-cta-primary{background:#111827;color:white}
+  .plan-card-cta-outline{border:1px solid var(--border);color:#111827}
+  
+  .feat-section{padding:80px 5%;background:white}
+  .feat-inner{max-width:1100px;margin:0 auto}
+  .feat-title{font-size:32px;font-weight:800;color:#111827;text-align:center;margin-bottom:16px}
+  .feat-sub{font-size:16px;color:#64748B;text-align:center;margin-bottom:48px;max-width:600px;margin-inline:auto}
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+  .feat-card{background:#F8FAFC;padding:24px;border-radius:12px}
+  .feat-icon{font-size:32px;margin-bottom:16px}
+  .feat-name{font-size:18px;font-weight:700;color:#111827;margin-bottom:8px}
+  .feat-desc{font-size:14px;color:#475569;line-height:1.5}
+  
+  .usecase-section{padding:80px 5%;background:#F8FAFC}
+  .usecase-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:48px}
+  .usecase-label{font-size:11px;font-weight:700;color:#C84D16;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .usecase-title{font-size:32px;font-weight:800;color:#111827;margin-bottom:16px;line-height:1.1}
+  .usecase-sub{font-size:16px;color:#64748B;line-height:1.5}
+  .usecase-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .usecase-card{background:white;padding:24px;border-radius:12px;border:1px solid var(--border)}
+  .usecase-card-title{font-size:16px;font-weight:700;color:#111827;margin-bottom:8px}
+  .usecase-card-desc{font-size:14px;color:#64748B;line-height:1.5}
+  
+  .vp-cta{padding:80px 5%;background:linear-gradient(135deg,#1a0a00 0%,#3d1200 100%);text-align:center}
+  .vp-cta h2{font-size:clamp(28px,3vw,36px);font-weight:800;color:white;margin-bottom:16px}
+  .vp-cta p{font-size:18px;color:rgba(255,255,255,.8);margin-bottom:40px;max-width:600px;margin-inline:auto}
+  .vp-cta-btns{display:flex;gap:16px;justify-content:center}
+  .btn-cta-white{background:white;color:#C84D16;padding:14px 28px;border-radius:8px;font-weight:700;display:inline-block}
+  .btn-cta-outline{border:2px solid rgba(255,255,255,.3);color:white;padding:14px 28px;border-radius:8px;font-weight:700;display:inline-block}
+
+  @media(max-width:768px){
+    .vp-hero-inner, .usecase-inner{grid-template-columns:1fr}
+    .usecase-grid{grid-template-columns:1fr}
+  }
+</style>
+
 <main id="main-content">
 
 <!-- plan tabs -->
