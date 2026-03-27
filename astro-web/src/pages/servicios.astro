@@ -1,113 +1,95 @@
 ---
-import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import { mainNav } from '../data/navigation';
+import { r, base } from '../utils/paths';
 
-import { r } from '../utils/paths';
+// Extraemos directamente toda la información de "Soluciones" desde la navegación
+const solucionesNav = mainNav.find(item => item.id === "soluciones");
 ---
 
 <BaseLayout 
-  title="Todas las Soluciones – TAEC | e-learning México"
-  description="Herramientas de autoría, plataformas LMS, servicios de evaluación y catálogos listos para tu estrategia e-learning."
-  section=""
-  page="servicios.html"
-  robots="noindex, nofollow"
+  title="Todas las Soluciones | TAEC"
+  description="Explora todas nuestras herramientas de autoría, plataformas LMS y servicios de evaluación y contenidos e-learning listos para tu estrategia."
 >
-  <style is:global>
+  <main class="page-transition">
+    <HeroComercial 
+      badge="Catálogo Completo"
+      titulo="Todas las Soluciones"
+      desc="Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español."
+      icon="🧩"
+    />
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
-    }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(168,219,217,.15); color: var(--teal);
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
-      font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
-    }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
-    }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
-
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
-    }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-primary:hover { background: #d97b0e; }
-    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
-    .btn-wa:hover { background: #1ebe5c; }
-    .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
-  </style>
-
-<main id="main-content">
-
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Soluciones</span>
-    <span class="wip-icon" role="img" aria-label="Todas las Soluciones">🧩</span>
-    <h1>Todas las Soluciones</h1>
-    <p>Herramientas de autoría, plataformas LMS, servicios de evaluación y catálogos listos para tu estrategia e-learning.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+    <section class="soluciones-directory">
+      <div class="dir-inner">
+        {solucionesNav?.columns?.map(col => (
+          <div class="dir-category">
+            <h2 class="cat-title">{col.title}</h2>
+            <div class="dir-grid">
+              {col.items.map(link => {
+                if (link.isDivider || link.isSubtitle) return null;
+                
+                return (
+                  <a href={link.url ? r(link.url) : '#'} class="dir-card">
+                    <div class="card-head">
+                      <h3>{link.label}</h3>
+                      {link.badge && <span class={`badge-${link.badge.type}`}>{link.badge.text}</span>}
+                    </div>
+                    {link.subtext && <p class="card-sub">{link.subtext}</p>}
+                    
+                    {link.subItems && link.subItems.length > 0 && (
+                      <div class="card-pills">
+                        {link.subItems.map(sub => (
+                          <span class="pill">{sub.label}</span>
+                        ))}
+                      </div>
+                    )}
+                    
+                    <div class="card-arrow">Explorar <span class="arr">→</span></div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre Todas las Soluciones?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href={r('/contacto')} class="btn-primary">Escribirnos →</a>
-      <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-wa">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
-    </div>
-  </div>
-</section>
-
-</main>
+    <CtaFinal 
+      title="¿No estás seguro de qué herramienta necesitas?"
+      desc="Habla con uno de nuestros especialistas. Comparamos plataformas contigo y te damos acceso a demos sin compromiso."
+      btnText="Agendar diagnóstico →"
+    />
+  </main>
 </BaseLayout>
+
+<style>
+.soluciones-directory { padding: 80px 5%; background: var(--light); }
+.dir-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 72px; }
+.dir-category { display: flex; flex-direction: column; gap: 32px; }
+.cat-title { font-family: var(--font-display); font-size: 28px; color: var(--navy); border-bottom: 2px solid rgba(168,219,217,.3); padding-bottom: 16px; }
+
+.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+.dir-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+.dir-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,71,117,.08); border-color: rgba(168,219,217,.5); }
+
+.dir-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--teal), var(--blue)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.dir-card:hover::before { transform: scaleX(1); }
+
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.card-head h3 { font-size: 19px; font-weight: 700; color: var(--navy); margin: 0; }
+.card-sub { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+.card-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 16px; }
+.pill { font-size: 11px; font-weight: 600; color: var(--blue); background: rgba(49,121,194,.08); padding: 4px 10px; border-radius: 20px; }
+
+.card-arrow { margin-top: 24px; font-size: 13px; font-weight: 700; color: var(--teal); display: flex; align-items: center; gap: 6px; }
+.card-arrow .arr { transition: transform 0.3s ease; }
+.dir-card:hover .card-arrow .arr { transform: translateX(4px); }
+
+/* Badges reuse */
+.badge-new { font-size: 10px; font-weight: 700; background: #FEF3C7; color: #D97706; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+.badge-saas { font-size: 10px; font-weight: 700; background: #E0E7FF; color: #4338CA; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+.badge-teams { font-size: 10px; font-weight: 700; background: #DCFCE7; color: #15803D; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+</style>

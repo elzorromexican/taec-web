@@ -1,0 +1,74 @@
+---
+interface Props {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}
+const { value, prefix = "", suffix = "", duration = 2500 } = Astro.props;
+---
+<span class="animated-counter" data-target={value} data-prefix={prefix} data-suffix={suffix} data-duration={duration}>0</span>
+
+<script>
+  function initCounters() {
+    const counters = document.querySelectorAll('.animated-counter:not(.is-animating)');
+    if (!counters.length) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          el.classList.add('is-animating');
+          
+          const target = parseInt(el.getAttribute('data-target') || '0', 10);
+          const prefix = el.getAttribute('data-prefix') || '';
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = parseInt(el.getAttribute('data-duration') || '2500', 10);
+
+          let startTimestamp: number | null = null;
+          const step = (timestamp: number) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            
+            // easeOutExpo for a smoother slow-down at the end
+            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const currentObj = Math.floor(easeProgress * target);
+            
+            // Format number with commas
+            const formatted = new Intl.NumberFormat('en-US').format(currentObj);
+            el.innerHTML = `${prefix}${formatted}${suffix}`;
+            
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            } else {
+              // Ensure final value is exact
+              el.innerHTML = `${prefix}${new Intl.NumberFormat('en-US').format(target)}${suffix}`;
+            }
+          };
+          
+          window.requestAnimationFrame(step);
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    counters.forEach(counter => observer.observe(counter));
+  }
+  
+  // Initialize on vanilla DOM
+  document.addEventListener('DOMContentLoaded', initCounters);
+  // Re-initialize if using view transitions
+  document.addEventListener('astro:page-load', initCounters);
+  
+  // Also run immediately in case it's dynamically inserted or script runs late
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      initCounters();
+  }
+</script>
+
+<style>
+  .animated-counter {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

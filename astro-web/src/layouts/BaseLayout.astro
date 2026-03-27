@@ -12,8 +12,9 @@
 // CHANGELOG: 19/03/2026 - Centralized SEO logic and dynamic canonical URLs
 // CHANGELOG: 19/03/2026 - Use BASE_URL for asset paths to support GitHub Pages staging
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import FooterDock from '../components/experiments/FooterDock.astro';
 import MobileNav from '../components/MobileNav.astro';
+import { ClientRouter } from 'astro:transitions';
 
 const {
   title = "TAEC – Partner e-learning para empresas | México y LATAM",
@@ -52,10 +53,11 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <meta name="geo.placename" content="Ciudad de México" />
   <link rel="alternate" hreflang="es-419" href={Astro.site || 'https://nuevo.taec.com.mx/'} />
 
-  <!-- Sitemap -->
   <link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
 
   <link rel="canonical" href={canonicalURL} />
+  
+  <ClientRouter />
 
   <!-- OpenGraph / Social -->
   <meta property="og:type" content="website" />
@@ -124,7 +126,7 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
 
   <slot name="head" />
 </head>
-<body data-section={section} data-page={page} data-base={base}>
+<body data-section={section} data-page={page} data-base={base} class="has-footer-dock">
   <a class="skip-link" href="#main-content">Ir al contenido principal</a>
   
   <Header />
@@ -132,8 +134,27 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   
   <slot />
   
-  <Footer theme={footerTheme} />
+  <FooterDock theme={footerTheme} />
   
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
+  <script is:inline>
+    // ── Global Scroll Reveal
+    function globalInitReveal() {
+      const reveals = document.querySelectorAll('.reveal-up:not(.is-revealed)');
+      if (!reveals.length) return;
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(el => observer.observe(el));
+    }
+    
+    document.addEventListener('astro:page-load', globalInitReveal);
+    if (document.readyState === 'complete' || document.readyState === 'interactive') globalInitReveal();
+  </script>
 </body>
 </html>

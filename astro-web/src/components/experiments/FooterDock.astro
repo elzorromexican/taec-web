@@ -1,0 +1,125 @@
+---
+import { footerLinks } from '../../data/navigation';
+import { contactData, getBookingUrl } from '../../data/contact';
+import { r, base } from '../../utils/paths';
+
+const currentYear = new Date().getFullYear();
+const buildHash   = (import.meta.env.PUBLIC_BUILD_HASH  || 'local').slice(0, 7);
+const buildRaw    = import.meta.env.PUBLIC_BUILD_DATE || '';
+const buildDate   = buildRaw
+  ? new Date(buildRaw).toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' })
+  : 'local';
+const buildVersion = '4.0.0';
+
+const { theme = 'default' } = Astro.props;
+---
+<style is:global>
+/* ── FOOTER DOCK EXPERIMENT ── */
+.footer-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 800;
+  transform: translateY(calc(100% - 40px));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--navy);
+  box-shadow: 0 -15px 40px rgba(0,0,0,0.4);
+}
+.footer-dock.footer--dark {
+  background: #04293F;
+}
+.footer-dock:hover, .footer-dock.is-open {
+  transform: translateY(0);
+}
+.footer-tab {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.footer-tab-icon { margin-right: 8px; font-size: 9px; transition: transform 0.3s; }
+.footer-dock:hover .footer-tab-icon, .footer-dock.is-open .footer-tab-icon { transform: rotate(180deg); }
+.footer-scroll-area {
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* Modificadores estructurales que impactan la página cuando se use el dock */
+.has-footer-dock main { padding-bottom: 40px; }
+.has-footer-dock .wa-float { bottom: 64px !important; }
+</style>
+
+<footer class={`footer-dock ${theme === 'dark' ? 'footer--dark' : ''}`} id="taec-footer">
+  <div class="footer-tab" id="footer-tab-trigger">
+    <span class="footer-tab-icon">▲</span> Explorar sitio y legal
+  </div>
+  <div class="footer-scroll-area">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href={r('/')} class="logo-link"><img src={`${base}assets/logo.svg`} alt="TAEC" /></a>
+          <p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde 2007 en CDMX para México y LATAM.</p>
+          <div class="footer-contact">
+            <a href={`mailto:${contactData.email}`}>✉ {contactData.email}</a>
+            <a href={`tel:${contactData.phone.replace(/ /g, '')}`}>📞 {contactData.phone}</a>
+            <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer">💬 {contactData.whatsapp.label}</a>
+          </div>
+        </div>
+        
+        {footerLinks.map((col) => (
+          <div class="footer-col">
+            <h4>{col.title}</h4>
+            <ul>
+              {col.items.map((link) => (
+                <li><a href={r(link.url)} {...(link.url.startsWith('http') ? {target: "_blank", rel: "noopener noreferrer"} : {})}>{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      
+      <div class="footer-latam">
+        <span class="footer-latam-label">También en:</span>
+        {contactData.regional.map((reg) => (
+          <a href={reg.url} target="_blank" rel="noopener noreferrer" title={`TAEC ${reg.country}`}>
+            {reg.emoji} {reg.country} &mdash; {reg.domain}
+          </a>
+        ))}
+      </div>
+
+      <div class="footer-bottom">
+        <p>© {currentYear} TAEC &middot; Ciudad de México &middot; <a href={r('/aviso-de-privacidad')} style="margin-right: 8px;">Aviso de privacidad</a> <a href={r('/terminos-y-condiciones')}>Términos y condiciones</a> 
+        {!import.meta.env.PROD && <span class="build-badge">v{buildVersion} · {buildHash} · {buildDate}</span>}</p>
+        <div class="footer-social">
+          <a href={contactData.socials.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
+          <a href={contactData.socials.youtube} target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>
+          <a href={contactData.socials.facebook} target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">fb</a>
+          <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const taecFooter = document.getElementById('taec-footer');
+    const taecTrigger = document.getElementById('footer-tab-trigger');
+    
+    if(taecTrigger && taecFooter) {
+      // Remove old listener to avoid duplicates if necessary, though astro:page-load handles DOM replacement cleanly
+      taecTrigger.addEventListener('click', () => {
+        taecFooter.classList.toggle('is-open');
+      });
+    }
+  });
+</script>

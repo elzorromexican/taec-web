@@ -17,8 +17,25 @@ const founded = new Date(2007, 9, 11);
 const now = new Date();
 const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
 
-import tickerData from '../../public/data/ticker.json';
 import { r, base } from '../utils/paths';
+import AnimatedCounter from '../components/ui/AnimatedCounter.astro';
+import { getCollection } from 'astro:content';
+
+const articulosColl = await getCollection('articulos').catch(() => []);
+const blogColl = await getCollection('blog').catch(() => []);
+
+const dbPosts = [...articulosColl, ...blogColl].map(p => {
+  // En Astro 6, p.id es el identificador (e.g. "mi-post") dado por el glob loader
+  const finalSlug = p.id;
+  return {
+    titulo: p.data.title || p.data.titulo || finalSlug.replace(/-/g, ' '),
+    categoria: p.data.category || p.data.categoria || (p.collection === 'articulos' ? 'Artículos' : 'Blog'),
+    url: `/${p.collection}/${finalSlug}`
+  };
+});
+
+import fallbackTicker from '../../public/data/ticker.json';
+const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15) : fallbackTicker;
 ---
 
 <BaseLayout 
@@ -37,27 +54,27 @@ import { r, base } from '../utils/paths';
           <span class="hero-tag">Especialistas en e-learning corporativo · México y LATAM · desde 2007</span>
           <h1>Articulate + Vyond + LMS + capacitación: <em>el stack completo en español</em></h1>
           <p class="hero-sub">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
-          <div class="hero-actions">
-            <a href={r('/contacto')} class="btn-primary">Ver soluciones →</a>
+          <div class="hero-actions reveal-up">
+            <a href={r('/contacto')} class="btn-primary">Ver soluciones <span class="arrow-icon">→</span></a>
             <a href={r('/contacto')} class="btn-ghost-hero">Hablar con un especialista</a>
           </div>
         </div>
         <div class="hero-stats">
           <div class="stat-grid">
             <div class="stat-card">
-              <div class="stat-num"><em>{anni}</em>+</div>
+              <div class="stat-num"><em><AnimatedCounter value={anni} suffix="+" /></em></div>
               <div class="stat-label">años en el mercado</div>
             </div>
             <div class="stat-card">
-              <div class="stat-num">+<em>1,500</em></div>
+              <div class="stat-num"><em><AnimatedCounter value={1500} prefix="+" /></em></div>
               <div class="stat-label">clientes atendidos</div>
             </div>
             <div class="stat-card">
-              <div class="stat-num"><em>22</em></div>
+              <div class="stat-num"><em><AnimatedCounter value={22} /></em></div>
               <div class="stat-label">países de alcance</div>
             </div>
             <div class="stat-card">
-              <div class="stat-num">+<em>200</em></div>
+              <div class="stat-num"><em><AnimatedCounter value={200} prefix="+" /></em></div>
               <div class="stat-label">implementaciones enterprise</div>
             </div>
           </div>
@@ -68,14 +85,16 @@ import { r, base } from '../utils/paths';
     <!-- ══ TICKER ══ -->
     <div class="ticker">
       <div class="ticker-inner">
-        <span class="ticker-badge">Blog TAEC</span>
-        <div class="ticker-track" id="tickerTrack">
-          {tickerData.map((i, idx) => (
-            <>
-              <a href={r('/blog')} class="ticker-item" style="text-decoration:none; color:inherit;"><span class="cat">{i.categoria}</span>{i.titulo}</a>
-              {idx < tickerData.length - 1 && <span class="ticker-item" style="color:var(--border)">·</span>}
-            </>
-          ))}
+        <span class="ticker-badge">Recursos</span>
+        <div class="ticker-marquee-wrapper">
+          <div class="ticker-track" id="tickerTrack" style="opacity:0; transition: opacity 0.3s; flex-wrap:nowrap;">
+            {tickerPool.map((i, idx) => (
+              <div class="ticker-dom-item" style="display:none; align-items:center;">
+                <a href={i.url ? r(i.url) : r('/blog')} class="ticker-item" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space: nowrap;"><span class="cat">{i.categoria}</span><span>{String(i.titulo)}</span></a>
+                <span class="ticker-item-dot" style="color:var(--border); font-weight:bold; margin: 0 24px;">·</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -85,30 +104,30 @@ import { r, base } from '../utils/paths';
       <div class="partners-inner">
         <p class="partners-label">Partners y distribuidores oficiales</p>
         <div class="partners-row">
-          <div class="partner-badge">
+          <a href={r('/articulate-360-mexico')} class="partner-badge" style="text-decoration:none;">
             <div class="partner-logo"><img src={`${base}assets/logos/articulate-reseller.svg`} alt="Articulate Authorized Reseller" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Authorized Reseller</span>
-          </div>
-          <div class="partner-badge">
+          </a>
+          <a href={r('/curso-articulate')} class="partner-badge" style="text-decoration:none;">
             <div class="partner-logo"><img src={`${base}assets/logos/articulate.png`} alt="Articulate Certified Training Partner" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Certified Training Partner</span>
-          </div>
-          <div class="partner-badge">
+          </a>
+          <a href={r('/vyond-mexico')} class="partner-badge" style="text-decoration:none;">
             <div class="partner-logo"><img src={`${base}assets/logos/vyond.svg`} alt="Vyond" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Authorized Reseller</span>
-          </div>
-          <div class="partner-badge">
+          </a>
+          <a href={r('/totara-lms-mexico')} class="partner-badge" style="text-decoration:none;">
             <div class="partner-logo"><img src={`${base}assets/logos/totara.png`} alt="Totara" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Solutions Partner</span>
-          </div>
-          <div class="partner-badge">
+          </a>
+          <a href={r('/moodle-mexico')} class="partner-badge" style="text-decoration:none;">
             <div class="partner-logo"><img src={`${base}assets/logos/moodle.png`} alt="Moodle" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Partner</span>
-          </div>
-          <div class="partner-badge">
+          </a>
+          <a href={r('/7minutes-learning')} class="partner-badge" style="text-decoration:none;">
             <div class="partner-logo"><img src={`${base}assets/logos/7minutes.png`} alt="7 Minutes Learning" width="200" height="110" loading="lazy" /></div>
             <span class="partner-tag">Authorized Reseller</span>
-          </div>
+          </a>
         </div>
       </div>
     </section>
@@ -122,14 +141,14 @@ import { r, base } from '../utils/paths';
             <h2 class="section-title">Soluciones de aprendizaje a tu medida</h2>
             <p class="section-sub">Del diagnóstico a la implementación — cubrimos todo el ecosistema e-learning de tu organización.</p>
           </div>
-          <a href={r('/servicios')} class="see-all">Ver todas las soluciones →</a>
+          <a href={r('/servicios')} class="see-all">Ver todas las soluciones <span class="arrow-icon">→</span></a>
         </div>
         <div class="servicios-grid">
-          <div class="serv-card">
+          <div class="serv-card reveal-up">
             <div class="serv-icon">🛠️</div>
             <h3>Herramientas de autoría</h3>
             <p>Articulate 360, Vyond y más. Licencias oficiales con soporte en español, factura mexicana y precio en pesos al tipo de cambio del día.</p>
-            <a href={r('/articulate-360-mexico')} class="serv-link">Ver herramientas →</a>
+            <a href={r('/articulate-360-mexico')} class="serv-link">Ver herramientas <span class="arrow-icon">→</span></a>
           </div>
           <div class="serv-card">
             <div class="serv-icon">🎬</div>
@@ -242,12 +261,24 @@ import { r, base } from '../utils/paths';
     <!-- ══ CLIENTES ══ -->
     <section class="clientes">
       <div class="clientes-inner">
-        <p class="clientes-label">Confían en TAEC</p>
-        <div class="clientes-row">
-          <div class="cliente-logo-pill"><span>GS1</span></div>
-          <div class="cliente-logo-pill"><span>VivaAerobús</span></div>
-          <div class="cliente-logo-pill"><span>UNICEF</span></div>
-          <div class="cliente-logo-pill"><span>OIM</span></div>
+        <p class="clientes-label reveal-up">Confían en TAEC</p>
+        <div class="clientes-marquee reveal-up">
+          <div class="clientes-track">
+            <!-- Set 1 -->
+            <div class="cliente-logo-pill"><span>GS1</span></div>
+            <div class="cliente-logo-pill"><span>VivaAerobús</span></div>
+            <div class="cliente-logo-pill"><span>UNICEF</span></div>
+            <div class="cliente-logo-pill"><span>OIM</span></div>
+            <div class="cliente-logo-pill"><span>Peñoles</span></div>
+            <div class="cliente-logo-pill"><span>Tec de Monterrey</span></div>
+            <!-- Set 2 (Duplicado para loop infinito) -->
+            <div class="cliente-logo-pill"><span>GS1</span></div>
+            <div class="cliente-logo-pill"><span>VivaAerobús</span></div>
+            <div class="cliente-logo-pill"><span>UNICEF</span></div>
+            <div class="cliente-logo-pill"><span>OIM</span></div>
+            <div class="cliente-logo-pill"><span>Peñoles</span></div>
+            <div class="cliente-logo-pill"><span>Tec de Monterrey</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -296,6 +327,39 @@ import { r, base } from '../utils/paths';
   </main>
 
   <script is:inline>
+
+
+    // ── Ticker Randomizer (Cliente)
+    function initTicker() {
+      const track = document.getElementById('tickerTrack');
+      if (!track) return;
+      
+      const items = Array.from(track.querySelectorAll('.ticker-dom-item'));
+      if (items.length === 0) return;
+
+      // Shuffle
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+
+      track.innerHTML = '';
+      const selected = items.slice(0, 5);
+      
+      const renderSet = () => {
+        selected.forEach((item) => {
+          const clone = item.cloneNode(true);
+          clone.style.display = 'inline-flex';
+          track.appendChild(clone);
+        });
+      };
+      
+      renderSet();
+      renderSet(); // Renderizamos doble para crear el efecto de scroll infinito continuo
+      
+      track.style.opacity = '1';
+    }
+
     // ── Testimonios carousel
     const carousel = document.getElementById('testiCarousel');
     if (carousel) {
@@ -307,5 +371,12 @@ import { r, base } from '../utils/paths';
         carousel.scrollBy({ left:  cardW(), behavior: 'smooth' });
       });
     }
+
+    function initAll() {
+      initTicker();
+      // Si hubiera más inits, van aquí
+    }
+
+    document.addEventListener('astro:page-load', initAll);
   </script>
 </BaseLayout>

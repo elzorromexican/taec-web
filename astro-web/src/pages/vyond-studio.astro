@@ -6,6 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { r, base } from '../utils/paths';
 import VideoMuteButton from '../components/ui/VideoMuteButton.astro';
 import VyondNav from '../components/ui/VyondNav.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
 ---
 
 <BaseLayout 
@@ -161,7 +162,7 @@ import VyondNav from '../components/ui/VyondNav.astro';
     <div class="how-label">Capacidades clave</div>
     <h2 class="how-title">Más que un editor — una plataforma de producción</h2>
     <p class="how-sub">Vyond Studio reúne todas las herramientas que necesita un equipo de L&D o comunicación corporativa para producir video profesional sin depender de agencias externas.</p>
-    <div class="how-grid"><div class="how-card"><div class="how-icon">🌐</div><div class="how-card-title">Traducción automática a 80+ idiomas</div><div class="how-card-desc">Crea el video una sola vez y localízalo automáticamente. Ideal para organizaciones con operaciones en múltiples países o idiomas.</div></div>
+    <div class="how-grid reveal-up"><div class="how-card"><div class="how-icon">🌐</div><div class="how-card-title">Traducción automática a 80+ idiomas</div><div class="how-card-desc">Crea el video una sola vez y localízalo automáticamente. Ideal para organizaciones con operaciones en múltiples países o idiomas.</div></div>
 <div class="how-card"><div class="how-icon">🧑‍💼</div><div class="how-card-title">1,100+ avatares fotorrealistas</div><div class="how-card-desc">Portavoces profesionales generados por IA que se integran con cualquier estilo visual. Personaliza expresiones, movimientos y voz para cada escena.</div></div>
 <div class="how-card"><div class="how-icon">🎭</div><div class="how-card-title">AnyStyle — cualquier audiencia</div><div class="how-card-desc">Animated, photorealistic, mixed media y más. Un solo video puede combinar múltiples estilos para mantener el engagement de principio a fin.</div></div>
 <div class="how-card"><div class="how-icon">🔒</div><div class="how-card-title">Seguridad enterprise</div><div class="how-card-desc">SSO, controles de administración de equipos, privacidad de datos y video hosting seguro. Cumple con los requisitos de seguridad de grandes corporativos.</div></div>
@@ -184,7 +185,7 @@ import VyondNav from '../components/ui/VyondNav.astro';
     <div class="how-label">Casos de uso</div>
     <h2 class="how-title">¿Quién usa Vyond Studio?</h2>
     <p class="how-sub">Vyond Studio está diseñado para equipos y organizaciones que producen video de forma continua y necesitan calidad, consistencia y velocidad.</p>
-    <div class="uc-grid"><div class="uc-card"><div class="uc-icon">🏢</div><div><div class="uc-card-title">Equipos de L&D corporativo</div><div class="uc-card-desc">Produce cursos completos, módulos de compliance y programas de certificación con calidad de estudio sin los costos ni los tiempos de una agencia.</div></div></div>
+    <div class="uc-grid reveal-up"><div class="uc-card"><div class="uc-icon">🏢</div><div><div class="uc-card-title">Equipos de L&D corporativo</div><div class="uc-card-desc">Produce cursos completos, módulos de compliance y programas de certificación con calidad de estudio sin los costos ni los tiempos de una agencia.</div></div></div>
 <div class="uc-card"><div class="uc-icon">📣</div><div><div class="uc-card-title">Comunicación interna</div><div class="uc-card-desc">Crea anuncios corporativos, actualizaciones de liderazgo y mensajes de cambio organizacional que la gente realmente lee y recuerda.</div></div></div>
 <div class="uc-card"><div class="uc-icon">🌍</div><div><div class="uc-card-title">Empresas multinacionales</div><div class="uc-card-desc">Localiza el mismo contenido en docenas de idiomas de forma automática. Un solo equipo puede producir para toda la organización global.</div></div></div>
 <div class="uc-card"><div class="uc-icon">🎓</div><div><div class="uc-card-title">Instituciones educativas</div><div class="uc-card-desc">Diseña clases en video, tutoriales interactivos y contenido de microlearning adaptado a cualquier audiencia y nivel educativo.</div></div></div></div>
@@ -195,18 +196,16 @@ import VyondNav from '../components/ui/VyondNav.astro';
   <div class="explore-inner">
     <div class="how-label">Explora más Vyond</div>
     <h2 class="how-title">También te puede interesar</h2>
-    <div class="explore-grid"><a href={r('/vyond-go')} class="explore-card"><div class="explore-card-icon">🤖</div><div class="explore-card-title">Vyond Go</div><div class="explore-card-desc">Creación ultrarrápida con IA. De texto a video en segundos, sin necesidad de edición manual.</div><div class="explore-card-link">Ver más →</div></a><a href={r('/vyond-mobile')} class="explore-card"><div class="explore-card-icon">📱</div><div class="explore-card-title">Vyond Mobile</div><div class="explore-card-desc">Captura y crea desde tu dispositivo móvil. Perfecto para contenido en campo e inspiración inmediata.</div><div class="explore-card-link">Ver más →</div></a><a href={r('/vyond-mexico')} class="explore-card"><div class="explore-card-icon">📋</div><div class="explore-card-title">Ver planes Vyond</div><div class="explore-card-desc">Compara Demo gratuita, Professional y Enterprise para encontrar el plan ideal para tu equipo.</div><div class="explore-card-link">Ver más →</div></a></div>
+    <div class="explore-grid reveal-up"><a href={r('/vyond-go')} class="explore-card"><div class="explore-card-icon">🤖</div><div class="explore-card-title">Vyond Go</div><div class="explore-card-desc">Creación ultrarrápida con IA. De texto a video en segundos, sin necesidad de edición manual.</div><div class="explore-card-link">Ver más →</div></a><a href={r('/vyond-mobile')} class="explore-card"><div class="explore-card-icon">📱</div><div class="explore-card-title">Vyond Mobile</div><div class="explore-card-desc">Captura y crea desde tu dispositivo móvil. Perfecto para contenido en campo e inspiración inmediata.</div><div class="explore-card-link">Ver más →</div></a><a href={r('/vyond-mexico')} class="explore-card"><div class="explore-card-icon">📋</div><div class="explore-card-title">Ver planes Vyond</div><div class="explore-card-desc">Compara Demo gratuita, Professional y Enterprise para encontrar el plan ideal para tu equipo.</div><div class="explore-card-link">Ver más →</div></a></div>
   </div>
 </section>
 
-<section class="prod-cta">
-  <h2>Empieza a producir video como una agencia — desde adentro</h2>
-  <p>Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido.</p>
-  <div class="prod-cta-btns">
-    <a href={vendors.vyond.signup} target="_blank" rel="noopener noreferrer" class="btn-cta-white">Solicitar demo de Vyond Studio →</a>
-    <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
-  </div>
-</section>
+<CtaFinal 
+  title="Empieza a producir video como una agencia — desde adentro"
+  desc="Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido."
+  btnText="Solicitar demo de Vyond Studio →"
+  btnUrl={vendors.vyond.signup}
+/>
 
 <script src="../scripts/video-player.ts"></script>
 </main>
