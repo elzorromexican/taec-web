@@ -92,7 +92,7 @@ export const mainNav: MainNavItem[] = [
         ]
       }
     ],
-    bottomAction: { label: "Ver todas las soluciones →", url: "/servicios" }
+    bottomAction: { label: "Ver todas las soluciones →", url: "/soluciones" }
   },
   {
     id: "capacitacion",
