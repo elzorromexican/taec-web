@@ -10,5 +10,15 @@ export function r(url: string): string {
   if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) {
     return url;
   }
-  return base.replace(/\/$/, '') + url;
+  
+  const prefix = base.replace(/\/$/, ''); // Ej: "/taec-web" o ""
+  
+  // Evitar doble inyección si la URL ya tiene el prefijo de subdominio (ej: r(r('/foo')))
+  if (prefix && url.startsWith(prefix)) {
+    return url;
+  }
+  
+  // Normalizar el slash inicial por seguridad
+  const safeUrl = url.startsWith('/') ? url : '/' + url;
+  return prefix + safeUrl;
 }
