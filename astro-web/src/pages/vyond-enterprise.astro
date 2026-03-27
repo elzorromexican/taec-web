@@ -1,4 +1,5 @@
 ---
+import { getBookingUrl } from '../data/contact';
 import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import VyondNav from '../components/ui/VyondNav.astro';
@@ -80,8 +81,8 @@ import { r, base } from '../utils/paths';
       <h1>Video corporativo a <em style="color:#FFCBA4">escala empresarial</em></h1>
       <p class="vp-hero-sub">La solución completa para corporativos y organizaciones con cientos de usuarios que necesitan desplegar Vyond de forma segura, centralizada y sin límites.</p>
       <div class="vp-btns">
-        <a href={r('/contacto')} class="btn-vp-primary" style="background:white;color:#C84D16">Hablar con un especialista →</a>
-        <a href={r('/contacto')} class="btn-vp-ghost">Hablar con un especialista</a>
+        <a href={getBookingUrl('vyond')} class="btn-vp-primary" style="background:white;color:#C84D16">Hablar con un especialista</a>
+        <a href={getBookingUrl('vyond')} class="btn-vp-ghost">Hablar con un especialista</a>
       </div>
     </div>
     <div class="vp-hero-card">
@@ -121,7 +122,7 @@ import { r, base } from '../utils/paths';
 <li>Créditos IA ilimitados</li>
 <li>SSO / SCIM / API</li>
 <li>Videos hasta 90 min</li></ul>
-      <a href={r('/contacto')} class="plan-card-cta plan-card-cta-primary">Hablar con un especialista</a>
+      <a href={getBookingUrl('vyond')} class="plan-card-cta plan-card-cta-primary">Hablar con un especialista</a>
     </div></div>
   </div>
 </section>
@@ -161,7 +162,7 @@ import { r, base } from '../utils/paths';
   <h2>¿Listo para desplegar Vyond en toda tu organización?</h2>
   <p>Agenda una sesión con nuestro equipo para diseñar juntos el plan de adopción y negociar las condiciones de tu licencia Enterprise.</p>
   <div class="vp-cta-btns">
-    <a href={r('/contacto')} class="btn-cta-white" style="color:#C84D16">Hablar con un especialista →</a>
+    <a href={getBookingUrl('vyond')} class="btn-cta-white" style="color:#C84D16">Hablar con un especialista</a>
     <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-cta-outline">WhatsApp TAEC</a>
   </div>
 </section>

@@ -49,6 +49,33 @@ export const contactData = {
   storeUrl: "https://tienda.taec.com.mx"
 };
 
-export function getBookingUrl(): string {
-  return contactData.bookingUrl || "/contacto";
+export function getBookingUrl(source?: string): string {
+  const defaultUrl = contactData.bookingUrl || "/contacto";
+  
+  // Mapa de Agendas Zoho (Permite rutear la cita a los calendarios correctos del PO + Ventas)
+  // Reemplazar estas URLs temporales con los Workspaces reales de Zoho Bookings
+  const agendas: Record<string, string> = {
+    'articulate': `${defaultUrl}?service=articulate`,
+    'vyond': `${defaultUrl}?service=vyond`,
+    'totara': `${defaultUrl}?service=totara`,
+    'moodle': `${defaultUrl}?service=moodle`,
+    'ottolearn': `${defaultUrl}?service=ottolearn`,
+    '7minutes': `${defaultUrl}?service=7minutes`,
+    'proctorizer': `${defaultUrl}?service=proctorizer`,
+    'strikeplagiarism': `${defaultUrl}?service=strikeplagiarism`,
+    'customguide': `${defaultUrl}?service=customguide`,
+    'lys': `${defaultUrl}?service=lys`,
+    'class': `${defaultUrl}?service=class`
+  };
+
+  if (source && agendas[source]) {
+    return agendas[source];
+  }
+
+  // Fallback con parámetro genérico
+  if (source && defaultUrl.includes('zohobookings')) {
+    return `${defaultUrl}?source=${encodeURIComponent(source)}`;
+  }
+
+  return defaultUrl;
 }

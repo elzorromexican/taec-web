@@ -1,4 +1,5 @@
 ---
+import { getBookingUrl } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroComercial from '../components/ui/HeroComercial.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
@@ -111,7 +112,7 @@ const faqsMoodle = [
       titleHtml="El LMS de código abierto <em>más usado del mundo</em>"
       subtitle="Implementamos, hospedamos y soportamos Moodle en México y LATAM desde 2007. Tu plataforma lista en días — sin preocuparte por servidores, actualizaciones ni seguridad."
       primaryBtn={{ label: "Solicitar demo →", url: "/contacto" }}
-      secondaryBtn={{ label: "Hablar con un especialista", url: "/contacto" }}
+      secondaryBtn={{ label: "Hablar con un especialista", url: getBookingUrl('moodle') }}
       bottomText="✓ Hosting SaaS gestionado por TAEC · ✓ Soporte en español · ✓ +18 años de experiencia"
       cardLogoSrc={`${base}assets/logos/moodle.png`}
       cardBadgeText="Por qué Moodle con TAEC"

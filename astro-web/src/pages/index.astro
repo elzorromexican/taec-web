@@ -1,4 +1,5 @@
 ---
+import { getBookingUrl } from '../data/contact';
 /**
  * @name Index (Inicio)
  * @version 1.1
@@ -56,7 +57,7 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
           <p class="hero-sub">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
           <div class="hero-actions reveal-up">
             <a href={r('/soluciones')} class="btn-primary">Ver soluciones <span class="arrow-icon">→</span></a>
-            <a href={r('/contacto')} class="btn-ghost-hero">Hablar con un especialista</a>
+            <a href={getBookingUrl('general')} class="btn-ghost-hero">Hablar con un especialista</a>
           </div>
         </div>
         <div class="hero-stats">

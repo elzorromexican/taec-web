@@ -1,4 +1,5 @@
 ---
+import { getBookingUrl } from '../data/contact';
 import { vendors } from '../data/vendors';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -243,7 +244,7 @@ import { r } from '../utils/paths';
     <p>Como partner oficial de Articulate en México, TAEC te ofrece demo en español, onboarding y soporte local.</p>
     <div class="art-cta-btns">
       <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" class="btn-cta-white">Solicitar demo →</a>
-      <a href={r('/contacto')} class="btn-cta-ghost">Hablar con un especialista</a>
+      <a href={getBookingUrl('articulate')} class="btn-cta-ghost">Hablar con un especialista</a>
     </div>
   </div>
 </section>

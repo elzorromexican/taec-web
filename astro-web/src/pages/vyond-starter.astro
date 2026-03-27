@@ -1,4 +1,5 @@
 ---
+import { getBookingUrl } from '../data/contact';
 import { vendors } from '../data/vendors';
 import { contactData } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -92,7 +93,7 @@ import { r, base } from '../utils/paths';
       <p class="vp-hero-sub">El punto de partida ideal para diseñadores instruccionales y profesionales de L&D que quieren producir videos de capacitación sin experiencia previa en animación.</p>
       <div class="vp-btns">
         <a href={vendors.vyond.signup} class="btn-vp-primary" style="background:white;color:#E86820">Probar Vyond gratis →</a>
-        <a href={r('/contacto')} class="btn-vp-ghost">Hablar con un especialista</a>
+        <a href={getBookingUrl('vyond')} class="btn-vp-ghost">Hablar con un especialista</a>
       </div>
     </div>
     <div class="vp-hero-card">
