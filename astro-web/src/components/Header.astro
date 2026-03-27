@@ -64,6 +64,11 @@ import { r, base } from '../utils/paths';
                     })}
                   </div>
                 ))}
+                {item.bottomAction && (
+                  <a href={r(item.bottomAction.url)} class="mega-bottom-action">
+                    {item.bottomAction.label}
+                  </a>
+                )}
               </div>
             </div>
           );

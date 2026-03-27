@@ -29,6 +29,7 @@ export type MainNavItem = {
   url?: string;
   type: "link" | "mega" | "dropdown";
   columns?: NavColumn[];
+  bottomAction?: { label: string; url: string };
 };
 
 export const navigationLabels = {
@@ -90,7 +91,8 @@ export const mainNav: MainNavItem[] = [
           { label: "Custom Guide", url: "/customguide-mexico" }
         ]
       }
-    ]
+    ],
+    bottomAction: { label: "Ver todas las soluciones →", url: "/servicios" }
   },
   {
     id: "capacitacion",

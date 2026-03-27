@@ -74,6 +74,14 @@ header { position: sticky; top: 0; z-index: 9999; background: var(--white); bord
 .badge-teams { font-size: 9px; font-weight: 700; background: #DBEAFE; color: #1d4ed8; padding: 1px 5px; border-radius: 3px; flex-shrink: 0; }
 .mega-divider { height: 1px; background: var(--border); margin: 8px 4px; }
 
+.mega-bottom-action {
+  grid-column: 1 / -1;
+  text-align: center; font-size: 13px; font-weight: 700; color: var(--blue);
+  background: var(--light); padding: 12px; border-radius: 8px; margin-top: 6px;
+  transition: background .15s, color .15s;
+}
+.mega-bottom-action:hover { background: #e0f2fe; color: #0284c7; }
+
 /* ── SIMPLE DROPDOWN (Capacitación / Recursos) ── */
 .simple-dropdown {
   display: none; position: absolute;
