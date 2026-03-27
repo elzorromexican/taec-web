@@ -326,13 +326,20 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
 
   </main>
 
-  <script is:inline>
+  <script>
+    let originalTickerHTML = null;
 
-
-    // ── Ticker Randomizer (Cliente)
+    // ── Ticker infinito híbrido
     function initTicker() {
       const track = document.getElementById('tickerTrack');
       if (!track) return;
+      
+      // Restaurar el DOM original en navegaciones SPA subsecuentes
+      if (!originalTickerHTML) {
+        originalTickerHTML = track.innerHTML;
+      } else {
+        track.innerHTML = originalTickerHTML;
+      }
       
       const items = Array.from(track.querySelectorAll('.ticker-dom-item'));
       if (items.length === 0) return;
@@ -345,43 +352,37 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
 
       track.innerHTML = '';
       const selected = items.slice(0, 5);
-      
-      const renderSet = () => {
-        selected.forEach((item) => {
-          const clone = item.cloneNode(true);
-          clone.style.display = 'inline-flex';
-          track.appendChild(clone);
-        });
-      };
-      
-      renderSet();
-      renderSet(); // Renderizamos doble para crear el efecto de scroll infinito continuo
+      items.forEach(item => track.appendChild(item));
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        track.appendChild(clone);
+      });
       
       track.style.opacity = '1';
     }
 
-    // ── Testimonios carousel
-    const carousel = document.getElementById('testiCarousel');
-    if (carousel) {
-      const cardW    = () => carousel.querySelector('.testi-card').offsetWidth + 20;
-      document.getElementById('testiPrev').addEventListener('click', () => {
-        carousel.scrollBy({ left: -cardW(), behavior: 'smooth' });
-      });
-      document.getElementById('testiNext').addEventListener('click', () => {
-        carousel.scrollBy({ left:  cardW(), behavior: 'smooth' });
-      });
+    // ── Testimonios Carousel
+    function initCarousel() {
+      const carousel = document.getElementById('testiCarousel');
+      const btnPrev = document.getElementById('testiPrev');
+      const btnNext = document.getElementById('testiNext');
+      
+      if (carousel && btnPrev && btnNext) {
+        const cardW = () => carousel.querySelector('.testi-card').offsetWidth + 20;
+        
+        // Uso de onclick para asegurar 1 solo listener, previniendo stacking de eventos en View Transitions
+        btnPrev.onclick = () => carousel.scrollBy({ left: -cardW(), behavior: 'smooth' });
+        btnNext.onclick = () => carousel.scrollBy({ left:  cardW(), behavior: 'smooth' });
+      }
     }
 
-    function initAll() {
+    // Controlador Principal
+    function initIndexScripts() {
       initTicker();
-      // Si hubiera más inits, van aquí
+      initCarousel();
     }
 
-    document.addEventListener('astro:page-load', initAll);
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      setTimeout(initAll, 50);
-    } else {
-      document.addEventListener('DOMContentLoaded', () => setTimeout(initAll, 50));
-    }
+    // Ejecución blindada garantizada por la arquitectura nativa de Astro
+    document.addEventListener('astro:page-load', initIndexScripts);
   </script>
 </BaseLayout>

@@ -137,12 +137,17 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <FooterDock theme={footerTheme} />
   
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
-  <script is:inline>
-    // ── Global Scroll Reveal
+  <script>
+    let globalRevealObserver = null;
+
     function globalInitReveal() {
+      // Limpiar observer anterior para evitar Memory Leaks en View Transitions
+      if (globalRevealObserver) globalRevealObserver.disconnect();
+
       const reveals = document.querySelectorAll('.reveal-up:not(.is-revealed)');
       if (!reveals.length) return;
-      const observer = new IntersectionObserver((entries, obs) => {
+      
+      globalRevealObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-revealed');
@@ -150,11 +155,12 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
           }
         });
       }, { threshold: 0.1 });
-      reveals.forEach(el => observer.observe(el));
+      
+      reveals.forEach(el => globalRevealObserver.observe(el));
     }
     
+    // Astro Module Scripts se ejecutan SOLO UNA VEZ. Por lo tanto, registramos astro:page-load de forma segura.
     document.addEventListener('astro:page-load', globalInitReveal);
-    if (document.readyState === 'complete' || document.readyState === 'interactive') globalInitReveal();
   </script>
 </body>
 </html>
