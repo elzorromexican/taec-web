@@ -22,6 +22,8 @@
 - [x] **Directorio Interactivo:** Reemplazo definitivo de `/servicios` por un catálogo algorítmico nutrido nativamente desde `navigation.ts`.
 - [x] **Marquesinas Inmersivas:** Implementación SSR de Astro Content Collections con `CSS Marquee` infinito para Blog y Logotipos.
 - [x] **Restauración Mac Dock Footer:** Reactivación blindada del footer experimental flotante para todo el sitio mediante hooks dinámicos `astro:page-load`.
+- [x] **UX de Navegación B2B:** Se inyectó el enlace universal `bottomAction` ("Ver todas las soluciones") a la base del Mega Menú para garantizar accesibilidad en dispositivos sin soporte de Hover.
+- [x] **Auditoría Multi-IA (DevX & Web Vitals):** Ejecutamos una blindaje total de performance: se eliminó el riesgo de CLS fijando `flex-shrink: 0`, se potenció FPS con `will-change: transform`, y se agregó tipado estricto (`BADGE_CLASS`) y `Fail-Fast` en TS para evitar rupturas silenciosas.
 ## 🛑 Tareas Congeladas (Requieren VoBo Interno Taec)
 - [ ] **Validación Vyond:** Revisión final de la página curso con Ana M.
 - [ ] **Decisión UI:** Determinar si los headers azules se cambian por imágenes logo (Actual: Articulate).
