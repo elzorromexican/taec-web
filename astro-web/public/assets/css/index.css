@@ -28,14 +28,14 @@
 .clientes-section { background: var(--navy); padding: 60px 5%; border-top: 1px solid rgba(255,255,255,.1); }
 .clientes-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 .clientes-marquee { overflow: hidden; white-space: nowrap; display: flex; width: 100%; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
-.clientes-track { display: flex; gap: 40px; width: max-content; animation: scroll-marquee 25s linear infinite; }
+.clientes-track { display: flex; gap: var(--marquee-gap, 40px); width: max-content; animation: scroll-marquee 25s linear infinite; will-change: transform; flex-shrink: 0; }
 .clientes-track:hover { animation-play-state: paused; }
-.cliente-logo { font-size: 14px; font-weight: 700; color: var(--navy); background: var(--white); padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,71,117,.05); display: inline-flex; align-items: center; justify-content: center; min-width: 120px; transition: transform 0.3s ease; }
+.cliente-logo { font-size: 14px; font-weight: 700; color: var(--navy); background: var(--white); padding: 12px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,71,117,.05); display: inline-flex; align-items: center; justify-content: center; min-width: 120px; transition: transform 0.3s ease; flex-shrink: 0; }
 .cliente-logo:hover { transform: scale(1.05) translateY(-2px); }
 
 @keyframes scroll-marquee {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 20px)); }
+  100% { transform: translateX(calc(-50% - (var(--marquee-gap, 40px) / 2))); }
 }
 
 /* ── TICKER ── */
@@ -43,7 +43,7 @@
 .ticker-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
 .ticker-badge { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); background: #DBEAFE; padding: 3px 9px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; position: relative; z-index: 10; }
 .ticker-marquee-wrapper { flex: 1; overflow: hidden; display: flex; mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent); }
-.ticker-track { display: flex; gap: 0; width: max-content; animation: scroll-ticker 35s linear infinite; }
+.ticker-track { display: flex; gap: 0; width: max-content; animation: scroll-ticker 35s linear infinite; will-change: transform; flex-shrink: 0; }
 .ticker-track:hover { animation-play-state: paused; }
 .ticker-item { font-size: 13px; color: var(--dark); white-space: nowrap; cursor: pointer; transition: color 0.2s ease; }
 .ticker-item:hover { color: var(--blue); }
@@ -132,7 +132,7 @@
 .clientes-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--teal); margin-bottom: 32px; display: flex; align-items: center; justify-content: center; gap: 12px; }
 .clientes-label::before, .clientes-label::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: rgba(168,219,217,.3); }
 .clientes-row { display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap; }
-.cliente-logo-pill { background: #ffffff; border-radius: 10px; padding: 10px 20px; display: flex; align-items: center; justify-content: center; height: 52px; min-width: 110px; box-shadow: 0 2px 12px rgba(0,0,0,.18); transition: transform .2s, box-shadow .2s; }
+.cliente-logo-pill { background: #ffffff; border-radius: 10px; padding: 10px 20px; display: flex; align-items: center; justify-content: center; height: 52px; min-width: 110px; box-shadow: 0 2px 12px rgba(0,0,0,.18); transition: transform .2s, box-shadow .2s; flex-shrink: 0; }
 .cliente-logo-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
 .cliente-logo-pill img { height: 28px; width: auto; max-width: 100px; object-fit: contain; display: block; }
 .cliente-logo-pill span { font-size: 13px; font-weight: 800; color: #111827; letter-spacing: .3px; white-space: nowrap; }
@@ -230,4 +230,11 @@
 @media (max-width: 480px) {
   .servicios-grid { grid-template-columns: 1fr; }
   .hero h1 { font-size: 26px; }
+}
+
+/* ── ACCESIBILIDAD ── */
+@media (prefers-reduced-motion: reduce) {
+  .clientes-track, .ticker-track {
+    animation-play-state: paused !important;
+  }
 }
