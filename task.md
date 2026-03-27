@@ -66,13 +66,13 @@
 - [ ] **Limpieza:** Eliminar "Clientes" y "Casos de Uso" globales del menú superior (`navigation.ts`).
 - [ ] **Prueba Social:** Construir componente modular `CasoUsoInline.astro` (Testimonios) e inyectarlo dinámicamente en las landings de producto para compensar su salida del header superior.
 
-**2. Ecosistema de Recursos**
-- [ ] Limpiar los archivos de prueba físicos residuales en `blog/` y `articulos/`.
-- [ ] Aplicar diseño UX premium (Layout Sala de Lectura) estandarizado para artículos.
-- [ ] Validar integridad y semántica de todas las "Ligas Externas".
-- [ ] Construir la landing `/recursos/tips-y-hacks` con diseño tipo repositorio de tarjetas.
-- [ ] Implementar interlinking circular entre Glosario y Blog.
-- [ ] Redactar el manual operativo `docs/mantenimiento-recursos.md`.
+**2. Triage Front-End y Ecosistema de Recursos (CMS)**
+- [ ] **Auditoría UX (Propuesta 1):** Transicionar `Mega Menú` y *Hero Banner* hacia el flujo de "Triaje Quirúrgico por Dolor" y "Madurez de la Empresa".
+- [ ] **Instalar CMS Git (Ej: Decap CMS):** Configurar la app invisible `/admin` que se conecta directo a GitHub sin requerir bases de datos.
+- [ ] **Configurar Colecciones B2B:** Mapear en CMS las áreas únicas: Blog/LinkedIn, Archivo Newsletters, Comparativos VS, Recursos PDF, Partners, y Casos de Éxito.
+- [ ] **Habilitar Flujo Editorial ("VoBo"):** Bloquear publicación directa en la página. Configurar ruta de "Borrador -> Revisión -> Aprobado por Curador".
+- [ ] **Doble Checkbox de Compliance:** Crear componente global para Formularios (Privacidad Obligatoria + Opt-in Opcional de Marketing automatizado).
+- [ ] Limpiar los archivos de prueba físicos residuales en `/blog/`, aplicar el layout de lectura premium, e implementar interlinking SEO.
 
 **3. Portal de Distribuidores (B2B Intranet)**
 - [ ] Configurar Stack de Autenticación (Supabase, Firebase, o Clerk).
