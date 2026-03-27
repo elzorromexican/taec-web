@@ -378,5 +378,10 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
     }
 
     document.addEventListener('astro:page-load', initAll);
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(initAll, 50);
+    } else {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(initAll, 50));
+    }
   </script>
 </BaseLayout>
