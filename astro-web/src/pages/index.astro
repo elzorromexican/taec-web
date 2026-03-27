@@ -351,10 +351,13 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
       }
 
       track.innerHTML = '';
-      const selected = items.slice(0, 5);
-      items.forEach(item => track.appendChild(item));
+      items.forEach(item => {
+        item.style.display = 'inline-flex';
+        track.appendChild(item);
+      });
       items.forEach(item => {
         const clone = item.cloneNode(true);
+        clone.style.display = 'inline-flex';
         track.appendChild(clone);
       });
       
