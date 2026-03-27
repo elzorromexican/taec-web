@@ -17,13 +17,17 @@
 - [x] **Restauración de Infraestructura CSS CSS:** Inyección de 60 líneas de maquetación Flexbox extraviadas para rehabilitar la estructura gráfica rota de Vyond Professional y Enterprise.
 - [x] **Unificación de Navegación Secundaria (Vyond):** Extracción del catálogo en bruto hacia un nuevo componente agnóstico (`VyondNav.astro`) e inyección transversal en las 6 páginas de producto/planes para homologar la experiencia con el menú de Articulate.
 - [x] **Auditoría de Accesibilidad (Footer):** Rediseño paramétrico de contrastes en `footer.css` (de Slate 500 a Slate 200/Blanco), incremento en pesos de fuente y eliminación de opacidades restrictivas en enlaces legales para cumplir estándares WCAG.
-
+- [x] **Compactación de Pie de Página:** Eliminación del botón anidado ("Agendar diagnóstico gratuito") por redundancia de UX. Fusión térmica de los bloques espaciales entre `.footer-latam` y `.footer-bottom` eliminando líneas de división y empaquetando el contenido de cierre en un solo nivel visual.
+- [x] **Modernización UI y SPA:** Refactor de animaciones on-scroll (`.reveal-up`) exportadas globalmente y soporte total a Astro View Transitions.
+- [x] **Directorio Interactivo:** Reemplazo definitivo de `/servicios` por un catálogo algorítmico nutrido nativamente desde `navigation.ts`.
+- [x] **Marquesinas Inmersivas:** Implementación SSR de Astro Content Collections con `CSS Marquee` infinito para Blog y Logotipos.
+- [x] **Restauración Mac Dock Footer:** Reactivación blindada del footer experimental flotante para todo el sitio mediante hooks dinámicos `astro:page-load`.
 ## 🛑 Tareas Congeladas (Requieren VoBo Interno Taec)
 - [ ] **Validación Vyond:** Revisión final de la página curso con Ana M.
-- [ ] **Validación Articulate:** Revisión de la visibilidad de herramientas en curso Articulate y curso Fundamentos (Ana M).
-- [ ] **Validación Reach 360:** Determinar modelo final para web vs PDF.
-- [ ] **Decisión UI (Header Articulate):** Remover fondos azules y reemplazar textos por logotipos gráficos directos en cabeceras.
-- [ ] **Incrustación Calendario de Moodle:** Esperando el iFrame público para añadir o incrustar directo la ruta de aprendizaje de Cursos.
+- [ ] **Decisión UI:** Determinar si los headers azules se cambian por imágenes logo (Actual: Articulate).
+- [ ] **Pendiente Reach 360:** Esperar validación integral del contenido con Ana María.
+- [ ] **iFrames Moodle:** Faltan las ligas iframe de los bloques públicos de las rutas de aprendizaje 1, 2, 3 desde LMS para insertar en la plataforma.
+- [ ] **Experimento Footer Colapsable:** Evaluar con el equipo de estrategia la opción de implementar el componente experimental `FooterDock.astro` (estilo Dock de Mac) vs. mantener el pie de página clásico en producción basándose en accesibilidad y analíticas de retención.
 
 ## 🛠️ Cotizador DDC (Estimador de Costos Web)
 **Fase de Definición**
@@ -40,6 +44,7 @@
 - [x] Implementar validador Zod Schema para sanitizar los payloads entrantes.
 - [x] Codificar el motor de estimación derivado de 3 productos limitados (Storyline, Rise, Vyond).
 - [ ] *(POSTERGADO)* Validar EndPoint contra 5 cotizaciones históricas reales sacadas del Excel (margen de error ≤ ±15%).
+- [ ] *(NUEVO)* **Historial y Scoring de Cotizaciones:** Implementar una base de datos/registro de cotizaciones asociadas al correo del cliente para trackear qué cotizó, en qué momento, y calcular un Scoring comercial a futuro.
 
 **Fase Frontend**
 - [x] Diseñar Componente Island en React o Svelte (`CotizadorDDC`) embebido en la landing.
