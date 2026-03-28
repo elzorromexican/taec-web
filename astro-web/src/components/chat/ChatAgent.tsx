@@ -34,7 +34,12 @@ export default function ChatAgent() {
     }
   }, [isOpen, hasStarted]);
 
-  const toggleChat = () => setIsOpen(!isOpen);
+  const toggleChat = () => {
+    if (isOpen && hasStarted && messages.length > 1 && !isSendingEmail) {
+      sendSilentEmail();
+    }
+    setIsOpen(!isOpen);
+  };
 
   const startChat = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +64,7 @@ export default function ChatAgent() {
       const res = await fetch('/api/agente-ia', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userMessage: userMsg })
+        body: JSON.stringify({ userMessage: userMsg, history: messages })
       });
       
       const data = await res.json();
@@ -72,37 +77,30 @@ export default function ChatAgent() {
     }
   };
 
-  const finishChat = async () => {
-    if (messages.length <= 1) return;
+  const copyToClipboard = () => {
+    const text = messages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\\n\\n');
+    navigator.clipboard.writeText(text);
+    alert('¡Historial de chat copiado al portapapeles! 📋');
+  };
+
+  const sendSilentEmail = async () => {
     setIsSendingEmail(true);
-    
-    // Captura metadata
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const localTime = new Date().toLocaleString('es-MX', { timeZone });
 
     try {
-      const res = await fetch('/api/send-transcript', {
+      await fetch('/api/send-transcript', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userData,
           messages,
           metadata: { time: localTime, timeZone }
-        })
+        }),
+        keepalive: true
       });
-      
-      if (!res.ok) throw new Error("Fallo de compilación en el servidor");
-      
-      alert('¡Historial guardado y enviado a TAEC exitosamente!');
-      setIsOpen(false);
-      setHasStarted(false);
-      setIsExpanded(false);
-      setMessages([]);
-      setUserData({ name: '', email: '', phone: '' });
     } catch (error) {
-      alert('Hubo un error al enviar el historial.');
-    } finally {
-      setIsSendingEmail(false);
+      console.warn('Silently failed storing transcript');
     }
   };
 
@@ -213,14 +211,13 @@ export default function ChatAgent() {
               
               {hasStarted && messages.length > 1 && (
                 <button 
-                  onClick={finishChat} 
-                  disabled={isSendingEmail}
+                  onClick={copyToClipboard} 
                   style={{
-                    background: '#F59E0B', border: 'none', color: '#fff', fontWeight: 'bold',
+                    background: '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
                     fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer'
                   }}
                 >
-                  {isSendingEmail ? 'Enviando...' : 'Guardar Info 📋'}
+                  Copiar Chat 📋
                 </button>
               )}
             </div>

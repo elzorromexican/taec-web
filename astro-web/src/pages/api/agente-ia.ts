@@ -57,9 +57,18 @@ REGLAS DE ORO:
 - OBLIGATORIO AL CIERRE DE TU MENSAJE: Siempre termina tu respuesta con una pregunta estratégica que abra el diálogo (ej. "¿Para cuándo tienen planeado lanzar este proyecto?" o "¿Me pasas tu correo institucional para enviarte nuestra guía o agendar un demo rápido?").
     `;
 
+    const geminiHistory = [
+      { role: 'user', parts: [{ text: "Iniciando sesión de consultoría." }] },
+      ...(history || []).map((m: any) => ({
+        role: m.role === 'agent' ? 'model' : 'user',
+        parts: [{ text: m.text }]
+      })),
+      { role: 'user', parts: [{ text: userMessage }] }
+    ];
+
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
-      contents: userMessage,
+      contents: geminiHistory,
       config: {
         systemInstruction: systemPrompt
       }
