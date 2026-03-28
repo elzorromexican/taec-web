@@ -43,7 +43,7 @@
 .ticker-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
 .ticker-badge { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); background: #DBEAFE; padding: 3px 9px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; position: relative; z-index: 10; }
 .ticker-marquee-wrapper { flex: 1; overflow: hidden; display: flex; mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent); }
-.ticker-track { display: flex; gap: 0; width: max-content; animation: scroll-ticker 35s linear infinite; will-change: transform; flex-shrink: 0; }
+.ticker-track { display: flex; gap: 0; width: max-content; animation: scroll-ticker 65s linear infinite; will-change: transform; flex-shrink: 0; }
 .ticker-track:hover { animation-play-state: paused; }
 .ticker-item { font-size: 13px; color: var(--dark); white-space: nowrap; cursor: pointer; transition: color 0.2s ease; }
 .ticker-item:hover { color: var(--blue); }
