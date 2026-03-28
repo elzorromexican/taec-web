@@ -26,10 +26,22 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Evitamos backticks anidados uniendo el array con strings estándar para protección Vite
     const messagesHtml = messages.map((m: any) => {
-      const bgColor = m.role === 'user' ? '#e1f0fa' : '#ffffff';
-      const borderColor = m.role === 'user' ? '#b6e0fe' : '#e5e7eb';
-      const nameColor = m.role === 'user' ? '#004775' : '#f59e0b';
-      const senderName = m.role === 'user' ? userData.name : 'Tito Bits';
+      let bgColor = '#ffffff';
+      let borderColor = '#e5e7eb';
+      let nameColor = '#f59e0b';
+      let senderName = 'Tito Bits';
+
+      if (m.role === 'user') {
+        bgColor = '#e1f0fa';
+        borderColor = '#b6e0fe';
+        nameColor = '#004775';
+        senderName = userData.name;
+      } else if (m.role === 'error') {
+        bgColor = '#fee2e2';
+        borderColor = '#ef4444';
+        nameColor = '#b91c1c';
+        senderName = '⚠️ Sistema Error / Intercepción';
+      }
       
       return '<div style="margin-bottom: 15px; padding: 12px; border-radius: 8px; background-color: ' + bgColor + '; border: 1px solid ' + borderColor + ';">' +
                '<strong style="color: ' + nameColor + ';">' + senderName + ':</strong><br/>' +

@@ -6,12 +6,11 @@ export default function ChatAgent() {
   const [isExpanded, setIsExpanded] = useState(false); // Alternativa robusta al resize CSS
   const [hasStarted, setHasStarted] = useState(false);
   const [userData, setUserData] = useState({ name: '', email: '', phone: '' });
-  const [messages, setMessages] = useState<{role: 'user' | 'agent', text: string}[]>([]);
+  const [messages, setMessages] = useState<{role: 'user' | 'agent' | 'error', text: string}[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [systemError, setSystemError] = useState<string>('');
   const [formError, setFormError] = useState<string>('');
   
   const endRef = useRef<HTMLDivElement>(null);
@@ -22,6 +21,30 @@ export default function ChatAgent() {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
+
+  // Aseguramos que el correo se envíe SIEMPRE cuando se cierre la pestaña
+  const stateRef = useRef({ messages, userData, isSendingEmail });
+  useEffect(() => {
+    stateRef.current = { messages, userData, isSendingEmail };
+  }, [messages, userData, isSendingEmail]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      const { messages, userData, isSendingEmail } = stateRef.current;
+      if (userData.email && !isSendingEmail) {
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const localTime = new Date().toLocaleString('es-MX', { timeZone });
+        fetch('/api/send-transcript', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userData, messages, metadata: { time: localTime, timeZone } }),
+          keepalive: true
+        }).catch(() => {});
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
 
   // Auto-focus en el formulario al abrir
   useEffect(() => {
@@ -38,7 +61,7 @@ export default function ChatAgent() {
   }, [isOpen, hasStarted]);
 
   const toggleChat = () => {
-    if (isOpen && hasStarted && messages.length > 1 && !isSendingEmail) {
+    if (isOpen && hasStarted && !isSendingEmail) {
       sendSilentEmail();
     }
     setIsOpen(!isOpen);
@@ -79,7 +102,6 @@ export default function ChatAgent() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
-    setSystemError('');
     const userMsg = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
@@ -95,12 +117,12 @@ export default function ChatAgent() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        setSystemError('¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.');
+        setMessages(prev => [...prev, { role: 'error', text: '¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.' }]);
       } else {
         setMessages(prev => [...prev, { role: 'agent', text: data.reply }]);
       }
     } catch (error) {
-      setSystemError('¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.');
+      setMessages(prev => [...prev, { role: 'error', text: '¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' }]);
     } finally {
       setIsLoading(false);
       if (window.innerWidth > 768) {
@@ -303,25 +325,25 @@ export default function ChatAgent() {
               </div>
             ) : (
               <>
-                {messages.map((m, i) => (
+                {messages.map((m: any, i) => (
                   <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
                     <div style={{
                       maxWidth: '85%', padding: '12px 16px', fontSize: '14px', lineHeight: '1.5',
                       borderRadius: '12px',
-                      background: m.role === 'user' ? '#3179C2' : '#fff',
-                      color: m.role === 'user' ? '#fff' : '#111827',
-                      border: m.role === 'user' ? 'none' : '1px solid #E5E7EB',
+                      background: m.role === 'user' ? '#3179C2' : (m.role === 'error' ? '#FEE2E2' : '#fff'),
+                      color: m.role === 'user' ? '#fff' : (m.role === 'error' ? '#B91C1C' : '#111827'),
+                      border: m.role === 'user' ? 'none' : (m.role === 'error' ? '1px solid #EF4444' : '1px solid #E5E7EB'),
                       borderBottomRightRadius: m.role === 'user' ? '4px' : '12px',
-                      borderBottomLeftRadius: m.role === 'agent' ? '4px' : '12px',
-                      boxShadow: m.role === 'agent' ? '0 2px 4px rgba(0,0,0,0.02)' : 'none'
+                      borderBottomLeftRadius: (m.role === 'agent' || m.role === 'error') ? '4px' : '12px',
+                      boxShadow: (m.role === 'agent' || m.role === 'error') ? '0 2px 4px rgba(0,0,0,0.02)' : 'none'
                     }}>
-                      {m.role === 'agent' ? (
+                      {(m.role === 'agent' || m.role === 'error') ? (
                         <div className="react-markdown-container">
                           <ReactMarkdown components={{
                             p: ({node, ...props}) => <p style={markdownStyles.p} {...props} />,
                             ul: ({node, ...props}) => <ul style={markdownStyles.ul} {...props} />,
                             li: ({node, ...props}) => <li style={markdownStyles.li} {...props} />,
-                            strong: ({node, ...props}) => <strong style={markdownStyles.strong} {...props} />
+                            strong: ({node, ...props}) => <strong style={m.role === 'error' ? {color: '#B91C1C'} : markdownStyles.strong} {...props} />
                           }}>
                             {m.text}
                           </ReactMarkdown>
@@ -332,17 +354,6 @@ export default function ChatAgent() {
                     </div>
                   </div>
                 ))}
-
-                {systemError && (
-                  <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '8px' }}>
-                    <div style={{ background: '#FFEEEE', color: '#D32F2F', padding: '12px 16px', borderRadius: '12px', fontSize: '13px', maxWidth: '85%' }}>
-                      <ReactMarkdown components={{
-                        p: ({node, ...props}) => <p style={markdownStyles.p} {...props} />,
-                        strong: ({node, ...props}) => <strong style={{color: '#B71C1C'}} {...props} />
-                      }}>{systemError}</ReactMarkdown>
-                    </div>
-                  </div>
-                )}
 
                 {isLoading && (
                   <div style={{ display: 'flex', justifyContent: 'flex-start' }}>

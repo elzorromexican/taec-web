@@ -90,10 +90,12 @@ REGLAS DE ORO EXTREMADAMENTE ESTRICTAS:
 
     const geminiHistory = [
       { role: 'user', parts: [{ text: "Iniciando sesión de consultoría." }] },
-      ...(history || []).map((m: any) => ({
-        role: m.role === 'agent' ? 'model' : 'user',
-        parts: [{ text: m.text }]
-      })),
+      ...(history || [])
+        .filter((m: any) => m.role !== 'error')
+        .map((m: any) => ({
+          role: m.role === 'agent' ? 'model' : 'user',
+          parts: [{ text: m.text }]
+        })),
       { role: 'user', parts: [{ text: userMessage }] }
     ];
 
