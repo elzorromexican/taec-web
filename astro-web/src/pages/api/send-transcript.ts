@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
         const fs = await import('fs');
         const path = await import('path');
         const envStr = fs.readFileSync(path.resolve('.env'), 'utf8');
-        const match = envStr.match(/RESEND_API_KEY="([^"]+)"/);
+        const match = envStr.match(/RESEND_API_KEY="?([^"\n]+)"?/);
         if (match && match[1]) {
            resendKey = match[1].replace(/\s/g, "");
         }

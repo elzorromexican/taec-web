@@ -11,7 +11,6 @@ export default function ChatAgent() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [formError, setFormError] = useState<string>('');
   
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLInputElement>(null);
@@ -69,28 +68,7 @@ export default function ChatAgent() {
 
   const startChat = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormError('');
-
-    const errors: string[] = [];
-
-    if (!userData.name.trim()) {
-      errors.push('• Tu nombre completo.');
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(userData.email)) {
-      errors.push('• Un correo electrónico válido.');
-    }
-
-    const digitsOnly = userData.phone.replace(/\D/g, '');
-    if (digitsOnly.length < 10) {
-      errors.push('• Un teléfono de al menos 10 dígitos.');
-    }
-
-    if (errors.length > 0) {
-      setFormError(`Por favor completa lo siguiente:\n${errors.join('\n')}`);
-      return;
-    }
+    if (!userData.name || !userData.email) return;
 
     setHasStarted(true);
     setMessages([
@@ -294,11 +272,6 @@ export default function ChatAgent() {
                   <p style={{margin: 0, fontSize: '14px', color: '#6B7280'}}>Para brindarte un mejor servicio, por favor indícanos quién eres.</p>
                 </div>
                 <form onSubmit={startChat} style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
-                  {formError && (
-                    <div style={{ background: '#FEE2E2', color: '#B91C1C', padding: '12px', borderRadius: '8px', fontSize: '13px', textAlign: 'left', fontWeight: 'bold', whiteSpace: 'pre-line', lineHeight: '1.5' }}>
-                      {formError}
-                    </div>
-                  )}
                   <input 
                     ref={inputNameRef}
                     required type="text" placeholder="Nombre completo"
@@ -311,7 +284,7 @@ export default function ChatAgent() {
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
                   />
                   <input 
-                    required type="tel" placeholder="Teléfono / WhatsApp"
+                    required type="tel" placeholder="Teléfono / WhatsApp" minLength={10} title="El teléfono debe tener un mínimo de 10 dígitos"
                     value={userData.phone} onChange={e => setUserData({...userData, phone: e.target.value})}
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
                   />
