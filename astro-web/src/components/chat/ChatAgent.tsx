@@ -12,6 +12,7 @@ export default function ChatAgent() {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [systemError, setSystemError] = useState<string>('');
+  const [formError, setFormError] = useState<string>('');
   
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLInputElement>(null);
@@ -45,7 +46,24 @@ export default function ChatAgent() {
 
   const startChat = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userData.name || !userData.email) return;
+    setFormError('');
+
+    if (!userData.name.trim()) {
+      setFormError('Por favor, ingresa tu nombre.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userData.email)) {
+      setFormError('Ingresa un correo válido (ej. tu@empresa.com).');
+      return;
+    }
+
+    const digitsOnly = userData.phone.replace(/\D/g, '');
+    if (digitsOnly.length < 10) {
+      setFormError('El teléfono debe tener un mínimo de 10 dígitos.');
+      return;
+    }
 
     setHasStarted(true);
     setMessages([
@@ -250,6 +268,11 @@ export default function ChatAgent() {
                   <p style={{margin: 0, fontSize: '14px', color: '#6B7280'}}>Para brindarte un mejor servicio, por favor indícanos quién eres.</p>
                 </div>
                 <form onSubmit={startChat} style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                  {formError && (
+                    <div style={{ background: '#FEE2E2', color: '#B91C1C', padding: '10px', borderRadius: '8px', fontSize: '13px', textAlign: 'center', fontWeight: 'bold' }}>
+                      {formError}
+                    </div>
+                  )}
                   <input 
                     ref={inputNameRef}
                     required type="text" placeholder="Nombre completo"
