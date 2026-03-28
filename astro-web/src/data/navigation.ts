@@ -45,56 +45,54 @@ export const mainNav: MainNavItem[] = [
     type: "mega",
     columns: [
       {
-        title: "No tengo tiempo",
-        items: [
-          { label: "Desarrollo a Medida", url: "/desarrollo-de-contenidos", badge: { text: "DDC", type: "new" } },
-          { label: "Videoclases en Vivo", url: "/class-taec" },
-          { label: "divider", url: "", isDivider: true },
-          { label: "Catálogos listos", url: "", isSubtitle: true },
-          { label: "7 Minutes", url: "/7minutes-learning" },
-          { label: "Custom Guide", url: "/customguide-mexico" }
-        ]
-      },
-      {
-        title: "Quiero licencias",
+        title: "Autoría & Video",
         items: [
           { label: "Articulate 360", url: "/articulate-360-mexico", subItems: [
               { label: "Rise 360", url: "/articulate-rise360" },
               { label: "Storyline 360", url: "/articulate-storyline360" },
               { label: "Review 360", url: "/articulate-review360" },
               { label: "Reach", url: "/articulate-reach", badge: { text: "Teams", type: "teams" } },
-              { label: "AI Assistant", url: "/articulate-ai-assistant", badge: { text: "add-on", type: "new" } }
+              { label: "AI Assistant", url: "/articulate-ai-assistant", badge: { text: "add-on", type: "new" } },
+              { label: "Localization", url: "/articulate-localization", badge: { text: "nuevo", type: "new" } }
             ]
           },
           { label: "Vyond", url: "/vyond-mexico", subItems: [
               { label: "Vyond Go", url: "/vyond-go", badge: { text: "IA", type: "new" } },
               { label: "Vyond Studio", url: "/vyond-studio" },
-              { label: "Vyond Mobile", url: "/vyond-mobile" }
+              { label: "Vyond Mobile", url: "/vyond-mobile" },
+              { label: "Enterprise", url: "/vyond-enterprise" },
+              { label: "Professional", url: "/vyond-professional" },
+
             ]
           }
         ]
       },
       {
-        title: "Requiero métricas",
+        title: "Plataformas & LMS",
         items: [
           { label: "Moodle", url: "/moodle-mexico", badge: { text: "SaaS", type: "saas" } },
           { label: "Totara", url: "/totara-lms-mexico", badge: { text: "SaaS", type: "saas" } },
           { label: "Pifini Learn", url: "/pifini-mexico", badge: { text: "SaaS", type: "saas" } },
-          { label: "Ottolearn", url: "/ottolearn-mexico" },
-          { label: "Anti-plagio", url: "/strikeplagiarism-mexico" }
+          { label: "Ottolearn", url: "/ottolearn-mexico", badge: { text: "SaaS", type: "saas" } },
+          { label: "Lys", url: "/lys-mexico", badge: { text: "SaaS", type: "saas" } }
         ]
       },
       {
-        title: "Exploración L&D",
+        title: "Servicios & Add-ons",
         items: [
-          { label: "Enterprise L&D", url: "/contacto", subtext: "(Ecosistemas completos)" },
-          { label: "Diagnóstico Madurez", url: "/recursos", badge: { text: "PDF", type: "new" } },
+          { label: "Desarrollo de Contenidos", url: "/desarrollo-de-contenidos", badge: { text: "DDC", type: "new" } },
           { label: "divider", url: "", isDivider: true },
-          { label: "Asesoría de software", url: "/contacto" }
+          { label: "Class", url: "/class-taec", subtext: "(videoclases)" },
+          { label: "Proctorizer", url: "/proctorizer-mexico" },
+          { label: "StrikePlagiarism", url: "/strikeplagiarism-mexico" },
+          { label: "divider", url: "", isDivider: true },
+          { label: "Catálogo listo", url: "", isSubtitle: true },
+          { label: "7 Minutes", url: "/7minutes-learning" },
+          { label: "Custom Guide", url: "/customguide-mexico" }
         ]
       }
     ],
-    bottomAction: { label: "Ir al Catálogo Técnico Completo →", url: "/soluciones" }
+    bottomAction: { label: "Ver todas las soluciones →", url: "/soluciones" }
   },
   {
     id: "capacitacion",
