@@ -276,40 +276,45 @@ export default function ChatAgent() {
             )}
           </div>
 
-          {/* Footer Input */}
+          {/* Footer Input & Legal Disclaimer */}
           {hasStarted && (
-            <form onSubmit={sendMessage} style={{
-              padding: '12px', background: '#fff', borderTop: '1px solid #E5E7EB',
-              display: 'flex', gap: '8px'
-            }}>
-              <input 
-                ref={inputRef}
-                type="text" 
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                placeholder="Escribe tu mensaje..." 
-                disabled={isLoading}
-                style={{
-                  flex: 1, padding: '10px 16px', borderRadius: '24px',
-                  border: '1px solid #E5E7EB', background: '#F3F4F6',
-                  fontSize: '14px', outline: 'none'
-                }}
-              />
-              <button 
-                type="submit" 
-                disabled={!input.trim() || isLoading}
-                style={{
-                  width: '40px', height: '40px', borderRadius: '50%',
-                  background: (!input.trim() || isLoading) ? '#D1D5DB' : '#F59E0B',
-                  color: 'white', border: 'none', cursor: (!input.trim() || isLoading) ? 'not-allowed' : 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center'
-                }}
-              >
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{width:'20px', height:'20px', marginLeft:'2px'}}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </button>
-            </form>
+            <div style={{ background: '#fff', borderTop: '1px solid #E5E7EB', display: 'flex', flexDirection: 'column' }}>
+              <form onSubmit={sendMessage} style={{
+                padding: '12px', display: 'flex', gap: '8px'
+              }}>
+                <input 
+                  ref={inputRef}
+                  type="text" 
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  placeholder="Escribe tu mensaje..." 
+                  disabled={isLoading}
+                  style={{
+                    flex: 1, padding: '10px 16px', borderRadius: '24px',
+                    border: '1px solid #E5E7EB', background: '#F3F4F6',
+                    fontSize: '14px', outline: 'none'
+                  }}
+                />
+                <button 
+                  type="submit" 
+                  disabled={!input.trim() || isLoading}
+                  style={{
+                    width: '40px', height: '40px', borderRadius: '50%',
+                    background: (!input.trim() || isLoading) ? '#D1D5DB' : '#F59E0B',
+                    color: 'white', border: 'none', cursor: (!input.trim() || isLoading) ? 'not-allowed' : 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}
+                >
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{width:'20px', height:'20px', marginLeft:'2px'}}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                </button>
+              </form>
+              
+              <div style={{ textAlign: 'center', paddingBottom: '10px', fontSize: '10px', color: '#9CA3AF', paddingLeft: '16px', paddingRight: '16px' }}>
+                Tito Bits es una IA en entrenamiento y puede cometer errores. Por favor, consulta cualquier duda técnica o financiera con tu Asesor de Ventas.
+              </div>
+            </div>
           )}
         </div>
       )}
