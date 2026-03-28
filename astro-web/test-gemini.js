@@ -19,12 +19,18 @@ const ai = new GoogleGenAI({ apiKey: key });
 
 async function run() {
   try {
-    const response = await ai.models.list();
-    for await (const model of response) {
-      console.log(model.name);
-    }
+    const systemPrompt = "Eres Tito Bits.";
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: "hola tito",
+      config: {
+        systemInstruction: systemPrompt
+      }
+    });
+
+    console.log("✅ ÉXITO. Respuesta de Google:", response.text);
   } catch (error) {
-    console.error("❌ ERROR LISTANDO MODELOS:", error.message);
+    console.error("❌ ERROR GENERATING CONTENT:", error.message);
   }
 }
 
