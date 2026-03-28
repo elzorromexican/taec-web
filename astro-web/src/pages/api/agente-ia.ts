@@ -33,12 +33,26 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Falta el mensaje del usuario' }), { status: 400 });
     }
 
-    // Usaremos las variables de entorno sin hacks crudos.
-    const apiKey = import.meta.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+    let apiKey = import.meta.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+
+    // HACK: Respaldo para entorno de desarrollo local donde Astro SSR pierde las variables de entorno sin el módulo astro:env
+    if (!apiKey && import.meta.env.DEV) {
+      try {
+        const fs = await import('fs');
+        const path = await import('path');
+        const envStr = fs.readFileSync(path.resolve('.env'), 'utf8');
+        const match = envStr.match(/GEMINI_API_KEY="?([^"\n]+)"?/); // Soporta con o sin comillas
+        if (match && match[1]) {
+           apiKey = match[1].replace(/\s/g, "");
+        }
+      } catch(e) {
+        // Ignorar falla de lectura pasiva
+      }
+    }
 
     if (!apiKey) {
       // 2. Homologación de ambiente (Eliminamos fugas de comandos en pro de un mensaje neutral).
-      console.error("ALERTA CRÍTICA: La llave GEMINI_API_KEY no está configurada en las variables de entorno del servidor. No ha sido detectada.");
+      console.error("ALERTA CRÍTICA: La llave GEMINI_API_KEY no ha sido detectada por el servidor.");
       return new Response(JSON.stringify({ 
         error: 'Tito Bits está en mantenimiento temporal. Regresa más tarde.' 
       }), { status: 401 });
