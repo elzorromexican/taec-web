@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 export default function ChatAgent() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{role: 'user' | 'agent', text: string}[]>([
-    { role: 'agent', text: '¡Hola! 🦊 Soy el Asesor L&D virtual de TAEC. ¿Cuál es el mayor reto de capacitación en tu empresa hoy?' }
+    { role: 'agent', text: '¡Hola humano! 🤖 Soy Tito Bits, la mascota y anfitrión virtual de TAEC. ¿En qué paso de tu viaje e-learning te encuentras hoy?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -85,13 +85,25 @@ export default function ChatAgent() {
             display: 'flex', alignItems: 'center', gap: '12px'
           }}>
             <div style={{
-              width: '36px', height: '36px', borderRadius: '50%', background: '#fff',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#004775', fontWeight: 'bold', fontSize: '13px'
-            }}>AI</div>
+              width: '38px', height: '38px', borderRadius: '50%', background: '#fff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'
+            }}>
+              {/* Tito Bits SVG Minimalista */}
+              <svg viewBox="0 0 100 100" style={{width: '28px', height: '28px', fill: '#004775'}}>
+                <circle cx="50" cy="40" r="35" fill="none" stroke="#004775" strokeWidth="5"/>
+                <rect x="32" y="32" width="36" height="22" rx="2" />
+                <circle cx="42" cy="43" r="4.5" fill="white" />
+                <circle cx="58" cy="43" r="4.5" fill="white" />
+                <line x1="40" y1="32" x2="35" y2="18" stroke="#004775" strokeWidth="4" strokeLinecap="round"/>
+                <line x1="60" y1="32" x2="65" y2="18" stroke="#004775" strokeWidth="4" strokeLinecap="round"/>
+                <path d="M38 56 L30 75 A 5 5 0 0 0 40 75 L42 56 Z" />
+                <path d="M62 56 L70 75 A 5 5 0 0 1 60 75 L58 56 Z" />
+                <path d="M34 56 L66 56 L60 85 L40 85 Z" />
+              </svg>
+            </div>
             <div>
-              <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 700 }}>Asesor L&D TAEC</h3>
-              <p style={{ margin: 0, fontSize: '12px', color: '#A8DBD9' }}>En línea (Gemini Flash)</p>
+              <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Tito Bits</h3>
+              <p style={{ margin: 0, fontSize: '12px', color: '#A8DBD9' }}>Anfitrión L&D de TAEC</p>
             </div>
           </div>
 
