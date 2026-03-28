@@ -48,20 +48,24 @@ export default function ChatAgent() {
     e.preventDefault();
     setFormError('');
 
+    const errors: string[] = [];
+
     if (!userData.name.trim()) {
-      setFormError('Por favor, ingresa tu nombre.');
-      return;
+      errors.push('• Tu nombre completo.');
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(userData.email)) {
-      setFormError('Ingresa un correo válido (ej. tu@empresa.com).');
-      return;
+      errors.push('• Un correo electrónico válido.');
     }
 
     const digitsOnly = userData.phone.replace(/\D/g, '');
     if (digitsOnly.length < 10) {
-      setFormError('El teléfono debe tener un mínimo de 10 dígitos.');
+      errors.push('• Un teléfono de al menos 10 dígitos.');
+    }
+
+    if (errors.length > 0) {
+      setFormError(`Por favor completa lo siguiente:\n${errors.join('\n')}`);
       return;
     }
 
@@ -91,7 +95,7 @@ export default function ChatAgent() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        setSystemError('¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **contacto@taec.com.mx** 📧.');
+        setSystemError('¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.');
       } else {
         setMessages(prev => [...prev, { role: 'agent', text: data.reply }]);
       }
@@ -269,7 +273,7 @@ export default function ChatAgent() {
                 </div>
                 <form onSubmit={startChat} style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                   {formError && (
-                    <div style={{ background: '#FEE2E2', color: '#B91C1C', padding: '10px', borderRadius: '8px', fontSize: '13px', textAlign: 'center', fontWeight: 'bold' }}>
+                    <div style={{ background: '#FEE2E2', color: '#B91C1C', padding: '12px', borderRadius: '8px', fontSize: '13px', textAlign: 'left', fontWeight: 'bold', whiteSpace: 'pre-line', lineHeight: '1.5' }}>
                       {formError}
                     </div>
                   )}
