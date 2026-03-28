@@ -35,8 +35,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     let apiKey = import.meta.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
 
-    // HACK: Respaldo para entorno de desarrollo local donde Astro SSR pierde las variables de entorno sin el módulo astro:env
-    if (!apiKey && import.meta.env.DEV) {
+    // HACK: Forzar prioridad del archivo físico .env en desarrollo 
+    // Esto evita que variables del sistema (export GEMINI_API_KEY en .zshrc) secuestren valores viejos
+    if (import.meta.env.DEV) {
       try {
         const fs = await import('fs');
         const path = await import('path');
