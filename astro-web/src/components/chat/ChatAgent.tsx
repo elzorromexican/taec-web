@@ -10,6 +10,7 @@ export default function ChatAgent() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLInputElement>(null);
@@ -80,7 +81,8 @@ export default function ChatAgent() {
   const copyToClipboard = () => {
     const text = messages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\\n\\n');
     navigator.clipboard.writeText(text);
-    alert('¡Historial de chat copiado al portapapeles! 📋');
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 3500);
   };
 
   const sendSilentEmail = async () => {
@@ -212,12 +214,14 @@ export default function ChatAgent() {
               {hasStarted && messages.length > 1 && (
                 <button 
                   onClick={copyToClipboard} 
+                  disabled={isCopied}
                   style={{
-                    background: '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
-                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer'
+                    background: isCopied ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
+                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
+                    transition: 'background 0.3s'
                   }}
                 >
-                  Copiar Chat 📋
+                  {isCopied ? '¡Texto guardado para un asesor! ✅' : 'Copiar Chat 📋'}
                 </button>
               )}
             </div>
