@@ -126,9 +126,7 @@ export default function ChatAgent() {
             boxShadow: '0 2px 4px rgba(0,0,0,0.2)', animation: 'bounce 2s infinite'
           }}>¡Hola! 👋</div>
         )}
-        <style>
-          {\`@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }\`}
-        </style>
+        <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }"}} />
 
         {/* Creada la Cara de Tito en vez del icono aburrido */}
         {!isOpen ? (
