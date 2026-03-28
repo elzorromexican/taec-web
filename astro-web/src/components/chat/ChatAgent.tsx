@@ -69,9 +69,21 @@ export default function ChatAgent() {
       });
       
       const data = await res.json();
-      setMessages(prev => [...prev, { role: 'agent', text: data.reply || data.error }]);
+
+      if (!res.ok || data.error) {
+        // Intercepción del error crudo (Rate Limits, 500, API keys caídas) para mostrar un mensaje corporativo y amable.
+        setMessages(prev => [...prev, { 
+          role: 'agent', 
+          text: '¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **contacto@taec.com.mx** 📧.' 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'agent', text: data.reply }]);
+      }
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'agent', text: 'Error de red. Intenta nuevamente.' }]);
+      setMessages(prev => [...prev, { 
+        role: 'agent', 
+        text: '¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' 
+      }]);
     } finally {
       setIsLoading(false);
       setTimeout(() => inputChatRef.current?.focus(), 50);
