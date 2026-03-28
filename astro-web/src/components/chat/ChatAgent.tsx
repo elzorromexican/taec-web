@@ -233,7 +233,7 @@ export default function ChatAgent() {
                     transition: 'background 0.3s'
                   }}
                 >
-                  {isCopied ? '¡Texto guardado para un asesor! ✅' : 'Copiar Chat 📋'}
+                  {isCopied ? 'Texto del chat guardado en el portapapeles ✅' : 'Copiar Chat 📋'}
                 </button>
               )}
             </div>
