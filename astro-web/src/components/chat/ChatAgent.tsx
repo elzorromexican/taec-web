@@ -71,7 +71,7 @@ export default function ChatAgent() {
 
     setHasStarted(true);
     setMessages([
-      { role: 'agent', text: `¡Hola ${userData.name}! 🤖 Soy Tito Bits, tu anfitrión L&D en TAEC. Mis circuitos están listos. ¿En qué paso de tu viaje e-learning te encuentras hoy?` }
+      { role: 'agent', text: `¡Hola ${userData.name}! 🤖 Soy Tito Bits, tu asesor hiper-rápido en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*` }
     ]);
   };
 
@@ -170,7 +170,7 @@ export default function ChatAgent() {
             background: '#F59E0B', color: 'white', padding: '4px 8px',
             borderRadius: '12px', fontSize: '11px', fontWeight: 'bold',
             boxShadow: '0 2px 4px rgba(0,0,0,0.2)', animation: 'bounce 2s infinite'
-          }}>¡Hola! 👋</div>
+          }}>Diagnóstico rápido de e-learning ⚡</div>
         )}
         <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }"}} />
         
