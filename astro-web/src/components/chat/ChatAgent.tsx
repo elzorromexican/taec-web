@@ -11,6 +11,7 @@ export default function ChatAgent() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [systemError, setSystemError] = useState<string>('');
   
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLInputElement>(null);
@@ -23,14 +24,14 @@ export default function ChatAgent() {
 
   // Auto-focus en el formulario al abrir
   useEffect(() => {
-    if (isOpen && !hasStarted) {
+    if (isOpen && !hasStarted && window.innerWidth > 768) {
       setTimeout(() => inputNameRef.current?.focus(), 150);
     }
   }, [isOpen, hasStarted]);
 
   // Auto-focus en el chat cuando ya inició
   useEffect(() => {
-    if (isOpen && hasStarted) {
+    if (isOpen && hasStarted && window.innerWidth > 768) {
       setTimeout(() => inputChatRef.current?.focus(), 150);
     }
   }, [isOpen, hasStarted]);
@@ -56,6 +57,7 @@ export default function ChatAgent() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
+    setSystemError('');
     const userMsg = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
@@ -71,22 +73,17 @@ export default function ChatAgent() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        // Intercepción del error crudo (Rate Limits, 500, API keys caídas) para mostrar un mensaje corporativo y amable.
-        setMessages(prev => [...prev, { 
-          role: 'agent', 
-          text: '¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **contacto@taec.com.mx** 📧.' 
-        }]);
+        setSystemError('¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **contacto@taec.com.mx** 📧.');
       } else {
         setMessages(prev => [...prev, { role: 'agent', text: data.reply }]);
       }
     } catch (error) {
-      setMessages(prev => [...prev, { 
-        role: 'agent', 
-        text: '¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' 
-      }]);
+      setSystemError('¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.');
     } finally {
       setIsLoading(false);
-      setTimeout(() => inputChatRef.current?.focus(), 50);
+      if (window.innerWidth > 768) {
+        setTimeout(() => inputChatRef.current?.focus(), 50);
+      }
     }
   };
 
@@ -115,6 +112,8 @@ export default function ChatAgent() {
       });
     } catch (error) {
       console.warn('Silently failed storing transcript');
+    } finally {
+      setIsSendingEmail(false);
     }
   };
 
@@ -306,6 +305,18 @@ export default function ChatAgent() {
                     </div>
                   </div>
                 ))}
+
+                {systemError && (
+                  <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '8px' }}>
+                    <div style={{ background: '#FFEEEE', color: '#D32F2F', padding: '12px 16px', borderRadius: '12px', fontSize: '13px', maxWidth: '85%' }}>
+                      <ReactMarkdown components={{
+                        p: ({node, ...props}) => <p style={markdownStyles.p} {...props} />,
+                        strong: ({node, ...props}) => <strong style={{color: '#B71C1C'}} {...props} />
+                      }}>{systemError}</ReactMarkdown>
+                    </div>
+                  </div>
+                )}
+
                 {isLoading && (
                   <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                     <div style={{
