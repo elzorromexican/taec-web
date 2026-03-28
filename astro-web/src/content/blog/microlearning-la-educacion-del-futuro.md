@@ -4,6 +4,7 @@ description: "Microlearning, la educación del futuro"
 date: "19 julio, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Instruccional", "LMS", "Microaprendizaje", "Microlearning", "Ottolearn"]
+image: /assets/uploads/microlearning-la-educacion-del-futuro-ElbaAsset-3.png
 ---
 
 En el año 2000 el intervalo de atención de la mente humana rondaba los 12 segundos, para 2015 este intervalo se redujo a tan solo 8 segundos, mientras que el intervalo de atención de un pez dorado es de 9 segundos… es decir, **¡prestamos menos atención que un pez!** Por esta razón, el microlearning o microaprendizaje se está convirtiendo en una de las tendencias de mayor impacto para la educación y formación de talento.
@@ -45,6 +46,6 @@ El proveer información a través de pequeñas cápsulas, también permite su f�
 
 Contar con una plataforma LMS que te permita implementar cursos con metodología de microaprendizaje te dará grandes resultados. En TAEC contamos con [OttoLearn](https://taec.com.mx/ottolearn.php), una plataforma capaz de poner en marcha cursos con inteligencia artificial y rutas personalizadas de desarrollo, [contáctanos](http://taec.com.mx/contacto.php) para ayudarte a llevar a tu organización al siguiente nivel.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

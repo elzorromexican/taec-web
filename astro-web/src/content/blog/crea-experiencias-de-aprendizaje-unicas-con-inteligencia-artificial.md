@@ -4,6 +4,7 @@ description: "Crea experiencias de aprendizaje únicas con inteligencia artifici
 date: "24 mayo, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Adaptativo", "Capacitación", "Diseño", "Instruccional", "e-learning", "Inteligencia", "Artificial", "LMS", "Rutas", "De"]
+image: /assets/uploads/crea-experiencias-de-aprendizaje-unicas-con-inteligencia-artificial-ElbaAsset-3.png
 ---
 
 La inteligencia artificial está abarcando cada vez más aspectos de la vida cotidiana y quizá puede sonar a un concepto del futuro que está lejos de nuestras manos, pero la realidad es que está inmersa en (casi) todo lo que hacemos día con día y hasta en la forma de enseñar. Hoy te contaremos cómo **crear experiencias de aprendizaje únicas con la inteligencia artificial (IA).**
@@ -50,6 +51,6 @@ En resumen, el aprendizaje adaptativo es un nuevo paradigma de la capacitación 
 
 Lleva la enseñanza de tus colaboradores o alumnos a un ambiente dinámico y personalizado con el aprendizaje adaptativo. Si estás listo para esta implementación, [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

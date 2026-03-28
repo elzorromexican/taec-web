@@ -1,14 +1,14 @@
 ---
-title: "10 formas de evitar el agotamiento del aprendizaje a distancia o burnout"
-description: "10 formas de evitar el agotamiento del aprendizaje a distancia o burnout"
-date: "5 octubre, 2021"
-author: "TAEC"
-tags: ["Salud mental", "Educación a distancia", "Inteligencia artificial"]
+title: 10 formas de evitar el agotamiento del aprendizaje a distancia o burnout
+description: 10 formas de evitar el agotamiento del aprendizaje a distancia o burnout
+image: /assets/uploads/chose-an-lms.png
+author: TAEC
+date: 5 octubre, 2021
+tags:
+  - Salud mental
+  - Educación a distancia
+  - Inteligencia artificial
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/10/BURNOUT_662x367.jpg)
-    
-
 No es nada nuevo que la mayoría de los países hayan puesto en marcha herramientas como el e-learning (enseñanza-aprendizaje a través de internet) para retomar el aprendizaje en casa, y si bien es cierto ya te hemos comentado sobre las ventajas que tiene para ti y tu empresa el implementar e-learning en cualquiera de sus modalidades, sin embargo esto aún sigue siendo una innovación para muchas empresas.
 
 Aunado a esto podemos darnos cuenta que al principio costó mucho adaptarnos al nuevo estilo de vida, nuevas formas de aprender y desarrollarse, tanto, que nos ha traído dificultades poniéndo a prueba a empresas como a nosotros mismos a un nivel personal, definitivamente nos sacaron de nuestra zona de confort para pasarnos a una realidad totalmente distinta a la “antigua normalidad\*
@@ -96,5 +96,3 @@ En consecuencia, el burnout nos lleva a estar compulsivamente buscando obtener e
 ### Para hacer cursos que no generen burnout excesivo en los usuarios, alumnos capacitadores y profesores, [contacta ahora con TAEC.](https://www.taec.com.mx/contacto.php)
 
 ## **Creado en colaboración con:**
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/05/Screen-Shot-2021-05-20-at-09.47.29.png)

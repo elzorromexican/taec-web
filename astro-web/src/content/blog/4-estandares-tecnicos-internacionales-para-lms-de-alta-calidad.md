@@ -4,9 +4,10 @@ description: "4 estándares técnicos internacionales para LMS de alta calidad"
 date: "19 octubre, 2020"
 author: "stephan goirand"
 tags: ["Aicc", "Estandares", "Experience", "Api", "Ims", "Internacionales", "LMS", "SCORM", "Xapi"]
+image: /assets/uploads/4-estandares-tecnicos-internacionales-para-lms-de-alta-calidad-APROBACIN_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/APROBACIÓN_662x367.jpg)
+
 
 El otro día quería empezar a crear mis cursos en línea, desgraciadamente, al momento de querer comenzar existen mil complicaciones y diferentes caminos que se pueden tomar. Sobre todo y a nivel técnico por los distintos estándares que pueden ser aplicados con diferentes propósitos. 
 

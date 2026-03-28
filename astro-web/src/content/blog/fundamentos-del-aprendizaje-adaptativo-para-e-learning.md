@@ -4,9 +4,10 @@ description: "Fundamentos del aprendizaje adaptativo para e-learning"
 date: "3 mayo, 2021"
 author: "stephan goirand"
 tags: ["Adaptativo", "Aprendizaje", "Cognitiva", "e-learning", "Innovación", "Neuroaprendizaje"]
+image: /assets/uploads/fundamentos-del-aprendizaje-adaptativo-para-e-learning-BRAIN-2_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/BRAIN-2_662x367.jpg)
+
 
 Antes del e-learning, cómo profesor, tenías que ser un héroe y hacer todo. Un gran profesor, preparaba todo en adelantado y se alistaba para impresionar a su clase diariamente, día tras día por el resto de su vida laboral. Y aún así siempre hay gente que no entenderá la lección, a pesar de la mejor de las intenciones.
 

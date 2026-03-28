@@ -4,6 +4,7 @@ description: "¿Por qué utilizar el storytelling en tu e-learning?"
 date: "16 agosto, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Capacitación", "e-learning", "Educación", "Exito", "Storytelling", "Tecnología"]
+image: /assets/uploads/por-que-utilizar-el-storytelling-en-tu-e-learning-ElbaAsset-3.png
 ---
 
 Si estás dentro del mundo de la enseñanza en línea, seguramente ya sabes que el **contar historias para compartir o reforzar un conocimiento es una herramienta muy efectiva,** ¿por qué es importante usar el storytelling en el e-learning? Las historias ayudan a los aprendices a **obtener información de forma didáctica y fácil;** además, **recordar la información es más fácil cuando tenemos una historia que nos guía.**
@@ -50,6 +51,6 @@ El storytelling es, además, **una gran herramienta capaz de motivar a la audien
 
 Ahora ya lo sabes, utiliza el storytelling para crear experiencias de aprendizaje únicas. Y recuerda, si necesitas ayuda para construirlas e implementarlas exitosamente… [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

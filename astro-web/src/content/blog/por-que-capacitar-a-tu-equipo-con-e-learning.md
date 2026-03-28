@@ -4,6 +4,7 @@ description: "¿Por qué capacitar a tu equipo con e-learning?"
 date: "6 julio, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Instruccional", "LMS", "Tecnología"]
+image: /assets/uploads/por-que-capacitar-a-tu-equipo-con-e-learning-ElbaAsset-3.png
 ---
 
 Hoy día, la capacitación empresarial realizada a través de plataformas digitales es una gran solución a diversas problemáticas, tales como la inversión de tiempo y dinero que implica el desarrollo de talento humano. Aquí platicaremos sobre las razones para capacitar a tu equipo con e-learning.
@@ -48,6 +49,6 @@ Las metodologías activas del e-learning y la naturaleza digital de las mismas, 
 
 Implementar una solución e-learning traerá un sinfín de ventajas para tu organización, su crecimiento y desarrollo, [contáctanos](https://www.taec.com.mx/contacto.php) para alcanzar un nuevo nivel de integración y preparación en tu empresa.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

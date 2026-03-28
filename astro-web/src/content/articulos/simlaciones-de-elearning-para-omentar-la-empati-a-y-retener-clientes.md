@@ -9,6 +9,7 @@ tags:
   - "articulate"
   - "vyond"
   - "taec"
+image: /assets/uploads/simlaciones-de-elearning-para-omentar-la-empati-a-y-retener-clientes-1774655920872.jpg
 ---
 
 ### Transformando la Capacitación en una Herramienta de Conexión Humana
@@ -18,7 +19,7 @@ Un banco en Latinoamérica reportó un incremento del 25% en la satisfacción de
 
 Este artículo explora ese caso, cómo replicarlo, y te ofrece una plantilla de curso descargable (Gratis sin registro) para poner en marcha una experiencia similar en tu organización.
 
-![Simulaciones de empatía](https://media.licdn.com/dms/image/v2/D4E12AQEoR_kyOF68tg/article-cover_image-shrink_720_1280/B4EZdb1cdHHQAI-/0/1749592428484?e=1775692800&v=beta&t=tF8IcABiqoZghbBBFA6ysjRNkxyVvUEnmVlNVes4jp0)
+
 
 ---
 

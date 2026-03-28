@@ -4,9 +4,10 @@ description: "4 beneficios al hospedar tu LMS en la nube"
 date: "12 octubre, 2020"
 author: "stephan goirand"
 tags: ["Cloud", "LMS", "Nube", "Tecnología"]
+image: /assets/uploads/4-beneficios-al-hospedar-tu-lms-en-la-nube-SEOR_NUBES_662x367-1.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/SEÑOR_NUBES_662x367-1.jpg)
+
 
 Todos hemos escuchado acerca de la nube digital. ¿Pero qué significa realmente esta tecnología y cómo se adapta al ambiente educativo? Desde el inicio de la pandemia del 2020 el término se ha ultra viralizado pues ahora hace parte de la tecnología que nos permite conectarnos día a día a pesar de la distancia. 
 
@@ -76,7 +77,7 @@ Es importante recalcar que la mayoría de métricas de estas instancias, son uti
 
 ### 3\. **Acuerdo de nivel de servicio (SLA Agreement) de proveedor de SaaS LMS**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/APROBADO_662x367.jpg)
+
 
 El acurdo SLA debe incluir: Actualizaciones anuales de versiones, respaldos y diseño gráfico.
 

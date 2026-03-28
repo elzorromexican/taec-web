@@ -4,11 +4,8 @@ description: "Qué es LxD – Diseño de experiencias de aprendizaje, entre el D
 date: "8 marzo, 2021"
 author: "stephan goirand"
 tags: ["Aprendizaje", "Diseño", "Experiencia", "Instruccional", "LXD", "UX"]
+image: /assets/uploads/que-es-lxd-diseno-de-experiencias-de-aprendizaje-entre-el-diseno-instruccional-y-la-ux-SATELITE_retocado-1.jpg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/SATELITE_retocado-1.jpg)
-    
-
 ¿Cómo un bebé  aprende a caminar? 
 
 Lee un libro? toma un curso? No.
@@ -50,10 +47,6 @@ Además de que mejora la capacidad de los diseñadores de cursos para realmente 
 7.  Uso céntrico de la empatía en el proceso de aprendizaje.
 
 ## 1\. Incorpora el UX con Diseño Instruccional para crear Learning Experience Design. 
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/03/MACHINE_LEARNING_662x367.jpg)
-    
-
 Cual es la diferencia entre DI y LxD
 
 El diseño instruccional como su nombre lo indica tiene la tendencia tradicional de enfocarse en la generación y diseño de instrucciones.

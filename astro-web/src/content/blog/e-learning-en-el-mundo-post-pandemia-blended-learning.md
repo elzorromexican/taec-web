@@ -4,6 +4,7 @@ description: "E-learning en el mundo post-pandemia: Blended learning"
 date: "1 septiembre, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Blended", "Learning", "Capacitación", "Diseño", "e-learning", "Elearning", "Instruccional", "LMS"]
+image: /assets/uploads/e-learning-en-el-mundo-post-pandemia-blended-learning-ElbaAsset-3.png
 ---
 
 El _blended learning_ es una práctica educativa que aunque existía con anterioridad, vino a tomar una gran relevancia durante la pandemia por Covid-19. Hoy, aunque poco a poco estamos regresando a las aulas y las oficinas, el _blended learning_ o “aprendizaje semipresencial”, sigue vigente y en constante evolución. Hoy hablaremos sobre qué es y cómo aprovecharlo al máximo.
@@ -50,6 +51,6 @@ Las metodologías de educación en línea seguirán evolucionando y transformán
 
 Ahora que ya conoces un poco más sobre el _blended learning_ puedes considerar esta como una nueva opción para la formación de tus equipos. Y si aún no sabes qué metodología es la mejor para tus aprendices… [contáctanos.](http://taec.com.mx/contacto.phptaec.com.mx/contacto.php)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

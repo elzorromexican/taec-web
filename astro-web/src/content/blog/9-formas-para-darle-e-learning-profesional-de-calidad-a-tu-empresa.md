@@ -4,9 +4,10 @@ description: "9 FORMAS PARA DARLE E-LEARNING PROFESIONAL DE CALIDAD A TU EMPRESA
 date: "31 mayo, 2021"
 author: "stephan goirand"
 tags: ["Aprendizaje", "Blended", "Calidad", "e-learning"]
+image: /assets/uploads/9-formas-para-darle-e-learning-profesional-de-calidad-a-tu-empresa-EDUCATION_PURPLE.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/EDUCATION_PURPLE.jpg)
+
 
 Frente a la aplicación de e-learning las empresas tienen dos retos mayores. 
 
@@ -33,7 +34,7 @@ La mejor manera para otorgar contenido verdaderamente útil es concentrarte en l
 
 #### 3\. ESCOGER CALIDAD SOBRE CANTIDAD AL COMPRAR CONTENIDO PARA TU LMS
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/5-STARS.jpg)
+
 
 Tienes que entender que tu LMS es tan bueno como el contenido que propones a los usuarios. 
 

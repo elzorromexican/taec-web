@@ -9,9 +9,10 @@ tags:
   - "equipos"
   - "estrategia"
   - "taec"
+image: /assets/uploads/el-rol-del-liderazgo-en-la-capacitacion-1774655915307.jpg
 ---
 
-![Cover de Liderazgo](https://media.licdn.com/dms/image/v2/D4E12AQFEW7kjZQCs9w/article-cover_image-shrink_720_1280/B4EZdL0eS_H0AQ-/0/1749323739952?e=1775692800&v=beta&t=Jz-nbcrjJJVbIsOFWx1pYdFQgxKwi_jsQ7uCkXE_2tw)
+
 
 Hace unas semanas, fui invitado a compartir una reflexión en el boletín interno de una empresa con operaciones en varios países de América Latina. El tema era simple en apariencia, pero profundo en implicaciones: 
 

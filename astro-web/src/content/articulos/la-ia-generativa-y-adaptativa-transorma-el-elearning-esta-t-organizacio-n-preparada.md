@@ -9,9 +9,10 @@ tags:
   - "lms"
   - "personalización"
   - "taec"
+image: /assets/uploads/la-ia-generativa-y-adaptativa-transorma-el-elearning-esta-t-organizacio-n-preparada-1774655917905.jpg
 ---
 
-![Cover IA Generativa y Adaptativa](https://media.licdn.com/dms/image/v2/D4E12AQEC5iCe4KeIpg/article-cover_image-shrink_720_1280/B4EZZbdJAdHkAI-/0/1745291090042?e=1775692800&v=beta&t=oq6tlE73C5Ld_TTJDAUBa_OPUMcghT90RTP0AEi7e-A)
+
 
 Desde hace tiempo en **TAEC** venimos observando cómo la Inteligencia Artificial, especialmente la generativa y adaptativa, está revolucionando el aprendizaje digital. Y no hablamos de un futuro lejano, sino de cambios que ya estamos experimentando día a día.
 

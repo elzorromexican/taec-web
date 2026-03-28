@@ -4,9 +4,10 @@ description: "E-learning con juegos: mayor motivación, mejor aprendizaje"
 date: "14 junio, 2021"
 author: "stephan goirand"
 tags: ["Capacitación", "Docente", "e-learning", "Educación", "Gamificación"]
+image: /assets/uploads/e-learning-con-juegos-mayor-motivacion-mejor-aprendizaje-AJEDREZ.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/AJEDREZ.jpg)
+
 
 A los humanos nos encantan los juegos. Aprendemos cuando jugamos y jugamos para aprender.
 
@@ -30,7 +31,7 @@ Ahora responderemos a los siguientes temas que son de interés para todo aquel q
 
 ### 1\. LA GAMIFICACIÓN ES EL MEJOR MÉTODO PARA MANTENER LA ATENCIÓN Y TRANSMITIR CONOCIMIENTO
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/ESTRELLAS-1.jpg)
+
 
 Una vez que hayas seleccionado el contenido oficial, mejora las dinámicas de aprendizaje con mecánicas de juegos serios, redes sociales educativas y blended learning.
 

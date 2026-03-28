@@ -4,11 +4,8 @@ description: "Cómo pasar del aprendizaje tradicional al aprendizaje centrado en
 date: "20 octubre, 2021"
 author: "TAEC"
 tags: ["e-learning", "Capacitación", "Aprendizaje"]
+image: /assets/uploads/como-pasar-del-aprendizaje-tradicional-al-aprendizaje-centrado-en-el-alumno-breve-comparacion-ESFERA_CIRCULO_662x367.jpg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/11/ESFERA_CIRCULO_662x367.jpg)
-    
-
 ¿Quién recuerda todo lo que estudio durante la secundaria? Tablas periódicas, calculo de trinomios, fechas históricas desconectadas del contexto cultural u otros requisitos estandarizados fuera del interés personal que demanda el sistema tradicional son parte de esta deteriorada memoria.
 
 Entendemos que el sistema tradicional esta roto en el sentido de que ha caducado en relación a dos cosas: uno, las posibilidades que otorga la tecnología para enseñar y aprender como nunca antes, y dos, los retos globales y comunes que se viven en pleno siglo XXI y por venir que superan al interés individualista.
@@ -51,7 +48,7 @@ Ya existe mucha información y conocimiento validado acerca de cómo es que el s
 
 A continuación presentamos los resultados de la investigación de Will Richardson, investigador autor y orador en tecnología educativa.
 
-![](https://lh6.googleusercontent.com/riPtiB207BDuWJa-H9a2Yz4dik60-K_tB2o64uLgdGJc8g1CT5mKjxb3c6cOq4ZP2PccoxnyFUBJ4AAfx5tGkw9F2uy4SHHZVibABHVFVaimYVAw9UeC2Kexst25eT7uPlU7Nw0=s1600)
+
 
 Nos daremos cuenta que este tipo de conocimiento acerca de cómo aprendemos es deducible por todos. Es lógico ya que todos sabemos cuando aprendemos, independientemente de lo que aprendamos. Cómo decía Saymour Papert, reconocido profesor de Will Richardson:
 

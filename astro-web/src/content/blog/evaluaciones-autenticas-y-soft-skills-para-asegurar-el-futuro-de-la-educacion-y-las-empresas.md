@@ -4,9 +4,10 @@ description: "Evaluaciones auténticas y “soft-skills” para asegurar el futu
 date: "3 noviembre, 2021"
 author: "TAEC"
 tags: ["Evaluación", "Soft skills", "e-learning"]
+image: /assets/uploads/evaluaciones-autenticas-y-soft-skills-para-asegurar-el-futuro-de-la-educacion-y-las-empresas-CHAT_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/11/CHAT_662x367.jpg)
+
 
 **15 trillones de dólares** dedicados al salario de empleados, podrían en la actualidad ser automatizados. 
 

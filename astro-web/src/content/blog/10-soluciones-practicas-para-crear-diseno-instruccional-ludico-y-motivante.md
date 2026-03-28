@@ -4,9 +4,10 @@ description: "10 soluciones prácticas para crear diseño instruccional lúdico 
 date: "30 noviembre, 2020"
 author: "stephan goirand"
 tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Gamificación", "Instruccional", "Ludificación", "Motivar"]
+image: /assets/uploads/10-soluciones-practicas-para-crear-diseno-instruccional-ludico-y-motivante-BE5D96C2-A8FB-4E5B-A853-CC8A0F5656ED-1.png
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/01/BE5D96C2-A8FB-4E5B-A853-CC8A0F5656ED-1.png)
+
 
 Hace unos años, estábamos usando un LMS en un entorno mixto (presencial / remoto) y estaba consternados por la falta de aprendizaje que se estaba revelando a partir de los cursos digitales que habíamos dedicado tanto tiempo a crear.
 
@@ -127,7 +128,7 @@ Reconoce las habilidades y capacidades específicas que logren distinguir el con
 
 10.  Ten cuidado al usar tablas de clasificación. Conoce a tu audiencia antes de usarlas.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/LEADERBOARD_662x367.jpg)
+
 
 Las tablas de clasificación pueden ser muy motivantes (para los de arriba). Y esa motivación extra otorgada a los mejores, repercute en una total falta de interés en los de abajo. Incluso el sentimiento de enemistad pueden surgir entre los participantes y contra la autoridad. En realidad, una tabla de clasificaciones mal aplicada puede violentar internamente a los participantes sin sacarles ningún tipo de provecho, más bien les da la sensación de querer escapar del ejercicio.
 

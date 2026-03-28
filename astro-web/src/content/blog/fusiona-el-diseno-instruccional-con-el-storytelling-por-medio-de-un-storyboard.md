@@ -4,9 +4,10 @@ description: "Fusiona el Diseño Instruccional con el Storytelling por medio de 
 date: "11 enero, 2021"
 author: "stephan goirand"
 tags: ["Diseño", "Instruccional", "Narrativo", "Storyboard", "Storytelling"]
+image: /assets/uploads/fusiona-el-diseno-instruccional-con-el-storytelling-por-medio-de-un-storyboard-image1-2.jpeg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/image1-2.jpeg)
+
 
 #### El diseño es narrativa
 
@@ -111,7 +112,7 @@ Crea un deseo por la resolución en el usuario que  interactúa por el curso. E
 
 ### 2\. Aprende cómo crear buenas historias
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/STORYTELLING_662x3671-1.jpg)
+
 
 Aprender a crear buenas historias requiere práctica. Es una agilidad que se tiene que desarrollar. Sin embargo, la técnica resulta fácil de comprender porque todos sabemos cuando nos gusta una historia.
 

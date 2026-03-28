@@ -10,9 +10,10 @@ tags:
   - "futuro"
   - "2hr-learning"
   - "taec"
+image: /assets/uploads/esta-rota-la-educacion-tradicional-el-modelo-revolucionario-de-2hr-learning-1774655917207.jpg
 ---
 
-![Cover de 2Hr Learning](https://media.licdn.com/dms/image/v2/D4E12AQE09Kj4q37WhA/article-cover_image-shrink_720_1280/B4EZaR6GdLHkAI-/0/1746204654699?e=1775692800&v=beta&t=LdHRj3TNfYw-xIFDWdZYYxag9Wv3wMZ1jdLsJ68HqOg)
+
 
 He descubierto algo que podría transformar la educación tal como la conocemos: **2Hr Learning**, un enfoque radical desarrollado por MacKenzie Price y su equipo.
 

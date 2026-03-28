@@ -4,9 +4,10 @@ description: "Tendencias en producción de videos para e-learning"
 date: "5 abril, 2021"
 author: "stephan goirand"
 tags: ["e-learning", "Grabación", "Moda", "Pantallas", "Screencast", "Tendencia", "Videos", "Vyond"]
+image: /assets/uploads/tendencias-en-produccion-de-videos-para-e-learning-INFLUENCER_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/INFLUENCER_662x367.jpg)
+
 
 Tendencias entrando y tendencias saliendo en producción de videos animados. 
 
@@ -29,7 +30,7 @@ Finalmente hablaremos de las metodologías de storytelling y guionismo que se ne
 
 ### El video animado
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/SKATER_662x367.jpg)
+
 
 Con la tecnología que manejamos hoy en día es totalmente posible crear animación rápidas y sencillas a  nivel profesional.
 

@@ -4,6 +4,7 @@ description: "Tendencias educativas 2023"
 date: "18 enero, 2023"
 author: "elba loera"
 tags: ["Aprendizaje", "Aulas", "Colaborativas", "Capacitación", "Diseño", "e-learning", "Gamificación", "Instruccional", "LMS", "Steam"]
+image: /assets/uploads/tendencias-educativas-2023-pexels-pixabay-2156-1024x678.jpg
 ---
 
 El mundo avanza a una velocidad vertiginosa y con él, las ideas, las herramientas y recursos educativos también evolucionan. Esta convergencia entre la teoría y la práctica se hace cada vez más tangible gracias a las diversas metodologías de educación que día a día se robustecen.
@@ -18,13 +19,13 @@ Los modelos actuales de aprendizaje adoptan a la tecnología dentro de sus proce
 
 A continuación te presentamos algunas de las tendencias más relevantes para este 2023 en materia educativa y tecnológica.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2023/01/pexels-pixabay-2156-1024x678.jpg)
+
 
 ### Modelo educativo STEAM
 
 Este innovador modelo educativo pone al estudiante como el centro del aprendizaje. Es una metodología humanizada en la que convergen diversas disciplinas para conformar un modelo educativo integral. Este modelo integra la ciencia, la tecnología, la ingeniería, el arte y las matemáticas, he ahí la razón de su nombre:
 
-![](https://blog.taec.com.mx/wp-content/uploads/2023/01/image.png)
+
 
 STEAM apuesta por incentivar la experimentación y la curiosidad, para así generar un aprendizaje más cooperativo y poder despertar un mayor interés entre los aprendices. STEAM busca estimular el pensamiento lógico para desarrollar habilidades más profundas de resolución y pensamiento crítico con la estructura científica para proponer ideas innovadoras.
 

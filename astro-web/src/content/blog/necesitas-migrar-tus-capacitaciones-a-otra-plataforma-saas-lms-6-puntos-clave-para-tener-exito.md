@@ -4,9 +4,10 @@ description: "¿Necesitas migrar tus capacitaciones a otra plataforma SaaS LMS? 
 date: "9 noviembre, 2020"
 author: "TAEC"
 tags: ["LMS", "e-learning", "Capacitación"]
+image: /assets/uploads/necesitas-migrar-tus-capacitaciones-a-otra-plataforma-saas-lms-6-puntos-clave-para-tener-exito-BLOG-1024x535.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2020/11/BLOG-1024x535.jpg)
+
 
 Empezaste con un servicio, proveedor chico, te diste cuenta que necesitabas cambiar y necesitas algo más Pro. Sabes que la migración de tus cursos puede ser un facilitador si se hace correctamente, pero podría también ser un lastre si se organiza de la manera incorrecta.
 
@@ -21,7 +22,7 @@ Déjanos darte nuestros mejores consejos para lograr migrar exitosamente a una p
 
 ### 1\. Las ventajas de la tecnología actual en soluciones de migración tecnológica
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/CLASSE-ONLINE_662x367.jpg)
+
 
 El método tradicional de migración de contenidos implica la descarga desde la base de datos y su transformación a un estándar nuevo para realizar correctamente la carga en cada uno de los cursos. 
 

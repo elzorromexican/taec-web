@@ -4,9 +4,10 @@ description: "7 tendencias e-learning actuales para innovar en capacitación y e
 date: "28 junio, 2021"
 author: "TAEC"
 tags: ["Inteligencia artificial", "e-learning", "Capacitación"]
+image: /assets/uploads/7-tendencias-e-learning-actuales-para-innovar-en-capacitacion-y-educacion-INCREMENTO_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/INCREMENTO_662x367.jpg)
+
 
 Todos los lideres visionarios queremos aplicar la automatización y digitalización en nuestros procesos porque es lo más redituable a la larga. Finalmente es ganancia en tiempo y en dinero. 
 

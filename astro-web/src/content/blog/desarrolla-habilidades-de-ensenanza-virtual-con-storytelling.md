@@ -4,9 +4,10 @@ description: "Desarrolla habilidades de enseñanza virtual con Storytelling."
 date: "28 diciembre, 2020"
 author: "stephan goirand"
 tags: ["Diseño", "Enseñanza", "Escritura", "Instruccional", "Storytelling"]
+image: /assets/uploads/desarrolla-habilidades-de-ensenanza-virtual-con-storytelling-30D5FF3E-802D-4FE9-8325-E6D57731BEBE.png
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/01/30D5FF3E-802D-4FE9-8325-E6D57731BEBE.png)
+
 
 Quizá has ido a una fiesta o a un bar con varios amigos, y has podido notar a algún sujeto que cautivaba a todos, sabía mantener su atención y el aprecio de todos durante la noche. 
 
@@ -160,7 +161,7 @@ Es algo que podemos observar en las familias, que las historias les dan un valor
 
 ### 4\. Cómo las historias activan el cerebro
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/HEMISFERIOS_662x367.jpg)
+
 
 El storytelling sirve para modelar el comportamiento de los usuarios a partir de estímulos neuroquímicos.
 

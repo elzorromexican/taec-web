@@ -4,9 +4,10 @@ description: "5 puntos para analizar propuestas SaaS LMS y encontrar un proveedo
 date: "16 noviembre, 2020"
 author: "stephan goirand"
 tags: ["Calidad", "Excelencia", "LMS", "Propuestas", "Proveedores", "Saas", "Usabilidad"]
+image: /assets/uploads/5-puntos-para-analizar-propuestas-saas-lms-y-encontrar-un-proveedor-serio-GENERACIN_662x367-1.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/GENERACIÓN_662x367-1.jpg)
+
 
 Todos nos hemos topado con la necesidad de contratar un servicio en línea, a la par existe la desconfianza que invertir miles de dólares en un servicio digital como son los cursos en línea, puede generarnos.
 
@@ -76,7 +77,7 @@ Este será el contrato que ambas partes establecerán como un estándar de servi
 
 A continuación les presentamos un ejemplo de SLA _agreement_ de TAEC (para el ejemplo hablaremos de la plataforma AWS amazon web services)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/CONTRATO_662x367.jpg)
+
 
 > Proporcionará revisiones bimensuales para analizar el rendimiento del entorno de AWS, así como recomendaciones para optimizar los costos. Esto incluye recomendaciones relacionadas con el uso de instancias reservadas, el origen de alertas e investigaciones para mejoras de rendimiento acompañadas de información reportada por AWS Trusted Advisor y Rackspace Compass. La revisión se basará en la siguiente agenda:
 > 

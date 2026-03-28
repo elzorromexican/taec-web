@@ -4,6 +4,7 @@ description: "Metodología SCRUM para e-learnings exitosos"
 date: "30 diciembre, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Elearning", "Instruccional", "LMS", "Metodologías", "Ágiles", "Scrum", "Tecnología"]
+image: /assets/uploads/metodologia-scrum-para-e-learnings-exitosos-roles.png
 ---
 
 Las metodologías ágiles son cada vez más comunes en el día a día y las escuchamos con frecuencia dentro de los entornos organizacionales eficientes del mundo actual. Una de estas metodologías es SCRUM y el día de hoy hablaremos sobre ella y **cómo aprovecharla para desarrollar proyectos e-learning exitosos.**
@@ -24,13 +25,13 @@ Uno de los puntos más importantes de la metodología SCRUM es conocer cuándo s
 
 SCRUM es una metodología integral en la que convergen diversos conceptos que, dentro de la ejecución, lograrán el éxito del proyecto. A continuación los explicamos brevemente.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/12/roles.png)
+
 
 ### Roles
 
 Primero, es necesario conocer los roles que forman parte de esta metodología y definir quiénes los llevarán a cabo dentro del equipo.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/12/board.png)
+
 
 ### Tablero SCRUM
 

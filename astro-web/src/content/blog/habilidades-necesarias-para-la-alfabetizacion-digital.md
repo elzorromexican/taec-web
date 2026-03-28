@@ -4,9 +4,10 @@ description: "Habilidades necesarias para la alfabetización digital"
 date: "12 agosto, 2021"
 author: "stephan goirand"
 tags: ["Digitales", "e-learning", "Habilidades", "Investigación", "Tecnologías"]
+image: /assets/uploads/habilidades-necesarias-para-la-alfabetizacion-digital-BLIND.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/08/BLIND.jpg)
+
 
 Ya bien entrados los años 90 y la tecnología del email, recuerdo a mi abuelo Juan utilizar su libreta de códigos postales para mandarle saludos a sus hermanos en Francia, quienes también se sentían satisfechos por ese lento intercambio postal de información.
 

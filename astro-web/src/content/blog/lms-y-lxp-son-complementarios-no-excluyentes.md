@@ -4,9 +4,10 @@ description: "LMS y LXP son complementarios, no excluyentes"
 date: "1 marzo, 2021"
 author: "stephan goirand"
 tags: ["e-learning", "LMS", "Lxp", "Plataforma", "Tecnología"]
+image: /assets/uploads/lms-y-lxp-son-complementarios-no-excluyentes-LMS_VS_LXP_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/LMS_VS_LXP_662x367.jpg)
+
 
 Las modas nos hacen creer que la novedad es lo mejor y que tenemos que eliminar algo para adquirir algo siguiente. Pero en realidad cada cosa solo es una extensión de su predecesor y salvo excepciones, resulta que la novedad se viene a complementar con lo existente.
 
@@ -44,7 +45,7 @@ Se cosndiera un estabilizador de las practicas de la empresa.
 
 ### **Ventajas y usos del LMS**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/LMS_PURPLE_662x367-1.jpg)
+
 
 El LMS se conoce como un sistema que tiene una aproximación de arriba hacia abajo (_top to bottom_) porque justamente dependiendo, de lo que la empresa, administradores y gerentes quieran inculcar en su personal, es que se cura el contenido. 
 

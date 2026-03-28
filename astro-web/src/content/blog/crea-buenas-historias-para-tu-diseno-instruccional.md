@@ -4,9 +4,10 @@ description: "Crea buenas historias para tu diseño instruccional"
 date: "5 enero, 2021"
 author: "stephan goirand"
 tags: ["Conflicto", "Diseño", "Dopamina", "Historia", "Instruccional", "Neurotransmisores", "Oxitocina", "Personaje"]
+image: /assets/uploads/crea-buenas-historias-para-tu-diseno-instruccional-WHATS_YOUR_STORY_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/WHATS_YOUR_STORY_662x367.jpg)
+
 
 ¿Cómo le enseñarías a alguien a escribir historias cautivantes?
 
@@ -34,7 +35,7 @@ A continuación exponemos.
 
 ### El diseño de historias es super compatible con el ser humano
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/NIÑA-ECTURA_662x367-1.jpg)
+
 
 Existen una serie de predisposiciones que el desarrollador debe de notar antes de enfrascarse en cualquier tipo de narración:
 

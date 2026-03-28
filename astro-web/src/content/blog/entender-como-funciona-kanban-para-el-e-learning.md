@@ -4,9 +4,10 @@ description: "Entender cómo funciona KANBAN para el e-learning"
 date: "8 febrero, 2021"
 author: "stephan goirand"
 tags: ["Ágil", "Diseño", "Elearning", "Kanban", "Management", "Metodología", "Organización"]
+image: /assets/uploads/entender-como-funciona-kanban-para-el-e-learning-KANBAN-BOARD_662x3671.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/KANBAN-BOARD_662x3671.jpg)
+
 
 Recuerdas esas películas de guerra en la que veías al comandante observando atentamente las pantallas que transmitían lo que veían los soldados. Recuerdas percibir la sensación de unidad entre el escuadrón y el centro de inteligencia que re evalúa  las acciones a cada paso? Pues es a eso a lo que queremos llegar con nuestros proyectos.
 
@@ -27,7 +28,7 @@ Al igual en un proyecto, no se puede caer en la trampa de sucumbir al peligro de
 
 De esto depende el éxito de la misión del equipo que es entregar un resultado de proyecto que sea el esperado por todos.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/PARACHUTE_662x367.jpg)
+
 
 Sorprendentemente, este sistema viajó por muchas industrias mejorando los procesos como nunca antes, hasta llegar a la industria del software y del e-learning.
 

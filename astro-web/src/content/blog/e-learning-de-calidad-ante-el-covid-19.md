@@ -4,9 +4,10 @@ description: "E-learning de calidad ante el COVID-19"
 date: "15 marzo, 2021"
 author: "stephan goirand"
 tags: ["Capacitación", "Covid", "e-learning", "Evolución", "Retos", "Tecnología"]
+image: /assets/uploads/e-learning-de-calidad-ante-el-covid-19-CORONAVIRUS_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/CORONAVIRUS_662x367.jpg)
+
 
 La pandemia causada por el Covid-19 vino a cambiar la “normalidad” que conocíamos. Todos los sectores de la sociedad se vieron afectados por el confinamiento. Tuvimos que cambiar la forma en que estábamos acostumbrados para poder sobrevivir. Cuando empezó la pandemia, no sabíamos que enfrentarnos, pero era necesario era cerrar las escuelas, centros de trabajo y la mayoría de los negocios para así salvar vidas.
 
@@ -16,7 +17,7 @@ La educación a distancia era algo “urgente y temporal”. Al no contar con in
 
 ¿Qué se hizo? Por medio de sesiones síncronas algunos docentes trababan de hacer un “copy & paste” de lo que se vive en el salón de clases presencial. Las instituciones, los docentes, abrazaron tecnologías que eran totalmente nuevas y desconocidas, pero no se podía perder tiempo y fue como el eLearning empezó a hacerse presente en los hogares de todo el mundo.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/ASTRONAUTA_662x367.jpg)
+
 
 >   
 > Es importante distinguir entre dos conceptos: eLearning y educación a distancia. En la educación a distancia lo realmente necesario es el estudio independiente sin necesidad de que haya una intervención continua del docente. El eLearning tiene las mismas características, pero tiene la particularidad de utilizar Internet como la formar de acceso a los contenidos, actividades y canales de comunicación. (Gros, 2011)

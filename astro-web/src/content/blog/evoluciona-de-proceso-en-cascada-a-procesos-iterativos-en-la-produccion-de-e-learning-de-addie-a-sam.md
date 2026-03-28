@@ -4,9 +4,10 @@ description: "Evoluciona de proceso en cascada a procesos iterativos en la produ
 date: "25 enero, 2021"
 author: "TAEC"
 tags: ["e-learning", "Capacitación", "Aprendizaje"]
+image: /assets/uploads/evoluciona-de-proceso-en-cascada-a-procesos-iterativos-en-la-produccion-de-e-learning-de-addie-a-sam-DEV_OPS_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/DEV_OPS_662x367.jpg)
+
 
 ¿Que queremos producir?
 
@@ -74,7 +75,7 @@ Para esta fase se necesita alguien que disfrute del lado visual de las cosas, gu
 
 **Desarrollo del producto**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/FREELANCE_2_662x367-1.jpg)
+
 
 En esta fase tenemos que considerar que el diseñador le entregue al desarrollador, la ubicación y posición exacta de todos los archivos multimedia: video, audio, podcast, imagenes, gifs, y cualquier tipo de archivo multimedia.
 

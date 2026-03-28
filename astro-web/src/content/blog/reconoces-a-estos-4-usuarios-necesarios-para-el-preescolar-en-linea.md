@@ -4,11 +4,8 @@ description: "¿Reconoces a estos 4 usuarios necesarios para el preescolar en l�
 date: "28 septiembre, 2020"
 author: "stephan goirand"
 tags: ["Educación", "En", "Linea", "Exito", "Escolar", "Kinder", "Niños", "Preescolar", "Tecnología"]
+image: /assets/uploads/reconoces-a-estos-4-usuarios-necesarios-para-el-preescolar-en-linea-BLOG_10_PREESCOLAR.jpg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2020/09/BLOG_10_PREESCOLAR.jpg)
-    
-
 La educación preescolar es la que necesita más apoyo de un equipo de adultos alrededor del alumno. Para que una escuela preescolar pueda dar el salto hacia los ambientes virtuales tienes que considerar el entorno del infante cómo el propulsor principal y central de su educación.
 
 Una plataforma educativa en línea debe estar enfocada en los agentes educativos del infante. Los responsables o aquellos que se encuentran alrededor del pequeño necesitan tener usuarios para interactuar con las actividades, avance, y plataformas digitales. 
@@ -57,7 +54,7 @@ Durante las salidas escolares el padre puede estar tranquilo y seguir todas las 
 
 ### 4\. Alumnos
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/LAMPARA_662x367.jpg)
+
 
 Durante las sesiones en línea necesitan las herramientas para aprender a escribir y publicar los  textos con imágenes. 
 

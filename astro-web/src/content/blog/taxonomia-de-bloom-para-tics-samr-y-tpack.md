@@ -4,9 +4,10 @@ description: "Taxonomía de Bloom para TICS: SAMR y TPACK"
 date: "19 abril, 2021"
 author: "stephan goirand"
 tags: ["Aprendizaje", "Bloom", "Capacitación", "Educación", "Metodologías", "Samr", "Taxonomía", "Tics", "Tpack"]
+image: /assets/uploads/taxonomia-de-bloom-para-tics-samr-y-tpack-PASOS_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/PASOS_662x367.jpg)
+
 
 Mucho contenido de aprendizaje online empieza y termina por contenido, diapositivas, o un video y eso es todo. 
 

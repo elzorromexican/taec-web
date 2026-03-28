@@ -1,16 +1,24 @@
 ---
-title: "5 razones para utilizar Articulate"
-description: "5 razones para utilizar Articulate"
-date: "8 marzo, 2023"
-author: "elba loera"
-tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Exito", "Instruccional", "LMS", "Tecnología"]
+title: 5 razones para utilizar Articulate
+description: 5 razones para utilizar Articulate
+date: 8 marzo, 2023
+author: elba loera
+tags:
+  - Aprendizaje
+  - Capacitación
+  - Diseño
+  - e-learning
+  - Exito
+  - Instruccional
+  - LMS
+  - Tecnología
+image: /assets/uploads/5-razones-para-utilizar-articulate/image.png
 ---
-
 Articulate 360 es la plataforma de creación de cursos e-learning más robusta que existe y se ha consolidado como la herramienta más relevante para los Diseñadores Instruccionales. Desde su creación en 2016, Articulate solo se ha dedicado a implementar mejoras en su plataforma y a ofrecer mayores niveles de interactividad a los usuarios dentro de un ambiente colaborativo.
 
 A través de la suite de Articulate es posible crear materiales de aprendizaje aptos para cualquier dispositivo y cualquier sistema operativo. La naturaleza responsiva de muchos de los contenidos que pueden producirse gracias a esta herramienta, convierte a Articulate en la opción más completa para todo Diseñador Instruccional u organización que busque crear cursos interactivos, de calidad y aptos para cualquier plataforma. A continuación, te compartimos 5 razones por las que debes comenzar a utilizar Articulate en tu institución.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2023/03/Articulate-360-Logo-1-Day-Class.jpg)
+
 
 ## **Librería multimedia**
 
@@ -32,5 +40,5 @@ Storyline es una aplicación de escritorio que permite llevar la interactividad 
 
 Gracias a estas herramientas y algunas otras que forman parte de la suite de Articulate es posible crear cursos e-learning de gran impacto y con niveles de interactividad difíciles de lograr en tan poco tiempo y con tanta calidad como lo es con Articulate.
 
-Su interfaz innovadora y sencilla resuelve todas las necesidades posibles de capacitación en cualquier organización y para cualquier audiencia. Si necesitas más información de Articulate 360, estamos para ayudarte, contáctanos.  
+Su interfaz innovadora y sencilla resuelve todas las necesidades posibles de capacitación en cualquier organización y para cualquier audiencia. Si necesitas más información de Articulate 360, estamos para ayudarte, contáctanos.\
 Recuerda que puedes encontrar muchos recursos de apoyo y blogs sobre nuestras plataformas y servicios en nuestro [blog de soporte.](https://soporte.taec.com.mx/portal/es/kb/taec/articulate-360)

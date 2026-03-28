@@ -68,10 +68,10 @@
 
 **2. Triage Front-End y Ecosistema de Recursos (CMS)**
 - [ ] **Auditoría UX (Propuesta 1):** Transicionar `Mega Menú` y *Hero Banner* hacia el flujo de "Triaje Quirúrgico por Dolor" y "Madurez de la Empresa".
-- [ ] **Instalar CMS Git (Ej: Decap CMS):** Configurar la app invisible `/admin` que se conecta directo a GitHub sin requerir bases de datos.
-- [ ] **Configurar Colecciones B2B:** Mapear en CMS las áreas únicas: Blog/LinkedIn, Archivo Newsletters, Comparativos VS, Recursos PDF, Partners, y Casos de Éxito.
-- [ ] **Habilitar Flujo Editorial ("VoBo"):** Bloquear publicación directa en la página. Configurar ruta de "Borrador -> Revisión -> Aprobado por Curador".
-- [ ] **Doble Checkbox de Compliance:** Crear componente global para Formularios (Privacidad Obligatoria + Opt-in Opcional de Marketing automatizado).
+- [x] **Instalar CMS Git (Ej: Decap CMS):** Configurar la app invisible `/admin` que se conecta directo a GitHub sin requerir bases de datos.
+- [x] **Configurar Colecciones B2B:** Mapear en CMS las áreas únicas: Blog/LinkedIn, Archivo Newsletters, Comparativos VS, Recursos PDF, Partners, y Casos de Éxito.
+- [x] **Habilitar Flujo Editorial ("VoBo"):** Bloquear publicación directa en la página. Configurar ruta de "Borrador -> Revisión -> Aprobado por Curador".
+- [x] **Doble Checkbox de Compliance:** Crear componente global para Formularios (Privacidad Obligatoria + Opt-in Opcional de Marketing automatizado).
 - [ ] Limpiar los archivos de prueba físicos residuales en `/blog/`, aplicar el layout de lectura premium, e implementar interlinking SEO.
 
 **3. Portal de Distribuidores (B2B Intranet)**

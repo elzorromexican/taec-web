@@ -4,13 +4,14 @@ description: "Pedagogía STEAM: la educación para el futuro"
 date: "18 enero, 2023"
 author: "elba loera"
 tags: ["Aprendizaje", "Capacitación", "e-learning", "Educación", "Steam", "Tecnología"]
+image: /assets/uploads/pedagogia-steam-la-educacion-para-el-futuro-image-2.png
 ---
 
 STEAM es una metodología de aprendizaje innovadora en la que convergen diversas disciplinas para enriquecer el proceso de enseñanza. STEAM es un acrónimo de las palabras Ciencia, Tecnología, Ingeniería, Artes y Matemáticas en inglés. Y aunque se creó en 1990, su metodología está tomando más relevancia que nunca pues tiene el firme propósito de desarrollar habilidades y conocimientos de gran importancia para la era digital actual.
 
 STEAM apuesta por resolver problemas de forma ágil a través del cuestionamiento continuo; al tiempo que desarrolla la capacidad de proponer soluciones innovadoras que atiendan las necesidades del mundo actual.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2023/01/image-2.png)
+
 
 ## ¿Cómo funciona la pedagogía STEAM?
 
@@ -22,7 +23,7 @@ La investigación educativa con mirada transdisciplinar permite la conformación
 
 El combustible de la pedagogía STEAM se encuentra principalmente en la curiosidad… ese vehículo maravilloso capaz de alimentar el conocimiento a través de redes de aprendizaje basadas en los intereses del propio aprendiz, de esta manera él se convierte en el protagonista de su propio desarrollo cognitivo.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2023/01/pexels-erika-cristina-2332030-1024x683.jpg)
+
 
 ## La enseñanza en STEAM
 

@@ -4,11 +4,8 @@ description: "6 elementos de un buen maestro que el diseño de e-learning debe r
 date: "21 diciembre, 2020"
 author: "stephan goirand"
 tags: ["Clases", "Digitales", "e-learning", "Estrategia", "Maestro", "Método", "Tradicional"]
+image: /assets/uploads/6-elementos-de-un-buen-maestro-que-el-diseno-de-e-learning-debe-replicar-STRONG_LEADER_662x367.jpg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/STRONG_LEADER_662x367.jpg)
-    
-
 ¿Qué es lo que hace a un gran maestro y acaso es posible transmitir estas características al ambiente virtual?
 
 La nueva realidad de la educación mediante tecnología crea brechas en la sociedad que deben de ser rellenadas con esfuerzo, así como en la época de la invención de la imprenta, la difusión de la información creó una brecha entre aquellos que sabían leer y aquellos que no, hoy en día el acceso a la tecnología crea una brecha de la misma naturaleza que tenemos una responsabilidad por la humanidad de mejorar la producción y distribución de la información. 
@@ -40,7 +37,7 @@ Encontramos 6 aspectos claves al observar los elementos que forman a un gran mae
 
 ### 1\. Los grandes maestros celebran los errores
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/ESTUDIO_PADRE_662x367.jpg)
+
 
 Errores, cosas que pasan que no estaban planeadas que teníamos una oportunidad para capitalizar o ignorarlo. Esto se conoce como un **momento de enseñanza**. 
 

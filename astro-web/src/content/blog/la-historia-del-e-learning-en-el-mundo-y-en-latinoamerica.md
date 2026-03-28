@@ -4,9 +4,10 @@ description: "La historia del E-learning en el mundo y en Latinoamérica"
 date: "21 junio, 2021"
 author: "stephan goirand"
 tags: ["e-learning", "Historia", "Latinoamérica"]
+image: /assets/uploads/la-historia-del-e-learning-en-el-mundo-y-en-latinoamerica-EVOLUTION.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/EVOLUTION.jpg)
+
 
 La expansión del uso del Internet en el mundo y el desarrollo cada vez más apresurado de nuevas tecnologías ha traído como consecuencia el planteamiento de nuevos modelos educativos, es el caso del E-Learning.
 
@@ -103,4 +104,4 @@ Si deseas implementar el e-learning con los mejores profesionales de LATAM, [con
 
 #### **En colaboración con:**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/Screen-Shot-2021-05-20-at-09.47.29.png)
+

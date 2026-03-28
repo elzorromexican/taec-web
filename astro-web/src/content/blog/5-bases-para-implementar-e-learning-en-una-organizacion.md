@@ -4,9 +4,10 @@ description: "5 bases para implementar e-learning en una organización"
 date: "18 enero, 2022"
 author: "stephan goirand"
 tags: ["A", "Distancia", "Diseño", "Instruccional", "e-learning", "Escuelas", "Evaluación", "Iaas", "Rapid", "Remoto", "Saas"]
+image: /assets/uploads/5-bases-para-implementar-e-learning-en-una-organizacion-senior-man-taking-an-online-class-on-his-computer.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2020/07/senior-man-taking-an-online-class-on-his-computer.jpg)
+
 
 La mayoría de las direcciones empresariales y escolares que aplican técnicas de e-learning suelen estar, de antemano, conscientes de los beneficios que pueden atraer. Por otro lado, aquellas que no lo aplican suelen no tener este conocimiento…
 

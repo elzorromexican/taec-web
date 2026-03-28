@@ -4,9 +4,10 @@ description: "6 pasos para hacer cursos e-learning serios y cautivantes para tu 
 date: "2 noviembre, 2020"
 author: "stephan goirand"
 tags: ["Actividad", "Diseño", "Enfoque", "Historia", "Humor", "Instruccional"]
+image: /assets/uploads/6-pasos-para-hacer-cursos-e-learning-serios-y-cautivantes-para-tu-organizacion-YES_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/YES_662x367.jpg)
+
 
 No es que el e-learning sea nuevo (tiene más de 40 años) pero ahora si es mucho más barato y por eso para muchas personas realmente parece y es algo nuevo.
 
@@ -58,7 +59,7 @@ Cuando el contenido e-learning es aburrido, las personas prefieren buscar su inf
 
 ### 4\. Involucra el humor en tu diseño instruccional
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/FELIZ_TRISTE_662x367.jpg)
+
 
 Muchos diseñadores tienden a quedarse alejados del humor por que tal vez creen que no son lo suficientemente graciosos o pueden ofender involuntariamente.
 

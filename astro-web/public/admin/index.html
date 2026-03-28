@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TAEC | Panel de Administración B2B</title>
+    <!-- Incluye el widget de Netlify Identity para la Autenticación Segura -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+      /* Ajuste cosmético para no romper la UI al cargar admin */
+      body { margin: 0; padding: 0; background-color: #f4f4f5; }
+    </style>
+  </head>
+  <body>
+    <!-- Script principal de Decap CMS. Se encarga de levantar React e inyectar el Dashboard -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Registrar estilos personalizados para que el panel derecho se vea como la página final
+      CMS.registerPreviewStyle("/admin/preview-style.css");
+
+      // Forzar redirección al index principal si detectamos logout en el CMS
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

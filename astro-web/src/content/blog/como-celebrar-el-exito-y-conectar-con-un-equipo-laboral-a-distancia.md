@@ -4,9 +4,10 @@ description: "Cómo celebrar el éxito y conectar con un equipo laboral a distan
 date: "14 septiembre, 2020"
 author: "stephan goirand"
 tags: ["Capacitación", "Celebrar", "Empresas", "Exito", "Homeoffice", "Trabajo", "En", "Casa", "Remoto"]
+image: /assets/uploads/como-celebrar-el-exito-y-conectar-con-un-equipo-laboral-a-distancia-BLOG-8.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2020/09/BLOG-8.jpg)
+
 
 El trabajo en casa puede resultar muy aburrido. Sobre todo porque al estar aislado de las demás personas pierdes la conexión. Pierdes el contacto material tanto con las personas que hacían tu espacio laboral más ameno (de preferencia) como con la sensación de éxito que aportan las metas logradas en equipo.
 
@@ -30,7 +31,7 @@ Hazle saber al equipo que lo que está pasando es bueno y que están haciendo su
 
 ### Todos con cámaras prendidas
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/MEETING_662x367.jpg)
+
 
 Las cámaras permiten crear un espacio más íntimo entre las personas.
 

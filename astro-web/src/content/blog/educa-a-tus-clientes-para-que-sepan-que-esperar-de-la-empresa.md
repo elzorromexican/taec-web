@@ -4,9 +4,10 @@ description: "Educa a tus clientes para que sepan qué esperar de la empresa"
 date: "7 diciembre, 2020"
 author: "stephan goirand"
 tags: ["Capacitación", "Clientes", "Educación", "Empresas", "Exito", "Solución"]
+image: /assets/uploads/educa-a-tus-clientes-para-que-sepan-que-esperar-de-la-empresa-image1.png
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/01/image1.png)
+
 
 Muchas compañías se han dado cuenta de que la capacitación de los empleados es un deber y responsabilidad. 
 
@@ -58,7 +59,7 @@ No hay duda de que muchos representantes de estas diferentes empresas de canales
 
 [https://www.totaralearning.com/en/customer-stories/shimano](https://www.totaralearning.com/en/customer-stories/shimano))
 
-![](https://lh5.googleusercontent.com/ABIDNGwUPVBW9hFeytw0PyLC4yOr0NloGNkjpjv07R6jh1LmiPotv49IwT-a1tnXrr3YkRWpmx1VgPJ4MjGrmZHWbnWKDQiwc1FIHc9KDxuOqcd2gtAk527cd54TO_Jmqxmdh9E)
+
 
 [https://motrain.com/2020/02/why-you-need-a-customer-education-program/](https://motrain.com/2020/02/why-you-need-a-customer-education-program/)
 

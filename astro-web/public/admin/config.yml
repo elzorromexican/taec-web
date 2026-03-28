@@ -1,0 +1,137 @@
+# Permite pruebas y guardado desde http://localhost:4322/admin/
+local_backend: true
+
+backend:
+  # Usaremos Git-Gateway nativo (para que el equipo Mkt reciba un log-in visual limpio)
+  name: git-gateway
+  branch: main
+  
+  # Audit Logs: Hacemos que los commits al repositorio se vean corporativos y legibles
+  commit_messages:
+    create: '📝 Mkt: Nueva publicación en {{collection}} "{{slug}}"'
+    update: '🔄 Mkt: Actualizó en {{collection}} "{{slug}}"'
+    delete: '🗑️ Mkt: Purgó {{collection}} "{{slug}}"'
+    uploadMedia: '🖼️ Assets: Subió imagen para la web {{path}}'
+    deleteMedia: '🗑️ Assets: Eliminó imagen {{path}}'
+
+# Esto activa la bandera mágica de las 3 Columnas (Borrador -> Revisión -> Listo)
+publish_mode: editorial_workflow
+
+# Destinos visuales de imágenes estáticas en Astro
+media_folder: "astro-web/public/assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "blog"
+    label: "📚 1. Blog y Artículos (Long-Form)"
+    folder: "astro-web/src/content/blog"
+    create: true
+    summary: "{{title}} | 👤 {{author}} | 📅 {{date}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título SEO del Artículo", name: "title", widget: "string"}
+      - {label: "Resumen / Descripción", name: "description", widget: "text", required: false}
+      - {label: "Autor Original", name: "author", widget: "string"}
+      - {label: "Fecha", name: "date", widget: "string"}
+      - {label: "Categoría", name: "category", widget: "select", options: ["Hacks", "Opinión Corporativa", "Guía Paso a Paso", "Noticias TAEC"], required: false}
+      - {label: "Etiquetas", name: "tags", widget: "list", required: false}
+      - {label: "Imagen de Portada (Hero)", name: "image", widget: "image", required: false}
+      - {label: "Cuerpo del Artículo", name: "body", widget: "markdown"}
+
+  - name: "recursos"
+    label: "📥 2. Biblioteca de Recursos (PDFs Lead Magnets)"
+    folder: "astro-web/src/content/recursos"
+    create: true
+    fields:
+      - {label: "Título del Recurso / PDF", name: "title", widget: "string"}
+      - {label: "Etapa del Viaje B2B del Cliente", name: "maturity", widget: "select", options: ["🌱 Apenas Empezando (Digitalización)", "🚀 Buscando Escalar (Profesionalización)", "🏢 Madurez Avanzada (Innovación L&D)"]}
+      - {label: "Imagen Thumb de la Portada", name: "image", widget: "image"}
+      - {label: "Archivo Nativo (Subir el PDF)", name: "pdf_file", widget: "file"}
+      - {label: "Descripción Corta comercial para que lo descarguen", name: "description", widget: "text"}
+
+  - name: "newsletters"
+    label: "📰 3. Hemeroteca de Newsletters"
+    folder: "astro-web/src/content/newsletters"
+    create: true
+    fields:
+      - {label: "Asunto Original del Correo enviado", name: "title", widget: "string"}
+      - {label: "Fecha de Emisión a la Base", name: "date", widget: "datetime"}
+      - {label: "Contenido Íntegro (Pegar boletín aquí)", name: "body", widget: "markdown"}
+
+  - name: "comparativos"
+    label: "⚖️ 4. Análisis y Comparativos B2B"
+    folder: "astro-web/src/content/comparativos"
+    create: true
+    fields:
+      - {label: "Rivalidad Analizada (Ej: Vyond vs Powtoon)", name: "title", widget: "string"}
+      - {label: "Veredicto Objetivo Final de TAEC", name: "verdict", widget: "text", hint: "Explique en un párrafo contundente por qué una de las dos gana."}
+      - {label: "Tabla de Pros (Una ventaja por línea)", name: "pros", widget: "list"}
+      - {label: "Tabla de Contras (Una desventaja por línea)", name: "cons", widget: "list"}
+      - {label: "Lectura profunda y contexto del análisis", name: "body", widget: "markdown"}
+
+  - name: "partners"
+    label: "🔗 5. Artículos Patrocinados Ligas de Partners"
+    folder: "astro-web/src/content/partners"
+    create: true
+    fields:
+      - {label: "Título original del Artículo (del Partner)", name: "title", widget: "string"}
+      - {label: "Partner o Marca Creadora", name: "partner", widget: "select", options: ["Articulate Oficial", "Vyond", "Totara", "MoodleHQ", "Otro Ecosistema"]}
+      - {label: "Enlace URL Externo Exacto", name: "external_url", widget: "string"}
+      - {label: "Imagen de Representación Tumb", name: "image", widget: "image"}
+
+  - name: "casos"
+    label: "🤝 6. Clientes y Casos de Uso Reales"
+    folder: "astro-web/src/content/casos"
+    create: true
+    fields:
+      - {label: "Empresa / Nombre del Cliente", name: "title", widget: "string"}
+      - {label: "Logotipo de la Organización", name: "logo", widget: "image"}
+      - {label: "El Reto (El estado adverso Inicial)", name: "challenge", widget: "text"}
+      - {label: "La Solución (La implementación final)", name: "solution", widget: "text"}
+      - {label: "Cita Testimonial Literal", name: "testimonial", widget: "text"}
+      - {label: "Opcional: Cargo de quien da el testimonio", name: "testimonial_author", widget: "string", required: false}
+
+  - name: "articulos"
+    label: "📖 7. Artículos (Deep Dives L&D)"
+    folder: "astro-web/src/content/articulos"
+    create: true
+    fields:
+      - {label: "Título del Artículo", name: "title", widget: "string"}
+      - {label: "Resumen SEO", name: "description", widget: "text", required: false}
+      - {label: "Contenido del Artículo", name: "body", widget: "markdown"}
+
+  - name: "glosario"
+    label: "📚 8. Glosario e-learning"
+    folder: "astro-web/src/content/glosario"
+    create: true
+    fields:
+      - {label: "Término (Concepto)", name: "title", widget: "string"}
+      - {label: "Definición Detallada", name: "description", widget: "markdown"}
+
+  - name: "estandares"
+    label: "📋 9. Fichas de Estándares"
+    folder: "astro-web/src/content/estandares"
+    create: true
+    fields:
+      - {label: "Nombre del Estándar", name: "title", widget: "string"}
+      - {label: "Explicación Técnica", name: "body", widget: "markdown"}
+
+  - name: "radar"
+    label: "📡 10. Radar eLearning"
+    folder: "astro-web/src/content/radar"
+    create: true
+    fields:
+      - {label: "Título / Temática del Informe", name: "title", widget: "string"}
+      - {label: "Fecha / Número de Edición", name: "date", widget: "string", required: false}
+      - {label: "Descripción Corta del Boletín", name: "description", widget: "text", required: false}
+      - {label: "Enlace URL Permanente a Linkedin", name: "link", widget: "string", required: false}
+      - {label: "Captura / Imagen de Portada", name: "image", widget: "image", required: false}
+      - {label: "Extra: Reflexión adicional (si aplica)", name: "body", widget: "markdown", required: false}
+
+  - name: "quiz"
+    label: "🧠 11. Quiz & Flashcards"
+    folder: "astro-web/src/content/quiz"
+    create: true
+    fields:
+      - {label: "Pregunta / Concepto Frontal", name: "title", widget: "string"}
+      - {label: "Respuesta / Explicación del Flashcard", name: "body", widget: "markdown"}

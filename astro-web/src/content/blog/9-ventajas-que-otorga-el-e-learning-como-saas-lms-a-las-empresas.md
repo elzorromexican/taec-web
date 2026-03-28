@@ -4,9 +4,10 @@ description: "9 ventajas que otorga el e-learning como SaaS LMS a las empresas"
 date: "26 octubre, 2020"
 author: "stephan goirand"
 tags: ["Capacitación", "e-learning", "Empresas", "LMS", "Saas", "Ventajas"]
+image: /assets/uploads/9-ventajas-que-otorga-el-e-learning-como-saas-lms-a-las-empresas-SUPERACIN_COHETE_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/SUPERACIÓN_COHETE_662x367.jpg)
+
 
 Al estar frente a la gran tendencia del e-learning nos vemos obligados a considerar la pregunta:¿debería yo empezar a implementar esta tecnología en mi empresa?
 
@@ -18,7 +19,7 @@ A continuación te presentamos las distintas áreas de oportunidad que podemos o
 
 _A._ **Ventajas administrativas**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/AHORRO_662x367-1.jpg)
+
 
 Bajo costo marginal, ahorro en viáticos, reducción de nómina, rápida Implementación, y actualizaciones incluidas.
 

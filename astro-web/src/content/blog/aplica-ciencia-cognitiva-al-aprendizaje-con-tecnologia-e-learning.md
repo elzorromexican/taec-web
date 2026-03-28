@@ -4,9 +4,10 @@ description: "Aplica ciencia cognitiva al aprendizaje con tecnología e-learning
 date: "22 marzo, 2021"
 author: "stephan goirand"
 tags: ["Aprendizaje", "Capacitación", "Ciencia", "Cognitiva", "e-learning", "Machine", "Learning", "Tecnología"]
+image: /assets/uploads/aplica-ciencia-cognitiva-al-aprendizaje-con-tecnologia-e-learning-AI_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/AI_662x367.jpg)
+
 
 La teoría sobre la educación ha sido siempre un asunto que no termina de aprobar hasta que se pone en práctica. 
 
@@ -66,7 +67,7 @@ En realidad cualquier percepción de la realidad se tiene que realizar a través
 
 ## **Conexión entre cómo enseñamos y cómo aprendemos**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/META_662x367.jpg)
+
 
 Tenemos una tremenda desconexión, una dicotomía entre la información que tenemos acerca de cómo aprendemos, y cómo de hecho enseñamos. 
 

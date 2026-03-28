@@ -4,9 +4,10 @@ description: "Reconoce 3 claves para aplicar DI responsable en tus clases en lin
 date: "5 octubre, 2020"
 author: "stephan goirand"
 tags: ["Clases", "En", "Linea", "Inclusividad", "Objetivo", "De", "Aprendizaje", "Responsabilidad", "Tiempo"]
+image: /assets/uploads/reconoce-3-claves-para-aplicar-di-responsable-en-tus-clases-en-linea-INSTRUCIONAL_DESIGNER_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/INSTRUCIONAL_DESIGNER_662x367.jpg)
+
 
 Las clases completamente en línea son una novedad. Tanto maestros como alumnos se encuentran en una situación nunca antes experimentada por la humanidad. El sistema a distancia al cual aún nos cuesta acostumbrarnos.
 
@@ -64,7 +65,7 @@ Si no planeas bien este paso, estarás desperdiciando tu tiempo y el de muchísi
 
 2.  **DEUDA DE TIEMPO INVERTIDO**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/RELOJ-DE-ARENA_662x367.jpg)
+
 
 El uso masivo de broadcast permite que el tiempo de miles de personas se pueda implementar simultáneamente en un mismo contenido. Por otro lado esto crea una deuda de tiempo con tus usuarios, la cual tienes la responsabilidad de pagar con creces.
 

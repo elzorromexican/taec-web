@@ -4,9 +4,10 @@ description: "¿Por qué elegir E-learning para la capacitación del equipo? | E
 date: "24 mayo, 2021"
 author: "TAEC"
 tags: ["e-learning", "Capacitación", "Aprendizaje"]
+image: /assets/uploads/por-que-elegir-e-learning-para-la-capacitacion-del-equipo-empresa-HAND_TABLET_WORLD.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/HAND_TABLET_WORLD.jpg)
+
 
 El e-learning ha ganado mucha importancia en los últimos años, no sólo en el ámbito educativo transformando por completo la enseñanza tradicional, sino cada vez más en el corporativo. Hace poco que esto funciona bien, desde que la tecnología permitió el aprendizaje en línea con comunicación ultraveloz.
 
@@ -14,7 +15,7 @@ Esta revolución tecnológica cambió la forma en que las instituciones educati
 
 Además la formación e-learning no tiene por qué ser exclusivamente online. Hoy en día nuestros dispositivos móviles nos permiten conectarnos a las plataformas e-learning y descargar las lecciones para poder cursarlas posteriormente, incluso sin Internet.
 
-![elegir una plataforma e-learning para tu empresa_quote](https://lh4.googleusercontent.com/AvwuhJAXBEijqlagoaWf5yUZ283hpVupB7BeF4f8kWFQwaF9i6b8GqEi71YHnXXlM1rHskD9j4FKHXjE5G_C6UMEb5hPQgcO0JeCeYjLoklC3KXaopSVeJBna3GuJfMt6M2pXw)
+
 
 Empecemos por lo primero ¿Qué es una plataforma e-learning? 
 

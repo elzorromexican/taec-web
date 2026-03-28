@@ -4,9 +4,10 @@ description: "6 pasos para asegurar responsabilidades sin micro-gestionar en un 
 date: "14 diciembre, 2020"
 author: "TAEC"
 tags: ["Trabajo remoto", "e-learning", "Capacitación"]
+image: /assets/uploads/6-pasos-para-asegurar-responsabilidades-sin-micro-gestionar-en-un-ambiente-laboral-remoto-image0.jpeg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2020/12/image0.jpeg)
+
 
 Antes, trabajar desde casa sonaba como una especie de sueño en donde por fin las personas se verían libres de las tradicionales ataduras que ir a la oficina implica y lograrían al fin disponer de su tiempo como nunca antes habían podido.
 
@@ -50,7 +51,7 @@ Esencialmente, para llevar a cabo esta práctica laboral  todos tienen que apre
 
 ### 4\. No discutan en los chats
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/EMOCIONES_662x367.jpg)
+
 
  Debido a la pérdida de lenguaje corporal se pierde mucha información y los mensajes pueden ser malinterpretados o crear discordias innecesarias.
 

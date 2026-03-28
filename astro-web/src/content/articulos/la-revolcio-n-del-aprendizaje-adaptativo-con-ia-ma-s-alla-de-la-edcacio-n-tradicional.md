@@ -10,9 +10,10 @@ tags:
   - "del"
   - "aprendizaje"
   - "taec"
+image: /assets/uploads/la-revolcio-n-del-aprendizaje-adaptativo-con-ia-ma-s-alla-de-la-edcacio-n-tradicional-1774655919046.jpg
 ---
 
-![Cover de Aprendizaje Adaptativo The Sabrewing Programme](https://media.licdn.com/dms/image/v2/D4E12AQEhkLEqH3NeLg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1726098281019?e=1775692800&v=beta&t=tS4HTJeC86otXeN4DUMKSkLhY6xB8XYpsmA8xjBgwKw)
+
 
 Recientemente, un centro educativo inglés ha iniciado un fascinante experimento: implementar aprendizaje adaptativo utilizando Inteligencia Artificial, sin intervención directa de profesionales. Esta innovación promete transformar nuestra concepción de la educación.
 

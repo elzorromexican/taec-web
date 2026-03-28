@@ -4,9 +4,10 @@ description: "Aprendizaje, estés donde estés y en el momento correcto"
 date: "6 noviembre, 2024"
 author: "juan hernández"
 tags: ["Cursos", "e-learning", "Elearning", "Microaprendizaje"]
+image: /assets/uploads/aprendizaje-estes-donde-estes-y-en-el-momento-correcto-Arte-blog-1024x576.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2024/11/Arte-blog-1024x576.jpg)
+
 
 El trabajo hoy adquiere nuevas formas y se cruza con la rutina diaria, fuera de los espacios tradicionales. 
 

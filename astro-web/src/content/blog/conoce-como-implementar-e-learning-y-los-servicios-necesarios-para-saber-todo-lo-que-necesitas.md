@@ -4,11 +4,8 @@ description: "Conoce cómo implementar e-learning y los servicios necesarios par
 date: "22 septiembre, 2021"
 author: "TAEC"
 tags: ["e-learning", "Capacitación", "Aprendizaje"]
+image: /assets/uploads/conoce-como-implementar-e-learning-y-los-servicios-necesarios-para-saber-todo-lo-que-necesitas-GIRL_THINKING_662x367.jpg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/10/GIRL_THINKING_662x367.jpg)
-    
-
 Quieres saber todo lo que necesitas saber sobre e-learning para tomar decisiones de negocios estratégicas. Aquí te dejamos un glosario de TODO lo que necesitas considerar antes de contratar a un proveedor E-learning. ¡Disfruta!
 
 A. Entiende qué son los cursos e-learning

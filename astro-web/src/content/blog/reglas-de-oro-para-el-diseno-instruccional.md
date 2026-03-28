@@ -4,6 +4,7 @@ description: "Reglas de oro para el Diseño Instruccional"
 date: "11 mayo, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Multimedia", "Capacitación", "Diseño", "Instruccional", "e-learning"]
+image: /assets/uploads/reglas-de-oro-para-el-diseno-instruccional-contenido.png
 ---
 
 El Diseño Instruccional tiene diversas metodologías y sustentos psicopedagógicos que buscan lograr que el aprendizaje en línea sea efectivo.
@@ -20,11 +21,11 @@ Por esta razón, es sumamente importante que dentro del desarrollo de los materi
 
 Richard Mayer nos da una pequeña guía para desarrollar materiales multimedia coherentes y capaces de transmitir el conocimiento de forma didáctica y efectiva. Aquí te presentamos estos principios:
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/contenido.png)
+
 
 *   **Principio multimedia:** El aprendizaje es mayor cuando **la información combina texto e imágenes.** Este principio es la piedra angular de todo material multimedia y aunque estamos seguros de que lo sabes, considera que las imágenes que añadas a tus materiales siempre **deben reforzar el contenido verbal** y no solo “rellenar” el espacio.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/slide.png)
+
 
 *   **Principio de contigüidad:** Esta idea no solo es parte del aprendizaje multimedia, sino también, un básico del diseño; pues consiste en que la información textual y las imágenes que hablan de un mismo punto, se encuentren una cerca de la otra.
 

@@ -9,9 +9,10 @@ tags:
   - "algorítmicos"
   - "filosofía"
   - "taec"
+image: /assets/uploads/the-loneliness-o-ai-1774655921310.jpg
 ---
 
-![Cover The Loneliness of AI](https://media.licdn.com/dms/image/v2/D4E12AQFrBTCc5_VwWg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1733883458134?e=1775692800&v=beta&t=EvgSiFra51BJazyOqP-vT3EOBhFSBnU8UOBjaoBSpkI)
+
 
 ### The Loneliness of Artificial Intelligence
 

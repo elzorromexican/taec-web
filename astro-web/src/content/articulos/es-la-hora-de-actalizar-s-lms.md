@@ -9,9 +9,10 @@ tags:
   - "transformación"
   - "digital"
   - "taec"
+image: /assets/uploads/es-la-hora-de-actalizar-s-lms-1774655916598.jpg
 ---
 
-![Cover Actualizar LMS](https://media.licdn.com/dms/image/v2/D4E12AQGUPirlJbH0xg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1726605022701?e=1775692800&v=beta&t=xR-OssuFz4p6_ib9dIjZRDaDGpSJynSSp638bUOMDnM)
+
 
 > **¿Tu organización está aprovechando al máximo su Sistema de Gestión de Aprendizaje (LMS)?**
 

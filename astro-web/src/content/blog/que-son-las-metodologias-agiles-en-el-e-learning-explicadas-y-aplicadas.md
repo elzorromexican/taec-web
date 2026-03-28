@@ -4,9 +4,10 @@ description: "¿Qué son las Metodologías Agiles en el e-learning? explicadas y
 date: "1 febrero, 2021"
 author: "TAEC"
 tags: ["Agile", "Inteligencia artificial", "e-learning"]
+image: /assets/uploads/que-son-las-metodologias-agiles-en-el-e-learning-explicadas-y-aplicadas-AGIELE_TRADITIONAL_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/AGIELE_TRADITIONAL_662x367.jpg)
+
 
 Imagínate, eres un arquitecto, y todo parece perfecto en tus planos y renders. Entonces empiezas a construir la casa de los sueños de tu cliente, cuando de pronto te das cuenta que ¡no!, no podías empezar a construir sin un ingeniero. Ni siquiera habrías tenido que hacer los planos sin consultarlo antes y continuamente sobre tus nuevas ideas.
 
@@ -118,7 +119,7 @@ La tenemos que ayudar, pero no solo eso, sino estár seguro que no se va a caer.
 
 Respuesta ante el cambio y seguimiento del plan. 
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/PUZZLE_662x367.jpg)
+
 
 ## **Agile es una metodología para gestionar el cambio.**
 

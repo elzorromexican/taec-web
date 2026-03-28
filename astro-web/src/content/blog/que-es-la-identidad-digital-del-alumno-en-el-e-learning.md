@@ -4,9 +4,10 @@ description: "Qué es la identidad digital del alumno en el e-learning"
 date: "12 julio, 2021"
 author: "stephan goirand"
 tags: ["Digital", "e-learning", "Identidad", "Privacidad", "Seguridad"]
+image: /assets/uploads/que-es-la-identidad-digital-del-alumno-en-el-e-learning-HUELLA_DIGITAL_662x367-3.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/08/HUELLA_DIGITAL_662x367-3.jpg)
+
 
   
 ¿Cuántas veces te ha sucedido que tienes frente a ti a una persona, o te mencionan a alguien y para obtener más información sobre ella, anónimamente, has entrado a buscar más información sobre su perfil en las redes sociales?
@@ -149,4 +150,4 @@ Aprende a desarrollar la identidad de los alumnos y usuarios de tus cursos, con 
 
 ## **En colaboración con**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/Screen-Shot-2021-05-20-at-09.47.29.png)
+

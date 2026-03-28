@@ -1,9 +1,19 @@
 ---
-title: "El mejor LMS para tu empresa"
-description: "El mejor LMS para tu empresa"
-date: "9 noviembre, 2022"
-author: "elba loera"
-tags: ["Aprendizaje", "Capacitación", "Diseño", "e-learning", "Educación", "Elearning", "Exito", "Instruccional", "LMS"]
+title: El mejor LMS para tu empresa
+description: El mejor LMS para tu empresa
+author: elba loera
+date: 9 noviembre, 2022
+tags:
+  - Aprendizaje
+  - Capacitación
+  - Diseño
+  - e-learning
+  - Educación
+  - Elearning
+  - Exito
+  - Instruccional
+  - LMS
+image: ""
 ---
 
 La vertiginosidad con la que el mundo cambia actualmente, obliga a los profesionales a permanecer en un estado constante de formación y desarrollo que les permita hacer frente a las exigencias del entorno. Es así como los sistemas de gestión del aprendizaje (LMS, por sus siglas en inglés), se vuelven una gran alternativa para el crecimiento personal y profesional.

@@ -4,11 +4,8 @@ description: "Hacer buen e-learning integral a partir de 4 pilares fundamentales
 date: "18 noviembre, 2021"
 author: "stephan goirand"
 tags: ["Administración", "Diseño", "Docentes", "Evaluaciones", "e-learning", "Exito", "Gerencia", "Instruccional"]
+image: /assets/uploads/hacer-buen-e-learning-integral-a-partir-de-4-pilares-fundamentales-PUERTA_GRIEGA_662x367.jpg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/11/PUERTA_GRIEGA_662x367.jpg)
-    
-
 Recuerdo la primera vez que me presentaron un nuevo tipo de aprendizaje, lo llamaban “e-learning”. Fue en el 2005 y se trataba de ejercicios de matemáticas digitales. 
 
 No podíamos evitar ver las respuestas del compañero de junto, parecía demasiado fácil, pero rápidamente me di cuenta que esto no sería así, a pesar de ser preguntas de respuesta múltiple ellos tenían reactivos distintos. ¡Quedé sorprendió!

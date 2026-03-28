@@ -4,11 +4,12 @@ description: "Totara Talent Experience Platform: ¿Por qué es el mejor LMS/LXP 
 date: "22 febrero, 2021"
 author: "stephan goirand"
 tags: ["e-learning", "LMS", "Lxp", "Totara", "Capacitación", "Plataformas"]
+image: /assets/uploads/totara-talent-experience-platform-por-que-es-el-mejor-lmslxp-para-organizaciones-TOTARA.jpg
 ---
 
 Preview(opens in a new tab)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/TOTARA.jpg)
+
 
 Desde el año 2020 la humanidad viró irremediablemente hacia una nueva realidad de trabajo, más ágil. El trabajo desde casa se volvió la norma de un día al otro y de pronto las empresas se vieron en jaque.
 
@@ -57,7 +58,7 @@ Totara Experience Platform comprende dentro de ella comprende:
 
 ### **Misión de Totara Experience Platform**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/CONEXION_662x367-1.jpg)
+
 
 **_Totara Experience Platform_** es **una plataforma de tenencia múltiple**,lo que significa que dentro del mismo software sirve a distintos usuarios y tipos de cliente.  
 La única certeza es el cambio. para sobrevivir y tener éxito la s personas necesitan ser rápidos para adaptarse y también tus sistemas. 

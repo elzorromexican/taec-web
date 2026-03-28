@@ -4,6 +4,7 @@ description: "Microlearning, aprender valorando cada minuto"
 date: "29 octubre, 2024"
 author: "juan hernández"
 tags: ["Cursos", "e-learning", "Elearning", "Microaprendizaje"]
+image: /assets/uploads/microlearning-aprender-valorando-cada-minuto-Imagen-blog1-1.png
 ---
 
 Detente un momento y piensa: ¿cuál es tu posesión más valiosa?
@@ -14,7 +15,7 @@ Piensa en tu día. Tu rutina es cada vez más rápida, ¿cuándo crees que sea 
 
 Necesitas algo que te permita aprender, cuando quieras y cuando puedas, mientras cambias de una actividad a otra.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2024/10/Imagen-blog1-1.png)
+
 
 **En un mundo en rápido movimiento, el diseño de los recursos de aprendizaje no puede permitirse el lujo de quedarse atrás**. Por eso, las nuevas fórmulas con un enfoque de aprendizaje, acorde a los tiempos de la era digital, están resultando cada vez más exitosas.
 

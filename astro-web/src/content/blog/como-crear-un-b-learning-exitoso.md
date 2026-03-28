@@ -4,6 +4,7 @@ description: "Cómo crear un b-learning exitoso"
 date: "20 septiembre, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "B-learning", "Capacitación", "e-learning", "Elearning", "Exito", "LMS"]
+image: /assets/uploads/como-crear-un-b-learning-exitoso-ElbaAsset-3.png
 ---
 
 Recientemente, platicamos sobre qué es el _blended learning_ o aprendizaje semipresencial, cuáles son sus ventajas y cómo aplicarlo de manera exitosa en la formación de nuestro equipo. Hoy, vamos a platicar más a fondo sobre cómo diseñar un b-learning exitoso.
@@ -48,6 +49,6 @@ El _b-learning_ es una gran alternativa para la formación de tu equipo. Sobre
 
 ¿Listo para implementar una estrategia de _blended learning_ con tu equipo? ¡Sabemos que sí! Pero si necesitas más ayuda… [contáctanos.](http://taec.com.mx/contacto.phptaec.com.mx/contacto.php)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

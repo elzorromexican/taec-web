@@ -123,6 +123,8 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
 
     return <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />;
   }}
+  <!-- Portal Hermético CMS: Script de Netlify Identity -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <slot name="head" />
 </head>

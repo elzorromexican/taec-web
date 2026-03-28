@@ -4,9 +4,10 @@ description: "Cómo utilizar SCRUM para crear E-learning"
 date: "15 febrero, 2021"
 author: "stephan goirand"
 tags: ["Ágil", "Equipo", "Iterativo", "Metodología", "Negocio", "Scrum"]
+image: /assets/uploads/como-utilizar-scrum-para-crear-e-learning-SCRUM_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/02/SCRUM_662x367.jpg)
+
 
 Todos hemos pasado por la tediosa experiencia en donde nuestro jefe nos impone una nueva metodología de trabajo, aplicada a medias y termina siendo un estorbo que hace que continuamente perdamos tiempo valioso rindiendo cuentas sin importancia a nuestro superior que intenta desesperadamente apegarse a un método.
 
@@ -43,7 +44,7 @@ También te tienes que apoyar en los 12 principios ágiles para saber hacia dond
 
 Si SCRUM te dificulta más de lo que te ayuda al acercarte a estos principios, algo debes de estar haciendo mal. 
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/03/AGILE_662x367-1.jpg)
+
 
 ## 2\. LAS REGLAS DE SCRUM 
 

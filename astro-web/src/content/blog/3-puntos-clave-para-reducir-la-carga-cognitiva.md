@@ -4,6 +4,7 @@ description: "3 puntos clave para reducir la carga cognitiva"
 date: "1 septiembre, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Carga", "Cognitiva", "Diseño", "Instruccional", "e-learning", "Elearning", "LMS", "Memoria", "De", "Trabajo"]
+image: /assets/uploads/3-puntos-clave-para-reducir-la-carga-cognitiva-ElbaAsset-3.png
 ---
 
 Los humanos tenemos una arquitectura cognitiva muy interesante y en el complejo mundo actual existe una sobrecarga de información que a veces satura la memoria de trabajo, que es nuestra capacidad para procesar información. Hoy, hablaremos de la carga cognitiva y cómo evitarla en tus cursos e-learning.
@@ -52,6 +53,6 @@ Trabajar la memoria de largo plazo requiere pequeños esfuerzos divididos en la 
 
 Así que ya lo sabes, menos, es más. Y si quieres crear cursos de gran impacto y asegurándote de evitar la sobrecarga cognitiva, [contáctanos.](https://taec.com.mx/contacto.php)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

@@ -4,9 +4,10 @@ description: "El potencial y las dificultades de los nativos digitales frente al
 date: "9 junio, 2021"
 author: "stephan goirand"
 tags: ["Aprendizaje", "Digital", "e-learning", "Generación", "Milenial", "Tecnología", "Tendencias"]
+image: /assets/uploads/el-potencial-y-las-dificultades-de-los-nativos-digitales-frente-al-e-learning-zz_662x367-1.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/zz_662x367-1.jpg)
+
 
 **¿Quiénes son los nativos digitales?** 
 
@@ -26,7 +27,7 @@ Estos jóvenes tienen una habilidad innata del lenguaje y del entorno digital ya
 
 ### 1\. Desechan con facilidad, y eso es un reto para el e-learning.
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/06/FAST-@.jpg)
+
 
 Los nativos digitales enfocan su trabajo, el aprendizaje y los juegos de nuevas maneras. Navegan con fluidez, tienen habilidad en el uso del ratón, utilizan reproductores de audio y vídeo digitales a diario, toman fotos digitales que manipulan y envían y usan.
 

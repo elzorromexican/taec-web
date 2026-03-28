@@ -9,9 +9,10 @@ tags:
   - "formación"
   - "corporativa"
   - "taec"
+image: /assets/uploads/la-paradoja-de-la-capacitacio-n-empresarial-entre-la-obligacio-n-y-el-deseo-1774655918717.jpg
 ---
 
-![Cover La Paradoja de la Capacitación Empresarial](https://media.licdn.com/dms/image/v2/D4E12AQFd0LiZnF9Bpw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1735245800340?e=1775692800&v=beta&t=MFzqKherM7t8d3ycGanhod8R-3VOA-odE5hzp4Jy7P0)
+
 
 Imagine por un momento esta provocadora pregunta: *"¿Si la escuela no fuera obligatoria, nadie iría?"*. Ahora, traslademos este cuestionamiento al mundo empresarial: *"¿Si la capacitación no fuera necesaria o impuesta, ¿los empleados realmente se capacitarían?"* Esta reflexión nos sumerge en el centro de uno de los mayores desafíos que enfrentan las organizaciones modernas: la motivación auténtica hacia el aprendizaje continuo.
 

@@ -84,6 +84,17 @@ const schema = {
         </div>
       </header>
       
+      {post.data.image && (
+        <div style="margin-bottom: 32px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #f3f4f6;">
+          <img 
+            src={post.data.image.startsWith('/') ? post.data.image : `/${post.data.image}`} 
+            alt={`Portada de ${post.data.title}`} 
+            style="width: 100%; max-height: 480px; object-fit: cover; display: block;" 
+            loading="eager"
+          />
+        </div>
+      )}
+      
       {post.data.description && (
         <div style="font-size: 1.15rem; line-height: 1.6; color: #44403c; font-style: italic; margin-bottom: 32px; padding-left: 20px; border-left: 4px solid #1d4ed8;">
           {post.data.description}

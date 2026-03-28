@@ -4,11 +4,8 @@ description: "Habilidades para el diseño instruccional y el desarrollo de un cu
 date: "18 enero, 2021"
 author: "stephan goirand"
 tags: ["Board", "Desarrollo", "Diseño", "Instruccional", "e-learning", "Producción", "Programación", "Sme", "Storyboard"]
+image: /assets/uploads/habilidades-para-el-diseno-instruccional-y-el-desarrollo-de-un-curso-e-learning-image01.jpeg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/02/image01.jpeg)
-    
-
 La razón de existir de los diseñadores instruccionales es que hoy más que nunca la tecnología puede ayudarnos a eficientizar los procesos de aprendizaje en cualquier ámbito de la vida. 
 
 Es emocionante pensar que esto nos otorga la posibilidad de modelar cursos milimétricamente para y sin tener que improvisar cada vez que se empiece un entrenamiento o una lección. 
@@ -91,7 +88,7 @@ Encuentra a más de una persona, con diferentes habilidades y realiza buen conte
 
 ### 3\. Enfoque dentro del _freelancing_ en e-learning
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/04/FREELANCE_662x367-1.jpg)
+
 
 Si eres freelancer encuentra tu lugar favorito dentro del proceso y contrata los servicios de outsourcing de otros freelancers.
 

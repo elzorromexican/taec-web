@@ -10,9 +10,10 @@ tags:
   - "formación"
   - "corporativa"
   - "taec"
+image: /assets/uploads/ma-s-alla-de-los-grandes-mo-dlos-e-learning-alternativas-creativas-1774655919641.jpg
 ---
 
-![Cover Alternativas Creativas](https://media.licdn.com/dms/image/v2/D4E12AQGdFxPxBhMA3Q/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1733428951622?e=1775692800&v=beta&t=mfGo7xrigab9Cr61ko759C8y4tAIpNPdTorI-oYBCIc)
+
 
 > *"Si tienes un martillo, todo parece un clavo".*
 

@@ -8,9 +8,10 @@ tags:
   - "gamificación"
   - "edtech"
   - "taec"
+image: /assets/uploads/marketing-y-elearning-estrategias-qe-transorman-la-edcacio-n-digital-1774655920082.jpg
 ---
 
-![Cover Marketing E-learning](https://media.licdn.com/dms/image/v2/D4E12AQELtW-ozmRDjA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1729554890700?e=1775692800&v=beta&t=1jFIr9GAdaPQrvjK63BJ498Xtos7xMiBLxoqjtmYt38)
+
 
 > 🚀 **¿Sabías que el 83% de las organizaciones que implementan e-learning + marketing aumentaron su ROI educativo en 2023?**
 

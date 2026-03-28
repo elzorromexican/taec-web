@@ -4,9 +4,10 @@ description: "Por qué el aprendizaje invertido (Flipped Learning) revoluciona l
 date: "7 septiembre, 2021"
 author: "TAEC"
 tags: ["e-learning", "Capacitación", "Aprendizaje"]
+image: /assets/uploads/por-que-el-aprendizaje-invertido-flipped-learning-revoluciona-la-educacion-LECTURA_DE_CABEZA_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/09/LECTURA_DE_CABEZA_662x367.jpg)
+
 
 El aprendizaje invertido ha permitido sobrepasar las barrera que se presenta en la educación al intentar suministrar la información correcta en el momento correcto.
 
@@ -61,7 +62,7 @@ Gracias a la famosa taxonomía de Bloom explicaremos cómo es que varía exactam
 
 a. _Taxonomía de Bloom piramidal representante de la enseñanza tradicional._ 
 
-![](https://lh5.googleusercontent.com/pfVoBxlurjsoXejlCuQVSriZhDpGlQPoCUzJdZWUgw_qShFB2YSrc8qDKv1bm5MSlVHf8c_OrpMA_QBqN9zjIYUmOVknl2lxf9Q6PidBA2CTX5hHgvg7VuPJUgLWZjf1FfYkg84=s0)
+
 
 En el caso del aula tradicional y su funcionalidad, sobrepuesta a la taxonomía de Bloom original, notamos que según  la práctica de enseñanza común, los maestros se encuentran presentes en la parte baja de la pirámide. Están a la disposición del alumno solo en las actividades más fáciles y automáticas del esquema de aprendizaje de Bloom.
 

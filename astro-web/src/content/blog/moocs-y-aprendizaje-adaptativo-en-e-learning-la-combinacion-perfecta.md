@@ -4,9 +4,10 @@ description: "MOOCs y APRENDIZAJE ADAPTATIVO EN E-LEARNING: la combinación perf
 date: "17 mayo, 2021"
 author: "TAEC"
 tags: ["Aprendizaje adaptativo", "e-learning", "Capacitación"]
+image: /assets/uploads/moocs-y-aprendizaje-adaptativo-en-e-learning-la-combinacion-perfecta-MOOC_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/MOOC_662x367.jpg)
+
 
 Hoy en la educación están cambiando muchas cosas. Los MOOCs (cursos abiertos y masivos en línea) han mejorado el acceso a la educación pero no por eso ha mejorado la educación en sí misma. 
 
@@ -85,7 +86,7 @@ También, dependiendo de nuestras preferencias vamos a recordar más o menos.
 
 ## 3 – QUÉ PASA CON LO QUE APRENDEMOS
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/CONFUSIÓN_662x367.jpg)
+
 
 Si después de un mes no estudiamos ni revisamos, olvidamos el 80% de lo que aprendimos. Es un hecho, todos aprendemos diferente y todos olvidamos la mayoría de lo que aprendemos. 
 

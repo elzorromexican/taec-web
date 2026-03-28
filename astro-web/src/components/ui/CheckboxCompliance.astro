@@ -1,0 +1,83 @@
+---
+/**
+ * @name CheckboxCompliance
+ * @description Componente global B2B que inyecta la aceptación de Privacidad (Obligatoria) y el Opt-In de Marketing (Opcional).
+ * @inputs theme (light/dark)
+ */
+const { theme = 'light' } = Astro.props;
+---
+<div class={`compliance-wrapper theme-${theme}`}>
+  <label class="checkbox-container required-legal">
+    <input type="checkbox" name="privacy_policy" required aria-required="true" />
+    <span class="checkmark"></span>
+    <span class="checkbox-text">
+      He leído y acepto el <a href="/aviso-de-privacidad" target="_blank" rel="noopener">Aviso de Privacidad</a> y los <a href="/terminos-y-condiciones" target="_blank" rel="noopener">Términos de Uso</a>. <span class="req-asterisk" title="Campo obligatorio">*</span>
+    </span>
+  </label>
+
+  <label class="checkbox-container opt-in-mkt">
+    <input type="checkbox" name="newsletter_optin" value="yes" />
+    <span class="checkmark"></span>
+    <span class="checkbox-text">
+      Sí, deseo recibir los artículos, hacks y actualizaciones mensuales de TAEC en mi correo (Opcional).
+    </span>
+  </label>
+</div>
+
+<style>
+  .compliance-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 1.5rem 0;
+    font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+    font-size: 0.85rem;
+    color: var(--text-muted, #475569);
+  }
+  
+  .checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    line-height: 1.5;
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--brand-blue, #1e3a8a);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  
+  .checkbox-text a {
+    color: var(--brand-blue, #2563eb);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    font-weight: 500;
+  }
+  
+  .checkbox-text a:hover {
+    color: var(--brand-dark, #1e40af);
+  }
+  
+  .req-asterisk {
+    color: #ef4444; /* Red 500 */
+    font-weight: bold;
+    margin-left: 2px;
+  }
+  
+  /* Tema Oscuro (Modales / Footer) */
+  .compliance-wrapper.theme-dark {
+    color: #94a3b8; /* Slate 400 */
+  }
+  .compliance-wrapper.theme-dark .checkbox-text a {
+    color: #60a5fa; /* Blue 400 */
+  }
+  .compliance-wrapper.theme-dark .checkbox-text a:hover {
+    color: #93c5fd; /* Blue 300 */
+  }
+</style>

@@ -22,7 +22,8 @@ const blogCollection = defineCollection({
     date: z.string().max(50).optional(),
     tags: z.array(z.string().max(100)).max(20).optional(),
     link: z.string().url().or(z.string().startsWith('/')).optional(),
-  })
+    image: z.string().optional(),
+  }).passthrough()
 });
 
 const articulosCollection = defineCollection({
@@ -35,7 +36,8 @@ const articulosCollection = defineCollection({
     tags: z.array(z.string().max(100)).max(20).optional(),
     category: z.string().max(100).optional(),
     link: z.string().url().or(z.string().startsWith('/')).optional(),
-  })
+    image: z.string().optional(),
+  }).passthrough()
 });
 
 const estandaresCollection = defineCollection({
@@ -67,7 +69,8 @@ const radarCollection = defineCollection({
     date: z.string().max(50).optional(),
     description: z.string().max(400).optional(),
     link: z.string().url().or(z.string().startsWith('/')).optional(),
-  })
+    image: z.string().optional(),
+  }).passthrough()
 });
 
 const quizCollection = defineCollection({

@@ -4,11 +4,8 @@ description: "“Learning and Design” moderno para dar e-learning útil"
 date: "23 agosto, 2021"
 author: "stephan goirand"
 tags: ["Corporativos", "Cursos", "Diseño", "e-learning", "Instruccional", "L&d", "LMS", "Lxp"]
+image: /assets/uploads/learning-and-design-moderno-para-dar-e-learning-util-REGANDO_IDEAS662x367.jpg
 ---
-
-*   ![](https://blog.taec.com.mx/wp-content/uploads/2021/09/REGANDO_IDEAS662x367.jpg)
-    
-
 Los que trabajamos en **L & D (_Learning & Development_ – aprendizaje y desarrollo)** , estamos siendo testigos de una transformación monumental en la forma de diseñar las experiencias de aprendizaje para capacitar en las empresas. 
 
 En este artículo descubriremos cuales son los elementos que se encuentran en el corazón de esta transformación.  
@@ -39,7 +36,7 @@ Pero con tanta información a la disposición los aprendices de hoy no están ta
 
 Por esta razón muchos desarrolladores de L&D han empezado a investigar más acerca de esta forma de aprendizaje y han logrado desarrollar técnicas que se acercan más a está práctica “_bottom – top_”.
 
-![](https://lh3.googleusercontent.com/tT-LnywpXQUP_VlbTeX54TU9dnvvg3T8tTyRJT3iNWae_lHaJHGQHVHpJeKaQA9KodMzEvt7UKljQJWniFiCXrBhIly0MQWsJi1kZ8Vda-LoVdJfD69vwQXiPIRxezLuBuEcxZg=s0)
+
 
 En este nuevo modelo “_bottom – top_”, los trabajadores son incentivados a estar a cargo del propio desarrollo de sus carencias y necesidades diarias. Esto permite que los mismos empleados trabajen hacia objetivos muy claros que ellos saben, deben de ser sobrellevados para tener éxito en su puesto de trabajo. 
 

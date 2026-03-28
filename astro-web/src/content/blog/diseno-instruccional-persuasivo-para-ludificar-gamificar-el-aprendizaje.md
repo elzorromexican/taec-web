@@ -4,9 +4,10 @@ description: "Diseño instruccional persuasivo para ludificar (gamificar) el apr
 date: "21 septiembre, 2020"
 author: "stephan goirand"
 tags: ["Clases", "Diseño", "Gamificación", "Instrucción", "Instruccional", "Llamativo", "Persuasión"]
+image: /assets/uploads/diseno-instruccional-persuasivo-para-ludificar-gamificar-el-aprendizaje-DISEADORES_662x367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/DISEÑADORES_662x367.jpg)
+
 
 ¿Cuál es el nivel de éxito de la implementación de los cursos de capacitación en tu organización? ¿Cómo puedes asegurar altos niveles de participación? ¿Cómo logras hacer las experiencias de e-learning más personales para tus usuarios?  Si eres incapaz de responder a estas preguntas, no estás solo. 
 
@@ -76,7 +77,7 @@ Al completar el reto se premia al usuario, pero también se le propone la posibi
 
 ### 3 – **Problemas clásicos que alejan a un usuario del juego**
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/DISLIKE_662x367.jpg)
+
 
 Antes de abordar los puntos más importantes para crear compromiso en el usuario, queremos explicar cuáles son los elementos que a un usuario le pueden causar ruido y eventualmente el abandono de la actividad. 
 

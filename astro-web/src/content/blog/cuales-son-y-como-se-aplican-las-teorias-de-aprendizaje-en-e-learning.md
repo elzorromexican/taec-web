@@ -4,6 +4,7 @@ description: "¿Cuáles son y cómo se aplican las teorías de aprendizaje en e-
 date: "13 junio, 2022"
 author: "elba loera"
 tags: ["Aprendizaje", "Capacitación", "Diseño", "Instruccional", "e-learning", "LMS", "Teorías", "Del"]
+image: /assets/uploads/cuales-son-y-como-se-aplican-las-teorias-de-aprendizaje-en-e-learning-ElbaAsset-3.png
 ---
 
 Una gran incógnita perseguida desde hace mucho tiempo es “¿Cómo funciona la mente?” y no es necesario ir tan lejos y comprender el nivel de complejidad en los procesos cognitivos, basta con preguntarnos “¿Cómo aprenden los humanos?” y para responder esta pregunta se han formulado diversas teorías del aprendizaje que buscan explicar cómo se transmite y almacena el conocimiento.
@@ -62,6 +63,6 @@ El diseño instruccional busca analizar las necesidades de enseñanza y aprendiz
 
 Cada tema, cada organización y cada individuo son distintos, si necesitas ayuda para implementar un e-learning efectivo, [contáctanos.](https://www.taec.com.mx/contacto.php)
 
-![](https://blog.taec.com.mx/wp-content/uploads/2022/05/ElbaAsset-3.png)
+
 
 Texto escrito por Elba Loera (@elba\_loera).

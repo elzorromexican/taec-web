@@ -11,9 +11,10 @@ tags:
   - "del"
   - "aprendizaje"
   - "taec"
+image: /assets/uploads/el-tro-de-la-edcacio-n-seg-n-elon-msk-la-revolcio-n-adaptativa-1774655916111.jpg
 ---
 
-![Cover de Elon Musk](https://media.licdn.com/dms/image/v2/D4E12AQGA0RWfq0k6Ew/article-cover_image-shrink_720_1280/B4EZZbooF7HkAM-/0/1745294099280?e=1775692800&v=beta&t=-O7kyGPNkvcAaFeZLDAL-jkovlGrhQBP4EUQgLi1SqA)
+
 
 Como muchos saben, Elon Musk tiene una visión poco convencional sobre muchas cosas, que no comparto del todo, pero en la educación hay algunas cositas que hay que pensar y guardar.
 

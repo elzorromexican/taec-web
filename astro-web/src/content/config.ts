@@ -11,7 +11,8 @@ const baseSchema = z.object({
   date: z.any().optional(),
   fecha: z.any().optional(),
   description: z.string().optional(),
-  image: z.string().optional()
+  image: z.string().optional(),
+  portada: z.string().optional()
 }).passthrough();
 
 export const collections = {
@@ -34,6 +35,31 @@ export const collections = {
   // Preparado para el futuro desarrollo que mencionaste:
   recursos: defineCollection({
     loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/recursos" }),
+    schema: baseSchema
+  }),
+  // Colecciones exclusivas inyectadas por Decap CMS (Fase 2 B2B)
+  newsletters: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/newsletters" }),
+    schema: baseSchema
+  }),
+  comparativos: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/comparativos" }),
+    schema: baseSchema
+  }),
+  partners: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/partners" }),
+    schema: baseSchema
+  }),
+  casos: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/casos" }),
+    schema: baseSchema
+  }),
+  estandares: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/estandares" }),
+    schema: baseSchema
+  }),
+  quiz: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/quiz" }),
     schema: baseSchema
   })
 };

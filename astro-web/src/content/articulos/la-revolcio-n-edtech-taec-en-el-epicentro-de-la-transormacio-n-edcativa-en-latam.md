@@ -9,9 +9,10 @@ tags:
   - "innovación"
   - "educativa"
   - "taec"
+image: /assets/uploads/la-revolcio-n-edtech-taec-en-el-epicentro-de-la-transormacio-n-edcativa-en-latam-1774655919094.jpg
 ---
 
-![Cover de EdTech LATAM TAEC](https://media.licdn.com/dms/image/v2/D4E12AQELeNUW164pQg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1727892464635?e=1775692800&v=beta&t=yTno7CkkqXjZOzMOPM6rhEIHBHv3uKDDkniP4vqLeJI)
+
 
 El reciente artículo de **TIME** sobre las principales empresas de tecnología educativa en 2024 ha puesto de manifiesto una realidad innegable: la educación en línea ha llegado para quedarse. 
 

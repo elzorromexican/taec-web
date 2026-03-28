@@ -4,9 +4,10 @@ description: "Cultura y educación para la sociedad digital"
 date: "28 julio, 2021"
 author: "stephan goirand"
 tags: ["Cultura", "Digital", "Educación", "Sociedad", "Tecnología"]
+image: /assets/uploads/cultura-y-educacion-para-la-sociedad-digital-WORLD_BLUE_CONNECTIONx367.jpg
 ---
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/07/WORLD_BLUE_CONNECTIONx367.jpg)
+
 
 La primera vez que se escuchó hablar de educación y formación digital fue durante la segunda guerra mundial. Estos primeros cursos fueron diseñados por especialistas militares que se apoyaban en la tecnología desarrollada para la Guerra. 
 
@@ -114,4 +115,4 @@ Si deseas entrar de lleno al mundo de la cultura digital, contacta ahora mismo c
 
 #### En colaboración con:
 
-![](https://blog.taec.com.mx/wp-content/uploads/2021/05/Screen-Shot-2021-05-20-at-09.47.29.png)
+
