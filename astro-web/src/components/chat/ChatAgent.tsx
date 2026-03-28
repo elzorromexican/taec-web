@@ -3,25 +3,34 @@ import ReactMarkdown from 'react-markdown';
 
 export default function ChatAgent() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); // Alternativa robusta al resize CSS
   const [hasStarted, setHasStarted] = useState(false);
-  const [userData, setUserData] = useState({ name: '', email: '' });
+  const [userData, setUserData] = useState({ name: '', email: '', phone: '' });
   const [messages, setMessages] = useState<{role: 'user' | 'agent', text: string}[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   
   const endRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputChatRef = useRef<HTMLInputElement>(null);
+  const inputNameRef = useRef<HTMLInputElement>(null);
 
   // Auto-scroll
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
-  // Auto-focus on chat open or form submit
+  // Auto-focus en el formulario al abrir
+  useEffect(() => {
+    if (isOpen && !hasStarted) {
+      setTimeout(() => inputNameRef.current?.focus(), 150);
+    }
+  }, [isOpen, hasStarted]);
+
+  // Auto-focus en el chat cuando ya inició
   useEffect(() => {
     if (isOpen && hasStarted) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+      setTimeout(() => inputChatRef.current?.focus(), 150);
     }
   }, [isOpen, hasStarted]);
 
@@ -59,7 +68,7 @@ export default function ChatAgent() {
       setMessages(prev => [...prev, { role: 'agent', text: 'Error de red. Intenta nuevamente.' }]);
     } finally {
       setIsLoading(false);
-      setTimeout(() => inputRef.current?.focus(), 50);
+      setTimeout(() => inputChatRef.current?.focus(), 50);
     }
   };
 
@@ -67,12 +76,12 @@ export default function ChatAgent() {
     if (messages.length <= 1) return;
     setIsSendingEmail(true);
     
-    // Captura metadata de contexto (zona horaria del navegador)
+    // Captura metadata
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const localTime = new Date().toLocaleString('es-MX', { timeZone });
 
     try {
-      await fetch('/api/send-transcript', {
+      const res = await fetch('/api/send-transcript', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -81,11 +90,15 @@ export default function ChatAgent() {
           metadata: { time: localTime, timeZone }
         })
       });
+      
+      if (!res.ok) throw new Error("Fallo de compilación en el servidor");
+      
       alert('¡Historial guardado y enviado a TAEC exitosamente!');
       setIsOpen(false);
       setHasStarted(false);
+      setIsExpanded(false);
       setMessages([]);
-      setUserData({ name: '', email: '' });
+      setUserData({ name: '', email: '', phone: '' });
     } catch (error) {
       alert('Hubo un error al enviar el historial.');
     } finally {
@@ -93,7 +106,6 @@ export default function ChatAgent() {
     }
   };
 
-  // CSS Reset local para React Markdown
   const markdownStyles = {
     p: { margin: '0 0 8px 0' },
     ul: { margin: '0 0 8px 16px', padding: 0 },
@@ -103,6 +115,7 @@ export default function ChatAgent() {
 
   return (
     <>
+      {/* Botón Flotante */}
       <button 
         onClick={toggleChat}
         title="Hablar con Tito Bits"
@@ -127,8 +140,7 @@ export default function ChatAgent() {
           }}>¡Hola! 👋</div>
         )}
         <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }"}} />
-
-        {/* Creada la Cara de Tito en vez del icono aburrido */}
+        
         {!isOpen ? (
           <svg viewBox="0 0 100 100" style={{width: '38px', height: '38px', fill: 'white'}}>
              <circle cx="50" cy="40" r="35" fill="none" stroke="white" strokeWidth="5"/>
@@ -147,16 +159,19 @@ export default function ChatAgent() {
         )}
       </button>
 
+      {/* Ventana */}
       {isOpen && (
         <div style={{
           position: 'fixed', bottom: '110px', right: '30px',
-          width: '380px', height: '560px',
+          width: isExpanded ? '500px' : '380px', 
+          height: isExpanded ? '700px' : '560px',
+          maxHeight: '85vh', maxWidth: '90vw',
           background: '#fff', borderRadius: '16px',
           boxShadow: '0 12px 40px rgba(0,0,0,0.2)',
           display: 'flex', flexDirection: 'column', zIndex: 9999,
           overflow: 'hidden', fontFamily: '"Inter", sans-serif',
           border: '1px solid #E5E7EB',
-          resize: 'both' // Resizable magic!
+          transition: 'all 0.3s ease'
         }}>
           {/* Header */}
           <div style={{
@@ -185,18 +200,30 @@ export default function ChatAgent() {
               </div>
             </div>
             
-            {hasStarted && messages.length > 1 && (
+            <div style={{display: 'flex', gap: '8px'}}>
               <button 
-                onClick={finishChat} 
-                disabled={isSendingEmail}
+                onClick={() => setIsExpanded(!isExpanded)} 
                 style={{
                   background: 'rgba(255,255,255,0.2)', border: 'none', color: '#fff', 
-                  fontSize: '11px', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer'
+                  fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer'
                 }}
               >
-                {isSendingEmail ? 'Enviando...' : 'Guardar Info 📋'}
+                {isExpanded ? 'Contraer 📉' : 'Expandir 📈'}
               </button>
-            )}
+              
+              {hasStarted && messages.length > 1 && (
+                <button 
+                  onClick={finishChat} 
+                  disabled={isSendingEmail}
+                  style={{
+                    background: '#F59E0B', border: 'none', color: '#fff', fontWeight: 'bold',
+                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer'
+                  }}
+                >
+                  {isSendingEmail ? 'Enviando...' : 'Guardar Info 📋'}
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Body */}
@@ -212,6 +239,7 @@ export default function ChatAgent() {
                 </div>
                 <form onSubmit={startChat} style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                   <input 
+                    ref={inputNameRef}
                     required type="text" placeholder="Nombre completo"
                     value={userData.name} onChange={e => setUserData({...userData, name: e.target.value})}
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
@@ -219,6 +247,11 @@ export default function ChatAgent() {
                   <input 
                     required type="email" placeholder="Correo corporativo"
                     value={userData.email} onChange={e => setUserData({...userData, email: e.target.value})}
+                    style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
+                  />
+                  <input 
+                    required type="tel" placeholder="Teléfono / WhatsApp"
+                    value={userData.phone} onChange={e => setUserData({...userData, phone: e.target.value})}
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
                   />
                   <button type="submit" style={{
@@ -243,7 +276,6 @@ export default function ChatAgent() {
                       borderBottomLeftRadius: m.role === 'agent' ? '4px' : '12px',
                       boxShadow: m.role === 'agent' ? '0 2px 4px rgba(0,0,0,0.02)' : 'none'
                     }}>
-                      {/* React Markdown para formateo de texto */}
                       {m.role === 'agent' ? (
                         <div className="react-markdown-container">
                           <ReactMarkdown components={{
@@ -274,14 +306,14 @@ export default function ChatAgent() {
             )}
           </div>
 
-          {/* Footer Input & Legal Disclaimer */}
+          {/* Footer Input */}
           {hasStarted && (
             <div style={{ background: '#fff', borderTop: '1px solid #E5E7EB', display: 'flex', flexDirection: 'column' }}>
               <form onSubmit={sendMessage} style={{
                 padding: '12px', display: 'flex', gap: '8px'
               }}>
                 <input 
-                  ref={inputRef}
+                  ref={inputChatRef}
                   type="text" 
                   value={input}
                   onChange={e => setInput(e.target.value)}

@@ -5,7 +5,6 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const { userData, messages, metadata } = await request.json();
 
-    // Extraer variables, bypasseando Vite caché en Dev
     let resendKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
     if (import.meta.env.DEV) {
       try {
@@ -14,7 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
         const envStr = fs.readFileSync(path.resolve('.env'), 'utf8');
         const match = envStr.match(/RESEND_API_KEY="([^"]+)"/);
         if (match && match[1]) {
-           resendKey = match[1].replace(/\\s/g, "");
+           resendKey = match[1].replace(/\s/g, "");
         }
       } catch(e) {}
     }
@@ -25,45 +24,44 @@ export const POST: APIRoute = async ({ request }) => {
 
     const resend = new Resend(resendKey);
 
-    const emailHtml = \`
-      <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto;">
-        <h2 style="color: #004775;">Nuevo Lead del Agente IA (Tito Bits) 🤖</h2>
-        <p><strong>Nombre del Prospecto:</strong> \${userData.name}</p>
-        <p><strong>Email Institucional:</strong> \${userData.email}</p>
-        <p><strong>Hora y Zona del Registro:</strong> \${metadata.time} (\${metadata.timeZone})</p>
-        <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
-        
-        <h3 style="color: #004775;">Transcripción Completa de la Conversación:</h3>
-        <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px;">
-          \${messages.map((m: any) => \`
-            <div style="margin-bottom: 15px; padding: 12px; border-radius: 8px; background-color: \${m.role === 'user' ? '#e1f0fa' : '#ffffff'}; border: 1px solid \${m.role === 'user' ? '#b6e0fe' : '#e5e7eb'};">
-              <strong style="color: \${m.role === 'user' ? '#004775' : '#f59e0b'};">\${m.role === 'user' ? userData.name : 'Tito Bits'}:</strong><br/>
-              <span style="font-size: 14px; line-height: 1.5;">\${m.text}</span>
-            </div>
-          \`).join('')}
-        </div>
-        
-        <p style="font-size: 12px; color: #999; margin-top: 20px;">
-          *Este correo fue generado automáticamente por el nodo SSR del sitio web de TAEC.
-        </p>
-      </div>
-    \`;
+    // Evitamos backticks anidados uniendo el array con strings estándar para protección Vite
+    const messagesHtml = messages.map((m: any) => {
+      const bgColor = m.role === 'user' ? '#e1f0fa' : '#ffffff';
+      const borderColor = m.role === 'user' ? '#b6e0fe' : '#e5e7eb';
+      const nameColor = m.role === 'user' ? '#004775' : '#f59e0b';
+      const senderName = m.role === 'user' ? userData.name : 'Tito Bits';
+      
+      return '<div style="margin-bottom: 15px; padding: 12px; border-radius: 8px; background-color: ' + bgColor + '; border: 1px solid ' + borderColor + ';">' +
+               '<strong style="color: ' + nameColor + ';">' + senderName + ':</strong><br/>' +
+               '<span style="font-size: 14px; line-height: 1.5;">' + m.text + '</span>' +
+             '</div>';
+    }).join('');
+
+    const emailHtml = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto;">' +
+      '<h2 style="color: #004775;">Nuevo Lead del Agente IA (Tito Bits) 🤖</h2>' +
+      '<p><strong>Nombre:</strong> ' + userData.name + '</p>' +
+      '<p><strong>Teléfono:</strong> ' + (userData.phone || 'No provisto') + '</p>' +
+      '<p><strong>Email Institucional:</strong> ' + userData.email + '</p>' +
+      '<p><strong>Hora Local:</strong> ' + metadata.time + ' (' + metadata.timeZone + ')</p>' +
+      '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
+      '<h3 style="color: #004775;">Transcripción de Conversación:</h3>' +
+      '<div style="background-color: #f9fafb; padding: 20px; border-radius: 8px;">' +
+      messagesHtml +
+      '</div></div>';
 
     const { data, error } = await resend.emails.send({
       from: 'Tito Bits <onboarding@resend.dev>',
       to: ['smasmoudi@taec.com.mx'], 
-      subject: \`🚨 Nuevo Lead L&D Capturado: \${userData.name}\`,
+      subject: `Nuevo Lead IA: ${userData.name}`,
       html: emailHtml,
     });
 
     if (error) {
-      console.error("Resend API Error:", error);
       return new Response(JSON.stringify({ error }), { status: 400 });
     }
 
     return new Response(JSON.stringify({ success: true, data }), { status: 200 });
   } catch (error) {
-    console.error("Server Error:", error);
     return new Response(JSON.stringify({ error: 'Failed to compile email' }), { status: 500 });
   }
 };
