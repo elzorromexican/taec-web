@@ -27,8 +27,6 @@ export default function ChatAgent() {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   
-  if (!isHydrated) return null;
-  
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLInputElement>(null);
   const inputNameRef = useRef<HTMLInputElement>(null);
@@ -213,6 +211,8 @@ export default function ChatAgent() {
     li: { margin: '4px 0' },
     strong: { color: '#004775' }
   };
+
+  if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR sin romper el conteo de Hooks
 
   return (
     <>
