@@ -36,7 +36,15 @@ export default function ChatAgent() {
         fetch('/api/send-transcript', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userData, messages, metadata: { time: localTime, timeZone } }),
+          body: JSON.stringify({ 
+            userData, 
+            messages, 
+            metadata: { 
+              time: localTime, 
+              timeZone,
+              url: window.location.href 
+            } 
+          }),
           keepalive: true
         }).catch(() => {});
       }
@@ -71,8 +79,23 @@ export default function ChatAgent() {
     if (!userData.name || !userData.email) return;
 
     setHasStarted(true);
+    
+    // Evaluador dinámico de URL para el saludo con IA
+    const path = window.location.pathname.toLowerCase();
+    let initialGreeting = `Hola ${userData.name}, soy Tito Bits, asesor comercial de capacitación en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*`;
+
+    if (path.includes('/articulate') || path.includes('/vyond')) {
+      initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que estás explorando nuestras **Herramientas de Autor**.\n\n¿Estás buscando precios para licencias nuevas, requieres renovar tus suscripciones, o te interesa conocer las diferencias entre Articulate 360 y Vyond? *Platícame qué ecosistema ocupas.*`;
+    } else if (path.includes('/totara') || path.includes('/moodle') || path.includes('/lms')) {
+      initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que te interesan nuestras arquitecturas **LMS (Plataformas Empresariales)**.\n\n¿Buscas implementar un ecosistema nuevo, necesitas auditar una plataforma existente, o quieres integrar un LMS con tus sistemas de RR.HH. (como SAP o Workday)? *Dime cuál es tu objetivo.*`;
+    } else if (path.includes('/ddc') || path.includes('/cursos')) {
+      initialGreeting = `Hola ${userData.name}, soy Tito Bits. ¡La **Fábrica de Contenidos a la Medida (DDC)** es nuestra especialidad!\n\nPara empezar a estructurar tu alcance: ¿ya tienes los guiones o PDFs de los cursos que quieres digitalizar, o prefieres que TAEC asuma la creación instruccional desde cero? *Platícame tu caso.*`;
+    } else if (path.includes('/tienda')) {
+      initialGreeting = `Hola ${userData.name}, soy Tito Bits, tu guía comercial. Veo que estás en nuestra **pasarela de licenciamiento**.\n\nPara licencias aisladas, puedes gestionar la transacción seguro(a) directamente en línea. Si necesitas licenciamiento por volumen, múltiples anualidades o pagos inter-empresariales, *avísame cuántas necesitas para escalar tu cuenta con mis consultores humanos.*`;
+    }
+
     setMessages([
-      { role: 'agent', text: `Hola ${userData.name}, soy Tito Bits, asesor comercial de capacitación en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*` }
+      { role: 'agent', text: initialGreeting }
     ]);
   };
 
@@ -128,7 +151,11 @@ export default function ChatAgent() {
         body: JSON.stringify({
           userData,
           messages,
-          metadata: { time: localTime, timeZone }
+          metadata: { 
+            time: localTime, 
+            timeZone,
+            url: window.location.href 
+          }
         }),
         keepalive: true
       });
