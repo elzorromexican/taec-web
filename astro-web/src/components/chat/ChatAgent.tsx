@@ -8,7 +8,9 @@ import {
   hasStartedStore, 
   userDataStore, 
   messagesStore,
-  hasFetchedGeoStore 
+  hasFetchedGeoStore,
+  lastGreetedCategoryStore,
+  hasUnreadMessagesStore
 } from '../../stores/chatStore';
 
 export default function ChatAgent() {
@@ -21,6 +23,8 @@ export default function ChatAgent() {
   const userData = useStore(userDataStore);
   const messages = useStore(messagesStore);
   const hasFetchedGeo = useStore(hasFetchedGeoStore);
+  const lastCategory = useStore(lastGreetedCategoryStore);
+  const hasUnread = useStore(hasUnreadMessagesStore);
 
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -104,6 +108,9 @@ export default function ChatAgent() {
       sendSilentEmail();
     }
     isOpenStore.set(!isOpen);
+    if (!isOpen && hasUnreadMessagesStore.get()) {
+      hasUnreadMessagesStore.set(false);
+    }
   };
 
   const startChat = (e: React.FormEvent) => {
@@ -114,24 +121,68 @@ export default function ChatAgent() {
     
     if (messages.length > 0) return;
 
-    // Evaluador dinámico de URL para el saludo con IA
     const path = window.location.pathname.toLowerCase();
+    let currentCategory = 'general';
     let initialGreeting = `Hola ${userData.name}, soy Tito Bits, asesor comercial de capacitación en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*`;
 
     if (path.includes('/articulate') || path.includes('/vyond')) {
+      currentCategory = 'tools';
       initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que estás explorando nuestras **Herramientas de Autor**.\n\n¿Estás buscando precios para licencias nuevas, requieres renovar tus suscripciones, o te interesa conocer las diferencias entre Articulate 360 y Vyond? *Platícame qué ecosistema ocupas.*`;
     } else if (path.includes('/totara') || path.includes('/moodle') || path.includes('/lms')) {
+      currentCategory = 'lms';
       initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que te interesan nuestras arquitecturas **LMS (Plataformas Empresariales)**.\n\n¿Buscas implementar un ecosistema nuevo, necesitas auditar una plataforma existente, o quieres integrar un LMS con tus sistemas de RR.HH. (como SAP o Workday)? *Dime cuál es tu objetivo.*`;
     } else if (path.includes('/ddc') || path.includes('/cursos')) {
+      currentCategory = 'ddc';
       initialGreeting = `Hola ${userData.name}, soy Tito Bits. ¡La **Fábrica de Contenidos a la Medida (DDC)** es nuestra especialidad!\n\nPara empezar a estructurar tu alcance: ¿ya tienes los guiones o PDFs de los cursos que quieres digitalizar, o prefieres que TAEC asuma la creación instruccional desde cero? *Platícame tu caso.*`;
     } else if (path.includes('/tienda')) {
+      currentCategory = 'store';
       initialGreeting = `Hola ${userData.name}, soy Tito Bits, tu guía comercial. Veo que estás en nuestra **pasarela de licenciamiento**.\n\nPara licencias aisladas, puedes gestionar la transacción seguro(a) directamente en línea. Si necesitas licenciamiento por volumen, múltiples anualidades o pagos inter-empresariales, *avísame cuántas necesitas para escalar tu cuenta con mis consultores humanos.*`;
     }
 
-    messagesStore.set([
-      { role: 'agent', text: initialGreeting }
-    ]);
+    lastGreetedCategoryStore.set(currentCategory);
+    messagesStore.set([{ role: 'agent', text: initialGreeting }]);
   };
+
+  // Context Hopping: Inyección proactiva de mensajes al cambiar de página navegando
+  useEffect(() => {
+    if (!hasStarted) return;
+    if (messages.length === 0) return;
+
+    const path = window.location.pathname.toLowerCase();
+    let currentCategory = 'general';
+    let newGreeting = '';
+
+    if (path.includes('/articulate') || path.includes('/vyond')) {
+      currentCategory = 'tools';
+      newGreeting = `📌 *Contexto Actualizado*: Veo que saltaste a la sección de **Herramientas de Autor**.\n\nSi tienes dudas sobre licenciamiento de Articulate o Vyond, aquí sigo disponible. *Si no, ignora este mensaje y continuemos con el tema que teníamos abierto.*`;
+    } else if (path.includes('/totara') || path.includes('/moodle') || path.includes('/lms')) {
+      currentCategory = 'lms';
+      newGreeting = `📌 *Contexto Actualizado*: Veo que estás explorando nuestros ecosistemas **LMS**.\n\nSi necesitas evaluar integraciones técnicas, ¡dispara tus preguntas! *Por supuesto, sigo recordando de qué estábamos hablando antes.*`;
+    } else if (path.includes('/ddc') || path.includes('/cursos')) {
+      currentCategory = 'ddc';
+      newGreeting = `📌 *Contexto Actualizado*: Pasaste a la **Fábrica de Contenidos a la Medida (DDC)**.\n\nSi ocupas que mi equipo humano desarrolle tus cursos pedagógicamente, te ayudo a estimar costos. *Si sólo estás hojeando, ignora este mensaje y prosigamos.*`;
+    } else if (path.includes('/tienda')) {
+      currentCategory = 'store';
+      newGreeting = `📌 *Contexto Actualizado*: Has entrado a nuestra **Pasarela de E-commerce**.\n\nPara transacciones de volumen B2B, te recomiendo coordinar por aquí conmigo directo antes de comprar a ciegas.`;
+    }
+
+    // Si cambió de sección
+    if (currentCategory !== 'general' && currentCategory !== lastGreetedCategoryStore.get()) {
+      const lastMsg = messages[messages.length - 1];
+      // Evitar spam si recarga la página en la misma sección muchas veces
+      if (lastMsg.role !== 'agent' || !lastMsg.text.includes('📌')) {
+        messagesStore.set([...messagesStore.get(), { role: 'agent', text: newGreeting }]);
+        lastGreetedCategoryStore.set(currentCategory);
+        
+        if (!isOpen) { // Usamos isOpen normal del scope, o podemos usar el callback the atom
+          hasUnreadMessagesStore.set(true);
+        }
+      }
+    } else if (currentCategory === 'general' && lastGreetedCategoryStore.get() !== 'general') {
+       // Reset base state silence to allow hopping back later if needed
+       lastGreetedCategoryStore.set('general');
+    }
+  }, []); // Run on mount (Page layout trigger in Astro MPAs)
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -240,7 +291,7 @@ export default function ChatAgent() {
             boxShadow: '0 2px 4px rgba(0,0,0,0.2)', animation: 'bounce 2s infinite',
             whiteSpace: 'nowrap', zIndex: 10000
           }}>
-            {userData.countryCode === 'MX' ? '¡Promo MX Desbloqueada! 🇲🇽' : 'Diagnóstico de e-learning ⚡'}
+            {hasUnread ? '¡Tito tiene un mensaje nuevo! 💬' : (userData.countryCode === 'MX' ? '¡Promo MX Desbloqueada! 🇲🇽' : 'Diagnóstico de e-learning ⚡')}
           </div>
         )}
         <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }"}} />

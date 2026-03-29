@@ -50,3 +50,13 @@ export const hasFetchedGeoStore = persistentAtom<boolean>('tito_hasFetchedGeo', 
   encode: JSON.stringify,
   decode: JSON.parse,
 });
+
+export const lastGreetedCategoryStore = persistentAtom<string>('tito_lastCategory', '', {
+  encode: JSON.stringify,
+  decode: JSON.parse,
+});
+
+export const hasUnreadMessagesStore = persistentAtom<boolean>('tito_hasUnread', false, {
+  encode: JSON.stringify,
+  decode: JSON.parse,
+});
