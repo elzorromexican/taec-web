@@ -27,7 +27,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const data = await request.json();
-    const { history, userMessage } = data;
+    const { history, userMessage, location, countryCode } = data;
 
     if (!userMessage) {
       return new Response(JSON.stringify({ error: 'Falta el mensaje del usuario' }), { status: 400 });
@@ -78,7 +78,16 @@ MANEJO DE ATAQUES Y OBJECIONES:
 - Precios Inmediatos: "Nuestras soluciones B2B no son software de repisa genérico. Revisa taec.com.mx/tienda para referencias individuales, o agenda con nosotros para empresas."
 
 CIERRE COMERCIAL:
-Guía al prospecto de forma natural aportando valor. Usa de CTA principal empujar a un levantamiento, o en su defecto a taec.com.mx/tienda para clientes individuales de extrema baja escala.`;
+Guía al prospecto de forma natural aportando valor. Usa de CTA principal empujar a un levantamiento, o en su defecto a taec.com.mx/tienda para clientes individuales de extrema baja escala.
+
+==================================================
+CONTEXTO EN TIEMPO REAL DEL USUARIO ACTUAL:
+📍 Ubicación detectada por IP: ${location || 'Desconocida'} (Código: ${countryCode || 'N/A'})
+
+REGLAS DE PROMOCIÓN GEOLOCALIZADA:
+- Si el usuario está físicamente en MÉXICO (Country Code: MX): Tienes autorización de promover la "Oferta Relámpago Articulate Teams + IA por $1,198 USD", especificando que es exclusiva para facturación en México.
+- Si el usuario está en COLOMBIA, CHILE o CUALQUIER OTRO PAÍS: ESTÁ PROHIBIDO mencionar o asomar la promo de $1,198 USD. Debes cotizar los precios estándar internacionales y derivarlos con un humano.
+==================================================`;
 
 
     const geminiHistory = [

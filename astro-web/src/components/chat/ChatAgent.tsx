@@ -5,7 +5,7 @@ export default function ChatAgent() {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false); // Alternativa robusta al resize CSS
   const [hasStarted, setHasStarted] = useState(false);
-  const [userData, setUserData] = useState({ name: '', email: '', phone: '' });
+  const [userData, setUserData] = useState({ name: '', email: '', phone: '', location: 'Ubicación Desconocida', countryCode: '' });
   const [messages, setMessages] = useState<{role: 'user' | 'agent' | 'error', text: string}[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +20,20 @@ export default function ChatAgent() {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
+
+  // Capturar Geolocalización silenciosamente al cargar el chat
+  useEffect(() => {
+    fetch('https://get.geojs.io/v1/ip/geo.json')
+      .then(res => res.json())
+      .then(data => {
+        setUserData(prev => ({
+          ...prev, 
+          location: `${data.city}, ${data.country}`,
+          countryCode: data.country_code
+        }));
+      })
+      .catch(() => console.warn('Geolocalización bloqueada por red o adblocker.'));
+  }, []);
 
   // Aseguramos que el correo se envíe SIEMPRE cuando se cierre la pestaña
   const stateRef = useRef({ messages, userData, isSendingEmail });
@@ -112,7 +126,12 @@ export default function ChatAgent() {
       const res = await fetch('/api/agente-ia', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userMessage: userMsg, history: messages })
+        body: JSON.stringify({ 
+          userMessage: userMsg, 
+          history: messages,
+          location: userData.location,
+          countryCode: userData.countryCode
+        })
       });
       
       const data = await res.json();
