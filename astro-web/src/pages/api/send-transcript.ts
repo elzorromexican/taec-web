@@ -1,9 +1,16 @@
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { userData, messages, metadata } = await request.json();
+    const rawBody = await request.text();
+    console.log("Raw Body Length:", rawBody.length, "Content:", rawBody);
+    if (!rawBody) {
+      return new Response(JSON.stringify({ error: 'El cuerpo de la petición llego vacío.' }), { status: 400 });
+    }
+    const { userData, messages, metadata } = JSON.parse(rawBody);
 
     const resendKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
 
@@ -43,7 +50,8 @@ export const POST: APIRoute = async ({ request }) => {
       '<p><strong>Nombre:</strong> ' + userData.name + '</p>' +
       '<p><strong>Teléfono:</strong> ' + (userData.phone || 'No provisto') + '</p>' +
       '<p><strong>Email Institucional:</strong> ' + userData.email + '</p>' +
-      '<p><strong>Hora Local:</strong> ' + metadata.time + ' (' + metadata.timeZone + ')</p>' +
+      '<p><strong>Fecha/Hora:</strong> ' + (metadata?.timestamp || new Date().toISOString()) + '</p>' +
+      '<p><strong>Página:</strong> ' + (metadata?.url || 'Desconocida') + '</p>' +
       '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
       '<h3 style="color: #004775;">Transcripción de Conversación:</h3>' +
       '<div style="background-color: #f9fafb; padding: 20px; border-radius: 8px;">' +
@@ -51,18 +59,21 @@ export const POST: APIRoute = async ({ request }) => {
       '</div></div>';
 
     const { data, error } = await resend.emails.send({
+      // Se utiliza tu email o el genérico configurado
       from: 'Tito Bits <onboarding@resend.dev>',
-      to: ['smasmoudi@taec.com.mx'], 
+      to: ['info@taec.com.mx'], 
       subject: `Nuevo Lead IA: ${userData.name}`,
       html: emailHtml,
     });
 
     if (error) {
+      console.error("Resend API Denied the Request:", error);
       return new Response(JSON.stringify({ error }), { status: 400 });
     }
 
     return new Response(JSON.stringify({ success: true, data }), { status: 200 });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: 'Failed to compile email' }), { status: 500 });
+  } catch (error: any) {
+    console.error("Crash local generando o enviando email:", error);
+    return new Response(JSON.stringify({ error: error.message || 'Error Inesperado', stack: error.stack }), { status: 500 });
   }
 };
