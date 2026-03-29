@@ -33,22 +33,10 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Falta el mensaje del usuario' }), { status: 400 });
     }
 
-    let apiKey = import.meta.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+    const apiKey = import.meta.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
 
-    // HACK: Forzar prioridad del archivo físico .env en desarrollo 
-    // Esto evita que variables del sistema (export GEMINI_API_KEY en .zshrc) secuestren valores viejos
-    if (import.meta.env.DEV) {
-      try {
-        const fs = await import('fs');
-        const path = await import('path');
-        const envStr = fs.readFileSync(path.resolve('.env'), 'utf8');
-        const match = envStr.match(/GEMINI_API_KEY="?([^"\n]+)"?/); // Soporta con o sin comillas
-        if (match && match[1]) {
-           apiKey = match[1].replace(/\s/g, "");
-        }
-      } catch(e) {
-        // Ignorar falla de lectura pasiva
-      }
+    if (!apiKey) {
+      return new Response(JSON.stringify({ error: 'LLM Key missing' }), { status: 500 });
     }
 
     if (!apiKey) {

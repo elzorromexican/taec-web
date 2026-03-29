@@ -5,18 +5,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const { userData, messages, metadata } = await request.json();
 
-    let resendKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
-    if (import.meta.env.DEV) {
-      try {
-        const fs = await import('fs');
-        const path = await import('path');
-        const envStr = fs.readFileSync(path.resolve('.env'), 'utf8');
-        const match = envStr.match(/RESEND_API_KEY="?([^"\n]+)"?/);
-        if (match && match[1]) {
-           resendKey = match[1].replace(/\s/g, "");
-        }
-      } catch(e) {}
-    }
+    const resendKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
 
     if (!resendKey) {
       return new Response(JSON.stringify({ error: 'No Resend API Key found' }), { status: 500 });
