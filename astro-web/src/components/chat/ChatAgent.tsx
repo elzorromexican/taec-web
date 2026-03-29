@@ -123,17 +123,23 @@ export default function ChatAgent() {
 
     const path = window.location.pathname.toLowerCase();
     let currentCategory = 'general';
-    let initialGreeting = `Hola ${userData.name}, soy Tito Bits, asesor comercial de capacitación en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*`;
+    let initialGreeting = `Hola ${userData.name}, soy Tito Bits, asesor comercial en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar plataforma** (LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*`;
 
-    if (path.includes('/articulate') || path.includes('/vyond')) {
-      currentCategory = 'tools';
-      initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que estás explorando nuestras **Herramientas de Autor**.\n\n¿Estás buscando precios para licencias nuevas, requieres renovar tus suscripciones, o te interesa conocer las diferencias entre Articulate 360 y Vyond? *Platícame qué ecosistema ocupas.*`;
+    if (path.includes('/articulate')) {
+      currentCategory = 'articulate';
+      initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que estás explorando el ecosistema **Articulate 360**.\n\n¿Estás buscando precios para licencias nuevas, requieres renovar tus suscripciones actuales, o quieres informes sobre talleres certificados? *Platícame qué te urge.*`;
+    } else if (path.includes('/vyond')) {
+      currentCategory = 'vyond';
+      initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que estás explorando **Vyond**.\n\n¿Estás buscando cotizar licencias para tu estudio de animación o necesitas renovar cuentas existentes? *Dime cuántas ocupas.*`;
     } else if (path.includes('/totara') || path.includes('/moodle') || path.includes('/lms')) {
       currentCategory = 'lms';
       initialGreeting = `Hola ${userData.name}, soy Tito Bits. Veo que te interesan nuestras arquitecturas **LMS (Plataformas Empresariales)**.\n\n¿Buscas implementar un ecosistema nuevo, necesitas auditar una plataforma existente, o quieres integrar un LMS con tus sistemas de RR.HH. (como SAP o Workday)? *Dime cuál es tu objetivo.*`;
-    } else if (path.includes('/ddc') || path.includes('/cursos')) {
+    } else if (path.includes('/desarrollo') || path.includes('/ddc')) {
       currentCategory = 'ddc';
       initialGreeting = `Hola ${userData.name}, soy Tito Bits. ¡La **Fábrica de Contenidos a la Medida (DDC)** es nuestra especialidad!\n\nPara empezar a estructurar tu alcance: ¿ya tienes los guiones o PDFs de los cursos que quieres digitalizar, o prefieres que TAEC asuma la creación instruccional desde cero? *Platícame tu caso.*`;
+    } else if (path.includes('/curso') || path.includes('/capacitacion')) {
+      currentCategory = 'capacitacion';
+      initialGreeting = `Hola ${userData.name}, soy Tito Bits. Entraste a nuestra área de **Capacitación y Talleres**.\n\n¿Te interesa un curso abierto para una sola persona, o requieres armar un taller cerrado exclusivo para capacitar a todo tu equipo corporativo? *Platícame qué herramienta quieren dominar.*`;
     } else if (path.includes('/tienda')) {
       currentCategory = 'store';
       initialGreeting = `Hola ${userData.name}, soy Tito Bits, tu guía comercial. Veo que estás en nuestra **pasarela de licenciamiento**.\n\nPara licencias aisladas, puedes gestionar la transacción seguro(a) directamente en línea. Si necesitas licenciamiento por volumen, múltiples anualidades o pagos inter-empresariales, *avísame cuántas necesitas para escalar tu cuenta con mis consultores humanos.*`;
@@ -152,18 +158,24 @@ export default function ChatAgent() {
     let currentCategory = 'general';
     let newGreeting = '';
 
-    if (path.includes('/articulate') || path.includes('/vyond')) {
-      currentCategory = 'tools';
-      newGreeting = `📌 *Contexto Actualizado*: Veo que saltaste a la sección de **Herramientas de Autor**.\n\nSi tienes dudas sobre licenciamiento de Articulate o Vyond, aquí sigo disponible. *Si no, ignora este mensaje y continuemos con el tema que teníamos abierto.*`;
+    if (path.includes('/articulate')) {
+      currentCategory = 'articulate';
+      newGreeting = `📌 *Contexto Actualizado*: Veo que saltaste a la sección de **Articulate 360**.\n\nSi tienes dudas sobre licenciamiento, renovaciones o soporte oficial en México, aquí sigo disponible. *O podemos seguir con el tema inicial.*`;
+    } else if (path.includes('/vyond')) {
+      currentCategory = 'vyond';
+      newGreeting = `📌 *Contexto Actualizado*: Veo que saltaste a la sección de **Vyond**.\n\nSi necesitas licenciar o consultar por el estudio de animación Vyond Go, avísame. *(Si fue por error, ignora esto y prosigamos).*`;
     } else if (path.includes('/totara') || path.includes('/moodle') || path.includes('/lms')) {
       currentCategory = 'lms';
-      newGreeting = `📌 *Contexto Actualizado*: Veo que estás explorando nuestros ecosistemas **LMS**.\n\nSi necesitas evaluar integraciones técnicas, ¡dispara tus preguntas! *Por supuesto, sigo recordando de qué estábamos hablando antes.*`;
-    } else if (path.includes('/ddc') || path.includes('/cursos')) {
+      newGreeting = `📌 *Contexto Actualizado*: Veo que estás explorando nuestros ecosistemas **LMS**.\n\nSi necesitas evaluar integraciones técnicas o estrategias de migración, ¡dispara tus preguntas! *Sigo recordando de qué estábamos hablando.*`;
+    } else if (path.includes('/desarrollo') || path.includes('/ddc')) {
       currentCategory = 'ddc';
-      newGreeting = `📌 *Contexto Actualizado*: Pasaste a la **Fábrica de Contenidos a la Medida (DDC)**.\n\nSi ocupas que mi equipo humano desarrolle tus cursos pedagógicamente, te ayudo a estimar costos. *Si sólo estás hojeando, ignora este mensaje y prosigamos.*`;
+      newGreeting = `📌 *Contexto Actualizado*: Pasaste a la **Fábrica de Contenidos a la Medida (DDC)**.\n\nSi ocupas que nuestro equipo humano ensamble tus cursos, te ayudo a estimar los pesos presupuestales. *De lo contrario, ignora este mensaje.*`;
+    } else if (path.includes('/curso') || path.includes('/capacitacion')) {
+      currentCategory = 'capacitacion';
+      newGreeting = `📌 *Contexto Actualizado*: Entraste al catálogo de **Capacitación y Talleres**.\n\nSi buscas certificar a tu equipo o a ti mismo en nuestras herramientas con instructores en vivo, dímelo y revisamos currículas.`;
     } else if (path.includes('/tienda')) {
       currentCategory = 'store';
-      newGreeting = `📌 *Contexto Actualizado*: Has entrado a nuestra **Pasarela de E-commerce**.\n\nPara transacciones de volumen B2B, te recomiendo coordinar por aquí conmigo directo antes de comprar a ciegas.`;
+      newGreeting = `📌 *Contexto Actualizado*: Has entrado a nuestra **Pasarela de E-commerce**.\n\nPara transacciones de volumen B2B, te recomiendo siempre apoyarte conmigo por este chat para alinear los términos antes del checkout.`;
     }
 
     // Si cambió de sección
