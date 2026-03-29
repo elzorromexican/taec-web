@@ -7,6 +7,8 @@ import react from '@astrojs/react';
 
 import sitemap from '@astrojs/sitemap';
 
+import netlify from '@astrojs/netlify';
+
 /**
  * DEPLOY TARGETS
  * ─────────────────────────────────────────────────────────────────────────
@@ -34,6 +36,6 @@ export default defineConfig({
   },
 
   output: 'static',
-
-  integrations: [react(), sitemap()]
+  integrations: [react(), sitemap()],
+  adapter: netlify()
 });

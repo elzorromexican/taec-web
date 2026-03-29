@@ -238,3 +238,27 @@
     animation-play-state: paused !important;
   }
 }
+
+/* ── TRIAJE HERO ── */
+.triaje-hero { background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%); padding: 80px 5% 100px; position: relative; overflow: hidden; }
+.triaje-bg-decor { position: absolute; top:0; right: 0; bottom: 0; width: 50%; background: linear-gradient(90deg, transparent, rgba(55, 154, 255, 0.08)); pointer-events: none; }
+.triaje-inner { max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+.triaje-title { font-family: var(--font-display); font-size: 56px; line-height: 1.1; color: var(--white); margin-bottom: 24px; }
+.triaje-title em { color: var(--vy-orange); font-style: normal; }
+.triaje-sub { font-size: 18px; color: #cbd5e1; max-width: 700px; margin: 0 auto 56px; line-height: 1.6; }
+
+.triaje-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: left; }
+.triaje-card { background: var(--white); color: var(--navy); border-radius: 16px; padding: 32px 24px; transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; }
+.triaje-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.triaje-badge { display: inline-table; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 16px; width: max-content; }
+.triaje-card h3 { font-size: 22px; margin-bottom: 12px; line-height: 1.25; color: var(--navy); }
+.triaje-card p { font-size: 14px; color: var(--muted); margin-bottom: 24px; flex-grow: 1; }
+.triaje-cta { color: var(--blue); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 4px; }
+
+@media (max-width: 1024px) {
+  .triaje-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .triaje-grid { grid-template-columns: 1fr; }
+  .triaje-title { font-size: 42px; }
+}
