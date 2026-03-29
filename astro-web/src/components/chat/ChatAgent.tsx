@@ -228,6 +228,17 @@ export default function ChatAgent() {
     setTimeout(() => setIsCopied(false), 3500);
   };
 
+  const resetChat = () => {
+    if (window.confirm('🚨 ¿Seguro que deseas reiniciar el chat y borrar tu memoria de sesión?')) {
+      messagesStore.set([]);
+      hasStartedStore.set(false);
+      lastGreetedCategoryStore.set('');
+      hasUnreadMessagesStore.set(false);
+      // Mantener la geolocalización viva pero vaciar la identidad
+      userDataStore.set({ name: '', email: '', phone: '', location: userData.location, countryCode: userData.countryCode });
+    }
+  };
+
   const sendSilentEmail = async () => {
     setIsSendingEmail(true);
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -364,6 +375,21 @@ export default function ChatAgent() {
               >
                 {isExpanded ? 'Contraer 📉' : 'Expandir 📈'}
               </button>
+              
+              {hasStarted && (
+                <button 
+                  onClick={resetChat} 
+                  title="Borrar memoria y reiniciar plática"
+                  style={{
+                    background: 'rgba(255, 59, 48, 0.15)', border: '1px solid rgba(255, 59, 48, 0.3)', color: '#FFD1D1', 
+                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer', transition: 'background 0.3s'
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.background = 'rgba(255, 59, 48, 0.8)'; e.currentTarget.style.color = '#fff'; }}
+                  onMouseOut={e => { e.currentTarget.style.background = 'rgba(255, 59, 48, 0.15)'; e.currentTarget.style.color = '#FFD1D1'; }}
+                >
+                  Reiniciar ⟲
+                </button>
+              )}
               
               {hasStarted && messages.length > 1 && (
                 <button 
