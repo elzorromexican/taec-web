@@ -72,7 +72,7 @@ export default function ChatAgent() {
 
     setHasStarted(true);
     setMessages([
-      { role: 'agent', text: `¡Hola ${userData.name}! 🤖 Soy Tito Bits, tu asesor hiper-rápido en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*` }
+      { role: 'agent', text: `Hola ${userData.name}, soy Tito Bits, asesor comercial de capacitación en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*` }
     ]);
   };
 
