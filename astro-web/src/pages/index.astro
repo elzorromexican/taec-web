@@ -49,36 +49,44 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
   
 
   <main id="main-content">
-    <section class="hero">
-      <div class="hero-inner">
-        <div>
-          <span class="hero-tag">Especialistas en e-learning corporativo · México y LATAM · desde 2007</span>
-          <h1>Articulate + Vyond + LMS + capacitación: <em>el stack completo en español</em></h1>
-          <p class="hero-sub">Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.</p>
-          <div class="hero-actions reveal-up">
-            <a href={r('/soluciones')} class="btn-primary">Ver soluciones <span class="arrow-icon">→</span></a>
-            <a href={getBookingUrl('general')} class="btn-ghost-hero">Hablar con un especialista</a>
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-grid">
-            <div class="stat-card">
-              <div class="stat-num"><em><AnimatedCounter value={anni} suffix="+" /></em></div>
-              <div class="stat-label">años en el mercado</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num"><em><AnimatedCounter value={1500} prefix="+" /></em></div>
-              <div class="stat-label">clientes atendidos</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num"><em><AnimatedCounter value={22} /></em></div>
-              <div class="stat-label">países de alcance</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num"><em><AnimatedCounter value={200} prefix="+" /></em></div>
-              <div class="stat-label">implementaciones enterprise</div>
-            </div>
-          </div>
+    <section class="triaje-hero">
+      <div class="triaje-bg-decor"></div>
+      <div class="triaje-inner">
+        <h1 class="triaje-title">¿Qué gran <em>reto e-learning</em> necesitas resolver en tu organización?</h1>
+        <p class="triaje-sub">Sin catálogos laberínticos ni discursos genéricos. Selecciona el dolor actual de tu empresa y te llevaremos a la solución exacta.</p>
+
+        <div class="triaje-grid">
+          <!-- CARD 1 -->
+          <a href={r('/desarrollo-de-contenidos')} class="triaje-card">
+            <span class="triaje-badge" style="background: #FFF7ED; color: #EA580C;">AGENCIA / OUTSOURCING</span>
+            <h3>"No tengo tiempo para producir, háganlo por mí"</h3>
+            <p>Delega tus proyectos en nuestra fábrica de contenidos a medida (DDC) o adquiere catálogos listos.</p>
+            <span class="triaje-cta">Explorar soluciones DDC →</span>
+          </a>
+
+          <!-- CARD 2 -->
+          <a href={r('/soluciones')} class="triaje-card">
+            <span class="triaje-badge" style="background: #EFF6FF; color: #2563EB;">SOFTWARE DE AUTORÍA</span>
+            <h3>"Quiero crear mis propios cursos interactivos"</h3>
+            <p>Equipa a tu área de talento con Articulate 360 o Vyond IA para producir e-learning en masa.</p>
+            <span class="triaje-cta">Ver licencias software →</span>
+          </a>
+
+          <!-- CARD 3 -->
+          <a href={r('/soluciones')} class="triaje-card">
+            <span class="triaje-badge" style="background: #ECFDF5; color: #059669;">PLATAFORMAS MÉTRICAS</span>
+            <h3>"Necesito organizar y medir a mi equipo"</h3>
+            <p>Migra, hospeda o implementa un LMS corporativo escalable con Moodle o Totara Workspace.</p>
+            <span class="triaje-cta">Explorar LMS y Ecosistemas →</span>
+          </a>
+
+          <!-- CARD 4 -->
+          <a href={r('/contacto')} class="triaje-card">
+            <span class="triaje-badge" style="background: #F3F4F6; color: #4B5563;">CONSULTORÍA ALTO NIVEL</span>
+            <h3>"Quiero innovar y escalar mi área L&D"</h3>
+            <p>Auditorías de madurez e-learning, acompañamiento estratégico y diseño de arquitecturas empresariales.</p>
+            <span class="triaje-cta">Solicitar Diagnóstico L&D →</span>
+          </a>
         </div>
       </div>
     </section>
