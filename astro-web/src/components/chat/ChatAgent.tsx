@@ -169,14 +169,20 @@ export default function ChatAgent() {
     // Si cambió de sección
     if (currentCategory !== 'general' && currentCategory !== lastGreetedCategoryStore.get()) {
       const lastMsg = messages[messages.length - 1];
-      // Evitar spam si recarga la página en la misma sección muchas veces
-      if (lastMsg.role !== 'agent' || !lastMsg.text.includes('📌')) {
+      
+      // Si el último mensaje EXACTAMENTE fue otra alerta de contexto que nuestro humano ni siquiera peló,
+      // entonces lo machacamos y lo sustituimos por el nuevo paradero, para que no se apilen como spam.
+      if (lastMsg && lastMsg.role === 'agent' && lastMsg.text.includes('📌 *Contexto Actualizado*')) {
+        const withoutLast = messages.slice(0, -1);
+        messagesStore.set([...withoutLast, { role: 'agent', text: newGreeting }]);
+      } else {
         messagesStore.set([...messagesStore.get(), { role: 'agent', text: newGreeting }]);
-        lastGreetedCategoryStore.set(currentCategory);
+      }
+      
+      lastGreetedCategoryStore.set(currentCategory);
         
-        if (!isOpen) { // Usamos isOpen normal del scope, o podemos usar el callback the atom
-          hasUnreadMessagesStore.set(true);
-        }
+      if (!isOpen) {
+        hasUnreadMessagesStore.set(true);
       }
     } else if (currentCategory === 'general' && lastGreetedCategoryStore.get() !== 'general') {
        // Reset base state silence to allow hopping back later if needed
