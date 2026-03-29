@@ -59,9 +59,9 @@ export const POST: APIRoute = async ({ request }) => {
       '</div></div>';
 
     const { data, error } = await resend.emails.send({
-      // Se utiliza tu email o el genérico configurado
+      // Sandbox de Resend: Solo permite enviar al correo del dueño de la cuenta registrada.
       from: 'Tito Bits <onboarding@resend.dev>',
-      to: ['info@taec.com.mx'], 
+      to: ['smasmoudi@taec.com.mx'], 
       subject: `Nuevo Lead IA: ${userData.name}`,
       html: emailHtml,
     });
