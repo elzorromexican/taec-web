@@ -124,7 +124,9 @@
 - [ ] Construir Centro de Webinars y Demos On-Demand (Videos cerrados contra captura de lead).
 - [ ] Implementar un Hero Banner inteligente (Personalización dinámica de contenido).
 - [x] **Chatbot Geo-Proactivo (UX sin dañar SEO):** Programar el indicador visual del chat (el tooltip naranja) para que muestre mensajes proactivos (Ej. "¡Promo exclusiva para México!") si detecta coincidencias con IPs geolocalizadas.
-- [x] **Memoria Conversacional Corto Plazo (Zero-Friction):** Migrar el estado del chat (`useState`) hacia al almacén global `nanostores` e inyectar persistencia en `localStorage` para que el chat no se borre si el usuario cambia de página o refresca el sitio web antes de dar sus datos.
+- [x] **Memoria Conversacional Corto Plazo (Zero-Friction):** Migrar el estado del chat (`useState`) hacia al almacén global `nanostores` e inyectar persistencia en `localStorage` para que el chat no se borre si el usuario cambia de página o refresca.
+- [x] **Hard Reset QA:** Botón nativo provisional en la barra superior para purgar `Nanostores` a voluntad, solventando el problema de Testing de calidad ("cómo probar una sesión virgen").
+- [ ] **Refactor de Tracking de Sesión (CRÍTICO PRE-PROD):** Reemplazar el botón de *Hard Reset* actual por una solución de tracking que no elimine data del CRM. Alternativas levantadas en Modo Reflexión para debatir al momento de integrar Supabase: a) `Soft Reset` (Dividir historial visual ocultando mensajes anteriores al cliente pero conservándolos en Base de Datos), b) `Expiración por Tiempo` (limpieza automática cada 24 hrs), c) `Finalizar Consulta` (Enviar ticket y cerrar lead vía botón), o d) Ocultar el botón nativamente mediante variable de Producción (`!import.meta.env.PROD`).
 - [ ] **Memoria Conversacional Largo Plazo (Perfilado Progresivo):** Conectar la UI del chat a **Supabase**. Cuando un "Usuario Anónimo" madura y registra su correo, el bot vuelca todo su historial del `localStorage` directo al CRM del backend para tener un registro histórico vitalicio cruzando dispositivos.
 
 ## 🔎 Archivo Histórico de Completados
