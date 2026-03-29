@@ -12,6 +12,7 @@
 // CHANGELOG: 19/03/2026 - Centralized SEO logic and dynamic canonical URLs
 // CHANGELOG: 19/03/2026 - Use BASE_URL for asset paths to support GitHub Pages staging
 import Header from '../components/Header.astro';
+import ChatAgent from '../components/chat/ChatAgent';
 import FooterDock from '../components/experiments/FooterDock.astro';
 import MobileNav from '../components/MobileNav.astro';
 import { ClientRouter } from 'astro:transitions';
@@ -80,7 +81,7 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href={`${base}assets/css/base.css`} />
-  <link rel="stylesheet" href={`${base}assets/css/header.css`} />
+  <link rel="stylesheet" href={`${base}assets/css/header.css?v=nuevaCapa`} />
   <link rel="stylesheet" href={`${base}assets/css/footer.css`} />
 
   <!-- Schema.org JSON-LD -->
@@ -138,6 +139,7 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   
   <FooterDock theme={footerTheme} />
   
+  <ChatAgent client:load />
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
   <script>
     let globalRevealObserver = null;
