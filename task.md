@@ -123,8 +123,8 @@
 - [ ] Añadir animaciones progresivas (Framer Motion / Viewport CSS) a toda la página de DDC.
 - [ ] Construir Centro de Webinars y Demos On-Demand (Videos cerrados contra captura de lead).
 - [ ] Implementar un Hero Banner inteligente (Personalización dinámica de contenido).
-- [ ] **Chatbot Geo-Proactivo (UX sin dañar SEO):** Programar el indicador visual del chat (el tooltip naranja) para que muestre mensajes proactivos (Ej. "¡Promo exclusiva para México!") si detecta coincidencias con IPs geolocalizadas.
-- [ ] **Memoria Conversacional Corto Plazo (Zero-Friction):** Migrar el estado del chat (`useState`) hacia al almacén global `nanostores` e inyectar persistencia en `localStorage` para que el chat no se borre si el usuario cambia de página o refresca el sitio web antes de dar sus datos.
+- [x] **Chatbot Geo-Proactivo (UX sin dañar SEO):** Programar el indicador visual del chat (el tooltip naranja) para que muestre mensajes proactivos (Ej. "¡Promo exclusiva para México!") si detecta coincidencias con IPs geolocalizadas.
+- [x] **Memoria Conversacional Corto Plazo (Zero-Friction):** Migrar el estado del chat (`useState`) hacia al almacén global `nanostores` e inyectar persistencia en `localStorage` para que el chat no se borre si el usuario cambia de página o refresca el sitio web antes de dar sus datos.
 - [ ] **Memoria Conversacional Largo Plazo (Perfilado Progresivo):** Conectar la UI del chat a **Supabase**. Cuando un "Usuario Anónimo" madura y registra su correo, el bot vuelca todo su historial del `localStorage` directo al CRM del backend para tener un registro histórico vitalicio cruzando dispositivos.
 
 ## 🔎 Archivo Histórico de Completados

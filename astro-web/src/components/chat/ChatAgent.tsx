@@ -1,16 +1,33 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
+import { useStore } from '@nanostores/react';
+import { 
+  isOpenStore, 
+  isExpandedStore, 
+  hasStartedStore, 
+  userDataStore, 
+  messagesStore,
+  hasFetchedGeoStore 
+} from '../../stores/chatStore';
+
 export default function ChatAgent() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false); // Alternativa robusta al resize CSS
-  const [hasStarted, setHasStarted] = useState(false);
-  const [userData, setUserData] = useState({ name: '', email: '', phone: '', location: 'Ubicación Desconocida', countryCode: '' });
-  const [messages, setMessages] = useState<{role: 'user' | 'agent' | 'error', text: string}[]>([]);
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => setIsHydrated(true), []);
+
+  const isOpen = useStore(isOpenStore);
+  const isExpanded = useStore(isExpandedStore);
+  const hasStarted = useStore(hasStartedStore);
+  const userData = useStore(userDataStore);
+  const messages = useStore(messagesStore);
+  const hasFetchedGeo = useStore(hasFetchedGeoStore);
+
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  
+  if (!isHydrated) return null;
   
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLInputElement>(null);
@@ -23,17 +40,20 @@ export default function ChatAgent() {
 
   // Capturar Geolocalización silenciosamente al cargar el chat
   useEffect(() => {
-    fetch('https://get.geojs.io/v1/ip/geo.json')
-      .then(res => res.json())
-      .then(data => {
-        setUserData(prev => ({
-          ...prev, 
-          location: `${data.city}, ${data.country}`,
-          countryCode: data.country_code
-        }));
-      })
-      .catch(() => console.warn('Geolocalización bloqueada por red o adblocker.'));
-  }, []);
+    if (!hasFetchedGeo) {
+      fetch('https://get.geojs.io/v1/ip/geo.json')
+        .then(res => res.json())
+        .then(data => {
+          userDataStore.set({
+            ...userDataStore.get(), 
+            location: `${data.city}, ${data.country}`,
+            countryCode: data.country_code
+          });
+          hasFetchedGeoStore.set(true);
+        })
+        .catch(() => console.warn('Geolocalización bloqueada por red o adblocker.'));
+    }
+  }, [hasFetchedGeo]);
 
   // Aseguramos que el correo se envíe SIEMPRE cuando se cierre la pestaña
   const stateRef = useRef({ messages, userData, isSendingEmail });
@@ -82,18 +102,20 @@ export default function ChatAgent() {
   }, [isOpen, hasStarted]);
 
   const toggleChat = () => {
-    if (isOpen && hasStarted && !isSendingEmail) {
+    if (isOpen && hasStarted && !isSendingEmail && messages.length > 1) {
       sendSilentEmail();
     }
-    setIsOpen(!isOpen);
+    isOpenStore.set(!isOpen);
   };
 
   const startChat = (e: React.FormEvent) => {
     e.preventDefault();
     if (!userData.name || !userData.email) return;
 
-    setHasStarted(true);
+    hasStartedStore.set(true);
     
+    if (messages.length > 0) return;
+
     // Evaluador dinámico de URL para el saludo con IA
     const path = window.location.pathname.toLowerCase();
     let initialGreeting = `Hola ${userData.name}, soy Tito Bits, asesor comercial de capacitación en TAEC.\n\nDime qué necesitas resolver hoy:\n\n1. **Crear cursos desde cero** (Licencias Articulate/Vyond)\n2. **Implementar una plataforma** (Ecosistemas LMS: Totara/Moodle)\n3. **Que TAEC desarrolle mis cursos** (Fábrica DDC llave en mano)\n\n*Responde con el número o platícame tu caso.*`;
@@ -108,7 +130,7 @@ export default function ChatAgent() {
       initialGreeting = `Hola ${userData.name}, soy Tito Bits, tu guía comercial. Veo que estás en nuestra **pasarela de licenciamiento**.\n\nPara licencias aisladas, puedes gestionar la transacción seguro(a) directamente en línea. Si necesitas licenciamiento por volumen, múltiples anualidades o pagos inter-empresariales, *avísame cuántas necesitas para escalar tu cuenta con mis consultores humanos.*`;
     }
 
-    setMessages([
+    messagesStore.set([
       { role: 'agent', text: initialGreeting }
     ]);
   };
@@ -119,7 +141,7 @@ export default function ChatAgent() {
 
     const userMsg = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+    messagesStore.set([...messagesStore.get(), { role: 'user', text: userMsg }]);
     setIsLoading(true);
 
     try {
@@ -128,7 +150,7 @@ export default function ChatAgent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           userMessage: userMsg, 
-          history: messages,
+          history: messagesStore.get(),
           location: userData.location,
           countryCode: userData.countryCode
         })
@@ -137,12 +159,12 @@ export default function ChatAgent() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        setMessages(prev => [...prev, { role: 'error', text: '¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.' }]);
+        messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.' }]);
       } else {
-        setMessages(prev => [...prev, { role: 'agent', text: data.reply }]);
+        messagesStore.set([...messagesStore.get(), { role: 'agent', text: data.reply }]);
       }
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'error', text: '¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' }]);
+      messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' }]);
     } finally {
       setIsLoading(false);
       if (window.innerWidth > 768) {
@@ -212,11 +234,14 @@ export default function ChatAgent() {
       >
         {!isOpen && (
           <div style={{
-            position: 'absolute', top: '-15px', right: '-10px',
-            background: '#F59E0B', color: 'white', padding: '4px 8px',
+            position: 'absolute', top: '-15px', right: '-20px',
+            background: userData.countryCode === 'MX' ? '#10B981' : '#F59E0B', color: 'white', padding: '4px 8px',
             borderRadius: '12px', fontSize: '11px', fontWeight: 'bold',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.2)', animation: 'bounce 2s infinite'
-          }}>Diagnóstico rápido de e-learning ⚡</div>
+            boxShadow: '0 2px 4px rgba(0,0,0,0.2)', animation: 'bounce 2s infinite',
+            whiteSpace: 'nowrap', zIndex: 10000
+          }}>
+            {userData.countryCode === 'MX' ? '¡Promo MX Desbloqueada! 🇲🇽' : 'Diagnóstico de e-learning ⚡'}
+          </div>
         )}
         <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }"}} />
         
@@ -281,7 +306,7 @@ export default function ChatAgent() {
             
             <div style={{display: 'flex', gap: '8px'}}>
               <button 
-                onClick={() => setIsExpanded(!isExpanded)} 
+                onClick={() => isExpandedStore.set(!isExpanded)} 
                 style={{
                   background: 'rgba(255,255,255,0.2)', border: 'none', color: '#fff', 
                   fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer'
@@ -321,17 +346,17 @@ export default function ChatAgent() {
                   <input 
                     ref={inputNameRef}
                     required type="text" placeholder="Nombre completo"
-                    value={userData.name} onChange={e => setUserData({...userData, name: e.target.value})}
+                    value={userData.name} onChange={e => userDataStore.set({...userData, name: e.target.value})}
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
                   />
                   <input 
                     required type="email" placeholder="Correo corporativo"
-                    value={userData.email} onChange={e => setUserData({...userData, email: e.target.value})}
+                    value={userData.email} onChange={e => userDataStore.set({...userData, email: e.target.value})}
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
                   />
                   <input 
                     required type="tel" placeholder="Teléfono / WhatsApp" minLength={10} title="El teléfono debe tener un mínimo de 10 dígitos"
-                    value={userData.phone} onChange={e => setUserData({...userData, phone: e.target.value})}
+                    value={userData.phone} onChange={e => userDataStore.set({...userData, phone: e.target.value})}
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
                   />
                   <button type="submit" style={{
