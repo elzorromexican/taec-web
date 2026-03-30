@@ -53,14 +53,15 @@ const schema = {
 <BaseLayout 
   title={`${post.data.title} - Blog e-learning | TAEC`}
   description={post.data.description || post.data.title}
+  image={post.data.image || null}
   section="Recursos"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </Fragment>
 
-  <main style="background: #faf8f3; min-height: 70vh; padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 24px) 80px;">
-    <article style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 8px; padding: clamp(24px, 5vw, 48px); box-shadow: 0 4px 16px rgba(0,0,0,0.05); overflow: hidden;">
+  <main style="background: #faf8f3; min-height: 70vh; padding: clamp(48px, 6vw, 80px) clamp(16px, 3vw, 24px) 80px;">
+    <article class="premium-article" style="max-width: 800px; margin: 0 auto; background: #ffffff; border: 1px solid #e7e3db; border-radius: 16px; padding: clamp(32px, 6vw, 64px); box-shadow: 0 12px 32px rgba(0,0,0,0.03); overflow: hidden;">
       
       <a href={r('/blog')} style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; color: #78716c; margin-bottom: 32px; display: inline-block; transition: color 0.15s;">
         &larr; Volver al Blog
@@ -79,8 +80,15 @@ const schema = {
           {post.data.title}
         </h1>
 
-        <div style="font-family: monospace; font-size: 11px; color: #78716c; text-transform: uppercase; letter-spacing: 0.05em;">
-          {post.data.date} · {post.data.author || 'TAEC'}
+        <div style="font-family: monospace; font-size: 13px; color: #64748b; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <span>Por <strong>{post.data.author || 'TAEC'}</strong></span>
+          <span>&bull;</span>
+          <span>{post.data.date}</span>
+          <span>&bull;</span>
+          <span style="color: #3b82f6; font-weight: 700; background: #eff6ff; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+            {Math.max(1, Math.ceil((post.body ? post.body.trim().split(/\s+/).length : 500) / 200))} min de lectura
+          </span>
         </div>
       </header>
       
@@ -111,7 +119,7 @@ const schema = {
       )}
 
       <!-- Contenido Markdown -->
-      <div class="prose-content" style="font-family: var(--font-body, sans-serif); font-size: 1.05rem; line-height: 1.75; color: #1c1917;">
+      <div class="prose-content" style="font-family: var(--font-body, sans-serif); font-size: 1.1rem; line-height: 1.85; max-width: 65ch; margin: 0 auto; color: #334155;">
         <Content />
       </div>
 
@@ -172,29 +180,21 @@ const schema = {
 
 <style is:global>
 /* Minimal prose styles for the markdown body */
-.prose-content h2 { font-family: var(--font-display, Georgia, serif); font-size: 1.8rem; margin-top: 2em; margin-bottom: 0.8em; color: #1c1917; }
-.prose-content h3 { font-size: 1.3rem; margin-top: 1.5em; margin-bottom: 0.6em; color: #1c1917; }
-.prose-content p { margin-bottom: 1.5em; overflow-wrap: break-word; }
-.prose-content a { color: #1d4ed8; text-decoration: underline; overflow-wrap: break-word; word-break: break-word; }
-.prose-content ul, .prose-content ol { margin-bottom: 1.5em; padding-left: 1.5em; }
-.prose-content li { margin-bottom: 0.5em; }
-.prose-content hr { border: none; border-top: 1px solid #e7e3db; margin: 3em 0; }
-.prose-content img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+.prose-content h2 { font-family: var(--font-display, Georgia, serif); font-size: 2rem; margin-top: 2.2em; margin-bottom: 0.8em; color: #0f172a; line-height: 1.2; letter-spacing: -0.01em; }
+.prose-content h3 { font-size: 1.4rem; font-weight: 700; margin-top: 1.8em; margin-bottom: 0.6em; color: #1e293b; }
+.prose-content p { margin-bottom: 1.6em; overflow-wrap: break-word; color: #475569; letter-spacing: 0.01em; }
+.prose-content a { color: #2563eb; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color 0.2s; }
+.prose-content a:hover { color: #1d4ed8; text-decoration-thickness: 2px; }
+.prose-content ul, .prose-content ol { margin-bottom: 1.6em; padding-left: 1.8em; color: #475569; }
+.prose-content li { margin-bottom: 0.6em; }
+.prose-content hr { border: none; border-top: 1px solid #e2e8f0; margin: 3em 0; }
+.prose-content img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); margin: 2em 0; border: 1px solid #e2e8f0; }
+.prose-content blockquote { border-left: 4px solid #3b82f6; background: #f8fafc; margin: 2em 0; padding: 1.5em 2em; font-style: italic; color: #334155; border-radius: 0 12px 12px 0; }
 .hover-tag:hover { background: #dcfce7 !important; color: #14532d !important; }
-.post-rel-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); border-color: #cbd5e1; }
-.post-nav-card {
-  display: flex; flex-direction: column; justify-content: center; padding: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-.post-nav-card:hover, .post-nav-card:focus-visible {
-  transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); border-color: #cbd5e1; outline: none;
-}
-.post-nav-container {
-  display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 64px; padding-top: 40px; border-top: 2px dashed #e7e3db;
-}
-@media(min-width: 640px) {
-  .post-nav-container { grid-template-columns: 1fr 1fr; }
-}
-.post-nav-card.right {
-  align-items: flex-end; text-align: right;
-}
+.post-rel-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+.post-nav-card { display: flex; flex-direction: column; justify-content: center; padding: 24px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.post-nav-card:hover, .post-nav-card:focus-visible { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); border-color: #cbd5e1; outline: none; }
+.post-nav-container { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 64px; padding-top: 40px; border-top: 2px dashed #e2e8f0; }
+@media(min-width: 640px) { .post-nav-container { grid-template-columns: 1fr 1fr; } }
+.post-nav-card.right { align-items: flex-end; text-align: right; }
 </style>

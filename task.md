@@ -73,7 +73,12 @@
 - [x] **Configurar Colecciones B2B:** Mapear en CMS las áreas únicas: Blog/LinkedIn, Archivo Newsletters, Comparativos VS, Recursos PDF, Partners, y Casos de Éxito.
 - [x] **Habilitar Flujo Editorial ("VoBo"):** Bloquear publicación directa en la página. Configurar ruta de "Borrador -> Revisión -> Aprobado por Curador".
 - [x] **Doble Checkbox de Compliance:** Crear componente global para Formularios (Privacidad Obligatoria + Opt-in Opcional de Marketing automatizado).
-- [ ] Limpiar los archivos de prueba físicos residuales en `/blog/`, aplicar el layout de lectura premium, e implementar interlinking SEO.
+- [x] **Cirugía Plástica y SEO Premium del Blog:** 
+  - [x] Implementar un *layout* CSS moderno (glassmorphism flex) y microanimaciones para `index.astro`.
+  - [x] Añadir inyección nativa de foto/cover predeterminada a nivel Astro para proteger viejos posts sin foto del CMS.
+  - [x] Diseñar layout de alta legibilidad (`65ch`, `line-height`) e implementar la Barra de Progreso de Lectura dinámica en `[slug].astro`.
+  - [x] Mejorar inyección OpenGraph en prop de `BaseLayout` para visualización rica en LinkedIn.
+  - [ ] **Ruleta Dinámica de Insights (Cartuchos Hero):** Refactorizar los 7 Cartuchos estáticos del Ecosistema de Recursos (Blog, Artículos, Glosario, Comparativos, Estándares, Radar, Quiz). Conectar el bloque visual del `HeroComercial` hacia una colección del CMS para generar una "Ruleta Aleatoria" e inyectar un **Trigger de modificación/alerta de cambio** en el Dashboard.
 
 **3. Portal de Distribuidores (B2B Intranet)**
 - [ ] Configurar Stack de Autenticación (Supabase, Firebase, o Clerk).
