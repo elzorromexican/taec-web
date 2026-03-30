@@ -63,5 +63,23 @@ La calculadora interactiva asume responsabilidades financieras basadas en Tabula
 - La calculadora asimilará la subida de precios inflacionarios en su próxima cotización matemática, dictando el nuevo umbral *"Desde $XX,XXX MXN"*.
 
 ---
+
+## 6. Motor de Promociones Geolocalizadas (Geo-Promos)
+**Dificultad:** Baja 🟡
+**Archivo a editar:** `src/data/promos.ts`
+
+El sistema de promociones publicadas (Ticker interactivo y *cards* estratégicos inyectadas por Tito Bits) detecta ahora el país de lectura del usuario de forma 100% Serverless en tiempo real.
+Para lanzar una nueva campaña comercial o esconder temporalmente una finalizada, basta con entrar a la carpeta de diccionarios `promos.ts` y configurar tu "Píldora Promocional" ajustando su bandera `active` a `true` y decidiendo en qué cajas territoriales jugará con la propiedad `countries`:
+
+*   `countries: ["MX"]` ➔ **(Sólo México).** Campañas fiscalizadas locales. (EJ. Buen Fin, Hot Sale, Expansión CDMX).
+*   `countries: ["CO"]` ➔ **(Sólo Colombia).** Campañas para el mercado andino directo.
+*   `countries: ["LATAM"]` ➔ **(Resto de Centro y Sudamérica).** Diseñado para barrer todo país hispanohablante sureño y licencias regionales (excluyendo a MX y a CO automáticamente porque operan de forma independiente). Cero fugas hacia Europa o Estados Unidos.
+*   `countries: ["GLOBAL"]` ➔ **(El rey sin fronteras).**  Campaña expuesta a todo el globo terráqueo. Se usa idealmente en la venta de servicios propios de la casa (Desarrollo DDC, Asesoría) que no tienen restricciones de reventa limitadas como pasa con el software de autoría. 
+
+**Pro-Tip Comercial:** Puedes orquestar reglas elegantes y combinadas. Si tu *Flash Sale* de licencias abarca sólo México y Colombia pero no quieres subsidiar a Argentina o Chile, pones:
+`countries: ["MX", "CO"]`. 
+Netlify y Astro gestionarán los candados VPN automáticamente a prueba de balas sin programar lógica adicional.
+
+---
 _Prohibición Estricta:_
 _Ningún archivo terminado en `.astro` o `.tsx` de las carpetas `/components/` o `/layouts/` debe ser manipulado por el equipo comercial bajo ninguna circunstancia. Cualquier cambio estético o estructural debe realizarse mediante Ingeniería._
