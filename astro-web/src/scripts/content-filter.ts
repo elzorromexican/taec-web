@@ -3,7 +3,7 @@
  * Encapsulado para evitar colisiones en el scope global y facilitar su reutilización.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('astro:page-load', () => {
   const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
   const filterBtns = document.querySelectorAll('.filter-btn');
   const items = document.querySelectorAll('.grid-item');

@@ -190,8 +190,8 @@ const quizDataStr = JSON.stringify(quizData);
 .quiz-opt.opt-wrong { background: #fef2f2; border-color: #ef4444; color: #991b1b; opacity: 0.8; }
 </style>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+<script>
+  document.addEventListener('astro:page-load', () => {
     const appEl = document.getElementById('quiz-app');
     if(!appEl) return;
     

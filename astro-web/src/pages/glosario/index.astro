@@ -119,8 +119,8 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
 .glosario-item article:hover span { color: #1e3a8a; }
 </style>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+<script>
+  document.addEventListener('astro:page-load', () => {
     const searchInput = document.getElementById('search-input');
     const letterBtns = document.querySelectorAll('.letter-btn');
     const items = document.querySelectorAll('.glosario-item');

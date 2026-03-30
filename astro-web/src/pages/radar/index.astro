@@ -92,8 +92,8 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
 .grid-item article:hover span:last-child { color: #1e3a8a; text-decoration: underline; }
 </style>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+<script>
+  document.addEventListener('astro:page-load', () => {
     const searchInput = document.getElementById('search-input');
     const items = document.querySelectorAll('.grid-item');
     const noResults = document.getElementById('no-results');
