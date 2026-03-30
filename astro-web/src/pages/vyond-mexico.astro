@@ -6,11 +6,12 @@ import GridBeneficios from '../components/ui/GridBeneficios.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
 import VyondNav from '../components/ui/VyondNav.astro';
+import { r, base } from '../utils/paths';
 
 const appsVyond = [
-  { icon: "⚡", title: "Vyond Go", description: "Tu creador de video instantáneo con IA. Escribe un prompt como «Curso de onboarding», presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo." },
-  { icon: "🎬", title: "Vyond Studio", description: "El editor de video completo con drag-and-drop. Genera fondos e imágenes con IA, sincroniza audio en 70+ idiomas, elimina fondos de fotos, personaliza movimientos de personajes filmando un video como prompt, y crea tu propio avatar desde una foto." },
-  { icon: "📱", title: "Vyond Mobile", description: "Creación de video en cualquier lugar. Descarga la app gratuita (Android / iOS), usa Smart Capture para que la IA combine props, fondos y personajes de la librería con tus fotos. Los cambios se sincronizan en todos tus dispositivos al instante." }
+  { icon: "⚡", title: "Vyond Go", description: "Tu creador de video instantáneo con IA. Escribe un prompt como «Curso de onboarding», presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo.", url: r('/vyond-go') },
+  { icon: "🎬", title: "Vyond Studio", description: "El editor de video completo con drag-and-drop. Genera fondos e imágenes con IA, sincroniza audio en 70+ idiomas, elimina fondos de fotos, personaliza movimientos de personajes filmando un video como prompt, y crea tu propio avatar desde una foto.", url: r('/vyond-studio') },
+  { icon: "📱", title: "Vyond Mobile", description: "Creación de video en cualquier lugar. Descarga la app gratuita (Android / iOS), usa Smart Capture para que la IA combine props, fondos y personajes de la librería con tus fotos. Los cambios se sincronizan en todos tus dispositivos al instante.", url: r('/vyond-mobile') }
 ];
 
 const faqsVyond = [
@@ -23,7 +24,7 @@ const faqsVyond = [
   { question: "¿Hay límite en la generación de imágenes con IA?", answerHtml: "Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México." }
 ];
 
-import { r, base } from '../utils/paths';
+---
 ---
 
 <BaseLayout 

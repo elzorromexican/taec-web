@@ -51,7 +51,8 @@ const faqsArt = [
     .que-es-text p { color: var(--dark); line-height: 1.8; margin-bottom: 16px; }
     .que-es-text p:last-child { margin-bottom: 0; }
     .apps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .app-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; }
+    .app-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; text-decoration: none; color: inherit; transition: all 0.2s ease; }
+    a.app-card:hover { border-color: var(--blue); background: #F8FAFC; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
     .app-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .app-icon.orange { background: #FEF3E2; }
     .app-icon.blue { background: #EFF6FF; }
@@ -227,27 +228,27 @@ const faqsArt = [
         <p>Desde cursos con ramificaciones en Storyline hasta módulos responsive en Rise, pasando por revisiones colaborativas en Review 360 — todo en una plataforma integrada, en español.</p>
       </div>
       <div class="apps-grid">
-        <div class="app-card">
+        <a href={r('/articulate-storyline360')} class="app-card">
           <div class="app-icon orange">📐</div>
           <div>
             <h4>Storyline 360</h4>
             <p>Cursos interactivos con ramificaciones, personajes y simulaciones. El estándar de la industria.</p>
           </div>
-        </div>
-        <div class="app-card">
+        </a>
+        <a href={r('/articulate-rise360')} class="app-card">
           <div class="app-icon blue">📱</div>
           <div>
             <h4>Rise 360</h4>
             <p>Cursos responsive 100% en browser. Rápido de crear, perfecto en móvil.</p>
           </div>
-        </div>
-        <div class="app-card">
+        </a>
+        <a href={r('/articulate-review360')} class="app-card">
           <div class="app-icon teal">✅</div>
           <div>
             <h4>Review 360</h4>
             <p>Revisión colaborativa con clientes y stakeholders. Comentarios en contexto.</p>
           </div>
-        </div>
+        </a>
         <div class="app-card">
           <div class="app-icon coral">🎨</div>
           <div>
@@ -262,13 +263,13 @@ const faqsArt = [
             <p>Grabación de pantalla y video para screencasts y demos de software.</p>
           </div>
         </div>
-        <div class="app-card">
+        <a href={r('/articulate-reach')} class="app-card">
           <div class="app-icon blue">📊</div>
           <div>
             <h4>Reach 360</h4>
             <p>LMS sencillo incluido para distribuir y trackear cursos sin plataforma adicional.</p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>

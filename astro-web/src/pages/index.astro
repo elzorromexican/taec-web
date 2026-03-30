@@ -36,7 +36,35 @@ const dbPosts = [...articulosColl, ...blogColl].map(p => {
 });
 
 import fallbackTicker from '../../public/data/ticker.json';
-const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15) : fallbackTicker;
+import { promos } from '../data/promos';
+
+const countryCode = Astro.request.headers.get('x-nf-country') || 'MX';
+const activePromo = promos.find(p => p.active && (p.countries.includes(countryCode) || p.countries.includes('GLOBAL')));
+
+const basePool: any[] = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15) : fallbackTicker;
+let tickerPool: any[] = [];
+
+if (activePromo) {
+  const promoItem = {
+    titulo: activePromo.title,
+    categoria: "OFERTA",
+    url: activePromo.link || '#',
+    isPromo: true
+  };
+  
+  // Patrón estricto de saturación: 2 azules (normales), 1 naranja (promo), repitiendo...
+  let normalCount = 0;
+  for (let i = 0; i < basePool.length; i++) {
+    tickerPool.push(basePool[i]);
+    normalCount++;
+    if (normalCount === 2) {
+      tickerPool.push(promoItem);
+      normalCount = 0;
+    }
+  }
+} else {
+  tickerPool = basePool;
+}
 ---
 
 <BaseLayout 
@@ -99,7 +127,12 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
           <div class="ticker-track" id="tickerTrack" style="opacity:0; transition: opacity 0.3s; flex-wrap:nowrap;">
             {tickerPool.map((i, idx) => (
               <div class="ticker-dom-item" style="display:none; align-items:center;">
-                <a href={i.url ? r(i.url) : r('/blog')} class="ticker-item" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space: nowrap;"><span class="cat">{i.categoria}</span><span>{String(i.titulo)}</span></a>
+                <a href={i.url ? r(i.url) : r('/blog')} class="ticker-item" style={`text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space: nowrap; ${i.isPromo ? 'font-weight:700;' : ''}`}>
+                  <span class="cat" style={i.isPromo ? "background:#EA580C; color:#FFFFFF; border:none; padding:4px 8px; border-radius:4px; font-weight:800; box-shadow:0 2px 4px rgba(234,88,12,0.3);" : ""}>
+                    {i.isPromo ? `🔥 ${i.categoria}` : i.categoria}
+                  </span>
+                  <span style={i.isPromo ? "color:#EA580C;" : "color:var(--text-color);"}>{String(i.titulo)}</span>
+                </a>
                 <span class="ticker-item-dot" style="color:var(--border); font-weight:bold; margin: 0 24px;">·</span>
               </div>
             ))}
@@ -353,11 +386,7 @@ const tickerPool = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).
       const items = Array.from(track.querySelectorAll('.ticker-dom-item'));
       if (items.length === 0) return;
 
-      // Shuffle
-      for (let i = items.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [items[i], items[j]] = [items[j], items[i]];
-      }
+      // Eliminado el Frontend Shuffle: Respetar el patrón 2 azules -> 1 naranja generado en el Server.
 
       track.innerHTML = '';
       items.forEach(item => {

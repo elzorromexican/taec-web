@@ -6,13 +6,28 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   try {
     const rawBody = await request.text();
-    console.log("Raw Body Length:", rawBody.length, "Content:", rawBody);
-    if (!rawBody) {
-      return new Response(JSON.stringify({ error: 'El cuerpo de la petición llego vacío.' }), { status: 400 });
+    // Validación de Capacidad P0: Limitar tamaño de payload para evitar exhaustación D0S
+    if (!rawBody || rawBody.length > 100000) { // Max ~100KB transcript
+      return new Response(JSON.stringify({ error: 'Payload body vacío o excede el límite permitido.' }), { status: 413 });
     }
     const { userData, messages, metadata } = JSON.parse(rawBody);
 
-    const resendKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+    if (!Array.isArray(messages) || messages.length > 50) {
+      return new Response(JSON.stringify({ error: 'Formato de historial inválido o excesivo.' }), { status: 400 });
+    }
+
+    // Helper anti-XSS
+    const escapeHtml = (str: string) => {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    };
+
+    const resendKey = import.meta.env.RESEND_API_KEY;
 
     if (!resendKey) {
       return new Response(JSON.stringify({ error: 'No Resend API Key found' }), { status: 500 });
@@ -36,22 +51,22 @@ export const POST: APIRoute = async ({ request }) => {
         bgColor = '#fee2e2';
         borderColor = '#ef4444';
         nameColor = '#b91c1c';
-        senderName = '⚠️ Sistema Error / Intercepción';
+        senderName = 'Sistema / Error';
       }
       
       return '<div style="margin-bottom: 15px; padding: 12px; border-radius: 8px; background-color: ' + bgColor + '; border: 1px solid ' + borderColor + ';">' +
-               '<strong style="color: ' + nameColor + ';">' + senderName + ':</strong><br/>' +
-               '<span style="font-size: 14px; line-height: 1.5;">' + m.text + '</span>' +
+               '<strong style="color: ' + nameColor + ';">' + escapeHtml(senderName) + ':</strong><br/>' +
+               '<span style="font-size: 14px; line-height: 1.5;">' + escapeHtml(m.text) + '</span>' +
              '</div>';
     }).join('');
 
     const emailHtml = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto;">' +
-      '<h2 style="color: #004775;">Nuevo Lead del Agente IA (Tito Bits) 🤖</h2>' +
-      '<p><strong>Nombre:</strong> ' + userData.name + '</p>' +
-      '<p><strong>Teléfono:</strong> ' + (userData.phone || 'No provisto') + '</p>' +
-      '<p><strong>Email Institucional:</strong> ' + userData.email + '</p>' +
-      '<p><strong>Fecha/Hora:</strong> ' + (metadata?.timestamp || new Date().toISOString()) + '</p>' +
-      '<p><strong>Página:</strong> ' + (metadata?.url || 'Desconocida') + '</p>' +
+      '<h2 style="color: #004775;">Nuevo Lead del Agente IA (Tito Bits)</h2>' +
+      '<p><strong>Nombre:</strong> ' + escapeHtml(userData.name) + '</p>' +
+      '<p><strong>Teléfono:</strong> ' + escapeHtml(userData.phone || 'No provisto') + '</p>' +
+      '<p><strong>Email Institucional:</strong> ' + escapeHtml(userData.email) + '</p>' +
+      '<p><strong>Fecha/Hora:</strong> ' + escapeHtml(metadata?.timestamp || new Date().toISOString()) + '</p>' +
+      '<p><strong>Página:</strong> ' + escapeHtml(metadata?.url || 'Desconocida') + '</p>' +
       '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
       '<h3 style="color: #004775;">Transcripción de Conversación:</h3>' +
       '<div style="background-color: #f9fafb; padding: 20px; border-radius: 8px;">' +
@@ -59,21 +74,22 @@ export const POST: APIRoute = async ({ request }) => {
       '</div></div>';
 
     const { data, error } = await resend.emails.send({
-      // Sandbox de Resend: Solo permite enviar al correo del dueño de la cuenta registrada.
+      // NOTA (Hallazgo de Gemini): 'onboarding@resend.dev' es un entorno Sandbox. 
+      // Antes de salir a PRD masivo, hay que verificar un dominio en Resend (ej. notificaciones@taec.com.mx)
       from: 'Tito Bits <onboarding@resend.dev>',
       to: ['smasmoudi@taec.com.mx'], 
-      subject: `Nuevo Lead IA: ${userData.name}`,
+      subject: `Nuevo Lead IA: ${escapeHtml(userData.name).substring(0, 50)}`,
       html: emailHtml,
     });
 
     if (error) {
       console.error("Resend API Denied the Request:", error);
-      return new Response(JSON.stringify({ error }), { status: 400 });
+      return new Response(JSON.stringify({ error: 'Fallo al despachar la notificación.' }), { status: 400 });
     }
 
     return new Response(JSON.stringify({ success: true, data }), { status: 200 });
   } catch (error: any) {
     console.error("Crash local generando o enviando email:", error);
-    return new Response(JSON.stringify({ error: error.message || 'Error Inesperado', stack: error.stack }), { status: 500 });
+    return new Response(JSON.stringify({ error: 'Error Interno del Servidor al procesar la transcripción.' }), { status: 500 });
   }
 };

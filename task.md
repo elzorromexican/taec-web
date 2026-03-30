@@ -2,6 +2,7 @@
 *Este documento unifica permanentemente todas las tareas y roadmaps (Fase 1, Fase 2, DDC, Ecommerce y Completadas) en una sola fuente de verdad.*
 
 ## 📌 Operaciones Recientes (Corto Plazo)
+- [x] **Auditoría y Blindaje de TitoBits (Red Team / P0 y P1):** Remoción completa de persistencia PII en Storage para GDPR, mitigación masiva de XSS y spam en el Handoff del correo (`escapeHtml` y Payload limits), solución al bug crónico de inyección doble hacia Gemini, filtrado estricto de roles en SSR, abort controller de 25s, migración de Geo a Netlify Edge Headers, y arreglo final del "Context Hopping" en SPA View Transitions.
 - [x] Concluir ajustes de Quality Assurance (QA) fotográfico o estilístico en dispositivos móviles para las colecciones secundarias.
 - [x] Preparación y revisión final previo al Embalaje / Deployment para entorno de Producción.
 - [x] Parche Urgente de Producción: Corrección en `paths.ts` forzando el *Trailing Slash* en Astro (`import.meta.env.BASE_URL`) para solventar la pérdida de Assets CSS (404) en GitHub Pages.

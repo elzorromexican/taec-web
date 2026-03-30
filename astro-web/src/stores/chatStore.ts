@@ -1,4 +1,4 @@
-import { persistentAtom } from '@nanostores/persistent';
+import { atom } from 'nanostores';
 
 interface UserData {
   name: string;
@@ -11,52 +11,29 @@ interface UserData {
 interface Message {
   role: 'user' | 'agent' | 'error';
   text: string;
+  promo?: any;
 }
 
-const isClient = typeof window !== 'undefined';
+// Variables UI e Historial en memoria de sesión (Desecho por refresco para proteger privacidad/GDPR)
+export const isOpenStore = atom<boolean>(false);
 
-export const isOpenStore = persistentAtom<boolean>('tito_isOpen', false, {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-});
+export const isExpandedStore = atom<boolean>(false);
 
-export const isExpandedStore = persistentAtom<boolean>('tito_isExpanded', false, {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-});
+export const hasStartedStore = atom<boolean>(false);
 
-export const hasStartedStore = persistentAtom<boolean>('tito_hasStarted', false, {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-});
-
-export const userDataStore = persistentAtom<UserData>('tito_userData', { 
+export const userDataStore = atom<UserData>({ 
   name: '', 
   email: '', 
   phone: '', 
   location: 'Ubicación Desconocida', 
   countryCode: '' 
-}, {
-  encode: JSON.stringify,
-  decode: JSON.parse,
 });
 
-export const messagesStore = persistentAtom<Message[]>('tito_messages', [], {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-});
+export const messagesStore = atom<Message[]>([]);
 
-export const hasFetchedGeoStore = persistentAtom<boolean>('tito_hasFetchedGeo', false, {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-});
+export const lastGreetedCategoryStore = atom<string>('');
 
-export const lastGreetedCategoryStore = persistentAtom<string>('tito_lastCategory', '', {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-});
+export const hasUnreadMessagesStore = atom<boolean>(false);
 
-export const hasUnreadMessagesStore = persistentAtom<boolean>('tito_hasUnread', false, {
-  encode: JSON.stringify,
-  decode: JSON.parse,
-});
+// Bandera única por sesión para evitar correos dobles tras múltiples aperturas
+export const transcriptSentStore = atom<boolean>(false);

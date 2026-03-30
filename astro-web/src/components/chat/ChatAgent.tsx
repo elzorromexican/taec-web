@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import rehypeSanitize from 'rehype-sanitize';
 
 import { useStore } from '@nanostores/react';
 import { chatCategoryRules } from '../../data/chatContextRules';
@@ -9,9 +10,9 @@ import {
   hasStartedStore, 
   userDataStore, 
   messagesStore,
-  hasFetchedGeoStore,
   lastGreetedCategoryStore,
-  hasUnreadMessagesStore
+  hasUnreadMessagesStore,
+  transcriptSentStore
 } from '../../stores/chatStore';
 
 export default function ChatAgent() {
@@ -23,7 +24,6 @@ export default function ChatAgent() {
   const hasStarted = useStore(hasStartedStore);
   const userData = useStore(userDataStore);
   const messages = useStore(messagesStore);
-  const hasFetchedGeo = useStore(hasFetchedGeoStore);
   const lastCategory = useStore(lastGreetedCategoryStore);
   const hasUnread = useStore(hasUnreadMessagesStore);
 
@@ -31,32 +31,45 @@ export default function ChatAgent() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [activePromo, setActivePromo] = useState<any>(null);
   
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLInputElement>(null);
   const inputNameRef = useRef<HTMLInputElement>(null);
 
-  // Auto-scroll
-  useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading]);
+  const prevIsOpen = useRef(isOpen);
 
-  // Capturar Geolocalización silenciosamente al cargar el chat
+  // Cargar Geopromos silenciosamente al inicio
   useEffect(() => {
-    if (!hasFetchedGeo) {
-      fetch('https://get.geojs.io/v1/ip/geo.json')
-        .then(res => res.json())
-        .then(data => {
-          userDataStore.set({
-            ...userDataStore.get(), 
-            location: `${data.city}, ${data.country}`,
-            countryCode: data.country_code
-          });
-          hasFetchedGeoStore.set(true);
-        })
-        .catch(() => console.warn('Geolocalización bloqueada por red o adblocker.'));
+    fetch(`/api/get-promo?path=${encodeURIComponent(window.location.pathname)}`)
+      .then(res => res.json())
+      .then(data => {
+         if (data.promo) setActivePromo(data.promo);
+      })
+      .catch(() => {});
+  }, []);
+
+  // Auto-scroll moderado y al abrir ventana
+  useEffect(() => {
+    const chatContainer = endRef.current?.parentElement;
+    if (chatContainer) {
+      const justOpened = !prevIsOpen.current && isOpen;
+      const isNearBottom = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight < 150;
+      if (isNearBottom || isLoading || justOpened) {
+         // Timeout de 150ms para asegurar que React ya pintó el DOM completo y sus estilos antes medir y desplazar
+         setTimeout(() => {
+           if (chatContainer) {
+             chatContainer.style.scrollBehavior = 'auto'; // deshabilitar smooth que a veces Chrome cancela
+             chatContainer.scrollTop = chatContainer.scrollHeight + 500;
+           }
+         }, 150);
+      }
     }
-  }, [hasFetchedGeo]);
+    prevIsOpen.current = isOpen;
+  }, [messages, isLoading, isOpen]);
+
+  // Geolocalización y dependencias a terceros (GeoJS) ELIMINADAS. 
+  // Ahora la Geo se maneja privada y silenciosamente en el Serverless Edge de Netlify vía `x-nf-country`.
 
   // Aseguramos que el correo se envíe SIEMPRE cuando se cierre la pestaña
   const stateRef = useRef({ messages, userData, isSendingEmail });
@@ -66,8 +79,9 @@ export default function ChatAgent() {
 
   useEffect(() => {
     const handleBeforeUnload = () => {
-      const { messages, userData, isSendingEmail } = stateRef.current;
-      if (userData.email && !isSendingEmail) {
+      // Enviar siempre que haya más de un mensaje (el saludo inicial de la IA + la primera interacción del usuario)
+      if (!isSendingEmail && !transcriptSentStore.get() && messages.length > 1) {
+        transcriptSentStore.set(true);
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const localTime = new Date().toLocaleString('es-MX', { timeZone });
         fetch('/api/send-transcript', {
@@ -105,7 +119,8 @@ export default function ChatAgent() {
   }, [isOpen, hasStarted]);
 
   const toggleChat = () => {
-    if (isOpen && hasStarted && !isSendingEmail && messages.length > 1) {
+    if (isOpen && hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
+      transcriptSentStore.set(true);
       sendSilentEmail();
     }
     isOpenStore.set(!isOpen);
@@ -116,7 +131,7 @@ export default function ChatAgent() {
 
   const startChat = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userData.name || !userData.email) return;
+    if (!userData.name) return;
 
     hasStartedStore.set(true);
     
@@ -137,51 +152,64 @@ export default function ChatAgent() {
     const initialGreeting = chatCategoryRules[typeSafeKey].initialGreeting.replace('{name}', userData.name);
 
     lastGreetedCategoryStore.set(currentCategory);
-    messagesStore.set([{ role: 'agent', text: initialGreeting }]);
+    messagesStore.set([{ role: 'agent', text: initialGreeting, promo: activePromo }]);
   };
 
-  // Context Hopping: Inyección proactiva de mensajes al cambiar de página navegando
+  // Context Hopping: Inyección proactiva de mensajes al SPA Navigation 
   useEffect(() => {
-    if (!hasStarted) return;
-    if (messages.length === 0) return;
+    const handleContextHop = () => {
+      if (!hasStartedStore.get()) return;
+      const currentMessages = messagesStore.get();
+      if (currentMessages.length === 0) return;
 
-    const path = window.location.pathname.toLowerCase();
-    let currentCategory = 'general';
+      const path = window.location.pathname.toLowerCase();
+      let currentCategory = 'general';
 
-    // Motor de salto de contextos usando la matriz global TS
-    for (const [key, rule] of Object.entries(chatCategoryRules)) {
-      if (key !== 'general' && rule.paths.some(p => path.includes(p))) {
-        currentCategory = key;
-        break;
+      for (const [key, rule] of Object.entries(chatCategoryRules)) {
+        if (key !== 'general' && rule.paths.some(p => path.includes(p))) {
+          currentCategory = key;
+          break;
+        }
       }
-    }
 
-    const typeSafeKey = currentCategory as keyof typeof chatCategoryRules;
-    const newGreeting = chatCategoryRules[typeSafeKey].contextHop;
+      const typeSafeKey = currentCategory as keyof typeof chatCategoryRules;
+      const newGreeting = chatCategoryRules[typeSafeKey].contextHop;
 
-    // Si cambió de sección
-    if (currentCategory !== 'general' && currentCategory !== lastGreetedCategoryStore.get()) {
-      const lastMsg = messages[messages.length - 1];
-      
-      // Si el último mensaje EXACTAMENTE fue otra alerta de contexto que nuestro humano ni siquiera peló,
-      // entonces lo machacamos y lo sustituimos por el nuevo paradero, para que no se apilen como spam.
-      if (lastMsg && lastMsg.role === 'agent' && lastMsg.text.includes('📌 *Contexto Actualizado*')) {
-        const withoutLast = messages.slice(0, -1);
-        messagesStore.set([...withoutLast, { role: 'agent', text: newGreeting }]);
-      } else {
-        messagesStore.set([...messagesStore.get(), { role: 'agent', text: newGreeting }]);
-      }
-      
-      lastGreetedCategoryStore.set(currentCategory);
+      if (currentCategory !== 'general' && currentCategory !== lastGreetedCategoryStore.get()) {
+        const lastMsg = currentMessages[currentMessages.length - 1];
         
-      if (!isOpen) {
-        hasUnreadMessagesStore.set(true);
+        let promoToInject = null;
+        if (activePromo) {
+           const promosShown = messagesStore.get().filter(m => m.promo).length;
+           const isProductMatch = activePromo.urlTrigger && path.includes(activePromo.urlTrigger);
+           if (isProductMatch || promosShown < 2) {
+               promoToInject = activePromo;
+           }
+        }
+
+        if (lastMsg && lastMsg.role === 'agent' && lastMsg.text.includes('📌 *Contexto Actualizado*')) {
+          const withoutLast = currentMessages.slice(0, -1);
+          // Si el mensaje anterior ya tenía una promo incrustada, la heredamos para que no desaparezca visualmente "debajo"
+          messagesStore.set([...withoutLast, { role: 'agent', text: newGreeting, promo: promoToInject || lastMsg.promo }]);
+        } else {
+          messagesStore.set([...currentMessages, { role: 'agent', text: newGreeting, promo: promoToInject }]);
+        }
+        
+        lastGreetedCategoryStore.set(currentCategory);
+          
+        if (!isOpenStore.get()) {
+          hasUnreadMessagesStore.set(true);
+        }
+      } else if (currentCategory === 'general' && lastGreetedCategoryStore.get() !== 'general') {
+         lastGreetedCategoryStore.set('general');
       }
-    } else if (currentCategory === 'general' && lastGreetedCategoryStore.get() !== 'general') {
-       // Reset base state silence to allow hopping back later if needed
-       lastGreetedCategoryStore.set('general');
-    }
-  }, []); // Run on mount (Page layout trigger in Astro MPAs)
+    };
+
+    // Ejecutar al montar y delegar a Astro Events para SPA View Transitions
+    handleContextHop();
+    document.addEventListener('astro:page-load', handleContextHop);
+    return () => document.removeEventListener('astro:page-load', handleContextHop);
+  }, []); // El event listener hace que funcione dinámicamente sin amarrar dependencias pesadas.
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -189,30 +217,46 @@ export default function ChatAgent() {
 
     const userMsg = input.trim();
     setInput('');
-    messagesStore.set([...messagesStore.get(), { role: 'user', text: userMsg }]);
+    
+    // Congelamos Snapshot para evitar Race Conditions y enviar el array limpio al backend (P0)
+    const snapshot = [...messagesStore.get(), { role: 'user' as const, text: userMsg }];
+    messagesStore.set(snapshot);
     setIsLoading(true);
+
+    // AI Pollution Prevention: Excluimos mensajes insertados por el sistema (UI_Context)
+    const ruleTexts = Object.values(chatCategoryRules).map(r => r.contextHop);
+    const safeLLMHistory = snapshot.filter((m: any) => m.role !== 'error' && !ruleTexts.includes(m.text) && !m.text.includes('📍 *Explorando la sección de'));
+    
+    // Abort controller timeout 25s
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
 
     try {
       const res = await fetch('/api/agente-ia', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({ 
           userMessage: userMsg, 
-          history: messagesStore.get(),
-          location: userData.location,
-          countryCode: userData.countryCode
+          history: safeLLMHistory,
+          // Eliminamos location y countryCode (Ahora el backend lo hace todo 100% seguro)
         })
       });
       
+      clearTimeout(timeoutId);
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Ups! 🤖 Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.' }]);
+        messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Ups! Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.' }]);
       } else {
         messagesStore.set([...messagesStore.get(), { role: 'agent', text: data.reply }]);
       }
-    } catch (error) {
-      messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Vaya! 📡 Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' }]);
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        messagesStore.set([...messagesStore.get(), { role: 'error', text: 'Al parecer está tomando demasiado tiempo. Intenta enviarlo de nuevo o escribe a información' }]);
+      } else {
+        messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Vaya! Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' }]);
+      }
     } finally {
       setIsLoading(false);
       if (window.innerWidth > 768) {
@@ -415,24 +459,14 @@ export default function ChatAgent() {
             {!hasStarted ? (
               <div style={{marginTop: '20px'}}>
                 <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                  <h4 style={{margin: '0 0 8px', color: '#004775', fontSize: '18px'}}>¡Bienvenido!</h4>
-                  <p style={{margin: 0, fontSize: '14px', color: '#6B7280'}}>Para brindarte un mejor servicio, por favor indícanos quién eres.</p>
+                  <h4 style={{margin: '0 0 8px', color: '#004775', fontSize: '18px'}}>¡Hola!</h4>
+                  <p style={{margin: 0, fontSize: '14px', color: '#6B7280'}}>Yo soy Tito Bits. ¿Con quién tengo el gusto?</p>
                 </div>
                 <form onSubmit={startChat} style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                   <input 
                     ref={inputNameRef}
-                    required type="text" placeholder="Nombre completo"
+                    required type="text" placeholder="Tu nombre o empresa"
                     value={userData.name} onChange={e => userDataStore.set({...userData, name: e.target.value})}
-                    style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
-                  />
-                  <input 
-                    required type="email" placeholder="Correo corporativo"
-                    value={userData.email} onChange={e => userDataStore.set({...userData, email: e.target.value})}
-                    style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
-                  />
-                  <input 
-                    required type="tel" placeholder="Teléfono / WhatsApp" minLength={10} title="El teléfono debe tener un mínimo de 10 dígitos"
-                    value={userData.phone} onChange={e => userDataStore.set({...userData, phone: e.target.value})}
                     style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
                   />
                   <button type="submit" style={{
@@ -459,14 +493,35 @@ export default function ChatAgent() {
                     }}>
                       {(m.role === 'agent' || m.role === 'error') ? (
                         <div className="react-markdown-container">
-                          <ReactMarkdown components={{
-                            p: ({node, ...props}) => <p style={markdownStyles.p} {...props} />,
-                            ul: ({node, ...props}) => <ul style={markdownStyles.ul} {...props} />,
-                            li: ({node, ...props}) => <li style={markdownStyles.li} {...props} />,
-                            strong: ({node, ...props}) => <strong style={m.role === 'error' ? {color: '#B91C1C'} : markdownStyles.strong} {...props} />
-                          }}>
+                          <ReactMarkdown 
+                            rehypePlugins={[rehypeSanitize]}
+                            components={{
+                              p: ({node, ...props}) => <p style={markdownStyles.p} {...props} />,
+                              ul: ({node, ...props}) => <ul style={markdownStyles.ul} {...props} />,
+                              li: ({node, ...props}) => <li style={markdownStyles.li} {...props} />,
+                              strong: ({node, ...props}) => <strong style={m.role === 'error' ? {color: '#B91C1C'} : markdownStyles.strong} {...props} />,
+                              a: ({node, ...props}) => <a style={{color: m.role === 'user' ? '#fff' : '#3179C2', textDecoration: 'underline', fontWeight: 'bold'}} target="_blank" rel="noopener noreferrer" {...props} />
+                            }}
+                          >
                             {m.text}
                           </ReactMarkdown>
+                          {m.promo && (
+                            <div style={{
+                              marginTop: '12px', padding: '14px', background: '#FFF7ED', border: '1px solid #F97316',
+                              borderRadius: '8px', borderLeft: '4px solid #F97316'
+                            }}>
+                              <div style={{ fontSize: '10px', fontWeight: '900', color: '#EA580C', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>{m.promo.badgeText}</div>
+                              <h4 style={{ margin: '0 0 6px 0', color: '#9A3412', fontSize: '14px', fontWeight: '800' }}>{m.promo.title}</h4>
+                              <p style={{ margin: '0 0 12px 0', fontSize: '13px', color: '#C2410C', lineHeight: '1.4' }}>{m.promo.description}</p>
+                              {m.promo.link && (
+                                <a href={m.promo.link} target="_blank" rel="noopener noreferrer" style={{
+                                  display: 'inline-block', background: '#F97316', color: 'white', fontWeight: 'bold',
+                                  fontSize: '12px', padding: '6px 14px', borderRadius: '6px', textDecoration: 'none',
+                                  boxShadow: '0 2px 4px rgba(249,115,22,0.2)'
+                                 }}>Ver oferta →</a>
+                              )}
+                            </div>
+                          )}
                         </div>
                       ) : (
                         m.text
@@ -476,14 +531,12 @@ export default function ChatAgent() {
                 ))}
 
                 {isLoading && (
-                  <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                    <div style={{
-                      padding: '12px 16px', background: '#fff', border: '1px solid #E5E7EB',
-                      borderRadius: '12px', borderBottomLeftRadius: '4px', fontSize: '12px', color: '#6B7280'
-                    }}>Pensando...</div>
+                  <div style={{ padding: '8px', alignSelf: 'flex-start', fontSize: '13px', color: '#64748B' }}>
+                    TitoBits está escribiendo...
                   </div>
                 )}
-                <div ref={endRef} />
+                {/* Spacer físico irrompible ampliado a 60px para forzar el vacío inferior */}
+                <div ref={endRef} style={{ height: '60px', width: '100%', flexShrink: 0 }} />
               </>
             )}
           </div>
@@ -496,10 +549,11 @@ export default function ChatAgent() {
               }}>
                 <input 
                   ref={inputChatRef}
-                  type="text" 
+                  type="text"
+                  maxLength={1000} 
                   value={input}
                   onChange={e => setInput(e.target.value)}
-                  placeholder="Escribe tu mensaje..." 
+                  placeholder="Escribe tu mensaje... (máx 1000 car.)" 
                   disabled={isLoading}
                   style={{
                     flex: 1, padding: '10px 16px', borderRadius: '24px',

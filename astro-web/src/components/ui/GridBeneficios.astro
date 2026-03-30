@@ -4,6 +4,7 @@ export interface ContenidoCard {
   icon: string;
   title: string;
   description: string;
+  url?: string;
 }
 
 export interface Props {
@@ -32,11 +33,19 @@ const {
     
     <div class={`cards-grid cols-${columns}`}>
       {cards.map((card) => (
-        <div class="card-item">
-          <div class="card-icon">{card.icon}</div>
-          <h3 class="card-title">{card.title}</h3>
-          <p class="card-desc">{card.description}</p>
-        </div>
+        card.url ? (
+          <a href={card.url} class="card-item card-link">
+            <div class="card-icon">{card.icon}</div>
+            <h3 class="card-title">{card.title}</h3>
+            <p class="card-desc">{card.description}</p>
+          </a>
+        ) : (
+          <div class="card-item">
+            <div class="card-icon">{card.icon}</div>
+            <h3 class="card-title">{card.title}</h3>
+            <p class="card-desc">{card.description}</p>
+          </div>
+        )
       ))}
     </div>
   </div>
@@ -71,10 +80,16 @@ const {
 
 .card-item {
   padding: 28px; border: 1.5px solid var(--border-color, #E2E8F0); 
-  border-radius: 14px; transition: border-color .2s; background: white;
+  border-radius: 14px; transition: all .2s ease; background: white;
 }
 .card-item:hover {
   border-color: var(--grid-accent, #3b82f6);
+}
+.card-link {
+  text-decoration: none; color: inherit; display: block;
+}
+.card-link:hover {
+  transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06);
 }
 
 .card-icon {
