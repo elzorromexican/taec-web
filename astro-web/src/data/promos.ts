@@ -1,3 +1,5 @@
+export const latamCountries = ['AR', 'BO', 'BR', 'CL', 'CR', 'CU', 'DO', 'EC', 'SV', 'GT', 'HN', 'NI', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE'];
+
 export interface PromoConfig {
   id: string;
   title: string;
@@ -5,7 +7,7 @@ export interface PromoConfig {
   badgeText: string;
   link?: string;
   urlTrigger?: string; // e.g. 'vyond' or 'moodle' (if the path contains this, the promo gets prioritized)
-  countries: string[]; // ['MX', 'CO', 'CL', 'GLOBAL']
+  countries: string[]; // ['MX', 'CO', 'LATAM', 'GLOBAL']
   active: boolean;
 }
 
@@ -27,7 +29,17 @@ export const promos: PromoConfig[] = [
     badgeText: "⭐ PROMO LOCAL",
     link: "/articulate-360-mexico",
     urlTrigger: "articulate",
-    countries: ["CO", "CL", "GLOBAL"], // Ejemplo para Latam global
+    countries: ["LATAM", "CO"], // Ejemplo para Latam regional y Colombia
     active: true
+  },
+  {
+    id: "promo-ddc-mundial",
+    title: "Impulsa tu capacitación corporativa",
+    description: "Nuestra fábrica de desarrollo de contenidos a medida atiende proyectos en cualquier idioma. ¡Delega la producción!",
+    badgeText: "🚀 FÁBRICA DDC",
+    link: "/desarrollo-de-contenidos",
+    urlTrigger: "ddc",
+    countries: ["GLOBAL"], // Esta promo saldrá en Europa, Asia, USA, etc.
+    active: false // Apagada por defecto hasta que inicies la campaña
   }
 ];
