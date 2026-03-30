@@ -90,8 +90,7 @@
 **5. Plataforma E-Commerce Completa**
 - [ ] Definir Stack E-commerce y modelar licenciamiento/variantes en catálogos.
 - [ ] Integrar Pasarela de Pagos (Stripe / MercadoPago) nativa para MXN/USD.
-- [ ] Construir Carrito de Compras, Checkout y flujo estricto de recolección de CFDI.
-- [ ] Parametrizar automatización de correos transaccionales post-compra.
+- [ ] Construir Carrito de Compras, Checkout y - [x] Testear sistema de geo-detección *on-the-fly* (Colombia vs General).metrizar automatización de correos transaccionales post-compra.
 - [ ] Crear panel rudimentario para la gestión administrativa de Órdenes (OMS).
 
 **6. Arquitectura Multi-Región (CO / CL)**

@@ -18,6 +18,8 @@ const founded = new Date(2007, 9, 11);
 const now = new Date();
 const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
 
+export const prerender = false; // <-- CRITICO: Forza SSR para interceptar Headers de Netlify por visitante
+
 import { r, base } from '../utils/paths';
 import AnimatedCounter from '../components/ui/AnimatedCounter.astro';
 import { getCollection } from 'astro:content';
