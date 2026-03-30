@@ -3,9 +3,12 @@ import { promos } from '../../data/promos';
 
 export const prerender = false; // <-- CRITICO: Forza SSR para procesar país dinámico en el endpoint
 
-export const GET: APIRoute = async ({ request, url }) => {
-  // RED TEAM: Geo se resuelve 100% Server Side mediante los headers de Netlify/Vercel
-  const countryCode = request.headers.get('x-nf-country') || 'MX'; // Fallback a MX para dev
+export const GET: APIRoute = async ({ request, url, locals }) => {
+  // RED TEAM: Extracción Robusta del País Evaluando Headers y Contextos Edge.
+  // @ts-ignore
+  const netlifyGeo = locals.netlify?.context?.geo?.country?.code;
+  const headerGeo = request.headers.get('x-country') || request.headers.get('x-nf-country');
+  const countryCode = netlifyGeo || headerGeo || 'MX';
   const path = url.searchParams.get('path') || '';
 
   // Filtramos si la promo está activa y si el país hace match con nuestro catálogo

@@ -40,7 +40,11 @@ const dbPosts = [...articulosColl, ...blogColl].map(p => {
 import fallbackTicker from '../../public/data/ticker.json';
 import { promos } from '../data/promos';
 
-const countryCode = Astro.request.headers.get('x-nf-country') || 'MX';
+// Lectura exhaustiva de País: Priorizando Contexto Nativo de Netlify Edge > Cabecera Netlify > Fallback
+const netlifyGeo = Astro.locals.netlify?.context?.geo?.country?.code;
+const headerGeo = Astro.request.headers.get('x-country') || Astro.request.headers.get('x-nf-country');
+const countryCode = netlifyGeo || headerGeo || 'MX';
+
 const activePromo = promos.find(p => p.active && (p.countries.includes(countryCode) || p.countries.includes('GLOBAL')));
 
 const basePool: any[] = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15) : fallbackTicker;
