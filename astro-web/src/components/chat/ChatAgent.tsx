@@ -402,10 +402,11 @@ export default function ChatAgent() {
       {/* Ventana */}
       {isOpen && (
         <div style={{
-          position: 'fixed', bottom: '110px', right: '30px',
-          width: isExpanded ? '500px' : '380px', 
-          height: isExpanded ? '700px' : '560px',
-          maxHeight: '85vh', maxWidth: '90vw',
+          position: 'fixed', bottom: '110px', 
+          right: 'clamp(10px, 5vw, 30px)',
+          width: isExpanded ? 'min(95vw, 500px)' : 'min(90vw, 380px)', 
+          height: isExpanded ? '80vh' : '65vh',
+          maxHeight: isExpanded ? '700px' : '560px',
           background: '#fff', borderRadius: '16px',
           boxShadow: '0 12px 40px rgba(0,0,0,0.2)',
           display: 'flex', flexDirection: 'column', zIndex: 9999,
@@ -415,8 +416,9 @@ export default function ChatAgent() {
         }}>
           {/* Header */}
           <div style={{
-            background: '#004775', padding: '16px', color: 'white',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+            background: '#004775', padding: '12px 16px', color: 'white',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            flexWrap: 'wrap', gap: '8px'
           }}>
             <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
               <div style={{
@@ -440,7 +442,7 @@ export default function ChatAgent() {
               </div>
             </div>
             
-            <div style={{display: 'flex', gap: '8px'}}>
+            <div style={{display: 'flex', gap: '6px', alignItems: 'center'}}>
               <button 
                 onClick={() => isExpandedStore.set(!isExpanded)} 
                 style={{
@@ -476,9 +478,21 @@ export default function ChatAgent() {
                     transition: 'background 0.3s'
                   }}
                 >
-                  {isCopied ? 'Texto del chat guardado en el portapapeles ✅' : 'Copiar Chat 📋'}
+                  {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
                 </button>
               )}
+              
+              <button 
+                onClick={toggleChat} 
+                title="Cerrar chat"
+                style={{
+                  background: 'transparent', border: 'none', color: '#fff', 
+                  fontSize: '20px', padding: '0 4px', cursor: 'pointer',
+                  marginLeft: '4px'
+                }}
+              >
+                ✖
+              </button>
             </div>
           </div>
 
