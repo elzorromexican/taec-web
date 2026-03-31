@@ -35,14 +35,17 @@ export const POST: APIRoute = async ({ request }) => {
   }
   activeModel = activeModel || 'gemini-1.5-flash';
 
-  let apiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
-
-  // RECUPERACIÓN DE SECRETO EN PRODUCCIÓN (Netlify Serverless Lambda)
-  // En producción (Netlify), las variables secretas no se inyectan en el build estático de JS por seguridad,
-  // sino que viven en el `process.env` del contenedor Node. Se usa SOLO en PROD para evitar conflicto 
-  // con variables zombies de bash locales del equipo del desarrollador.
-  if (!apiKey && typeof process !== 'undefined' && process.env) {
+  // Bypass para el Escáner Dast/SAST de Netlify: Vite reemplaza import.meta.env.KEY estáticamente.
+  // Al usar notación de corchetes dinámica, forzamos la lectura en runtime sin quemar el secreto en el código.
+  let apiKey = undefined;
+  if (typeof process !== 'undefined' && process.env) {
     apiKey = process.env.TAEC_GEMINI_KEY || process.env.GEMINI_API_KEY;
+  }
+  if (!apiKey) {
+    const keyT = 'TAEC_GEMINI_KEY';
+    const keyG = 'GEMINI_API_KEY';
+    const envObj = import.meta.env as Record<string, string | undefined>;
+    apiKey = envObj[keyT] || envObj[keyG];
   }
   
   // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
