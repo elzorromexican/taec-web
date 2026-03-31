@@ -157,8 +157,11 @@ REGLAS DE PROMOCIÓN GEOLOCALIZADA:
       lastItem.parts[0].text += "\n" + userMessage;
     }
 
+    // Selección segura del modelo (Fallback estable para Producción Netlify)
+    const activeModel = import.meta.env.TAEC_GEMINI_MODEL || import.meta.env.GEMINI_MODEL || 'gemini-1.5-flash';
+
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: activeModel,
       contents: geminiHistory,
       config: {
         systemInstruction: systemPrompt
@@ -173,11 +176,11 @@ REGLAS DE PROMOCIÓN GEOLOCALIZADA:
     );
   } catch (error: any) {
     console.error("Error en Gemini API SSR Endpoint:", error.message || error);
-    // 4. Se eliminó explícitamente la fuga del "debugKey" y de Stack traces. 
-    // Solo se manda al frontend el log estandar genérico 500.
+    // Temporal: Exposción de debug en payload para Netlify
     return new Response(
       JSON.stringify({ 
-        error: 'Hubo un error interno contactando al procesador central (500).'
+        error: 'Hubo un error interno contactando al procesador central (500).',
+        debug_netlify: error.message || String(error)
       }),
       { status: 500 }
     );

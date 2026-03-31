@@ -247,7 +247,11 @@ export default function ChatAgent() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Ups! Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.' }]);
+        let errorTxt = '¡Ups! Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.';
+        if (data.debug_netlify) {
+           errorTxt += `\n\n*(Debug Netlify: ${data.debug_netlify})*`;
+        }
+        messagesStore.set([...messagesStore.get(), { role: 'error', text: errorTxt }]);
       } else {
         messagesStore.set([...messagesStore.get(), { role: 'agent', text: data.reply }]);
       }
