@@ -35,6 +35,21 @@ export const POST: APIRoute = async ({ request }) => {
   }
   activeModel = activeModel || 'gemini-1.5-flash';
 
+  let apiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
+
+  // RECUPERACIÓN DE SECRETO EN PRODUCCIÓN (Netlify Serverless Lambda)
+  // En producción (Netlify), las variables secretas no se inyectan en el build estático de JS por seguridad,
+  // sino que viven en el `process.env` del contenedor Node. Se usa SOLO en PROD para evitar conflicto 
+  // con variables zombies de bash locales del equipo del desarrollador.
+  if (!apiKey && typeof process !== 'undefined' && process.env) {
+    apiKey = process.env.TAEC_GEMINI_KEY || process.env.GEMINI_API_KEY;
+  }
+  
+  // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
+  if (typeof apiKey === 'string') {
+    apiKey = apiKey.trim();
+  }
+
   try {
     const data = await request.json();
     const { history, userMessage } = data;
@@ -64,20 +79,7 @@ export const POST: APIRoute = async ({ request }) => {
         }));
     }
 
-    let apiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
-
-    // RECUPERACIÓN DE SECRETO EN PRODUCCIÓN (Netlify Serverless Lambda)
-    // En producción (Netlify), las variables secretas no se inyectan en el build estático de JS por seguridad,
-    // sino que viven en el `process.env` del contenedor Node. Se usa SOLO en PROD para evitar conflicto 
-    // con variables zombies de bash locales del equipo del desarrollador.
-    if (!apiKey && typeof process !== 'undefined' && process.env) {
-      apiKey = process.env.TAEC_GEMINI_KEY || process.env.GEMINI_API_KEY;
-    }
-    
-    // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
-    if (typeof apiKey === 'string') {
-      apiKey = apiKey.trim();
-    }
+    // (ApiKey initialization was moved up)
 
     if (!apiKey) {
       return new Response(JSON.stringify({ 
@@ -200,11 +202,12 @@ REGLAS DE PROMOCIÓN GEOLOCALIZADA:
     );
   } catch (error: any) {
     console.error("Error en Gemini API SSR Endpoint:", error.message || error);
+    const keyPreview = apiKey && typeof apiKey === 'string' ? apiKey.substring(0, 5) + '...' : 'NONE';
     // Temporal: Exposción de debug en payload para Netlify con inyección de estado de variables
     return new Response(
       JSON.stringify({ 
         error: 'Hubo un error interno contactando al procesador central (500).',
-        debug_netlify: `[Model=${activeModel}] ` + (error.message || String(error))
+        debug_netlify: `[Model=${activeModel}] [Key=${keyPreview}] ` + (error.message || String(error))
       }),
       { status: 500 }
     );
