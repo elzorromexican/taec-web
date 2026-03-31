@@ -123,10 +123,39 @@ REGLAS DE PROMOCIÓN GEOLOCALIZADA:
 
 
     // Construimos la historia de forma segura usando el safeHistory higienizado
-    const geminiHistory = [
-      ...safeHistory,
-      { role: 'user', parts: [{ text: userMessage }] }
-    ];
+    // REGLA GEMINI: El historial multi-turno ESTRICTAMENTE debe comenzar con un rol de "user".
+    // Si safeHistory comienza con un "model" (por ejemplo, el saludo de TitoBits), la API de Gemini lanza error.
+    let correctedHistory = safeHistory;
+    if (safeHistory.length === 0 || safeHistory[0].role !== 'user') {
+      correctedHistory = [
+        { role: 'user', parts: [{ text: "Iniciando contexto de consultoría TAEC." }] },
+        ...safeHistory
+      ];
+    }
+
+    // Aseguramos alternancia estricta de roles, que es un requisito de Gemini API (model -> user -> model)
+    let finalHistory: {role: string, parts: {text: string}[]}[] = [];
+    for (const msg of correctedHistory) {
+      if (finalHistory.length > 0 && finalHistory[finalHistory.length - 1].role === msg.role) {
+         // Si hay dos roles consecutivos (ej. user y user), concatenamos sus textos
+         finalHistory[finalHistory.length - 1].parts[0].text += "\n" + msg.parts[0].text;
+      } else {
+         finalHistory.push(msg);
+      }
+    }
+
+    // Finalmente, revisamos si el userMessage ya fue provisto.
+    // El frontend (ChatAgent.tsx) YA envía el userMessage al final del history, pero por si acaso confirmamos el rol final.
+    let geminiHistory = [...finalHistory];
+    const lastItem = geminiHistory[geminiHistory.length - 1];
+    
+    // Si el historial no termina con un 'user' (lo cual sería raro) o si no incluye el userMessage, lo agregamos.
+    if (!lastItem || lastItem.role !== 'user') {
+      geminiHistory.push({ role: 'user', parts: [{ text: userMessage }] });
+    } else if (!lastItem.parts[0].text.includes(userMessage.substring(0, 100)) && lastItem.role === 'user') {
+      // Si el último mensaje es de usuario pero curiosamente es distinto al que envió (por desincronización de arrays)
+      lastItem.parts[0].text += "\n" + userMessage;
+    }
 
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
