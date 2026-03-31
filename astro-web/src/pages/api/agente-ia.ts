@@ -168,8 +168,12 @@ REGLAS DE PROMOCIÓN GEOLOCALIZADA:
       lastItem.parts[0].text += "\n" + userMessage;
     }
 
-    // Selección segura del modelo (Fallback estable para Producción Netlify)
-    const activeModel = import.meta.env.TAEC_GEMINI_MODEL || import.meta.env.GEMINI_MODEL || 'gemini-1.5-flash';
+    // Selección segura del modelo (Fallback estable para Producción Netlify y Gateways)
+    let activeModel = import.meta.env.TAEC_GEMINI_MODEL || import.meta.env.GEMINI_MODEL;
+    if (!activeModel && typeof process !== 'undefined' && process.env) {
+      activeModel = process.env.TAEC_GEMINI_MODEL || process.env.GEMINI_MODEL;
+    }
+    activeModel = activeModel || 'gemini-1.5-flash';
 
     const response = await ai.models.generateContent({
       model: activeModel,

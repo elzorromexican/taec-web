@@ -27,10 +27,17 @@ export const POST: APIRoute = async ({ request }) => {
         .replace(/'/g, '&#039;');
     };
 
-    const resendKey = import.meta.env.RESEND_API_KEY;
+    let resendKey = import.meta.env.RESEND_API_KEY;
+
+    if (!resendKey && typeof process !== 'undefined' && process.env) {
+      resendKey = process.env.RESEND_API_KEY;
+    }
 
     if (!resendKey) {
-      return new Response(JSON.stringify({ error: 'No Resend API Key found' }), { status: 500 });
+      return new Response(JSON.stringify({ 
+        error: 'No Resend API Key found',
+        debug_netlify: 'ALERTA: resendKey undefined. La llave de correo no fue inyectada por Netlify.'
+      }), { status: 500 });
     }
 
     const resend = new Resend(resendKey);
