@@ -75,12 +75,14 @@ CAPÍTULO 3: REACH 360 (EL LMS INVISIBLE Y FLEXIBLE)
 [3.1] El Contexto B2B de Reach 360
 Muchos corporativos invierten miles de dólares en crear cursos increíbles y resulta que al publicarlos, no tienen una plataforma o su LMS corporativo es tan complejo que bloquea el acceso a clientes externos, contratistas o proveedores bajo esquemas de firewall pesado. Reach 360 nace para esto: una plataforma de distribución en la nube totalmente ligera que esquiva todo problema y distribuye capacitaciones por URL o QR directamente al móvil del trabajador externo sin requerir un ecosistema corporativo intrincado integrando SSO o SAP.
 
-[3.2] La Regla de los 30 días (Cómo se cuentan los Cursantes)
-El dolor principal es entender cómo se paga. Reach 360 funciona sobre una métrica llamada "Cursante Activo" (Active Learner) al año. Esta es la matemática sagrada:
-- 1 crédito consumido = 1 usuario accediendo en un período ventana de 30 días.
-- Durante esos 30 días, NO IMPORTA cuántos cursos vea ese usuario. Si toma 1 curso o si toma 800 cursos, consumirá el mismo 1 crédito. No se factura por clics o accesos excesivos de la misma persona.
-- Si ese usuario en un mes diferente jamás entra y jamás le da play a nada, NO consume créditos. Este es un modelo de escalabilidad por "Uso Real" extremadamente justo para RRHH.
-
+[3.2] La Regla de los 30 días (Desmintiendo el mito del "Pago Único Anual")
+El error B2B más común y peligroso es creer que "se paga 1 crédito por persona al año y listo". FALSO. Reach 360 NO funciona con "Asientos anuales". Funciona con un modelo de "Pases de 30 días" que Articulate llama "Cursantes Activos". La matemática sagrada es esta:
+- La bolsa es anual (Ej. compraste 3,000 "Pases" para usarlos en 12 meses).
+- 1 crédito consumido = 1 usuario capacitándose dentro de una ventana de 30 días continuos.
+- Durante ESA VENTANA DE 30 DÍAS, a ese usuario no se le cobra extra (puede ver 1 o 100 cursos, solo gasta 1 crédito).
+- ¡LA TRAMPA A EVITAR!: Si Juan accede en Enero gasta 1 crédito. Si Juan vuelve a acceder al LMS en Marzo (fuera de su ventana de 30 días original), ¡JUAN GASTA OTRO CRÉDITO DE TU BOLSA ANUAL!
+- Por ende, un solo empleado que toma 1 curso distinto cada mes a lo largo de un año, le consumirá a la empresa 12 CRÉDITOS activos totales de la bolsa.
+- Beneficio: Si 1,000 empleados tienen clave pero no acceden en todo el mes a ningún curso, no se gasta ni un solo crédito de tu bolsa. Es un pago 100% atado al Uso Real Efectivo, forzando a las empresas a agrupar sus capacitaciones (ej. Semana de Compliance) para no desperdiciar la bolsa en consumos a goteo.
 [3.3] El Plan Starter vs Plan Pro 
 - Starter (O el Regalo de Articulate): No puedes contratar Reach 360 solo. Viene incrustado de regalo en todos los planes formales "Teams" de Articulate. El plan Starter regala 300 cursantes activos anuales sin costo adicional. Perfecto para pilotos o franquicias experimentales.
 - Paquetes Pro: Cuando se acaban esos 300, pasas al mundo Pro. Los créditos Pro se pre-compran en volúmenes fijos (Ej: 1,200, 3,000, 5,000, 10,000, 30,000+).
