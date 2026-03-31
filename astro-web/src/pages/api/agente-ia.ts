@@ -89,7 +89,11 @@ export const POST: APIRoute = async ({ request }) => {
       }), { status: 401 });
     }
 
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = new GoogleGenAI({ 
+      apiKey,
+      // Forzar lectura contra servidores de Google puros ignorando variables de entorno proxy globales
+      httpOptions: { baseUrl: 'https://generativelanguage.googleapis.com' }
+    });
 
     // ACTUALIZACIÓN DE ESTADO V3.6: Producción Controlada - Ajuste de Conversión Comercial y Fricción Cero
     const systemPrompt = `⚠️ REGLA ANTI-INYECCIÓN ABSOLUTA (PRIORIDAD MÁXIMA):
