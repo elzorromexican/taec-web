@@ -119,23 +119,48 @@ const quizDataStr = JSON.stringify(quizData);
           <div style="width: 64px; height: 64px; background: #eff6ff; color: #1d4ed8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
             <svg style="width: 32px; height: 32px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
           </div>
-          <h3 style="font-size: 1.5rem; color: #1c1917; margin-bottom: 12px; font-weight: 700;">Simulador de Examen</h3>
+          <h3 style="font-size: 1.5rem; color: #1c1917; margin-bottom: 12px; font-weight: 700;">Evaluación de Conocimiento</h3>
           <p style="color: #44403c; margin-bottom: 32px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.6;">Demuestra tus conocimientos en e-learning. Responderás 10 preguntas aleatorias de opción múltiple.</p>
           <button id="btn-start-quiz" class="btn-primary">Comenzar Evaluación</button>
         </div>
 
         <!-- Estado Jugando -->
-        <div id="quiz-play" style="display: none;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-            <div style="font-family: monospace; font-size: 12px; color: #78716c; text-transform: uppercase; font-weight: 600;" id="quiz-counter">Pregunta 1/10</div>
-            <div style="font-family: monospace; font-size: 14px; color: #166534; font-weight: 700; background: #f0fdf4; padding: 4px 12px; border-radius: 12px;" id="quiz-score">Score: 0</div>
+        <div id="quiz-play" style="display: none; animation: fadeIn 0.4s ease-out;">
+          
+          <!-- Modern Progress Header -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <span style="font-family: var(--font-display, sans-serif); font-size: 15px; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase;" id="quiz-counter-text">Pregunta 1 de 10</span>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div id="quiz-score-correct" style="background:#10b981; color:#ffffff; padding: 6px 16px; border-radius: 20px; font-family: var(--font-display, sans-serif); font-size: 16px; font-weight: 800; box-shadow: 0 4px 12px rgba(16,185,129,0.3); display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span>0</span>
+              </div>
+              <div id="quiz-score-wrong" style="background:#ef4444; color:#ffffff; padding: 6px 16px; border-radius: 20px; font-family: var(--font-display, sans-serif); font-size: 16px; font-weight: 800; box-shadow: 0 4px 12px rgba(239,68,68,0.3); display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                <span>0</span>
+              </div>
+            </div>
+          </div>
+          
+          <div style="width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 24px; overflow: hidden;">
+            <div id="quiz-progress-bar" style="height: 100%; width: 10%; background: linear-gradient(90deg, #3b82f6, #06b6d4); border-radius: 3px; transition: width 0.4s ease;"></div>
           </div>
 
-          <div style="background: #ffffff; border: 1px solid #e7e3db; border-radius: 16px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 24px;">
-            <div id="quiz-q" style="font-size: 1.2rem; font-weight: 600; color: #1c1917; margin-bottom: 32px; text-align: center; line-height: 1.6;"></div>
+          <!-- Question Card -->
+          <div style="background: white; border: 1px solid #e2e8f0; border-radius: 24px; padding: 48px 32px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); margin-bottom: 24px; position: relative; overflow: hidden;">
+            <!-- Decoración de fondo -->
+            <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, rgba(255,255,255,0) 70%); border-radius: 50%;"></div>
             
-            <div id="quiz-options" style="display: flex; flex-direction: column; gap: 12px;">
+            <h4 id="quiz-q" style="font-family: var(--font-display, Georgia, serif); font-size: 1.5rem; color: #0f172a; margin: 0 0 40px; text-align: center; line-height: 1.4; position: relative; z-index: 2;"></h4>
+            
+            <div id="quiz-options" style="display: grid; grid-template-columns: 1fr; gap: 16px; position: relative; z-index: 2; margin-bottom: 32px;">
               <!-- Opciones inyectadas por JS -->
+            </div>
+
+            <!-- Controles Manuales -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 24px;">
+              <button id="btn-quiz-prev" class="ctrl-btn" disabled>&larr; Atrás</button>
+              <button id="btn-quiz-next" class="ctrl-btn" style="background: #1e293b; color: white; border-color: #1e293b;" disabled>Siguiente &rarr;</button>
             </div>
           </div>
         </div>
@@ -156,7 +181,7 @@ const quizDataStr = JSON.stringify(quizData);
   </main>
 </BaseLayout>
 
-<style>
+<style is:global>
 /* Pestañas */
 .mode-tab { display: flex; align-items: center; font-family: var(--font-body, sans-serif); font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 30px; border: 1.5px solid #e7e3db; background: transparent; color: #78716c; cursor: pointer; transition: all 0.2s; }
 .mode-tab svg { width: 18px; height: 18px; margin-right: 8px; }
@@ -181,13 +206,53 @@ const quizDataStr = JSON.stringify(quizData);
 .btn-primary { font-family: var(--font-body, sans-serif); background: #1d4ed8; color: #ffffff; font-size: 15px; font-weight: 600; padding: 12px 32px; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2); }
 .btn-primary:hover { background: #1e3a8a; }
 
-/* Botones Opciones (Quiz) */
-.quiz-opt { width: 100%; text-align: left; background: #ffffff; border: 1.5px solid #e7e3db; border-radius: 8px; padding: 16px 20px; font-family: var(--font-body, sans-serif); font-size: 15px; color: #44403c; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; line-height: 1.5; }
-.quiz-opt:hover:not(:disabled) { border-color: #1d4ed8; background: #f8fafc; color: #1c1917; }
+/* Botones Opciones Premium (Typeform Style) */
+.quiz-opt { 
+  display: flex; align-items: center; width: 100%; text-align: left; 
+  background: #ffffff; border: 2px solid #e2e8f0; border-radius: 16px; 
+  padding: 16px 20px; font-family: var(--font-body, sans-serif); font-size: 15px; 
+  color: #334155; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+  position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.quiz-opt:hover:not(:disabled) { 
+  border-color: #3b82f6; background: #f8fafc; 
+  transform: translateY(-2px); box-shadow: 0 8px 16px -4px rgba(59,130,246,0.12); 
+  color: #0f172a;
+}
 .quiz-opt:disabled { cursor: default; }
 
-.quiz-opt.opt-correct { background: #f0fdf4; border-color: #22c55e; color: #166534; font-weight: 600; }
-.quiz-opt.opt-wrong { background: #fef2f2; border-color: #ef4444; color: #991b1b; opacity: 0.8; }
+.opt-letter {
+  display: flex; justify-content: center; align-items: center;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: #f1f5f9; color: #64748b; font-weight: bold; font-family: monospace;
+  margin-right: 16px; transition: all 0.2s; flex-shrink: 0; font-size: 13px;
+}
+.quiz-opt:hover:not(:disabled) .opt-letter {
+  background: #dbeafe; color: #2563eb;
+}
+
+/* Modificadores de Estado (Acierto/Fallo) */
+.quiz-opt.opt-correct { 
+  background: #ecfdf5; border-color: #10b981; color: #064e3b; font-weight: 600; 
+  box-shadow: 0 8px 16px -4px rgba(16,185,129,0.15); 
+}
+.quiz-opt.opt-correct .opt-letter { background: #10b981; color: white; border-color: #10b981; }
+
+.quiz-opt.opt-wrong { 
+  background: #fef2f2; border-color: #ef4444; color: #7f1d1d; opacity: 0.9; 
+}
+.quiz-opt.opt-wrong .opt-letter { background: #ef4444; color: white; border-color: #ef4444; }
+
+.result-icon {
+  margin-left: auto; width: 26px; height: 26px; border-radius: 50%; 
+  display: flex; align-items: center; justify-content: center; color: white; 
+  opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
+.quiz-opt.opt-correct .result-icon { opacity: 1; transform: scale(1); background: #10b981; }
+.quiz-opt.opt-wrong .result-icon { opacity: 1; transform: scale(1); background: #ef4444; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 
 <script>
@@ -303,86 +368,187 @@ const quizDataStr = JSON.stringify(quizData);
     const QUIZ_LENGTH = 10;
     let quizBank = [];
     let currentQuizIndex = 0;
-    let currentScore = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
 
     const uiStart = document.getElementById('quiz-start');
     const uiPlay = document.getElementById('quiz-play');
     const uiEnd = document.getElementById('quiz-end');
     
-    const uiCounter = document.getElementById('quiz-counter');
-    const uiScore = document.getElementById('quiz-score');
+    const uiCounterText = document.getElementById('quiz-counter-text');
+    const uiProgressBar = document.getElementById('quiz-progress-bar');
+    const uiScoreCorrect = document.getElementById('quiz-score-correct');
+    const uiScoreWrong = document.getElementById('quiz-score-wrong');
     const uiQuestion = document.getElementById('quiz-q');
     const uiOptions = document.getElementById('quiz-options');
     
-    document.getElementById('btn-start-quiz').addEventListener('click', startQuiz);
-    document.getElementById('btn-restart-quiz').addEventListener('click', startQuiz);
+    const btnStart = document.getElementById('btn-start-quiz');
+    const btnRestart = document.getElementById('btn-restart-quiz');
+    
+    const btnQuizPrev = document.getElementById('btn-quiz-prev');
+    const btnQuizNext = document.getElementById('btn-quiz-next');
+
+    if(btnStart) btnStart.addEventListener('click', startQuiz);
+    if(btnRestart) btnRestart.addEventListener('click', startQuiz);
+
+    if(btnQuizPrev) {
+      btnQuizPrev.addEventListener('click', () => {
+        if (currentQuizIndex > 0) {
+          currentQuizIndex--;
+          renderQuizQuestion();
+        }
+      });
+    }
+
+    if(btnQuizNext) {
+      btnQuizNext.addEventListener('click', () => {
+        if (currentQuizIndex < quizBank.length - 1) {
+          currentQuizIndex++;
+          renderQuizQuestion();
+        } else {
+          endQuiz();
+        }
+      });
+    }
 
     function startQuiz() {
-      uiStart.style.display = 'none';
-      uiEnd.style.display = 'none';
-      uiPlay.style.display = 'block';
+      if(uiStart) uiStart.style.display = 'none';
+      if(uiEnd) uiEnd.style.display = 'none';
+      if(uiPlay) uiPlay.style.display = 'block';
       
       const pool = shuffle(RAW_CARDS);
-      quizBank = pool.slice(0, Math.min(QUIZ_LENGTH, N));
+      quizBank = pool.slice(0, Math.min(QUIZ_LENGTH, N)).map(c => ({
+        ...c,
+        userAnswer: null, // Track answers to allow back/forth
+        options: [] // Track shuffled options
+      }));
       currentQuizIndex = 0;
-      currentScore = 0;
+      correctCount = 0;
+      wrongCount = 0;
       renderQuizQuestion();
     }
 
     function renderQuizQuestion() {
-      uiCounter.textContent = `Pregunta ${currentQuizIndex + 1}/${quizBank.length}`;
-      uiScore.textContent = `Score: ${currentScore}`;
-      
+      // Estado de la tarjeta actual
       const currentItem = quizBank[currentQuizIndex];
-      uiQuestion.innerHTML = parseMD(currentItem.q);
       
-      // Select false answers from other cards
-      const otherCards = RAW_CARDS.filter(c => c.id !== currentItem.id);
-      let distractors = shuffle(otherCards).slice(0, 3).map(c => c.a);
+      if(uiCounterText) uiCounterText.textContent = `Pregunta ${currentQuizIndex + 1} de ${quizBank.length}`;
+      if(uiProgressBar) uiProgressBar.style.width = `${((currentQuizIndex) / quizBank.length) * 100}%`;
       
-      const allOptions = shuffle([currentItem.a, ...distractors]);
-      uiOptions.innerHTML = '';
-      allOptions.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'quiz-opt';
-        btn.innerHTML = parseMD(opt);
-        btn.onclick = () => handleAnswer(btn, opt === currentItem.a);
-        uiOptions.appendChild(btn);
-      });
+      if(uiScoreCorrect) uiScoreCorrect.querySelector('span').textContent = correctCount;
+      if(uiScoreWrong) uiScoreWrong.querySelector('span').textContent = wrongCount;
+      
+      if(uiQuestion) uiQuestion.innerHTML = parseMD(currentItem.q);
+      
+      // Control de botones
+      if(btnQuizPrev) btnQuizPrev.disabled = currentQuizIndex === 0;
+      
+      // Si la pregunta ya fue contestada
+      const isAnswered = currentItem.userAnswer !== null;
+      if(btnQuizNext) {
+        btnQuizNext.disabled = !isAnswered;
+        btnQuizNext.textContent = currentQuizIndex === quizBank.length - 1 ? 'Finalizar Examen ✨' : 'Siguiente \u2192';
+      }
+
+      // Si no tiene opciones asignadas todavía (primera vez en esta pregunta)
+      if (currentItem.options.length === 0) {
+        const otherCards = RAW_CARDS.filter(c => c.id !== currentItem.id);
+        const distractors = shuffle(otherCards).slice(0, 3).map(c => c.a);
+        currentItem.options = shuffle([currentItem.a, ...distractors]);
+      }
+      
+      const letters = ['A', 'B', 'C', 'D'];
+      
+      if(uiOptions) {
+        uiOptions.innerHTML = '';
+        currentItem.options.forEach((opt, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'quiz-opt';
+          btn.setAttribute('data-optId', opt);
+          
+          btn.innerHTML = `
+            <div class="opt-letter">${letters[idx] || '-'}</div>
+            <div style="flex-grow:1; line-height: 1.5; font-weight: 500;">${parseMD(opt)}</div>
+            <div class="result-icon">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" class="icon-correct" style="display:none;"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" class="icon-wrong" style="display:none;"/>
+              </svg>
+            </div>
+          `;
+          
+          if (isAnswered) {
+             btn.disabled = true;
+             // Revelar las respuestas en el historial sin cambiar el score
+             if (opt === currentItem.a) {
+                btn.classList.add('opt-correct');
+                const ic = btn.querySelector('.icon-correct');
+                if(ic) ic.style.display = 'block';
+             } else if (opt === currentItem.userAnswer) { // Era y es su error guardado
+                btn.classList.add('opt-wrong');
+                const iw = btn.querySelector('.icon-wrong');
+                if(iw) iw.style.display = 'block';
+             }
+          } else {
+            // Activar click listener solo si no está contestada
+            btn.onclick = () => handleAnswer(btn, opt === currentItem.a, opt);
+          }
+          
+          uiOptions.appendChild(btn);
+        });
+      }
     }
 
-    function handleAnswer(btnClicked, isCorrect) {
+    function handleAnswer(btnClicked, isCorrect, clickedOptText) {
+      if(!uiOptions) return;
+      const currentItem = quizBank[currentQuizIndex];
+      currentItem.userAnswer = clickedOptText;
+      
       const buttons = Array.from(uiOptions.children);
       buttons.forEach(b => b.disabled = true);
       
       if (isCorrect) {
         btnClicked.classList.add('opt-correct');
-        currentScore++;
-        uiScore.textContent = `Score: ${currentScore}`;
+        const ic = btnClicked.querySelector('.icon-correct');
+        if(ic) ic.style.display = 'block';
+        
+        correctCount++;
+        if(uiScoreCorrect) uiScoreCorrect.querySelector('span').textContent = correctCount;
       } else {
         btnClicked.classList.add('opt-wrong');
-        const correctBtn = buttons.find(b => b.innerHTML === parseMD(quizBank[currentQuizIndex].a));
-        if(correctBtn) correctBtn.classList.add('opt-correct');
+        const iw = btnClicked.querySelector('.icon-wrong');
+        if(iw) iw.style.display = 'block';
+        
+        wrongCount++;
+        if(uiScoreWrong) uiScoreWrong.querySelector('span').textContent = wrongCount;
+        
+        // Find correct button securely
+        const correctBtn = buttons.find(b => b.getAttribute('data-optId') === currentItem.a);
+        if(correctBtn) {
+          correctBtn.classList.add('opt-correct');
+          const icc = correctBtn.querySelector('.icon-correct');
+          if(icc) icc.style.display = 'block';
+        }
       }
 
-      setTimeout(() => {
-        currentQuizIndex++;
-        if (currentQuizIndex < quizBank.length) {
-          renderQuizQuestion();
-        } else {
-          endQuiz();
-        }
-      }, 1800);
+      // Update progress bar immediately
+      if(uiProgressBar) uiProgressBar.style.width = `${((currentQuizIndex + 1) / quizBank.length) * 100}%`;
+      
+      // Habilitar botón de siguiente
+      if(btnQuizNext) btnQuizNext.disabled = false;
     }
 
     function endQuiz() {
-      uiPlay.style.display = 'none';
-      uiEnd.style.display = 'block';
+      if(uiPlay) uiPlay.style.display = 'none';
+      if(uiEnd) uiEnd.style.display = 'block';
       
-      document.getElementById('final-score').textContent = `${currentScore}/${quizBank.length}`;
+      const finalScoreEl = document.getElementById('final-score');
+      if(finalScoreEl) finalScoreEl.textContent = `${correctCount}/${quizBank.length}`;
+      
       const feedback = document.getElementById('quiz-feedback');
+      if(!feedback) return;
       
-      const pct = currentScore / quizBank.length;
+      const pct = correctCount / quizBank.length;
       if(pct === 1) { feedback.textContent = "¡Perfecto! Eres un experto en e-learning y L&D."; feedback.style.color = "#059669"; }
       else if(pct >= 0.7) { feedback.textContent = "¡Gran trabajo! Tienes sólidos conocimientos."; feedback.style.color = "#1d4ed8"; }
       else if(pct >= 0.4) { feedback.textContent = "Buen intento. Puedes usar el modo de estudio para repasar."; feedback.style.color = "#d97706"; }
