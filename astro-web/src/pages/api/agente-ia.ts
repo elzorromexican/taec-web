@@ -57,10 +57,21 @@ export const POST: APIRoute = async ({ request }) => {
         }));
     }
 
-    const apiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
+    let apiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
+
+    // RECUPERACIÓN DE SECRETO EN PRODUCCIÓN (Netlify Serverless Lambda)
+    // En producción (Netlify), las variables secretas no se inyectan en el build estático de JS por seguridad,
+    // sino que viven en el `process.env` del contenedor Node. Se usa SOLO en PROD para evitar conflicto 
+    // con variables zombies de bash locales del equipo del desarrollador.
+    if (!apiKey && typeof process !== 'undefined' && process.env) {
+      apiKey = process.env.TAEC_GEMINI_KEY || process.env.GEMINI_API_KEY;
+    }
 
     if (!apiKey) {
-      return new Response(JSON.stringify({ error: 'LLM Key missing' }), { status: 500 });
+      return new Response(JSON.stringify({ 
+        error: 'LLM Key missing',
+        debug_netlify: 'ALERTA: apiKey undefined. Ni TAEC_GEMINI_KEY ni GEMINI_API_KEY fueron inyectadas por Netlify en process.env o import.meta.env.'
+      }), { status: 500 });
     }
 
     if (!apiKey) {
