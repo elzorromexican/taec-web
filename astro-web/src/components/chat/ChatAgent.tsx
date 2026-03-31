@@ -34,7 +34,7 @@ export default function ChatAgent() {
   const [activePromo, setActivePromo] = useState<any>(null);
   
   const endRef = useRef<HTMLDivElement>(null);
-  const inputChatRef = useRef<HTMLInputElement>(null);
+  const inputChatRef = useRef<HTMLTextAreaElement>(null);
   const inputNameRef = useRef<HTMLInputElement>(null);
 
   const prevIsOpen = useRef(isOpen);
@@ -592,18 +592,30 @@ export default function ChatAgent() {
               <form onSubmit={sendMessage} style={{
                 padding: '12px', display: 'flex', gap: '8px'
               }}>
-                <input 
+                <textarea 
                   ref={inputChatRef}
-                  type="text"
                   maxLength={1000} 
+                  rows={1}
                   value={input}
-                  onChange={e => setInput(e.target.value)}
-                  placeholder="Escribe tu mensaje... (máx 1000 car.)" 
+                  onChange={e => {
+                    setInput(e.target.value);
+                    e.target.style.height = 'auto'; // Reset para calcular bien
+                    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      sendMessage(e as any);
+                    }
+                  }}
+                  placeholder="Escribe... (Shift+Enter salto línea)" 
                   disabled={isLoading}
                   style={{
-                    flex: 1, padding: '10px 16px', borderRadius: '24px',
+                    flex: 1, padding: '10px 16px', borderRadius: '20px',
                     border: '1px solid #E5E7EB', background: '#F3F4F6',
-                    fontSize: '14px', outline: 'none'
+                    fontSize: '14px', outline: 'none', resize: 'none',
+                    lineHeight: '1.4', minHeight: '40px', maxHeight: '120px',
+                    fontFamily: 'inherit'
                   }}
                 />
                 <button 
