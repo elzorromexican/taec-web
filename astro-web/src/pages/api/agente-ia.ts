@@ -28,6 +28,13 @@ export const POST: APIRoute = async ({ request }) => {
     rateLimitMap.set(ip, { count: 1, resetTime: now + 60000 }); // Limpiamos contadores cada 60s
   }
 
+  // Selección segura del modelo (Fallback estable para Producción Netlify y Gateways)
+  let activeModel = import.meta.env.TAEC_GEMINI_MODEL || import.meta.env.GEMINI_MODEL;
+  if (!activeModel && typeof process !== 'undefined' && process.env) {
+    activeModel = process.env.TAEC_GEMINI_MODEL || process.env.GEMINI_MODEL;
+  }
+  activeModel = activeModel || 'gemini-1.5-flash';
+
   try {
     const data = await request.json();
     const { history, userMessage } = data;
@@ -168,13 +175,6 @@ REGLAS DE PROMOCIÓN GEOLOCALIZADA:
       lastItem.parts[0].text += "\n" + userMessage;
     }
 
-    // Selección segura del modelo (Fallback estable para Producción Netlify y Gateways)
-    let activeModel = import.meta.env.TAEC_GEMINI_MODEL || import.meta.env.GEMINI_MODEL;
-    if (!activeModel && typeof process !== 'undefined' && process.env) {
-      activeModel = process.env.TAEC_GEMINI_MODEL || process.env.GEMINI_MODEL;
-    }
-    activeModel = activeModel || 'gemini-1.5-flash';
-
     const response = await ai.models.generateContent({
       model: activeModel,
       contents: geminiHistory,
@@ -191,11 +191,11 @@ REGLAS DE PROMOCIÓN GEOLOCALIZADA:
     );
   } catch (error: any) {
     console.error("Error en Gemini API SSR Endpoint:", error.message || error);
-    // Temporal: Exposción de debug en payload para Netlify
+    // Temporal: Exposción de debug en payload para Netlify con inyección de estado de variables
     return new Response(
       JSON.stringify({ 
         error: 'Hubo un error interno contactando al procesador central (500).',
-        debug_netlify: error.message || String(error)
+        debug_netlify: `[Model=${activeModel}] ` + (error.message || String(error))
       }),
       { status: 500 }
     );
