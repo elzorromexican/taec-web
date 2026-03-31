@@ -48,26 +48,25 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Evitamos backticks anidados uniendo el array con strings estándar para protección Vite
     const messagesHtml = messages.map((m: any) => {
-      let bgColor = '#ffffff';
-      let borderColor = '#e5e7eb';
-      let nameColor = '#f59e0b';
-      let senderName = 'Tito Bits';
+      let isUser = m.role === 'user';
+      let bgColor = isUser ? '#e1f0fa' : '#ffffff';
+      let borderColor = isUser ? '#b6e0fe' : '#e5e7eb';
+      let nameColor = isUser ? '#004775' : '#f59e0b';
+      let senderName = isUser ? userData.name : 'Tito Bits';
+      let align = isUser ? 'right' : 'left';
+      let alignFlex = isUser ? 'flex-end' : 'flex-start';
+      let marginClass = isUser ? 'margin-left: auto;' : 'margin-right: auto;';
 
-      if (m.role === 'user') {
-        bgColor = '#e1f0fa';
-        borderColor = '#b6e0fe';
-        nameColor = '#004775';
-        senderName = userData.name;
-      } else if (m.role === 'error') {
-        bgColor = '#fee2e2';
-        borderColor = '#ef4444';
-        nameColor = '#b91c1c';
-        senderName = 'Sistema / Error';
+      if (m.role === 'error') {
+        bgColor = '#fee2e2'; borderColor = '#ef4444'; 
+        nameColor = '#b91c1c'; senderName = 'Sistema'; align = 'center'; alignFlex = 'center'; marginClass = 'margin: 0 auto;';
       }
       
-      return '<div style="margin-bottom: 15px; padding: 12px; border-radius: 8px; background-color: ' + bgColor + '; border: 1px solid ' + borderColor + ';">' +
-               '<strong style="color: ' + nameColor + ';">' + escapeHtml(senderName) + ':</strong><br/>' +
-               '<span style="font-size: 14px; line-height: 1.5;">' + escapeHtml(m.text) + '</span>' +
+      return '<div style="display: flex; justify-content: ' + alignFlex + '; width: 100%; margin-bottom: 15px;">' +
+               '<div style="' + marginClass + ' max-width: 80%; padding: 12px; border-radius: 8px; background-color: ' + bgColor + '; border: 1px solid ' + borderColor + '; text-align: left;">' +
+                 '<strong style="color: ' + nameColor + ';">' + escapeHtml(senderName) + '</strong><br/>' +
+                 '<span style="font-size: 14px; line-height: 1.5; color: #333;">' + escapeHtml(m.text) + '</span>' +
+               '</div>' +
              '</div>';
     }).join('');
 

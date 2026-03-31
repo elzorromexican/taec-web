@@ -98,6 +98,39 @@ export default function ChatAgent() {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, []);
 
+  // Timer de Inactividad de 15 minutos (900,000 ms) para asegurar el envío de leads abandonados
+  const inactivityTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (messages.length > 1 && hasStarted && !transcriptSentStore.get() && !isSendingEmail) {
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+      
+      inactivityTimerRef.current = setTimeout(() => {
+        if (!transcriptSentStore.get()) {
+          console.log('[TitoBits] 15 minutos de inactividad detectados. Disparando email de respaldo automágicamente...');
+          transcriptSentStore.set(true);
+          // Necesitamos usar la ref del estado actual para no atrapar hooks desactualizados en el closure del timeout
+          const currentState = stateRef.current;
+          const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const localTime = new Date().toLocaleString('es-MX', { timeZone });
+          fetch('/api/send-transcript', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userData: currentState.userData,
+              messages: currentState.messages,
+              metadata: { time: localTime, timeZone, url: window.location.href, reason: '15m_timeout_inactivity' }
+            }),
+            keepalive: true
+          }).catch(() => {});
+        }
+      }, 15 * 60 * 1000); // 15 minutos
+    }
+
+    return () => {
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    };
+  }, [messages, hasStarted, isSendingEmail]);
+
   // Auto-focus en el formulario al abrir
   useEffect(() => {
     if (isOpen && !hasStarted && window.innerWidth > 768) {
