@@ -28,14 +28,14 @@ export const POST: APIRoute = async ({ request }) => {
     rateLimitMap.set(ip, { count: 1, resetTime: now + 60000 }); // Limpiamos contadores cada 60s
   }
 
-  // Selección segura del modelo (Fallback estable para Producción Netlify y Gateways)
+  // Bypass para el Escáner Dast/SAST de Netlify: Vite reemplaza import.meta.env.KEY estáticamente.
+  // Al usar notación de corchetes dinámica, forzamos la lectura en runtime sin quemar el secreto en el código.
   let activeModel = import.meta.env.TAEC_GEMINI_MODEL || import.meta.env.GEMINI_MODEL;
   if (!activeModel && typeof process !== 'undefined' && process.env) {
     activeModel = process.env.TAEC_GEMINI_MODEL || process.env.GEMINI_MODEL;
   }
-  activeModel = activeModel || 'gemini-1.5-flash';
-
-  // Bypass para el Escáner Dast/SAST de Netlify: Vite reemplaza import.meta.env.KEY estáticamente.
+  // En cuentas de Google de pago recientes como la de TAEC, el modelo soportado es la v2.5
+  activeModel = activeModel || 'gemini-2.5-flash';
   // Al usar notación de corchetes dinámica, forzamos la lectura en runtime sin quemar el secreto en el código.
   let apiKey = undefined;
   if (typeof process !== 'undefined' && process.env) {
