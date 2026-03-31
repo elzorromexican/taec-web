@@ -73,6 +73,11 @@ export const POST: APIRoute = async ({ request }) => {
     if (!apiKey && typeof process !== 'undefined' && process.env) {
       apiKey = process.env.TAEC_GEMINI_KEY || process.env.GEMINI_API_KEY;
     }
+    
+    // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
+    if (typeof apiKey === 'string') {
+      apiKey = apiKey.trim();
+    }
 
     if (!apiKey) {
       return new Response(JSON.stringify({ 
