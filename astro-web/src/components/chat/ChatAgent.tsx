@@ -49,21 +49,15 @@ export default function ChatAgent() {
       .catch(() => {});
   }, []);
 
-  // Auto-scroll moderado y al abrir ventana
+  // Auto-scroll garantizado hacia el último mensaje usando la API nativa
   useEffect(() => {
-    const chatContainer = endRef.current?.parentElement;
-    if (chatContainer) {
-      const justOpened = !prevIsOpen.current && isOpen;
-      const isNearBottom = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight < 150;
-      if (isNearBottom || isLoading || justOpened) {
-         // Timeout de 150ms para asegurar que React ya pintó el DOM completo y sus estilos antes medir y desplazar
-         setTimeout(() => {
-           if (chatContainer) {
-             chatContainer.style.scrollBehavior = 'auto'; // deshabilitar smooth que a veces Chrome cancela
-             chatContainer.scrollTop = chatContainer.scrollHeight + 500;
-           }
-         }, 150);
-      }
+    if (isOpen && endRef.current) {
+      // Timeout corto para permitir que el motor de React/Markdown termine de pintar el DOM y calcular la altura de los textos
+      setTimeout(() => {
+        try {
+          endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        } catch(e) { /* fallback ignorado */ }
+      }, 150);
     }
     prevIsOpen.current = isOpen;
   }, [messages, isLoading, isOpen]);
