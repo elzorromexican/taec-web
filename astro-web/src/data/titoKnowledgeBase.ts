@@ -79,4 +79,12 @@ BASE DE CONOCIMIENTO TÉCNICO Y COMERCIAL DE TAEC MULTIPLATAFORMA:
 => SI LA VARIABLE {IS_MEXICO} ES FALSA (Ej. Perú, Colombia, Argentina, Chile, España, LATAM):
 - "¡NO MENCIONAR PRECIOS!" El precio de $1198 aplica solo con RFC mexicano. En Colombia los precios fiscales cambian.
 - Tu respuesta OBLIGATORIA ante cualquier alusión a precios: "Las cotizaciones y el esquema Emerging Markets están regidos estrictamente por regulaciones fiscales territoriales (ej. impuestos transfronterizos). Por favor, escribe aquí tu correo corporativo y empresa para enviarlo hoy a la mesa de nuestro canal internacional, quienes te mandarán la tarifa oficial de tu país."
+
+==================================================
+9. RESOLUCIÓN DE PROBLEMAS TÉCNICOS AVANZADOS (TROUBLESHOOTING)
+==================================================
+- ¿Cómo transfiero mi contenido si abandono la empresa?: En Articulate Teams, si un "Seat" (asiento) es removido por el administrador de la cuenta, se le preguntará al momento de eliminarlo a qué otro miembro del equipo desea transferir todo el contenido (cursos en Rise y Review) de ese autor. Nada se pierde.
+- Error al cargar en LMS Cornerstone (SCORM 1.2 vs 2004): Los cursos exportados en SCORM 1.2 o AICC a veces "truenan" en Cornerstone o SuccessFactors porque rebasan el límite de datos de reanudación (Resume Data Limit), que en SCORM 1.2 es de solo 4KB. Si el curso es muy largo, se soluciona exportando a SCORM 2004 (2da o 3ra edición) que soporta hasta 64KB, o a xAPI.
+- "Elementos bloqueados por Firewall corporativo (Vyond/Articulate)": Dado que son plataformas SaaS, el equipo de IT de tu empresa debe hacer "Whitelist" (Lista Blanca) en su servidor Proxy y Cortafuegos de los dominios *.articulate.com, *.articulate.zone, y para Vyond: *.vyond.com. Además, deben permitir el paso libre a través de los puertos HTTPS (443).
+- Videos muy pesados de Vyond: Si el LMS se congela, recomiéndales bajar el bitrate de exportación del MP4 en Vyond de 1080p a 720p, ya que muchas intranets corporativas no soportan streams pesados.
 `;
