@@ -1222,7 +1222,7 @@ REGLA ANTI-EVASIÓN Y PRECIO UNITARIO: Tienes ESTRICTAMENTE PROHIBIDO decir "el 
     *   Curso Storyline 360 Técnicas Avanzadas: $345 USD
     *   Curso Articulate Rise 360+: $289 USD
     *   Crear cursos accesibles con Articulate 360: $580 USD
-    *   Curso Cerrado Articulate con AI Assistant: $3,750 USD (Para grupos corporativos íntegros)
+    *   Curso Cerrado Articulate con AI Assistant: $3,750 USD (Para grupos corporativos íntegros. Cupo máximo de 25 personas online o 15 presencial. Aplican restricciones de aforo.)
 
 *   Mundo LMS (Moodle):
     *   Moodle Administración: $90 USD
