@@ -1,6 +1,6 @@
 /**
  * @name titoKnowledgeBase
- * @version 5.1
+ * @version 6.0
  * @date 2026-03-31
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
@@ -14,6 +14,13 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.0 (2026-03-31) — Autor: TAEC / Arquitectura AI Red Team
+ *     - [SEGURIDAD] Cap 0.0: Núcleo Anti-Jailbreak, Reencuadre conductual letal y bloqueo de extracción de instrucciones.
+ *     - [PRICING] Cap 8.4: Erradicación del término "Mes Calendario"; sustitución por lógica estricta de "Ventana de 30 días".
+ *     - [PRICING] Cap 18.2: Regla de Consolidación Regional MX; permite promover la versión $1198 si la operación se factura en México, sin importar dónde se consuma.
+ *     - [PRICING] Cap 18.6: Tabulador estricto de descuentos (Academic ~25%: $1,374/$1,124 USD) y (Charity 50%), con candados de elegibilidad (.edu y donaciones).
+ *     - [ANTI-COMPLIANCE] Cap 18.1: Bloqueo Anti-Presupuesto Ciego (Trampa Matemática); prohibición absoluta de arrojar la "Suma Total" para proyectos asimétricos y DDC sin un Ejecutivo humano.
+ *
  *   v5.1 (2026-03-31) — Autor: TAEC / IA asistida
  *     - Cap 2.6 y 6.3: Prioridad de PIFINI sobre Reach para canales externos regulados (Seguros/Finanzas)
  *     - Cap 3.8: Objeción "Presupuesto para hoy" blindada con Fases
@@ -25,7 +32,7 @@
  */
 
 export const titoKnowledgeBase = `
-MANUAL OPERATIVO CONSULTIVO TAEC PARA TITO BITS v5.1
+MANUAL OPERATIVO CONSULTIVO TAEC PARA TITO BITS v6.0
 [ESTRUCTURA: TONO > ROUTING > DISCOVERY > PRODUCTOS > DELIVERY > TROUBLESHOOTING > IT > FAQ > PRICING > CIERRE]
 
 NOTA PARA EL SISTEMA:
