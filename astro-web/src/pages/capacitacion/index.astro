@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroComercial from '../../components/ui/HeroComercial.astro';
+import { getCollection } from 'astro:content';
+import { r } from '../../utils/paths';
+
+const cursos = await getCollection('cursos');
+cursos.sort((a, b) => (a.data.titulo || '').localeCompare(b.data.titulo || ''));
+
+const tagCounts: Record<string, number> = {};
+cursos.forEach(p => {
+    const cat = p.data.categoria;
+    if (cat) tagCounts[cat] = (tagCounts[cat] || 0) + 1;
+});
+const tags = Object.keys(tagCounts).sort();
+---
+
+<BaseLayout 
+  title="Capacitación y Cursos Oficiales | TAEC"
+  description="Domina Articulate 360, Moodle y Vyond con expertos certificados y obtén tu diploma oficial."
+  section="Cursos"
+  page="capacitacion/index.html"
+>
+  <HeroComercial 
+    eyebrow="TAEC · Academy"
+    titleHtml="Cursos y Certificaciones <span class='text-accent'>B2B</span>"
+    subtitle="Acelera tu carrera en E-Learning. Únete a la academia donde se forman los líderes de L&D en Latinoamérica."
+    theme="vyond"
+    cardBadgeText="Ver Rutas 🎓"
+    features={[
+      "Diplomas con respaldo oficial de Partners y Certificadores globales.",
+      "Instructores activos en la élite del desarrollo corporativo.",
+      "Acceso a material exclusivo, sesiones de Q&A y plantillas de trabajo."
+    ]}
+  />
+
+  <main style="max-width: 1080px; margin: 64px auto; padding: 0 24px 80px;">
+    
+    <div style="background: #ffffff; border: 1px solid #e7e3db; padding: 24px 32px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.03); margin-bottom: 48px;">
+      <h3 style="text-align:center; font-family: monospace; font-size: 13px; color: #64748b; text-transform: uppercase; margin-top: 0; margin-bottom: 16px; letter-spacing: 1px;">Filtrar por tecnología</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+        <button class="filter-btn active" data-tag="ALL">Ver Todo</button>
+        {tags.map(tag => (
+          <button class="filter-btn" data-tag={tag}>{tag}</button>
+        ))}
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 40px;">
+      <h2 style="font-family: var(--font-display, Georgia, serif); font-size: 1.75rem; font-weight: 700; color: #0f172a; margin:0;">Catálogo de Cursos</h2>
+      <span style="font-family: monospace; font-size: 12px; color: #64748b; text-transform: uppercase;">{cursos.length} Programas</span>
+    </div>
+
+    <div id="grid-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px;">
+      {cursos.map(curso => {
+        const destLink = r(`/capacitacion/${curso.id.replace(/\.mdx?$/, '')}`);
+        
+        return (
+          <a class="grid-item" href={destLink} data-title={curso.data.titulo?.toLowerCase() || ''} data-tags={curso.data.categoria || ''} style="text-decoration: none; color: inherit; display: block;">
+            <article class="premium-blog-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); height: 100%; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; overflow: hidden; position:relative;">
+              
+              <div style="padding: 24px; display: flex; flex-direction: column; flex-grow: 1; z-index: 1;">
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <span style="font-family: monospace; font-size: 11px; background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 6px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                      {curso.data.categoria}
+                    </span>
+                    <span style="font-size: 15px; font-weight: 800; color: #0f172a; background: #f8fafc; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                      ${curso.data.precio_usd?.toLocaleString() || 0} USD
+                    </span>
+                </div>
+                
+                <h3 style="font-family: var(--font-body, sans-serif); font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; line-height: 1.35; color: #0f172a; flex-grow: 1;">
+                  {curso.data.titulo}
+                </h3>
+                
+                {curso.data.descripcion && (
+                  <p style="font-size: 14px; color: #475569; line-height: 1.5; margin-bottom: 24px;">
+                    {curso.data.descripcion}
+                  </p>
+                )}
+
+                <div style="border-top: 1px solid #f1f5f9; padding-top: 16px; margin-top: auto; display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-family: monospace; font-size: 12px; text-transform: uppercase; color: #2563eb; font-weight: 700; display: flex; align-items: center; gap: 6px;" class="read-more-btn">
+                    Ver Temario &rarr;
+                  </span>
+                </div>
+              </div>
+            </article>
+          </a>
+        )
+      })}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+/* Estética Premium UI/UX */
+.filter-btn { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-family: monospace; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 10px 20px; cursor: pointer; color: #475569; transition: all 0.25s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+.filter-btn:hover { background: #ffffff; border-color: #94a3b8; transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+.filter-btn.active { background: #0f172a; color: #ffffff; border-color: #0f172a; font-weight: 800; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
+
+/* Micro-Animaciones Cards */
+.grid-item article.premium-blog-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #06b6d4); opacity: 0; transition: opacity 0.3s ease; }
+.grid-item article.premium-blog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); border-color: #bfdbfe; }
+.grid-item article.premium-blog-card:hover::before { opacity: 1; }
+.grid-item article.premium-blog-card:hover .read-more-btn { color: #1d4ed8; }
+</style>
+
+<script>
+  // @ts-nocheck
+  document.addEventListener("DOMContentLoaded", () => {
+    const btns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.grid-item');
+    
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tag = btn.getAttribute('data-tag');
+        
+        items.forEach(item => {
+          const itemTags = item.getAttribute('data-tags') || '';
+          if (tag === 'ALL' || itemTags.includes(tag)) {
+            (item as HTMLElement).style.display = 'block';
+          } else {
+            (item as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

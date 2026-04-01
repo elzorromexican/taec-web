@@ -27,6 +27,20 @@ export const POST: APIRoute = async ({ request }) => {
         .replace(/'/g, '&#039;');
     };
 
+    // Helper anti-XSS y parseo básico de Markdown para el correo
+    const parseBasicMarkdown = (str: string) => {
+      if (!str) return '';
+      let html = escapeHtml(str);
+        
+      // 2. Reemplazar sintaxis básica de Markdown
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Negritas
+      html = html.replace(/(?<!\*)\*(.*?)\*(?!\*)/g, '<em>$1</em>'); // Cursivas
+      html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color:#004775;text-decoration:underline;">$1</a>'); // Enlaces
+      html = html.replace(/\n/g, '<br/>'); // Saltos de línea
+      
+      return html;
+    };
+
     // Bypass del escáner de Netlify
     let resendKey = undefined;
     if (typeof process !== 'undefined' && process.env) {
@@ -64,8 +78,8 @@ export const POST: APIRoute = async ({ request }) => {
       
       return '<div style="display: flex; justify-content: ' + alignFlex + '; width: 100%; margin-bottom: 15px;">' +
                '<div style="' + marginClass + ' max-width: 80%; padding: 12px; border-radius: 8px; background-color: ' + bgColor + '; border: 1px solid ' + borderColor + '; text-align: left;">' +
-                 '<strong style="color: ' + nameColor + ';">' + escapeHtml(senderName) + '</strong><br/>' +
-                 '<span style="font-size: 14px; line-height: 1.5; color: #333;">' + escapeHtml(m.text) + '</span>' +
+                 '<strong style="color: ' + nameColor + ';">' + parseBasicMarkdown(senderName) + '</strong><br/>' +
+                 '<span style="font-size: 14px; line-height: 1.5; color: #333;">' + parseBasicMarkdown(m.text) + '</span>' +
                '</div>' +
              '</div>';
     }).join('');

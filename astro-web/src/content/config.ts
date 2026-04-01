@@ -61,5 +61,9 @@ export const collections = {
   quiz: defineCollection({
     loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/quiz" }),
     schema: baseSchema
+  }),
+  cursos: defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/cursos" }),
+    schema: baseSchema
   })
 };

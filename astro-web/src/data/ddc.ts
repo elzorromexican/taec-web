@@ -45,7 +45,7 @@ export const ddcServicios = [
 // ── BENEFICIOS ────────────────────────────────────────────────────────────────
 export const ddcBeneficios = {
   eyebrow: "Por qué TAEC DDC",
-  title: "Cuatro razones para confiar tu e-learning a TAEC",
+  title: "Tres razones para confiar tu e-learning a TAEC",
   subtitle: "Más de 18 años produciendo cursos a medida para corporativos en México, LATAM, Europa y Estados Unidos.",
   columns: 3 as const,
   theme: "general" as const,
