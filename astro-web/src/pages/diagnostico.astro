@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DiagnosticoApp from '../components/diagnostico/DiagnosticoApp';
+---
+
+<BaseLayout 
+  title="TAEC | Diagnóstico Inteligente de Aprendizaje" 
+  description="Evalúa qué plataforma LMS necesitas en 10 minutos. Diagnóstico corporativo respaldado por IA y datos de ATD/LinkedIn Learning."
+  section="Recursos"
+  page="diagnostico"
+>
+  <main style="min-height: 100vh;">
+    <DiagnosticoApp client:load />
+  </main>
+</BaseLayout>

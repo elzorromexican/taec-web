@@ -145,6 +145,35 @@ export default function ChatAgent() {
     }
   }, [isOpen, hasStarted]);
 
+  // Manejo de Inyección desde el Diagnóstico de Aprendizaje
+  useEffect(() => {
+    const handleDiagnosticContext = (e: any) => {
+      const { email, diagnosticResult, prompt } = e.detail;
+      
+      // Configuramos la identidad
+      const aliasName = email.split('@')[0];
+      userDataStore.set({ ...userDataStore.get(), email, name: aliasName });
+      
+      // Forzamos la apertura e inicio del chat
+      hasStartedStore.set(true);
+      isOpenStore.set(true);
+      hasUnreadMessagesStore.set(false);
+      
+      // Inyectamos el contexto como si fuera un mensaje del usuario (invisible) 
+      // y la primera respuesta de TitoBits (visible).
+      messagesStore.set([
+        { role: 'user', text: `[SYSTEM_HIDDEN_CONTEXT]\n${prompt}\n[/SYSTEM_HIDDEN_CONTEXT]` },
+        { 
+          role: 'agent', 
+          text: `¡Hola ${aliasName}! Acabo de recibir los resultados de tu diagnóstico. Veo que resolviste varias áreas clave y tu perfil apunta fuertemente hacia **${diagnosticResult}**.\n\nPara poder estructurarte un estudio de caso más preciso o un preliminar de costos, me encantaría entender un poco el lado "humano" de tu proyecto:\n\n1. ¿Quién más en tu organización tomaría la decisión final sobre esto?\n2. ¿Han tenido alguna experiencia (buena o mala) con otras plataformas en el pasado?` 
+        }
+      ]);
+    };
+
+    window.addEventListener('OpenTitoDiagnostic', handleDiagnosticContext);
+    return () => window.removeEventListener('OpenTitoDiagnostic', handleDiagnosticContext);
+  }, []);
+
   const toggleChat = () => {
     if (isOpen && hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
       transcriptSentStore.set(true);
@@ -525,7 +554,7 @@ export default function ChatAgent() {
               </div>
             ) : (
               <>
-                {messages.map((m: any, i) => (
+                {messages.filter((m: any) => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).map((m: any, i) => (
                   <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
                     <div style={{
                       maxWidth: '85%', padding: '12px 16px', fontSize: '14px', lineHeight: '1.5',
