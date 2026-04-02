@@ -327,7 +327,8 @@ export default function ChatAgent() {
   };
 
   const copyToClipboard = () => {
-    const text = messages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\\n\\n');
+    const visibleMessages = messages.filter(m => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]'));
+    const text = visibleMessages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\\n\\n');
     navigator.clipboard.writeText(text);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 3500);
@@ -355,7 +356,7 @@ export default function ChatAgent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userData,
-          messages,
+          messages: messages.filter(m => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]')),
           metadata: { 
             time: localTime, 
             timeZone,

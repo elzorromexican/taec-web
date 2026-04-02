@@ -142,7 +142,7 @@ export const dimensions: Dimension[] = [
       {
         text: "¿La certificación que emites necesita tener vigencia y renovarse periódicamente?",
         why: "Las certificaciones con vigencia crean ciclos de negocio recurrentes y mantienen el contacto con el cliente certificado.",
-        insight: { yes: "<strong>Modelo de relación continua:</strong> Configura notificaciones automáticas de vencimiento. Según los datos del sector, este mecanismo es el canal de marketing más económico para la renovación de producto. La plataforma debe soportar fechas de vencimiento por usuario.", no: "Certificación permanente. Simple de gestionar. Considera si en el futuro querrás convertirla en renovable cuando el programa escale.", plat: "netexam" }
+        insight: { yes: "<strong>Modelo de relación continua:</strong> Configura notificaciones automáticas de vencimiento. Según los datos del sector, este mecanismo es el canal de marketing más económico para la renovación de producto. La plataforma debe soportar fechas de vencimiento por usuario.", no: "Certificación permanente. Simple de gestionar. Considera si en el futuro querrás convertirla en renovable cuando el programa escale.", plat: "totara" }
       },
       {
         text: "¿Necesitas que el certificado sea verificable públicamente (QR, open badge, directorio online)?",

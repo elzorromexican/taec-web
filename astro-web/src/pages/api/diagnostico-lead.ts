@@ -3,6 +3,10 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
+// Idempotency cache (Memory)
+const recentSubmissions = new Map<string, number>();
+const RATE_LIMIT_MS = 60000; // 60 seconds
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const rawBody = await request.text();
@@ -15,6 +19,21 @@ export const POST: APIRoute = async ({ request }) => {
     if (!email || !email.includes('@')) {
       return new Response(JSON.stringify({ error: 'Email inválido.' }), { status: 400 });
     }
+
+    // Rate Limiting Check (Anti-Doble Submit)
+    const now = Date.now();
+    for (const [k, v] of recentSubmissions.entries()) {
+      if (now - v > RATE_LIMIT_MS) recentSubmissions.delete(k);
+    }
+    
+    if (recentSubmissions.has(email)) {
+      // Simulate success to not block the frontend flow, but actually skip resend!
+      console.log(`[Idempotency] Request duplicate skipped for: ${email}`);
+      return new Response(JSON.stringify({ success: true, cached: true }), { status: 200 });
+    }
+    
+    // Register submission
+    recentSubmissions.set(email, now);
 
     const escapeHtml = (str: string) => {
       if (!str) return '';

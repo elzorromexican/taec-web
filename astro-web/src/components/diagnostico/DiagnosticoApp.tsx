@@ -16,6 +16,8 @@ export default function DiagnosticoApp() {
   const [email, setEmail] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [currentDimIndex, setCurrentDimIndex] = useState(0);
+  const [activeInsight, setActiveInsight] = useState<string | null>(null);
 
   const handleAnswer = (dimIndex: number, qIndex: number, val: Answer, plat: Platforms | null) => {
     const key = `${dimIndex}-${qIndex}`;
@@ -23,21 +25,36 @@ export default function DiagnosticoApp() {
       ...prev,
       [key]: { val, insightPlat: plat }
     }));
+    setActiveInsight(key);
   };
 
   const totalQuestions = dimensions.reduce((acc, dim) => acc + dim.questions.length, 0);
   const totalAnswered = Object.keys(answers).length;
   const pct = Math.round((totalAnswered / totalQuestions) * 100);
 
-  let currentDimNum = 1;
-  let cumulative = 0;
-  for (let i = 0; i < dimensions.length; i++) {
-    cumulative += dimensions[i].questions.length;
-    if (totalAnswered < cumulative) {
-      currentDimNum = i + 1;
-      break;
-    }
-  }
+  const isFinished = currentDimIndex === dimensions.length;
+  
+  const currentDimQuestions = !isFinished ? dimensions[currentDimIndex].questions : [];
+  const isCurrentDimComplete = !isFinished && currentDimQuestions.every((_, qi) => {
+    return answers[`${currentDimIndex}-${qi}`] !== undefined;
+  });
+
+  const nextDimension = () => {
+    setCurrentDimIndex(prev => prev + 1);
+    setActiveInsight(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const resetDiagnostic = () => {
+    setAnswers({});
+    setEmail('');
+    setEmailSent(false);
+    setCurrentDimIndex(0);
+    setActiveInsight(null);
+    window.scrollTo({ top: 0 });
+  };
+
+  const displayDimNum = isFinished ? 5 : currentDimIndex + 1;
 
   // Calculate scores
   const scores = useMemo(() => {
@@ -59,7 +76,12 @@ export default function DiagnosticoApp() {
     netexam: "PIFINI / NetExam"
   };
 
-  const winningPlatformId = Object.keys(scores).reduce((a, b) => scores[b as Platforms] > scores[a as Platforms] ? b : a) as Platforms;
+  const platPriority: Platforms[] = ['reach360', 'moodle', 'totara', 'netexam'];
+  const winningPlatformId = (Object.keys(scores) as Platforms[]).reduce((a, b) => {
+    if (scores[b] > scores[a]) return b;
+    if (scores[b] === scores[a]) return platPriority.indexOf(b) < platPriority.indexOf(a) ? b : a;
+    return a;
+  });
   const winningPlatformName = platNames[winningPlatformId];
 
   const chartData = [
@@ -107,6 +129,9 @@ Recopila esta info para luego poder estructurar tu clásico reporte de "Situaci�
 
   return (
     <div style={{ fontFamily: '"DM Sans", sans-serif', background: '#F2F1EC', color: '#1B2A4A', minHeight: '100vh', paddingBottom: '4rem' }}>
+      <style>{`
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+      `}</style>
       {/* Sticky Bar */}
       <div style={{ position: 'sticky', top: 0, zIndex: 100, background: '#1B2A4A', padding: '10px 2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <div style={{ fontFamily: '"Fraunces", serif', fontSize: '14px', fontWeight: 600, color: 'white', flexShrink: 0 }}>
@@ -121,16 +146,19 @@ Recopila esta info para luego poder estructurar tu clásico reporte de "Situaci�
           </div>
         </div>
         <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '11px', color: '#80DDD5', flexShrink: 0, whiteSpace: 'nowrap' }}>
-          Dimensión {currentDimNum} / 5
+          Dimensión {displayDimNum} / 5
         </div>
       </div>
 
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
         
-        {totalAnswered < totalQuestions ? (
-          /* Preguntas y Dimensiones */
-          dimensions.map((dim, di) => (
-            <div key={di} style={{ marginBottom: '3rem' }}>
+        {!isFinished ? (
+          /* Preguntas y Dimensiones (WIZARD MODE) */
+          (() => {
+            const di = currentDimIndex;
+            const dim = dimensions[di];
+            return (
+            <div key={di} style={{ marginBottom: '3rem', animation: 'fadeSlideIn 0.5s ease-out' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '2px solid #1B2A4A' }}>
                 <div style={{ fontFamily: '"Fraunces", serif', fontSize: '42px', fontWeight: 300, fontStyle: 'italic', color: '#C8C8D4', lineHeight: 1, flexShrink: 0 }}>
                   {dim.num}
@@ -149,10 +177,13 @@ Recopila esta info para luego poder estructurar tu clásico reporte de "Situaci�
                   const globalNum = dimensions.slice(0, di).reduce((a, d) => a + d.questions.length, 0) + qi + 1;
 
                   return (
-                    <div key={id} style={{ 
-                      background: isAnswered ? '#F4FBF9' : '#FFFFFF', 
-                      border: isAnswered ? '1.5px solid #0A7A70' : '1.5px solid #C8C8D4', 
-                      borderRadius: '8px', overflow: 'hidden', transition: 'border-color 0.2s'
+                    <div key={id} 
+                      onClick={() => isAnswered && setActiveInsight(activeInsight === id ? null : id)}
+                      style={{ 
+                        background: isAnswered ? '#F4FBF9' : '#FFFFFF', 
+                        border: isAnswered ? '1.5px solid #0A7A70' : '1.5px solid #C8C8D4', 
+                        borderRadius: '8px', overflow: 'hidden', transition: 'border-color 0.2s',
+                        cursor: isAnswered ? 'pointer' : 'default'
                     }}>
                       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 16px' }}>
                         <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '12px', fontWeight: 500, color: isAnswered ? '#0A7A70' : '#C8C8D4', flexShrink: 0, minWidth: '28px', marginTop: '2px' }}>
@@ -163,31 +194,48 @@ Recopila esta info para luego poder estructurar tu clásico reporte de "Situaci�
                           <div style={{ fontSize: '12px', color: '#4A4A5A', fontWeight: 300, fontStyle: 'italic' }}>{q.why}</div>
                         </div>
                         <div style={{ display: 'flex', gap: '6px', flexShrink: 0, marginTop: '2px' }}>
-                          <button onClick={() => handleAnswer(di, qi, 'yes', q.insight.plat)}
+                          <button onClick={(e) => { e.stopPropagation(); handleAnswer(di, qi, 'yes', q.insight.plat); }} title="Sí"
                             style={{ width: '28px', height: '28px', borderRadius: '5px', border: ans === 'yes' ? '1.5px solid #0A7A70' : '1.5px solid #C8C8D4', background: ans === 'yes' ? '#0A7A70' : '#FFFFFF', color: ans === 'yes' ? '#FFF' : '#1B2A4A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', transition: 'all 0.15s' }}>
                             ✓
                           </button>
-                          <button onClick={() => handleAnswer(di, qi, 'no', q.insight.plat)}
+                          <button onClick={(e) => { e.stopPropagation(); handleAnswer(di, qi, 'no', q.insight.plat); }} title="No"
                             style={{ width: '28px', height: '28px', borderRadius: '5px', border: ans === 'no' ? '1.5px solid #E53935' : '1.5px solid #C8C8D4', background: ans === 'no' ? '#E53935' : '#FFFFFF', color: ans === 'no' ? '#FFF' : '#1B2A4A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', transition: 'all 0.15s' }}>
                             ✗
                           </button>
                         </div>
                       </div>
                       
-                      {isAnswered && (
-                        <div style={{ padding: '10px 16px 14px 56px', borderTop: '1px solid #C8C8D4', background: '#F8F8F5' }}>
-                          <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0A7A70', marginBottom: '5px', fontWeight: 500 }}>
-                            Qué significa para tu proyecto
+                      {/* Animación fluida CSS Grid */}
+                      <div style={{ display: 'grid', gridTemplateRows: activeInsight === id ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease-out' }}>
+                        <div style={{ overflow: 'hidden' }}>
+                          <div style={{ padding: '10px 16px 14px 56px', borderTop: '1px solid #C8C8D4', background: '#F8F8F5' }}>
+                            <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0A7A70', marginBottom: '5px', fontWeight: 500 }}>
+                              Qué significa para tu proyecto
+                            </div>
+                            <div style={{ fontSize: '13px', color: '#4A4A5A', lineHeight: 1.5, fontWeight: 300 }} dangerouslySetInnerHTML={{ __html: ans === 'yes' ? q.insight.yes : q.insight.no }} />
                           </div>
-                          <div style={{ fontSize: '13px', color: '#4A4A5A', lineHeight: 1.5, fontWeight: 300 }} dangerouslySetInnerHTML={{ __html: ans === 'yes' ? q.insight.yes : q.insight.no }} />
                         </div>
-                      )}
+                      </div>
+
                     </div>
                   );
                 })}
               </div>
+
+              {/* Siguiente Boton */}
+              {isCurrentDimComplete && (
+                <div style={{ marginTop: '2.5rem', textAlign: 'center', animation: 'fadeSlideIn 0.5s ease' }}>
+                  <button 
+                    onClick={nextDimension}
+                    style={{ background: '#1B2A4A', color: 'white', border: 'none', padding: '14px 32px', borderRadius: '8px', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', fontFamily: '"DM Sans", sans-serif', boxShadow: '0 4px 12px rgba(27,42,74,0.2)' }}
+                  >
+                    {currentDimIndex === dimensions.length - 1 ? 'Ver Resultado Final →' : 'Siguiente Dimensión →'}
+                  </button>
+                </div>
+              )}
             </div>
-          ))
+          );
+          })()
         ) : (
           /* PANTALLA FIN DE DIAGNÓSTICO */
           <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: '3rem', boxShadow: '0 10px 40px rgba(0,0,0,0.05)', textAlign: 'center' }}>
@@ -229,9 +277,14 @@ Recopila esta info para luego poder estructurar tu clásico reporte de "Situaci�
               </div>
             ) : (
               <div style={{ background: '#ECFDF5', padding: '2rem', borderRadius: '12px', border: '1.5px solid #10B981' }}>
-                <div style={{ fontSize: '24px', marginBottom: '0.5rem' }}>🎯</div>
-                <h3 style={{ fontSize: '18px', color: '#065F46', marginBottom: '0.5rem' }}>¡Reporte ENVIADO a {email}!</h3>
-                <p style={{ fontSize: '14px', color: '#047857' }}>Revisa la ventana emergente de chat en la esquina inferior derecha. Tito Bits ya tiene tus respuestas y te está esperando para profundizar en tu estudio de caso.</p>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '0.5rem' }}>
+                  <div style={{ fontSize: '24px' }}>🎯</div>
+                  <h3 style={{ fontSize: '18px', color: '#065F46', margin: 0 }}>¡Reporte ENVIADO a {email}!</h3>
+                </div>
+                <p style={{ fontSize: '14px', color: '#047857', marginBottom: '1.5rem' }}>Revisa la ventana emergente de chat en la esquina inferior derecha. Tito Bits ya tiene tus respuestas y te está esperando para profundizar en tu estudio de caso.</p>
+                <button onClick={resetDiagnostic} style={{ background: '#FFF', border: '1px solid #10B981', color: '#065F46', padding: '8px 16px', borderRadius: '6px', fontSize: '13px', cursor: 'pointer', fontWeight: 600, transition: 'background 0.2s' }}>
+                  ↺ Iniciar nuevo diagnóstico
+                </button>
               </div>
             )}
           </div>
