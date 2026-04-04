@@ -1,0 +1,348 @@
+---
+/**
+ * @name IntranetLayout.astro
+ * @version 1.1
+ * @description Master layout de la intranet B2B. Incluye Sidebar para la navegación y barra responsiva.
+ * @inputs title, description
+ * @outputs Layout renderizado
+ * @dependencies BaseLayout.astro
+ * @created 2026-03-01
+ * @updated 2026-04-04 12:12:00
+ */
+import BaseLayout from './BaseLayout.astro';
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isAdmin = Astro.locals?.rol === 'admin';
+
+const isArticulate = currentPath.includes('rise360') || currentPath.includes('storyline360') || currentPath.includes('review360') || currentPath.includes('reach360') || currentPath.includes('aiassistant') || currentPath.includes('localization');
+const isVyond = currentPath.includes('vyond');
+const isLMS = currentPath.includes('moodle') || currentPath.includes('totara') || currentPath.includes('pifinilearn') || currentPath.includes('ottolearn') || currentPath.includes('lys');
+const isAddons = currentPath.includes('ddc') || currentPath.includes('class') || currentPath.includes('proctorizer') || currentPath.includes('strikeplagiarism');
+const isCatalog = currentPath.includes('7minutes') || currentPath.includes('customguide');
+---
+<BaseLayout title={title} description={description} isApp={true} robots="noindex, nofollow">
+  <div class="intranet-layout">
+    
+    <!-- TOPBAR MÓVIL (Solo visible en pantallas pequeñas) -->
+    <header class="intranet-topbar-mobile">
+      <div class="logo-area">
+        <span class="font-bold tracking-tight text-white">TAEC Hub</span>
+      </div>
+      <button id="menu-toggle" class="menu-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </header>
+
+    <!-- SIDEBAR MASTER -->
+    <aside class="intranet-sidebar" id="intranet-sidebar">
+      <div class="sidebar-header">
+        <div class="cube-icon"></div>
+        <div class="brand-text">
+          <span class="brand-name">TAEC Hub</span>
+          <span class="brand-badge">B2B</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <p class="nav-label">Lobby</p>
+        <a href="/interno/dashboard" class="nav-link">🏠 Dashboard & News</a>
+        
+        <p class="nav-label">Portafolio SaaS</p>
+        
+        <details class="nav-group" open={isArticulate}>
+          <summary class="nav-group-btn">Articulate 360</summary>
+          <div class="nav-group-content">
+            <a href="/interno/playbooks/rise360" class="nav-link">📚 Rise 360</a>
+            <a href="/interno/playbooks/storyline360" class="nav-link">📚 Storyline 360</a>
+            <a href="/interno/playbooks/review360" class="nav-link">📚 Review 360</a>
+            <a href="/interno/playbooks/reach360" class="nav-link">📚 Reach 360</a>
+            <a href="/interno/playbooks/aiassistant" class="nav-link">🤖 AI Assistant</a>
+            <a href="/interno/playbooks/localization" class="nav-link">🌐 Localization</a>
+          </div>
+        </details>
+        
+        <details class="nav-group" open={isVyond}>
+          <summary class="nav-group-btn">Vyond</summary>
+          <div class="nav-group-content">
+            <a href="/interno/playbooks/vyondgo" class="nav-link">🤖 Vyond Go</a>
+            <a href="/interno/playbooks/vyondstudio" class="nav-link">🎬 Vyond Studio</a>
+            <a href="/interno/playbooks/vyondmobile" class="nav-link">📱 Vyond Mobile</a>
+            <a href="/interno/playbooks/vyondenterprise" class="nav-link">🏢 Enterprise</a>
+            <a href="/interno/playbooks/vyondprofessional" class="nav-link">💼 Professional</a>
+          </div>
+        </details>
+
+        <details class="nav-group" open={isLMS}>
+          <summary class="nav-group-btn">Plataformas & LMS</summary>
+          <div class="nav-group-content">
+            <a href="/interno/playbooks/moodle" class="nav-link">📚 Moodle Workspace</a>
+            <a href="/interno/playbooks/totara" class="nav-link">📚 Totara LMS</a>
+            <a href="/interno/playbooks/pifinilearn" class="nav-link">📚 Pifini Learn</a>
+            <a href="/interno/playbooks/ottolearn" class="nav-link">📚 Ottolearn</a>
+            <a href="/interno/playbooks/lys" class="nav-link">📚 Lys</a>
+          </div>
+        </details>
+
+        <details class="nav-group" open={isAddons}>
+          <summary class="nav-group-btn">Servicios & Add-ons</summary>
+          <div class="nav-group-content">
+            <a href="/interno/playbooks/ddc" class="nav-link">📚 DDC (Desarrollo)</a>
+            <a href="/interno/playbooks/class" class="nav-link">📚 Class</a>
+            <a href="/interno/playbooks/proctorizer" class="nav-link">📚 Proctorizer</a>
+            <a href="/interno/playbooks/strikeplagiarism" class="nav-link">📚 StrikePlagiarism</a>
+          </div>
+        </details>
+
+        <details class="nav-group" open={isCatalog}>
+          <summary class="nav-group-btn">Catálogo Listo</summary>
+          <div class="nav-group-content">
+            <a href="/interno/playbooks/7minutes" class="nav-link">📚 7 Minutes</a>
+            <a href="/interno/playbooks/customguide" class="nav-link">📚 Custom Guide</a>
+          </div>
+        </details>
+
+        <p class="nav-label">Herramientas</p>
+        <a href="/interno/cotizadores" class="nav-link">💰 Tabuladores & Enlaces</a>
+        
+        <p class="nav-label">Mantenimiento</p>
+        <a href="/interno/colaborar" class="nav-link">💡 Sugerir Contenido</a>
+        {isAdmin && <a href="/interno/admin" class="nav-link admin-link">⚙️ Panel Admin</a>}
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/" class="nav-link logout-link">⏏️ Salir al sitio web</a>
+      </div>
+    </aside>
+
+    <!-- ÁREA DE CONTENIDO (Páginas renderizadas) -->
+    <main class="intranet-main-content">
+      <div class="content-wrapper">
+        <slot />
+      </div>
+    </main>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* VANILLA CSS PREMIUM PARA LA INTRANET (NO TAILWIND) */
+  :root {
+    --sidebar-w: 280px;
+    --sl1: #0f172a; /* Slate 900 */
+    --sl2: #1e293b; /* Slate 800 */
+    --sl3: #334155; /* Slate 700 */
+    --sl_light: #f8fafc;
+    --acc_blue: #2563eb;
+  }
+
+  body { margin: 0; background-color: var(--sl_light); }
+
+  .intranet-layout {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* SIDEBAR */
+  .intranet-sidebar {
+    width: var(--sidebar-w);
+    background-color: var(--sl1);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 50;
+    transition: transform 0.3s ease;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+  }
+
+  .sidebar-header {
+    padding: 2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .cube-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 8px;
+  }
+
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+  .brand-badge { font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; font-weight: 600; letter-spacing: 2px;}
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    overflow-y: auto;
+  }
+
+  .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #475569;
+    margin: 1.5rem 0 0.5rem 0.5rem;
+    font-weight: 700;
+  }
+
+  .nav-group {
+    margin-top: 0.5rem;
+  }
+
+  .nav-group-btn {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin: 0.25rem 0;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none; /* Hide default arrow in modern browsers */
+    transition: color 0.2s;
+    border-radius: 0.5rem;
+  }
+  
+  .nav-group-btn::-webkit-details-marker {
+    display: none; /* Hide arrow in Safari */
+  }
+
+  .nav-group-btn:hover {
+    color: #fff;
+    background-color: rgba(255,255,255,0.03);
+  }
+
+  /* Custom animated chevron using ::after */
+  .nav-group-btn::after {
+    content: '▾';
+    float: right;
+    transition: transform 0.2s ease;
+    transform: rotate(-90deg);
+  }
+
+  details[open] .nav-group-btn::after {
+    transform: rotate(0deg);
+  }
+  
+  details[open] .nav-group-btn {
+    color: #e2e8f0;
+  }
+
+  .nav-group-content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    margin-top: 0.1rem;
+    gap: 0.1rem;
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.85rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: #fff;
+  }
+
+  .nav-link.active {
+    background-color: var(--acc_blue);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .admin-link { color: #f59e0b; }
+  .admin-link:hover { background-color: rgba(245, 158, 11, 0.1); color: #fbbf24;}
+
+  .sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .logout-link { color: #ef4444; }
+  .logout-link:hover { background: rgba(239, 68, 68, 0.1); color: #f87171;}
+
+  /* TOPBAR MÓVIL */
+  .intranet-topbar-mobile {
+    display: none;
+    background-color: var(--sl1);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 40;
+  }
+  .menu-btn { background: none; border: none; color: #fff; cursor: pointer; }
+
+  /* MAIN CONTENT */
+  .intranet-main-content {
+    flex: 1;
+    overflow-y: auto;
+    height: 100vh;
+    background-color: var(--sl_light);
+  }
+
+  .content-wrapper {
+    padding: 3rem 4rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .intranet-layout { flex-direction: column; }
+    .intranet-topbar-mobile { display: flex; }
+    .intranet-sidebar {
+      position: fixed;
+      top: 60px; bottom: 0; left: 0;
+      transform: translateX(-100%);
+    }
+    .intranet-sidebar.open { transform: translateX(0); }
+    .intranet-main-content { margin-top: 60px; }
+    .content-wrapper { padding: 2rem 1.5rem; }
+  }
+</style>
+
+<script>
+  // Script para abrir/cerrar sidebar en móvil
+  const toggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('intranet-sidebar');
+  if (toggle && sidebar) {
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+  }
+
+  // Active state visual
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === currentPath || (link.getAttribute('href') !== '/interno/dashboard' && currentPath.startsWith(link.getAttribute('href')))) {
+      link.classList.add('active');
+    }
+  });
+</script>

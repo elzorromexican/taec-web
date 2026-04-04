@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import KBViewer from '../../../components/interno/KBViewer';
+import { supabase } from '../../../lib/supabase';
+
+// Como el middleware ya validó el auth, podemos simplemente cargar la data aquí sin preocuparnos tanto por accesos denegados aleatorios.
+const { data: kbItems, error } = await supabase
+  .from('kb_items')
+  .select('*')
+  .contains('audiencia', ['interno'])
+  .order('orden', { ascending: true });
+
+if (error) {
+  console.error("Error cargando KB:", error);
+}
+
+// Extraemos las secciones presentes para generar los tabs.
+const seccionesMap = new Map();
+if (kbItems) {
+  kbItems.forEach(item => {
+    if (!seccionesMap.has(item.seccion)) {
+      seccionesMap.set(item.seccion, {
+        id: item.seccion,
+        label: item.seccion_label,
+        color: item.seccion_color
+      });
+    }
+  });
+}
+const seccionesList = Array.from(seccionesMap.values());
+---
+
+<BaseLayout title="Base de Conocimientos Interna | TAEC" description="Knowledge Base operativa Rise 360">
+  <main class="w-full min-h-screen bg-slate-50 pt-24 pb-16">
+    <div class="max-w-4xl mx-auto px-4 md:px-6">
+      <header class="mb-10 text-center">
+        <h1 class="text-3xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight">Base de Conocimientos Operativa</h1>
+        <p class="text-slate-600 text-lg">Módulo: <strong>Rise 360</strong>. Exclusivo para equipo comercial TAEC.</p>
+      </header>
+      
+      {kbItems && kbItems.length > 0 ? (
+        <KBViewer 
+          client:load 
+          items={kbItems} 
+          secciones={seccionesList} 
+        />
+      ) : (
+        <div class="p-8 text-center bg-white rounded-2xl shadow-sm border border-slate-200">
+          <p class="text-slate-500">Aún no hay registros insertados en la base de datos para esta sección.</p>
+        </div>
+      )}
+    </div>
+  </main>
+</BaseLayout>

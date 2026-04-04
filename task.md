@@ -3,15 +3,36 @@
 
 ## 🚀 Prioridades Inmediatas (Siguiente Sesión - Arranque Fase 2)
 - [ ] **Despliegue a Producción (CI/CD):** Fusionar la rama `feature/ddc-calculadora` a `main` para reactivar producción en `nuevo.taec.com.mx` con el MVP v6.0 B2B activo.
-- [ ] **Integración Supabase (Zero-Footprint QA):** Asegurar al 100% la supresión de datos PII antes de hard resets, matando sesiones abandonadas por Compliance.
+- [x] **Integración Supabase e Intranet B2B:** Refactorización de infraestructura y autenticación segura con SSR y middleware estricto de dominio e-mail corporativo.
 - [ ] **Auditoría Resend Handoff:** Revisar payloads transaccionales de `send-transcript.ts` con sanitización XSS para asegurar transcritos limpios en CRM.
 - [ ] **Context-Hopping Final:** Validar las recomendaciones dinámicas espaciales de Tito Bits al cruzar ecosistemas en Front-End.
 - [ ] **Deuda Técnica UI:** Actualizar Zoho Bookings URL (`taec.zohobookings.com`), eliminar `emailjs.ts` obsoleto si aplica, e inyectar `<Image>` tags nativos en Assets para CLS cero absoluto.
+ 
+## 🛠️ Auditoría QA Intranet (Fixes Pendientes)
+**Score de salud: 67 / 100** — Base sólida, gaps claros.
+
+**🔴 1 Crítico**
+- [x] **[ISSUE-006] Admin sin role-guard:** `/interno/admin` no verifica `Astro.locals.rol !== 'admin'` en el servidor (Fix completado).
+
+**🟠 1 Alto**
+- [ ] **[ISSUE-010] Nota interna visible al usuario:** En `/colaborar`, el texto sobre "Bases de datos en la siguiente fase" debe reemplazarse por un mensaje amigable.
+
+**🟡 8 Medios**
+- [ ] **[ISSUE-001] Dashboard:** 3 quick-link cards con `href="#"` (dead links).
+- [ ] **[ISSUE-002] Dashboard:** Scroll roto en "Accesos Directos" bajo el fold.
+- [ ] **[ISSUE-007] Admin:** "Abrir Bandeja" es un botón muerto sin event listener.
+- [ ] **[ISSUE-008] Admin:** "Lanzar Supabase" apunta a la URL genérica.
+- [ ] **[ISSUE-011] Colaborar:** Botón enviar deshabilitado (silencioso).
+- [ ] **[ISSUE-013] Cotizadores:** "Visitar Proveedores" sin href.
+- [ ] **[ISSUE-015] Global:** Sidebar sin `active state` visual.
+- [ ] **[ISSUE-017] Global:** Ocultar link "Panel Admin" a usuarios sin rol admin.
 
 ## 📌 Operaciones Recientes (Corto Plazo)
+- [x] **Estabilización de UX Intranet e Identidad (Fase 2):** Extracción inteligente de identidad OAuth desde Supabase en `middleware.ts`, bypass cognitivo en Tito Bits para saltar formulario interno, remoción de widget de WhatsApp superpuesto en rutas privadas, y despliegue del script semilla `docs/supabase-interno-seed-storyline360.sql` (33 registros) conectando la 2da matriz comercial al Hub SSR.
 - [x] **Auditoría y Blindaje de TitoBits (Red Team / P0 y P1):** Remoción completa de persistencia PII en Storage para GDPR, mitigación masiva de XSS y spam en el Handoff del correo (`escapeHtml` y Payload limits), solución al bug crónico de inyección doble hacia Gemini, filtrado estricto de roles en SSR, abort controller de 25s, migración de Geo a Netlify Edge Headers, y arreglo final del "Context Hopping" en SPA View Transitions.
 - [x] Concluir ajustes de Quality Assurance (QA) fotográfico o estilístico en dispositivos móviles para las colecciones secundarias.
 - [x] Preparación y revisión final previo al Embalaje / Deployment para entorno de Producción.
+- [x] **Estabilización de UI Intranet B2B (Fixes):** Refactorización visual de *KBViewer* y *Playbook Hero* al estándar corporativo minimalista. Se resolvió de raíz el bloqueo de *Row Level Security (RLS)* inyectando tokens frescos SSR y se selló el SEO (`noindex`) de la red privada. Se implementó navegación inteligente (acordeones auto-expandibles) y prevención de bucles de redirección forzando SSR `prerender = false` global.
 - [x] Parche Urgente de Producción: Corrección en `paths.ts` forzando el *Trailing Slash* en Astro (`import.meta.env.BASE_URL`) para solventar la pérdida de Assets CSS (404) en GitHub Pages.
 - [x] Saneamiento Quirúrgico (Anti-FOUC): Purga de `>800` líneas de CSS redundante (Mega Menú y Footer) de 11 landings de Articulate y Vyond para lograr 100% de herencia del layout unificado sin parpadeos de renderizado.
 - [x] **Blindaje JavaScript (Hallazgo P0 de Auditoría):** Extracción, tipado y desacoplamiento de *scripts* pesados en `blog/`, `articulos/`, `totara-lms` y red `vyond`. Se migraron los inyectores `define:vars` a variables `data-keys` nativas en DOM para evitar bloqueos del Main Thread.
@@ -88,10 +109,14 @@
   - [ ] **Ruleta Dinámica de Insights (Cartuchos Hero):** Refactorizar los 7 Cartuchos estáticos del Ecosistema de Recursos (Blog, Artículos, Glosario, Comparativos, Estándares, Radar, Quiz). Conectar el bloque visual del `HeroComercial` hacia una colección del CMS para generar una "Ruleta Aleatoria" e inyectar un **Trigger de modificación/alerta de cambio** en el Dashboard.
 
 **3. Portal de Distribuidores (B2B Intranet)**
-- [ ] Configurar Stack de Autenticación (Supabase, Firebase, o Clerk).
-- [ ] Crear la interfaz segura (Dashboard, Tablón de Avisos y Reglas generales).
-- [ ] Construir y conectar el formulario "Registro de Oportunidades" a base de datos externa.
-- [ ] Construir sección privada de descarga de "Machotes y Formatos".
+- [x] Configurar Stack de Autenticación (Supabase + Google OAuth con SSR Middleware limitando `@taec.com.mx`).
+- [x] Crear la interfaz segura (Ruta `/interno/kb` con visor interactivo de Base de Conocimientos).
+- [x] Construir y diseñar el `IntranetLayout` con Sidebar global y navegación premium Vanilla CSS.
+- [x] Crear el Lobby (`/interno/dashboard`) para panel de avisos rápidos (News).
+- [x] Migrar el visor de KB hacia una ruta dinámica `/interno/playbooks/[producto].astro` que soporte Articulate, Vyond, DDC, Class, LYS, PIFINI, Proctorizer, etc.
+- [x] Definir tabla en Supabase `enlaces_internos` para inyectar dinámicamente ligas de cotizadores externos, páginas de proveedores y Google Drives sin código duro.
+- [x] Reestructurar la base de datos `usuarios_autorizados` añadiendo control de acceso por `rol` (Admin vs Empleado).
+- [x] Construir flujos `/interno/colaborar` (Formularios para cualquier empleado) y `/interno/admin` (Validaciones de administrador).
 
 **4. Moderación de Comentarios (Blog Backend)**
 - [ ] Diseñar el modelo de BD relacional para comentarios y roles de usuario.
@@ -130,7 +155,7 @@
 - [ ] **DDC:** Construir desde cero sub-páginas ("deep dives") explicando los contenidos y mostrando ejemplos de portafolio.
 
 **10. Automatización e IA Interactiva (Tito Bits Nivel 2 y 3)**
-- [ ] Construir "Assessment de Madurez E-learning" con generación automática de reportes en PDF.
+- [x] Construir "Assessment Operativo / Diagnóstico" con generación matemática de ecosistemas de 8 ejes (DC-3, Proctoring, LMS, Autor). Dispara un endpoint webhook para parsear en caliente el Horóscopo Radial en HTML y empujar prospectos cualificados directo a Zoho Bookings.
 - [ ] Implementar Chatbot de IA (RAG) consumiendo exclusivamente el Blog y Glosario.
 - [ ] Añadir animaciones progresivas (Framer Motion / Viewport CSS) a toda la página de DDC.
 - [ ] Construir Centro de Webinars y Demos On-Demand (Videos cerrados contra captura de lead).

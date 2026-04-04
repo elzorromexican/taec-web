@@ -37,16 +37,12 @@ export const POST: APIRoute = async ({ request }) => {
   }
   // En cuentas de Google de pago recientes como la de TAEC, el modelo soportado es la v2.5
   activeModel = activeModel || 'gemini-2.5-flash';
-  // Al usar notación de corchetes dinámica, forzamos la lectura en runtime sin quemar el secreto en el código.
-  let apiKey = undefined;
-  if (typeof process !== 'undefined' && process.env) {
+  
+  // ALERTA: Preferir SIEMPRE import.meta.env primero, ya que Astro monta aquí el .env local.
+  // process.env puede contener variables zombies del sistema operativo local (.zshrc).
+  let apiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
+  if (!apiKey && typeof process !== 'undefined' && process.env) {
     apiKey = process.env.TAEC_GEMINI_KEY || process.env.GEMINI_API_KEY;
-  }
-  if (!apiKey) {
-    const keyT = 'TAEC_GEMINI_KEY';
-    const keyG = 'GEMINI_API_KEY';
-    const envObj = import.meta.env as Record<string, string | undefined>;
-    apiKey = envObj[keyT] || envObj[keyG];
   }
   
   // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
@@ -56,7 +52,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const data = await request.json();
-    const { history, userMessage } = data;
+    const { history, userMessage, email } = data;
 
     // VALIDACIÓN DE SEGURIDAD (Capa 1): Evitar DoS por agotamiento de tokens / payload masivo
     if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
@@ -85,26 +81,21 @@ export const POST: APIRoute = async ({ request }) => {
 
     // (ApiKey initialization was moved up)
 
-    if (!apiKey) {
+    if (!apiKey || apiKey === 'undefined' || apiKey === 'null' || apiKey === '') {
+      console.error("ALERTA CRÍTICA: La llave GEMINI_API_KEY detectada es (vacía o undefined) string literal.");
       return new Response(JSON.stringify({ 
-        error: 'LLM Key missing',
-        debug_netlify: 'ALERTA: apiKey undefined. Ni TAEC_GEMINI_KEY ni GEMINI_API_KEY fueron inyectadas por Netlify en process.env o import.meta.env.'
-      }), { status: 500 });
-    }
-
-    if (!apiKey) {
-      // 2. Homologación de ambiente (Eliminamos fugas de comandos en pro de un mensaje neutral).
-      console.error("ALERTA CRÍTICA: La llave GEMINI_API_KEY no ha sido detectada por el servidor.");
-      return new Response(JSON.stringify({ 
-        error: 'Tito Bits está en mantenimiento temporal. Regresa más tarde.' 
+        error: 'Tito Bits está en mantenimiento temporal. Regresa más tarde (La llave Gemini no se cargó correctamente en el backend).' 
       }), { status: 401 });
     }
 
-    const ai = new GoogleGenAI({ 
-      apiKey,
-      // Forzar lectura contra servidores de Google puros ignorando variables de entorno proxy globales
-      httpOptions: { baseUrl: 'https://generativelanguage.googleapis.com' }
-    });
+    if (apiKey.length < 30 || apiKey.includes('TU_LLAVE') || apiKey.includes('YOUR_KEY')) {
+      console.error("ALERTA CRÍTICA: La llave configurada en .env parece ser un placeholder o está incompleta:", apiKey.substring(0, 10) + "...");
+      return new Response(JSON.stringify({ 
+        error: 'Tito Bits está en mantenimiento temporal. Regresa más tarde (La llave Gemini ingresada no tiene formato válido).' 
+      }), { status: 401 });
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
 
     const isMexico = countryCode === 'MX';
 
@@ -122,8 +113,9 @@ REGLAS DE DISCRECIÓN OPERATIVA (ANTI-LEAKS):
 - NUNCA escribas "(Capítulo X.X)" ni cosas similares en el chat. Debes hablar con total naturalidad B2B; jamás reveles al usuario tu estructura interna de lectura.
 
 REGLAS DE CONVERSIÓN B2B (CAPTURA DE LEADS):
-- CÓMO PEDIR DATOS: Dado que no hay botones ni formularios, cuando requieras contacto diles explícitamente: *"Por favor, escribe aquí mismo en el chat tu correo corporativo y tu teléfono para que el equipo comercial te contacte"*. NUNCA asumas que saben que se guarda.
-- CONFIRMACIÓN: Al recibir datos, confírmalos explícitamente: *"¡Excelente! He registrado tus datos de forma segura. Nuestra transcripción se enviará al asesor comercial."*
+- CÓMO PEDIR DATOS: Si el prospecto entra por la web general, dile: "Por favor, escribe aquí mismo en el chat tu correo corporativo...". PERO si el prospecto viene del DIAGNÓSTICO (ya leíste su correo en el sistema), JAMÁS LE VUELVAS A PEDIR EL CORREO O TELÉFONO. 
+- CONFIRMACIÓN: Al recibir datos, confírmalos explícitamente: *"¡Excelente! He registrado tus datos de forma segura."*
+- CANDADO ANTI-BUCLE INFALIBLE: Si notas que estás dando vueltas en círculo realizando las mismas preguntas, O si el usuario te responde con que ya te dio la respuesta, O si te responde agresivamente/harto, TIENES ESTRICTAMENTE PROHIBIDO volver a preguntar. Debes dar el chat por CASI CONCLUIDO diciendo: *"Entendido perfectamente. Con esta información ya tengo el panorama completo de tu caso. Un especialista humano analizará esto y te contactará a la brevedad con la ruta exacta. ¿Queda alguna otra duda técnica que pueda resolver por ti hoy?"*
 
 ==================================================
 BASE DE CONOCIMIENTO CENTRALIZADA (CEREBRO B2B):
@@ -135,6 +127,7 @@ CONTEXTO EN TIEMPO REAL DEL USUARIO ACTUAL:
 📍 Ubicación detectada por IP: ${location || 'Desconocida'} (Código: ${countryCode || 'N/A'})
 - Si el usuario es de MX (México), entonces el IS_MEXICO fue resuelto como VERDADERA. Cotiza los $1,198 USD + IVA.
 - Si el usuario es de CUALQUIER OTRO PAÍS (incluyendo Colombia, Chile, Argentina, España, LATAM, etc): IS_MEXICO es FALSA. TIENES ABSOLUTA Y TOTALMENTE PROHIBIDO mencionar o dar la cifra de $1,198 USD. Diles amablemente que el modelo Emerging Markets se maneja vía distribuidor y requieres su correo para canalizar la consulta al territorio correcto.
+${email ? `\n🚨 NOTA OPERATIVA DE SISTEMA: El usuario YA NOS PROPORCIONÓ SU CORREO ELECTRÓNICO (${email}) EN EL CUESTIONARIO PREVIO. \nTIENES ESTRICTAMENTE PROHIBIDO volver a pedirle su correo, teléfono o datos de contacto durante el resto de esta conversación. Concéntrate 100% en darle su plan de acción técnico.` : ''}
 ==================================================`;
 
 

@@ -1,0 +1,168 @@
+---
+/**
+ * @name dashboard.astro
+ * @version 1.1
+ * @description Lobby corporativo y dashboard general de TAEC.
+ * @inputs N/A
+ * @outputs Renderizado de accesos directos
+ * @dependencies IntranetLayout.astro
+ * @created 2026-03-01
+ * @updated 2026-04-04 12:12:00
+ */
+export const prerender = false;
+import IntranetLayout from '../../layouts/IntranetLayout.astro';
+// import { supabase } from '../../lib/supabase'; // Para el futuro fetch de avisos
+---
+
+<IntranetLayout title="Dashboard Intranet | TAEC" description="Lobby corporativo">
+  
+  <!-- DASHBOARD HERO -->
+  <div class="dashboard-hero">
+    <h1>El Hub Comercial.</h1>
+    <p>Bienvenido a la terminal central de herramientas, cotizadores y playbooks de TAEC.</p>
+  </div>
+
+  <!-- AVISOS IMPORTANTES -->
+  <div class="dashboard-section mt-10">
+    <h2 class="section-title">Novedades de la Semana</h2>
+    
+    <div class="news-card important border-l-orange">
+      <div class="news-badge orange">Atención</div>
+      <h3>Nueva versión del Cotizador DDC 2026</h3>
+      <p>Hemos relocalizado la calculadora de estimación financiera de Desarrollo de Contenidos. Ahora debes cotizar todo proyecto desde el menú izquierdo en la pestaña "Cotizadores". Los tabuladores pasados ya no tienen validez.</p>
+      <span class="news-date">03 Abr 2026</span>
+    </div>
+
+    <div class="news-card border-l-blue mt-4">
+      <div class="news-badge blue">Noticia</div>
+      <h3>KB de Rise 360 actualizada</h3>
+      <p>Sonia ya subió los 40 artículos curados sobre el comportamiento, limitantes y pros del ecosistema de Rise para refutar clientes complejos.</p>
+      <span class="news-date">03 Abr 2026</span>
+    </div>
+  </div>
+
+  <!-- QUICK LINKS (GOOGLE DRIVE ETC) -->
+  <div class="dashboard-section mt-10">
+    <h2 class="section-title">Accesos Directos (Drive)</h2>
+    <div class="grid-links">
+      <a href="javascript:alert('Sección en construcción');" class="quick-link-card">
+        <span class="icon">📁</span>
+        <h4>Formatos Comerciales</h4>
+        <p>Abre el Drive general de ventas.</p>
+      </a>
+      <a href="javascript:alert('Sección en construcción');" class="quick-link-card">
+        <span class="icon">📄</span>
+        <h4>Machotes de Contrato</h4>
+        <p>NDAs y plantillas pre-aprobadas.</p>
+      </a>
+      <a href="javascript:alert('Sección en construcción');" class="quick-link-card">
+        <span class="icon">🔐</span>
+        <h4>Zoho CRM</h4>
+        <p>Atajo al sistema de Tickets.</p>
+      </a>
+    </div>
+  </div>
+
+</IntranetLayout>
+
+<style>
+  .dashboard-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #0f172a;
+    margin: 0;
+  }
+  .dashboard-hero p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+  }
+  .mt-10 { margin-top: 3rem; }
+  .mt-4 { margin-top: 1rem; }
+  
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+  }
+
+  .news-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .border-l-orange { border-left: 4px solid #f97316; }
+  .border-l-blue { border-left: 4px solid #3b82f6; }
+
+  .news-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  .news-badge.orange { background: #ffedd5; color: #c2410c; }
+  .news-badge.blue { background: #dbeafe; color: #1d4ed8; }
+
+  .news-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #0f172a;
+  }
+  .news-card p {
+    margin: 0 0 1rem 0;
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .news-date {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .grid-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .quick-link-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+  .quick-link-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+  }
+  .quick-link-card .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .quick-link-card h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    color: #0f172a;
+  }
+  .quick-link-card p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+</style>

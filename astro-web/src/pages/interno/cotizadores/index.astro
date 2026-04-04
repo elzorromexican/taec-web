@@ -1,0 +1,68 @@
+---
+/**
+ * @name cotizadores/index.astro
+ * @version 1.1
+ * @description Portal de calculadoras y enlaces externos financieros.
+ * @inputs N/A
+ * @outputs Enlaces calculadoras/tabuladores renderizados
+ * @dependencies IntranetLayout.astro
+ * @created 2026-03-01
+ * @updated 2026-04-04 12:12:00
+ */
+export const prerender = false;
+import IntranetLayout from '../../../layouts/IntranetLayout.astro';
+// A futuro: const { data: links } = await supabase.from('enlaces_internos').select('*').eq('categoria', 'cotizador');
+---
+
+<IntranetLayout title="Cotizadores y Tarifarios | TAEC Hub" description="Centro de herramientas financieras">
+  <header class="page-header">
+    <h1>Cotizadores y Tarifarios</h1>
+    <p>Precios de lista, calculadoras financiarelas y enlaces a cotizadores de proveedores externos.</p>
+  </header>
+
+  <div class="metrics-grid">
+    <div class="ui-card">
+      <div class="card-icon">🧮</div>
+      <h3>Calculadora DDC</h3>
+      <p>Estimaciones de horas y márgenes operativos para proyectos de Desarrollo de Contenidos a medida.</p>
+      <button class="btn-primary mt-2" disabled>En migración</button>
+    </div>
+
+    <div class="ui-card">
+      <div class="card-icon">💵</div>
+      <h3>Precios Internacionales</h3>
+      <p>Listas de precios B2B para canales y distribuidores LATAM y cotizadores de software.</p>
+      <a href="#" target="_blank" rel="noopener noreferrer" class="btn-secondary mt-2 text-center" style="display:block; text-decoration:none;" onclick="alert('Sección en construcción'); return false;">Visitar Proveedores Externos</a>
+    </div>
+  </div>
+</IntranetLayout>
+
+<style>
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 2rem; color: #0f172a; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.02em;}
+  .page-header p { color: #64748b; font-size: 1.1rem; }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .ui-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .ui-card h3 { margin: 0 0 0.5rem 0; color: #1e293b; font-size: 1.15rem; font-weight: 700; }
+  .ui-card p { color: #475569; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5; flex-grow: 1; }
+  
+  .btn-primary { background: #2563eb; color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: not-allowed; width: 100%; transition: background 0.2s; opacity: 0.6;}
+  
+  .btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s;}
+  .btn-secondary:hover { background: #e2e8f0; }
+  .mt-2 { margin-top: 0.5rem; }
+</style>

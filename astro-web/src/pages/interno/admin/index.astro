@@ -1,0 +1,94 @@
+---
+/**
+ * @name admin/index.astro
+ * @version 1.2
+ * @description Panel de administración central para revisar analíticas y contenido propuesto en el hub.
+ * @inputs N/A
+ * @outputs Dashboard administrativo renderizado
+ * @dependencies IntranetLayout.astro
+ * @created 2026-03-01
+ * @updated 2026-04-04
+ */
+export const prerender = false;
+import IntranetLayout from '../../../layouts/IntranetLayout.astro';
+import { supabase } from '../../../lib/supabase';
+
+const supabaseDashboardUrl = import.meta.env.PUBLIC_SUPABASE_URL ? import.meta.env.PUBLIC_SUPABASE_URL.replace('.supabase.co', '') + '/project/default' : 'https://supabase.com/dashboard/projects';
+
+if (Astro.locals?.rol !== 'admin') {
+  return Astro.redirect('/interno/denegado');
+}
+---
+
+<IntranetLayout title="Admin Panel | TAEC Hub" description="Panel de validación de contenidos">
+  <header class="page-header">
+    <div class="admin-badge">⚡ Nivel Administrador</div>
+    <h1>Centro de Mando TAEC</h1>
+    <p>Aprueba contenido generado por los empleados, gestiona configuraciones del Hub y modifica links maestros.</p>
+  </header>
+
+  <div class="metrics-grid">
+    <div class="ui-card warning-state">
+      <div class="card-icon">⏳</div>
+      <h3>Sugerencias Pendientes</h3>
+      <p class="massive-metric">0</p>
+      <p>Entradas esperando revisión para ser insertadas en los Playbooks o en el Blog.</p>
+      <button class="btn-primary mt-2" onclick="alert('No hay sugerencias en bandeja.');">Abrir Bandeja</button>
+    </div>
+
+    <div class="ui-card info-state">
+      <div class="card-icon">⚙️</div>
+      <h3>Variables Globales (DB)</h3>
+      <p>Modifica los URLs de los botones de Cotizadores y accesos directos al Google Drive general.</p>
+      <a href={supabaseDashboardUrl} target="_blank" rel="noopener noreferrer" class="btn-secondary mt-2 text-center" style="display:block; text-decoration:none;">Lanzar Supabase Interface</a>
+    </div>
+  </div>
+</IntranetLayout>
+
+<style>
+  .page-header { margin-bottom: 2rem; position: relative;}
+  .admin-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: #fef3c7;
+    color: #d97706;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 99px;
+    margin-bottom: 1rem;
+  }
+  .page-header h1 { font-size: 2rem; color: #0f172a; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.02em;}
+  .page-header p { color: #64748b; font-size: 1.1rem; }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .ui-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+  }
+  .warning-state { border-top: 4px solid #f59e0b; }
+  .info-state { border-top: 4px solid #3b82f6; }
+  
+  .card-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .ui-card h3 { margin: 0 0 0.5rem 0; color: #1e293b; font-size: 1.15rem; }
+  .massive-metric { font-size: 3.5rem; font-weight: 800; color: #0f172a; margin: 0 0 0.5rem 0; line-height: 1; letter-spacing: -2px;}
+  .ui-card p { color: #475569; font-size: 0.95rem; margin-bottom: 1.5rem; flex: 1}
+  
+  .text-center { text-align: center; }
+  .btn-primary { background: #0f172a; color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s;}
+  .btn-primary:hover { background: #1e293b; }
+  
+  .btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s; box-sizing: border-box;}
+  .btn-secondary:hover { background: #e2e8f0; }
+  .mt-2 { margin-top: 0.5rem; }
+</style>

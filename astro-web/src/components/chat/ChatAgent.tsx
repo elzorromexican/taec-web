@@ -15,7 +15,7 @@ import {
   transcriptSentStore
 } from '../../stores/chatStore';
 
-export default function ChatAgent() {
+export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: boolean, userName?: string }) {
   const [isHydrated, setIsHydrated] = useState(false);
   useEffect(() => setIsHydrated(true), []);
 
@@ -70,6 +70,19 @@ export default function ChatAgent() {
   useEffect(() => {
     stateRef.current = { messages, userData, isSendingEmail };
   }, [messages, userData, isSendingEmail]);
+
+  // Si estamos en la Intranet (isApp), hacemos bypass del onboarding
+  useEffect(() => {
+    if (isApp && userName && !hasStarted && messages.length === 0) {
+      userDataStore.set({ ...userDataStore.get(), name: userName });
+      hasStartedStore.set(true);
+      messagesStore.set([{ 
+        role: 'agent', 
+        text: `Hola ${userName}, ¿en qué te puedo ayudar?`,
+        promo: activePromo 
+      }]);
+    }
+  }, [isApp, userName, activePromo]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -165,7 +178,7 @@ export default function ChatAgent() {
         { role: 'user', text: `[SYSTEM_HIDDEN_CONTEXT]\n${prompt}\n[/SYSTEM_HIDDEN_CONTEXT]` },
         { 
           role: 'agent', 
-          text: `¡Hola ${aliasName}! Acabo de recibir los resultados de tu diagnóstico. Veo que resolviste varias áreas clave y tu perfil apunta fuertemente hacia **${diagnosticResult}**.\n\nPara poder estructurarte un estudio de caso más preciso o un preliminar de costos, me encantaría entender un poco el lado "humano" de tu proyecto:\n\n1. ¿Quién más en tu organización tomaría la decisión final sobre esto?\n2. ¿Han tenido alguna experiencia (buena o mala) con otras plataformas en el pasado?` 
+          text: `¡Hola ${aliasName}! Soy Tito Bits, Partner IA de TAEC. Acabo de procesar tu Diagnóstico y evaluar tus resultados para **${diagnosticResult}**.\n\nHe leído en las respuestas anteriores los retos específicos que tienes en tu operación. Como siguiente paso, ¿podrías confirmarme aproximadamente cuántos usuarios (empleados/clientes) usarían la plataforma en el primer año para poder dimensionar la arquitectura?` 
         }
       ]);
     };
@@ -295,6 +308,7 @@ export default function ChatAgent() {
         body: JSON.stringify({ 
           userMessage: userMsg, 
           history: safeLLMHistory,
+          email: userData.email
           // Eliminamos location y countryCode (Ahora el backend lo hace todo 100% seguro)
         })
       });

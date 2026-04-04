@@ -1,0 +1,179 @@
+---
+export const prerender = false;
+
+import IntranetLayout from '../../../layouts/IntranetLayout.astro';
+import KBViewer from '../../../components/interno/KBViewer';
+import { supabase } from '../../../lib/supabase';
+
+// En Astro SSR, el parametro dinámico se extrae directamente
+const { producto } = Astro.params;
+
+if (!producto) {
+  return Astro.redirect('/interno/dashboard');
+}
+
+// Usamos el token fresco que el middleware validó (puede haber renovado el JWT)
+// Nunca leer el cookie directamente: puede estar expirado si setSession() lo refrescó
+const accessToken = Astro.locals.accessToken || "";
+
+// Re-instanciamos Supabase inyectando el header de Auth
+import { createClient } from '@supabase/supabase-js';
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const scopedSupabase = createClient(supabaseUrl, supabaseAnonKey, {
+  global: { headers: { Authorization: `Bearer ${accessToken}` } }
+});
+
+// Sacamos los contenidos de la base de datos de manera dinámica
+const { data: kbItems, error } = await scopedSupabase
+  .from('kb_items')
+  .select('*')
+  .eq('producto', producto) 
+  .contains('audiencia', ['interno'])
+  .order('orden', { ascending: true });
+
+if (error) {
+  console.error("Error cargando KB para:", producto, error);
+}
+
+// Extraemos las secciones presentes para generar los tabs.
+const seccionesMap = new Map();
+if (kbItems) {
+  kbItems.forEach((item: any) => {
+    if (!seccionesMap.has(item.seccion)) {
+      seccionesMap.set(item.seccion, {
+        id: item.seccion,
+        label: item.seccion_label,
+        color: item.seccion_color
+      });
+    }
+  });
+}
+const seccionesList = Array.from(seccionesMap.values());
+
+// Diccionario opcional para capitalizar o mejorar los nombres en la UI
+const titles: Record<string, string> = {
+  'rise360': 'Rise 360',
+  'storyline360': 'Storyline 360',
+  'review360': 'Review 360',
+  'reach360': 'Reach 360',
+  'aiassistant': 'AI Assistant',
+  'localization': 'Localization',
+  'vyondgo': 'Vyond Go (IA)',
+  'vyondstudio': 'Vyond Studio',
+  'vyondmobile': 'Vyond Mobile',
+  'vyondenterprise': 'Vyond Enterprise',
+  'vyondprofessional': 'Vyond Professional',
+  'moodle': 'Moodle Workspace',
+  'totara': 'Totara LMS',
+  'pifinilearn': 'Pifini Learn',
+  'ottolearn': 'Ottolearn',
+  'lys': 'Lys LMS',
+  'ddc': 'Desarrollo de Contenidos (DDC)',
+  'class': 'Class (Videoclases)',
+  'proctorizer': 'Proctorizer',
+  'strikeplagiarism': 'StrikePlagiarism',
+  '7minutes': '7minutes Microlearning',
+  'customguide': 'Custom Guide'
+};
+const displayName = titles[producto] || producto.toUpperCase();
+---
+
+<IntranetLayout title={`Playbook: ${displayName} | TAEC Hub`} description={`Base de conocimientos B2B para ${displayName}`}>
+  
+  <header class="playbook-hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Playbook Comercial</div>
+      <h1 class="hero-title">{displayName}</h1>
+      <p class="hero-desc">Documentación técnica, notas operativas y resoluciones estructuradas para el equipo de ventas TAEC. Vende con criterio, no con hype.</p>
+    </div>
+  </header>
+  
+  {kbItems && kbItems.length > 0 ? (
+    <KBViewer 
+      client:load 
+      items={kbItems} 
+      secciones={seccionesList} 
+    />
+  ) : (
+    <div class="empty-state">
+      <div class="empty-icon">🚧</div>
+      <h3>Playbook en construcción</h3>
+      <p>Aún no hay registros en la base de datos para el producto <strong>{producto}</strong>.</p>
+      <p class="small">El equipo administrativo editar los datos desde Supabase en la tabla <code>kb_items</code> usando el label identificador <code>{producto}</code> en la columna <code>producto</code>.</p>
+    </div>
+  )}
+
+</IntranetLayout>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+
+  .playbook-hero {
+    background: #1B2A4A;
+    padding: 3rem 2.5rem 2.5rem;
+    border-bottom: 3px solid #FF6B35;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #0D9488;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    color: white;
+    line-height: 1.15;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+  .hero-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .empty-state {
+    background: #fff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 1rem;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #64748b;
+  }
+  .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .empty-state h3 {
+    margin: 0 0 0.5rem 0;
+    color: #1e293b;
+    font-size: 1.25rem;
+  }
+  .empty-state p { margin: 0; }
+  .empty-state .small {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+  .empty-state code {
+    background: #f1f5f9;
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    color: #ef4444;
+  }
+</style>
