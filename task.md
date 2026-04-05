@@ -95,6 +95,23 @@
 - [x] Estructurar la UI/UX del portafolio.
 - [x] Separar el portafolio en una URL/Página estática independiente (`/portafolio`) para limpiar el diseño de la landing base.
 
+## 🛡️ Auditoría Operativa y Gobernanza B2B (Fase 3) - [05 abr 2026, 11:43 AM]
+*Dictamen Arquitectónico: Plataforma en estado comercial-operativo. Riesgos de "código feo" mitigados. Foco transicionado a gobernanza, hardening y control fino.*
+
+**🔴 Backlog Crítico (Hardening & Seguridad)**
+- [ ] **Auditoría de Fuga de Tokens (SSR):** Rastrear paramétricamente el uso de `locals.accessToken`. Demostrar mediante tests o refactorización que este token radioactivo jamás se serializa, cruza al cliente, se imprime en logs o se expone en pre-visualizaciones.
+- [ ] **Validación Estructural del Tarifario DDC:** Implementar un validador transversal (Zod/JSON Schema) que corra en el Hook de Build o como Test Unitario preventivo. Debe certificar que la matriz `ddc-pricing-matrix.json` no posee huecos lógicos, previniendo errores 500 por combinaciones `undefined`.
+- [ ] **Monitoreo de Resiliencia en Contacto:** Inyectar telemetría básica al bloque de GAS en `contacto.astro/contact.ts`. Disparar una alerta (correo/slack) si el canal asíncrono se cae temporalmente, o si baja la tasa de éxito de comunicación.
+
+**🟠 Backlog Alto (Gobernanza de Datos Locales)**
+- [ ] **Single Source of Truth Comercial (Pricing):** Eliminar la deuda de contratos definiendo una fuente unificada. Constantes como `BASE_RATE_HH` deben vivir en `.env`, o bien la matriz JSON debe encapsular los márgenes pre-calculados, blindando el proyecto contra "mentiras estadísticas" por bifurcación de lógicas.
+- [ ] **Logging Operativo en Nodos Core:** Agregar trazas analíticas de submit y correlación de errores mediante *Ids de transacción* tanto al enviador de correos (`Resend`) como al Cotizador Interno, permitiendo diagnósticos certeros en caliente.
+- [ ] **Política de Control de Cambios:** Definir formalmente la ruta editorial y aprobación comercial requerida antes de sobreescribir la matriz de precios o los márgenes del Cotizador en GitHub.
+
+**🟡 Backlog Medio (UX & Trazabilidad SSR)**
+- [ ] **Arquitectura y A11y del Mega Menú:** Cirugía visual y semántica sobre la densidad del `navigation.ts` público para transicionar la retención de usuarios hacia "Casos de Uso", eliminando la sobrecarga cognitiva.
+- [ ] **Trazabilidad de Errores Internos:** Sustituir los redireccionamientos masivos genéricos del `middleware.ts` en `/interno/*` por códigos analíticos finos (ej. Token inválido, Expirado, Dominio denegado, Usuario inactivo), inyectando observabilidad al modelo de seguridad Zero-Trust B2B.
+
 ## 🗺️ Roadmap Fase 2 (Detallado)
 **1. Reestructuración Profunda de Menú y UX (Postergado para el Final)**
 - [ ] **Auditoría UX:** Transicionar el `Mega Menú` actual (orientado a nombres de software) hacia un menú enfocado en **Casos de Uso / Problemas del Usuario** (Ej: "Quiero plataformas LMS", "Busco crear cursos").
