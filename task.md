@@ -1,7 +1,9 @@
 # Checklist Consolidado de Tareas Pendientes (TAEC Web)
 *Este documento unifica permanentemente todas las tareas y roadmaps (Fase 1, Fase 2, DDC, Ecommerce y Completadas) en una sola fuente de verdad.*
 
-## 🚀 Prioridades Inmediatas (Siguiente Sesión - Arranque Fase 2)
+## 🚀 Prioridades Inmediatas (Siguiente Sesión - Titanes y Fase 2)
+- [ ] **Presentación y QA Intranet B2B (Titanes):** Revisión global de la KB en Supabase con el equipo comercial y validación final de la experiencia de usuario B2B.
+- [ ] **Semillas Restantes de Playbooks:** Procesar `vyondgo`, `vyondmobile` y `reach360` aplicando la misma arquitectura de sanitización y formateo `\n\n` validada hoy, logrando la disponibilidad completa del catálogo.
 - [ ] **Despliegue a Producción (CI/CD):** Fusionar la rama `feature/ddc-calculadora` a `main` para reactivar producción en `nuevo.taec.com.mx` con el MVP v6.0 B2B activo.
 - [x] **Integración Supabase e Intranet B2B:** Refactorización de infraestructura y autenticación segura con SSR y middleware estricto de dominio e-mail corporativo.
 - [ ] **Auditoría Resend Handoff:** Revisar payloads transaccionales de `send-transcript.ts` con sanitización XSS para asegurar transcritos limpios en CRM.
@@ -15,19 +17,22 @@
 - [x] **[ISSUE-006] Admin sin role-guard:** `/interno/admin` no verifica `Astro.locals.rol !== 'admin'` en el servidor (Fix completado).
 
 **🟠 1 Alto**
-- [ ] **[ISSUE-010] Nota interna visible al usuario:** En `/colaborar`, el texto sobre "Bases de datos en la siguiente fase" debe reemplazarse por un mensaje amigable.
+- [x] **[ISSUE-010] Nota interna visible al usuario:** En `/colaborar`, el texto sobre "Bases de datos en la siguiente fase" debe reemplazarse por un mensaje amigable.
 
-**🟡 8 Medios**
-- [ ] **[ISSUE-001] Dashboard:** 3 quick-link cards con `href="#"` (dead links).
-- [ ] **[ISSUE-002] Dashboard:** Scroll roto en "Accesos Directos" bajo el fold.
-- [ ] **[ISSUE-007] Admin:** "Abrir Bandeja" es un botón muerto sin event listener.
-- [ ] **[ISSUE-008] Admin:** "Lanzar Supabase" apunta a la URL genérica.
-- [ ] **[ISSUE-011] Colaborar:** Botón enviar deshabilitado (silencioso).
-- [ ] **[ISSUE-013] Cotizadores:** "Visitar Proveedores" sin href.
-- [ ] **[ISSUE-015] Global:** Sidebar sin `active state` visual.
-- [ ] **[ISSUE-017] Global:** Ocultar link "Panel Admin" a usuarios sin rol admin.
+**🟡 QA Audit - UI/UX & Flow (P1)**
+- [x] [ISSUE-015] Intranet: 'Active' state del Sidebar mal manejado por JS-client, debería usar Astro.url
+- [x] [ISSUE-001] Dashboard: Los enlaces del Grid redireccionan a # pero aparentan estar funcionales.
+- [x] [ISSUE-010] Intranet: Formulario de colaboración permite submit sin validación ni conexión real.
+- [x] [ISSUE-011] Intranet: Falta feedback visual en el Form de sugerencias y en Tabuladores deshabilitados.
+- [x] [ISSUE-013] Tabuladores: Enlace "Precios Internacionales" roto.
+- [x] [ISSUE-007] Admin Panel: Botones "Lanzar Supabase" y "Abrir Bandeja" tienen fallback débil o roto.
+- [x] [ISSUE-002] Dashboard: Posible desbordamiento visual y doble scroll en responsive mobile (Height 100vh check).
+- [x] [ISSUE-017] Admin Panel: Limitar visibilidad del link "Panel Admin" estrictamente a ROLES = Admin.
 
 ## 📌 Operaciones Recientes (Corto Plazo)
+- [x] **Consolidación KB Vyond Studio (Anti-Duplicados y Zero HTML):** Procesamiento e inyección del script semilla (38 registros). Se implementó arquitectura SQL idempotente (`DELETE FROM`) para evitar *bloating*, purga radical con RegEx de basura de extracción (`[1]`, `[LinkedIn]`), y rescate semántico B2B ("Información no disponible") empaquetado exclusivamente con strings nativos `\n\n` en lugar de bloques brutos de HTML.
+- [x] **Consolidación KB Localization 360:** Procesamiento, fusión semántica (Respuesta + Plus) e inyección del script semilla `docs/supabase-interno-seed-localization.sql` (21 registros) para la matriz B2B.
+- [x] **Consolidación KB Review 360:** Procesamiento, deduplicación e inyección del script semilla `docs/supabase-interno-seed-review360.sql` (21 registros) para expandir la matriz técnica y de troubleshooting de la Intranet B2B.
 - [x] **Estabilización de UX Intranet e Identidad (Fase 2):** Extracción inteligente de identidad OAuth desde Supabase en `middleware.ts`, bypass cognitivo en Tito Bits para saltar formulario interno, remoción de widget de WhatsApp superpuesto en rutas privadas, y despliegue del script semilla `docs/supabase-interno-seed-storyline360.sql` (33 registros) conectando la 2da matriz comercial al Hub SSR.
 - [x] **Auditoría y Blindaje de TitoBits (Red Team / P0 y P1):** Remoción completa de persistencia PII en Storage para GDPR, mitigación masiva de XSS y spam en el Handoff del correo (`escapeHtml` y Payload limits), solución al bug crónico de inyección doble hacia Gemini, filtrado estricto de roles en SSR, abort controller de 25s, migración de Geo a Netlify Edge Headers, y arreglo final del "Context Hopping" en SPA View Transitions.
 - [x] Concluir ajustes de Quality Assurance (QA) fotográfico o estilístico en dispositivos móviles para las colecciones secundarias.

@@ -20,6 +20,8 @@ const isVyond = currentPath.includes('vyond');
 const isLMS = currentPath.includes('moodle') || currentPath.includes('totara') || currentPath.includes('pifinilearn') || currentPath.includes('ottolearn') || currentPath.includes('lys');
 const isAddons = currentPath.includes('ddc') || currentPath.includes('class') || currentPath.includes('proctorizer') || currentPath.includes('strikeplagiarism');
 const isCatalog = currentPath.includes('7minutes') || currentPath.includes('customguide');
+
+const isActive = (path) => currentPath === path || (path !== '/interno/dashboard' && path !== '/' && currentPath.startsWith(path)) ? 'active' : '';
 ---
 <BaseLayout title={title} description={description} isApp={true} robots="noindex, nofollow">
   <div class="intranet-layout">
@@ -46,68 +48,68 @@ const isCatalog = currentPath.includes('7minutes') || currentPath.includes('cust
 
       <nav class="sidebar-nav">
         <p class="nav-label">Lobby</p>
-        <a href="/interno/dashboard" class="nav-link">🏠 Dashboard & News</a>
+        <a href="/interno/dashboard" class={`nav-link ${isActive('/interno/dashboard')}`}>🏠 Dashboard & News</a>
         
         <p class="nav-label">Portafolio SaaS</p>
         
         <details class="nav-group" open={isArticulate}>
           <summary class="nav-group-btn">Articulate 360</summary>
           <div class="nav-group-content">
-            <a href="/interno/playbooks/rise360" class="nav-link">📚 Rise 360</a>
-            <a href="/interno/playbooks/storyline360" class="nav-link">📚 Storyline 360</a>
-            <a href="/interno/playbooks/review360" class="nav-link">📚 Review 360</a>
-            <a href="/interno/playbooks/reach360" class="nav-link">📚 Reach 360</a>
-            <a href="/interno/playbooks/aiassistant" class="nav-link">🤖 AI Assistant</a>
-            <a href="/interno/playbooks/localization" class="nav-link">🌐 Localization</a>
+            <a href="/interno/playbooks/rise360" class={`nav-link ${isActive('/interno/playbooks/rise360')}`}>📚 Rise 360</a>
+            <a href="/interno/playbooks/storyline360" class={`nav-link ${isActive('/interno/playbooks/storyline360')}`}>📚 Storyline 360</a>
+            <a href="/interno/playbooks/review360" class={`nav-link ${isActive('/interno/playbooks/review360')}`}>📚 Review 360</a>
+            <a href="/interno/playbooks/reach360" class={`nav-link ${isActive('/interno/playbooks/reach360')}`}>📚 Reach 360</a>
+            <a href="/interno/playbooks/aiassistant" class={`nav-link ${isActive('/interno/playbooks/aiassistant')}`}>🤖 AI Assistant</a>
+            <a href="/interno/playbooks/localization" class={`nav-link ${isActive('/interno/playbooks/localization')}`}>🌐 Localization</a>
           </div>
         </details>
         
         <details class="nav-group" open={isVyond}>
           <summary class="nav-group-btn">Vyond</summary>
           <div class="nav-group-content">
-            <a href="/interno/playbooks/vyondgo" class="nav-link">🤖 Vyond Go</a>
-            <a href="/interno/playbooks/vyondstudio" class="nav-link">🎬 Vyond Studio</a>
-            <a href="/interno/playbooks/vyondmobile" class="nav-link">📱 Vyond Mobile</a>
-            <a href="/interno/playbooks/vyondenterprise" class="nav-link">🏢 Enterprise</a>
-            <a href="/interno/playbooks/vyondprofessional" class="nav-link">💼 Professional</a>
+            <a href="/interno/playbooks/vyondgo" class={`nav-link ${isActive('/interno/playbooks/vyondgo')}`}>🤖 Vyond Go</a>
+            <a href="/interno/playbooks/vyondstudio" class={`nav-link ${isActive('/interno/playbooks/vyondstudio')}`}>🎬 Vyond Studio</a>
+            <a href="/interno/playbooks/vyondmobile" class={`nav-link ${isActive('/interno/playbooks/vyondmobile')}`}>📱 Vyond Mobile</a>
+            <a href="/interno/playbooks/vyondenterprise" class={`nav-link ${isActive('/interno/playbooks/vyondenterprise')}`}>🏢 Enterprise</a>
+            <a href="/interno/playbooks/vyondprofessional" class={`nav-link ${isActive('/interno/playbooks/vyondprofessional')}`}>💼 Professional</a>
           </div>
         </details>
 
         <details class="nav-group" open={isLMS}>
           <summary class="nav-group-btn">Plataformas & LMS</summary>
           <div class="nav-group-content">
-            <a href="/interno/playbooks/moodle" class="nav-link">📚 Moodle Workspace</a>
-            <a href="/interno/playbooks/totara" class="nav-link">📚 Totara LMS</a>
-            <a href="/interno/playbooks/pifinilearn" class="nav-link">📚 Pifini Learn</a>
-            <a href="/interno/playbooks/ottolearn" class="nav-link">📚 Ottolearn</a>
-            <a href="/interno/playbooks/lys" class="nav-link">📚 Lys</a>
+            <a href="/interno/playbooks/moodle" class={`nav-link ${isActive('/interno/playbooks/moodle')}`}>📚 Moodle Workspace</a>
+            <a href="/interno/playbooks/totara" class={`nav-link ${isActive('/interno/playbooks/totara')}`}>📚 Totara LMS</a>
+            <a href="/interno/playbooks/pifinilearn" class={`nav-link ${isActive('/interno/playbooks/pifinilearn')}`}>📚 Pifini Learn</a>
+            <a href="/interno/playbooks/ottolearn" class={`nav-link ${isActive('/interno/playbooks/ottolearn')}`}>📚 Ottolearn</a>
+            <a href="/interno/playbooks/lys" class={`nav-link ${isActive('/interno/playbooks/lys')}`}>📚 Lys</a>
           </div>
         </details>
 
         <details class="nav-group" open={isAddons}>
           <summary class="nav-group-btn">Servicios & Add-ons</summary>
           <div class="nav-group-content">
-            <a href="/interno/playbooks/ddc" class="nav-link">📚 DDC (Desarrollo)</a>
-            <a href="/interno/playbooks/class" class="nav-link">📚 Class</a>
-            <a href="/interno/playbooks/proctorizer" class="nav-link">📚 Proctorizer</a>
-            <a href="/interno/playbooks/strikeplagiarism" class="nav-link">📚 StrikePlagiarism</a>
+            <a href="/interno/playbooks/ddc" class={`nav-link ${isActive('/interno/playbooks/ddc')}`}>📚 DDC (Desarrollo)</a>
+            <a href="/interno/playbooks/class" class={`nav-link ${isActive('/interno/playbooks/class')}`}>📚 Class</a>
+            <a href="/interno/playbooks/proctorizer" class={`nav-link ${isActive('/interno/playbooks/proctorizer')}`}>📚 Proctorizer</a>
+            <a href="/interno/playbooks/strikeplagiarism" class={`nav-link ${isActive('/interno/playbooks/strikeplagiarism')}`}>📚 StrikePlagiarism</a>
           </div>
         </details>
 
         <details class="nav-group" open={isCatalog}>
           <summary class="nav-group-btn">Catálogo Listo</summary>
           <div class="nav-group-content">
-            <a href="/interno/playbooks/7minutes" class="nav-link">📚 7 Minutes</a>
-            <a href="/interno/playbooks/customguide" class="nav-link">📚 Custom Guide</a>
+            <a href="/interno/playbooks/7minutes" class={`nav-link ${isActive('/interno/playbooks/7minutes')}`}>📚 7 Minutes</a>
+            <a href="/interno/playbooks/customguide" class={`nav-link ${isActive('/interno/playbooks/customguide')}`}>📚 Custom Guide</a>
           </div>
         </details>
 
         <p class="nav-label">Herramientas</p>
-        <a href="/interno/cotizadores" class="nav-link">💰 Tabuladores & Enlaces</a>
+        <a href="/interno/cotizadores" class={`nav-link ${isActive('/interno/cotizadores')}`}>💰 Tabuladores & Enlaces</a>
         
         <p class="nav-label">Mantenimiento</p>
-        <a href="/interno/colaborar" class="nav-link">💡 Sugerir Contenido</a>
-        {isAdmin && <a href="/interno/admin" class="nav-link admin-link">⚙️ Panel Admin</a>}
+        <a href="/interno/colaborar" class={`nav-link ${isActive('/interno/colaborar')}`}>💡 Sugerir Contenido</a>
+        {isAdmin && <a href="/interno/admin" class={`nav-link admin-link ${isActive('/interno/admin')}`}>⚙️ Panel Admin</a>}
       </nav>
 
       <div class="sidebar-footer">
@@ -302,8 +304,6 @@ const isCatalog = currentPath.includes('7minutes') || currentPath.includes('cust
   /* MAIN CONTENT */
   .intranet-main-content {
     flex: 1;
-    overflow-y: auto;
-    height: 100vh;
     background-color: var(--sl_light);
   }
 
@@ -336,13 +336,4 @@ const isCatalog = currentPath.includes('7minutes') || currentPath.includes('cust
       sidebar.classList.toggle('open');
     });
   }
-
-  // Active state visual
-  const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => {
-    if (link.getAttribute('href') === currentPath || (link.getAttribute('href') !== '/interno/dashboard' && currentPath.startsWith(link.getAttribute('href')))) {
-      link.classList.add('active');
-    }
-  });
 </script>

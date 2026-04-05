@@ -32,7 +32,7 @@ import IntranetLayout from '../../../layouts/IntranetLayout.astro';
       <div class="card-icon">💵</div>
       <h3>Precios Internacionales</h3>
       <p>Listas de precios B2B para canales y distribuidores LATAM y cotizadores de software.</p>
-      <a href="#" target="_blank" rel="noopener noreferrer" class="btn-secondary mt-2 text-center" style="display:block; text-decoration:none;" onclick="alert('Sección en construcción'); return false;">Visitar Proveedores Externos</a>
+      <button class="btn-secondary mt-2 text-center" style="display:block; width:100%;" disabled>Visitar (En Construcción)</button>
     </div>
   </div>
 </IntranetLayout>
@@ -64,5 +64,7 @@ import IntranetLayout from '../../../layouts/IntranetLayout.astro';
   
   .btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s;}
   .btn-secondary:hover { background: #e2e8f0; }
+  .btn-secondary:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-secondary:disabled:hover { background: #f1f5f9; border-color: #cbd5e1; }
   .mt-2 { margin-top: 0.5rem; }
 </style>

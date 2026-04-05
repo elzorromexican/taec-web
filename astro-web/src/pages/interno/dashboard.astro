@@ -45,21 +45,21 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
   <div class="dashboard-section mt-10">
     <h2 class="section-title">Accesos Directos (Drive)</h2>
     <div class="grid-links">
-      <a href="javascript:alert('Sección en construcción');" class="quick-link-card">
+      <div class="quick-link-card disabled">
         <span class="icon">📁</span>
         <h4>Formatos Comerciales</h4>
         <p>Abre el Drive general de ventas.</p>
-      </a>
-      <a href="javascript:alert('Sección en construcción');" class="quick-link-card">
+      </div>
+      <div class="quick-link-card disabled">
         <span class="icon">📄</span>
         <h4>Machotes de Contrato</h4>
         <p>NDAs y plantillas pre-aprobadas.</p>
-      </a>
-      <a href="javascript:alert('Sección en construcción');" class="quick-link-card">
+      </div>
+      <div class="quick-link-card disabled">
         <span class="icon">🔐</span>
         <h4>Zoho CRM</h4>
         <p>Atajo al sistema de Tickets.</p>
-      </a>
+      </div>
     </div>
   </div>
 
@@ -149,6 +149,15 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
     border-color: #cbd5e1;
     transform: translateY(-2px);
+  }
+  .quick-link-card.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .quick-link-card.disabled:hover {
+    box-shadow: none;
+    border-color: #e2e8f0;
+    transform: none;
   }
   .quick-link-card .icon {
     font-size: 2rem;

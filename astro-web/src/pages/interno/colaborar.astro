@@ -35,7 +35,7 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
         <textarea rows="6" placeholder="Describe a detalle tu recomendación o pega aquí el texto de tu borrador..."></textarea>
       </div>
 
-      <button type="button" class="btn-primary" onclick="alert('Funcionalidad de base de datos en mantenimiento preventivo. Se habilitará en la Fase 3.');">Enviar para Aprobación</button>
+      <button type="button" class="btn-primary" disabled>Funcionalidad en Mantenimiento</button>
     </form>
   </div>
 </IntranetLayout>
@@ -73,6 +73,8 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
   
   .btn-primary { background: #2563eb; color: white; border: none; padding: 0.85rem 1.5rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem;}
   .btn-primary:hover { background: #1d4ed8; }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-primary:disabled:hover { background: #2563eb; }
   .helper-text { font-size: 0.8rem; color: #94a3b8; text-align: center; }
   .mt-2 { margin-top: 0.75rem; }
 </style>

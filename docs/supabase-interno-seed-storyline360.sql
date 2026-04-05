@@ -311,4 +311,128 @@ INSERT INTO kb_items (
   'Safari en iOS puede bloquear contenido embebido o afectar el tracking por restricciones de rastreo entre sitios (ITP). La causa está identificada (ITP de Apple).',
   'El autor no puede controlar ni deshabilitar ITP; la solución está fuera del alcance del producto.',
   'Análisis IA · QA', true, '{interno,titbits}'
+),
+
+-- ==========================================
+-- NUEVOS AÑADIDOS (DEDUPLICADOS) - COMERCIAL
+-- ==========================================
+(
+  'storyline360', 'comercial', 'Matriz Comercial', '#185FA5', 90,
+  '¿Qué opciones de publicación y distribución ofrece (LMS, Reach, Review)?',
+  'Publicación para LMS/LRS (ZIP desde el diálogo de publicación), xAPI, cmi5, publicación a Review 360 y Reach 360 para pruebas/compartir.',
+  'Flujo de pruebas dedicado (Review) y opción de paquete ZIP estandarizada para LMS.',
+  'Requiere validación en plataformas externas; dependencia en workflows adicionales para colaboración/entrega.',
+  true, '{interno,titbits,publico}'
+),
+(
+  'storyline360', 'comercial', 'Matriz Comercial', '#185FA5', 100,
+  '¿Storyline 360 permite trabajo colaborativo y control de versiones?',
+  'Soporta compartir recursos mediante bibliotecas y Review 360; flujos para equipos en Articulate 360 Teams; no hay control de versiones integrado estilo VCS.',
+  'Herramientas para compartir y revisar contenido entre equipos; bibliotecas de activos reutilizables.',
+  'Falta de control de versiones robusto tipo Git; riesgo de conflictos si se edita en red/almacenamiento compartido.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'comercial', 'Matriz Comercial', '#185FA5', 110,
+  '¿Hay límites comerciales relevantes (licenciamiento / canal resellers)?',
+  'Venta a través de revendedores globales listados; información de contacto por país disponible.',
+  'Disponibilidad de soporte y compra local mediante red de distribuidores.',
+  'Modelos de compra/licenciamiento pueden variar por país; detalles contractuales no centralizados en un único recurso público.',
+  true, '{interno,titbits,publico}'
+),
+
+-- ==========================================
+-- NUEVOS AÑADIDOS (DEDUPLICADOS) - TÉCNICA
+-- ==========================================
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 140,
+  '¿Storyline 360 soporta localización e idiomas RTL?',
+  'Soporta localización, conjuntos multibyte y lenguajes RTL (árabe, hebreo) con guías de buenas prácticas.',
+  'Soporte para múltiples idiomas y scripts, lo que facilita proyectos globales.',
+  'Requiere ajustes manuales y pruebas específicas para RTL; algunos elementos pueden necesitar remaquetado.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 150,
+  '¿El reproductor y la experiencia multimedia se adaptan a dispositivos móviles?',
+  'Incluye reproductor adaptable, ajuste de calidad de vídeo según ancho de banda, soporte táctil y subtítulos; recomendación: probar en dispositivos reales.',
+  'Reproductor responsive y gestión automática de calidad multimedia.',
+  'Variabilidad de comportamiento según dispositivo/browser; necesita pruebas en entornos reales y optimización para rendimiento.',
+  true, '{interno,titbits,publico}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 160,
+  '¿Hay limitaciones de los estándares (por ejemplo, SCORM 1.2)?',
+  'Limitaciones inherentes a los estándares o a LMS (por ejemplo, límites de longitud de campos en SCORM 1.2).',
+  'Permite elegir el estándar más adecuado según restricciones del LMS.',
+  'Limitaciones técnicas no solucionables desde el autor (depende del LMS/estándar).',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 170,
+  '¿Qué requisitos de versión/Build existen para cmi5 o funciones recientes?',
+  'cmi5 y otras funciones requieren builds mínimos; se debe verificar número de build antes de publicar.',
+  'Permite acceso a nuevas salidas conforme se actualiza el producto.',
+  'Dependencia estricta de versión/build puede bloquear despliegues hasta actualizar herramienta.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 180,
+  '¿Qué formatos de medios y codecs tiene soporte notorio (p. ej. WebM)?',
+  'Soporta MP4; soporte para WebM documentado en notas de producto (validar en build).',
+  'Soporte para formatos modernos de vídeo ampliando compatibilidad y optimización.',
+  'Compatibilidad concreta de codecs depende del build y del navegador destino; verificar antes de producción.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 190,
+  '¿Limitaciones y problemas reportados en dispositivos Apple iOS/iPadOS?',
+  'Reportes de lentitud o fallos en iOS/iPadOS en proyectos con medios pesados o en dispositivos antiguos; existen guías de optimización.',
+  'Procedimientos de optimización y recomendaciones oficiales para mejorar rendimiento.',
+  'Rendimiento variable en dispositivos antiguos o navegadores con limitaciones; pruebas exhaustivas necesarias.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 200,
+  '¿Cumplimiento de accesibilidad (WCAG/Section 508)?',
+  'Dispone de funcionalidades de accesibilidad, Accessibility Checker y VPAT para alcance de conformidad.',
+  'Herramientas y documentación para apoyar cumplimiento de accesibilidad.',
+  'Alcance de conformidad puede requerir trabajo manual adicional; no garantiza cumplimiento automático en todos los proyectos.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 210,
+  '¿Incompatibilidades LMS conocidas y buenas prácticas para carga?',
+  'Algunos LMS requieren configuraciones específicas; se recomienda testear en SCORM Cloud y usar ZIP de publicación.',
+  'Flujo de prueba estandarizado para aislar problemas de LMS antes de despliegue.',
+  'Incompatibilidades específicas del LMS pueden requerir ajustes en el paquete o intervención del administrador LMS.',
+  true, '{interno,titbits}'
+),
+
+-- ==========================================
+-- NUEVOS AÑADIDOS (DEDUPLICADOS) - TROUBLESHOOTING
+-- ==========================================
+(
+  'storyline360', 'troubleshooting', 'Troubleshooting', '#D85A30', 150,
+  'Error crítico 3: Audio desincronizado o no reproducido en la publicación',
+  'Causas: media mal empaquetada, publicación desde red, múltiples clips por diapositiva, bugs de build. Resolución: publicar a Review 360 para comparar; trabajar desde disco local; consolidar/optimizar audios; limpiar caché; si persiste, escalar a soporte con archivos.',
+  'Pasos de verificación y mitigación para aislar origen (local vs LMS).',
+  'Solución puede requerir rework de archivos multimedia o actualización del build; persistencia del problema en algunos entornos.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'troubleshooting', 'Troubleshooting', '#D85A30', 160,
+  'Error crítico 4: Animaciones/transiciones funcionan en edición pero fallan al publicar',
+  'Causas: edición en red, triggers mal sincronizados, bugs de versión. Resolución: mover proyecto a local y republicar; rehacer animaciones problemáticas; actualizar Storyline; escalar a soporte si persiste.',
+  'Workarounds para aislar el problema y acciones correctivas inmediatas.',
+  'Algunas animaciones complejas pueden no tener sustituto sencillo; puede implicar rediseño de interacciones.',
+  true, '{interno,titbits}'
+),
+(
+  'storyline360', 'troubleshooting', 'Troubleshooting', '#D85A30', 170,
+  'Error crítico 5: Closed captions / orden de lectura / foco accesible inconsistentes',
+  'Causas: importación/timing de SRT, configuración de accesibilidad, diferencias en lectores de pantalla. Resolución: validar SRT/CC en editor integrado, ejecutar Accessibility Checker, probar con JAWS/NVDA y Review 360; escalar a soporte con archivo si necesario.',
+  'Herramientas integradas para comprobar y corregir accesibilidad antes de publicar.',
+  'Ajustes manuales y pruebas externas son necesarios; conformidad completa depende del diseño del curso y entorno de reproducción.',
+  true, '{interno,titbits}'
 );
