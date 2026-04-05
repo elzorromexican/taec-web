@@ -5,6 +5,10 @@
 -- Owner: Dirección Comercial TAEC
 -- ==========================================
 
+
+-- Aseguramos idempotencia: primero purgar datos existentes
+DELETE FROM kb_items WHERE producto = 'vyondgo';
+
 INSERT INTO kb_items (
   producto, seccion, seccion_label, seccion_color, orden,
   pregunta, plus, menos, fuente, activo, audiencia
