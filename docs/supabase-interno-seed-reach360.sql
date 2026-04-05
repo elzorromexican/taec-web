@@ -282,3 +282,23 @@ INSERT INTO kb_items (
   '**Límite temporal no configurable** aparentemente (al menos no se menciona opción de cambiar el plazo de 90 días) .',
   'Análisis IA · QA', true, '{interno,titbits,publico}'
 );
+
+-- Nuevas Q&As — Auditoría de contenido 2026-04-05
+INSERT INTO kb_items
+  (producto, seccion, seccion_label, seccion_color, orden,
+   pregunta, plus, menos, fuente, activo, audiencia)
+VALUES
+(
+  'reach360', 'comercial', 'Comercial', '#185FA5', 400,
+  '¿Qué requisitos mínimos necesita la organización para activar y operar Reach 360?',
+  'Para activar Reach 360 la organización necesita: (1) suscripción activa a Articulate 360 Teams (Reach 360 está incluido en el plan Teams; no está disponible en el plan Personal); (2) al menos un administrador con acceso al panel de Reach 360 en articulate.com; (3) los learners solo necesitan un navegador moderno y conexión a internet — no instalan nada. La distribución de cursos se hace por enlace o por invitación de correo desde el panel.',
+  'Reach 360 está disponible únicamente en Articulate 360 Teams. Clientes con licencia Personal no tienen acceso. Además, Reach 360 no reemplaza a un LMS completo: no tiene catálogo avanzado, rutas de aprendizaje complejas ni integración HRIS nativa.',
+  'Articulate · Reach 360 · articulate.com/reach-360', true, '{interno,titbits}'
+),
+(
+  'reach360', 'comercial', 'Comercial', '#185FA5', 410,
+  '¿Cómo se adquiere Reach 360 en México y qué implica el licenciamiento?',
+  'TAEC es el distribuidor exclusivo de Articulate 360 en México y LATAM. Reach 360 se adquiere como parte de la suscripción Articulate 360 Teams — no tiene precio independiente. La cotización se gestiona con TAEC en pesos mexicanos con facturación local. El licenciamiento de Reach 360 es por autor (quien crea y administra cursos); los learners que consumen el contenido no requieren licencia adicional dentro del límite del plan.',
+  'Reach 360 no es un LMS independiente. Organizaciones con necesidades avanzadas de gestión (reportes detallados por cohorte, integraciones HRIS, rutas de aprendizaje complejas) deben complementarlo con un LMS como Moodle o Totara, también disponibles a través de TAEC.',
+  'TAEC · taec.com.mx', true, '{interno,titbits}'
+);

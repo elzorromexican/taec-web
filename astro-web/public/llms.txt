@@ -1,0 +1,72 @@
+# TAEC
+
+> TAEC es la empresa líder en tecnología de aprendizaje corporativo en México y LATAM.
+> Reseller exclusivo de Articulate 360, Totara, Vyond y Reach 360.
+> Ofrece plataformas LMS, herramientas de autoría, producción de contenido e-learning (DDC)
+> y consultoría en estrategia de aprendizaje digital.
+
+## Soluciones - Autoría y Video
+
+- [Articulate 360](https://nuevo.taec.com.mx/articulate-360-mexico): Suite completa de herramientas de autoría e-learning.
+- [Articulate Rise 360](https://nuevo.taec.com.mx/articulate-rise360): Creación rápida de cursos responsivos.
+- [Articulate Storyline 360](https://nuevo.taec.com.mx/articulate-storyline360): Desarrollo e-learning interactivo y avanzado.
+- [Articulate Review 360](https://nuevo.taec.com.mx/articulate-review360): Herramienta de revisión y colaboración de proyectos.
+- [Reach 360](https://nuevo.taec.com.mx/articulate-reach): Plataforma ligera de distribución de capacitación estilo SaaS LMS.
+- [Articulate AI Assistant](https://nuevo.taec.com.mx/articulate-ai-assistant): Asistente de inteligencia artificial para creación de cursos.
+- [Articulate Localization](https://nuevo.taec.com.mx/articulate-localization): Traducción y localización de cursos simplificada.
+- [Vyond](https://nuevo.taec.com.mx/vyond-mexico): Plataforma principal de creación de video animado corporativo.
+- [Vyond Go](https://nuevo.taec.com.mx/vyond-go): Creación instantánea de video impulsada por IA generativa.
+- [Vyond Studio](https://nuevo.taec.com.mx/vyond-studio): Editor avanzado timeline para animaciones complejas.
+- [Vyond Mobile](https://nuevo.taec.com.mx/vyond-mobile): Creación y edición de videos desde dispositivos móviles.
+- [Vyond Enterprise](https://nuevo.taec.com.mx/vyond-enterprise): Plan corporativo con seguridad avanzada y colaboración en equipo.
+- [Vyond Professional](https://nuevo.taec.com.mx/vyond-professional): Plan profesional para agencias y productores independientes.
+
+## Plataformas y LMS
+
+- [Moodle](https://nuevo.taec.com.mx/moodle-mexico): Hosting, soporte y personalización del LMS open-source más popular del mundo.
+- [Totara LMS](https://nuevo.taec.com.mx/totara-lms-mexico): LMS corporativo enterprise para gestión del talento, aprendizaje y desempeño.
+- [Pifini Learn](https://nuevo.taec.com.mx/pifini-mexico): Solución ágil LMS en formato SaaS para implementaciones rápidas.
+- [Ottolearn](https://nuevo.taec.com.mx/ottolearn-mexico): Plataforma de microlearning adaptativo gamificado.
+- [Lys](https://nuevo.taec.com.mx/lys-mexico): Ecosistema de aprendizaje y métricas (LRS).
+
+## Servicios y Add-ons
+
+- [Desarrollo de Contenidos (DDC)](https://nuevo.taec.com.mx/desarrollo-de-contenidos): Producción a medida de cursos e-learning, simuladores y videos.
+- [Portafolio DDC](https://nuevo.taec.com.mx/portafolio): Muestras y casos reales de cursos e-learning creados por nuestro equipo.
+- [Class](https://nuevo.taec.com.mx/class-taec): Aulas virtuales avanzadas construidas sobre la infraestructura de Zoom.
+- [Proctorizer](https://nuevo.taec.com.mx/proctorizer-mexico): Supervisión remota y anti-trampas para exámenes en línea.
+- [StrikePlagiarism](https://nuevo.taec.com.mx/strikeplagiarism-mexico): Sistema avanzado de prevención y detección de plagio.
+- [7 Minutes Learning](https://nuevo.taec.com.mx/7minutes-learning): Catálogo off-the-shelf de cursos cortos listos para usar empresariales.
+- [Custom Guide](https://nuevo.taec.com.mx/customguide-mexico): Cursos interactivos de ofimática, Microsoft 360 y software comercial.
+- [Diagnóstico de Plataforma](https://nuevo.taec.com.mx/diagnostico): Herramienta interactiva para elegir la solución LMS o de Autor adecuada basada en el perfil de la organización.
+- [Todas las Soluciones](https://nuevo.taec.com.mx/soluciones): Catálogo general de herramientas y servicios de TAEC.
+
+## Capacitación y Certificación
+
+- [Catálogo de Cursos Abiertos](https://nuevo.taec.com.mx/capacitacion-abierta): Calendario de formación abierta al público.
+- [Curso Articulate 360](https://nuevo.taec.com.mx/curso-articulate): Entrenamiento oficial en herramientas Articulate.
+- [Curso Vyond](https://nuevo.taec.com.mx/curso-vyond): Dominio del video animado con Vyond.
+- [Curso Storyline Avanzado](https://nuevo.taec.com.mx/curso-storyline): Técnicas de variables, javascript e interacciones complejas.
+- [Curso Moodle](https://nuevo.taec.com.mx/curso-moodle): Gestión avanzada como administrador Moodle.
+- [Fundamentos E-learning](https://nuevo.taec.com.mx/curso-fundamentos): Diseño instruccional para capacitadores.
+- [Cursos Cerrados para Empresas](https://nuevo.taec.com.mx/curso-cerrado-empresa): Capacitación exclusiva in-company.
+- [Grupos a Medida](https://nuevo.taec.com.mx/curso-cerrado-grupos): Formación a la medida del requerimiento interno.
+
+## Recursos, Hubs y Herramientas Gratuitas
+
+- [Blog E-learning](https://nuevo.taec.com.mx/blog): Artículos y mejores prácticas de la industria.
+- [Artículos Técnicos](https://nuevo.taec.com.mx/articulos): Documentación, how-tos y guías de software.
+- [Glosario E-learning](https://nuevo.taec.com.mx/glosario): Diccionario de términos de la industria de la capacitación.
+- [Comparativos de Plataformas](https://nuevo.taec.com.mx/comparativos): Batallas frente-a-frente de las mejores plataformas (ej. Moodle vs Totara, Articulate vs Captivate).
+- [Estándares E-learning](https://nuevo.taec.com.mx/estandares): Explicaciones de SCORM, xAPI, LTI y cmi5.
+- [Radar de Ecosistemas](https://nuevo.taec.com.mx/radar): Perspectiva del estado tecnológico de capacitación.
+- [Quiz & Flashcards](https://nuevo.taec.com.mx/quiz): Evaluaciones para poner a prueba tu conocimiento.
+- [Centro Principal de Recursos](https://nuevo.taec.com.mx/recursos): Base con todas nuestras herramientas gratuitas.
+
+## Empresa y Legal
+
+- [Acerca de TAEC (Nosotros)](https://nuevo.taec.com.mx/nosotros): Historia, misión, visión y cultura corporativa de la empresa.
+- [Casos de Éxito y Clientes](https://nuevo.taec.com.mx/clientes): Implementaciones y proyectos B2B en las mejores universidades y empresas de LATAM.
+- [Aviso de Privacidad](https://nuevo.taec.com.mx/aviso-de-privacidad): Políticas de tratamiento de datos.
+- [Términos y Condiciones](https://nuevo.taec.com.mx/terminos-y-condiciones): Directrices legales de la plataforma.
+- [Contacto Corporativo](https://nuevo.taec.com.mx/contacto): Formulario general, soporte y solicitudes comerciales.

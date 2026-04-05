@@ -492,3 +492,23 @@ INSERT INTO kb_items (
   'Análisis IA · QA', true, '{interno,titbits,publico}'
 )
 ;
+
+-- Nuevas Q&As — Auditoría de contenido 2026-04-05
+INSERT INTO kb_items
+  (producto, seccion, seccion_label, seccion_color, orden,
+   pregunta, plus, menos, fuente, activo, audiencia)
+VALUES
+(
+  'vyondstudio', 'comercial', 'Comercial', '#185FA5', 530,
+  '¿Cómo se adquiere Vyond Studio en México y qué ventajas ofrece comprarlo a través de TAEC?',
+  'TAEC es el distribuidor exclusivo de Vyond en México y LATAM. Adquirir Vyond Studio a través de TAEC ofrece: (1) cotización y facturación en pesos mexicanos; (2) soporte técnico y pedagógico en español con conocimiento del contexto corporativo latinoamericano; (3) capacitación incluida en el onboarding (uso de AI Avatars, Instant Video Translation, flujos de producción); (4) asesoría en la selección del plan correcto (Starter, Professional, Enterprise) según el volumen de producción y necesidades del equipo.',
+  'Vyond Studio no se puede adquirir directamente desde vyond.com en México con condiciones locales. Cotizar siempre a través de TAEC para obtener precio en MXN, factura local, soporte regional y capacitación incluida.',
+  'TAEC · taec.com.mx', true, '{interno,titbits,publico}'
+),
+(
+  'vyondstudio', 'tecnica', 'Matriz Técnica', '#0F6E56', 540,
+  '¿Cuáles son los requisitos técnicos mínimos para usar Vyond Studio?',
+  'Vyond Studio es una aplicación 100% web; no requiere instalación local. Requisitos mínimos: (1) Navegador: Chrome o Edge (recomendados); Firefox soportado; Safari con soporte parcial — algunas funciones de IA pueden no funcionar correctamente; (2) Sistema operativo: Windows 7 SP1 o superior, o macOS (cualquier versión moderna); (3) RAM: mínimo 8 GB recomendados para proyectos con AI Avatars y Instant Video Translation; (4) Conexión a internet estable — todo el procesamiento de IA ocurre en la nube de Vyond.',
+  'Safari tiene soporte parcial: algunas funciones avanzadas (AI Avatars, generación de video con IA) pueden presentar comportamiento inconsistente. Para producción profesional se recomienda Chrome o Edge. Vyond no tiene aplicación de escritorio; sin internet no es posible trabajar.',
+  'Vyond · Help Center · System Requirements · help.vyond.com', true, '{interno,titbits}'
+);

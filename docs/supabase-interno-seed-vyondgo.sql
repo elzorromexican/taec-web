@@ -213,3 +213,44 @@ INSERT INTO kb_items (
   'Análisis IA · QA', true, '{interno,titbits}'
 )
 ;
+
+-- Nuevas Q&As — Auditoría de contenido 2026-04-05
+INSERT INTO kb_items
+  (producto, seccion, seccion_label, seccion_color, orden,
+   pregunta, plus, menos, fuente, activo, audiencia)
+VALUES
+(
+  'vyondgo', 'comercial', 'Comercial', '#185FA5', 280,
+  '¿Qué es Vyond Go y qué lo diferencia de otras herramientas de video con IA?',
+  'Vyond Go es la herramienta de generación de video con IA de Vyond que convierte texto (prompt o guion) en un video animado completo con avatares, subtítulos, música y narración. Su diferenciador clave es que está diseñada específicamente para L&D corporativo: sus plantillas, avatares y estilos están orientados a contenido profesional (no entertainment), y se integra de forma nativa con Vyond Studio para edición avanzada posterior.',
+  'El output de Vyond Go es video; no genera cursos SCORM ni lógica interactiva. Para distribución con tracking en LMS se requiere plan Enterprise/Agency o complementarlo con una herramienta de autoría como Articulate 360.',
+  'Vyond · vyond.com/vyond-go', true, '{interno,titbits,publico}'
+),
+(
+  'vyondgo', 'comercial', 'Comercial', '#185FA5', 290,
+  '¿Qué necesita el usuario para generar un video con Vyond Go?',
+  'Para generar un video con Vyond Go el usuario necesita: (1) suscripción activa a Vyond (cualquier plan incluye Vyond Go); (2) un navegador moderno — Vyond Go es 100% web, no requiere instalación; (3) un prompt o guion de texto describiendo el contenido del video. La IA genera el video automáticamente; el usuario puede editar el resultado en Vyond Studio. No se requieren conocimientos de diseño o edición de video.',
+  'La calidad del video generado depende directamente de la calidad del prompt/guion. Prompts vagos producen videos genéricos. Además, las funciones de IA (avatares, voces, traducción) consumen créditos mensuales según el plan.',
+  'Vyond · vyond.com/vyond-go', true, '{interno,titbits}'
+),
+(
+  'vyondgo', 'comercial', 'Comercial', '#185FA5', 300,
+  '¿En qué escenarios concretos produce más valor Vyond Go para equipos de L&D?',
+  'Vyond Go produce más valor en: (1) microlearning y píldoras formativas de 1–3 minutos generadas en minutos; (2) onboarding rápido donde se necesita un video explicativo antes de tener tiempo de producción completo; (3) actualizaciones de contenido frecuentes (cambios de política, nuevos procesos) donde recrear el video desde cero sería ineficiente; (4) equipos sin diseñadores o editores de video dedicados que necesitan producir contenido visual profesional de forma autónoma.',
+  'No es adecuado para simulaciones de software, evaluaciones interactivas, ni contenido que requiera ramificaciones. Para esos casos se necesita Articulate 360 (Storyline 360).',
+  'Vyond · vyond.com', true, '{interno,titbits,publico}'
+),
+(
+  'vyondgo', 'comercial', 'Comercial', '#185FA5', 310,
+  '¿En qué situaciones Vyond Go no es la herramienta correcta?',
+  'Vyond Go no es adecuado cuando: (1) el proyecto requiere tracking granular de progreso en LMS (SCORM/xAPI con variables) — Vyond Go produce MP4, no paquetes SCORM; (2) el contenido necesita interactividad (cuestionarios, ramificaciones, simulaciones); (3) el equipo necesita un avatar fotorrealista custom (para eso existe Vyond Studio con AI Avatars); (4) el proyecto requiere más de 3–5 minutos de video con narrativa compleja — en esos casos Vyond Studio ofrece mayor control editorial.',
+  'La línea entre Vyond Go y Vyond Studio puede generar confusión. Vyond Go es para generación rápida desde texto; Vyond Studio es para producción controlada y edición detallada.',
+  'Vyond · vyond.com', true, '{interno,titbits}'
+),
+(
+  'vyondgo', 'comercial', 'Comercial', '#185FA5', 320,
+  '¿Cómo se adquiere Vyond (Vyond Go incluido) en México?',
+  'TAEC es el distribuidor exclusivo de Vyond en México y LATAM. La adquisición se gestiona directamente con TAEC: cotización en pesos mexicanos, facturación local y soporte técnico y pedagógico en español. Vyond Go está incluido en todos los planes de Vyond (Starter, Professional, Enterprise). TAEC asesora en la selección del plan correcto según el tamaño del equipo, volumen de producción y necesidades de IA.',
+  'Vyond no se puede adquirir directamente desde vyond.com en México con condiciones locales (factura MXN, soporte en español). Cotizar siempre a través de TAEC para obtener las mejores condiciones comerciales y soporte regional.',
+  'TAEC · taec.com.mx', true, '{interno,titbits}'
+);

@@ -3,7 +3,8 @@
 
 ## 🚀 Prioridades Inmediatas (Siguiente Sesión - Titanes y Fase 2)
 - [ ] **Presentación y QA Intranet B2B (Titanes):** Revisión global de la KB en Supabase con el equipo comercial y validación final de la experiencia de usuario B2B.
-- [ ] **Semillas Restantes de Playbooks:** Procesar `vyondgo`, `vyondmobile` y `reach360` aplicando la misma arquitectura de sanitización y formateo `\n\n` validada hoy, logrando la disponibilidad completa del catálogo.
+- [x] **Semillas Restantes de Playbooks:** Procesar `vyondgo`, `vyondmobile` y `reach360` aplicando la misma arquitectura de sanitización y formateo `\n\n` validada hoy, logrando la disponibilidad completa del catálogo.
+- [x] **Consolidación KB Vyond Enterprise:** Procesamiento y generación del script semilla `docs/supabase-interno-seed-vyondenterprise.sql` de troubleshooting, técnica y comercial. Se aplicó lógica rigurosa de fusión (Respuesta + El Plus) y depuración Regex profunda para texto plano B2B.
 - [ ] **Despliegue a Producción (CI/CD):** Fusionar la rama `feature/ddc-calculadora` a `main` para reactivar producción en `nuevo.taec.com.mx` con el MVP v6.0 B2B activo.
 - [x] **Integración Supabase e Intranet B2B:** Refactorización de infraestructura y autenticación segura con SSR y middleware estricto de dominio e-mail corporativo.
 - [ ] **Auditoría Resend Handoff:** Revisar payloads transaccionales de `send-transcript.ts` con sanitización XSS para asegurar transcritos limpios en CRM.
@@ -59,6 +60,7 @@
 - [x] **Restauración Mac Dock Footer:** Reactivación blindada del footer experimental flotante para todo el sitio mediante hooks dinámicos `astro:page-load`.
 - [x] **UX de Navegación B2B:** Se inyectó el enlace universal `bottomAction` ("Ver todas las soluciones") a la base del Mega Menú para garantizar accesibilidad en dispositivos sin soporte de Hover.
 - [x] **Auditoría Multi-IA (DevX & Web Vitals):** Ejecutamos una blindaje total de performance: se eliminó el riesgo de CLS fijando `flex-shrink: 0`, se potenció FPS con `will-change: transform`, y se agregó tipado estricto (`BADGE_CLASS`) y `Fail-Fast` en TS para evitar rupturas silenciosas.
+- [x] **Implementación Estándar LLMs:** Creación del archivo `llms.txt` en la raíz pública del sitio Astro mapeando y validando las URLs de los productos y páginas principales de acuerdo a la especificación llmstxt.org para agentes de IA.
 ## 🛑 Tareas Congeladas (Requieren VoBo Interno Taec)
 - [ ] **Validación Vyond:** Revisión final de la página curso con Ana M.
 - [ ] **Decisión UI:** Determinar si los headers azules se cambian por imágenes logo (Actual: Articulate).

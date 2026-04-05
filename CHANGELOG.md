@@ -286,3 +286,8 @@ Vyond                                             7 Minutes
 - **Evaluación de Superficies Seguras:** Conformidad final sobre la división `Client / Server` en torno al envío de Formularios (Zero Payload Secrets) y aislamiento correcto del SSR Guard (`prerender = false`) hacia la matriz de cálculo en memoria del cotizador DDC.
 - **Creación de Backlog Operativo:** Formulación algorítmica de 8 vectores post-lanzamiento incrustados en `task.md`. Prioridades ajustadas: Reforzar el control estructural del `ddc-pricing-matrix.json`, aislar tokens en contexto SSR y establecer telemetría / rate-limiting a canales exógenos (Resend, Zoho, GAS y @google/genai).
 
+### 05 abr 2026 — Base de Conocimiento Vyond Mobile (Intranet v8.6)
+- **Consolidación KB Vyond Mobile:** Se procesó y creó el archivo semilla `docs/supabase-interno-seed-vyondmobile.sql` (29 registros de troubleshooting, técnica y comercial). Se implementó la lógica de fusión para lograr legibilidad unificada en las respuestas asegurando rigor en la lógica de resolución limpia sin tags no permitidos como referencias numéricas, de sistema o datos no disponibles; finalizado el lote de semillas programado.
+
+### 05 abr 2026 — Base de Conocimiento Vyond Enterprise (Intranet v8.7)
+- **Consolidación KB Vyond Enterprise:** Procesamiento y generación del archivo semilla DDL `docs/supabase-interno-seed-vyondenterprise.sql` (~38 registros). Aplicación robusta de fusión lógica de columnas ("Respuesta" y "El Plus"), eliminación Regex total de referencias bibliográficas, corchetes y estandarización a texto plano, garantizando rendering impecable en el ecosistema B2B.

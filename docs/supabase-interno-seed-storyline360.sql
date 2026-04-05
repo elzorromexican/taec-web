@@ -436,3 +436,51 @@ INSERT INTO kb_items (
   'Ajustes manuales y pruebas externas son necesarios; conformidad completa depende del diseño del curso y entorno de reproducción.',
   true, '{interno,titbits}'
 );
+
+-- Nuevas Q&As — Auditoría de contenido 2026-04-05
+INSERT INTO kb_items
+  (producto, seccion, seccion_label, seccion_color, orden,
+   pregunta, plus, menos, fuente, activo, audiencia)
+VALUES
+(
+  'storyline360', 'comercial', 'Comercial', '#185FA5', 120,
+  '¿Qué es Storyline 360 y para qué tipo de proyectos está diseñado?',
+  'Storyline 360 es la herramienta de autoría e-learning más usada en el mundo para crear cursos interactivos de alta complejidad: escenarios ramificados, simulaciones de software, personajes animados y lógica condicional avanzada mediante variables y triggers. Se exporta a SCORM 1.2/2004, xAPI y HTML5 responsivo para cualquier LMS.',
+  'Tiene una curva de aprendizaje moderada (2–4 semanas para un autor nuevo). No es la herramienta más adecuada para proyectos de producción rápida sin lógica compleja; para eso existe Rise 360.',
+  'Articulate · articulate.com/storyline-360', true, '{interno,titbits,publico}'
+),
+(
+  'storyline360', 'comercial', 'Comercial', '#185FA5', 130,
+  '¿Qué necesita el autor para construir un curso en Storyline 360?',
+  'El autor necesita: (1) licencia activa de Articulate 360 (incluye Storyline 360); (2) PC con Windows 10/11 — Storyline 360 solo corre en Windows (Mac requiere Parallels o VM); (3) contenido base (guion, imágenes, audio/video); (4) acceso al LMS destino para pruebas de publicación. No requiere conocimientos de programación: la lógica se construye con triggers y variables visuales.',
+  'Storyline 360 no tiene versión nativa para macOS. Los autores en Mac deben usar una máquina virtual o Parallels Desktop, lo que añade fricción al flujo de trabajo.',
+  'Articulate · System Requirements · articulate.com', true, '{interno,titbits}'
+),
+(
+  'storyline360', 'comercial', 'Comercial', '#185FA5', 140,
+  '¿Qué problema resuelve Storyline 360 que otras herramientas no pueden?',
+  'Storyline 360 resuelve la necesidad de interactividad profunda y lógica condicional compleja: escenarios ramificados donde las decisiones del alumno cambian el camino del curso, simulaciones exactas de pantallas de software, y evaluaciones adaptativas con retroalimentación dinámica. Su sistema de triggers y variables permite comportamientos imposibles de replicar en herramientas basadas en plantillas como Rise 360 o iSpring.',
+  'Mayor interactividad implica mayor tiempo de producción y mayor curva de aprendizaje para el autor. Proyectos complejos pueden tomar semanas de desarrollo frente a horas en Rise 360.',
+  'Articulate · articulate.com/storyline-360', true, '{interno,titbits,publico}'
+),
+(
+  'storyline360', 'comercial', 'Comercial', '#185FA5', 150,
+  '¿En qué casos de uso concretos es Storyline 360 la herramienta indicada?',
+  'Storyline 360 es ideal para: (1) simulaciones de atención al cliente con ramificaciones (el alumno elige respuestas y el curso reacciona); (2) entrenamiento de cumplimiento normativo con evaluación adaptativa; (3) simulaciones de software (captura de pantalla paso a paso); (4) cursos de onboarding corporativo con personajes animados y diálogo; (5) cualquier proyecto donde el comportamiento del curso deba cambiar según las respuestas del alumno.',
+  'No es la herramienta más eficiente para contenido informativo lineal o microlearning rápido. Para esos casos Rise 360 produce el mismo resultado en mucho menos tiempo.',
+  'Articulate · articulate.com/storyline-360', true, '{interno,titbits,publico}'
+),
+(
+  'storyline360', 'comercial', 'Comercial', '#185FA5', 160,
+  '¿Cómo se adquiere Articulate 360 (Storyline 360 incluido) en México?',
+  'TAEC es el distribuidor exclusivo de Articulate 360 en México y LATAM. La licencia se adquiere directamente con TAEC: cotización personalizada, proceso de compra en pesos mexicanos y facturación local. La licencia incluye todas las herramientas del ecosistema Articulate 360 (Storyline, Rise, Review, Reach, entre otras). TAEC también ofrece capacitación, onboarding y soporte técnico en español.',
+  'Articulate 360 no se puede adquirir directamente desde articulate.com en México con condiciones locales. Cotizar siempre a través de TAEC para obtener precio en MXN, factura local y soporte regional.',
+  'TAEC · taec.com.mx', true, '{interno,titbits}'
+),
+(
+  'storyline360', 'tecnica', 'Matriz Técnica', '#0F6E56', 220,
+  '¿Qué entregable produce Storyline 360 al finalizar un curso?',
+  'Storyline 360 publica el curso en uno o varios formatos: paquete SCORM 1.2, paquete SCORM 2004 (2ª, 3ª o 4ª edición), paquete xAPI (Tin Can), paquete cmi5, HTML5 responsivo standalone, o carpeta para subir a Articulate Review 360. El paquete SCORM/xAPI se sube directamente al LMS y reporta progreso, puntuación y completación.',
+  'El output es siempre HTML5; Flash fue eliminado completamente. Storyline 360 no produce aplicaciones nativas (iOS/Android). La reproducción en algunos LMS antiguos puede requerir ajustes de configuración de SCORM.',
+  'Articulate · Publish Your Storyline 360 Course · articulate.com', true, '{interno,titbits}'
+);

@@ -147,3 +147,44 @@ INSERT INTO kb_items (
   'Mejores prácticas dictan archivar tras Golden Master y publicar Limpio en una ID nueva para agilizar rendimiento de render final.',
   'Análisis IA · QA', true, '{interno}'
 );
+
+-- Nuevas Q&As — Auditoría de contenido 2026-04-05
+INSERT INTO kb_items
+  (producto, seccion, seccion_label, seccion_color, orden,
+   pregunta, plus, menos, fuente, activo, audiencia)
+VALUES
+(
+  'review360', 'comercial', 'Comercial', '#185FA5', 190,
+  '¿Qué entrega Review 360 al cierre de un ciclo de revisión?',
+  'Al cerrar un ciclo de revisión, Review 360 entrega: (1) historial completo de todos los comentarios recibidos por pantalla/slide con nombre del revisor y marca de tiempo; (2) estado de cada comentario (abierto, resuelto, descartado); (3) versión aprobada del curso publicada en el enlace original. El diseñador instruccional obtiene un registro auditable de todo el proceso de retroalimentación sin necesidad de consolidar correos o archivos externos.',
+  'Review 360 no genera un documento de acta o PDF exportable del historial de comentarios de forma automática. El registro queda dentro de la plataforma; si el enlace se archiva sin exportar, el historial solo es consultable desde la cuenta Articulate.',
+  'Articulate · Review 360 · articulate.com/review-360', true, '{interno,titbits}'
+),
+(
+  'review360', 'comercial', 'Comercial', '#185FA5', 200,
+  '¿Qué problema específico resuelve Review 360 en un proyecto de e-learning?',
+  'Review 360 elimina el ciclo caótico de retroalimentación por correo electrónico, capturas de pantalla y hojas de cálculo. Centraliza todos los comentarios de los revisores (clientes, SMEs, coordinadores) en una sola interfaz vinculada directamente al slide o pantalla del curso. El diseñador ve exactamente a qué elemento se refiere cada comentario, sin necesidad de interpretar descripciones textuales ambiguas.',
+  'Requiere que todos los revisores accedan al enlace desde un navegador actualizado. Revisores con restricciones de firewall corporativo o sin acceso a internet pueden no poder acceder a la URL de revisión.',
+  'Articulate · Review 360 · articulate.com/review-360', true, '{interno,titbits,publico}'
+),
+(
+  'review360', 'comercial', 'Comercial', '#185FA5', 210,
+  '¿En qué casos de uso concretos aporta mayor valor Review 360?',
+  'Review 360 aporta mayor valor en: (1) proyectos con múltiples stakeholders (cliente, SME, área legal, RH) que deben aprobar el mismo contenido; (2) equipos distribuidos geográficamente donde las reuniones de revisión presencial no son viables; (3) ciclos de aprobación con SLA definidos donde el historial de versiones es evidencia auditable; (4) agencias o consultoras que entregan cursos a clientes externos y necesitan un canal profesional de retroalimentación.',
+  'Para equipos pequeños con un solo revisor interno, puede ser percibido como overhead. En esos casos, la revisión directa en Storyline o Rise puede ser más ágil.',
+  'Articulate · Review 360 · articulate.com/review-360', true, '{interno,titbits,publico}'
+),
+(
+  'review360', 'comercial', 'Comercial', '#185FA5', 220,
+  '¿Cómo se adquiere Review 360 en México y a través de qué canal?',
+  'Review 360 está incluido en cualquier licencia de Articulate 360 (Teams o Personal). TAEC es el distribuidor exclusivo de Articulate 360 en México y LATAM. La adquisición se gestiona directamente con TAEC: cotización en pesos mexicanos, facturación local y soporte en español. No es necesario adquirir Review 360 por separado; viene integrado al suscribirse a Articulate 360.',
+  'Review 360 no se puede adquirir como producto independiente fuera de la suscripción Articulate 360. Para acceder a él, la organización debe tener una licencia activa de Articulate 360.',
+  'TAEC · taec.com.mx', true, '{interno,titbits}'
+),
+(
+  'review360', 'tecnica', 'Matriz Técnica', '#0F6E56', 230,
+  '¿Qué necesita el equipo para publicar y usar Review 360?',
+  'Para usar Review 360 el equipo necesita: (1) licencia activa de Articulate 360 — el autor publica directamente desde Storyline 360 o Rise 360 con un clic; (2) los revisores solo necesitan el enlace URL y un navegador moderno — no requieren cuenta ni licencia de Articulate; (3) conexión a internet estable (el contenido se aloja en la nube de Articulate). No hay instalación de software adicional para el equipo revisor.',
+  'Los revisores externos con políticas de seguridad corporativa estrictas (firewall, proxy) pueden tener problemas para acceder a los enlaces de Review 360. El contenido del curso está alojado en servidores de Articulate, no en la infraestructura del cliente.',
+  'Articulate · Review 360 · Getting Started · articulate.com', true, '{interno,titbits}'
+);

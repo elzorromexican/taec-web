@@ -343,3 +343,43 @@ INSERT INTO kb_items (
   'El flujo requiere que los stakeholders accedan al enlace. En organizaciones con resistencia digital puede haber fricción de adopción.',
   'User Guide · articulate.com', true, '{interno,titbits,publico}'
 );
+
+-- ==========================================
+-- NUEVAS Q&A — Auditoría Abr 2026
+-- v1.1 — 4 registros añadidos
+-- Categorías cubiertas: A (definición), B (insumos), C (resultados), TAEC (canal)
+-- ==========================================
+
+INSERT INTO kb_items (
+  producto, seccion, seccion_label, seccion_color, orden,
+  pregunta, plus, menos, fuente, activo, audiencia
+) VALUES
+
+(
+  'rise360', 'fit', '¿Para quién es (y no es) Rise?', '#D85A30', 70,
+  '¿Qué es Rise 360 y qué lo distingue dentro del ecosistema Articulate 360?',
+  'Rise 360 es la herramienta de autoría responsive de Articulate 360. Produce cursos interactivos directamente en el navegador, sin software de escritorio, con diseño adaptado automáticamente a cualquier dispositivo. Se diferencia de Storyline 360 en que prioriza velocidad de producción y resultado visual consistente sobre personalización avanzada. Es el punto de entrada recomendado para equipos que necesitan volumen de cursos sin una curva de aprendizaje pronunciada.',
+  'Rise no es una herramienta de diseño libre. El sistema de bloques limita la estructura visual y no permite intervenir en cada elemento por separado. Para experiencias muy personalizadas o simulaciones complejas, Storyline 360 sigue siendo la opción correcta.',
+  'articulate.com/360/rise · FAQ oficial', true, '{interno,titbits,publico}'
+),
+(
+  'rise360', 'equipo', 'Equipo, colaboración y suscripción', '#5F5E5A', 60,
+  '¿Qué necesita un equipo para empezar a crear cursos con Rise 360?',
+  'Se necesita una suscripción activa a Articulate 360 (Personal o Teams), una computadora de escritorio o laptop con navegador moderno y conexión a internet estable. No requiere instalación de software adicional: Rise funciona 100% en el navegador. Para autoría colaborativa simultánea se requiere el plan Teams.',
+  'Sin conexión a internet no se puede crear ni editar. El contenido generado por el AI Assistant depende de la calidad del material de entrada: manuales mal estructurados producen cursos mal estructurados. En México, la suscripción se adquiere a través de TAEC, distribuidor exclusivo de Articulate 360 para la región.',
+  'FAQ oficial · TAEC', true, '{interno,titbits}'
+),
+(
+  'rise360', 'lms', 'Distribución, LMS y analíticas', '#854F0B', 80,
+  '¿Qué tipos de contenido y entregables produce Rise 360?',
+  'Rise produce cursos interactivos publicados en SCORM 1.2, SCORM 2004, xAPI, cmi5 y AICC, listos para subir a cualquier LMS compatible. También genera cursos distribuibles directamente desde Reach 360 o mediante Quick Share sin LMS. Los formatos de contenido incluyen módulos completos, lecciones de microlearning, evaluaciones con banco de preguntas y escenarios ramificados.',
+  'El output es siempre web (HTML5 responsive). Rise no genera archivos descargables para uso offline, ni aplicaciones nativas para móvil. Para distribución sin conexión a internet se requiere arquitectura adicional no documentada.',
+  'FAQ oficial · User Guide', true, '{interno,titbits,publico}'
+),
+(
+  'rise360', 'licencias', 'Licencias, derechos y costo-beneficio', '#993556', 50,
+  '¿Cómo se adquiere Articulate 360 (Rise 360 incluido) en México?',
+  'TAEC es el distribuidor exclusivo de Articulate en México y LATAM. El proceso de adquisición incluye cotización en pesos mexicanos, facturación local y soporte en español. TAEC ofrece demostraciones, acompañamiento en la evaluación de la herramienta y capacitación inicial incluida en la licencia.',
+  'Articulate no vende directamente a organizaciones en México. Cualquier licencia adquirida fuera del canal oficial de TAEC puede no tener soporte regional ni garantía de precio en moneda local.',
+  'TAEC', true, '{interno,titbits}'
+);
