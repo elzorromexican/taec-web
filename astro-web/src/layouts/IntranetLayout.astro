@@ -305,6 +305,8 @@ const isActive = (path) => currentPath === path || (path !== '/interno/dashboard
   .intranet-main-content {
     flex: 1;
     background-color: var(--sl_light);
+    overflow-y: auto;
+    height: 100vh;
   }
 
   .content-wrapper {
@@ -322,7 +324,7 @@ const isActive = (path) => currentPath === path || (path !== '/interno/dashboard
       transform: translateX(-100%);
     }
     .intranet-sidebar.open { transform: translateX(0); }
-    .intranet-main-content { margin-top: 60px; }
+    .intranet-main-content { margin-top: 60px; margin-left: 0; }
     .content-wrapper { padding: 2rem 1.5rem; }
   }
 </style>

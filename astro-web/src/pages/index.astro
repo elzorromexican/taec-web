@@ -30,12 +30,19 @@ const blogColl = await getCollection('blog').catch(() => []);
 const dbPosts = [...articulosColl, ...blogColl].map(p => {
   // En Astro 6, p.id es el identificador (e.g. "mi-post") dado por el glob loader
   const finalSlug = p.id;
+  
+  // Extraemos el año del string (ej: "Octubre 2, 2009" -> 2009). Si no hay fecha, asumimos el año actual.
+  const dateStr = p.data.date || p.data.fecha || '';
+  const yearMatch = dateStr.match(/\d{4}/);
+  const year = yearMatch ? parseInt(yearMatch[0], 10) : new Date().getFullYear();
+
   return {
     titulo: p.data.title || p.data.titulo || finalSlug.replace(/-/g, ' '),
     categoria: p.data.category || p.data.categoria || (p.collection === 'articulos' ? 'Artículos' : 'Blog'),
-    url: `/${p.collection}/${finalSlug}`
+    url: `/${p.collection}/${finalSlug}`,
+    year
   };
-});
+}).filter(p => p.year >= 2024); // Evita noticias Legacy (pre-2024) en la home
 
 import fallbackTicker from '../../public/data/ticker.json';
 import { promos, latamCountries } from '../data/promos';

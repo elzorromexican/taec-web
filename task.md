@@ -30,6 +30,7 @@
 - [x] [ISSUE-017] Admin Panel: Limitar visibilidad del link "Panel Admin" estrictamente a ROLES = Admin.
 
 ## 📌 Operaciones Recientes (Corto Plazo)
+- [x] **Auditoría UI/UX Claude (Home e Intranet B2B):** Remoción de widget inyectado de Netlify Identity para purgar CORS global; inyección de atributos de accesibilidad ARIA en *cards* desactivadas del Dashboard; mitigación de colisiones CSS `margin-left` en la Intranet a tamaño tablet; depuración de urls huérfanas en el footer (`/soluciones` y `/contacto`); y blindaje lógico para el *Ticker del Blog* (`index.astro`) descartando artículos heredados pre-2024 para proteger el índice general.
 - [x] **Consolidación KB Vyond Studio (Anti-Duplicados y Zero HTML):** Procesamiento e inyección del script semilla (38 registros). Se implementó arquitectura SQL idempotente (`DELETE FROM`) para evitar *bloating*, purga radical con RegEx de basura de extracción (`[1]`, `[LinkedIn]`), y rescate semántico B2B ("Información no disponible") empaquetado exclusivamente con strings nativos `\n\n` en lugar de bloques brutos de HTML.
 - [x] **Consolidación KB Localization 360:** Procesamiento, fusión semántica (Respuesta + Plus) e inyección del script semilla `docs/supabase-interno-seed-localization.sql` (21 registros) para la matriz B2B.
 - [x] **Consolidación KB Review 360:** Procesamiento, deduplicación e inyección del script semilla `docs/supabase-interno-seed-review360.sql` (21 registros) para expandir la matriz técnica y de troubleshooting de la Intranet B2B.

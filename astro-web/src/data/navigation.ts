@@ -170,7 +170,7 @@ export const footerLinks = [
       { label: "Vyond", url: "/vyond-mexico" },
       { label: "Moodle", url: "/moodle-mexico" },
       { label: "Totara LMS", url: "/totara-lms-mexico" },
-      { label: "Todas las soluciones →", url: "/contacto" }
+      { label: "Todas las soluciones →", url: "/soluciones" }
     ]
   },
   {
@@ -190,7 +190,7 @@ export const footerLinks = [
       { label: navigationLabels.clients, url: "/clientes" },
       { label: "Tienda", url: "https://tienda.taec.com.mx" },
       { label: "Contacto", url: "/contacto" },
-      { label: "Soporte técnico", url: "https://www.taec.com.mx/soporte-tecnico.php" }
+      { label: "Soporte técnico", url: "/contacto" }
     ]
   }
 ];
