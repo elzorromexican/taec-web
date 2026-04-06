@@ -9,9 +9,7 @@
  * @created 2026-03-01
  * @updated 2026-04-04 12:12:00
  */
-export const prerender = false;
 import IntranetLayout from '../../layouts/IntranetLayout.astro';
-// import { supabase } from '../../lib/supabase'; // Para el futuro fetch de avisos
 ---
 
 <IntranetLayout title="Dashboard Intranet | TAEC" description="Lobby corporativo">
@@ -22,22 +20,24 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     <p>Bienvenido a la terminal central de herramientas, cotizadores y playbooks de TAEC.</p>
   </div>
 
-  <!-- AVISOS IMPORTANTES -->
+  <!-- AVISOS IMPORTANTES (Hardcodeados temporalmente) -->
   <div class="dashboard-section mt-10">
     <h2 class="section-title">Novedades de la Semana</h2>
     
-    <div class="news-card important border-l-orange">
-      <div class="news-badge orange">Uso Interno</div>
-      <h3>Nueva versión del Cotizador DDC 2026</h3>
-      <p>⚠️ <strong>Exclusivo para el equipo comercial TAEC.</strong> Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña "Cotizadores".</p>
-      <span class="news-date">06 Abr 2026</span>
-    </div>
+    <div class="news-grid">
+      <div class="news-card important border-t-orange">
+        <div class="news-badge orange">Uso Interno</div>
+        <h3>Nueva versión del Cotizador DDC 2026</h3>
+        <p title="⚠️ Exclusivo para el equipo comercial TAEC. Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña Cotizadores.">⚠️ <strong>Exclusivo para el equipo comercial TAEC.</strong> Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña "Cotizadores".</p>
+        <span class="news-date">06 Abr 2026</span>
+      </div>
 
-    <div class="news-card border-l-blue mt-4">
-      <div class="news-badge blue">Noticia</div>
-      <h3>KB de Rise 360 actualizada</h3>
-      <p>Sonia ya subió los 40 artículos curados sobre el comportamiento, limitantes y pros del ecosistema de Rise para refutar clientes complejos.</p>
-      <span class="news-date">03 Abr 2026</span>
+      <div class="news-card border-t-blue">
+        <div class="news-badge blue">Promoción Q2</div>
+        <h3>Localization integrado (Uso Libre)</h3>
+        <p title='Articulate 360 ha integrado "Localization" de uso libre para traducir cursos internamente. Ojo: No se pueden exportar ni publicar sin adquirir el paquete base y los paquetes adicionales. Tenemos una promoción activa durante todo el Q2 con un 25% de descuento en todos los paquetes de Localization.'>Articulate 360 ha integrado "Localization" de uso libre para traducir cursos internamente. <strong>Ojo:</strong> No se pueden exportar ni publicar sin adquirir el paquete base y los paquetes adicionales. Tenemos una promoción activa durante todo el Q2 con un <strong>25% de descuento</strong> en todos los paquetes de Localization.</p>
+        <span class="news-date">06 Abr 2026</span>
+      </div>
     </div>
   </div>
 
@@ -76,18 +76,18 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
 
 <style>
   .dashboard-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     color: #0f172a;
     margin: 0;
   }
   .dashboard-hero p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #64748b;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
-  .mt-10 { margin-top: 3rem; }
+  .mt-10 { margin-top: 1.5rem; }
   .mt-4 { margin-top: 1rem; }
   
   .section-title {
@@ -99,16 +99,28 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     padding-bottom: 0.5rem;
   }
 
+  .news-grid {
+    display: grid;
+    /* Fuerza estrictamente 2 columnas para no wrap */
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
   .news-card {
     background: #fff;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    /* Borde modular corporativo, sin sombra flotante */
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: none;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
-  .border-l-orange { border-left: 4px solid #f97316; }
-  .border-l-blue { border-left: 4px solid #3b82f6; }
+  .border-t-orange { border-top: 3px solid #f97316; }
+  .border-t-blue { border-top: 3px solid #3b82f6; }
 
   .news-badge {
     display: inline-block;
@@ -133,11 +145,19 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     color: #475569;
     font-size: 0.95rem;
     line-height: 1.5;
+    /* Mayor tolerancia vertical (espacio disponible) */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1; /* Empuja la fecha hacia abajo uniformemente */
   }
   .news-date {
     font-size: 0.8rem;
     color: #94a3b8;
     font-weight: 500;
+    margin-top: auto;
   }
 
   .grid-links {
@@ -146,8 +166,8 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     gap: 1.5rem;
   }
   .quick-link-card {
-    background: #fff;
-    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
     border-radius: 1rem;
     padding: 1.5rem;
     text-decoration: none;
@@ -156,18 +176,31 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
   }
   .quick-link-card:hover {
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
-    border-color: #cbd5e1;
+    border-color: #94a3b8;
     transform: translateY(-2px);
   }
+  
+  /* HIGH CONTRAST DISABLED CARDS (Accessibility) */
   .quick-link-card.disabled {
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 1; /* NUNCA usar opacidad o la legibilidad WCAG falla */
+    background: #f8fafc;
+    border: 2px dashed #64748b; /* slate-500 (Alto contraste contra blanco) */
   }
   .quick-link-card.disabled:hover {
     box-shadow: none;
-    border-color: #e2e8f0;
     transform: none;
   }
+  .quick-link-card.disabled .icon {
+    filter: grayscale(100%) opacity(70%);
+  }
+  .quick-link-card.disabled h4 {
+    color: #1e293b; /* slate-800 - Fuerte contraste */
+  }
+  .quick-link-card.disabled p {
+    color: #475569; /* slate-600 */
+  }
+  
   .quick-link-card .icon {
     font-size: 2rem;
     margin-bottom: 1rem;
