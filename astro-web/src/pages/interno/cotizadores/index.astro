@@ -11,28 +11,43 @@
  */
 export const prerender = false;
 import IntranetLayout from '../../../layouts/IntranetLayout.astro';
+import CurrencyCalculator from '../../../components/interno/CurrencyCalculator';
 // A futuro: const { data: links } = await supabase.from('enlaces_internos').select('*').eq('categoria', 'cotizador');
 ---
 
-<IntranetLayout title="Cotizadores y Tarifarios | TAEC Hub" description="Centro de herramientas financieras">
+<IntranetLayout title="Finanzas & Cotizadores | TAEC Hub" description="Centro de herramientas comerciales">
   <header class="page-header">
-    <h1>Cotizadores y Tarifarios</h1>
-    <p>Precios de lista, calculadoras financiarelas y enlaces a cotizadores de proveedores externos.</p>
+    <h1>Finanzas & Cotizadores</h1>
+    <p>Centro neurálgico comercial: Tipo de cambio, precios de listas vigentes y calculadoras de ecosistemas.</p>
   </header>
 
   <div class="metrics-grid">
     <div class="ui-card">
       <div class="card-icon">🧮</div>
-      <h3>Calculadora DDC</h3>
+      <h3>Cotizador DDC</h3>
       <p>Estimaciones de horas y márgenes operativos para proyectos de Desarrollo de Contenidos a medida.</p>
-      <button class="btn-primary mt-2" disabled>En migración</button>
+      <a href="https://cotizador.taec.com.mx/" target="_blank" rel="noopener noreferrer" class="btn-primary mt-2">Abrir Cotizador DDC ↗</a>
     </div>
 
     <div class="ui-card">
       <div class="card-icon">💵</div>
       <h3>Precios Internacionales</h3>
       <p>Listas de precios B2B para canales y distribuidores LATAM y cotizadores de software.</p>
-      <button class="btn-secondary mt-2 text-center" style="display:block; width:100%;" disabled>Visitar (En Construcción)</button>
+      <button class="btn-secondary mt-2" style="display:block; width:100%; text-align:center;" disabled>Visitar Directorio (Próximamente)</button>
+    </div>
+
+    <div class="ui-card">
+      <div class="card-icon">☁️</div>
+      <h3>Dimensionador SaaS</h3>
+      <p>Calculadora de arquitectura en la nube e integraciones complejas para Moodle y Totara LMS.</p>
+      <button class="btn-secondary mt-2" style="display:block; width:100%; text-align:center;" disabled>En fase de Desarrollo</button>
+    </div>
+
+    <div class="ui-card">
+      <div class="card-icon">📈</div>
+      <h3>Paridad Cambiaria Latam</h3>
+      <p style="margin-bottom: 1rem;">Calculadora oficial para evitar discrepancias fiscales B2B.</p>
+      <CurrencyCalculator client:load />
     </div>
   </div>
 </IntranetLayout>
@@ -60,7 +75,9 @@ import IntranetLayout from '../../../layouts/IntranetLayout.astro';
   .ui-card h3 { margin: 0 0 0.5rem 0; color: #1e293b; font-size: 1.15rem; font-weight: 700; }
   .ui-card p { color: #475569; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5; flex-grow: 1; }
   
-  .btn-primary { background: #2563eb; color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: not-allowed; width: 100%; transition: background 0.2s; opacity: 0.6;}
+  .btn-primary { background: #2563eb; color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; text-align: center; display: block; text-decoration: none; box-sizing: border-box;}
+  .btn-primary:hover { background: #1d4ed8; color: white; }
+  .btn-primary:disabled, .btn-primary.disabled { opacity: 0.6; cursor: not-allowed; background: #2563eb; }
   
   .btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.2s;}
   .btn-secondary:hover { background: #e2e8f0; }

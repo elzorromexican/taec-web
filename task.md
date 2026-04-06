@@ -121,6 +121,7 @@
 - [ ] **Monitoreo de Resiliencia en Contacto:** Inyectar telemetría básica al nuevo SSR API endpoint en `/api/submit-contact.ts`. Disparar una alerta automática si el SDK de Google Sheets entra en timeout o baja la tasa de éxito para evitar fuga silenciosa de leads.
 
 **🟠 Backlog Alto (Gobernanza de Datos Locales)**
+- [x] **Calculadora Cambiaria (Cumplimiento Fiscal):** Desarrollo de widget financiero encapsulado en React (`CurrencyCalculator.tsx`) para el Dashboard de Cotizadores B2B. Consume el nodo OpenExchangeRates e impone el estándar de sobrescritura obligatoria auditada contra el Diario Oficial (DOF / Banrep) en diseño micro-UI responsivo (Max 14px font).
 - [ ] **Single Source of Truth Comercial (Pricing):** Eliminar la deuda de contratos definiendo una fuente unificada. Constantes como `BASE_RATE_HH` deben vivir en `.env`, o bien la matriz JSON debe encapsular los márgenes pre-calculados, blindando el proyecto contra "mentiras estadísticas" por bifurcación de lógicas.
 - [ ] **Logging Operativo en Nodos Core:** Agregar trazas analíticas de submit y correlación de errores mediante *Ids de transacción* tanto al enviador de correos (`Resend`) como al Cotizador Interno, permitiendo diagnósticos certeros en caliente.
 - [ ] **Política de Control de Cambios:** Definir formalmente la ruta editorial y aprobación comercial requerida antes de sobreescribir la matriz de precios o los márgenes del Cotizador en GitHub.
