@@ -114,7 +114,9 @@
 *Dictamen Arquitectónico: Plataforma en estado comercial-operativo. Riesgos de "código feo" mitigados. Foco transicionado a gobernanza, hardening y control fino.*
 
 **🔴 Backlog Crítico (Hardening & Seguridad)**
-- [ ] **Auditoría de Fuga de Tokens (SSR):** Rastrear paramétricamente el uso de `locals.accessToken`. Demostrar mediante tests o refactorización que este token radioactivo jamás se serializa, cruza al cliente, se imprime en logs o se expone en pre-visualizaciones.
+- [x] **Auditoría de Fuga de Tokens (SSR):** Rastrear paramétricamente el uso de `locals.accessToken`. Demostrar mediante tests o refactorización que este token radioactivo jamás se serializa, cruza al cliente, se imprime en logs o se expone en pre-visualizaciones. *(Aprobado sin fugas tras escaneo profundo)*.
+- [x] **Protección RLS y Zero-Trust:** Activar la política estricta `LIKE '%@taec.com.mx'` sobre las tablas core (`usuarios_autorizados` y `kb_items`) para imposibilitar fugas de datos vía Fetch Client-Side por atacantes usando Google OAuth ajenos a la organización. 
+- [x] **Security Headers (Netlify):** Inyección de `X-Frame-Options`, `CSP` y prevenciones de caché estricto (`no-store`) en `netlify.toml` para denegar XSS y Clickjacking en toda la plataforma B2B.
 - [ ] **Validación Estructural del Tarifario DDC:** Implementar un validador transversal (Zod/JSON Schema) que corra en el Hook de Build o como Test Unitario preventivo. Debe certificar que la matriz `ddc-pricing-matrix.json` no posee huecos lógicos, previniendo errores 500 por combinaciones `undefined`.
 - [ ] **Monitoreo de Resiliencia en Contacto:** Inyectar telemetría básica al nuevo SSR API endpoint en `/api/submit-contact.ts`. Disparar una alerta automática si el SDK de Google Sheets entra en timeout o baja la tasa de éxito para evitar fuga silenciosa de leads.
 

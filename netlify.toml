@@ -13,3 +13,19 @@
   to = "/.netlify/functions/ssr"
   status = 200
   force = false
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.cloudflare.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://*.googleapis.com;"
+
+# Especial para rutas internas (más estricto)
+[[headers]]
+  for = "/interno/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    Cache-Control = "no-store, max-age=0"
