@@ -1,5 +1,4 @@
 import { defineMiddleware } from 'astro:middleware';
-// Para mayor seguridad la lista autorizados debe ser chequeada del lado seguro.
 import { createClient } from '@supabase/supabase-js';
 
 export const onRequest = defineMiddleware(async ({ request, url, cookies, redirect, locals }, next) => {
@@ -14,9 +13,18 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
     }
 
     // Instancia limpia para SSR (Evita fuga de memoria cruzada entre peticiones GET simultáneas)
-    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || '';
-    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY || '';
+    const supabaseUrl      = import.meta.env.PUBLIC_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || '';
+    const supabaseAnonKey  = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY || '';
+    // Service role key para consultas internas — bypasea RLS y garantiza que la whitelist
+    // siempre es consultable independientemente de la configuración de políticas en Supabase.
+    const serviceKey = (import.meta.env.SUPABASE_SERVICE_ROLE_KEY ||
+      (process.env as Record<string, string | undefined>)['SUPABASE_SERVICE_ROLE_KEY'] ||
+      supabaseAnonKey); // fallback seguro mientras no esté configurada
+
+    // Cliente para auth (necesita anonKey para setSession con JWT del usuario)
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    // Cliente para consultas internas de servidor (usa serviceKey)
+    const supabaseAdmin = createClient(supabaseUrl, serviceKey);
 
     const { data: { session }, error } = await supabase.auth.setSession({
       access_token: accessToken,
@@ -43,9 +51,9 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
       return redirect('/interno/denegado?reason=domain');
     }
 
-    // Validación 2: Obtener Rol y Estatus (Auto-Confianza)
+    // Validación 2: Obtener Rol y Estatus — usa supabaseAdmin (serviceKey) para bypassear RLS
     // No bloqueamos si no existe en la BD. Si existe explícitamente como inactivo, lo bloqueamos.
-    const { data: userData } = await supabase
+    const { data: userData } = await supabaseAdmin
       .from('usuarios_autorizados')
       .select('activo, rol')
       .eq('email', userEmail)
