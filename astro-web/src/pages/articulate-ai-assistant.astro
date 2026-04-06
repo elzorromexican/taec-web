@@ -1,6 +1,6 @@
 ---
 import { getBookingUrl } from '../data/contact';
-import { vendors as vendorLinks } from '../data/vendors';
+const articulateTrial = "https://articulate.com/es/360/trial/";
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 import { r } from '../utils/paths';
@@ -138,7 +138,7 @@ import { r } from '../utils/paths';
       <h1>Crea cursos e-learning <em>hasta 9 veces más rápido</em> con IA</h1>
       <p class="art-hero-sub">AI Assistant se integra directamente en Rise 360 y Storyline 360. Mantienes el control total mientras la IA genera, refina y diversifica el contenido según tus instrucciones.</p>
       <div class="art-btns">
-        <a href={vendorLinks.articulate.trial} target="_blank" rel="noopener noreferrer" class="btn-art-primary">Descargar prueba (30 días) →</a>
+        <a href={articulateTrial} target="_blank" rel="noopener noreferrer" class="btn-art-primary">Descargar prueba (30 días) →</a>
         <a href={r('/articulate-360-mexico')} class="btn-art-ghost">Ver Articulate 360 completo</a>
       </div>
     </div>
@@ -247,7 +247,7 @@ import { r } from '../utils/paths';
     <h2>¿Listo para probar AI Assistant?</h2>
     <p>Como partner oficial de Articulate en México, TAEC te ofrece demo en español, onboarding y soporte local.</p>
     <div class="art-cta-btns">
-      <a href={vendorLinks.articulate.trial} target="_blank" rel="noopener noreferrer" class="btn-cta-white">Descargar prueba (30 días) →</a>
+      <a href={articulateTrial} target="_blank" rel="noopener noreferrer" class="btn-cta-white">Descargar prueba (30 días) →</a>
       <a href={getBookingUrl('articulate')} class="btn-cta-ghost">Hablar con un especialista</a>
     </div>
   </div>
