@@ -23,6 +23,7 @@ export default function KBViewer({ items, secciones }: { items: KBItem[], seccio
   const [activeTab, setActiveTab] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
 
   // Cerrar acordeones automáticamente al cambiar de filtro o buscar
   useEffect(() => {
@@ -31,6 +32,28 @@ export default function KBViewer({ items, secciones }: { items: KBItem[], seccio
 
   const toggleExpand = (id: string) => {
     setExpandedId(prev => prev === id ? null : id);
+  };
+
+  const toggleSection = (id: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [id]: prev[id] === undefined ? true : !prev[id]
+    }));
+  };
+
+  const selectTab = (id: string) => {
+    setActiveTab(id);
+    if (id !== 'all') {
+      setExpandedSections(prev => ({ ...prev, [id]: true }));
+    }
+  };
+
+  const isSectionExpanded = (id: string) => {
+    if (searchQuery.length > 0) return true;
+    if (activeTab === id) return true;
+    const val = expandedSections[id];
+    // Por defecto cerrado para que funcione como acordeón doble (a menos que se busque o filtre)
+    return val === undefined ? false : val;
   };
 
   const filteredItems = useMemo(() => {
@@ -62,15 +85,15 @@ export default function KBViewer({ items, secciones }: { items: KBItem[], seccio
           <span className="filter-lbl">Sección</span>
           <button 
             className={`ftab ${activeTab === 'all' ? 'on' : ''}`} 
-            onClick={() => setActiveTab('all')}
+            onClick={() => selectTab('all')}
           >
             Todas
           </button>
-          {secciones.map(sec => (
+          {secciones.map((sec: any) => (
             <button 
               key={sec.id}
               className={`ftab ${activeTab === sec.id ? 'on' : ''}`}
-              onClick={() => setActiveTab(sec.id)}
+              onClick={() => selectTab(sec.id)}
             >
               {sec.label}
             </button>
@@ -88,11 +111,14 @@ export default function KBViewer({ items, secciones }: { items: KBItem[], seccio
         if (sectionItems.length === 0) return null;
 
         return (
-          <div key={sec.id} className="sec-group">
-            <div className="sec-hdr">
-              <span className="sec-dot" style={{ background: sec.color }}></span>
-              {sec.label}
-            </div>
+          <div key={sec.id} className={`sec-group ${isSectionExpanded(sec.id) ? 'open' : ''}`}>
+            <button className="sec-hdr" onClick={() => toggleSection(sec.id)}>
+              <span className="sec-hdr-left">
+                <span className="sec-dot" style={{ background: sec.color }}></span>
+                {sec.label}
+              </span>
+              <span className="sec-arr">▾</span>
+            </button>
             
             <div className="qa-list">
               {sectionItems.map((item, idx) => {
@@ -110,15 +136,15 @@ export default function KBViewer({ items, secciones }: { items: KBItem[], seccio
                     <div className="qans">
                       {item.plus && (
                         <div className="ablock aplus">
-                          <span className="albl">El plus</span>
-                          <span>{item.plus}</span>
+                          <span className="albl">Respuesta</span>
+                          <span className="aval">{item.plus}</span>
                         </div>
                       )}
                       
                       {item.menos && (
                         <div className="ablock aminus">
-                          <span className="albl">El menos</span>
-                          <span>{item.menos}</span>
+                          <span className="albl">A considerar</span>
+                          <span className="aval">{item.menos}</span>
                         </div>
                       )}
                       
