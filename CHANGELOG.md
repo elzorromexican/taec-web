@@ -8,6 +8,46 @@ Producción futura: `https://nuevo.taec.com.mx`
 
 ---
 
+## v2.0 · 05 abr 2026, 22:15
+
+### Infraestructura — Deploy dual operativo
+
+- **Fix crítico dev server:** `astro.config.mjs` cambia a `output: 'server'` como default. El adapter `@astrojs/netlify` ahora se carga condicionalmente solo cuando `NETLIFY=true`. Resuelve error `__DEFINES__ is not defined` que bloqueaba el servidor local.
+- **GitHub Pages:** Workflow `deploy-pages.yml` inyecta `ASTRO_STATIC_BUILD=true` para forzar `output: 'static'` únicamente en el build de staging.
+- **Netlify producción:** `NETLIFY=true` (inyectado automáticamente) activa el adapter SSR. Build verde · 182 archivos desplegados.
+- **Rama `feature/ddc-calculadora` fusionada a `main`.** Producción y staging apuntan a `main`.
+
+### Autenticación — Supabase OAuth Google
+
+- OAuth Google completo y funcional en local (`localhost:4321`) y producción Netlify.
+- 3 URLs registradas en Supabase Redirect URLs: `localhost:4321`, Netlify y `nuevo.taec.com.mx`.
+- Flujo completo verificado: login → Google → `/interno/auth/callback` → cookies → `/interno/dashboard`.
+
+### Seguridad — Blog comentarios
+
+- **Nuevo endpoint SSR `/api/submit-comment.ts`:** Verifica token Cloudflare Turnstile contra la API `siteverify` server-side antes de insertar en Supabase. Usa `SUPABASE_SERVICE_ROLE_KEY` (nunca expuesta al cliente). Validación Zod de todos los campos.
+- **Fix `BlogComments.astro`:** `loadComments()` ahora filtra `status=eq.approved` explícitamente. El submit ya no va directo a Supabase REST — pasa por el endpoint SSR.
+- Variables de entorno requeridas en Netlify: `CF_TURNSTILE_SECRET_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
+
+### SEO / Archivos de mantenimiento
+
+- **`robots.txt`:** Agregado `Disallow: /interno/` — el intranet ya no es indexable por Google.
+- **`llms.txt`:** Agregadas 3 páginas faltantes: `/vyond-starter`, `/capacitacion`, `/capacitacion-cerrada`.
+- **`BaseLayout.astro`:** OG image fallback (`taec-og.png` 1200×630) agregado al repo. `hreflang` apunta a URL canónica por página. Schema.org y Breadcrumbs usan `Astro.site` dinámico. Fallback `userName` de ChatAgent cambiado de `'Slim'` → `'Visitante'`.
+- **`taec-og.png`:** Copiado a `public/assets/logos/` (1200×630px).
+
+### Documentación
+
+- **`README.md` (root):** Reescrito y fusionado con `astro-web/README.md`. Stack real documentado: Gemini 2.5, Upstash Redis, Resend. GAS eliminado como tecnología activa. Sección de API endpoints SSR agregada con nota de enrutamiento geográfico (`x-nf-country`). Intranet Supabase documentada con flujo completo y Redirect URLs.
+
+### Pendiente técnico registrado
+
+- Middleware: cambiar `anonKey` por `serviceRoleKey` para consulta de `usuarios_autorizados` (defense-in-depth).
+- Zoho CRM webhook en cotizador DDC (embudo de ventas sin trazabilidad).
+- Chat history Tito Bits: migrar de `localStorage` a Supabase para persistencia cross-device.
+
+---
+
 ## BASELINE · 20 mar 2026
 
 ### Estado del proyecto al cerrar la primera fase de desarrollo
@@ -304,3 +344,14 @@ Vyond                                             7 Minutes
 ### 05 abr 2026 — Modernización Data Layer (Redis & Serverless Forms) [Prioridad 2]
 - **Upstash Redis Rate Limit:** Erradicación del map `in-memory` inestable del stack serverless de Netlify. Implementación nativa de la librería `@upstash/ratelimit` empleando una política de _Sliding Window_ en ambos cerebros analíticos: `/api/agente-ia` y `/api/diagnostico-lead`. Se corrigió la vulnerabilidad de proxy arrays sanitizando _x-forwarded-for_ (ej. `ip.split(',')[0]`).
 - **Endpoint G-Suite Integrado (Migración CORS):** Jubilación absoluta del frágil _Google Apps Script_ (GAS) y su hackeo de CORS. Creación de una agresiva Function SSG `/api/submit-contact.ts` usando el SDK oficial `googleapis`, proveyendo validación paramétrica con `Zod` y garantizando inyecciones confiables utilizando Service Accounts. El front-end (`contacto.astro`) transicionó exitosamente a peticiones `application/json` unificadas sin cruzar fronteras de dominio.
+
+### 05 abr 2026 — Estabilización de Build SSG/SSR y Fusiones a Main (v8.8)
+- **Ecosistema Branching:** Fusión exitosa de la rama `feature/ddc-calculadora` hacia `main`. Producción en Netlify y staging en GitHub Pages ahora se ejecutan de manera nativa sobre la rama principal.
+- **Estrategia Dual Build (Netlify vs GH Pages):** Refactorización de `astro.config.mjs` para alternar condicionalmente la salida entre `'server'` (Netlify) y `'static'` (GitHub Pages) detectando el entorno. Esto soluciona los errores 404 en subrutas excluidas de prerender como `/interno/dashboard`.
+- **Sanitización de Prerender:** Eliminada la importación circular y bloqueante (`vendors`) en `articulate-ai-assistant.astro` que causaba `ReferenceError` al compilar la vista como SSR estático.
+- **Autorización OAuth Supabase (Guard):** Se agregaron las URLs absolutas de callback (`http://localhost:4321/interno/auth/callback`, `https://stellar-mermaid-3ba7f1.netlify.app/interno/auth/callback` y `https://nuevo.taec.com.mx/interno/auth/callback`) en el panel del proveedor, reactivando con éxito el pipeline de accesos internos protegidos.
+- **Certificación Edge (Geo-Ruteo):** Confirmación operativa al 100%. La geolocalización inyectada dinámicamente (`x-nf-country`) en Netlify funciona perfectamente en producción, permitiendo la validación segura de orígenes regionales y tabuladores comerciales sin latencia observable.
+
+### 05 abr 2026 — Ecosistema Transaccional Email / Inbox (v8.9)
+- **Handoff Orgánico LLM (Resend API):** Despliegue del webhook nativo `/api/send-transcript.ts`. El servidor Astro compila asincrónicamente el array del historial conversacional en HTML limpio y lo dispara directamente al correo maestro `smasmoudi@taec.com.mx` al presionar "Cerrar".
+- **UX Inbox Admin Seguro:** Resolución final del _Issue-007_. Los accesos del Dashboard Interno ("Lanzar Supabase" y "Abrir Bandeja") fueron consolidados con ruteo validado y un fallback robusto hacia los inboxes corporativos.

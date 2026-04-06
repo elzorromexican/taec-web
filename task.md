@@ -5,7 +5,7 @@
 - [x] **Presentación y QA Intranet B2B (Titanes):** Revisión global de la KB en Supabase con el equipo comercial y validación final de la experiencia de usuario B2B. Estandarización SQL ejecutada.
 - [x] **Semillas Restantes de Playbooks:** Procesar `vyondgo`, `vyondmobile` y `reach360` aplicando la misma arquitectura de sanitización y formateo `\n\n` validada hoy, logrando la disponibilidad completa del catálogo.
 - [x] **Consolidación KB Vyond Enterprise:** Procesamiento y generación del script semilla `docs/supabase-interno-seed-vyondenterprise.sql` de troubleshooting, técnica y comercial. Se aplicó lógica rigurosa de fusión (Respuesta + El Plus) y depuración Regex profunda para texto plano B2B.
-- [ ] **Despliegue a Producción (CI/CD):** Fusionar la rama `feature/ddc-calculadora` a `main` para reactivar producción en `nuevo.taec.com.mx` con el MVP v6.0 B2B activo.
+- [x] **Despliegue a Producción (CI/CD):** Fusión exitosa de la rama `feature/ddc-calculadora` a `main`. Netlify Production y GitHub Pages apuntan activos a main bajo el MVP v6.0 B2B.
 - [x] **Integración Supabase e Intranet B2B:** Refactorización de infraestructura y autenticación segura con SSR y middleware estricto de dominio e-mail corporativo.
 - [ ] **Auditoría Resend Handoff:** Revisar payloads transaccionales de `send-transcript.ts` con sanitización XSS para asegurar transcritos limpios en CRM.
 - [ ] **Context-Hopping Final:** Validar las recomendaciones dinámicas espaciales de Tito Bits al cruzar ecosistemas en Front-End.
@@ -97,13 +97,26 @@
 - [x] Estructurar la UI/UX del portafolio.
 - [x] Separar el portafolio en una URL/Página estática independiente (`/portafolio`) para limpiar el diseño de la landing base.
 
+## ✅ Sesión de Estabilización y Hardening — [05 abr 2026, 22:15]
+*Deploy dual operativo · Auth Supabase completo · Seguridad blog · SEO · Docs actualizados*
+
+- [x] **Fix dev server `__DEFINES__`:** Adapter Netlify cargado condicionalmente con `NETLIFY=true`. `output: 'server'` como default para local y Netlify. `ASTRO_STATIC_BUILD=true` en GH Actions para staging estático.
+- [x] **OAuth Google completo:** Flujo login → callback → dashboard verificado en local y producción. 3 Redirect URLs registradas en Supabase.
+- [x] **Seguridad comentarios blog (P0):** Endpoint SSR `/api/submit-comment.ts` con verificación Turnstile server-side + `SUPABASE_SERVICE_ROLE_KEY`. Fix de `loadComments()` con filtro `status=eq.approved` explícito.
+- [x] **SEO:** `robots.txt` bloquea `/interno/`. `llms.txt` actualizado (+3 páginas). `BaseLayout.astro`: OG image funcional, `hreflang` dinámico, Schema.org usa `Astro.site`, fallback ChatAgent corregido.
+- [x] **README.md:** Fusión y reescritura completa. Stack real: Gemini 2.5, Upstash Redis, Resend. GAS marcado obsoleto. API endpoints documentados. Enrutamiento geográfico documentado.
+- [ ] **Pendiente:** `serviceRoleKey` en middleware para whitelist `usuarios_autorizados` (defense-in-depth).
+- [ ] **Pendiente:** `CF_TURNSTILE_SECRET_KEY` + `SUPABASE_SERVICE_ROLE_KEY` agregar en Netlify env vars.
+
+---
+
 ## 🛡️ Auditoría Operativa y Gobernanza B2B (Fase 3) - [05 abr 2026, 11:43 AM]
 *Dictamen Arquitectónico: Plataforma en estado comercial-operativo. Riesgos de "código feo" mitigados. Foco transicionado a gobernanza, hardening y control fino.*
 
 **🔴 Backlog Crítico (Hardening & Seguridad)**
 - [ ] **Auditoría de Fuga de Tokens (SSR):** Rastrear paramétricamente el uso de `locals.accessToken`. Demostrar mediante tests o refactorización que este token radioactivo jamás se serializa, cruza al cliente, se imprime en logs o se expone en pre-visualizaciones.
 - [ ] **Validación Estructural del Tarifario DDC:** Implementar un validador transversal (Zod/JSON Schema) que corra en el Hook de Build o como Test Unitario preventivo. Debe certificar que la matriz `ddc-pricing-matrix.json` no posee huecos lógicos, previniendo errores 500 por combinaciones `undefined`.
-- [ ] **Monitoreo de Resiliencia en Contacto:** Inyectar telemetría básica al bloque de GAS en `contacto.astro/contact.ts`. Disparar una alerta (correo/slack) si el canal asíncrono se cae temporalmente, o si baja la tasa de éxito de comunicación.
+- [ ] **Monitoreo de Resiliencia en Contacto:** Inyectar telemetría básica al nuevo SSR API endpoint en `/api/submit-contact.ts`. Disparar una alerta automática si el SDK de Google Sheets entra en timeout o baja la tasa de éxito para evitar fuga silenciosa de leads.
 
 **🟠 Backlog Alto (Gobernanza de Datos Locales)**
 - [ ] **Single Source of Truth Comercial (Pricing):** Eliminar la deuda de contratos definiendo una fuente unificada. Constantes como `BASE_RATE_HH` deben vivir en `.env`, o bien la matriz JSON debe encapsular los márgenes pre-calculados, blindando el proyecto contra "mentiras estadísticas" por bifurcación de lógicas.
