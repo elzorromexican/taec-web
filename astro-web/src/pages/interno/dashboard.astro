@@ -8,28 +8,7 @@
  * @dependencies IntranetLayout.astro
  * @created 2026-03-01
  * @updated 2026-04-04 12:12:00
- */
-export const prerender = false;
 import IntranetLayout from '../../layouts/IntranetLayout.astro';
-import { createClient } from '@supabase/supabase-js';
-
-// Usamos el token fresco del middleware
-const accessToken = Astro.locals.accessToken || "";
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-const scopedSupabase = createClient(supabaseUrl, supabaseAnonKey, {
-  global: { headers: { Authorization: `Bearer ${accessToken}` } }
-});
-
-// Extraemos novedades del CMS nativo (Supabase)
-const { data: novedades, error } = await scopedSupabase
-  .from('intranet_novedades')
-  .select('*')
-  .eq('activo', true)
-  .order('orden', { ascending: true })
-  .limit(3);
-
-if (error) console.error("Error cargando novedades:", error);
 ---
 
 <IntranetLayout title="Dashboard Intranet | TAEC" description="Lobby corporativo">
@@ -40,24 +19,23 @@ if (error) console.error("Error cargando novedades:", error);
     <p>Bienvenido a la terminal central de herramientas, cotizadores y playbooks de TAEC.</p>
   </div>
 
-  <!-- AVISOS IMPORTANTES (Cargados desde Supabase CMS) -->
+  <!-- AVISOS IMPORTANTES (Hardcodeados temporalmente) -->
   <div class="dashboard-section mt-10">
     <h2 class="section-title">Novedades de la Semana</h2>
     
-    {novedades && novedades.length > 0 ? (
-      novedades.map((nota) => (
-        <div class={`news-card border-l-${nota.badge_color} mt-4`}>
-          <div class={`news-badge ${nota.badge_color}`}>{nota.badge_text}</div>
-          <h3>{nota.titulo}</h3>
-          <p set:html={nota.contenido}></p>
-          <span class="news-date">{nota.fecha_display}</span>
-        </div>
-      ))
-    ) : (
-      <div class="news-card">
-        <p>No hay novedades publicadas por el momento.</p>
-      </div>
-    )}
+    <div class="news-card important border-l-orange">
+      <div class="news-badge orange">Uso Interno</div>
+      <h3>Nueva versión del Cotizador DDC 2026</h3>
+      <p>⚠️ <strong>Exclusivo para el equipo comercial TAEC.</strong> Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña "Cotizadores".</p>
+      <span class="news-date">06 Abr 2026</span>
+    </div>
+
+    <div class="news-card border-l-blue mt-4">
+      <div class="news-badge blue">Promoción Q2</div>
+      <h3>Localization integrado (Uso Libre)</h3>
+      <p>Articulate 360 ha integrado "Localization" de uso libre para traducir cursos internamente. <strong>Ojo:</strong> No se pueden exportar ni publicar sin adquirir el paquete base y los paquetes adicionales. Tenemos una promoción activa durante todo el Q2 con un <strong>25% de descuento</strong> en todos los paquetes de Localization.</p>
+      <span class="news-date">06 Abr 2026</span>
+    </div>
   </div>
 
   <!-- QUICK LINKS (GOOGLE DRIVE ETC) -->
