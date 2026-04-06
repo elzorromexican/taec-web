@@ -105,8 +105,8 @@
 - [x] **Seguridad comentarios blog (P0):** Endpoint SSR `/api/submit-comment.ts` con verificación Turnstile server-side + `SUPABASE_SERVICE_ROLE_KEY`. Fix de `loadComments()` con filtro `status=eq.approved` explícito.
 - [x] **SEO:** `robots.txt` bloquea `/interno/`. `llms.txt` actualizado (+3 páginas). `BaseLayout.astro`: OG image funcional, `hreflang` dinámico, Schema.org usa `Astro.site`, fallback ChatAgent corregido.
 - [x] **README.md:** Fusión y reescritura completa. Stack real: Gemini 2.5, Upstash Redis, Resend. GAS marcado obsoleto. API endpoints documentados. Enrutamiento geográfico documentado.
-- [ ] **Pendiente:** `serviceRoleKey` en middleware para whitelist `usuarios_autorizados` (defense-in-depth).
-- [ ] **Pendiente:** `CF_TURNSTILE_SECRET_KEY` + `SUPABASE_SERVICE_ROLE_KEY` agregar en Netlify env vars.
+- [x] **Pendiente resuelto:** `serviceRoleKey` en middleware para whitelist `usuarios_autorizados` — `supabaseAdmin` separado con `SUPABASE_SERVICE_ROLE_KEY`, fallback a `anonKey` mientras no esté configurada.
+- [x] **Pendiente resuelto:** `.env.example` documenta `SUPABASE_SERVICE_ROLE_KEY`, `CF_TURNSTILE_SECRET_KEY` y `PUBLIC_CF_TURNSTILE_KEY` con instrucciones de origen. **Acción manual requerida:** agregar estas 3 variables en Netlify → Site Settings → Environment Variables.
 
 ---
 
