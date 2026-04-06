@@ -1,7 +1,8 @@
 export const prerender = false;
 
 import { z } from "zod";
-import pricingMatrixData from "../../data/ddc-pricing-matrix.json";
+import type { APIContext } from "astro";
+import pricingMatrixData from "../../../data/ddc-pricing-matrix.json";
 
 // Type definitions for the JSON matrix
 type PricingMatrix = Record<string, Record<string, Record<string, Record<string, number>>>>;
@@ -42,8 +43,16 @@ const CLIENT_PROFILE_MARGINS = {
   unclear: { min: 0.00, max: 0.25 }
 };
 
-export async function POST({ request }: { request: Request }) {
+export async function POST({ request, locals }: APIContext) {
   try {
+    // 0. Server-Side Authentication
+    if (locals.rol !== 'admin') {
+      return new Response(JSON.stringify({
+        errorCode: "UNAUTHORIZED",
+        message: "Acceso denegado. Se requiere nivel de administrador."
+      }), { status: 401, headers: { "Content-Type": "application/json" } });
+    }
+
     const body = await request.json();
     
     // 1. Zod Validation to prevent malicious payloads
@@ -115,9 +124,9 @@ export async function POST({ request }: { request: Request }) {
     let estimatedFrom = discountedCost * (1 + margins.min);
     let estimatedTo = discountedCost * (1 + margins.max);
 
-    // Apply strict rounding. We round to the nearest thousand to look like a clean estimate.
-    estimatedFrom = Math.round(estimatedFrom / 1000) * 1000;
-    estimatedTo = Math.round(estimatedTo / 1000) * 1000;
+    // Apply smart rounding. Thousands for large numbers, hundreds for small ones (e.x. Vyond)
+    estimatedFrom = estimatedFrom > 5000 ? Math.round(estimatedFrom / 1000) * 1000 : Math.ceil(estimatedFrom / 100) * 100;
+    estimatedTo = estimatedTo > 5000 ? Math.round(estimatedTo / 1000) * 1000 : Math.ceil(estimatedTo / 100) * 100;
 
     // Ensure they are not exactly the same (in very small amounts)
     if (estimatedFrom === estimatedTo) {

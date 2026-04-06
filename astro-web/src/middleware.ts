@@ -1,7 +1,4 @@
 import { defineMiddleware } from 'astro:middleware';
-import { supabase } from './lib/supabase';
-
-// Helper para instanciar cliente de service_role (Admin bypass) si se requiere saltar RLS en SSR. 
 // Para mayor seguridad la lista autorizados debe ser chequeada del lado seguro.
 import { createClient } from '@supabase/supabase-js';
 
@@ -16,6 +13,11 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
       return redirect('/interno/login');
     }
 
+    // Instancia limpia para SSR (Evita fuga de memoria cruzada entre peticiones GET simultáneas)
+    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || '';
+    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY || '';
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
     const { data: { session }, error } = await supabase.auth.setSession({
       access_token: accessToken,
       refresh_token: refreshToken
@@ -23,6 +25,14 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
 
     if (error || !session) {
       return redirect('/interno/login');
+    }
+
+    // Actualizamos las cookies en el cliente si es que Supabase renovó la sesión por debajo
+    if (session.access_token !== accessToken) {
+      cookies.set('sb-access-token', session.access_token, { path: '/' });
+    }
+    if (session.refresh_token !== refreshToken) {
+      cookies.set('sb-refresh-token', session.refresh_token, { path: '/' });
     }
 
     const userEmail = session.user.email;
@@ -53,6 +63,11 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
     // Pasamos el token FRESCO (puede haber sido renovado por setSession) a locals
     // para que las páginas SSR lo usen sin leer el cookie potencialmente expirado
     locals.accessToken = session.access_token;
+
+    // Role-Guard: Protección estricta de rutas administrativas B2B
+    if (url.pathname.startsWith('/interno/admin') && locals.rol !== 'admin') {
+      return redirect('/interno/denegado?reason=unauthorized');
+    }
   }
 
   // Decomiso para endpoints no protegidos

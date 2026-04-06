@@ -1,0 +1,40 @@
+---
+export const prerender = false;
+import IntranetLayout from '../../../layouts/IntranetLayout.astro';
+import CotizadorDDC from '../../../components/ui/CotizadorDDC.astro';
+---
+
+<IntranetLayout 
+  title="Cotizador DDC | Intranet TAEC" 
+  description="Panel privado para estimación de proyectos de Desarrollo de Contenidos."
+>
+  <div class="cotizador-wrapper">
+    <div class="admin-notice">
+      Entorno Restringido — USO INTERNO COMERCIAL (CONFIDENCIAL)
+    </div>
+
+    <!-- COMPONENTE ASTRO (Matriz Comercial Segura - Endpoint Interno) -->
+    <CotizadorDDC />
+    
+  </div>
+</IntranetLayout>
+
+<style>
+  .cotizador-wrapper {
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 32px 0;
+  }
+  .admin-notice {
+    background: #e0e7ff; 
+    color: #3730a3; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    letter-spacing: 0.05em; 
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+</style>

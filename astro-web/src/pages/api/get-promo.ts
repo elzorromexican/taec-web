@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({ request, url, locals }) => {
     promoToInject = urlMatchedPromo || applicablePromos[0];
   }
 
-  return new Response(JSON.stringify({ promo: promoToInject }), {
+  return new Response(JSON.stringify({ promo: promoToInject, countryCode }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });

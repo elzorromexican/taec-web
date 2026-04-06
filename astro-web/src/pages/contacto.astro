@@ -1,11 +1,10 @@
 ---
-import { getBookingUrl } from '../data/contact';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { contactData, getBookingUrl } from '../data/contact';
 
 // Valores usados en el template HTML y en atributos data-* del formulario.
 // El script cliente los lee via form.dataset — NO se usa define:vars.
-const formEndpoint  = contactData.formEndpoint;   // Google Apps Script Web App URL
+const formEndpoint  = "/api/submit-contact";   // Internal SSR Endpoint
 const bookingUrl    = getBookingUrl();             // URL de agenda activa o fallback de desarrollo
 const contactEmail  = contactData.email;
 const whatsappUrl   = contactData.whatsapp.url;
@@ -180,17 +179,24 @@ const whatsappUrl   = contactData.whatsapp.url;
 
     /* ── SUCCESS / ERROR STATES ── */
     .form-status {
-      display: none; padding: 14px 16px;
-      border-radius: 8px; font-size: 14px; font-weight: 500;
-      margin-top: 16px;
+      display: none; padding: 16px;
+      border-radius: 10px; font-size: 14px; font-weight: 500;
+      margin-top: 20px;
     }
     .form-status.success {
-      display: block;
+      display: flex; align-items: center; gap: 14px;
       background: #EFF8F7; border: 1px solid #C6E8E7; color: #1a7a6e;
+      animation: slideDownFade 0.4s ease-out forwards;
     }
     .form-status.error {
       display: block;
       background: #FEF2F2; border: 1px solid #FECACA; color: #b91c1c;
+      animation: slideDownFade 0.4s ease-out forwards;
+    }
+
+    @keyframes slideDownFade {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ── RESPONSIVE ── */
@@ -324,10 +330,38 @@ const whatsappUrl   = contactData.whatsapp.url;
             <label for="pais">País <span class="req" aria-hidden="true">*</span></label>
             <select id="pais" name="pais" required aria-required="true">
               <option value="" disabled selected>Tu país</option>
-              <option value="México">🇲🇽 México</option>
-              <option value="Colombia">🇨🇴 Colombia</option>
-              <option value="Chile">🇨🇱 Chile</option>
-              <option value="Otro">Otro país</option>
+              <option value="México" data-code="MX">🇲🇽 México</option>
+              <option value="Colombia" data-code="CO">🇨🇴 Colombia</option>
+              <option value="Chile" data-code="CL">🇨🇱 Chile</option>
+              <option value="Argentina" data-code="AR">🇦🇷 Argentina</option>
+              <option value="Perú" data-code="PE">🇵🇪 Perú</option>
+              <option value="España" data-code="ES">🇪🇸 España</option>
+              <option value="Estados Unidos" data-code="US">🇺🇸 Estados Unidos</option>
+              <option disabled>──────────</option>
+              <option value="Ecuador" data-code="EC">Ecuador</option>
+              <option value="Bolivia" data-code="BO">Bolivia</option>
+              <option value="Costa Rica" data-code="CR">Costa Rica</option>
+              <option value="Panamá" data-code="PA">Panamá</option>
+              <option value="Uruguay" data-code="UY">Uruguay</option>
+              <option value="Guatemala" data-code="GT">Guatemala</option>
+              <option value="El Salvador" data-code="SV">El Salvador</option>
+              <option value="Honduras" data-code="HN">Honduras</option>
+              <option value="Nicaragua" data-code="NI">Nicaragua</option>
+              <option value="Paraguay" data-code="PY">Paraguay</option>
+              <option value="Venezuela" data-code="VE">Venezuela</option>
+              <option value="República Dominicana" data-code="DO">República Dominicana</option>
+              <option value="Puerto Rico" data-code="PR">Puerto Rico</option>
+              <option value="Cuba" data-code="CU">Cuba</option>
+              <option value="Canadá" data-code="CA">Canadá</option>
+              <option value="Brasil" data-code="BR">Brasil</option>
+              <option disabled>──────────</option>
+              <option value="Alemania" data-code="DE">Alemania</option>
+              <option value="Francia" data-code="FR">Francia</option>
+              <option value="Reino Unido" data-code="GB">Reino Unido</option>
+              <option value="Italia" data-code="IT">Italia</option>
+              <option value="Japón" data-code="JP">Japón</option>
+              <option value="China" data-code="CN">China</option>
+              <option value="Otro">Otro país del mundo</option>
             </select>
             <span class="field-error" id="err-pais">Por favor selecciona tu país.</span>
           </div>
@@ -348,10 +382,9 @@ const whatsappUrl   = contactData.whatsapp.url;
         </div>
 
         <div class="field">
-          <label for="mensaje">Cuéntanos más <span class="req" aria-hidden="true">*</span></label>
+          <label for="mensaje">Cuéntanos más (Opcional)</label>
           <textarea id="mensaje" name="mensaje"
-            placeholder="¿Cuántas personas? ¿Qué herramientas usan hoy? ¿Cuál es el reto principal?…"
-            required aria-required="true"></textarea>
+            placeholder="¿Cuántas personas? ¿Qué herramientas usan hoy? ¿Cuál es el reto principal?…"></textarea>
           <span class="field-error" id="err-mensaje">Por favor escribe tu mensaje.</span>
         </div>
 
@@ -374,9 +407,8 @@ const whatsappUrl   = contactData.whatsapp.url;
 
 <script is:inline>
   // ── Formulario de contacto → Google Apps Script Web App
-  // Los valores se leen desde data-* del <form> — no se usa define:vars
-  // para evitar dependencias de compilación de Astro y el bug de script-fuera-de-layout.
-  (function () {
+  // Para ser compatible con Astro View Transitions, corremos en cada page-load
+  document.addEventListener('astro:page-load', function () {
 
     const form   = document.getElementById('contactForm');
     if (!form) return;
@@ -413,8 +445,7 @@ const whatsappUrl   = contactData.whatsapp.url;
         ['empresa', 'err-empresa', v => !!v.trim()],
         ['correo',  'err-correo',  v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())],
         ['pais',    'err-pais',    v => !!v],
-        ['interes', 'err-interes', v => !!v],
-        ['mensaje', 'err-mensaje', v => !!v.trim()],
+        ['interes', 'err-interes', v => !!v]
       ];
       checks.forEach(([id, errId, test]) => {
         const val = data.get(id) || '';
@@ -432,23 +463,9 @@ const whatsappUrl   = contactData.whatsapp.url;
       const data = new FormData(form);
       if (!validateForm(data)) return;
 
-      // ── Sin endpoint configurado → alternativa inmediata
-      if (!formEndpoint || !formEndpoint.startsWith('https://')) {
-        status.className  = 'form-status error';
-        status.innerHTML  = '';
-        const wrn = document.createElement('span');
-        wrn.textContent = '⚠ El formulario está en configuración. Escríbenos directamente: ';
-        const lnk = document.createElement('a');
-        lnk.href = 'mailto:' + contactEmail;
-        lnk.style.color = 'inherit';
-        lnk.textContent = contactEmail;
-        status.appendChild(wrn);
-        status.appendChild(lnk);
-        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        return;
-      }
+      // Envío omitido de "!" para endpoint, ya que siempre se definirá estáticamente en el lado interno.
 
-      // ── Envío a Google Apps Script
+      // ── Envío a API Serverless Interna
       btn.disabled    = true;
       btn.textContent = 'Enviando…';
       status.className = 'form-status';
@@ -468,11 +485,10 @@ const whatsappUrl   = contactData.whatsapp.url;
       };
 
       try {
-        // Content-Type: text/plain evita el preflight OPTIONS que Google Apps Script
-        // no maneja. El body sigue siendo JSON — GAS lo parsea en e.postData.contents.
+        // Se cambia el hack de text/plain por el header correcto para API Serverless nativa
         const res = await fetch(formEndpoint, {
           method:  'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(payload),
         });
 
@@ -481,7 +497,24 @@ const whatsappUrl   = contactData.whatsapp.url;
 
         if (result.success) {
           status.className   = 'form-status success';
-          status.textContent = '✓ Mensaje enviado. Un especialista te contactará en menos de 24 h.';
+          status.innerHTML   = `
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0; margin-top: 2px;">
+              <circle cx="12" cy="12" r="10" fill="#E0F2F1" stroke="#1a7a6e" stroke-width="1.5"/>
+              <path d="M8 12.5L10.5 15L16 9" stroke="#1a7a6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <strong style="display:block; font-size: 15px; margin-bottom: 2px;">¡Mensaje enviado con éxito!</strong>
+              <span style="font-size: 13px; font-weight: 400; color: #1a7a6e;">Un especialista analizará tus requerimientos y te contactará en menos de 24 horas.</span>
+            </div>
+          `;
+          
+          // Ocultar todos los campos del formulario para que no ocupe espacio y no "empuje" hacia abajo
+          Array.from(form.children).forEach(child => {
+            if (child.id !== 'formStatus' && child.tagName !== 'INPUT' && child.type !== 'hidden') {
+              child.style.display = 'none';
+            }
+          });
+          
           form.reset();
           form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
           form.querySelectorAll('.field-error.visible').forEach(el => el.classList.remove('visible'));
@@ -503,12 +536,11 @@ const whatsappUrl   = contactData.whatsapp.url;
       } finally {
         btn.disabled    = false;
         btn.textContent = 'Enviar mensaje →';
-        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     });
 
     // ── Validación en vivo (blur)
-    ['nombre','empresa','correo','pais','interes','mensaje'].forEach(id => {
+    ['nombre','empresa','correo','pais','interes'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
       el.addEventListener('blur', () => {
@@ -522,7 +554,23 @@ const whatsappUrl   = contactData.whatsapp.url;
       });
     });
 
-  })();
+    // ── Autodetección Geográfica del País (Non-blocking y Centralizada)
+    fetch('/api/get-promo')
+      .then(res => res.json())
+      .then(data => {
+        const sel = document.getElementById('pais');
+        if (!sel || sel.value !== "") return; // Fallback: si el usuario ya escogió algo, no forzamos
+        const code = data.countryCode === 'mock' ? 'MX' : data.countryCode;
+        if (code) {
+          const targetOpt = Array.from(sel.options).find(o => o.dataset.code === code);
+          if (targetOpt) {
+            sel.value = targetOpt.value;
+            setError('pais', 'err-pais', false);
+          }
+        }
+      }).catch(err => console.log('Geoloc silenciada: ', err));
+
+  });
 </script>
 
 </BaseLayout>

@@ -16,7 +16,7 @@ export const contactData = {
    * Controla: Header "Agendar diagnóstico", CtaFinal, sidebar de /contacto,
    *           nosotros.astro, index.astro.
    */
-  bookingUrl: "https://smasmouditaeccommx.zohobookings.com", // Zoho Bookings — agenda de diagnóstico
+  bookingUrl: "https://taec.zohobookings.com", // Zoho Bookings — agenda de diagnóstico
 
   /**
    * Google Apps Script Web App endpoint — formulario de /contacto.
@@ -33,8 +33,9 @@ export const contactData = {
    * Debe retornar: { "success": true } o { "success": false, "error": "..." }
    *
    * Mientras sea "" el formulario mostrará un mensaje alternativo con WhatsApp y correo.
+   * [OBSOLETO] Migrado a internal endpoint SSR (/api/submit-contact).
    */
-  formEndpoint: import.meta.env.PUBLIC_GAS_ENDPOINT || "",
+  formEndpoint: "",
   socials: {
     linkedin: "https://www.linkedin.com/company/taec",
     youtube: "https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ",

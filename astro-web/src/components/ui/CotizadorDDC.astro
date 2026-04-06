@@ -503,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // API Calls
   const fetchQuote = async (payload) => {
-    const res = await fetch('/api/quote-ddc', {
+    const res = await fetch('/interno/api/quote-ddc', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

@@ -1,14 +1,40 @@
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
+import { Redis } from '@upstash/redis';
+import { Ratelimit } from '@upstash/ratelimit';
 
 export const prerender = false;
 
-// Idempotency cache (Memory)
+// Rate Limiting persistente via Upstash Redis (Sliding Window)
+const redis = new Redis({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(10, '60 s'), // 10 requests/IP por minuto (Diagnóstico transaccional)
+  analytics: false,
+  prefix: 'taec:diagnostico-lead',
+});
+
+// Idempotency cache (Memory) - Deuda Técnica a migrar a Redis a futuro
 const recentSubmissions = new Map<string, number>();
 const RATE_LIMIT_MS = 60000; // 60 seconds
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    // 0. Rate Limiting Check por IP (Upstash Redis)
+    let ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
+    if (ip.includes(',')) ip = ip.split(',')[0].trim();
+
+    const { success } = await ratelimit.limit(ip);
+    if (!success) {
+      return new Response(JSON.stringify({
+        error: 'Demasiadas consultas en corto tiempo. Intenta de nuevo en unos minutos.'
+      }), { status: 429, headers: { 'Retry-After': '60' } });
+    }
+
     const rawBody = await request.text();
     if (!rawBody || rawBody.length > 5000) {
       return new Response(JSON.stringify({ error: 'Payload body vacío o demasiado grande.' }), { status: 413 });

@@ -2,31 +2,37 @@ export const prerender = false; // Forza este endpoint a ser SSR
 
 import { GoogleGenAI } from '@google/genai';
 import type { APIRoute } from 'astro';
+import { Redis } from '@upstash/redis';
+import { Ratelimit } from '@upstash/ratelimit';
 import { titoKnowledgeBase } from '../../data/titoKnowledgeBase';
 
-// Implementación de In-Memory Rate Limiting (Throttle) básico
-// Nota: En un entorno Serverless distribuido (como Vercel) el Map se reiniciará con cada inicio en frío,
-// pero sigue siendo efectivo contra ataques de volumen del mismo pod (15 requests por IP cada 60s).
-const rateLimitMap = new Map<string, { count: number, resetTime: number }>();
+// Rate Limiting persistente via Upstash Redis (Sliding Window)
+// Soporta entornos Serverless distribuidos — los contadores sobreviven cold starts y múltiples pods.
+const redis = new Redis({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(15, '60 s'), // 15 requests/IP por minuto
+  analytics: false,
+  prefix: 'taec:agente-ia',
+});
 
 export const POST: APIRoute = async ({ request }) => {
   // 1. Detección de IP, País y Rate Limiting (Server-side Netlify)
-  const ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
+  let ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
+  if (ip.includes(',')) ip = ip.split(',')[0].trim();
+  
   const countryCode = request.headers.get('x-nf-country') || 'N/A';
   const location = request.headers.get('x-nf-city') || 'Desconocida';
-  
-  const now = Date.now();
-  const rateLimitRecord = rateLimitMap.get(ip);
 
-  if (rateLimitRecord && now < rateLimitRecord.resetTime) {
-    if (rateLimitRecord.count >= 15) { // Límite: 15 peticiones por minuto
-      return new Response(JSON.stringify({ 
-        error: 'Demasiadas consultas en corto tiempo. Mis circuitos necesitan enfriarse.' 
-      }), { status: 429, headers: { 'Retry-After': '60' } });
-    }
-    rateLimitRecord.count++;
-  } else {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + 60000 }); // Limpiamos contadores cada 60s
+  const { success } = await ratelimit.limit(ip);
+  if (!success) {
+    return new Response(JSON.stringify({
+      error: 'Demasiadas consultas en corto tiempo. Mis circuitos necesitan enfriarse.'
+    }), { status: 429, headers: { 'Retry-After': '60' } });
   }
 
   // Bypass para el Escáner Dast/SAST de Netlify: Vite reemplaza import.meta.env.KEY estáticamente.
