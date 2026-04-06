@@ -4,7 +4,15 @@ Staging: `https://elzorromexican.github.io/taec-web/`
 Producción futura: `https://nuevo.taec.com.mx`
 
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
-> `docs/CHANGELOG-archive-v1.0-v1.5-mar2026.md`
+---
+
+## v2.0.1 · 06 abr 2026, 17:15 (Fase 1 UX Hub)
+
+### B2B Intranet — Refinamiento Visual y UX
+- **Dashboard Modular:** Sustitución de apilamiento vertical infinito por un *Grid paramétrico* de 2 columnas (`1fr 1fr`) logrando optimización total del espacio *Above The Fold*.
+- **Restricción de Alturas (*Line-Clamp*):** Limite estricto de 6 líneas por tarjeta de aviso para repeler paredes de texto, complementado con inyección de atributos `title` como *tooltips* nativos de lectura (*Zero JS, Zero Layout Shift*).
+- **Legibilidad WCAG:** Recalibración del contraste en estado "deshabilitado" de *Accesos Directos*, sustituyendo opacidad translúcida por contornos perimetrales gruesos (`dashed #64748b`) y fondos en escala de grises para máxima asertividad.
+- **KB Macro-Acordeones:** Transformación de la arquitectura de Playbooks aislando listas exhaustivas ("Matriz Comercial", "Matriz Técnica") en grupos colapsables masivos interactivos, reduciendo el ruido cognitivo.
 
 ---
 

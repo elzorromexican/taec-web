@@ -19,6 +19,8 @@
 
 **🟠 1 Alto**
 - [x] **[ISSUE-010] Nota interna visible al usuario:** En `/colaborar`, el texto sobre "Bases de datos en la siguiente fase" debe reemplazarse por un mensaje amigable.
+- [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard para mayor pulcritud comercial.
+- [ ] **[ISSUE-019] QA UX Hub:** Validar comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
 
 **🟡 QA Audit - UI/UX & Flow (P1)**
 - [x] [ISSUE-015] Intranet: 'Active' state del Sidebar mal manejado por JS-client, debería usar Astro.url
