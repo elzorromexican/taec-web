@@ -5,13 +5,7 @@ import HeroComercial from '../components/ui/HeroComercial.astro';
 import GridBeneficios from '../components/ui/GridBeneficios.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
-import { emailjsConfig } from '../data/emailjs';
 
-const totaraEjs = {
-  publicKey:  emailjsConfig.publicKey,
-  serviceId:  emailjsConfig.serviceId,
-  templateId: emailjsConfig.templates.totara,
-};
 
 const ventajasTot = [
   { icon: "⚙️", title: "Personalización sin límites", description: "Código abierto y arquitectura flexible. Adapta la plataforma exactamente a tus procesos, marca y flujos de trabajo — sin depender del proveedor." },
@@ -115,8 +109,7 @@ import { r, base } from '../utils/paths';
     }
   </style>
 
-  <!-- EmailJS CDN -->
-  <script is:inline defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- No EmailJS CDN -->
 
   <main id="main-content">
     <!-- ══ TABS ══ -->
@@ -289,7 +282,7 @@ import { r, base } from '../utils/paths';
         <!-- Formulario -->
         <div style="background:#F8FAFC;border:1.5px solid var(--border);border-radius:16px;padding:28px;">
           <p style="font-size:14px;font-weight:700;color:#111827;margin-bottom:20px;">Completa tus datos para descargar</p>
-          <form id="tot-lead-form" data-keys={JSON.stringify(totaraEjs)} style="display:flex;flex-direction:column;gap:12px;">
+          <form id="tot-lead-form" style="display:flex;flex-direction:column;gap:12px;">
             <input type="text"  id="tot-nombre"  placeholder="Nombre completo *" required
               style="width:100%;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:14px;font-family:inherit;outline:none;" class="tot-input" />
             <input type="text"  id="tot-empresa" placeholder="Empresa *" required

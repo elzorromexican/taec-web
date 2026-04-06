@@ -4,60 +4,64 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Lógica de Formulario EmailJS
+  // 1. Lógica de Formulario SSR (Sustituye EmailJS)
   const form = document.getElementById('tot-lead-form') as HTMLFormElement;
   if(form) {
-    const rawKeys = form.getAttribute('data-keys');
-    if(rawKeys && typeof (window as any).emailjs !== 'undefined') {
-      try {
-        const totaraEjs = JSON.parse(rawKeys);
-        (window as any).emailjs.init(totaraEjs.publicKey);
-
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const btn  = document.getElementById('tot-lead-btn') as HTMLButtonElement;
-          const msg  = document.getElementById('tot-lead-msg');
-          const link = document.getElementById('tot-download-link');
-          
-          if(btn) {
-            btn.textContent = 'Enviando...';
-            btn.disabled = true;
-          }
-
-          const getVal = (id: string) => (document.getElementById(id) as HTMLInputElement)?.value || '';
-
-          const params = {
-            from_name: getVal('tot-nombre'),
-            empresa:   getVal('tot-empresa'),
-            reply_to:  getVal('tot-email'),
-            message:   'Cargo: ' + (getVal('tot-cargo') || '—') + '\nRecurso: Totara V20 Novedades PDF'
-          };
-
-          (window as any).emailjs.send(totaraEjs.serviceId, totaraEjs.templateId, params)
-            .then(() => {
-              if(form) form.style.display = 'none';
-              if(link) link.style.display = 'block';
-              if(msg) {
-                msg.style.display  = 'block';
-                msg.style.color    = '#10B981';
-                msg.textContent    = '✓ ¡Listo! Haz clic para descargar.';
-              }
-            })
-            .catch(() => {
-              // Fallback gracioso en caso de error para no truncar la descarga
-              if(form) form.style.display = 'none';
-              if(link) link.style.display = 'block';
-              if(msg) {
-                msg.style.display  = 'block';
-                msg.style.color    = '#64748B';
-                msg.textContent    = 'Descarga lista.';
-              }
-            });
-        });
-      } catch(err) {
-        console.error("Configuración EmailJS inválida", err);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn  = document.getElementById('tot-lead-btn') as HTMLButtonElement;
+      const msg  = document.getElementById('tot-lead-msg');
+      const link = document.getElementById('tot-download-link');
+      
+      if(btn) {
+        btn.textContent = 'Enviando...';
+        btn.disabled = true;
       }
-    }
+
+      const getVal = (id: string) => (document.getElementById(id) as HTMLInputElement)?.value || '';
+      
+      // Auto-detección país vía encabezados Netlify (API lo manejará si mandamos MX)
+      const payload = {
+        nombre: getVal('tot-nombre'),
+        empresa: getVal('tot-empresa'),
+        correo: getVal('tot-email'),
+        telefono: 'N/A',
+        pais: 'N/A', // Se resolverá por IA o Netlify headers en SSR
+        interes: 'Totara V20 PDF',
+        mensaje: 'Cargo: ' + (getVal('tot-cargo') || '—'),
+        pagina_origen: '/totara-lms-mexico',
+        cta_origen: 'Descarga Lead Magnet'
+      };
+
+      try {
+        const response = await fetch('/api/submit-contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          if(form) form.style.display = 'none';
+          if(link) link.style.display = 'block';
+          if(msg) {
+            msg.style.display  = 'block';
+            msg.style.color    = '#10B981';
+            msg.textContent    = '✓ ¡Listo! Haz clic para descargar.';
+          }
+        } else {
+          throw new Error('Error en API');
+        }
+      } catch (err) {
+        // Fallback gracioso en caso de error para no truncar la descarga
+        if(form) form.style.display = 'none';
+        if(link) link.style.display = 'block';
+        if(msg) {
+          msg.style.display  = 'block';
+          msg.style.color    = '#64748B';
+          msg.textContent    = 'Descarga lista.';
+        }
+      }
+    });
   }
 
   // 2. Lógica de Sticky Action Bar (Scroll Observer)
