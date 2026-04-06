@@ -91,13 +91,34 @@ contactData.email            // info@taec.com.mx
 contactData.phone            // 55 6822 3300
 contactData.whatsapp.url     // https://wa.me/5215527758279
 contactData.bookingUrl       // URL Zoho Bookings para agendar diagnóstico gratuito
-contactData.formEndpoint     // URL de la Web App de Google Apps Script
 contactData.socials          // { linkedin, youtube, facebook }
-contactData.regional         // [{ country, emoji, domain, url }]
+contactData.regional         // [{ country, emoji, domain, url }] — MX, CO, CL
 contactData.storeUrl         // https://tienda.taec.com.mx
+getBookingUrl(source?)       // Helper — rutea cita al calendario correcto por producto
 ```
 
+`contactData.formEndpoint` está vacío y marcado `[OBSOLETO]` — el formulario usa `/api/submit-contact`.
+
 **Regla:** dato de contacto hardcodeado en `.astro` = bug. Importar siempre desde `contact.ts`.
+
+---
+
+## API Endpoints SSR
+
+| Endpoint | Método | Función |
+|---|---|---|
+| `/api/submit-contact` | POST | Formulario de contacto → Google Sheets API + validación Zod |
+| `/api/agente-ia` | POST | Chat Tito Bits — Gemini 2.5 + rate limiting Upstash Redis |
+| `/api/send-transcript` | POST | Envía transcripción del chat por Resend al lead y a TAEC |
+| `/api/get-promo` | GET | Retorna promo activa según país (header `x-nf-country` en Netlify Edge) |
+| `/api/diagnostico-lead` | POST | Captura lead del Diagnóstico de Plataforma |
+| `/api/kb` | GET | Consulta base de conocimiento interna (Tito Bits) |
+
+### Enrutamiento geográfico (`/api/get-promo`)
+
+Evalúa silenciosamente `locals.netlify.context.geo.country.code` en Netlify Edge,
+con fallback a `x-nf-country` / `x-country`. Si no hay header, asume `MX`.
+Las promos se definen en `src/data/promos.ts` con campos `active`, `countries[]` y `urlTrigger`.
 
 ---
 
