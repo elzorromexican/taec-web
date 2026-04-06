@@ -25,14 +25,14 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     <h2 class="section-title">Novedades de la Semana</h2>
     
     <div class="news-grid">
-      <div class="news-card important border-l-orange">
+      <div class="news-card important border-t-orange">
         <div class="news-badge orange">Uso Interno</div>
         <h3>Nueva versión del Cotizador DDC 2026</h3>
         <p>⚠️ <strong>Exclusivo para el equipo comercial TAEC.</strong> Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña "Cotizadores".</p>
         <span class="news-date">06 Abr 2026</span>
       </div>
 
-      <div class="news-card border-l-blue">
+      <div class="news-card border-t-blue">
         <div class="news-badge blue">Promoción Q2</div>
         <h3>Localization integrado (Uso Libre)</h3>
         <p>Articulate 360 ha integrado "Localization" de uso libre para traducir cursos internamente. <strong>Ojo:</strong> No se pueden exportar ni publicar sin adquirir el paquete base y los paquetes adicionales. Tenemos una promoción activa durante todo el Q2 con un <strong>25% de descuento</strong> en todos los paquetes de Localization.</p>
@@ -76,18 +76,18 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
 
 <style>
   .dashboard-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     color: #0f172a;
     margin: 0;
   }
   .dashboard-hero p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #64748b;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
-  .mt-10 { margin-top: 3rem; }
+  .mt-10 { margin-top: 1.5rem; }
   .mt-4 { margin-top: 1rem; }
   
   .section-title {
@@ -101,23 +101,26 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
 
   .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* Fuerza estrictamente 2 columnas para no wrap */
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
 
   .news-card {
     background: #fff;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    /* Borde modular corporativo, sin sombra flotante */
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: none;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
-  .border-l-orange { border-left: 4px solid #f97316; }
-  .border-l-blue { border-left: 4px solid #3b82f6; }
+  .border-t-orange { border-top: 3px solid #f97316; }
+  .border-t-blue { border-top: 3px solid #3b82f6; }
 
   .news-badge {
     display: inline-block;
