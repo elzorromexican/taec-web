@@ -3,8 +3,9 @@
 Sitio comercial de **TAEC** (Tecnología Avanzada para la Educación y la Capacitación) construido con Astro 6.
 Partner e-learning para México y LATAM — Articulate, Vyond, Totara, Moodle.
 
-- **Staging:** `elzorromexican.github.io/taec-web`
-- **Producción (pendiente):** `nuevo.taec.com.mx`
+- **Staging:** `elzorromexican.github.io/taec-web` — build estático, auto-deploy en push a `main`
+- **Producción:** `stellar-mermaid-3ba7f1.netlify.app` — SSR Netlify, auto-deploy en push a `main`
+- **Dominio final:** `nuevo.taec.com.mx` (pendiente de apuntar a Netlify)
 - **Baseline estable:** tag `v1.0-astro-foundation`
 
 ---
@@ -159,10 +160,30 @@ No agregar instancias en páginas individuales — el Footer ya lo inyecta vía 
 
 ---
 
+## Intranet `/interno/`
+
+Sección SSR protegida por `src/middleware.ts` con Supabase Auth.
+
+- **Login:** `/interno/login` — OAuth Google restringido a `@taec.com.mx`
+- **Callback:** `/interno/auth/callback` — procesa tokens y setea cookies `sb-access-token` / `sb-refresh-token`
+- **Dashboard:** `/interno/dashboard` — requiere sesión válida + registro en `usuarios_autorizados`
+- **Denegado:** `/interno/denegado` — usuarios autenticados pero sin permiso
+- Todas las páginas bajo `/interno/` tienen `export const prerender = false`
+- `robots.txt` bloquea `/interno/` para evitar indexación
+
+### URLs permitidas en Supabase (Redirect URLs)
+```
+http://localhost:4321/interno/auth/callback
+https://stellar-mermaid-3ba7f1.netlify.app/interno/auth/callback
+https://nuevo.taec.com.mx/interno/auth/callback
+```
+
 ## SEO
 
-- `site: 'https://nuevo.taec.com.mx'` en `astro.config.mjs`
-- `BaseLayout.astro` genera `<link rel="canonical">` y OG tags automáticamente
+- `BaseLayout.astro` genera `<link rel="canonical">`, OG tags, `hreflang`, Schema.org y Breadcrumbs dinámicamente usando `Astro.site`
+- OG image fallback: `public/assets/logos/taec-og.png` (1200×630px)
+- `public/robots.txt` bloquea `/interno/`, `/admin/`, `/test`
+- `public/llms.txt` — mapa de URLs para crawlers de LLMs
 - No renombrar archivos de página sin coordinar redirects
 
 ---
@@ -170,17 +191,45 @@ No agregar instancias en páginas individuales — el Footer ya lo inyecta vía 
 ## Deploy
 
 ```
-git push origin main  →  GitHub Pages actualiza staging automáticamente
+git push origin main  →  GitHub Pages (staging) + Netlify (producción) se despliegan automáticamente
 ```
 
-El workflow `.github/workflows/deploy-pages.yml` ejecuta `astro build` con:
+### GitHub Pages — staging estático
+
+El workflow `.github/workflows/deploy-pages.yml` inyecta:
 
 ```
 ASTRO_SITE=https://elzorromexican.github.io/taec-web
 ASTRO_BASE=/taec-web/
+ASTRO_STATIC_BUILD=true     ← activa output: 'static'
 ```
 
-Producción (`nuevo.taec.com.mx`): deploy manual pendiente de configurar (usar `ASTRO_BASE=/`).
+### Netlify — producción SSR
+
+`netlify.toml` (raíz del repo) define el build command. Netlify inyecta `NETLIFY=true`
+automáticamente, lo que activa `@astrojs/netlify` adapter en `astro.config.mjs`.
+
+```toml
+[build]
+  command = "cd astro-web && npm install && npm run build"
+  publish = "astro-web/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/ssr"
+  status = 200
+```
+
+### Lógica de build en `astro.config.mjs`
+
+```js
+const isStaticBuild = process.env.ASTRO_STATIC_BUILD === 'true'; // GitHub Pages
+const isNetlify     = process.env.NETLIFY === 'true';            // Netlify
+
+output:  isStaticBuild ? 'static' : 'server',
+adapter: isNetlify ? netlify() : undefined,
+// Dev local → output: 'server', sin adapter (Astro nativo)
+```
 
 ### Base path — GitHub Pages vs producción
 
