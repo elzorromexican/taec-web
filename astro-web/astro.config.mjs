@@ -25,9 +25,8 @@ import netlify from '@astrojs/netlify';
 const SITE = process.env.ASTRO_SITE || 'https://nuevo.taec.com.mx';
 const BASE = process.env.ASTRO_BASE || '/';
 
-// ASTRO_BUILD_MODE='server' se inyecta desde astro-web/netlify.toml [build.environment].
-// En GitHub Actions (GH Pages) esta variable no existe → output static.
-const isServerBuild = process.env.ASTRO_BUILD_MODE === 'server';
+// En GitHub Actions (GH Pages) esta variable es "true" nativamente → output static.
+const isGhPages = process.env.GITHUB_ACTIONS === 'true';
 
 // https://astro.build/config
 export default defineConfig({
@@ -39,9 +38,8 @@ export default defineConfig({
     format: 'directory' // Generates /moodle-mexico/index.html etc.
   },
 
-  // Netlify (ASTRO_BUILD_MODE=server) → SSR completo.
-  // GitHub Pages / local → static con adapter presente (necesario para páginas prerender:false).
-  output: isServerBuild ? 'server' : 'static',
+  // Magia Condicional: SSR (Node) para Producción-Netlify, Estático para GH Pages Staging
+  output: isGhPages ? 'static' : 'server',
   integrations: [react(), sitemap()],
   adapter: netlify()
 });
