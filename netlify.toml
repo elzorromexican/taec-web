@@ -1,4 +1,3 @@
 [build]
   command = "cd astro-web && npm install && npm run build"
   publish = "astro-web/dist"
-  functions = "astro-web/.netlify/functions-internal"
