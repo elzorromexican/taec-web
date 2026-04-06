@@ -35,7 +35,7 @@ export default defineConfig({
     format: 'directory' // Generates /moodle-mexico/index.html etc.
   },
 
-  output: 'static',
+  output: 'server',
   integrations: [react(), sitemap()],
   adapter: netlify()
 });
