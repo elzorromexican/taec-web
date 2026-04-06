@@ -2,6 +2,9 @@
   publish = "dist"
   command = "npm run build"
 
+[build.environment]
+  ASTRO_BUILD_MODE = "server"
+
 # Catch-all: cualquier ruta no encontrada como archivo estático
 # en dist/ se delega a la función SSR de Astro.
 # force = false garantiza que los archivos estáticos siguen teniendo prioridad.
