@@ -24,19 +24,27 @@ const scopedSupabase = createClient(supabaseUrl, supabaseAnonKey, {
   global: { headers: { Authorization: `Bearer ${accessToken}` } }
 });
 
-// Sacamos los contenidos de la base de datos de manera dinámica
-const { data: kbItems, error } = await scopedSupabase
+// Sacamos los contenidos de Módulo KB (Astro) de la base de datos
+const { data: kbItems, error: kbError } = await scopedSupabase
   .from('kb_items')
   .select('*')
   .eq('producto', producto) 
   .contains('audiencia', ['interno'])
   .order('orden', { ascending: true });
 
-if (error) {
-  console.error("Error cargando KB para:", producto, error);
-}
+if (kbError) console.error("Error cargando KB para:", producto, kbError);
 
-// Mapeo exhaustivo para unificar las secciones de todos los productos
+// Sacamos los METADATOS CMS de la base de datos
+const { data: pbMeta, error: pbError } = await scopedSupabase
+  .from('kb_playbooks')
+  .select('*')
+  .eq('id_producto', producto)
+  .single();
+
+// Log error silently if not seeded yet
+if (pbError) console.warn("Aviso: Playbook config no existe aún o no se ha corrido el SEED para:", producto);
+
+// --- 1. Mapeo Exhaustivo de Secciones Q&A ---
 const CATEGORY_MAP: Record<string, { id: string, label: string, color: string, order: number }> = {
   comercial: { id: 'comercial', label: 'La Matriz Comercial', color: '#185FA5', order: 1 },
   tecnica: { id: 'tecnica', label: 'La Matriz Técnica', color: '#0F6E56', order: 2 },
@@ -82,193 +90,26 @@ if (kbItems) {
 }
 const seccionesList = Array.from(seccionesMap.values()).sort((a: any, b: any) => a.order - b.order);
 
-// Diccionario opcional para capitalizar o mejorar los nombres en la UI
-const titles: Record<string, string> = {
-  'rise360': 'Rise 360',
-  'storyline360': 'Storyline 360',
-  'review360': 'Review 360',
-  'reach360': 'Reach 360',
-  'aiassistant': 'AI Assistant',
-  'localization': 'Localization',
-  'vyondgo': 'Vyond Go (IA)',
-  'vyondstudio': 'Vyond Studio',
-  'vyondmobile': 'Vyond Mobile',
-  'vyondenterprise': 'Vyond Enterprise',
-  'vyondprofessional': 'Vyond Professional',
-  'moodle': 'Moodle Workspace',
-  'totara': 'Totara LMS',
-  'pifinilearn': 'Pifini Learn',
-  'ottolearn': 'Ottolearn',
-  'lys': 'Lys LMS',
-  'ddc': 'Desarrollo de Contenidos (DDC)',
-  'class': 'Class (Videoclases)',
-  'proctorizer': 'Proctorizer',
-  'strikeplagiarism': 'StrikePlagiarism',
-  '7minutes': '7minutes Microlearning',
-  'customguide': 'Custom Guide'
-};
-const displayName = titles[producto] || producto.toUpperCase();
+// --- 2. Inyección CMS (Metadata, Fondo e Icono) ---
+const displayName = pbMeta?.display_name || producto.toUpperCase();
+const heroFamily = pbMeta?.familia || 'articulate';
 
-// Seleccionar patrón visual basado estrictamente por FAMILIA de producto (Opción 1 UX)
 let heroPattern = 'pattern-grid';
-if (['vyondgo', 'vyondstudio', 'vyondmobile', 'vyondenterprise', 'vyondprofessional'].includes(producto)) {
-  heroPattern = 'pattern-dots'; // Familia Vyond
-} else if (['moodle', 'totara', 'pifinilearn', 'ottolearn', 'lys'].includes(producto)) {
-  heroPattern = 'pattern-boxes'; // Familia Plataformas LMS
-} else if (['ddc', 'class', 'proctorizer', 'strikeplagiarism', '7minutes', 'customguide'].includes(producto)) {
-  heroPattern = 'pattern-waves'; // Familia Servicios, Add-ons y Catálogo
-} else {
-  heroPattern = 'pattern-grid'; // Familia Articulate 360 (default)
-}
+if (heroFamily === 'vyond') heroPattern = 'pattern-dots';
+else if (heroFamily === 'plataformas') heroPattern = 'pattern-boxes';
+else if (heroFamily === 'catalogos') heroPattern = 'pattern-waves';
 
-// Metadatos contextuales exhaustivos para TODOS los 22 productos.
-// Reglas UI (Evitar salto de línea en grid flex):
-// - md.label (Eyebrow): Máx 15 caracteres (ej. 'Complejidad', 'Arquitectura').
-// - md.value (Contenido): Máx 26 caracteres (ej. 'Open Source Modificable').
-const PRODUCT_METADATA: Record<string, {label: string, value: string}[]> = {
-  // --- FAMILIA: Articulate 360 ---
-  'rise360': [
-    { label: 'Complejidad', value: 'Baja / Web Responsive' },
-    { label: 'Formato', value: 'Microlearning Rápido' },
-    { label: 'Diferenciador', value: 'Velocidad de Ensamblado' }
-  ],
-  'storyline360': [
-    { label: 'Complejidad', value: 'Avanzada / Variables' },
-    { label: 'Formato', value: 'Cursos Interactivos' },
-    { label: 'Diferenciador', value: 'Lógica Ramificada Libre' }
-  ],
-  'review360': [
-    { label: 'Fase de Vida', value: 'Aprobación / QA' },
-    { label: 'Audiencia', value: 'Stakeholders Internos' },
-    { label: 'Diferenciador', value: 'Feedback Contextual Web' }
-  ],
-  'reach360': [
-    { label: 'Ecosistema', value: 'LMS Ligero (Integrado)' },
-    { label: 'Audiencia', value: 'Contratistras / Alianzas' },
-    { label: 'Diferenciador', value: 'Despliegue sin fricción' }
-  ],
-  'aiassistant': [
-    { label: 'Tecnología', value: 'IA Generativa (LLMs)' },
-    { label: 'Casos de Uso', value: 'Drafting y Cuestionarios' },
-    { label: 'Diferenciador', value: 'Acelerador de Autores' }
-  ],
-  'localization': [
-    { label: 'Proceso', value: 'Tradución Automatizada' },
-    { label: 'Formato', value: 'Exportación a XLIFF' },
-    { label: 'Diferenciador', value: 'Escalabilidad Global' }
-  ],
-
-  // --- FAMILIA: Vyond ---
-  'vyondstudio': [
-    { label: 'Complejidad', value: 'Media / Línea de tiempo' },
-    { label: 'Target', value: 'Diseño Instruccional' },
-    { label: 'Diferenciador', value: 'Control de Canvas y Labios' }
-  ],
-  'vyondgo': [
-    { label: 'Complejidad', value: 'Baja / Prompt-to-Video' },
-    { label: 'Target', value: 'Ventas, Soporte, RRHH' },
-    { label: 'Diferenciador', value: 'IA Generativa Ultra rápida' }
-  ],
-  'vyondmobile': [
-    { label: 'Formato', value: 'Video Vertical Extendido' },
-    { label: 'Dispositivo', value: 'Smartphones y Tablets' },
-    { label: 'Diferenciador', value: 'Creación On-the-Go' }
-  ],
-  'vyondenterprise': [
-    { label: 'Escalamiento', value: 'Cuentas Globales Masivas' },
-    { label: 'Seguridad', value: 'SSO y Single-Tenant' },
-    { label: 'Diferenciador', value: 'Gobernanza Institucional' }
-  ],
-  'vyondprofessional': [
-    { label: 'Licencia', value: 'Por Asiento Individual' },
-    { label: 'Target', value: 'Agencias y Consultores' },
-    { label: 'Diferenciador', value: 'Exportación H.264 Pura' }
-  ],
-
-  // --- FAMILIA: Plataformas LMS ---
-  'moodle': [
-    { label: 'Arquitectura', value: 'Open Source Personalizado' },
-    { label: 'Audiencia', value: 'Academias y Corporativos' },
-    { label: 'Diferenciador', value: 'Flexibilidad de Plugins' }
-  ],
-  'totara': [
-    { label: 'Arquitectura', value: 'Enterprise TXP / LXP' },
-    { label: 'Audiencia', value: 'Ecosistemas Complejos' },
-    { label: 'Diferenciador', value: 'Múltiples Organizaciones' }
-  ],
-  'pifinilearn': [
-    { label: 'Modalidad', value: 'LMS Cloud Llave en Mano' },
-    { label: 'Target', value: 'PYMES / Onboarding' },
-    { label: 'Diferenciador', value: 'Simplicidad de Admin.' }
-  ],
-  'ottolearn': [
-    { label: 'Metodología', value: 'Agile Microlearning' },
-    { label: 'Mecánica', value: 'A.I. de Retención' },
-    { label: 'Diferenciador', value: 'Combate Curva de Olvido' }
-  ],
-  'lys': [
-    { label: 'Enfoque', value: 'Learning Management System' },
-    { label: 'Casos de Uso', value: 'Capacitaciones Fijas' },
-    { label: 'Diferenciador', value: 'Implementación Veloz' }
-  ],
-
-  // --- FAMILIA: Add-ons y Servicios DDC ---
-  'ddc': [
-    { label: 'Modelo', value: 'Agencia a la Medida' },
-    { label: 'Entregables', value: 'SCORM, Web, Custom HTML' },
-    { label: 'Diferenciador', value: 'Outsourcing Integral' }
-  ],
-  'class': [
-    { label: 'Tecnología', value: 'Zoom Enhanced VILT' },
-    { label: 'Modalidad', value: 'Clases 100% Sincrónicas' },
-    { label: 'Diferenciador', value: 'Métricas de Atención IA' }
-  ],
-  'proctorizer': [
-    { label: 'Categoría', value: 'Monitoreo Académico' },
-    { label: 'Conexión', value: 'Integración vía LTI' },
-    { label: 'Diferenciador', value: 'Verificación Facial IA' }
-  ],
-  'strikeplagiarism': [
-    { label: 'Categoría', value: 'Integridad Anti-Copia' },
-    { label: 'Integración', value: 'Nativo con Moodle LMS' },
-    { label: 'Diferenciador', value: 'Detección Multi-fuente' }
-  ],
-
-  // --- FAMILIA: Catálogo Listo ---
-  '7minutes': [
-    { label: 'Formato', value: 'Video Animado (Micro)' },
-    { label: 'Categoría', value: 'Soft Skills B2B' },
-    { label: 'Diferenciador', value: 'Retención de Atención' }
-  ],
-  'customguide': [
-    { label: 'Metodología', value: 'Simulación Software' },
-    { label: 'Categoría', value: 'IT / Microsoft 365' },
-    { label: 'Diferenciador', value: 'Aprender Haciendo (Lab)' }
-  ]
-};
-
-const pageMetadata = PRODUCT_METADATA[producto] || [
+const pageMetadata = pbMeta ? [
+  { label: pbMeta.meta_l1, value: pbMeta.meta_v1 },
+  { label: pbMeta.meta_l2, value: pbMeta.meta_v2 },
+  { label: pbMeta.meta_l3, value: pbMeta.meta_v3 }
+].filter(m => m.label && m.value) : [
   { label: 'Categoría SaaS', value: 'EdTech / e-Learning' },
   { label: 'Distribución', value: 'Vía Partner Exclusivo' },
   { label: 'Soporte', value: 'Gestionado por TAEC' }
 ];
 
-// Marca de Agua Vectorial (Opción 3 UX)
-const PRODUCT_ICON: Record<string, string> = {
-  'vyondstudio': 'clapperboard',
-  'storyline360': 'clapperboard',
-  'reach360': 'clapperboard',
-  'vyondmobile': 'smartphone',
-  '7minutes': 'smartphone',
-  'vyondgo': 'sparkles',
-  'aiassistant': 'sparkles',
-  'vyondenterprise': 'building',
-  'moodle': 'building',
-  'totara': 'building',
-  'lys': 'building',
-  'review360': 'check-circle'
-};
-const heroIconKey = PRODUCT_ICON[producto] || 'box';
+const heroIconKey = pbMeta?.svg_icon || 'box';
 
 const getSVGPath = (key: string) => {
   switch(key) {

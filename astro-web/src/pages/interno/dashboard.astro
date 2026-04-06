@@ -11,7 +11,25 @@
  */
 export const prerender = false;
 import IntranetLayout from '../../layouts/IntranetLayout.astro';
-// import { supabase } from '../../lib/supabase'; // Para el futuro fetch de avisos
+import { createClient } from '@supabase/supabase-js';
+
+// Usamos el token fresco del middleware
+const accessToken = Astro.locals.accessToken || "";
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const scopedSupabase = createClient(supabaseUrl, supabaseAnonKey, {
+  global: { headers: { Authorization: `Bearer ${accessToken}` } }
+});
+
+// Extraemos novedades del CMS nativo (Supabase)
+const { data: novedades, error } = await scopedSupabase
+  .from('intranet_novedades')
+  .select('*')
+  .eq('activo', true)
+  .order('orden', { ascending: true })
+  .limit(3);
+
+if (error) console.error("Error cargando novedades:", error);
 ---
 
 <IntranetLayout title="Dashboard Intranet | TAEC" description="Lobby corporativo">
@@ -22,23 +40,24 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     <p>Bienvenido a la terminal central de herramientas, cotizadores y playbooks de TAEC.</p>
   </div>
 
-  <!-- AVISOS IMPORTANTES -->
+  <!-- AVISOS IMPORTANTES (Cargados desde Supabase CMS) -->
   <div class="dashboard-section mt-10">
     <h2 class="section-title">Novedades de la Semana</h2>
     
-    <div class="news-card important border-l-orange">
-      <div class="news-badge orange">Uso Interno</div>
-      <h3>Nueva versión del Cotizador DDC 2026</h3>
-      <p>⚠️ <strong>Exclusivo para el equipo comercial TAEC.</strong> Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña "Cotizadores".</p>
-      <span class="news-date">06 Abr 2026</span>
-    </div>
-
-    <div class="news-card border-l-blue mt-4">
-      <div class="news-badge blue">Noticia</div>
-      <h3>KB de Rise 360 actualizada</h3>
-      <p>Sonia ya subió los 40 artículos curados sobre el comportamiento, limitantes y pros del ecosistema de Rise para refutar clientes complejos.</p>
-      <span class="news-date">03 Abr 2026</span>
-    </div>
+    {novedades && novedades.length > 0 ? (
+      novedades.map((nota) => (
+        <div class={`news-card border-l-${nota.badge_color} mt-4`}>
+          <div class={`news-badge ${nota.badge_color}`}>{nota.badge_text}</div>
+          <h3>{nota.titulo}</h3>
+          <p set:html={nota.contenido}></p>
+          <span class="news-date">{nota.fecha_display}</span>
+        </div>
+      ))
+    ) : (
+      <div class="news-card">
+        <p>No hay novedades publicadas por el momento.</p>
+      </div>
+    )}
   </div>
 
   <!-- QUICK LINKS (GOOGLE DRIVE ETC) -->
