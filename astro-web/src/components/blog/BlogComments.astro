@@ -106,7 +106,7 @@
       if (!supabaseUrl || !supabaseAnonKey) return;
       
       try {
-        const response = await fetch(`${supabaseUrl}/rest/v1/comments?post_slug=eq.${postSlug}&select=*&order=created_at.asc`, {
+        const response = await fetch(`${supabaseUrl}/rest/v1/comments?post_slug=eq.${postSlug}&status=eq.approved&select=*&order=created_at.asc`, {
           headers: {
             'apikey': supabaseAnonKey,
             'Authorization': `Bearer ${supabaseAnonKey}`
@@ -168,23 +168,18 @@
       submitBtn.style.opacity = '0.7';
 
       const payload = {
-        post_slug: postSlug,
-        author_name: formData.get('author'),
-        author_email: formData.get('email'),
-        author_url: formData.get('url') || null,
-        content: formData.get('comment'),
-        status: 'pending' // Forzado además por el Trigger en BD
+        post_slug:               postSlug,
+        author_name:             formData.get('author'),
+        author_email:            formData.get('email'),
+        author_url:              formData.get('url') || '',
+        content:                 formData.get('comment'),
+        'cf-turnstile-response': turnstileToken,
       };
 
       try {
-        const response = await fetch(`${supabaseUrl}/rest/v1/comments`, {
+        const response = await fetch('/api/submit-comment', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': supabaseAnonKey,
-            'Authorization': `Bearer ${supabaseAnonKey}`,
-            'Prefer': 'return=minimal' // No retorna la fila completa, solo un 201
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
