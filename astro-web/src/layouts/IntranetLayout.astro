@@ -236,7 +236,10 @@ const isActive = (path) => currentPath === path || (path !== '/interno/dashboard
   }
   
   details[open] .nav-group-btn {
-    color: #e2e8f0;
+    color: #fff;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.08); /* Mayor contraste */
+    letter-spacing: 0.02em;
   }
 
   .nav-group-content {
@@ -330,12 +333,58 @@ const isActive = (path) => currentPath === path || (path !== '/interno/dashboard
 </style>
 
 <script>
-  // Script para abrir/cerrar sidebar en móvil
-  const toggle = document.getElementById('menu-toggle');
-  const sidebar = document.getElementById('intranet-sidebar');
-  if (toggle && sidebar) {
-    toggle.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+  // Debido a que usamos ViewTransitions (<ClientRouter />), el DOM cambia sin recargar.
+  // astro:page-load es mandatorio para ejecutar scripts en cada navegación.
+  document.addEventListener('astro:page-load', () => {
+    // 1. Encontrar la categoría activa (la que tiene el link activo)
+    const activeLink = document.querySelector('.intranet-sidebar .nav-link.active');
+    let activeGroup = null;
+    if (activeLink) {
+      activeGroup = activeLink.closest('details.nav-group');
+      if (activeGroup && !activeGroup.hasAttribute('open')) {
+        activeGroup.setAttribute('open', '');
+      }
+    }
+
+    // 2. Forzar el cierre de todas las demás categorías para limpiar el estado de la vista anterior
+    const navGroups = document.querySelectorAll('details.nav-group');
+    navGroups.forEach(group => {
+      if (group !== activeGroup && group.hasAttribute('open')) {
+        group.removeAttribute('open');
+      }
     });
-  }
+
+    // 3. Event Delegation para exclusividad en clics (solo 1 abierto a la vez)
+    const sidebarNav = document.querySelector('.sidebar-nav');
+    if (sidebarNav && !sidebarNav.dataset.listenerAttached) {
+      sidebarNav.dataset.listenerAttached = 'true';
+      sidebarNav.addEventListener('click', (e) => {
+        const summary = (e.target as Element).closest('summary');
+        if (summary) {
+          const group = summary.closest('details.nav-group');
+          if (group) {
+            const isCurrentlyClosed = !group.hasAttribute('open');
+            if (isCurrentlyClosed) { // Si vamos a abrirlo, cerramos los demás
+              const allGroups = sidebarNav.querySelectorAll('details.nav-group');
+              allGroups.forEach(otherGroup => {
+                if (otherGroup !== group && otherGroup.hasAttribute('open')) {
+                  otherGroup.removeAttribute('open');
+                }
+              });
+            }
+          }
+        }
+      });
+    }
+
+    // 4. Menú hamburguesa móvil
+    const toggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('intranet-sidebar');
+    if (toggle && sidebar && !toggle.dataset.listenerAttached) {
+      toggle.dataset.listenerAttached = 'true';
+      toggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+      });
+    }
+  });
 </script>
