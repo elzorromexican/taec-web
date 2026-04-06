@@ -14,6 +14,10 @@ Reseller exclusivo de Articulate 360, Vyond, Totara y Moodle.
 - **Framework:** Astro 6 — `output: 'server'` (SSR) por default
 - **Componentes reactivos:** React (Islands Architecture)
 - **Auth / Intranet:** Supabase Auth — OAuth Google restringido a `@taec.com.mx`
+- **Motor de IA:** Google Gemini 2.5 (`@google/genai`) — agente Tito Bits (`/api/agente-ia`)
+- **Rate limiting:** Upstash Redis (`@upstash/ratelimit`) — sliding window 15 req/min por IP
+- **Correo transaccional:** Resend — transcripts del agente IA (`/api/send-transcript`)
+- **Formulario de contacto:** Google Sheets API directo (`/api/submit-contact`) — sin GAS
 - **Estilos:** CSS puro modular
 
 ---
@@ -115,13 +119,13 @@ Temas: `moo` · `tot` · `art` · `vyond` · `general`
 
 | CTA | Canal | Depende de |
 |---|---|---|
-| Formulario `/contacto` | Google Apps Script → Sheets + email | `contactData.formEndpoint` |
+| Formulario `/contacto` | Google Sheets API directo (`/api/submit-contact`) | `GOOGLE_SHEETS_*` env vars |
 | WhatsApp flotante | wa.me directo | `contactData.whatsapp` |
 | Agendar diagnóstico | Zoho Bookings | `contactData.bookingUrl` |
 | Correo directo | `mailto:` | Sin dependencia |
 | Tienda | tienda.taec.com.mx | `contactData.storeUrl` |
 
-El formulario de `/contacto` usa `Content-Type: text/plain;charset=utf-8` para evitar el preflight OPTIONS que GAS no expone. El body es JSON puro; GAS lo parsea con `JSON.parse(e.postData.contents)`.
+El formulario de `/contacto` usa el endpoint SSR `/api/submit-contact.ts` con validación Zod + Google Sheets API. No usa Google Apps Script.
 
 ---
 
