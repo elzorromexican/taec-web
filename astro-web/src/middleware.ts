@@ -48,6 +48,7 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
 
     // Validación 1: El correo debe terminar en @taec.com.mx
     if (!userEmail?.endsWith('@taec.com.mx')) {
+      console.warn(`[SECURITY ALERT] Tentativa de acceso rechazada por dominio ajeno: ${userEmail} a ${url.pathname}`);
       return redirect('/interno/denegado?reason=domain');
     }
 
@@ -61,6 +62,7 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
 
     // Soft-Ban: Si RRHH lo desactivó aquí antes de que TI borre el correo en Google
     if (userData && userData.activo === false) {
+      console.warn(`[SECURITY ALERT] Intento de acceso por usuario suspendido (Soft-Ban): ${userEmail}`);
       return redirect('/interno/denegado?reason=whitelist');
     }
 
@@ -74,6 +76,7 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
 
     // Role-Guard: Protección estricta de rutas administrativas B2B
     if (url.pathname.startsWith('/interno/admin') && locals.rol !== 'admin') {
+      console.warn(`[SECURITY ALERT] Intento de escalación de privilegios hacia /admin por: ${userEmail} (Rol: ${locals.rol})`);
       return redirect('/interno/denegado?reason=unauthorized');
     }
   }
