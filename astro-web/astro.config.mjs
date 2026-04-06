@@ -28,6 +28,9 @@ const BASE = process.env.ASTRO_BASE || '/';
 // Solo GitHub Pages necesita output static (ASTRO_STATIC_BUILD=true en el workflow).
 // Netlify inyecta ASTRO_BUILD_MODE=server. Dev local → server por defecto.
 const isStaticBuild = process.env.ASTRO_STATIC_BUILD === 'true';
+// Netlify sets NETLIFY=true automatically in their build environment.
+// We only load the adapter there — dev local runs clean without it.
+const isNetlify = process.env.NETLIFY === 'true';
 
 // https://astro.build/config
 export default defineConfig({
@@ -42,5 +45,5 @@ export default defineConfig({
   // GitHub Pages → static. Todo lo demás (Netlify, dev local) → server.
   output: isStaticBuild ? 'static' : 'server',
   integrations: [react(), sitemap()],
-  adapter: netlify()
+  adapter: isNetlify ? netlify() : undefined
 });
