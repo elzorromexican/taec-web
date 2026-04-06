@@ -20,6 +20,7 @@
 - [Vyond Mobile](https://nuevo.taec.com.mx/vyond-mobile): Creación y edición de videos desde dispositivos móviles.
 - [Vyond Enterprise](https://nuevo.taec.com.mx/vyond-enterprise): Plan corporativo con seguridad avanzada y colaboración en equipo.
 - [Vyond Professional](https://nuevo.taec.com.mx/vyond-professional): Plan profesional para agencias y productores independientes.
+- [Vyond Starter](https://nuevo.taec.com.mx/vyond-starter): Plan de entrada para equipos pequeños y creadores individuales.
 
 ## Plataformas y LMS
 
@@ -43,7 +44,9 @@
 
 ## Capacitación y Certificación
 
+- [Catálogo de Capacitación](https://nuevo.taec.com.mx/capacitacion): Hub central de toda la oferta de formación de TAEC.
 - [Catálogo de Cursos Abiertos](https://nuevo.taec.com.mx/capacitacion-abierta): Calendario de formación abierta al público.
+- [Capacitación Cerrada](https://nuevo.taec.com.mx/capacitacion-cerrada): Programas de formación exclusivos para empresas.
 - [Curso Articulate 360](https://nuevo.taec.com.mx/curso-articulate): Entrenamiento oficial en herramientas Articulate.
 - [Curso Vyond](https://nuevo.taec.com.mx/curso-vyond): Dominio del video animado con Vyond.
 - [Curso Storyline Avanzado](https://nuevo.taec.com.mx/curso-storyline): Técnicas de variables, javascript e interacciones complejas.
