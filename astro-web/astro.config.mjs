@@ -25,8 +25,9 @@ import netlify from '@astrojs/netlify';
 const SITE = process.env.ASTRO_SITE || 'https://nuevo.taec.com.mx';
 const BASE = process.env.ASTRO_BASE || '/';
 
-// Netlify inyecta esta variable por defecto en sus builds de CI/CD
-const isNetlify = process.env.NETLIFY === 'true';
+// GitHub Actions setea GITHUB_ACTIONS='true' — usamos eso para detectar el build de GH Pages.
+// En cualquier otro entorno (Netlify CI, local) usamos SSR con el adaptador de Netlify.
+const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
 
 // https://astro.build/config
 export default defineConfig({
@@ -38,8 +39,8 @@ export default defineConfig({
     format: 'directory' // Generates /moodle-mexico/index.html etc.
   },
 
-  // Magia Condicional: SSR (Node) para Producción-Netlify, Estático para GH Pages Staging
-  output: isNetlify ? 'server' : 'static',
+  // GitHub Pages → static puro. Netlify / local → SSR con adaptador.
+  output: isGitHubActions ? 'static' : 'server',
   integrations: [react(), sitemap()],
-  adapter: isNetlify ? netlify() : undefined
+  adapter: isGitHubActions ? undefined : netlify()
 });

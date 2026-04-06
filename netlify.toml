@@ -1,3 +1,12 @@
 [build]
   command = "cd astro-web && npm install && npm run build"
   publish = "astro-web/dist"
+
+# Catch-all: rutas no encontradas como archivo estático en dist/
+# se delegan a la función SSR generada por @astrojs/netlify.
+# force = false → los archivos estáticos tienen prioridad.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/ssr"
+  status = 200
+  force = false
