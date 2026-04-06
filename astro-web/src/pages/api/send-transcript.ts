@@ -32,10 +32,13 @@ export const POST: APIRoute = async ({ request }) => {
       if (!str) return '';
       let html = escapeHtml(str);
         
-      // 2. Reemplazar sintaxis básica de Markdown
+      // 2. Reemplazar sintaxis básica de Markdown blindado
       html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Negritas
       html = html.replace(/(?<!\*)\*(.*?)\*(?!\*)/g, '<em>$1</em>'); // Cursivas
-      html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color:#004775;text-decoration:underline;">$1</a>'); // Enlaces
+      // Remover NUL bytes por seguridad (evasión de parsers)
+      html = html.replace(/\0/g, '');
+      // Regex Hardenizada: Solo se renderizan enlaces si el esquema es http:// o https://
+      html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, '<a href="$2" style="color:#004775;text-decoration:underline;">$1</a>');
       html = html.replace(/\n/g, '<br/>'); // Saltos de línea
       
       return html;
@@ -52,9 +55,9 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     if (!resendKey) {
+      console.error('ALERTA DE INFRAESTRUCTURA (Netlify): resendKey undefined. La llave secreta de correo no fue inyectada en el entorno.');
       return new Response(JSON.stringify({ 
-        error: 'No Resend API Key found',
-        debug_netlify: 'ALERTA: resendKey undefined. La llave de correo no fue inyectada por Netlify.'
+        error: 'Error interno del servidor (Missing Mail Credentials)'
       }), { status: 500 });
     }
 
