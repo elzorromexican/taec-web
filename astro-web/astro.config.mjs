@@ -25,9 +25,9 @@ import netlify from '@astrojs/netlify';
 const SITE = process.env.ASTRO_SITE || 'https://nuevo.taec.com.mx';
 const BASE = process.env.ASTRO_BASE || '/';
 
-// ASTRO_BUILD_MODE='server' se inyecta desde netlify.toml [build.environment] en el ROOT!
-// En GitHub Actions (GH Pages) esta variable no existe → isServerBuild = false
-const isServerBuild = process.env.ASTRO_BUILD_MODE === 'server';
+// Solo GitHub Pages necesita output static (ASTRO_STATIC_BUILD=true en el workflow).
+// Netlify inyecta ASTRO_BUILD_MODE=server. Dev local → server por defecto.
+const isStaticBuild = process.env.ASTRO_STATIC_BUILD === 'true';
 
 // https://astro.build/config
 export default defineConfig({
@@ -39,9 +39,8 @@ export default defineConfig({
     format: 'directory' // Generates /moodle-mexico/index.html etc.
   },
 
-  // Netlify (ASTRO_BUILD_MODE=server) → SSR completo.
-  // GitHub Pages / local → static
-  output: isServerBuild ? 'server' : 'static',
+  // GitHub Pages → static. Todo lo demás (Netlify, dev local) → server.
+  output: isStaticBuild ? 'static' : 'server',
   integrations: [react(), sitemap()],
   adapter: netlify()
 });
