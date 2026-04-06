@@ -25,6 +25,9 @@ import netlify from '@astrojs/netlify';
 const SITE = process.env.ASTRO_SITE || 'https://nuevo.taec.com.mx';
 const BASE = process.env.ASTRO_BASE || '/';
 
+// Netlify inyecta esta variable por defecto en sus builds de CI/CD
+const isNetlify = process.env.NETLIFY === 'true';
+
 // https://astro.build/config
 export default defineConfig({
   site: SITE,
@@ -35,7 +38,8 @@ export default defineConfig({
     format: 'directory' // Generates /moodle-mexico/index.html etc.
   },
 
-  output: 'server',
+  // Magia Condicional: SSR (Node) para Producción-Netlify, Estático para GH Pages Staging
+  output: isNetlify ? 'server' : 'static',
   integrations: [react(), sitemap()],
-  adapter: netlify()
+  adapter: isNetlify ? netlify() : undefined
 });
