@@ -54,7 +54,7 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <!-- Geo & Regional Tags -->
   <meta name="geo.region" content="MX" />
   <meta name="geo.placename" content="Ciudad de México" />
-  <link rel="alternate" hreflang="es-419" href={Astro.site || 'https://nuevo.taec.com.mx/'} />
+  <link rel="alternate" hreflang="es-419" href={canonicalURL} />
 
   <link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
 
@@ -87,28 +87,27 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   <link rel="stylesheet" href={`${base}assets/css/footer.css`} />
 
   <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json" is:inline set:html={`
-  {
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "TAEC",
-    "url": "https://nuevo.taec.com.mx",
-    "logo": "https://nuevo.taec.com.mx/assets/logo.svg",
+    "url": (Astro.site || 'https://nuevo.taec.com.mx').toString().replace(/\/$/, ''),
+    "logo": new URL(`${base}assets/logo.svg`, Astro.site || 'https://nuevo.taec.com.mx').toString(),
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+52-55-2775-8279",
       "contactType": "customer service"
     }
-  }
-  `} />
+  })} />
 
   <!-- Breadcrumbs Dinámicos -->
   {() => {
     const pathParts = Astro.url.pathname.split('/').filter(Boolean);
     if (pathParts.length === 0) return null;
     
+    const siteRoot = (Astro.site || 'https://nuevo.taec.com.mx').toString().replace(/\/$/, '');
     const breadcrumbItems = pathParts.map((part, index) => {
-      const url = `https://nuevo.taec.com.mx/${pathParts.slice(0, index + 1).join('/')}/`;
+      const url = `${siteRoot}/${pathParts.slice(0, index + 1).join('/')}/`;
       const name = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, ' ');
       return {
         "@type": "ListItem",
@@ -148,7 +147,7 @@ const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}$
   </a>
   )}
 
-  <ChatAgent client:load isApp={isApp} userName={Astro.locals?.user?.name || Astro.locals?.name || 'Slim'} />
+  <ChatAgent client:load isApp={isApp} userName={Astro.locals?.user?.name || Astro.locals?.name || 'Visitante'} />
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
   <script>
     let globalRevealObserver = null;
