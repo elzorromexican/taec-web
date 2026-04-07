@@ -35,21 +35,23 @@ export const POST: APIRoute = async ({ request }) => {
     }), { status: 429, headers: { 'Retry-After': '60' } });
   }
 
-  // Bypass para el Escáner Dast/SAST de Netlify: Vite reemplaza import.meta.env.KEY estáticamente.
-  // Al usar notación de corchetes dinámica, forzamos la lectura en runtime sin quemar el secreto en el código.
-  let activeModel = import.meta.env.TAEC_GEMINI_MODEL || import.meta.env.GEMINI_MODEL;
-  if (!activeModel && typeof process !== 'undefined' && process.env) {
-    activeModel = process.env.TAEC_GEMINI_MODEL || process.env.GEMINI_MODEL;
-  }
-  // En cuentas de Google de pago recientes como la de TAEC, el modelo soportado es la v2.5
-  activeModel = activeModel || 'gemini-2.5-flash';
-  
-  // ALERTA: Preferir SIEMPRE import.meta.env primero, ya que Astro monta aquí el .env local.
-  // process.env puede contener variables zombies del sistema operativo local (.zshrc).
-  let apiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
-  if (!apiKey && typeof process !== 'undefined' && process.env) {
-    apiKey = process.env.TAEC_GEMINI_KEY || process.env.GEMINI_API_KEY;
-  }
+  // Bypass Escáner Netlify: import.meta.env.KEY es reemplazado estáticamente por Vite en build,
+  // incrustando el valor literal en el chunk compilado y disparando el secrets scanner.
+  // Solución: notación de corchetes dinámica — Vite no puede resolver el valor en build time.
+  const envRecord = import.meta.env as Record<string, string | undefined>;
+  const processEnv = (typeof process !== 'undefined' && process.env)
+    ? process.env as Record<string, string | undefined>
+    : {} as Record<string, string | undefined>;
+
+  let activeModel =
+    processEnv['TAEC_GEMINI_MODEL'] || processEnv['GEMINI_MODEL'] ||
+    envRecord['TAEC_GEMINI_MODEL'] || envRecord['GEMINI_MODEL'] ||
+    'gemini-2.5-flash';
+
+  // process.env primero en producción (Netlify inyecta aquí); envRecord para dev local (.env)
+  let apiKey =
+    processEnv['TAEC_GEMINI_KEY'] || processEnv['GEMINI_API_KEY'] ||
+    envRecord['TAEC_GEMINI_KEY']   || envRecord['GEMINI_API_KEY'];
   
   // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
   if (typeof apiKey === 'string') {
