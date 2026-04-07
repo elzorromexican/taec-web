@@ -189,7 +189,7 @@ export default function AdminNovedades({
 
       {showModal && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999 }}>
-          <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '90%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+          <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '100%', maxWidth: '700px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
               <h3 style={{ margin: 0 }}>{editingId ? 'Editar Aviso' : 'Crear Nuevo Aviso'}</h3>
               <button 
@@ -249,7 +249,7 @@ export default function AdminNovedades({
                     required 
                     value={formData.contenido || ''} 
                     onChange={e => setFormData({ ...formData, contenido: e.target.value })} 
-                    style={{ width: '100%', padding: '12px', border: 'none', minHeight: '150px', outline: 'none', resize: 'vertical' }} 
+                    style={{ width: '100%', padding: '12px', border: 'none', minHeight: '350px', outline: 'none', resize: 'vertical' }} 
                     placeholder="Escribe el contenido aquí. Usa los botones de arriba para darle formato."
                   />
                 </div>
