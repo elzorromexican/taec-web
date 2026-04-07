@@ -67,9 +67,9 @@ export const POST: APIRoute = async ({ request }) => {
       apiKey = Netlify.env.get('TAEC_GEMINI_KEY') || Netlify.env.get('GEMINI_API_KEY');
     }
     
-    // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
+    // Sanitización forzosa extrema: Netlify UI no quita las comillas, si el usuario pegó "AIza..." el API las lee literales.
     if (typeof apiKey === 'string') {
-      apiKey = apiKey.trim();
+      apiKey = apiKey.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
     }
 
     const data = await request.json();
