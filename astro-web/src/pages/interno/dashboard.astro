@@ -13,7 +13,7 @@ export const prerender = false;
 
 import IntranetLayout from '../../layouts/IntranetLayout.astro';
 import { createClient } from '@supabase/supabase-js';
-import { marked } from 'marked';
+import snarkdown from 'snarkdown';
 
 const accessToken = Astro.locals.accessToken || "";
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
@@ -53,7 +53,7 @@ const { data: novedades } = await scopedSupabase
           <div class={`news-card border-t-${nov.badge_color}`}>
             <div class={`news-badge ${nov.badge_color}`}>{nov.badge_text}</div>
             <h3>{nov.titulo}</h3>
-            <div set:html={marked.parse(nov.contenido)} style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem; line-height: 1.5; flex-grow: 1;" class="markdown-body" />
+            <div set:html={snarkdown(nov.contenido)} style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem; line-height: 1.5; flex-grow: 1;" class="markdown-body" />
             <span class="news-date">{nov.fecha_display}</span>
           </div>
         ))
