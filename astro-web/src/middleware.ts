@@ -52,9 +52,9 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
       return redirect('/interno/denegado?reason=domain');
     }
 
-    // Validación 2: Obtener Rol y Estatus — usa supabaseAdmin (serviceKey) para bypassear RLS
-    // No bloqueamos si no existe en la BD. Si existe explícitamente como inactivo, lo bloqueamos.
-    const { data: userData } = await supabaseAdmin
+    // Validación 2: Obtener Rol y Estatus — usamos el cliente auth ya que el usuario está logueado
+    // Esto funciona porque RLS de usuarios_autorizados permite SELECT a "authenticated".
+    const { data: userData } = await supabase
       .from('usuarios_autorizados')
       .select('activo, rol')
       .eq('email', userEmail)
