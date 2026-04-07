@@ -21,43 +21,57 @@ const ratelimit = new Ratelimit({
 });
 
 export const POST: APIRoute = async ({ request }) => {
-  // 1. Detección de IP, País y Rate Limiting (Server-side Netlify)
-  let ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
-  if (ip.includes(',')) ip = ip.split(',')[0].trim();
-  
-  const countryCode = request.headers.get('x-nf-country') || 'N/A';
-  const location = request.headers.get('x-nf-city') || 'Desconocida';
-
-  const { success } = await ratelimit.limit(ip);
-  if (!success) {
-    return new Response(JSON.stringify({
-      error: 'Demasiadas consultas en corto tiempo. Mis circuitos necesitan enfriarse.'
-    }), { status: 429, headers: { 'Retry-After': '60' } });
-  }
-
-  // Secrets en SSR: NUNCA usar import.meta.env para llaves secretas en rutas de servidor.
-  // Vite serializa import.meta.env en el bundle compilado — el valor AIza... queda literal
-  // en el .mjs y dispara el secrets scanner de Netlify.
-  // process.env es leído en RUNTIME por la serverless function → nunca aparece en el bundle.
-  // En dev local con Astro 6+, cargar manualmente dotenv asegura que process.env esté poblado.
-  if (import.meta.env.DEV) {
-    const { config } = await import('dotenv');
-    config();
-  }
-
-  const penv = (typeof process !== 'undefined' && process.env)
-    ? process.env as Record<string, string | undefined>
-    : {} as Record<string, string | undefined>;
-
-  const activeModel = penv['TAEC_GEMINI_MODEL'] || penv['GEMINI_MODEL'] || 'gemini-2.5-flash';
-  let apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'];
-  
-  // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
-  if (typeof apiKey === 'string') {
-    apiKey = apiKey.trim();
-  }
-
   try {
+    // 1. Detección de IP, País y Rate Limiting (Server-side Netlify)
+    let ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
+    if (ip.includes(',')) ip = ip.split(',')[0].trim();
+    
+    const countryCode = request.headers.get('x-nf-country') || 'N/A';
+    const location = request.headers.get('x-nf-city') || 'Desconocida';
+
+    // Wrap in try-catch in case UPSTASH env vars are missing/invalid to prevent unhandled rejection
+    try {
+      const { success } = await ratelimit.limit(ip);
+      if (!success) {
+        return new Response(JSON.stringify({
+          error: 'Demasiadas consultas en corto tiempo. Mis circuitos necesitan enfriarse.'
+        }), { status: 429, headers: { 'Retry-After': '60' } });
+      }
+    } catch (rlError: any) {
+      console.warn("Ratelimiter bypass or error (posiblemente tokens faltantes):", rlError.message || rlError);
+      // No bloqueamos el chat si Upstash falla, simplemente saltamos la comprobación de rate limit
+    }
+
+    // Secrets en SSR: NUNCA usar import.meta.env para llaves secretas en rutas de servidor.
+    // Vite serializa import.meta.env en el bundle compilado — el valor AIza... queda literal
+    // en el .mjs y dispara el secrets scanner de Netlify.
+    // process.env es leído en RUNTIME por la serverless function → nunca aparece en el bundle.
+    // En dev local con Astro 6+, cargar manualmente dotenv asegura que process.env esté poblado.
+    if (import.meta.env.DEV) {
+      const { config } = await import('dotenv');
+      config();
+    }
+
+    const penv = (typeof process !== 'undefined' && process.env)
+      ? process.env as Record<string, string | undefined>
+      : {} as Record<string, string | undefined>;
+
+    const activeModel = penv['TAEC_GEMINI_MODEL'] || penv['GEMINI_MODEL'] || 'gemini-2.5-flash';
+    let apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'];
+
+    // Fallback para Netlify Edge/Deno context donde process.env puede no estar poblado,
+    // pero Netlify expone un objeto global "Netlify" con entorno.
+    // @ts-ignore
+    if (!apiKey && typeof Netlify !== 'undefined' && Netlify.env) {
+      // @ts-ignore
+      apiKey = Netlify.env.get('TAEC_GEMINI_KEY') || Netlify.env.get('GEMINI_API_KEY');
+    }
+    
+    // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
+    if (typeof apiKey === 'string') {
+      apiKey = apiKey.trim();
+    }
+
     const data = await request.json();
     const { history, userMessage, email } = data;
 

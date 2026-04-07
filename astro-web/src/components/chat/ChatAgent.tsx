@@ -317,7 +317,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        let errorTxt = '¡Ups! Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.';
+        let errorTxt = data.error || '¡Ups! Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.';
         // Eliminamos la exposición del error raw JSON al cliente final
         // if (data.debug_netlify) {
         //    errorTxt += `\n\n*(Debug Netlify: ${data.debug_netlify})*`;
