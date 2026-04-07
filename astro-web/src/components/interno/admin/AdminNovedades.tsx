@@ -128,7 +128,7 @@ export default function AdminNovedades({
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {novedades.map(nov => (
-            <div key={nov.id} style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '1rem', background: nov.activo ? '#fff' : '#f8fafc', opacity: nov.activo ? 1 : 0.6 }}>
+            <div key={nov.id} style={{ border: nov.activo ? '1px solid #cbd5e1' : '1px dashed #94a3b8', borderRadius: '8px', padding: '1rem', background: nov.activo ? '#ffffff' : '#f1f5f9', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
                   <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: '99px', fontSize: '0.75rem', fontWeight: 'bold', background: nov.badge_color === 'orange' ? '#ffedd5' : '#dbeafe', color: nov.badge_color === 'orange' ? '#c2410c' : '#1d4ed8', marginBottom: '8px' }}>
