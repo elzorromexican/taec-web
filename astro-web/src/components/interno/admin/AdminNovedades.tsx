@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getSupabaseClient } from './supabaseHelper';
-import MDEditor from '@uiw/react-md-editor';
 
 type Novedad = {
   id: string;
@@ -113,6 +112,28 @@ export default function AdminNovedades({
     setShowModal(true);
   };
 
+  // Ref and insertion logic for civilized Markdown toolbar
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const insertMarkdown = (prefix: string, suffix: string) => {
+    if (!textareaRef.current) return;
+    const textarea = textareaRef.current;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = formData.contenido || '';
+    
+    // Si hay texto seleccionado, lo envolvemos. Si no, insertamos un texto base.
+    const selectedText = text.substring(start, end) || 'texto';
+    const newText = text.substring(0, start) + prefix + selectedText + suffix + text.substring(end);
+    
+    setFormData({ ...formData, contenido: newText });
+    
+    // Regresamos el foco al textarea
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(start + prefix.length, start + prefix.length + selectedText.length);
+    }, 0);
+  };
+
   return (
     <div className="admin-tab-content">
       <div className="content-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -213,15 +234,25 @@ export default function AdminNovedades({
                 </div>
               </div>
 
-              <div data-color-mode="light">
-                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (Editor Visual)</label>
-                <MDEditor
-                  value={formData.contenido || ''}
-                  onChange={(val) => setFormData({ ...formData, contenido: val || '' })}
-                  preview="edit"
-                  height={250}
-                  style={{ border: '1px solid #cbd5e1', borderRadius: '4px', overflow: 'hidden' }}
-                />
+              <div>
+                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad</label>
+                <div style={{ border: '1px solid #cbd5e1', borderRadius: '6px', overflow: 'hidden', background: '#fff' }}>
+                  {/* Native Civilized Toolbar */}
+                  <div style={{ padding: '8px', background: '#f8fafc', borderBottom: '1px solid #cbd5e1', display: 'flex', gap: '8px' }}>
+                    <button type="button" onClick={() => insertMarkdown('**', '**')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', fontWeight: 'bold', cursor: 'pointer' }}>B</button>
+                    <button type="button" onClick={() => insertMarkdown('*', '*')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', fontStyle: 'italic', cursor: 'pointer' }}>I</button>
+                    <button type="button" onClick={() => insertMarkdown('[', '](https://)')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer' }}>🔗 Enlace</button>
+                    <button type="button" onClick={() => insertMarkdown('\n* ', '')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer' }}>• Lista</button>
+                  </div>
+                  <textarea 
+                    ref={textareaRef}
+                    required 
+                    value={formData.contenido || ''} 
+                    onChange={e => setFormData({ ...formData, contenido: e.target.value })} 
+                    style={{ width: '100%', padding: '12px', border: 'none', minHeight: '150px', outline: 'none', resize: 'vertical' }} 
+                    placeholder="Escribe el contenido aquí. Usa los botones de arriba para darle formato."
+                  />
+                </div>
               </div>
 
               <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
