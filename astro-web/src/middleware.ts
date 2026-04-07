@@ -54,11 +54,13 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, redire
 
     // Validación 2: Obtener Rol y Estatus — usamos el cliente auth ya que el usuario está logueado
     // Esto funciona porque RLS de usuarios_autorizados permite SELECT a "authenticated".
-    const { data: userData } = await supabase
+    const { data: userData, error: userError } = await supabase
       .from('usuarios_autorizados')
       .select('activo, rol')
-      .eq('email', userEmail)
+      .ilike('email', userEmail)
       .single();
+
+    console.log(`[DEBUG AUTH] Evaluando perfil de: ${userEmail}. Result:`, userData, `Error DB:`, userError?.message);
 
     // Soft-Ban: Si RRHH lo desactivó aquí antes de que TI borre el correo en Google
     if (userData && userData.activo === false) {
