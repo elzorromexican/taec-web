@@ -35,23 +35,17 @@ export const POST: APIRoute = async ({ request }) => {
     }), { status: 429, headers: { 'Retry-After': '60' } });
   }
 
-  // Bypass Escáner Netlify: import.meta.env.KEY es reemplazado estáticamente por Vite en build,
-  // incrustando el valor literal en el chunk compilado y disparando el secrets scanner.
-  // Solución: notación de corchetes dinámica — Vite no puede resolver el valor en build time.
-  const envRecord = import.meta.env as Record<string, string | undefined>;
-  const processEnv = (typeof process !== 'undefined' && process.env)
+  // Secrets en SSR: NUNCA usar import.meta.env para llaves secretas en rutas de servidor.
+  // Vite serializa el objeto import.meta.env COMPLETO en el bundle compilado — el valor
+  // AIza... queda literal en el .mjs y dispara el secrets scanner de Netlify.
+  // process.env es leído en RUNTIME por la serverless function → nunca aparece en el bundle.
+  // En dev local, Astro/Vite carga el .env via dotenv y también popula process.env.
+  const penv = (typeof process !== 'undefined' && process.env)
     ? process.env as Record<string, string | undefined>
     : {} as Record<string, string | undefined>;
 
-  let activeModel =
-    processEnv['TAEC_GEMINI_MODEL'] || processEnv['GEMINI_MODEL'] ||
-    envRecord['TAEC_GEMINI_MODEL'] || envRecord['GEMINI_MODEL'] ||
-    'gemini-2.5-flash';
-
-  // process.env primero en producción (Netlify inyecta aquí); envRecord para dev local (.env)
-  let apiKey =
-    processEnv['TAEC_GEMINI_KEY'] || processEnv['GEMINI_API_KEY'] ||
-    envRecord['TAEC_GEMINI_KEY']   || envRecord['GEMINI_API_KEY'];
+  const activeModel = penv['TAEC_GEMINI_MODEL'] || penv['GEMINI_MODEL'] || 'gemini-2.5-flash';
+  let apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'];
   
   // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
   if (typeof apiKey === 'string') {
