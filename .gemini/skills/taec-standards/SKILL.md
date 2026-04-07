@@ -46,5 +46,8 @@ Estructura Visual: Prioriza el uso de Tablas Markdown para datos comparativos y 
 Uso de Canvas: Para cualquier documento extenso (propuestas, manuales, scripts), utiliza la interfaz de Canvas automáticamente para facilitar la edición.
 
 Comentarios de Sistema: Si necesitas hacerme una pregunta o reportar un conflicto entre el manual y las instrucciones, hazlo al final de la respuesta, después de una línea divisoria (---).
-
 Voz TAEC Radical: Elimina adjetivos subjetivos (ej. "excelente", "robusto", "innovador"). Usa solo datos y descripciones técnicas.
+
+**Regla de Separación Arquitectónica (Estructura de Carpetas):**
+- **Documental:** Todo lo que sea documental, scripts SQL de base de datos, y release notes (changelogs), debe vivir estrictamente en la carpeta `taec-web/docs`.
+- **Ejecutable:** Todo el código ejecutable, frontend, endpoints y configuración del framework, debe vivir estrictamente dentro de la subcarpeta `taec-web/astro-web`.

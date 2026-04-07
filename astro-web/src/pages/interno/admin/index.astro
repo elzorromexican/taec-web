@@ -12,6 +12,7 @@
 export const prerender = false;
 import IntranetLayout from '../../../layouts/IntranetLayout.astro';
 import { supabase } from '../../../lib/supabase';
+import AdminUI from '../../../components/interno/admin/AdminUI';
 
 const supabaseDashboardUrl = import.meta.env.PUBLIC_SUPABASE_URL ? import.meta.env.PUBLIC_SUPABASE_URL.replace('.supabase.co', '') + '/project/default' : 'https://supabase.com/dashboard/projects';
 
@@ -27,22 +28,12 @@ if (Astro.locals?.rol !== 'admin') {
     <p>Aprueba contenido generado por los empleados, gestiona configuraciones del Hub y modifica links maestros.</p>
   </header>
 
-  <div class="metrics-grid">
-    <div class="ui-card warning-state">
-      <div class="card-icon">⏳</div>
-      <h3>Sugerencias Pendientes</h3>
-      <p class="massive-metric">0</p>
-      <p>Entradas esperando revisión para ser insertadas en los Playbooks o en el Blog.</p>
-      <button class="btn-primary mt-2" disabled>Bandeja Vacía</button>
-    </div>
-
-    <div class="ui-card info-state">
-      <div class="card-icon">⚙️</div>
-      <h3>Variables Globales (DB)</h3>
-      <p>Modifica los URLs de los botones de Cotizadores y accesos directos al Google Drive general.</p>
-      <a href={supabaseDashboardUrl} target="_blank" rel="noopener noreferrer" class="btn-secondary mt-2 text-center" style="display:block; text-decoration:none;">Lanzar Supabase Interface</a>
-    </div>
-  </div>
+  <AdminUI 
+    client:only="react"
+    supabaseUrl={import.meta.env.PUBLIC_SUPABASE_URL}
+    supabaseKey={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    accessToken={Astro.locals.accessToken}
+  />
 </IntranetLayout>
 
 <style>

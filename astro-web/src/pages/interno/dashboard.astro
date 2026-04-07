@@ -9,7 +9,23 @@
  * @created 2026-03-01
  * @updated 2026-04-04 12:12:00
  */
+export const prerender = false;
 import IntranetLayout from '../../layouts/IntranetLayout.astro';
+import { createClient } from '@supabase/supabase-js';
+
+const accessToken = Astro.locals.accessToken || "";
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const scopedSupabase = createClient(supabaseUrl, supabaseAnonKey, {
+  global: { headers: { Authorization: `Bearer ${accessToken}` } }
+});
+
+const { data: novedades } = await scopedSupabase
+  .from('intranet_novedades')
+  .select('*')
+  .eq('activo', true)
+  .order('orden', { ascending: true })
+  .order('created_at', { ascending: false });
 ---
 
 <IntranetLayout title="Dashboard Intranet | TAEC" description="Lobby corporativo">
@@ -20,24 +36,28 @@ import IntranetLayout from '../../layouts/IntranetLayout.astro';
     <p>Bienvenido a la terminal central de herramientas, cotizadores y playbooks de TAEC.</p>
   </div>
 
-  <!-- AVISOS IMPORTANTES (Hardcodeados temporalmente) -->
+  <!-- AVISOS IMPORTANTES (Dinámicos vía Supabase) -->
   <div class="dashboard-section mt-10">
-    <h2 class="section-title">Novedades de la Semana</h2>
+    <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #e2e8f0; margin-bottom: 1.5rem;">
+      <h2 class="section-title" style="border-bottom: none; margin-bottom: 0;">Novedades de la Semana</h2>
+      {Astro.locals?.rol === 'admin' && (
+        <a href="/interno/admin" style="font-size: 0.85rem; color: #3b82f6; text-decoration: none; font-weight: bold;">✚ Gestionar Avisos</a>
+      )}
+    </div>
     
     <div class="news-grid">
-      <div class="news-card important border-t-orange">
-        <div class="news-badge orange">Uso Interno</div>
-        <h3>Nueva versión del Cotizador DDC 2026</h3>
-        <p title="⚠️ Exclusivo para el equipo comercial TAEC. Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña Cotizadores.">⚠️ <strong>Exclusivo para el equipo comercial TAEC.</strong> Hemos relocalizado la calculadora financiera de Desarrollo de Contenidos. Esta herramienta está diseñada para ayudarles a formular estimaciones rápidas de costos con sus prospectos. Ingresen desde el menú izquierdo en la pestaña "Cotizadores".</p>
-        <span class="news-date">06 Abr 2026</span>
-      </div>
-
-      <div class="news-card border-t-blue">
-        <div class="news-badge blue">Promoción Q2</div>
-        <h3>Localization integrado (Uso Libre)</h3>
-        <p title='Articulate 360 ha integrado "Localization" de uso libre para traducir cursos internamente. Ojo: No se pueden exportar ni publicar sin adquirir el paquete base y los paquetes adicionales. Tenemos una promoción activa durante todo el Q2 con un 25% de descuento en todos los paquetes de Localization.'>Articulate 360 ha integrado "Localization" de uso libre para traducir cursos internamente. <strong>Ojo:</strong> No se pueden exportar ni publicar sin adquirir el paquete base y los paquetes adicionales. Tenemos una promoción activa durante todo el Q2 con un <strong>25% de descuento</strong> en todos los paquetes de Localization.</p>
-        <span class="news-date">06 Abr 2026</span>
-      </div>
+      {novedades && novedades.length > 0 ? (
+        novedades.map((nov: any) => (
+          <div class={`news-card border-t-${nov.badge_color}`}>
+            <div class={`news-badge ${nov.badge_color}`}>{nov.badge_text}</div>
+            <h3>{nov.titulo}</h3>
+            <div set:html={nov.contenido} style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem; line-height: 1.5; flex-grow: 1;" />
+            <span class="news-date">{nov.fecha_display}</span>
+          </div>
+        ))
+      ) : (
+        <p style="color: #64748b;">No hay novedades para mostrar en este momento.</p>
+      )}
     </div>
   </div>
 
