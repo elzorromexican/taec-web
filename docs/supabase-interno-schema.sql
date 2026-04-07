@@ -25,6 +25,7 @@ ALTER TABLE usuarios_autorizados ENABLE ROW LEVEL SECURITY;
 
 -- Políticas de RLS para el Whitelist (Solo lectura para validación).
 -- Para Astro Auth en SSR, validaremos desde base de datos evadiendo RLS con la "Service Role Key" internamente, o en su defecto permitiendo selects generales autenticados por ser intranet.
+DROP POLICY IF EXISTS "La lista blanca es de lectura pública para autenticados" ON usuarios_autorizados;
 CREATE POLICY "La lista blanca es de lectura pública para autenticados" 
   ON usuarios_autorizados FOR SELECT TO authenticated USING (true);
 
@@ -55,6 +56,7 @@ CREATE TABLE IF NOT EXISTS kb_items (
 ALTER TABLE kb_items ENABLE ROW LEVEL SECURITY;
 
 -- Para visualizar internamente, cualquiera en auth puede leer.
+DROP POLICY IF EXISTS "Visualizar KBs es posible para todo autenticado" ON kb_items;
 CREATE POLICY "Visualizar KBs es posible para todo autenticado" 
   ON kb_items FOR SELECT TO authenticated USING (true);
 
