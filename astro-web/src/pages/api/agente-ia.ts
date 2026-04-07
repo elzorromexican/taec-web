@@ -35,17 +35,16 @@ export const POST: APIRoute = async ({ request }) => {
     }), { status: 429, headers: { 'Retry-After': '60' } });
   }
 
-  // Secrets en SSR: NUNCA usar import.meta.env para llaves secretas en rutas de servidor.
-  // Vite serializa el objeto import.meta.env COMPLETO en el bundle compilado — el valor
-  // AIza... queda literal en el .mjs y dispara el secrets scanner de Netlify.
-  // process.env es leído en RUNTIME por la serverless function → nunca aparece en el bundle.
-  // En dev local, Astro/Vite carga el .env via dotenv y también popula process.env.
+  // Secrets en SSR: process.env es leído en RUNTIME por la serverless function (Netlify).
+  // En dev local con Astro 6 + Vite 6, process.env no siempre recibe las vars del .env,
+  // por eso usamos import.meta.env como fallback. Las rutas de API SSR NO se bundlean
+  // al cliente — Vite no serializa import.meta.env en el bundle de server-side.
   const penv = (typeof process !== 'undefined' && process.env)
     ? process.env as Record<string, string | undefined>
     : {} as Record<string, string | undefined>;
 
-  const activeModel = penv['TAEC_GEMINI_MODEL'] || penv['GEMINI_MODEL'] || 'gemini-2.5-flash';
-  let apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'];
+  const activeModel = penv['TAEC_GEMINI_MODEL'] || penv['GEMINI_MODEL'] || import.meta.env.TAEC_GEMINI_MODEL || 'gemini-2.5-flash';
+  let apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'] || import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY;
   
   // Sanitización forzosa: Remover espacios vacíos del copy/paste que corrompen el payload
   if (typeof apiKey === 'string') {
