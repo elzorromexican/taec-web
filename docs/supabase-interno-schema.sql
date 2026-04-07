@@ -64,13 +64,24 @@ CREATE POLICY "Visualizar KBs es posible para todo autenticado"
 -- INSERCIÓN INICIAL / DUMMY DATA ("SEEDS")
 -- ==========================================
 
--- Usuarios Iniciales (Seed de la directiva)
-INSERT INTO usuarios_autorizados (email, nombre, activo, rol) 
+-- Usuarios Iniciales (Seed Corporativo)
+INSERT INTO usuarios_autorizados (email, nombre, rol, activo)
 VALUES 
-  ('slim@taec.com.mx', 'Slim Masmoudi', true, 'admin'),
-  ('mauricio@taec.com.mx', 'Mauricio Ocampo', true, 'admin'),
-  ('sonia@taec.com.mx', 'Sonia', true, 'empleado')
-ON CONFLICT (email) DO UPDATE SET rol = EXCLUDED.rol;
+  ('smasmoudi@taec.com.mx',  'Slim',     'admin',    true),
+  ('mocampo@taec.com.mx',    'Mauricio', 'empleado', true),
+  ('jhernandez@taec.com.mx', 'Juan',     'admin',    true),
+  ('mfernandez@taec.com.mx', 'Margo',    'empleado', true),
+  ('spineda@taec.com.mx',    'Servando', 'empleado', true),
+  ('imeneri@taec.com.mx',    'Imelda',   'empleado', true),
+  ('vsanchez@taec.com.mx',   'Victor',   'admin',    true),
+  ('pmartinez@taec.com.mx',  'Pablo',    'empleado', true),
+  ('jsanchez@taec.com.mx',   'Jessica',  'empleado', true),
+  ('sfranco@taec.com.mx',    'Sergio',   'admin',    true),
+  ('sambriz@taec.com.mx',    'Sonia',    'empleado', true)
+ON CONFLICT (email) DO UPDATE 
+  SET nombre = EXCLUDED.nombre,
+      rol    = EXCLUDED.rol,
+      activo = EXCLUDED.activo;
 
 
 -- Registros Rise 360 (Seed Base corregido. Inserta aquí los 40 registros completos según el HTML cuando estén disponibles)
