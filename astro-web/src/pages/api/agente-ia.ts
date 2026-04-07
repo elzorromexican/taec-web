@@ -1,6 +1,6 @@
 export const prerender = false; // Forza este endpoint a ser SSR
 
-import { GoogleGenAI } from '@google/genai';
+// Eliminado el import del SDK de Google para usar REST nativo (cero dependencias de Node que choquen en Netlify)
 import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
 import { Ratelimit } from '@upstash/ratelimit';
@@ -118,8 +118,6 @@ export const POST: APIRoute = async ({ request }) => {
       }), { status: 401 });
     }
 
-    const ai = new GoogleGenAI({ apiKey });
-
     const isMexico = countryCode === 'MX';
 
     // ACTUALIZACIÓN DE ESTADO V3.7: Inyección de Cerebro Competitivo (Puntomov + Mercados Emergentes)
@@ -189,41 +187,49 @@ ${email ? `\n🚨 NOTA OPERATIVA DE SISTEMA: El usuario YA NOS PROPORCIONÓ SU C
       lastItem.parts[0].text += "\n" + userMessage;
     }
 
-    let response;
+    let responseText = "";
     let attempts = 0;
     const maxAttempts = 3;
     
     while (attempts < maxAttempts) {
       try {
-        response = await ai.models.generateContent({
-          model: activeModel,
-          contents: geminiHistory,
-          config: {
-            systemInstruction: systemPrompt
-          }
+        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
+        const restRes = await fetch(googleUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: geminiHistory,
+            system_instruction: { parts: [{ text: systemPrompt }] }
+          })
         });
-        break; // Si tiene éxito, salimos del loop
+        
+        const restData = await restRes.json();
+        
+        if (!restRes.ok) {
+           throw new Error(`[REST ${restRes.status}] ${JSON.stringify(restData)}`);
+        }
+        
+        responseText = restData.candidates?.[0]?.content?.parts?.[0]?.text;
+        break; // Éxito
       } catch (err: any) {
         attempts++;
         console.warn(`[GEMINI RETRY] Intento ${attempts}/${maxAttempts} fallido:`, err.message || err);
         
-        // Retornar si ya agotamos los intentos
         if (attempts >= maxAttempts) throw err;
         
-        // Chequeo de error enrutado (503 Service Unavailable o 429 Rate Limit de Google)
-        const isRetryable = err.status === 503 || err.status === 429 || err.status === 500 || String(err).includes('503') || String(err).includes('UNAVAILABLE');
+        // Retry logic solo para errores 5xx o de red
+        const isRetryable = String(err).includes('503') || String(err).includes('500') || String(err).includes('429');
         if (!isRetryable) throw err;
         
-        // Backoff exponencial simple: Esperar 1.5s, luego 3s antes del siguiente intento
         await new Promise(r => setTimeout(r, 1500 * attempts)); 
       }
     }
 
-    if (!response) {
+    if (!responseText) {
       throw new Error('Saturación extrema. No se pudo obtener respuesta tras 3 intentos.');
     }
     
-    const reply = response.text || "Lo siento, tuve un micro-corto circuito decodificando la señal. ¿Me das un segundo y me lo repites?";
+    const reply = responseText || "Lo siento, tuve un micro-corto circuito decodificando la señal. ¿Me das un segundo y me lo repites?";
 
     return new Response(
       JSON.stringify({ reply }),
