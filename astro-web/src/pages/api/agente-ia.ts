@@ -237,10 +237,10 @@ ${email ? `\n🚨 NOTA OPERATIVA DE SISTEMA: El usuario YA NOS PROPORCIONÓ SU C
     );
   } catch (error: any) {
     console.error("Error en Gemini API SSR Endpoint:", error.message || error);
-    // Temporalmente exponemos el error interno en producción para depurar
+    // Retornamos un error genérico y amigable en producción
     return new Response(
       JSON.stringify({ 
-        error: `Hubo un error interno de saturación contactando al procesador central (500). DETALLE TÉCNICO: ${error.message || String(error)} [Debug Key ends in: ${apiKey?.slice(-4)}]`
+        error: 'Hubo un error interno de saturación contactando al procesador central (500). Por favor, intenta de nuevo más tarde.'
       }),
       { status: 500 }
     );
