@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getSupabaseClient } from './supabaseHelper';
+import MDEditor from '@uiw/react-md-editor';
 
 type Novedad = {
   id: string;
@@ -212,9 +213,15 @@ export default function AdminNovedades({
                 </div>
               </div>
 
-              <div>
-                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido (Soporta Markdown: **negrita**, *cursiva*, viñetas, etc)</label>
-                <textarea required value={formData.contenido || ''} onChange={e => setFormData({ ...formData, contenido: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1', minHeight: '100px' }} />
+              <div data-color-mode="light">
+                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (Editor Visual)</label>
+                <MDEditor
+                  value={formData.contenido || ''}
+                  onChange={(val) => setFormData({ ...formData, contenido: val || '' })}
+                  preview="edit"
+                  height={250}
+                  style={{ border: '1px solid #cbd5e1', borderRadius: '4px', overflow: 'hidden' }}
+                />
               </div>
 
               <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
