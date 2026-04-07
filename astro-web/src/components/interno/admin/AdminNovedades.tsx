@@ -213,7 +213,7 @@ export default function AdminNovedades({
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Contenido (Permite tags HTML básicos)</label>
+                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido (Soporta Markdown: **negrita**, *cursiva*, viñetas, etc)</label>
                 <textarea required value={formData.contenido || ''} onChange={e => setFormData({ ...formData, contenido: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1', minHeight: '100px' }} />
               </div>
 

@@ -13,6 +13,7 @@ export const prerender = false;
 
 import IntranetLayout from '../../layouts/IntranetLayout.astro';
 import { createClient } from '@supabase/supabase-js';
+import { marked } from 'marked';
 
 const accessToken = Astro.locals.accessToken || "";
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
@@ -52,7 +53,7 @@ const { data: novedades } = await scopedSupabase
           <div class={`news-card border-t-${nov.badge_color}`}>
             <div class={`news-badge ${nov.badge_color}`}>{nov.badge_text}</div>
             <h3>{nov.titulo}</h3>
-            <div set:html={nov.contenido} style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem; line-height: 1.5; flex-grow: 1;" />
+            <div set:html={marked.parse(nov.contenido)} style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem; line-height: 1.5; flex-grow: 1;" class="markdown-body" />
             <span class="news-date">{nov.fecha_display}</span>
           </div>
         ))
@@ -179,6 +180,27 @@ const { data: novedades } = await scopedSupabase
     color: #94a3b8;
     font-weight: 500;
     margin-top: auto;
+  }
+  
+  /* Markdown Styles for Novedades */
+  .markdown-body p {
+    margin: 0 0 0.5rem 0;
+  }
+  .markdown-body p:last-child {
+    margin-bottom: 0;
+  }
+  .markdown-body ul {
+    margin: 0 0 0.5rem 1.5rem;
+    padding: 0;
+    list-style-type: disc;
+  }
+  .markdown-body strong {
+    color: #1e293b;
+    font-weight: 600;
+  }
+  .markdown-body a {
+    color: #3b82f6;
+    text-decoration: underline;
   }
 
   .grid-links {
