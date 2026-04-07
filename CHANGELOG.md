@@ -234,6 +234,11 @@ Vyond                                             7 Minutes
 
 ## Próximos cambios se registran aquí ↓
 
+### 07 abr 2026 — Hardening Serverless y REST Bypass (TitoBits v6.1)
+- **Bypass del SDK Google GenAI:** Identificado un conflicto de asincronía silencioso entre el entorno Edge/Lambda de Netlify (Node 20) y la librería en versión *preview* `@google/genai` que corrompía las cabeceras resultando en códigos crudos `401 Unauthorized` de Google Cloud.
+- **Arquitectura Fetch Nativa:** Erradicación total de la dependencia del SDK en `api/agente-ia.ts`. Construcción de un puente HTTP `fetch` puro comunicándose directamente con la API REST `/v1beta/models/...:generateContent`, logrando inmunidad Serverless.
+- **Sanitización Extrema (Environment):** Inserción de middlewares desinfectantes (`String.prototype.replace`) al momento de evaluar variables en el Runtime de Netlify para repeler inyecciones accidentales de copiado/pegado provocados por la UI web.
+
 ### 20 mar 2026 — Refactorización y Limpieza
 - **Refactor (DRY):** Se extrajo la lógica de rutas absolutas `r(url)` que estaba duplicada en 49 páginas hacia el nuevo archivo central `src/utils/paths.ts`.
 - **Limpieza (Purga):** Se eliminaron definitivamente las páginas y las referencias en la interfaz gráfica de los productos descontinuados: **Zoola Analytics**, **BigBlueButton** y **GO1**.
