@@ -24,6 +24,7 @@ export default function AdminNovedades({
   const [novedades, setNovedades] = useState<Novedad[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<Novedad>>({
     badge_color: 'blue',
     orden: 10,
@@ -64,18 +65,51 @@ export default function AdminNovedades({
     }
   };
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { error } = await supabase
-      .from('intranet_novedades')
-      .insert([{ ...formData }]);
-    if (!error) {
-      setShowModal(false);
-      setFormData({ badge_color: 'blue', orden: 10, activo: true });
-      fetchNovedades();
+    // Preparamos payload excluyendo ID e informaciones generadas
+    const { id, created_at, ...payload } = formData as any;
+
+    if (editingId) {
+      const { error } = await supabase
+        .from('intranet_novedades')
+        .update(payload)
+        .eq('id', editingId);
+
+      if (!error) {
+        setShowModal(false);
+        setEditingId(null);
+        setFormData({ badge_color: 'blue', orden: 10, activo: true });
+        fetchNovedades();
+      } else {
+        alert("Error actualizando novedad: " + error.message);
+      }
     } else {
-      alert("Error creando novedad: " + error.message);
+      const { error } = await supabase
+        .from('intranet_novedades')
+        .insert([payload]);
+
+      if (!error) {
+        setShowModal(false);
+        setEditingId(null);
+        setFormData({ badge_color: 'blue', orden: 10, activo: true });
+        fetchNovedades();
+      } else {
+        alert("Error creando novedad: " + error.message);
+      }
     }
+  };
+
+  const openCreate = () => {
+    setEditingId(null);
+    setFormData({ badge_color: 'blue', orden: 10, activo: true });
+    setShowModal(true);
+  };
+
+  const openEdit = (nov: Novedad) => {
+    setEditingId(nov.id);
+    setFormData(nov);
+    setShowModal(true);
   };
 
   return (
@@ -83,7 +117,7 @@ export default function AdminNovedades({
       <div className="content-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h3>Gestión de Novedades (Dashboard)</h3>
         <button 
-          onClick={() => setShowModal(true)} 
+          onClick={openCreate} 
           style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>
           + Nuevo Aviso
         </button>
@@ -104,6 +138,11 @@ export default function AdminNovedades({
                   <p style={{ margin: 0, fontSize: '0.9rem', color: '#475569' }}>{nov.fecha_display} | Orden: {nov.orden}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                  <button 
+                    onClick={() => openEdit(nov)}
+                    style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>
+                    Editar
+                  </button>
                   <button 
                     onClick={() => toggleActivo(nov.id, nov.activo)}
                     style={{ background: nov.activo ? '#ef4444' : '#10b981', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>
@@ -127,14 +166,22 @@ export default function AdminNovedades({
       )}
 
       {showModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
-          <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '90%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999 }}>
+          <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '90%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h3 style={{ margin: 0 }}>Crear Nuevo Aviso</h3>
-              <button onClick={() => setShowModal(false)} style={{ background: 'transparent', border: 'none', fontSize: '1.2rem', cursor: 'pointer' }}>×</button>
+              <h3 style={{ margin: 0 }}>{editingId ? 'Editar Aviso' : 'Crear Nuevo Aviso'}</h3>
+              <button 
+                type="button" 
+                onClick={() => {
+                  setShowModal(false);
+                  setEditingId(null);
+                }} 
+                style={{ background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer', lineHeight: '1' }}>
+                ×
+              </button>
             </div>
             
-            <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Título</label>
                 <input required type="text" value={formData.titulo || ''} onChange={e => setFormData({ ...formData, titulo: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
@@ -171,7 +218,7 @@ export default function AdminNovedades({
               </div>
 
               <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
-                Publicar Aviso
+                {editingId ? 'Guardar Cambios' : 'Publicar Aviso'}
               </button>
             </form>
           </div>
