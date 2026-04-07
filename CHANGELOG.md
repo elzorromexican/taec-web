@@ -56,6 +56,46 @@ Producción futura: `https://nuevo.taec.com.mx`
 
 ---
 
+## v2.1 · 06 abr 2026
+
+### Fix crítico — Netlify Secrets Scanner (build roto)
+
+**Síntoma:** Build de Netlify fallaba con exit code 2. El secrets scanner detectaba `AIza...` (API key de Google Gemini) incrustada en `.netlify/build/chunks/agente-ia_*.mjs`.
+
+**Causa raíz:** Vite serializa el objeto `import.meta.env` completo en el bundle SSR compilado. Cualquier variable presente en el entorno de build queda como valor literal en el `.mjs` — incluyendo secrets. El scanner de Netlify escanea el output final y bloquea el deploy correctamente.
+
+**Fix:** `src/pages/api/agente-ia.ts` — eliminado todo uso de `import.meta.env` para secrets. Reemplazado por `process.env` exclusivamente.
+
+```typescript
+// ❌ Antes — Vite inlinea el valor en el bundle
+let apiKey = import.meta.env.TAEC_GEMINI_KEY;
+
+// ✅ Después — leído en runtime por la serverless function, nunca en el bundle
+const apiKey = process.env['TAEC_GEMINI_KEY'];
+```
+
+`process.env` en Netlify SSR es inyectado por la plataforma en runtime. En dev local, Vite/Astro popula `process.env` desde `.env` via dotenv — funciona en ambos ambientes.
+
+**Regla arquitectónica establecida:** En API routes SSR, todos los secrets (`TAEC_GEMINI_KEY`, `RESEND_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, etc.) deben accederse únicamente via `process.env`. Nunca via `import.meta.env`.
+
+### Sanitización XSS — `send-transcript.ts`
+
+- Regex de Markdown hardenizado: solo acepta esquemas `http://` y `https://` en enlaces — bloquea `javascript:`, `data:`, `vbscript:`
+- Remoción de NUL bytes (`\0`) para prevenir evasión de parsers
+- Mensaje `debug_netlify` movido a `console.error` — eliminado del response body público
+
+### Resiliencia — `submit-contact.ts` (Opción A)
+
+- `Promise.race` con timeout de 5s sobre Google Sheets API — corta conexión si hay latencia
+- Fallback Resend: si Google Sheets falla, envía correo de rescate del lead a `smasmoudi@taec.com.mx`
+- `crypto.randomUUID()` como TX ID — correlaciona errores entre consola y correo de emergencia
+
+### Limpieza DDC (Opción B)
+
+- Eliminados `ddc-pricing-matrix.json`, `interno/api/quote-ddc.ts`, `scripts/recalc-matrix.mjs` y `CotizadorDDC.astro` — el cotizador DDC migró a app externa independiente
+
+---
+
 ## BASELINE · 20 mar 2026
 
 ### Estado del proyecto al cerrar la primera fase de desarrollo

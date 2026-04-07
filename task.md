@@ -99,6 +99,15 @@
 - [x] Estructurar la UI/UX del portafolio.
 - [x] Separar el portafolio en una URL/Página estática independiente (`/portafolio`) para limpiar el diseño de la landing base.
 
+## ✅ Sesión de Hardening v2 — [06 abr 2026]
+
+- [x] **Fix Netlify Secrets Scanner (build roto):** Eliminado `import.meta.env` para secrets en `agente-ia.ts`. Todos los secrets usan `process.env` exclusivamente — leído en runtime, nunca incrustado en bundle compilado. Regla establecida para todos los endpoints SSR.
+- [x] **Sanitización XSS `send-transcript.ts`:** Regex Markdown hardenizado (solo `https?://`), remoción de NUL bytes, `debug_netlify` movido a `console.error`.
+- [x] **Resiliencia `submit-contact.ts`:** Timeout 5s + fallback Resend + UUID transaccional. Cero fuga de leads si Google Sheets cae.
+- [x] **Limpieza DDC:** Stack backend interno eliminado (`ddc-pricing-matrix.json`, `quote-ddc.ts`, `recalc-matrix.mjs`, `CotizadorDDC.astro`).
+
+---
+
 ## ✅ Sesión de Estabilización y Hardening — [05 abr 2026, 22:15]
 *Deploy dual operativo · Auth Supabase completo · Seguridad blog · SEO · Docs actualizados*
 
