@@ -32,3 +32,8 @@ Con la interfaz administrativa completada, modificamos las páginas base de los 
 ## Validación Final
 
 El escaneo local validó que el tipado de componentes se compilara correctamente bajo la configuración de Vite subyacente. Los archivos `.tsx` son interpretados orgánicamente a través de su renderizado en Astro. Los *pullups* asíncronos y caídas de fallos de Supabase (por variables desconectadas) no se reportaron.
+
+## Hotfixes (Abril 06, Noche)
+- **AdminNovedades**: Se corrigió el Z-Index del modal al valor `99999` para evitar superposición visual con la cabecera. Se implementó la capacidad de `UPDATE` en el modal con un nuevo botón **Editar** en el Dashboard, excluyendo el ID generado. Se forzó el desmonte correcto del modal tras enviar por botón y se limpió el estado reactivo.
+- **Auth & RLS**: Se instaló un proxy de funciones (`is_admin()`) a nivel Supabase SQL para autorizar validaciones `INSERT`/`UPDATE`/`DELETE` omitidas transversalmente antes, impidiendo escrituras en falso. Se ajustó el `middleware.ts` para validar correos `ilike()` evadiendo colapsos cross-case de Google OAuth.
+- **Sign-Out**: Se dotó la infraestructura con el endpoint oficial `/interno/auth/signout.ts` que destruye definitivamente `sb-access-token` para permitir transiciones dev a admin fluidas, vinculado al nuevo botón **⏏️ Cerrar Sesión** en el layout global.
