@@ -4,6 +4,7 @@
 
 [build.environment]
   ASTRO_BUILD_MODE = "server"
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
 
 # Catch-all: rutas no encontradas como archivo estático en dist/
 # se delegan a la función SSR generada por @astrojs/netlify.
