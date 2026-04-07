@@ -13,6 +13,7 @@ export const prerender = false;
 
 import IntranetLayout from '../../layouts/IntranetLayout.astro';
 import { createClient } from '@supabase/supabase-js';
+import { marked } from 'marked';
 
 const accessToken = Astro.locals.accessToken || "";
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
@@ -27,20 +28,6 @@ const { data: novedades } = await scopedSupabase
   .eq('activo', true)
   .order('orden', { ascending: true })
   .order('created_at', { ascending: false });
-
-// Mini-parser seguro y nativo para evitar colapsos en Vite Edge (soporta **negrita**, *cursiva*, links y listas)
-const parseBasicMarkdown = (text: string) => {
-  if (!text) return '';
-  let html = text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-    .replace(/\n\s*\*\s+(.*?)/g, '<li>$1</li>');
-  
-  html = html.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
-  html = html.replace(/\n/g, '<br/>');
-  return html;
-};
 ---
 
 <IntranetLayout title="Dashboard Intranet | TAEC" description="Lobby corporativo">
@@ -66,7 +53,7 @@ const parseBasicMarkdown = (text: string) => {
           <div class={`news-card border-t-${nov.badge_color}`}>
             <div class={`news-badge ${nov.badge_color}`}>{nov.badge_text}</div>
             <h3>{nov.titulo}</h3>
-            <div set:html={parseBasicMarkdown(nov.contenido)} style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem; line-height: 1.5; flex-grow: 1;" class="markdown-body" />
+            <div set:html={marked.parse(nov.contenido)} style="font-size: 0.95rem; color: #475569; margin-bottom: 1rem; line-height: 1.5; flex-grow: 1;" class="markdown-body" />
             <span class="news-date">{nov.fecha_display}</span>
           </div>
         ))
