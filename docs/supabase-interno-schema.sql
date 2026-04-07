@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS usuarios_autorizados (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   email text UNIQUE NOT NULL,
   nombre text,
+  rol text DEFAULT 'empleado',
   activo boolean DEFAULT true,
   created_at timestamp DEFAULT now()
 );
@@ -64,12 +65,12 @@ CREATE POLICY "Visualizar KBs es posible para todo autenticado"
 -- ==========================================
 
 -- Usuarios Iniciales (Seed de la directiva)
-INSERT INTO usuarios_autorizados (email, nombre, activo) 
+INSERT INTO usuarios_autorizados (email, nombre, activo, rol) 
 VALUES 
-  ('slim@taec.com.mx', 'Slim Masmoudi', true),
-  ('mauricio@taec.com.mx', 'Mauricio Ocampo', true),
-  ('sonia@taec.com.mx', 'Sonia', true)
-ON CONFLICT (email) DO NOTHING;
+  ('slim@taec.com.mx', 'Slim Masmoudi', true, 'admin'),
+  ('mauricio@taec.com.mx', 'Mauricio Ocampo', true, 'admin'),
+  ('sonia@taec.com.mx', 'Sonia', true, 'empleado')
+ON CONFLICT (email) DO UPDATE SET rol = EXCLUDED.rol;
 
 
 -- Registros Rise 360 (Seed Base corregido. Inserta aquí los 40 registros completos según el HTML cuando estén disponibles)
