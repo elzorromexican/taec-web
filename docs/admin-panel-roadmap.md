@@ -1,44 +1,38 @@
-# TAEC B2B Intranet - Admin Panel Roadmap
+# Roadmap: Panel de Administración Web (Fase 4)
 
-## Visión General
-Actualmente, la intranet de TAEC opera con un modelo "Headless CMS" donde el backend es Supabase y el frontend es Astro, pero la administración del contenido recae en editar directamente en el panel de Supabase.
+Este documento traza la ruta técnica para automatizar la gestión de contenido en la Intranet de TAEC. El objetivo es eliminar la necesidad de usar el panel técnico de Supabase mediante la construcción de un "CMS interno" diseñado específicamente para el equipo directivo.
 
-El objetivo de este roadmap es delinear la estrategia para la creación de un **Panel de Administración nativo (Admin UI)**. Esto permitirá que el equipo comercial, de marketing o administrativo pueda crear novedades, actualizar metadatos y redactar documentación sin depender del equipo técnico ni tener acceso a la base de datos subyacente.
+## Contexto Actual (Fase 3 Completada)
+La intranet (Dashboard y Playbooks) lee en vivo de la base de datos de Supabase. Ya no hay contenido *hardcodeado* en el frontend de Astro, lo que significa que la arquitectura está lista para ser conectada a una interfaz de usuario.
 
-## 1. Arquitectura del Panel
+## Requerimiento Funcional
+> *"Quiero un botón para encender y apagar. Las herramientas van atrás, no quiero saber de cómo se genera la electricidad."*
 
-El panel se integrará dentro del mismo ecosistema de la intranet como rutas protegidas bajo `/interno/admin/`.
+## Especificaciones de la Fase 4
 
-*   **Autenticación y Autorización:** Se expandirá el middleware actual (`src/middleware/auth.ts`) para incluir verificación de roles basados en Claims (`Role-Based Access Control`), asegurando que solo usuarios con rol de `editor` o `admin` tengan acceso.
-*   **Editor de Contenido WYSIWYG:** Integración de un editor enriquecido para las novedades y la base de conocimientos que mapee a HTML ligero en Supabase.
-*   **Gestión de Metadatos (Formularios Dinámicos):** UI que parsee la estructura JSON o las columnas fijas (como `meta_l1`, `meta_v1`) y exponga inputs clásicos para actualizar fácilmente los metadatos de los productos.
+### 1. Nueva Ruta de Administración
+Se creará un portal protegido por permisos de Rol (RLS) en la ruta `/interno/admin`. 
+Solo los usuarios marcados como `rol = 'admin'` en la tabla `usuarios_autorizados` tendrán acceso.
 
-## 2. Fases de Desarrollo
+### 2. Tablero de Control de "Novedades" (Dashboard)
+Una interfaz tipo WordPress:
+* **Lista Dinámica**: Ver las noticias pasadas, activarlas o desactivarlas con un "Toggle Switch" (Botón de encender/apagar).
+* **Nuevo Aviso**: Un pequeño formulario flotante (Modal) con los siguientes campos:
+  * Título del Aviso.
+  * Selector de importacia (Color / Etiqueta tipo "Uso Interno" o "Noticia").
+  * Caja de texto enriquecido para redactar el mensaje.
+  * Botón: **"Publicar Inmediatamente"**.
 
-### Fase 1: Gestión de Novedades (Dashboard)
-*   **Ruta:** `/interno/admin/novedades`
-*   **Acciones:** CRUD (Create, Read, Update, Delete) de alertas y novedades del dashboard.
-*   **Campos UI:**
-    *   Dropdown de color (Badge Color)
-    *   Input corto para Texto del Badge
-    *   Input para Título
-    *   Textarea/WYSIWYG para el mensaje
-    *   Toggle de "Activo"
+### 3. Editor de Playbooks (Cabeceras Técnicas)
+Una tabla interactiva mostrando los 22 productos. Al hacer clic en uno (ej. *Vyond Go*), se abre una ventana modal con:
+* 3 secciones de Metadatos (Campos de texto limitados a 15 y 26 caracteres para proteger el diseño UI).
+* Selector visual del patrón (Fondo: Grid, Dots, Waves).
+* Un botón de "Guardar Cambios".
 
-### Fase 2: Configuración de Playbooks
-*   **Ruta:** `/interno/admin/playbooks`
-*   **Acciones:** Edición de metadatos estáticos por producto.
-*   **Campos UI:** Edición de los tres metadatos (Label y Valor) del hero de cada producto, selección de íconos (dropdown con previsualización) y patrón de estilo.
+## Arquitectura Técnica (Developer Notes)
+1. **Frontend**: Se crearán componentes en `/src/components/interno/admin/` utilizando React (`.tsx`) para la reactividad de los formularios sin recargar la página.
+2. **Autenticación**: El *middleware* actual de Astro ya mapea la sesión. Solo será necesario extenderlo para validar que `Astro.locals.user.rol === 'admin'` antes de servir la página `/admin`.
+3. **Peticiones SWR**: Se usará cliente SSR de Supabase para los `INSERT` y `UPDATE`. Después de ejecutar la acción, Astro invalidará el caché local obligando a que la página maestra recargue en los clientes.
 
-### Fase 3: Gestión de Knowledge Base (KB)
-*   **Ruta:** `/interno/admin/kb`
-*   **Acciones:** Crear y mantener la lógica de preguntas y respuestas (`kb_items`) de resoluciones de casos y pre-ventas.
-*   **Automatización IA:** Botón opcional para re-edición sintáctica antes de publicar usando el asistente TAEC.
-
-### Fase 4: Auditoría y Rollback
-*   Tabla de log de cambios: Rastro de quién editó y cuándo para garantizar control de versiones (gobernabilidad total sobre el contenido B2B).
-
-## 3. Consideraciones Técnicas
-
-*   Al estar en Astro, el panel de administración puede estar renderizado puramente con Server Actions (Formularios POST a Astro) o mediante la adopción de algún micro-front con React/Preact montado con `client:load` para experiencia tipo App.
-*   Se aconseja que todo guardado detone una revalidación de caché o trigger en caso de haber un CDN en Netlify sobre las páginas más estáticas, aunque dado el esquema dinámico de `[producto].astro`, el cambio será en tiempo real. 
+---
+Con este documento de referencia, cualquier desarrollador puede proceder a construir los componentes visuales sabiendo que la base de datos subyacente (`kb_playbooks` y `intranet_novedades`) ya existe y tiene las políticas de RLS adecuadas.

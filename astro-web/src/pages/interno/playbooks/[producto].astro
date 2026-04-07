@@ -95,31 +95,36 @@ const seccionesList = Array.from(seccionesMap.values()).sort((a: any, b: any) =>
 
 const displayName = playbook?.display_name || producto.toUpperCase();
 
-// Seleccionar patrón visual basado estrictamente por FAMILIA de producto
-let heroPattern = 'pattern-grid'; // Familia Articulate 360 (default)
-if (playbook?.familia === 'vyond') {
-  heroPattern = 'pattern-dots'; 
-} else if (playbook?.familia === 'lms') {
-  heroPattern = 'pattern-boxes';
-} else if (playbook?.familia === 'servicios') {
-  heroPattern = 'pattern-waves';
+// Consultamos los metadatos visuales del producto
+const { data: playbookMeta } = await scopedSupabase
+  .from('kb_playbooks')
+  .select('*')
+  .eq('id_producto', producto)
+  .single();
+
+let heroPattern = 'pattern-grid';
+let heroIconKey = 'box';
+
+// Fallback por defecto si no existe en BD
+let pageMetadata = [
+  { label: 'Categoría SaaS', value: 'EdTech / e-Learning' },
+  { label: 'Distribución', value: 'Vía Partner Exclusivo' },
+  { label: 'Soporte', value: 'Gestionado por TAEC' }
+];
+
+if (playbookMeta) {
+  if (playbookMeta.familia === 'vyond') heroPattern = 'pattern-dots';
+  else if (playbookMeta.familia === 'lms') heroPattern = 'pattern-boxes';
+  else if (playbookMeta.familia === 'servicios') heroPattern = 'pattern-waves';
+  else heroPattern = 'pattern-grid';
+
+  heroIconKey = playbookMeta.svg_icon || 'box';
+
+  pageMetadata = [];
+  if (playbookMeta.meta_l1) pageMetadata.push({ label: playbookMeta.meta_l1, value: playbookMeta.meta_v1 || '' });
+  if (playbookMeta.meta_l2) pageMetadata.push({ label: playbookMeta.meta_l2, value: playbookMeta.meta_v2 || '' });
+  if (playbookMeta.meta_l3) pageMetadata.push({ label: playbookMeta.meta_l3, value: playbookMeta.meta_v3 || '' });
 }
-
-const pageMetadata = [];
-if (playbook?.meta_l1 && playbook?.meta_v1) pageMetadata.push({ label: playbook.meta_l1, value: playbook.meta_v1 });
-if (playbook?.meta_l2 && playbook?.meta_v2) pageMetadata.push({ label: playbook.meta_l2, value: playbook.meta_v2 });
-if (playbook?.meta_l3 && playbook?.meta_v3) pageMetadata.push({ label: playbook.meta_l3, value: playbook.meta_v3 });
-
-if (pageMetadata.length === 0) {
-  pageMetadata.push(
-    { label: 'Categoría SaaS', value: 'EdTech / e-Learning' },
-    { label: 'Distribución', value: 'Vía Partner Exclusivo' },
-    { label: 'Soporte', value: 'Gestionado por TAEC' }
-  );
-}
-
-// Marca de Agua Vectorial (Opción 3 UX)
-const heroIconKey = playbook?.icono || 'box';
 
 const getSVGPath = (key: string) => {
   switch(key) {

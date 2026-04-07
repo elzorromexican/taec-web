@@ -1,52 +1,48 @@
--- ==========================================
--- TAEC Intranet CMS - Supabase Schema
--- ==========================================
+/* ==========================================
+-- TAEC INTERNAL INTRANET 
+-- MÓDULO CMS: DASHBOARD & PLAYBOOK METADATA
+-- Ejecutar en SQL Editor Supabase
+========================================== */
 
--- 1. Tabla de Playbooks (Metadatos de Productos)
+-- ==========================================
+-- 1. TABLA PARA METADATOS DE PLAYBOOKS
+-- ==========================================
 CREATE TABLE IF NOT EXISTS kb_playbooks (
-    id_producto TEXT PRIMARY KEY,
-    display_name TEXT NOT NULL,
-    familia TEXT NOT NULL,
-    icono TEXT NOT NULL DEFAULT 'box',
-    meta_l1 TEXT,
-    meta_v1 TEXT,
-    meta_l2 TEXT,
-    meta_v2 TEXT,
-    meta_l3 TEXT,
-    meta_v3 TEXT,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  id_producto text PRIMARY KEY, -- Ej: 'vyondstudio' (Slug corto)
+  familia text NOT NULL,        -- Ej: 'vyond', 'lms', 'addons' (Controla textura CSS)
+  display_name text NOT NULL,   -- Ej: 'Vyond Studio'
+  meta_l1 text,
+  meta_v1 text,
+  meta_l2 text,
+  meta_v2 text,
+  meta_l3 text,
+  meta_v3 text,
+  svg_icon text,                -- Ej: 'clapperboard', 'smartphone'
+  activo boolean DEFAULT true,
+  created_at timestamp DEFAULT now()
 );
 
--- Habilitar RLS en kb_playbooks
+-- Permisos (RLS)
 ALTER TABLE kb_playbooks ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Visibilidad pública autenticada playbooks" 
+  ON kb_playbooks FOR SELECT TO authenticated USING (true);
 
--- Políticas de lectura para kb_playbooks
--- Permitir lectura a usuarios autenticados (y anónimos si se requiere SSR public, idealmente anon o authenticated)
-CREATE POLICY "Lectura publica kb_playbooks" 
-ON kb_playbooks FOR SELECT 
-TO public 
-USING (true);
-
-
--- 2. Tabla de Novedades del Dashboard
+-- ==========================================
+-- 2. TABLA PARA NOVEDADES DEL DASHBOARD
+-- ==========================================
 CREATE TABLE IF NOT EXISTS intranet_novedades (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    badge_text TEXT NOT NULL,
-    badge_color TEXT NOT NULL DEFAULT 'blue',
-    titulo TEXT NOT NULL,
-    contenido TEXT NOT NULL,
-    fecha_display TEXT NOT NULL,
-    activo BOOLEAN NOT NULL DEFAULT true,
-    orden INT NOT NULL DEFAULT 0,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  badge_text text NOT NULL,      -- Ej: 'Uso Interno', 'Noticia'
+  badge_color text DEFAULT 'blue', -- Ej: 'orange', 'blue' (Clases CSS mapeadas)
+  titulo text NOT NULL,          -- Ej: 'Nueva KB de Articulate' 
+  contenido text NOT NULL,       -- Contenido descriptivo del aviso (Soporta HTML/Markdown básico)
+  fecha_display text,            -- Ej: '06 Abr 2026'
+  orden integer DEFAULT 10,      -- Para definir en qué orden aparecen en pantalla
+  activo boolean DEFAULT true,
+  created_at timestamp DEFAULT now()
 );
 
--- Habilitar RLS en intranet_novedades
+-- Permisos (RLS)
 ALTER TABLE intranet_novedades ENABLE ROW LEVEL SECURITY;
-
--- Políticas de lectura para intranet_novedades
-CREATE POLICY "Lectura publica intranet_novedades" 
-ON intranet_novedades FOR SELECT 
-TO public 
-USING (activo = true);
+CREATE POLICY "Visibilidad pública autenticada novedades" 
+  ON intranet_novedades FOR SELECT TO authenticated USING (true);
