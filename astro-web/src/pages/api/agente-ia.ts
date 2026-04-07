@@ -21,6 +21,8 @@ const ratelimit = new Ratelimit({
 });
 
 export const POST: APIRoute = async ({ request }) => {
+  let apiKey: string | undefined;
+
   try {
     // 1. Detección de IP, País y Rate Limiting (Server-side Netlify)
     let ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
@@ -57,7 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
       : {} as Record<string, string | undefined>;
 
     const activeModel = penv['TAEC_GEMINI_MODEL'] || penv['GEMINI_MODEL'] || 'gemini-2.5-flash';
-    let apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'];
+    apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'];
 
     // Fallback para Netlify Edge/Deno context donde process.env puede no estar poblado,
     // pero Netlify expone un objeto global "Netlify" con entorno.
@@ -232,7 +234,7 @@ ${email ? `\n🚨 NOTA OPERATIVA DE SISTEMA: El usuario YA NOS PROPORCIONÓ SU C
     // Temporalmente exponemos el error interno en producción para depurar
     return new Response(
       JSON.stringify({ 
-        error: `Hubo un error interno de saturación contactando al procesador central (500). DETALLE TÉCNICO: ${error.message || String(error)}`
+        error: `Hubo un error interno de saturación contactando al procesador central (500). DETALLE TÉCNICO: ${error.message || String(error)} [Debug Key ends in: ${apiKey?.slice(-4)}]`
       }),
       { status: 500 }
     );
