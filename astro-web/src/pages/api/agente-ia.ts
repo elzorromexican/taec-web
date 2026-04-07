@@ -229,10 +229,10 @@ ${email ? `\n🚨 NOTA OPERATIVA DE SISTEMA: El usuario YA NOS PROPORCIONÓ SU C
     );
   } catch (error: any) {
     console.error("Error en Gemini API SSR Endpoint:", error.message || error);
-    // Eliminamos la inyección del 'debug_netlify' para prevenir leaks de llaves y basura JSON en el frontend y correos
+    // Temporalmente exponemos el error interno en producción para depurar
     return new Response(
       JSON.stringify({ 
-        error: 'Hubo un error interno de saturación contactando al procesador central (500).'
+        error: `Hubo un error interno de saturación contactando al procesador central (500). DETALLE TÉCNICO: ${error.message || String(error)}`
       }),
       { status: 500 }
     );
