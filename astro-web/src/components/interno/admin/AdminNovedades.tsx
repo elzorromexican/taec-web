@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getSupabaseClient } from './supabaseHelper';
-import Editor from 'react-simple-wysiwyg';
 
 type Novedad = {
   id: string;
@@ -11,6 +10,56 @@ type Novedad = {
   fecha_display: string;
   orden: number;
   activo: boolean;
+};
+
+// Componente Editor HTML5 Nativo (Cero Dependencias NPM)
+const NativeWysiwygEditor = ({ value, onChange }: { value: string, onChange: (v: string) => void }) => {
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  // Sincronizar valor inicial
+  useEffect(() => {
+    if (editorRef.current && editorRef.current.innerHTML !== value) {
+      editorRef.current.innerHTML = value || '';
+    }
+  }, []);
+
+  const emitChange = () => {
+    if (editorRef.current) {
+      onChange(editorRef.current.innerHTML);
+    }
+  };
+
+  const executeCommand = (cmd: string, val: string | undefined = undefined) => {
+    document.execCommand(cmd, false, val);
+    if (editorRef.current) editorRef.current.focus();
+    emitChange();
+  };
+
+  const handleLink = () => {
+    const url = prompt('Ingresa la URL del enlace:', 'https://');
+    if (url) executeCommand('createLink', url);
+  };
+
+  return (
+    <div style={{ border: '1px solid #cbd5e1', borderRadius: '6px', overflow: 'hidden', background: '#fff' }}>
+      <div style={{ padding: '8px', background: '#f8fafc', borderBottom: '1px solid #cbd5e1', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        <button type="button" onClick={() => executeCommand('bold')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', fontWeight: 'bold', cursor: 'pointer' }}>B</button>
+        <button type="button" onClick={() => executeCommand('italic')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', fontStyle: 'italic', cursor: 'pointer' }}>I</button>
+        <button type="button" onClick={() => executeCommand('underline')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', textDecoration: 'underline', cursor: 'pointer' }}>U</button>
+        <button type="button" onClick={handleLink} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer' }}>🔗 Enlace</button>
+        <button type="button" onClick={() => executeCommand('insertUnorderedList')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer' }}>• Lista</button>
+        <button type="button" onClick={() => executeCommand('insertOrderedList')} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer' }}>1. Lista</button>
+      </div>
+      <div 
+        ref={editorRef}
+        contentEditable={true}
+        onInput={emitChange}
+        onBlur={emitChange}
+        style={{ width: '100%', padding: '12px', minHeight: '350px', outline: 'none', overflowY: 'auto' }}
+        dangerouslySetInnerHTML={{ __html: value || '' }}
+      />
+    </div>
+  );
 };
 
 export default function AdminNovedades({
@@ -214,14 +263,11 @@ export default function AdminNovedades({
               </div>
 
               <div className="wysiwyg-container">
-                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (WYSIWYG Real)</label>
-                <div style={{ borderRadius: '6px', overflow: 'hidden', background: '#fff', border: '1px solid #cbd5e1' }}>
-                  <Editor 
-                    value={formData.contenido || ''}
-                    onChange={(e: any) => setFormData({ ...formData, contenido: e.target.value })}
-                    containerProps={{ style: { minHeight: '300px' } }}
-                  />
-                </div>
+                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (Visual)</label>
+                <NativeWysiwygEditor 
+                  value={formData.contenido || ''}
+                  onChange={(val) => setFormData({ ...formData, contenido: val })}
+                />
               </div>
 
               <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
