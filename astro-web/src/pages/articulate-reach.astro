@@ -117,7 +117,35 @@ import { r } from '../utils/paths';
     .art-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn-cta-white{background:white;color:var(--art);font-weight:700;font-size:15px;padding:13px 28px;border-radius:8px}
     .btn-cta-ghost{background:transparent;color:white;font-weight:600;font-size:15px;padding:13px 28px;border-radius:8px;border:2px solid rgba(255,255,255,.5)}
-  
+
+    /* ── public pricing ── */
+    .art-pricing-public { padding: 64px 5%; background: white; }
+    .art-pricing-inner { max-width: 1000px; margin: 0 auto; }
+    .art-pricing-card { display: grid; grid-template-columns: 240px 1fr 280px; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0,0,0,.05), 0 8px 10px -6px rgba(0,0,0,.01); }
+    .art-pricing-col-left { padding: 40px 24px; background: #0F172A; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    .art-pricing-icon { font-size: 48px; margin-bottom: 16px; line-height: 1; }
+    .art-pricing-name { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+    .art-pricing-col-center { padding: 40px 32px; display: flex; align-items: center; }
+    .art-pricing-features { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; width: 100%; }
+    .art-pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #475569; line-height: 1.4; }
+    .feat-check { color: #10B981; font-weight: 800; flex-shrink: 0; }
+    .art-pricing-col-right { padding: 40px 24px; background: #F1F5F9; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-left: 1px solid var(--border); }
+    .price-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #64748B; letter-spacing: 1px; margin-bottom: 8px; }
+    .price-amount { font-size: 44px; font-weight: 900; color: #0F172A; line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .price-period { font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 16px; }
+    .price-note { font-size: 11px; color: #64748B; line-height: 1.4; }
+
+    @media(max-width:900px){
+      .art-hero-inner{grid-template-columns:1fr;gap:32px}
+      .art-feat-grid{grid-template-columns:1fr 1fr}
+      .art-pricing-card { grid-template-columns: 1fr; }
+      .art-pricing-col-left { padding: 32px; }
+      .art-pricing-col-right { border-left: none; border-top: 1px solid var(--border); padding: 32px; }
+    }
+    @media(max-width:600px){
+      .art-feat-grid{grid-template-columns:1fr}
+      .art-pricing-features { grid-template-columns: 1fr; }
+    }
   </style>
 
 <main id="main-content">
@@ -227,6 +255,34 @@ import { r } from '../utils/paths';
           <h3 class="art-feat-title">Múltiples formatos</h3>
           <p class="art-feat-desc">Publica en Reach 360, LMS (SCORM), web o PDF desde un mismo proyecto.</p>
         </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="art-pricing-public">
+  <div class="art-pricing-inner">
+    <div class="art-pricing-card">
+      <div class="art-pricing-col-left">
+        <div class="art-pricing-icon">🚀</div>
+        <h3 class="art-pricing-name">Reach Pro</h3>
+      </div>
+      <div class="art-pricing-col-center">
+        <ul class="art-pricing-features">
+          <li><span class="feat-check">✓</span> Distribuye los cursos en unos pocos clics</li>
+          <li><span class="feat-check">✓</span> Implementación cero</li>
+          <li><span class="feat-check">✓</span> Reportes y análisis robustos del alumnado</li>
+          <li><span class="feat-check">✓</span> Gestión sencilla de contenidos, usuarios y alumnado</li>
+          <li><span class="feat-check">✓</span> Paneles de control intuitivos para el alumnado</li>
+          <li><span class="feat-check">✓</span> Integración nativa de Articulate 360</li>
+        </ul>
+      </div>
+      <div class="art-pricing-col-right">
+        <span class="price-label">A partir de</span>
+        <div class="price-amount">$3,600</div>
+        <div class="price-period">para 1,200 estudiantes activos por año</div>
+        <div class="price-note">Solo disponible a través del contacto de ventas</div>
+      </div>
     </div>
   </div>
 </section>
