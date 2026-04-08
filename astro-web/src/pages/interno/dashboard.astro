@@ -43,7 +43,7 @@ const { data: novedades } = await scopedSupabase
     <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #e2e8f0; margin-bottom: 1.5rem;">
       <h2 class="section-title" style="border-bottom: none; margin-bottom: 0;">Novedades de la Semana</h2>
       {Astro.locals?.rol === 'admin' && (
-        <a href="/interno/admin" style="font-size: 0.85rem; color: #3b82f6; text-decoration: none; font-weight: bold;">✚ Gestionar Avisos</a>
+        <a href="/interno/admin" onclick="window.location.href='/interno/admin'; return false;" style="font-size: 0.85rem; color: #3b82f6; text-decoration: none; font-weight: bold;">✚ Gestionar Avisos</a>
       )}
     </div>
     
