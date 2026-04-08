@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getSupabaseClient } from './supabaseHelper';
+import Editor from 'react-simple-wysiwyg';
 
 type Novedad = {
   id: string;
@@ -24,6 +25,7 @@ export default function AdminNovedades({
   const [novedades, setNovedades] = useState<Novedad[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [editorKey, setEditorKey] = useState(0);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<Novedad>>({
     badge_color: 'blue',
@@ -52,6 +54,7 @@ export default function AdminNovedades({
   useEffect(() => {
     fetchNovedades();
   }, []);
+
 
   const toggleActivo = async (id: string, current: boolean) => {
     const { error } = await supabase
@@ -103,12 +106,14 @@ export default function AdminNovedades({
   const openCreate = () => {
     setEditingId(null);
     setFormData({ badge_color: 'blue', orden: 10, activo: true });
+    setEditorKey(k => k + 1);
     setShowModal(true);
   };
 
   const openEdit = (nov: Novedad) => {
     setEditingId(nov.id);
     setFormData(nov);
+    setEditorKey(k => k + 1);
     setShowModal(true);
   };
 
@@ -128,7 +133,7 @@ export default function AdminNovedades({
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {novedades.map(nov => (
-            <div key={nov.id} style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '1rem', background: nov.activo ? '#fff' : '#f8fafc', opacity: nov.activo ? 1 : 0.6 }}>
+            <div key={nov.id} style={{ border: nov.activo ? '1px solid #cbd5e1' : '1px dashed #94a3b8', borderRadius: '8px', padding: '1rem', background: nov.activo ? '#ffffff' : '#f1f5f9', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
                   <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: '99px', fontSize: '0.75rem', fontWeight: 'bold', background: nov.badge_color === 'orange' ? '#ffedd5' : '#dbeafe', color: nov.badge_color === 'orange' ? '#c2410c' : '#1d4ed8', marginBottom: '8px' }}>
@@ -165,65 +170,83 @@ export default function AdminNovedades({
         </div>
       )}
 
-      {showModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999 }}>
-          <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '90%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h3 style={{ margin: 0 }}>{editingId ? 'Editar Aviso' : 'Crear Nuevo Aviso'}</h3>
-              <button 
-                type="button" 
-                onClick={() => {
-                  setShowModal(false);
-                  setEditingId(null);
-                }} 
-                style={{ background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer', lineHeight: '1' }}>
-                ×
-              </button>
-            </div>
-            
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Título</label>
-                <input required type="text" value={formData.titulo || ''} onChange={e => setFormData({ ...formData, titulo: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
-              </div>
-
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Badge Text (Ej: Uso Interno)</label>
-                  <input required type="text" value={formData.badge_text || ''} onChange={e => setFormData({ ...formData, badge_text: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Badge Color</label>
-                  <select value={formData.badge_color} onChange={e => setFormData({ ...formData, badge_color: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }}>
-                    <option value="blue">Azul (Informativo)</option>
-                    <option value="orange">Naranja (Importante)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Fecha (Display)</label>
-                  <input required type="text" placeholder="Ej: 06 Abr 2026" value={formData.fecha_display || ''} onChange={e => setFormData({ ...formData, fecha_display: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Prioridad (Orden)</label>
-                  <input type="number" value={formData.orden || 10} onChange={e => setFormData({ ...formData, orden: parseInt(e.target.value) })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
-                </div>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Contenido (Permite tags HTML básicos)</label>
-                <textarea required value={formData.contenido || ''} onChange={e => setFormData({ ...formData, contenido: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1', minHeight: '100px' }} />
-              </div>
-
-              <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
-                {editingId ? 'Guardar Cambios' : 'Publicar Aviso'}
-              </button>
-            </form>
+      <div
+        style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(15, 23, 42, 0.75)',
+          display: 'flex',
+          visibility: showModal ? 'visible' : 'hidden',
+          pointerEvents: showModal ? 'auto' : 'none',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 99999
+        }}
+      >
+        <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '100%', maxWidth: '700px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h3 style={{ margin: 0 }}>{editingId ? 'Editar Aviso' : 'Crear Nuevo Aviso'}</h3>
+            <button 
+              type="button" 
+              onClick={() => {
+                setShowModal(false);
+                setEditingId(null);
+                setFormData({ badge_color: 'blue', orden: 10, activo: true });
+              }} 
+              style={{ background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer', lineHeight: '1' }}>
+              ×
+            </button>
           </div>
+          
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Título</label>
+              <input required type="text" value={formData.titulo || ''} onChange={e => setFormData({ ...formData, titulo: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Badge Text (Ej: Uso Interno)</label>
+                <input required type="text" value={formData.badge_text || ''} onChange={e => setFormData({ ...formData, badge_text: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Badge Color</label>
+                <select value={formData.badge_color} onChange={e => setFormData({ ...formData, badge_color: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }}>
+                  <option value="blue">Azul (Informativo)</option>
+                  <option value="orange">Naranja (Importante)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Fecha (Display)</label>
+                <input required type="text" placeholder="Ej: 06 Abr 2026" value={formData.fecha_display || ''} onChange={e => setFormData({ ...formData, fecha_display: e.target.value })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '4px', fontWeight: 'bold' }}>Prioridad (Orden)</label>
+                <input type="number" value={formData.orden || 10} onChange={e => setFormData({ ...formData, orden: parseInt(e.target.value) })} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #cbd5e1' }} />
+              </div>
+            </div>
+
+            <div className="wysiwyg-container">
+              <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (Editor Visual)</label>
+              <div style={{ borderRadius: '6px', overflow: 'hidden', background: '#fff', border: '1px solid #cbd5e1' }}>
+                <Editor
+                  key={editorKey}
+                  value={formData.contenido || ''}
+                  onChange={(e: any) => setFormData({ ...formData, contenido: e.target.value })}
+                  containerProps={{ style: { minHeight: '300px' } }}
+                />
+              </div>
+            </div>
+
+            <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
+              {editingId ? 'Guardar Cambios' : 'Publicar Aviso'}
+            </button>
+          </form>
         </div>
-      )}
+      </div>
     </div>
   );
 }

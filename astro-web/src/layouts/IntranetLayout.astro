@@ -109,7 +109,7 @@ const isActive = (path) => currentPath === path || (path !== '/interno/dashboard
         
         <p class="nav-label">Mantenimiento</p>
         <a href="/interno/colaborar" class={`nav-link ${isActive('/interno/colaborar')}`}>💡 Sugerir Contenido</a>
-        {isAdmin && <a href="/interno/admin" class={`nav-link admin-link ${isActive('/interno/admin')}`}>⚙️ Panel Admin</a>}
+        {isAdmin && <a href="/interno/admin" onclick="window.location.href='/interno/admin'; return false;" class={`nav-link admin-link ${isActive('/interno/admin')}`}>⚙️ Panel Admin</a>}
       </nav>
 
       <div class="sidebar-footer">

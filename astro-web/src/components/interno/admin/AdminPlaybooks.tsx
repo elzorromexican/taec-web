@@ -87,17 +87,17 @@ export default function AdminPlaybooks({
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
           {playbooks.map(pb => (
-            <div key={pb.id_producto} style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '1rem', background: '#fff', display: 'flex', flexDirection: 'column' }}>
+            <div key={pb.id_producto} style={{ border: '1px solid #cbd5e1', borderRadius: '8px', padding: '1rem', background: '#ffffff', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column' }}>
               <div>
-                <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 'bold', background: '#f1f5f9', color: '#475569', marginBottom: '8px', textTransform: 'uppercase' }}>
+                <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 'bold', background: '#f1f5f9', color: '#334155', marginBottom: '8px', textTransform: 'uppercase' }}>
                   {pb.id_producto}
                 </span>
                 <h4 style={{ margin: '0 0 0.25rem 0', color: '#0f172a' }}>{pb.display_name}</h4>
-                <p style={{ margin: '0 0 1rem 0', fontSize: '0.8rem', color: '#64748b' }}>Familia: {pb.familia} | Ícono: {pb.svg_icon}</p>
+                <p style={{ margin: '0 0 1rem 0', fontSize: '0.8rem', color: '#475569' }}>Familia: {pb.familia} | Ícono: {pb.svg_icon}</p>
               </div>
               <button 
                 onClick={() => setSelectedPb(pb)}
-                style={{ marginTop: 'auto', background: '#f8fafc', color: '#0f172a', border: '1px solid #cbd5e1', padding: '6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                style={{ marginTop: 'auto', background: '#f1f5f9', color: '#0f172a', border: '1px solid #94a3b8', padding: '6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}>
                 Editar Cabecera
               </button>
             </div>
@@ -106,8 +106,8 @@ export default function AdminPlaybooks({
       )}
 
       {selectedPb && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
-          <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '90%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999 }}>
+          <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '90%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
               <h3 style={{ margin: 0 }}>Editar: {selectedPb.display_name}</h3>
               <button onClick={() => setSelectedPb(null)} style={{ background: 'transparent', border: 'none', fontSize: '1.2rem', cursor: 'pointer' }}>×</button>
