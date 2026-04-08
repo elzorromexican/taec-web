@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getSupabaseClient } from './supabaseHelper';
-import MDEditor from '@uiw/react-md-editor';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 type Novedad = {
   id: string;
@@ -213,15 +214,14 @@ export default function AdminNovedades({
                 </div>
               </div>
 
-              <div data-color-mode="light">
-                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (Editor Visual)</label>
-                <div style={{ borderRadius: '6px', overflow: 'hidden' }}>
-                  <MDEditor
+              <div className="quill-container">
+                <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (WYSIWYG Real)</label>
+                <div style={{ borderRadius: '6px', overflow: 'hidden', background: '#fff' }}>
+                  <ReactQuill 
+                    theme="snow"
                     value={formData.contenido || ''}
-                    onChange={(val) => setFormData({ ...formData, contenido: val || '' })}
-                    preview="edit"
-                    height={350}
-                    style={{ border: '1px solid #cbd5e1' }}
+                    onChange={(val) => setFormData({ ...formData, contenido: val })}
+                    style={{ height: '300px', marginBottom: '50px' }} // Quill needs space for the bottom toolbar/editor area
                   />
                 </div>
               </div>
