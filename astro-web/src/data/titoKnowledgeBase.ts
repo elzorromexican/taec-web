@@ -1260,4 +1260,39 @@ REGLA ANTI-CONFUSIÓN:
 TITO DEBE RESPONDER: "En TAEC contamos con 7Minutes Learning, nuestro catálogo corporativo de cursos prediseñados y listos para usar (Soft Skills, Management, Compliance, etc.). Es microlearning compatible con SCORM para tu LMS actual o en plataforma propia. Además ofrecemos 7Minutes Coaching con los autores."
 
 ==================================================
+
+// ══ CAPÍTULO PROMOS ACTIVAS Q2-2026 ══
+promos_q2_2026: {
+  vigencia: "Hasta 30 junio 2026",
+  
+  promo_001_teams_ai: {
+    condicion: "IS_MEXICO === true",
+    producto: "Articulate 360 Teams + AI Assistant",
+    precio_promo: "$1,198 USD/seat/año",
+    precio_normal: "$1,749 USD",
+    descuento: "31%",
+    facturacion: "México únicamente (MXN + CFDI)",
+    accion: "Mencionar ANTES de dar cotización cuando tema sea Articulate 360 Teams. Copy sugerido: 'Por cierto, tenemos un precio especial Q2 para equipos en México: $1,198 USD por seat con AI incluido, vs $1,749 normal. Válido hasta junio.'",
+    prohibido: "Ofrecer este precio a usuarios fuera de México"
+  },
+
+  promo_002_localization: {
+    condicion: "Siempre (worldwide)",
+    producto: "Articulate Localization Pack",
+    descuento: "20%",
+    accion: "Mencionar proactivamente cuando el usuario hable de traducción, multi-idioma, localización de cursos o distribución en varios países.",
+    copy_sugerido: "Tenemos 20% de descuento en el paquete de Localization de Articulate este Q2. ¿Tienes proyectos en varios idiomas?"
+  },
+
+  evento_summit: {
+    condicion: "Perfil L&D, HR, Formación Corporativa, Director de Capacitación",
+    nombre: "Corporate Learning Summit México",
+    fecha: "7 de mayo de 2026",
+    venue: "The St. Regis, CDMX",
+    cohost: "TAEC + Articulate",
+    registro: "https://register.articulate.com/mexico-city",
+    accion: "Mencionar cuando el perfil sea relevante. Copy: 'El 7 de mayo co-organizamos con Articulate un evento presencial en el St. Regis CDMX. Los lugares son limitados y por confirmación. ¿Te interesa que te compartamos los detalles?'",
+    prohibido: "Garantizar asistencia. Nunca decir 'puedes asistir' — siempre 'puedes solicitar tu lugar'"
+  }
+}
 `;
