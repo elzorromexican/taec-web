@@ -165,6 +165,35 @@ const faqsArt = [
   </div>
 </div>
 
+<!-- ══ ANNOUNCEMENT BARS Q2 ══ -->
+
+<!-- Barra 1: Promo Teams+IA — solo MX, oculta por default -->
+<div id="bar-promo-mx"
+  style="display:none;background:#f97316;color:white;padding:12px 5%;
+         text-align:center;font-size:13px;font-weight:600;line-height:1.5;">
+  🇲🇽 <strong>Precio especial Q2 para México</strong> —
+  Articulate 360 Teams + IA por <strong>$1,198 USD</strong>
+  <span style="opacity:0.85;font-weight:400;"> · normal $1,749 · 31% dto · Facturación en México</span>
+  &nbsp;
+  <a href="#precios"
+    style="color:white;text-decoration:underline;font-weight:700;white-space:nowrap;">
+    Ver precio ↓
+  </a>
+</div>
+
+<!-- Barra 2: Promo Localization 20% — siempre visible (worldwide) -->
+<div id="bar-promo-localization"
+  style="display:block;background:#0d9488;color:white;padding:12px 5%;
+         text-align:center;font-size:13px;font-weight:600;line-height:1.5;">
+  🌎 <strong>20% de descuento en Localization Pack</strong> este Q2 —
+  <span style="opacity:0.85;font-weight:400;">Válido en todo el mundo · hasta Jun 2026</span>
+  &nbsp;
+  <a href={r('/articulate-localization')}
+    style="color:white;text-decoration:underline;font-weight:700;white-space:nowrap;">
+    Ver Localization →
+  </a>
+</div>
+
 <!-- ══ HERO ══ -->
 <HeroComercial
   theme="art"
@@ -316,7 +345,7 @@ const faqsArt = [
 />
 
 <!-- ══ PRECIOS ══ -->
-<section class="precios">
+<section class="precios" id="precios">
   <div class="section-inner">
     <p class="section-label">Precios</p>
     <h2 class="section-title">Planes Articulate 360</h2>
@@ -325,7 +354,7 @@ const faqsArt = [
     <!-- Toggle Standard / AI -->
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin:28px 0 36px;">
       <span id="label-std" style="font-size:14px;font-weight:700;color:var(--navy);">Articulate 360 Standard</span>
-      <button id="aiToggle" onclick="toggleAI()" aria-label="Cambiar a Articulate 360 con IA" aria-pressed="false" style="position:relative;width:52px;height:28px;border-radius:14px;background:var(--border);border:none;cursor:pointer;transition:background .2s;padding:0;">
+      <button id="aiToggle" aria-label="Cambiar a Articulate 360 con IA" aria-pressed="false" style="position:relative;width:52px;height:28px;border-radius:14px;background:var(--border);border:none;cursor:pointer;transition:background .2s;padding:0;">
         <span id="toggleKnob" style="position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:var(--white);box-shadow:0 1px 4px rgba(0,0,0,.25);transition:left .2s;"></span>
       </button>
       <span id="label-ai" style="font-size:14px;font-weight:700;color:var(--muted);">Articulate 360 AI</span>
@@ -335,7 +364,7 @@ const faqsArt = [
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="precios-3col">
 
       <!-- Prueba Gratis -->
-      <div style="background:var(--white);border:2px solid var(--border);border-radius:16px;padding:32px 24px;position:relative;overflow:hidden;">
+      <div id="card-trial" style="background:var(--white);border:2px solid var(--border);border-radius:16px;padding:32px 24px;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:all 0.3s ease;">
         <div style="position:absolute;top:0;left:0;background:var(--navy);color:var(--white);font-size:10px;font-weight:800;letter-spacing:1px;padding:20px 10px 6px 10px;width:64px;text-align:center;clip-path:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);">30<br>DÍAS</div>
         <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Prueba Gratis</h3>
         <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">TODAS LAS HERRAMIENTAS</p>
@@ -348,12 +377,14 @@ const faqsArt = [
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Respondemos tus dudas técnicas</li>
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Sin tarjeta de crédito</li>
         </ul>
-        <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--blue);color:var(--white);font-weight:700;font-size:14px;">Comenzar gratis</a>
-        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px;">Sin tarjeta de crédito</p>
+        <div style="margin-top:auto;">
+          <a href={vendors.articulate.trial} target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--blue);color:var(--white);font-weight:700;font-size:14px;">Comenzar gratis</a>
+          <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px;">Sin tarjeta de crédito</p>
+        </div>
       </div>
 
       <!-- Personal -->
-      <div style="background:var(--white);border:2px solid var(--border);border-radius:16px;padding:32px 24px;">
+      <div id="card-personal" style="background:var(--white);border:2px solid var(--border);border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;transition:all 0.3s ease;">
         <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Freelancers</h3>
         <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">ARTICULATE 360 PERSONAL</p>
         <div style="text-align:center;margin-bottom:6px;">
@@ -370,21 +401,50 @@ const faqsArt = [
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">🤝</span> Customer Success TAEC</li>
           <li id="ai-feature-personal" style="font-size:13px;color:var(--blue);font-weight:600;display:none;align-items:center;gap:8px;"><span style="font-size:16px;">🤖</span> AI Assistant incluido</li>
         </ul>
-        <a href={r('/contacto')} style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
-        <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;border:1.5px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
-        <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones</p>
+        <div style="margin-top:auto;">
+          <a href={r('/contacto')} style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
+          <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;border:1.5px solid var(--blue);color:var(--blue);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
+          <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones posteriores</p>
+        </div>
       </div>
 
       <!-- Teams -->
-      <div style="background:var(--white);border:2px solid var(--blue);border-radius:16px;padding:32px 24px;position:relative;">
-        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:var(--white);font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap;">⭐ Mejor elección para equipos</div>
-        <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Integrantes de Equipos</h3>
+      <div style="position:relative; display:flex; flex-direction:column;">
+        <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--orange);color:var(--white);font-size:11px;font-weight:800;padding:5px 18px;border-radius:20px;white-space:nowrap;letter-spacing:0.5px;box-shadow:0 4px 10px rgba(249,115,22,0.3);z-index:20;">⭐ Mejor elección para equipos</div>
+        <div id="card-teams" style="background:var(--white);border:3px solid var(--orange);border-radius:16px;padding:32px 24px;position:relative;display:flex;flex-direction:column;box-shadow:0 12px 32px rgba(249,115,22,0.15);overflow:hidden;height:100%;">
+          <!-- RIBBON PROMO Q2 — visible solo si isMexico + AI toggle activo -->
+          <div id="promo-ribbon-teams"
+            style="display:none;position:absolute;top:22px;right:-32px;background:#f97316;color:white;
+                   font-size:10px;font-weight:800;letter-spacing:0.5px;padding:5px 40px;
+                   transform:rotate(45deg);z-index:10;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.2);">
+            PROMO Q2
+          </div>
+          <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Integrantes de Equipos</h3>
         <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">ARTICULATE 360 TEAMS</p>
+        <!-- Precio tachado (visible solo en modo AI + MX) -->
+        <div id="price-teams-original"
+          style="display:none;text-align:center;margin-bottom:2px;">
+          <span style="font-size:14px;color:var(--muted);text-decoration:line-through;">
+            $1,749 USD
+          </span>
+          <span style="font-size:11px;font-weight:700;color:#16a34a;margin-left:6px;">
+            · 31% dto
+          </span>
+        </div>
+        <!-- Precio principal (ya existe, solo se actualizará por JS) -->
         <div style="text-align:center;margin-bottom:6px;">
           <sup style="font-size:14px;font-weight:700;color:var(--navy);">$</sup><span id="price-teams" style="font-size:40px;font-weight:800;color:var(--navy);">1,499</span>
         </div>
         <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:4px;">USD + IVA · por seat / año</p>
-        <p id="mxn-teams" style="text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin-bottom:20px;">Mín. 2 seats · ~$30,600 MXN por seat</p>
+        <p id="mxn-teams" style="text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin-bottom:20px;">Nueva suscripción</p>
+        <div id="promo-chip-teams"
+          style="display:none;text-align:center;margin-bottom:12px;">
+          <span style="display:inline-block;background:#FEF3C7;color:#92400E;
+                       font-size:10px;font-weight:700;padding:3px 10px;
+                       border-radius:20px;letter-spacing:0.3px;">
+            Válido hasta Jun 2026 · Facturación en México
+          </span>
+        </div>
         <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;">Todo lo anterior, más:</p>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Gestión centralizada de licencias</li>
@@ -394,9 +454,12 @@ const faqsArt = [
           <li style="font-size:13px;color:var(--dark);display:flex;align-items:center;gap:8px;"><span style="color:var(--blue);font-weight:700;">✓</span> Customer Success TAEC incluido</li>
           <li id="ai-feature-teams" style="font-size:13px;color:var(--blue);font-weight:600;display:none;align-items:center;gap:8px;"><span style="font-size:16px;">🤖</span> AI Assistant incluido</li>
         </ul>
-        <a href={r('/contacto')} style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
-        <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;background:var(--navy);color:var(--white);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
-        <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones</p>
+        <div style="margin-top:auto;">
+          <a href={r('/contacto')} style="display:block;text-align:center;padding:12px;border-radius:8px;background:var(--orange);color:var(--white);font-weight:700;font-size:14px;">Solicitar cotización →</a>
+          <a href="https://tienda.taec.com.mx" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:8px;background:var(--navy);color:var(--white);font-weight:700;font-size:13px;">🛒 Ver en Tienda</a>
+          <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Mismo precio en renovaciones posteriores</p>
+        </div>
+        </div>
       </div>
 
     </div>
@@ -493,6 +556,121 @@ const faqsArt = [
   primaryBtnText="Solicitar cotización →"
   primaryBtnUrl="/contacto"
 />
+
+<script>
+// ── Precios base ──
+const PRICES = {
+  personal: { std: '1,299', ai: '1,549', mxn_std: '~$26,500 MXN', mxn_ai: '~$31,600 MXN' },
+  teams: {
+    std:      '1,499', mxn_std:   'Nueva suscripción',
+    ai:       '1,749', mxn_ai:    'Nueva suscripción',
+    promo:    '1,198', mxn_promo: 'Promo Q2 · Nueva suscripción'
+  }
+};
+
+let aiActive = false;
+let isMexico = false;
+
+// ── Helpers ──
+function el(id: string): HTMLElement | null {
+  return document.getElementById(id) as HTMLElement | null;
+}
+function setText(id: string, val: string) {
+  const node = el(id); if (node) node.textContent = val;
+}
+function setDisplay(id: string, display: string) {
+  const node = el(id); if (node) node.style.display = display;
+}
+
+// ── Geo-detection & Session ──
+async function initSession() {
+  const savedToggle = sessionStorage.getItem('aiToggle');
+  const savedGeo = sessionStorage.getItem('isMexico');
+
+  if (savedToggle !== null && savedGeo !== null) {
+    aiActive = savedToggle === 'true';
+    isMexico = savedGeo === 'true';
+    if (aiActive) activateAI(aiActive);
+  } else {
+    try {
+      const res  = await fetch('/api/get-promo?path=articulate');
+      const data = await res.json() as { countryCode: string };
+      isMexico = data.countryCode === 'MX';
+      sessionStorage.setItem('isMexico', String(isMexico));
+      if (data.promo?.id === 'art-teams-ai-q2-mx') {
+        activateAI(true);
+      }
+    } catch (_) { }
+  }
+}
+
+// ── Toggle principal (llamado desde onclick en HTML) ──
+function toggleAI() { activateAI(!aiActive); }
+
+function activateAI(state: boolean) {
+  aiActive = state;
+  sessionStorage.setItem('aiToggle', String(aiActive));
+
+  // Toggle visual
+  const knob   = el('toggleKnob');
+  const btn    = el('aiToggle');
+  const lblStd = el('label-std');
+  const lblAi  = el('label-ai');
+
+  if (knob)   knob.style.left       = aiActive ? '28px' : '4px';
+  if (btn)  { btn.style.background  = aiActive ? 'var(--blue)' : 'var(--border)';
+              btn.setAttribute('aria-pressed', String(aiActive)); }
+  if (lblStd) lblStd.style.color    = aiActive ? 'var(--muted)' : 'var(--navy)';
+  if (lblAi)  lblAi.style.color     = aiActive ? 'var(--navy)'  : 'var(--muted)';
+
+  // Precios Personal
+  setText('price-personal', aiActive ? PRICES.personal.ai    : PRICES.personal.std);
+  setText('mxn-personal',   aiActive ? PRICES.personal.mxn_ai : PRICES.personal.mxn_std);
+
+  // Precios Teams
+  const teamsPromo = aiActive && isMexico;
+  setText('price-teams', teamsPromo ? PRICES.teams.promo    : (aiActive ? PRICES.teams.ai    : PRICES.teams.std));
+  setText('mxn-teams',   teamsPromo ? PRICES.teams.mxn_promo : (aiActive ? PRICES.teams.mxn_ai : PRICES.teams.mxn_std));
+
+  // AI features
+  setDisplay('ai-feature-personal', aiActive    ? 'flex'  : 'none');
+  setDisplay('ai-feature-teams',    aiActive    ? 'flex'  : 'none');
+
+  // Promo MX
+  setDisplay('promo-ribbon-teams',   teamsPromo ? 'block' : 'none');
+  setDisplay('price-teams-original', teamsPromo ? 'block' : 'none');
+  setDisplay('promo-chip-teams',     teamsPromo ? 'block' : 'none');
+  
+  // Apagar visualmente las otras tarjetas
+  const cardPersonal = document.getElementById('card-personal');
+  const cardTrial = document.getElementById('card-trial');
+  
+  if (cardPersonal) {
+    cardPersonal.style.opacity = teamsPromo ? '0.4' : '1';
+    cardPersonal.style.filter = teamsPromo ? 'grayscale(0.8)' : 'none';
+  }
+  if (cardTrial) {
+    cardTrial.style.opacity = teamsPromo ? '0.4' : '1';
+    cardTrial.style.filter = teamsPromo ? 'grayscale(0.8)' : 'none';
+  }
+
+  // Mostrar barra MX solo cuando hay promo activa
+  const barMx = el('bar-promo-mx');
+  if (barMx) barMx.style.display = (aiActive && isMexico) ? 'block' : 'none';
+}
+
+// ── Init ──
+function initializeFeatures() {
+  const btn = el('aiToggle');
+  if (btn && !btn.hasAttribute('data-init')) {
+    btn.addEventListener('click', toggleAI);
+    btn.setAttribute('data-init', 'true');
+  }
+  initSession();
+}
+
+document.addEventListener('astro:page-load', initializeFeatures);
+</script>
 
 </main>
 </BaseLayout>
