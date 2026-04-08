@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getSupabaseClient } from './supabaseHelper';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import Editor from 'react-simple-wysiwyg';
 
 type Novedad = {
   id: string;
@@ -214,14 +213,13 @@ export default function AdminNovedades({
                 </div>
               </div>
 
-              <div className="quill-container">
+              <div className="wysiwyg-container">
                 <label style={{ display: 'block', fontSize: '0.9rem', margin: '1rem 0 4px 0', fontWeight: 'bold' }}>Contenido de la Novedad (WYSIWYG Real)</label>
-                <div style={{ borderRadius: '6px', overflow: 'hidden', background: '#fff' }}>
-                  <ReactQuill 
-                    theme="snow"
+                <div style={{ borderRadius: '6px', overflow: 'hidden', background: '#fff', border: '1px solid #cbd5e1' }}>
+                  <Editor 
                     value={formData.contenido || ''}
-                    onChange={(val) => setFormData({ ...formData, contenido: val })}
-                    style={{ height: '300px', marginBottom: '50px' }} // Quill needs space for the bottom toolbar/editor area
+                    onChange={(e: any) => setFormData({ ...formData, contenido: e.target.value })}
+                    containerProps={{ style: { minHeight: '300px' } }}
                   />
                 </div>
               </div>
