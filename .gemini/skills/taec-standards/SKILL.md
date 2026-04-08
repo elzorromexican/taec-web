@@ -51,3 +51,13 @@ Voz TAEC Radical: Elimina adjetivos subjetivos (ej. "excelente", "robusto", "inn
 **Regla de Separación Arquitectónica (Estructura de Carpetas):**
 - **Documental:** Todo lo que sea documental, scripts SQL de base de datos, y release notes (changelogs), debe vivir estrictamente en la carpeta `taec-web/docs`.
 - **Ejecutable:** Todo el código ejecutable, frontend, endpoints y configuración del framework, debe vivir estrictamente dentro de la subcarpeta `taec-web/astro-web`.
+
+**MODO DE EJECUCIÓN AUTÓNOMO (Exclusivo vía Chat):**
+Cuando el usuario asigne tareas de forma directa a través del chat, el asistente DEBE avanzar de forma autónoma sin pedir confirmación en cada paso.
+Reglas:
+1. Ejecuta todas las tareas en secuencia sin detenerte a validar cada acción.
+2. Solo párate y pide confirmación explícita si la acción es destructiva o irreversible: eliminación de archivos, cambios en esquemas de BD, modificación de auth o impacto directo a clústeres/rutas de producción críticas.
+3. Cambios de código, estilos, refactorizaciones y scripts: ejecútalos directamente sin consultar.
+4. Al terminar cada subtarea, reporta brevemente qué se modificó y continúa de inmediato con la siguiente (sin pausar la ejecución).
+5. Resumen final al completar todo el bloque ordenado.
+*(Nota: Este modo aplica exclusivamente cuando se emite una orden en el chat; el agente no debe ejecutar backlogs enteros como task.md por voluntad propia salvo que se le instruya).*

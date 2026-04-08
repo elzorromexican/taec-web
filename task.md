@@ -1,6 +1,13 @@
 # Checklist Consolidado de Tareas Pendientes (TAEC Web)
 *Este documento unifica permanentemente todas las tareas y roadmaps (Fase 1, Fase 2, DDC, Ecommerce y Completadas) en una sola fuente de verdad.*
 
+<!--
+REGLA DE EJECUCIÓN (SOLO POR CHAT):
+El agente solo ejecutará tareas de este backlog cuando se le instruya explícitamente en el chat.
+Al recibir la orden de inicio, avanzará de forma 100% autónoma (escribiendo código, estilos y scripts) sin detenerse a pedir permiso paso a paso.
+Solo se detendrá a pedir confirmación si la acción es destructiva/irreversible (borrar archivos, afectar bases de datos o producción).
+-->
+
 ## 🚀 Prioridades Inmediatas (Siguiente Sesión - Titanes y Fase 2)
 - [x] **Presentación y QA Intranet B2B (Titanes):** Revisión global de la KB en Supabase con el equipo comercial y validación final de la experiencia de usuario B2B. Estandarización SQL ejecutada.
 - [x] **Semillas Restantes de Playbooks:** Procesar `vyondgo`, `vyondmobile` y `reach360` aplicando la misma arquitectura de sanitización y formateo `\n\n` validada hoy, logrando la disponibilidad completa del catálogo.
@@ -190,10 +197,10 @@
 - [ ] Adaptar layouts y colecciones para consumir el contenido periodístico segmentado por país.
 
 **7. Geo-Pricing y Pop-up Articulate (Anti-VPN)**
-- [ ] Integrar servicio resolutor de GeoIP preciso (Edge/API).
-- [ ] Evaluar bandera anti-VPN / anonymous proxy contra la request del visitante en tiempo real.
-- [ ] Construir componente asíncrono en cliente para sobreescritura condicional de precio.
-- [ ] Desplegar Banner/Pop-Up animado destacando la oferta de licenciamiento Teams + IA.
+- [x] Integrar servicio resolutor de GeoIP preciso (Edge/API).
+- [x] Evaluar bandera anti-VPN / anonymous proxy contra la request del visitante en tiempo real.
+- [x] Construir componente asíncrono en cliente para sobreescritura condicional de precio.
+- [x] Desplegar Banner/Pop-Up animado destacando la oferta de licenciamiento Teams + IA.
 
 **8. Traducción Total i18n (EN, PT-BR, FR)**
 - [ ] Configurar lógica de Ruteo i18n nativo en Astro (`astro.config.mjs`).
