@@ -19,6 +19,7 @@
 
 **🟠 1 Alto**
 - [x] **[ISSUE-010] Nota interna visible al usuario:** En `/colaborar`, el texto sobre "Bases de datos en la siguiente fase" debe reemplazarse por un mensaje amigable.
+- [x] **[ISSUE-020] Admin Panel WYSIWYG:** Editor visual (`react-simple-wysiwyg`) se descuadraba al regresar al admin desde otra ruta. Fix: hard reload en todos los links de entrada a `/interno/admin`. Rama `fix/admin-novedades-ui` mergeada · 07 abr 2026.
 - [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard para mayor pulcritud comercial.
 - [ ] **[ISSUE-019] QA UX Hub:** Validar comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
 

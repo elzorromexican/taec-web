@@ -6,6 +6,23 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v2.1.1 · 07 abr 2026 — Fix WYSIWYG Admin Panel
+
+### Bug fix — Editor visual descuadrado en `/interno/admin`
+
+**Síntoma:** Al navegar desde `/interno/dashboard` (u otras rutas internas) de regreso a `/interno/admin` y abrir el modal de edición, el toolbar del editor WYSIWYG (`react-simple-wysiwyg`) aparecía con los íconos apilados verticalmente en lugar de en una fila horizontal.
+
+**Causa raíz:** Navegación SPA via View Transitions / client-side routing de Astro. Al navegar de vuelta al admin, el componente React `AdminNovedades` se remontaba fresco, pero el editor intentaba medir el ancho de su contenedor mientras el modal tenía `display:none` — obteniendo `width: 0` e inicializando su toolbar con layout roto.
+
+**Fix:** Forzar hard reload completo al navegar a `/interno/admin` cambiando los dos links de entrada (`IntranetLayout.astro` sidebar y `dashboard.astro`) de navegación SPA a `window.location.href`. El componente siempre arranca en estado virgen con el DOM completamente pintado.
+
+**Archivos modificados:**
+- `src/layouts/IntranetLayout.astro` — link "⚙️ Panel Admin" → hard reload
+- `src/pages/interno/dashboard.astro` — link "✚ Gestionar Avisos" → hard reload
+- `src/components/interno/admin/AdminNovedades.tsx` — modal usa `visibility/pointerEvents` en lugar de `display:none`; `editorKey` incremental garantiza remount limpio del Editor en cada apertura
+
+---
+
 ## v2.0.1 · 06 abr 2026, 17:15 (Fase 1 UX Hub)
 
 ### B2B Intranet — Refinamiento Visual y UX
