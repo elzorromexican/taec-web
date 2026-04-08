@@ -198,7 +198,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 
 **7. Geo-Pricing y Pop-up Articulate (Anti-VPN)**
 - [x] Integrar servicio resolutor de GeoIP preciso (Edge/API).
-- [x] Evaluar bandera anti-VPN / anonymous proxy contra la request del visitante en tiempo real.
+- [ ] Evaluar bandera anti-VPN / anonymous proxy contra la request del visitante en tiempo real.
 - [x] Construir componente asíncrono en cliente para sobreescritura condicional de precio.
 - [x] Desplegar Banner/Pop-Up animado destacando la oferta de licenciamiento Teams + IA.
 
