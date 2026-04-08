@@ -9,6 +9,7 @@ export interface PromoConfig {
   urlTrigger?: string; // e.g. 'vyond' or 'moodle' (if the path contains this, the promo gets prioritized)
   countries: string[]; // ['MX', 'CO', 'LATAM', 'GLOBAL']
   active: boolean;
+  color?: string; // hex del badge en ticker. Default: '#EA580C' (naranja)
 }
 
 export const promos: PromoConfig[] = [
@@ -60,7 +61,8 @@ export const promos: PromoConfig[] = [
     link: "/articulate-localization",
     urlTrigger: "localization",
     countries: ["GLOBAL"],
-    active: true
+    active: true,
+    color: "#0d9488"
   },
   {
     id: "summit-cdmx-mayo-2026",
