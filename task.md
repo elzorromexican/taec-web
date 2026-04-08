@@ -40,6 +40,15 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 - [x] [ISSUE-002] Dashboard: Posible desbordamiento visual y doble scroll en responsive mobile (Height 100vh check).
 - [x] [ISSUE-017] Admin Panel: Limitar visibilidad del link "Panel Admin" estrictamente a ROLES = Admin.
 
+## ✅ Sprint Q2 Promos — [08 abr 2026] · Rama `agent/q2-promos-articulate`
+
+- [x] **Announcement Bars Q2 en `/articulate-360-mexico`:** Barra naranja MX (Teams+IA $1,198 · 31% dto) oculta por JS geo-aware + barra teal worldwide (Localization 20%). Toggle AI auto-activa para MX gateado por `promo.id === 'art-teams-ai-q2-mx'`.
+- [x] **Ticker Multi-Promo con colores:** Campo `color` agregado a `PromoConfig`. `.find()` → `.filter()` — rota entre todas las promos activas (patrón 2 posts : 1 promo). Badges con color dinámico por promo (#EA580C naranja, #0d9488 teal).
+- [x] **Pill Promo Triaje Home (Card 2):** Condicional SSR para MX — pill "🇲🇽 Oferta Q2 · $1,198 USD". Card redirige a `/articulate-360-mexico`.
+- [x] **TitoBits KB — Capítulo PROMOS Q2:** Reglas para Teams+IA MX, Localization global y Summit CDMX (perfiles relevantes, nunca garantizar asistencia).
+- [x] **Catálogo promos.ts — 3 promos Q2:** `art-teams-ai-q2-mx`, `art-localization-q2-global`, `summit-cdmx-mayo-2026`.
+- [x] **Review pre-PR (Claude Code):** 5 bugs corregidos — onclick ReferenceError, href sin `r()`, double initSession, gate promo ID, urlTrigger summit.
+
 ## 📌 Operaciones Recientes (Corto Plazo)
 - [x] **Auditoría UI/UX Claude (Home e Intranet B2B):** Remoción de widget inyectado de Netlify Identity para purgar CORS global; inyección de atributos de accesibilidad ARIA en *cards* desactivadas del Dashboard; mitigación de colisiones CSS `margin-left` en la Intranet a tamaño tablet; depuración de urls huérfanas en el footer (`/soluciones` y `/contacto`); y blindaje lógico para el *Ticker del Blog* (`index.astro`) descartando artículos heredados pre-2024 para proteger el índice general.
 - [x] **Consolidación KB Vyond Studio (Anti-Duplicados y Zero HTML):** Procesamiento e inyección del script semilla (38 registros). Se implementó arquitectura SQL idempotente (`DELETE FROM`) para evitar *bloating*, purga radical con RegEx de basura de extracción (`[1]`, `[LinkedIn]`), y rescate semántico B2B ("Información no disponible") empaquetado exclusivamente con strings nativos `\n\n` en lugar de bloques brutos de HTML.
@@ -198,7 +207,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 
 **7. Geo-Pricing y Pop-up Articulate (Anti-VPN)**
 - [x] Integrar servicio resolutor de GeoIP preciso (Edge/API).
-- [ ] Evaluar bandera anti-VPN / anonymous proxy contra la request del visitante en tiempo real.
+- [x] Evaluar bandera anti-VPN / anonymous proxy — **Rechazado**: `x-forwarded-for` con múltiples IPs es comportamiento normal de Netlify CDN, no indicador de VPN. Genera falsos positivos para ~100% de usuarios MX legítimos. La promo requiere CFDI mexicano — el abuso es impracticable.
 - [x] Construir componente asíncrono en cliente para sobreescritura condicional de precio.
 - [x] Desplegar Banner/Pop-Up animado destacando la oferta de licenciamiento Teams + IA.
 

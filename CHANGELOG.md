@@ -6,6 +6,57 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v2.2.0 · 08 abr 2026 — Sprint Q2 Promos · Rama `agent/q2-promos-articulate`
+
+### feat — Sistema de Promos Q2 2026
+
+**Announcement bars en `/articulate-360-mexico`**
+- Barra naranja (oculta por default, activa vía JS para MX): Teams + IA $1,198 USD · 31% dto · hasta Jun 2026
+- Barra teal (siempre visible, worldwide): Localization Pack 20% descuento Q2
+- Ancla `id="precios"` en sección de precios para enlace interno desde barra MX
+
+**Toggle de precios AI — geo-aware**
+- Auto-activa para MX solo cuando `/api/get-promo` retorna `promo.id === 'art-teams-ai-q2-mx'` (gateado por promo específica, no por país genérico)
+- Precio Teams+IA MX: $1,198 (promo) · Teams+IA no-MX: $1,749 · Standard: $1,499
+- Ribbon "PROMO Q2", precio tachado ($1,749) y chip de vigencia visibles solo para MX con AI activo
+- Tarjetas Personal y Trial se atenúan (opacity 0.4 + grayscale) al activar promo Teams MX
+- `sessionStorage` conserva estado del toggle y geo entre navegaciones
+
+**Ticker multi-promo con colores por promo**
+- Nuevo campo `color?: string` en `PromoConfig` (default: `#EA580C`)
+- `.find()` → `.filter()`: ticker rota entre todas las promos activas del país
+- Patrón 2:1 (2 posts normales → 1 promo, rotando entre todas)
+- `art-localization-q2-global` con `color: "#0d9488"` — badge teal independiente en ticker
+
+**Pill promo en triaje home (Card 2 — SOFTWARE DE AUTORÍA)**
+- Condicional SSR `{countryCode === 'MX'}`: pill amarilla visible solo para México
+- Copy: "🇲🇽 Oferta Q2 · Articulate 360 desde $1,198 USD →"
+- Card 2 redirige a `/articulate-360-mexico` (antes apuntaba a `/soluciones`)
+
+**TitoBits Knowledge Base — Capítulo PROMOS Q2 2026**
+- Reglas para `promo_001_teams_ai`: mencionar antes de cotización Teams, solo si `IS_MEXICO === true`
+- Reglas para `promo_002_localization`: trigger proactivo en temas de traducción/multi-idioma
+- Reglas para `evento_summit`: solo perfiles L&D/HR, nunca garantizar asistencia
+
+**Catálogo `promos.ts` — 3 promos Q2 nuevas**
+- `art-teams-ai-q2-mx` — MX only, activa, `urlTrigger: "articulate"`
+- `art-localization-q2-global` — GLOBAL, activa, `urlTrigger: "localization"`, `color: "#0d9488"`
+- `summit-cdmx-mayo-2026` — MX, activa, `urlTrigger: "articulate"`, link externo Articulate
+
+### fix — Review Claude Code (pre-PR)
+
+- Removido `onclick="toggleAI()"` del toggle button — `ReferenceError` en Astro module scope (el `addEventListener` ya lo manejaba)
+- `href="/articulate-localization"` → `{r('/articulate-localization')}` — consistencia con helper `BASE_URL`
+- Drop listener `DOMContentLoaded` duplicado — doble `initSession()` en race condition con `astro:page-load`
+- Gate auto-activate AI en `promo.id` específico, no en `countryCode === 'MX'` genérico
+- `urlTrigger: "articulate"` al summit promo — evita fallback en páginas MX no relacionadas
+
+### decisión — Anti-VPN rechazado
+
+Evaluado y descartado: detección de VPN via `x-forwarded-for` múltiple genera falsos positivos masivos en Netlify CDN (el nodo CDN agrega su IP en cada request legítimo). La promo requiere facturación en México (CFDI) — el abuso real es impracticable sin ser entidad mexicana.
+
+---
+
 ## v2.1.1 · 07 abr 2026 — Fix WYSIWYG Admin Panel
 
 ### Bug fix — Editor visual descuadrado en `/interno/admin`
