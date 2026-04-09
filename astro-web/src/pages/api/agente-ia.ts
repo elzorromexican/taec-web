@@ -78,9 +78,6 @@ export const POST: APIRoute = async ({ request }) => {
       apiKey = apiKey.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
     }
 
-    // DEBUG TEMPORAL — eliminar tras diagnóstico
-    console.log(`[DEBUG KEY] len=${apiKey?.length} first10=${apiKey?.substring(0,10)} last4=${apiKey?.slice(-4)} source=process.env:${!!process.env?.TAEC_GEMINI_KEY}`);
-
     const data = await request.json();
     const { history, userMessage, email, timeZone } = data;
 
