@@ -6,6 +6,90 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v2.2.2 · 08 abr 2026 — Fix Seguridad: Vulnerabilidad import.meta.env + Hook Anti-Scanner
+
+### Vulnerabilidad de seguridad resuelta — `agente-ia.ts`
+
+**Severidad:** Alta — llave de producción `TAEC_GEMINI_KEY` potencialmente expuesta en artefactos de deploy.
+
+**Causa raíz:** La función `getSafeEnv(k)` usaba `import.meta.env[k]` con lookup dinámico como fallback.  
+Vite no puede resolver una clave de array dinámica `[k]` en build-time → serializa **todo el diccionario de `import.meta.env`** en el bundle SSR, incluyendo variables privadas de Netlify como `TAEC_GEMINI_KEY`.  
+Las llaves Gemini comienzan con un prefijo estándar de Google, que el secrets scanner de Netlify detecta correctamente como secreto real.
+
+**Lo que parecía:** falso positivo del scanner por comentarios de documentación.  
+**Lo que era en realidad:** el scanner funcionó correctamente — la llave real estaba en el bundle.
+
+**Fix aplicado** (`astro-web/src/pages/api/agente-ia.ts`):
+- Eliminado `import.meta.env[k]` de `getSafeEnv` → solo `process.env[k]` (leído en runtime, nunca incrustado)
+- `process.env` en serverless functions es un proxy runtime; Vite no puede ni intenta serializarlo
+
+**Rama:** `fix/netlify-scanner-hook` → pendiente merge a `main`
+
+### Acción de seguridad pendiente — Slim
+
+Rotar `TAEC_GEMINI_KEY` en Google Cloud Console y actualizar en Netlify UI.  
+Deploys anteriores al fix `83078ce` potencialmente contenían la llave real en `.netlify/build/chunks/agente-ia_*.mjs`.
+
+### Infraestructura anti-recurrencia
+
+- **`scripts/check-no-aiza.sh`** — pre-commit hook que bloquea el prefijo estándar de llaves GCP en archivos Vite-procesados (`.ts`, `.astro`, `.tsx`, `.js`, `.mjs`)
+- **`scripts/install-hooks.sh`** — instalador one-shot para cada desarrollador tras clonar: `sh scripts/install-hooks.sh`
+- **`CLAUDE.md`** — documentadas alternativas válidas al prefijo prohibido: `GCP_API_KEY_PREFIX`, `prefijo-de-llave-google`, `<API_KEY_EXAMPLE>`
+- **`netlify.toml`** — eliminado flag inefectivo `SECRETS_SCAN_SMART_DETECTION_ENABLED` (ese flag solo afecta variables de build, no el scanner post-build)
+
+### Resultado
+
+```
+Secrets scanning complete. 1248 file(s) scanned.
+No secrets detected in build output or repo code! ✅
+```
+
+---
+
+## v2.2.1 · 08 abr 2026 — Auditoría Forense y Recuperación Sprint Q2 Promos
+
+### Contexto
+
+Colisión detectada al fusionar el hardening de seguridad (`bd7867a`) con el sprint Q2 de promos. La purga de dependencias eliminó scripts y lógica del front-end. Se ejecutó auditoría forense completa para identificar y recuperar todo el trabajo perdido.
+
+Rama: `fix/q2-promos-missing` → mergeada a `main`.  
+Rollback tag: `rollback/pre-pr-q2-promos` · Registro completo: `docs/SESION-2026-04-08-recuperacion-q2.md`
+
+### Recuperado — Infraestructura de Promos
+
+- **`promos.ts`** — 3 promos Q2 restauradas: `art-teams-ai-q2-mx` (Teams+IA $1,198 solo MX), `art-localization-q2-global` (20% Localization worldwide), `summit-cdmx-mayo-2026` (evento St. Regis CDMX)
+- **Ticker multi-promo** — `index.astro` migrado de `promos.find()` a `promos.filter()`: todas las promos activas rotan en el ticker con color dinámico por promo (`color` field en `PromoConfig`)
+- **TitoBits** — `titoKnowledgeBase.ts` actualizado: el chatbot conoce las 3 promos Q2 y sabe cuándo mencionarlas
+
+### Recuperado — UX Q2 Articulate 360 México
+
+- **Barras de anuncio** — `bar-promo-mx` (naranja, solo MX, controlada por JS geo) + `bar-promo-localization` (teal, siempre visible worldwide)
+- **Teams card** — Ribbon "PROMO Q2", precio tachado $1,749 USD · 31% dto, chip "Válido hasta Jun 2026 · Facturación en México"
+- **Script completo** — `PRICES` dict, `initSession()` con sessionStorage + `/api/get-promo`, `activateAI()` con dimming de otras cards
+
+### Recuperado — Pricing Público Localization y Reach
+
+- **`/articulate-localization`** — card de precio: Localization $5,000 USD/año, features grid 2 columnas
+- **`/articulate-reach`** — card de precio: Reach Pro $3,600 / 1,200 estudiantes activos/año
+
+### Bugs corregidos
+
+- **Banner duplicado eliminado** — bloque `{isMexico ? HOT SALE : LATAM}` en `articulate-360-mexico.astro` colisionaba con las barras Q2, produciendo 3 banners apilados
+- **Import duplicado** — `getBookingUrl` importado dos veces en `index.astro` (error TypeScript `ts(2300)`)
+- **CSS View Transitions** — clases `.art-pricing-*` extraídas de `<style is:global>` inline a `public/assets/css/art-pricing.css`. El inline no sobrevivía navegaciones SPA; el archivo externo sí
+
+### Bug identificado — no introducido por esta PR
+
+- **`[ISSUE-021]`** Menú dropdown mal posicionado en `/articulate-reach` — pre-existente, relacionado con el hero de imagen de browser. Ticket abierto: rama `fix/header-dropdown-reach`
+
+### Decisiones de arquitectura documentadas
+
+- **Anti-VPN descartado** — la facturación CFDI es el candado real. Documentado en `MANUAL_MANTENIMIENTO_COMERCIAL.md`
+- **Admin de promos en Supabase** — Sprint Futuro, no implementado. El sistema actual es `promos.ts` estático + `active: true/false`
+- **Combinatorias de países** — `["MX"]`, `["CO"]`, `["CL"]`, `["LATAM"]`, `["GLOBAL"]`, o cualquier combinación de arrays
+
+---
+
 ## v2.1.1 · 07 abr 2026 — Fix WYSIWYG Admin Panel
 
 ### Bug fix — Editor visual descuadrado en `/interno/admin`

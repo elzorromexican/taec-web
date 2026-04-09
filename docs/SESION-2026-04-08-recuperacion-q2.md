@@ -121,3 +121,61 @@ git diff main...rollback/pre-pr-q2-promos --stat
 2. Push a origin
 3. Abrir PR hacia `main`
 4. Esperar auditoría final de Claude Code antes del merge
+
+---
+
+## Addendum — Seguridad · 08 abr 2026 · ~23:36 CDMX
+
+### Vulnerabilidad detectada y resuelta: `import.meta.env[k]` en `getSafeEnv`
+
+Durante la investigación del secrets scanner recurrente de Netlify se identificó una vulnerabilidad de seguridad activa (no un falso positivo).
+
+**Función afectada:** `getSafeEnv(k: string)` en `astro-web/src/pages/api/agente-ia.ts`
+
+```typescript
+// ❌ VULNERABILIDAD — código anterior
+const getSafeEnv = (k: string) => {
+  if (typeof process !== 'undefined' && process.env && process.env[k]) {
+    return process.env[k] as string;
+  }
+  // Este fallback serializa todo import.meta.env en el bundle:
+  return typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env[k] as string : undefined;
+};
+
+// ✅ FIX — solo process.env (runtime, nunca serializado por Vite)
+const getSafeEnv = (k: string) => {
+  if (typeof process !== 'undefined' && process.env && process.env[k]) {
+    return process.env[k] as string;
+  }
+  return undefined;
+};
+```
+
+**Por qué Vite serializa `import.meta.env[k]`:** Con lookup estático (`import.meta.env.FOO`) Vite puede tree-shake y solo incrusta esa variable. Con lookup dinámico `[k]`, Vite no sabe qué variable se pedirá en runtime → serializa el diccionario completo de env vars en el .mjs compilado.
+
+**Impacto:** `TAEC_GEMINI_KEY` (llave de producción de Gemini API) presente en el bundle SSR de todos los deploys anteriores al commit `83078ce`.
+
+**Commits del fix:**
+- `0c3c6df` — eliminó el texto del prefijo de llaves GCP en comentarios (fix parcial, no la causa raíz)
+- `83078ce` — eliminó `import.meta.env[k]` (fix real de la vulnerabilidad)
+
+**Confirmación:** Build `69d73ab2` — 1248 archivos escaneados, 0 secrets detectados.
+
+### Infraestructura anti-recurrencia instalada
+
+| Artefacto | Propósito |
+|-----------|-----------|
+| `scripts/check-no-aiza.sh` | Hook pre-commit — bloquea prefijo GCP en `.ts`, `.astro`, `.tsx`, `.js`, `.mjs` |
+| `scripts/install-hooks.sh` | Instalador one-shot: `sh scripts/install-hooks.sh` |
+| `CLAUDE.md` (actualizado) | Alternativas válidas documentadas + instrucción de instalación del hook |
+| `netlify.toml` (limpiado) | Eliminado flag inefectivo `SECRETS_SCAN_SMART_DETECTION_ENABLED` |
+
+### Acción pendiente — SLIM (no delegable a Antigravity)
+
+**Rotar `TAEC_GEMINI_KEY`:**
+1. Google Cloud Console → APIs & Services → Credentials
+2. Eliminar o revocar la llave actual
+3. Crear nueva llave con restricciones por API y por referrer
+4. Actualizar en Netlify UI: Site Settings → Environment Variables → `TAEC_GEMINI_KEY`
+
+Rama con el fix: `fix/netlify-scanner-hook` · PR #15 · Build: ✅ limpio
