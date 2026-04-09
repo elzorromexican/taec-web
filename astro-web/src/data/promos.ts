@@ -41,5 +41,15 @@ export const promos: PromoConfig[] = [
     urlTrigger: "ddc",
     countries: ["GLOBAL"], // Esta promo saldrá en Europa, Asia, USA, etc.
     active: false // Apagada por defecto hasta que inicies la campaña
+  },
+  {
+    id: "paquete-localizacion-articulate",
+    title: "Paquete de Localización de Articulate (20% de Descuento)",
+    description: "Activa un 20% de descuento en el Paquete de Localización para optimizar la gestión de proyectos multilingües y escalar globalmente tu contenido.",
+    badgeText: "🌐 PROMO LOCALIZACIÓN",
+    link: "/articulate-localization", 
+    urlTrigger: "localization",
+    countries: ["GLOBAL"],
+    active: true
   }
 ];

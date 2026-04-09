@@ -308,8 +308,8 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
         body: JSON.stringify({ 
           userMessage: userMsg, 
           history: safeLLMHistory,
-          email: userData.email
-          // Eliminamos location y countryCode (Ahora el backend lo hace todo 100% seguro)
+          email: userData.email,
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
         })
       });
       
