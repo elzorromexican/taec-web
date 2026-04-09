@@ -7,3 +7,4 @@ OLDYS/
 # Configuraciones y Entornos
 *.env
 .env
+.gstack/
