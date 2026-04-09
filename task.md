@@ -1,6 +1,13 @@
 # Checklist Consolidado de Tareas Pendientes (TAEC Web)
 *Este documento unifica permanentemente todas las tareas y roadmaps (Fase 1, Fase 2, DDC, Ecommerce y Completadas) en una sola fuente de verdad.*
 
+<!--
+REGLA DE EJECUCIÓN (SOLO POR CHAT):
+El agente solo ejecutará tareas de este backlog cuando se le instruya explícitamente en el chat.
+Al recibir la orden de inicio, avanzará de forma 100% autónoma (escribiendo código, estilos y scripts) sin detenerse a pedir permiso paso a paso.
+Solo se detendrá a pedir confirmación si la acción es destructiva/irreversible (borrar archivos, afectar bases de datos o producción).
+-->
+
 ## 🚀 Prioridades Inmediatas (Siguiente Sesión - Titanes y Fase 2)
 - [x] **Presentación y QA Intranet B2B (Titanes):** Revisión global de la KB en Supabase con el equipo comercial y validación final de la experiencia de usuario B2B. Estandarización SQL ejecutada.
 - [x] **Semillas Restantes de Playbooks:** Procesar `vyondgo`, `vyondmobile` y `reach360` aplicando la misma arquitectura de sanitización y formateo `\n\n` validada hoy, logrando la disponibilidad completa del catálogo.
@@ -22,6 +29,7 @@
 - [x] **[ISSUE-020] Admin Panel WYSIWYG:** Editor visual (`react-simple-wysiwyg`) se descuadraba al regresar al admin desde otra ruta. Fix: hard reload en todos los links de entrada a `/interno/admin`. Rama `fix/admin-novedades-ui` mergeada · 07 abr 2026.
 - [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard para mayor pulcritud comercial.
 - [ ] **[ISSUE-019] QA UX Hub:** Validar comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
+- [ ] **[ISSUE-021] Reach 360:** Abrir ticket separado `fix/header-dropdown-reach` para investigar el z-index/position del nav desplegable en ESA página.
 
 **🟡 QA Audit - UI/UX & Flow (P1)**
 - [x] [ISSUE-015] Intranet: 'Active' state del Sidebar mal manejado por JS-client, debería usar Astro.url
@@ -104,6 +112,7 @@
 ## ✅ Sesión de Hardening v2 — [06 abr 2026]
 
 - [x] **Fix Netlify Secrets Scanner (build roto):** Eliminado `import.meta.env` para secrets en `agente-ia.ts`. Todos los secrets usan `process.env` exclusivamente — leído en runtime, nunca incrustado en bundle compilado. Regla establecida para todos los endpoints SSR.
+- [x] **[ISSUE-022] Fuga de Vite (Netlify Scanner):** Detectado y erradicado el bug crítico de arquitectura donde Vite serializaba en SSR el diccionario entero de `.env` debido a un checkeo de variables dinámicas `import.meta.env[k]`. El hook anti-regresiones `check-no-aiza.sh` ha sido integrado vía CLI para el equipo.
 - [x] **Sanitización XSS `send-transcript.ts`:** Regex Markdown hardenizado (solo `https?://`), remoción de NUL bytes, `debug_netlify` movido a `console.error`.
 - [x] **Resiliencia `submit-contact.ts`:** Timeout 5s + fallback Resend + UUID transaccional. Cero fuga de leads si Google Sheets cae.
 - [x] **Limpieza DDC:** Stack backend interno eliminado (`ddc-pricing-matrix.json`, `quote-ddc.ts`, `recalc-matrix.mjs`, `CotizadorDDC.astro`).
@@ -190,10 +199,10 @@
 - [ ] Adaptar layouts y colecciones para consumir el contenido periodístico segmentado por país.
 
 **7. Geo-Pricing y Pop-up Articulate (Anti-VPN)**
-- [ ] Integrar servicio resolutor de GeoIP preciso (Edge/API).
-- [ ] Evaluar bandera anti-VPN / anonymous proxy contra la request del visitante en tiempo real.
-- [ ] Construir componente asíncrono en cliente para sobreescritura condicional de precio.
-- [ ] Desplegar Banner/Pop-Up animado destacando la oferta de licenciamiento Teams + IA.
+- [x] Integrar servicio resolutor de GeoIP preciso (Edge/API).
+- [x] Evaluar bandera anti-VPN / anonymous proxy contra la request del visitante en tiempo real.
+- [x] Construir componente asíncrono en cliente para sobreescritura condicional de precio.
+- [x] Desplegar Banner/Pop-Up animado destacando la oferta de licenciamiento Teams + IA.
 
 **8. Traducción Total i18n (EN, PT-BR, FR)**
 - [ ] Configurar lógica de Ruteo i18n nativo en Astro (`astro.config.mjs`).

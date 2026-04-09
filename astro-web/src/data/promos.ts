@@ -9,6 +9,7 @@ export interface PromoConfig {
   urlTrigger?: string; // e.g. 'vyond' or 'moodle' (if the path contains this, the promo gets prioritized)
   countries: string[]; // ['MX', 'CO', 'LATAM', 'GLOBAL']
   active: boolean;
+  color?: string; // hex del badge en ticker. Default: '#EA580C' (naranja)
 }
 
 export const promos: PromoConfig[] = [
@@ -43,13 +44,34 @@ export const promos: PromoConfig[] = [
     active: false // Apagada por defecto hasta que inicies la campaña
   },
   {
-    id: "paquete-localizacion-articulate",
-    title: "Paquete de Localización de Articulate (20% de Descuento)",
-    description: "Activa un 20% de descuento en el Paquete de Localización para optimizar la gestión de proyectos multilingües y escalar globalmente tu contenido.",
-    badgeText: "🌐 PROMO LOCALIZACIÓN",
-    link: "/articulate-localization", 
+    id: "art-teams-ai-q2-mx",
+    title: "Articulate 360 Teams + IA — $1,198 USD",
+    description: "31% de descuento · Precio especial Q2 para facturación en México. Precio normal $1,749.",
+    badgeText: "🇲🇽 OFERTA Q2",
+    link: "/articulate-360-mexico",
+    urlTrigger: "articulate",
+    countries: ["MX"],
+    active: true
+  },
+  {
+    id: "art-localization-q2-global",
+    title: "Localization Pack — 20% descuento Q2",
+    description: "20% de descuento en el paquete de Localization de Articulate. Válido en todo el mundo.",
+    badgeText: "⭐ PROMO Q2",
+    link: "/articulate-localization",
     urlTrigger: "localization",
     countries: ["GLOBAL"],
+    active: true,
+    color: "#0d9488"
+  },
+  {
+    id: "summit-cdmx-mayo-2026",
+    title: "Corporate Learning Summit · 7 mayo · St. Regis CDMX",
+    description: "Co-organizado por TAEC y Articulate. Aforo limitado · Confirmación personalizada.",
+    badgeText: "🎯 EVENTO",
+    link: "https://register.articulate.com/mexico-city",
+    urlTrigger: "articulate",
+    countries: ["MX"],
     active: true
   }
 ];

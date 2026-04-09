@@ -11,8 +11,7 @@ const getSafeEnv = (k: string) => {
   if (typeof process !== 'undefined' && process.env && process.env[k]) {
     return process.env[k] as string;
   }
-  // @ts-ignore
-  return typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env[k] as string : undefined;
+  return undefined;
 };
 
 // Rate Limiting persistente via Upstash Redis (Sliding Window)
@@ -54,7 +53,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Secrets en SSR: NUNCA usar import.meta.env para llaves secretas en rutas de servidor.
-    // Vite serializa import.meta.env en el bundle compilado — el valor AIza... queda literal
+    // Vite serializa import.meta.env en el bundle compilado — el valor de la API Key queda literal
     // en el .mjs y dispara el secrets scanner de Netlify.
     // process.env es leído en RUNTIME por la serverless function → nunca aparece en el bundle.
     // En dev local con Astro 6+, cargar manualmente dotenv asegura que process.env esté poblado.
@@ -74,10 +73,13 @@ export const POST: APIRoute = async ({ request }) => {
       apiKey = Netlify.env.get('TAEC_GEMINI_KEY') || Netlify.env.get('GEMINI_API_KEY');
     }
     
-    // Sanitización forzosa extrema: Netlify UI no quita las comillas, si el usuario pegó "AIza..." el API las lee literales.
+    // Sanitización forzosa extrema: Netlify UI no quita las comillas, si el usuario pegó la llave con comillas el API las lee literales.
     if (typeof apiKey === 'string') {
       apiKey = apiKey.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
     }
+
+    // DEBUG TEMPORAL — eliminar tras diagnóstico
+    console.log(`[DEBUG KEY] len=${apiKey?.length} first10=${apiKey?.substring(0,10)} last4=${apiKey?.slice(-4)} source=process.env:${!!process.env?.TAEC_GEMINI_KEY}`);
 
     const data = await request.json();
     const { history, userMessage, email, timeZone } = data;

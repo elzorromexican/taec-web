@@ -5,6 +5,11 @@
 [build.environment]
   ASTRO_BUILD_MODE = "server"
 
+[functions."ssr"]
+  # Aumentar timeout para TitoBits (Gemini API con knowledge base grande)
+  # Netlify Pro/Business soporta hasta 26s; free plan máximo 10s.
+  timeout = 26
+
 # Catch-all: cualquier ruta no encontrada como archivo estático
 # en dist/ se delega a la función SSR de Astro.
 # force = false garantiza que los archivos estáticos siguen teniendo prioridad.
