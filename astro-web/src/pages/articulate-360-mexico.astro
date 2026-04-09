@@ -6,7 +6,17 @@ import GridBeneficios from '../components/ui/GridBeneficios.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import CtaFinal from '../components/ui/CtaFinal.astro';
 
+export const prerender = false; // Forza SSR para la capa geo
+
 import { r, base } from '../utils/paths';
+
+const netlifyGeo = Astro.locals.netlify?.context?.geo?.country?.code;
+const headerGeo = Astro.request.headers.get('x-country') || Astro.request.headers.get('x-nf-country');
+const countryCode = netlifyGeo || headerGeo || 'MX';
+const isMexico = countryCode === 'MX';
+
+const teamsPriceBase = isMexico ? "1198" : "1499";
+const teamsPriceDisplay = isMexico ? "1,198" : "1,499";
 
 const ventajasArt = [
   { icon: "🇲🇽", title: "Factura mexicana y pago en pesos", description: "Factura electrónica CFDI para que tu área de compras y contabilidad procesen sin complicaciones. Pago en MXN al tipo de cambio oficial del día." },
@@ -151,6 +161,16 @@ const faqsArt = [
   </script>
 
 <main id="main-content">
+
+{isMexico ? (
+  <div style="background:#EA580C; color:#FFF; text-align:center; padding:12px 5%; font-size:14px; font-weight:700;">
+    🔥 ¡HOT SALE MÉXICO! Licencias Articulate 360 Teams a solo $1,198 USD. <a href="#precios" style="color:#FFF; text-decoration:underline;">Aprovechar promoción →</a>
+  </div>
+) : (
+  <div style="background:#EFF6FF; color:#1E3A8A; text-align:center; padding:12px 5%; font-size:14px; font-weight:700; border-bottom:1px solid #BFDBFE;">
+    ⭐ Soporte técnico en español y Customer Success incluido en Latinoamérica. <a href="#precios" style="color:#1D4ED8; text-decoration:underline;">Ver planes →</a>
+  </div>
+)}
 
 <!-- ══ PRODUCT TABS ══ -->
 <div class="art-tabs">
@@ -316,7 +336,7 @@ const faqsArt = [
 />
 
 <!-- ══ PRECIOS ══ -->
-<section class="precios">
+<section class="precios" id="precios">
   <div class="section-inner">
     <p class="section-label">Precios</p>
     <h2 class="section-title">Planes Articulate 360</h2>
@@ -357,7 +377,7 @@ const faqsArt = [
         <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Freelancers</h3>
         <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">ARTICULATE 360 PERSONAL</p>
         <div style="text-align:center;margin-bottom:6px;">
-          <sup style="font-size:14px;font-weight:700;color:var(--navy);">$</sup><span id="price-personal" style="font-size:40px;font-weight:800;color:var(--navy);">1,299</span>
+          <sup style="font-size:14px;font-weight:700;color:var(--navy);">$</sup><span id="price-personal" data-base="1299" style="font-size:40px;font-weight:800;color:var(--navy);">1,299</span>
         </div>
         <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:4px;">USD + IVA por año</p>
         <p id="mxn-personal" style="text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin-bottom:20px;">~$26,500 MXN al tipo de cambio oficial</p>
@@ -381,7 +401,7 @@ const faqsArt = [
         <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Integrantes de Equipos</h3>
         <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">ARTICULATE 360 TEAMS</p>
         <div style="text-align:center;margin-bottom:6px;">
-          <sup style="font-size:14px;font-weight:700;color:var(--navy);">$</sup><span id="price-teams" style="font-size:40px;font-weight:800;color:var(--navy);">1,499</span>
+          <sup style="font-size:14px;font-weight:700;color:var(--navy);">$</sup><span id="price-teams" data-base={teamsPriceBase} style="font-size:40px;font-weight:800;color:var(--navy);">{teamsPriceDisplay}</span>
         </div>
         <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:4px;">USD + IVA · por seat / año</p>
         <p id="mxn-teams" style="text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin-bottom:20px;">Mín. 2 seats · ~$30,600 MXN por seat</p>
@@ -493,6 +513,46 @@ const faqsArt = [
   primaryBtnText="Solicitar cotización →"
   primaryBtnUrl="/contacto"
 />
+
+<script is:inline>
+  function toggleAI() {
+    const toggleBtn = document.getElementById('aiToggle');
+    if (!toggleBtn) return;
+    
+    const isAI = toggleBtn.getAttribute('aria-pressed') === 'true';
+    const newState = !isAI;
+    toggleBtn.setAttribute('aria-pressed', String(newState));
+    
+    const knob = document.getElementById('toggleKnob');
+    if (newState) {
+      knob.style.left = '28px';
+      toggleBtn.style.background = '#0ea5e9';
+      document.getElementById('label-ai').style.color = '#0e7490';
+      document.getElementById('label-std').style.color = '#64748b';
+    } else {
+      knob.style.left = '4px';
+      toggleBtn.style.background = '#e2e8f0';
+      document.getElementById('label-ai').style.color = '#64748b';
+      document.getElementById('label-std').style.color = '#0e7490';
+    }
+    
+    const fPers = document.getElementById('ai-feature-personal');
+    const fTeams = document.getElementById('ai-feature-teams');
+    if(fPers) fPers.style.display = newState ? 'flex' : 'none';
+    if(fTeams) fTeams.style.display = newState ? 'flex' : 'none';
+    
+    const elmTeams = document.getElementById('price-teams');
+    const elmPers = document.getElementById('price-personal');
+    if(elmTeams && elmPers) {
+      const teamBase = parseInt(elmTeams.getAttribute('data-base'), 10);
+      const personalBase = parseInt(elmPers.getAttribute('data-base'), 10);
+      const aiCost = 250;
+      
+      elmTeams.innerText = (teamBase + (newState ? aiCost : 0)).toLocaleString('en-US');
+      elmPers.innerText = (personalBase + (newState ? aiCost : 0)).toLocaleString('en-US');
+    }
+  }
+</script>
 
 </main>
 </BaseLayout>
