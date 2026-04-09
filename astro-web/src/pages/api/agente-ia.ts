@@ -63,12 +63,8 @@ export const POST: APIRoute = async ({ request }) => {
       config();
     }
 
-    const penv = (typeof process !== 'undefined' && process.env)
-      ? process.env as Record<string, string | undefined>
-      : {} as Record<string, string | undefined>;
-
-    const activeModel = penv['TAEC_GEMINI_MODEL'] || penv['GEMINI_MODEL'] || 'gemini-2.5-flash';
-    apiKey = penv['TAEC_GEMINI_KEY'] || penv['GEMINI_API_KEY'];
+    const activeModel = getSafeEnv('TAEC_GEMINI_MODEL') || getSafeEnv('GEMINI_MODEL') || 'gemini-2.5-flash';
+    apiKey = getSafeEnv('TAEC_GEMINI_KEY') || getSafeEnv('GEMINI_API_KEY');
 
     // Fallback para Netlify Edge/Deno context donde process.env puede no estar poblado,
     // pero Netlify expone un objeto global "Netlify" con entorno.
