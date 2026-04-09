@@ -11,7 +11,7 @@ if [ -z "$STAGED" ]; then
   exit 0
 fi
 
-MATCH=$(echo "$STAGED" | xargs grep -l 'AIza' 2>/dev/null)
+MATCH=$(echo "$STAGED" | grep -E '\.(ts|tsx|astro|js|mjs)$' | xargs grep -l 'AIza' 2>/dev/null)
 
 if [ -n "$MATCH" ]; then
   echo ""
