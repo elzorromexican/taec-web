@@ -8,6 +8,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
 
 /**
  * DEPLOY TARGETS
@@ -39,11 +40,14 @@ export default defineConfig({
   trailingSlash: 'never',
 
   build: {
-    format: 'directory' // Generates /moodle-mexico/index.html etc.
+    format: 'directory', // Generates /moodle-mexico/index.html etc.
+    client: './dist',
+    server: './.server'
   },
 
-  // GitHub Pages → static. Todo lo demás (Netlify, dev local) → server.
-  output: isStaticBuild ? 'static' : 'server',
+  // En Astro 6, 'output' es globalmente 'server' ('hybrid' está deprecado).
+  // Pages se renderizan estáticas por defecto a menos que usen SSR.
+  output: 'server',
   integrations: [react(), sitemap()],
-  adapter: isNetlify ? netlify() : undefined
+  adapter: isNetlify ? netlify() : (isStaticBuild ? node({ mode: 'standalone' }) : undefined)
 });
