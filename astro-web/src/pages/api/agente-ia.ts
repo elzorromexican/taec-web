@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Secrets en SSR: NUNCA usar import.meta.env para llaves secretas en rutas de servidor.
-    // Vite serializa import.meta.env en el bundle compilado — el valor AIza... queda literal
+    // Vite serializa import.meta.env en el bundle compilado — el valor de la API Key queda literal
     // en el .mjs y dispara el secrets scanner de Netlify.
     // process.env es leído en RUNTIME por la serverless function → nunca aparece en el bundle.
     // En dev local con Astro 6+, cargar manualmente dotenv asegura que process.env esté poblado.
@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
       apiKey = Netlify.env.get('TAEC_GEMINI_KEY') || Netlify.env.get('GEMINI_API_KEY');
     }
     
-    // Sanitización forzosa extrema: Netlify UI no quita las comillas, si el usuario pegó "AIza..." el API las lee literales.
+    // Sanitización forzosa extrema: Netlify UI no quita las comillas, si el usuario pegó la llave con comillas el API las lee literales.
     if (typeof apiKey === 'string') {
       apiKey = apiKey.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
     }
