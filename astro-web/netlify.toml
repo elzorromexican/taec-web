@@ -5,8 +5,8 @@
 [build.environment]
   ASTRO_BUILD_MODE = "server"
 
-[functions]
-  # Aumentar timeout para el endpoint de TitoBits (Gemini API con knowledge base grande)
+[functions."ssr"]
+  # Aumentar timeout para TitoBits (Gemini API con knowledge base grande)
   # Netlify Pro/Business soporta hasta 26s; free plan máximo 10s.
   timeout = 26
 
