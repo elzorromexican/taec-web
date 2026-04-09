@@ -11,8 +11,7 @@ const getSafeEnv = (k: string) => {
   if (typeof process !== 'undefined' && process.env && process.env[k]) {
     return process.env[k] as string;
   }
-  // @ts-ignore
-  return typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env[k] as string : undefined;
+  return undefined;
 };
 
 // Rate Limiting persistente via Upstash Redis (Sliding Window)
