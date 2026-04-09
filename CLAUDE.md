@@ -27,6 +27,20 @@ Todo cambio sigue este flujo obligatorio:
 4. Esperar auditoría/aprobación
 5. Merge solo después de aprobación
 
+### Hook anti-AIza (secrets scanner)
+
+El literal `AIza` en cualquier archivo causa falsos positivos en el secrets scanner de Netlify
+(Vite lo preserva en comentarios del bundle SSR). Está prohibido escribirlo en código o comentarios.
+
+**Alternativas válidas:**
+- `GCP_API_KEY_PREFIX`
+- `prefijo-de-llave-google`
+- `<API_KEY_EXAMPLE>`
+
+**Para instalar el hook localmente tras clonar:**
+```sh
+sh scripts/install-hooks.sh
+```
 ---
 
 ## Roles del equipo de IA
