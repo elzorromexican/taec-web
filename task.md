@@ -29,6 +29,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 - [x] **[ISSUE-020] Admin Panel WYSIWYG:** Editor visual (`react-simple-wysiwyg`) se descuadraba al regresar al admin desde otra ruta. Fix: hard reload en todos los links de entrada a `/interno/admin`. Rama `fix/admin-novedades-ui` mergeada · 07 abr 2026.
 - [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard para mayor pulcritud comercial.
 - [ ] **[ISSUE-019] QA UX Hub:** Validar comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
+- [ ] **[ISSUE-021] Reach 360:** Abrir ticket separado `fix/header-dropdown-reach` para investigar el z-index/position del nav desplegable en ESA página.
 
 **🟡 QA Audit - UI/UX & Flow (P1)**
 - [x] [ISSUE-015] Intranet: 'Active' state del Sidebar mal manejado por JS-client, debería usar Astro.url

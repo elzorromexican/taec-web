@@ -1,5 +1,5 @@
 ---
-import { getBookingUrl } from '../data/contact';
+
 /**
  * @name Index (Inicio)
  * @version 1.1
@@ -99,11 +99,11 @@ if (activePromos.length > 0) {
 
   <main id="main-content">
 
-    {activePromo && (
+    {activePromos.length > 0 && (
       <div style="background:#1E3A8A; color:#FFFFFF; text-align:center; padding:12px 5%; font-size:14px; font-weight:700; width:100%; border-bottom:1px solid #1D4ED8;">
-        <span style="background:#EA580C; color:#FFF; padding:3px 10px; border-radius:12px; font-size:11px; margin-right:8px; vertical-align:middle; text-transform:uppercase;">{activePromo.badgeText}</span>
-        <span style="vertical-align:middle; letter-spacing:0.3px;">{activePromo.title} <span style="font-weight:500; opacity:0.9;">– {activePromo.description}</span></span>
-        <a href={activePromo.link ? r(activePromo.link) : '#'} style="color:#93C5FD; text-decoration:underline; font-weight:700; margin-left:12px; vertical-align:middle; display:inline-block;">Aprovechar oferta →</a>
+        <span style={`background:${activePromos[0].color || '#EA580C'}; color:#FFF; padding:3px 10px; border-radius:12px; font-size:11px; margin-right:8px; vertical-align:middle; text-transform:uppercase;`}>{activePromos[0].badgeText}</span>
+        <span style="vertical-align:middle; letter-spacing:0.3px;">{activePromos[0].title} <span style="font-weight:500; opacity:0.9;">– {activePromos[0].description}</span></span>
+        <a href={activePromos[0].link ? r(activePromos[0].link) : '#'} style="color:#93C5FD; text-decoration:underline; font-weight:700; margin-left:12px; vertical-align:middle; display:inline-block;">Aprovechar oferta →</a>
       </div>
     )}
 
