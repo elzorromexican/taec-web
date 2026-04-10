@@ -77,7 +77,7 @@ const { theme = 'default' } = Astro.props;
         
         {footerLinks.map((col) => (
           <div class="footer-col">
-            <h4>{col.title}</h4>
+            <h3>{col.title}</h3>
             <ul>
               {col.items.map((link) => (
                 <li><a href={r(link.url)} {...(link.url.startsWith('http') ? {target: "_blank", rel: "noopener noreferrer"} : {})}>{link.label}</a></li>

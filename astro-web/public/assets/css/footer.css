@@ -13,7 +13,7 @@ footer { background: var(--navy); padding: 56px 5% 24px; }
 .footer-contact { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
 .footer-contact a { font-size: 14px; color: #CBD5E1; transition: color .15s; font-weight: 500; }
 .footer-contact a:hover { color: var(--white); }
-.footer-col h4 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #F8FAFC; margin-bottom: 16px; }
+.footer-col h3, .footer-col h4 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #F8FAFC; margin-bottom: 16px; }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .footer-col ul li a { font-size: 14px; color: #E2E8F0; transition: color .15s; }
 .footer-col ul li a:hover { color: var(--white); }
