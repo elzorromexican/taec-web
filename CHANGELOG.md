@@ -17,6 +17,10 @@ Producción futura: `https://nuevo.taec.com.mx`
 - **Evasión de Analizadores NUL (`\0`):** El borrado de strings nulos operaba posteriormente a la codificación general `escapeHtml`. Su jerarquía se alteró, convirtiéndolo en un mecanismo preventivo primario, extinguiendo vulnerabilidades de inyección evadida.
 - **Corrupción Termodinámica por Truncado:** Anteriormente, el truncado dimensional (*Substring*) operaba en la cadena codificada de HTML, produciendo rupturas a la mitad del hash de entidades como `&lt;`. Ahora opera con candado matemático antes de ejecutarse, previendo un *overflow* o desgarramiento en formatos de Email antiguos.
 
+### 🎨 Saneamiento UI (Deuda Técnica y Core Web Vitals)
+- **Purga de Código Muerto (EmailJS):** Erradicados remanentes documentales engañosos de `totara-lms-mexico.astro` consolidando definitivamente que la capa de contacto obedece rígidamente al Fetch SSR. 
+- **Cero Cumulative Layout Shift (CLS):** Implementadas inyecciones manuales de reserva algorítmica (`width="x" height="y"`) directas sobre los logotipos `svg` institucionales (Header/Footer) y banners multimedia de peso (DDC). Esto garantiza la reserva matemática de espacio en memoria antes del *paint* visual del cliente web, evitando brincos penaligables por Crawler SEO de Google.
+
 ---
 
 ## v2.2.2 · 08 abr 2026 — Fix Seguridad: Vulnerabilidad import.meta.env + Hook Anti-Scanner
