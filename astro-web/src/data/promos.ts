@@ -9,7 +9,7 @@ export interface PromoConfig {
   urlTrigger?: string; // e.g. 'vyond' or 'moodle' (if the path contains this, the promo gets prioritized)
   countries: string[]; // ['MX', 'CO', 'LATAM', 'GLOBAL']
   active: boolean;
-  color?: string; // hex del badge en ticker. Default: '#EA580C' (naranja)
+  color?: string; // hex del badge en ticker. Default: '#c2410c' (naranja)
 }
 
 export const promos: PromoConfig[] = [
