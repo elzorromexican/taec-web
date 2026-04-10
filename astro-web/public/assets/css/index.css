@@ -115,7 +115,7 @@
 .testi-carousel-wrapper { position: relative; margin-top: 40px; }
 .testi-carousel { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px; }
 .testi-carousel::-webkit-scrollbar { display: none; }
-.testi-card { flex: 0 0 340px; scroll-snap-align: start; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 28px 26px; display: flex; flex-direction: column; gap: 16px; }
+.testi-card { flex: 0 0 340px; scroll-snap-align: start; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 28px 26px; display: flex; flex-direction: column; gap: 16px; min-height: 280px; }
 .testi-quote { font-size: 28px; color: var(--teal); line-height: 1; font-family: var(--font-display); }
 .testi-text { font-size: 14px; color: var(--dark); line-height: 1.7; flex: 1; font-style: italic; }
 .testi-author { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
@@ -141,7 +141,7 @@
 .recursos { padding: 72px 5%; background: var(--white); }
 .recursos-inner { max-width: 1200px; margin: 0 auto; }
 .recursos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.rec-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: box-shadow .2s; }
+.rec-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: box-shadow .2s; min-height: 280px; }
 .rec-card:hover { box-shadow: 0 6px 24px rgba(0,71,117,.08); }
 .rec-thumb { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
 .rec-thumb.t1 { background: linear-gradient(135deg, #EFF6FF, #DBEAFE); }

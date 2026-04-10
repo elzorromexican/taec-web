@@ -71,7 +71,7 @@ const solucionesNav = mainNav.find(item => item.id === "soluciones");
 .cat-title { font-family: var(--font-display); font-size: 28px; color: var(--navy); border-bottom: 2px solid rgba(168,219,217,.3); padding-bottom: 16px; }
 
 .dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-.dir-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+.dir-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 250px; }
 .dir-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,71,117,.08); border-color: rgba(168,219,217,.5); }
 
 .dir-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--teal), var(--blue)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
