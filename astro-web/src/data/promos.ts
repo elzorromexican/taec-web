@@ -10,18 +10,21 @@ export interface PromoConfig {
   countries: string[]; // ['MX', 'CO', 'LATAM', 'GLOBAL']
   active: boolean;
   color?: string; // hex del badge en ticker. Default: '#c2410c' (naranja)
+  ctaText?: string; // Texto personalizado del botón, ej. "Anotar en calendario →"
 }
 
 export const promos: PromoConfig[] = [
   {
-    id: "hot-sale-vyond-mx",
-    title: "¡HOT SALE EN MÉXICO!",
-    description: "Aprovecha un 30% de descuento directo en licencias nuevas de Vyond al facturar en MXN durante este mes.",
-    badgeText: "🔥 OFERTA EXCLUSIVA 🇲🇽",
-    link: "https://tienda.taec.com.mx",
-    urlTrigger: "vyond",
-    countries: ["MX"],
-    active: true
+    id: "save-the-date-mayo",
+    title: "Save the Date: 7 de mayo",
+    description: "Aparta la fecha para nuestro próximo evento exclusivo. ¡Pronto revelaremos más detalles sobre la sede y la agenda!",
+    badgeText: "📅 PRÓXIMO EVENTO",
+    link: "#",
+    urlTrigger: "eventos",
+    countries: ["GLOBAL"],
+    active: true,
+    ctaText: "Saber más →",
+    color: "#2563EB"
   },
   {
     id: "descuento-articulate-latam",
