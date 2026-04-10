@@ -158,7 +158,7 @@ if (activePromos.length > 0) {
       <div class="ticker-inner">
         <span class="ticker-badge">Recursos</span>
         <div class="ticker-marquee-wrapper">
-          <div class="ticker-track" id="tickerTrack" style="opacity:0; transition: opacity 0.3s; flex-wrap:nowrap;">
+          <div class="ticker-track" id="tickerTrack" style={`opacity:0; transition: opacity 0.3s; flex-wrap:nowrap; animation-duration: ${Math.max(65, tickerPool.length * 5)}s;`}>
             {tickerPool.map((i, idx) => (
               <div class="ticker-dom-item" style="display:none; align-items:center;">
                 <a href={i.url ? r(i.url) : r('/blog')} class="ticker-item" style={`text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space: nowrap; ${i.isPromo ? 'font-weight:700;' : ''}`}>
