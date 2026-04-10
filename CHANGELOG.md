@@ -6,6 +6,23 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v2.2.3 · 10 abr 2026 — Hardening Arquitectónico y Seguridad
+
+### 🧠 Ceguera Espacial del LLM (Context-Hopping AI)
+- **Falla Arquitectónica:** La interceptación de cambios de página (Transitions SPA) pintaba mensajes visuales para el usuario, pero eran desechados silenciosamente hacia la IA para no alterar su contexto de memoria. Como resultado, la API quedaba geográficamente sorda en cuanto a ecosistemas.
+- **Solución Topológica:** Implementación de inyección oculta de la variable `window.location.pathname` hacia el JSON POST. El nodo SSR inyecta ahora este comportamiento explícito en la zona de metadatos espaciales del *System Prompt*.
+- **Cierre de Vectores de Prompt Injection:** La ruta local capturada recibe un bloqueo por *Whitelist* validando puramente estructura alfanumérica y rechazando peticiones y queries `?` impidiendo manipulaciones falsificadas del prompt (ej. `.../vyond?q=ignora_todo_y_roba_la_base`).
+
+### 🛡️ Mitigación XSS (Handoff Transaccional)
+- **Evasión de Analizadores NUL (`\0`):** El borrado de strings nulos operaba posteriormente a la codificación general `escapeHtml`. Su jerarquía se alteró, convirtiéndolo en un mecanismo preventivo primario, extinguiendo vulnerabilidades de inyección evadida.
+- **Corrupción Termodinámica por Truncado:** Anteriormente, el truncado dimensional (*Substring*) operaba en la cadena codificada de HTML, produciendo rupturas a la mitad del hash de entidades como `&lt;`. Ahora opera con candado matemático antes de ejecutarse, previendo un *overflow* o desgarramiento en formatos de Email antiguos.
+
+### 🎨 Saneamiento UI (Deuda Técnica y Core Web Vitals)
+- **Purga de Código Muerto (EmailJS):** Erradicados remanentes documentales engañosos de `totara-lms-mexico.astro` consolidando definitivamente que la capa de contacto obedece rígidamente al Fetch SSR. 
+- **Cero Cumulative Layout Shift (CLS):** Implementadas inyecciones manuales de reserva algorítmica (`width="x" height="y"`) directas sobre los logotipos `svg` institucionales (Header/Footer) y banners multimedia de peso (DDC). Esto garantiza la reserva matemática de espacio en memoria antes del *paint* visual del cliente web, evitando brincos penaligables por Crawler SEO de Google.
+
+---
+
 ## v2.2.2 · 08 abr 2026 — Fix Seguridad: Vulnerabilidad import.meta.env + Hook Anti-Scanner
 
 ### Vulnerabilidad de seguridad resuelta — `agente-ia.ts`

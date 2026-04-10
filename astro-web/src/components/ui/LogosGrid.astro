@@ -23,7 +23,7 @@ const { eyebrow, logos, theme = 'general' } = Astro.props;
       {logos.map(logo => (
         <div class="logo-item">
           {logo.type === 'image' && (
-             <img src={logo.src} alt={logo.alt || logo.text || 'Partner logo'} class="logo-img" />
+             <img src={logo.src} alt={logo.alt || logo.text || 'Partner logo'} class="logo-img" width="160" height="60" />
           )}
           {logo.type === 'text' && (
              <div class="logo-text-pill"><span>{logo.text}</span></div>

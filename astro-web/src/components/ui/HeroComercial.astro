@@ -47,7 +47,7 @@ import { r, base } from '../../utils/paths';
     <div class="hero-card">
       {cardLogoSrc && (
         <div class="card-logo-wrap">
-          <img src={cardLogoSrc} alt={cardBadgeText || "Logo representativo del producto"} style={cardLogoStyle} />
+          <img src={cardLogoSrc} alt={cardBadgeText || "Logo representativo del producto"} style={cardLogoStyle} width="200" height="64" />
         </div>
       )}
       {cardBadgeText && <p class="card-badge">{cardBadgeText}</p>}
@@ -81,7 +81,7 @@ h1 :global(em) { color: var(--hero-accent, #38bdf8); font-style: normal; }
 }
 .hero-btns { display: flex; gap: 12px; flex-wrap: nowrap; margin-bottom: 16px; align-items: center; }
 .btn-primary {
-  background: var(--hero-primary, #f97316); color: var(--btn-text, white); font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; transition: opacity .15s;
+  background: var(--hero-primary, #ea580c); color: var(--btn-text, white); font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; transition: opacity .15s;
 }
 .btn-primary:hover { opacity: .9; }
 .btn-ghost {
@@ -110,7 +110,7 @@ h1 :global(em) { color: var(--hero-accent, #38bdf8); font-style: normal; }
 .theme-moo { 
   --hero-bg: linear-gradient(135deg, #1a0600 0%, #3d1500 55%, #7a2e00 100%);
   --hero-accent: #FFB05A;
-  --hero-primary: #F98012;
+  --hero-primary: #ea580c;
 }
 .theme-tot {
   --hero-bg: linear-gradient(135deg, #001f3d 0%, #004775 60%, #0077b6 100%);
@@ -121,7 +121,7 @@ h1 :global(em) { color: var(--hero-accent, #38bdf8); font-style: normal; }
 .theme-art {
   --hero-bg: linear-gradient(135deg, #0f172a 0%, #00355a 100%);
   --hero-accent: #7DD3FC;
-  --hero-primary: #f97316;
+  --hero-primary: #ea580c;
 }
 .theme-vyond {
   --hero-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);

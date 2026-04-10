@@ -1,10 +1,10 @@
 /**
  * Controlador de interacciones exclusivas para la Landing de Totara LMS
- * Maneja el envío del formulario usando EmailJS y el comportamiento de la barra interactiva.
+ * Maneja el envío del formulario usando Fetch hacia Contact Endpoint SSR y el comportamiento de la barra interactiva.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Lógica de Formulario SSR (Sustituye EmailJS)
+  // 1. Lógica de Formulario SSR
   const form = document.getElementById('tot-lead-form') as HTMLFormElement;
   if(form) {
     form.addEventListener('submit', async (e) => {

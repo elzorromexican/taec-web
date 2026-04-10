@@ -309,7 +309,8 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           userMessage: userMsg, 
           history: safeLLMHistory,
           email: userData.email,
-          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          currentPath: window.location.pathname
         })
       });
       

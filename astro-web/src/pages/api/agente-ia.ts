@@ -78,11 +78,18 @@ export const POST: APIRoute = async ({ request }) => {
       apiKey = apiKey.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
     }
 
-    // DEBUG TEMPORAL — eliminar tras diagnóstico
-    console.log(`[DEBUG KEY] len=${apiKey?.length} first10=${apiKey?.substring(0,10)} last4=${apiKey?.slice(-4)} source=process.env:${!!process.env?.TAEC_GEMINI_KEY}`);
-
     const data = await request.json();
-    const { history, userMessage, email, timeZone } = data;
+    const { history, userMessage, email, timeZone, currentPath } = data;
+
+    // SANITIZACIÓN ESPACIAL (Cierre de vector de Prompt Injection vía URL local)
+    let safePath = 'Página General';
+    if (typeof currentPath === 'string') {
+       // Elimina queries (?q=) y fragmentos (#), previene inyecciones verbales encadenadas
+       const pathSinQuery = currentPath.split('?')[0].split('#')[0];
+       // Whitelist agresivo: solo alfanuméricos, guiones y barras. Topado a 100 chars.
+       const cleanPath = pathSinQuery.replace(/[^a-zA-Z0-9\/\-_]/g, '').substring(0, 100);
+       if (cleanPath.length > 0) safePath = cleanPath;
+    }
 
     // VALIDACIÓN DE SEGURIDAD (Capa 1): Evitar DoS por agotamiento de tokens / payload masivo
     if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
@@ -160,6 +167,7 @@ ${titoKnowledgeBase.replace(/\{IS_MEXICO\}/g, isMexico ? 'VERDADERA' : 'FALSA')}
 
 CONTEXTO EN TIEMPO REAL DEL USUARIO ACTUAL:
 📍 Ubicación detectada por IP: ${location || 'Desconocida'} (Código: ${countryCode || 'N/A'})
+📍 URL Espacial actual: ${safePath}. (Usa este dato para inferir de qué herramienta o servicio te habla si hace una pregunta ambigua).
 - Si el usuario es de MX (México), entonces el IS_MEXICO fue resuelto como VERDADERA. Cotiza los $1,198 USD + IVA.
 - Si el usuario es de CUALQUIER OTRO PAÍS (incluyendo Colombia, Chile, Argentina, España, LATAM, etc): IS_MEXICO es FALSA. TIENES ABSOLUTA Y TOTALMENTE PROHIBIDO mencionar o dar la cifra de $1,198 USD. Diles amablemente que el modelo Emerging Markets se maneja vía distribuidor y requieres su correo para canalizar la consulta al territorio correcto.
 ${email ? `\n🚨 NOTA OPERATIVA DE SISTEMA: El usuario YA NOS PROPORCIONÓ SU CORREO ELECTRÓNICO (${email}) EN EL CUESTIONARIO PREVIO. \nTIENES ESTRICTAMENTE PROHIBIDO volver a pedirle su correo, teléfono o datos de contacto durante el resto de esta conversación. Concéntrate 100% en darle su plan de acción técnico.` : ''}

@@ -24,7 +24,7 @@ const { theme = 'default' } = Astro.props;
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href={r('/')} class="logo-link" aria-label="TAEC — Ir al inicio"><img src={`${base}assets/logo.svg`} alt="TAEC" /></a>
+        <a href={r('/')} class="logo-link" aria-label="TAEC — Ir al inicio"><img src={`${base}assets/logo.svg`} alt="TAEC" width="160" height="42" loading="lazy" /></a>
         <p>Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde 2007 en CDMX para México y LATAM.</p>
         <div class="footer-contact">
           <a href={`mailto:${contactData.email}`}>✉ {contactData.email}</a>
@@ -35,7 +35,7 @@ const { theme = 'default' } = Astro.props;
       
       {footerLinks.map((col) => (
         <div class="footer-col">
-          <h4>{col.title}</h4>
+          <h3>{col.title}</h3>
           <ul>
             {col.items.map((link) => (
               <li><a href={r(link.url)} {...(link.url.startsWith('http') ? {target: "_blank", rel: "noopener noreferrer"} : {})}>{link.label}</a></li>

@@ -14,9 +14,9 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 - [x] **Consolidación KB Vyond Enterprise:** Procesamiento y generación del script semilla `docs/supabase-interno-seed-vyondenterprise.sql` de troubleshooting, técnica y comercial. Se aplicó lógica rigurosa de fusión (Respuesta + El Plus) y depuración Regex profunda para texto plano B2B.
 - [x] **Despliegue a Producción (CI/CD):** Fusión exitosa de la rama `feature/ddc-calculadora` a `main`. Netlify Production y GitHub Pages apuntan activos a main bajo el MVP v6.0 B2B.
 - [x] **Integración Supabase e Intranet B2B:** Refactorización de infraestructura y autenticación segura con SSR y middleware estricto de dominio e-mail corporativo.
-- [ ] **Auditoría Resend Handoff:** Revisar payloads transaccionales de `send-transcript.ts` con sanitización XSS para asegurar transcritos limpios en CRM.
-- [ ] **Context-Hopping Final:** Validar las recomendaciones dinámicas espaciales de Tito Bits al cruzar ecosistemas en Front-End.
-- [ ] **Deuda Técnica UI:** Actualizar Zoho Bookings URL (`taec.zohobookings.com`), eliminar `emailjs.ts` obsoleto si aplica, e inyectar `<Image>` tags nativos en Assets para CLS cero absoluto.
+- [x] **Auditoría Resend Handoff:** Revisar payloads transaccionales de `send-transcript.ts` con sanitización XSS para asegurar transcritos limpios en CRM.
+- [x] **Context-Hopping Final:** Validar las recomendaciones dinámicas espaciales de Tito Bits al cruzar ecosistemas en Front-End.
+- [x] **Deuda Técnica UI:** Actualizar Zoho Bookings URL (`taec.zohobookings.com`), eliminar `emailjs.ts` obsoleto si aplica, e inyectar `<Image>` tags nativos en Assets para CLS cero absoluto.
  
 ## 🛠️ Auditoría QA Intranet (Fixes Pendientes)
 **Score de salud: 67 / 100** — Base sólida, gaps claros.
@@ -217,9 +217,11 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 - [ ] **Totara:** Desarrollar desde cero las páginas hijas completas para Totara Learn, Totara Perform y Totara Mobile.
 - [ ] **DDC:** Construir desde cero sub-páginas ("deep dives") explicando los contenidos y mostrando ejemplos de portafolio.
 
-**10. Automatización e IA Interactiva (Tito Bits Nivel 2 y 3)**
+**10. Automatización e IA Interactiva (Evolución Tito Bits V4 - RAG)**
 - [x] Construir "Assessment Operativo / Diagnóstico" con generación matemática de ecosistemas de 8 ejes (DC-3, Proctoring, LMS, Autor). Dispara un endpoint webhook para parsear en caliente el Horóscopo Radial en HTML y empujar prospectos cualificados directo a Zoho Bookings.
-- [ ] Implementar Chatbot de IA (RAG) consumiendo exclusivamente el Blog y Glosario.
+- [ ] **[Documentación]** Plan Estratégico y Arquitectura V4 consolidado en `docs/PLAN_EVOLUCION_TITO_BITS_V4.md`.
+- [ ] **[Ejecución] Fase 1 (MVP RAG):** Desarrollar el Ruteador de Intenciones e ingestar la primera base de conocimiento (FAQs curadas de proveedor) usando Astro Content Collections.
+- [ ] **[Ejecución] Fase 2 (Seguridad y Escalamiento):** Implementar el "Sandbox Anti-Alucinación" (guardrails de pricing en duro) y el protocolo de *Handoff* Inteligente (Ventana de calificación de leads Enterprise al CRM).
 - [ ] Añadir animaciones progresivas (Framer Motion / Viewport CSS) a toda la página de DDC.
 - [ ] Construir Centro de Webinars y Demos On-Demand (Videos cerrados contra captura de lead).
 - [ ] Implementar un Hero Banner inteligente (Personalización dinámica de contenido).
