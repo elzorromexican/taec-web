@@ -16,7 +16,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 - [x] **Integración Supabase e Intranet B2B:** Refactorización de infraestructura y autenticación segura con SSR y middleware estricto de dominio e-mail corporativo.
 - [x] **Auditoría Resend Handoff:** Revisar payloads transaccionales de `send-transcript.ts` con sanitización XSS para asegurar transcritos limpios en CRM.
 - [x] **Context-Hopping Final:** Validar las recomendaciones dinámicas espaciales de Tito Bits al cruzar ecosistemas en Front-End.
-- [ ] **Deuda Técnica UI:** Actualizar Zoho Bookings URL (`taec.zohobookings.com`), eliminar `emailjs.ts` obsoleto si aplica, e inyectar `<Image>` tags nativos en Assets para CLS cero absoluto.
+- [x] **Deuda Técnica UI:** Actualizar Zoho Bookings URL (`taec.zohobookings.com`), eliminar `emailjs.ts` obsoleto si aplica, e inyectar `<Image>` tags nativos en Assets para CLS cero absoluto.
  
 ## 🛠️ Auditoría QA Intranet (Fixes Pendientes)
 **Score de salud: 67 / 100** — Base sólida, gaps claros.
