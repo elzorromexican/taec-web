@@ -18,7 +18,7 @@ footer { background: var(--navy); padding: 56px 5% 24px; }
 .footer-col ul li a { font-size: 14px; color: #E2E8F0; transition: color .15s; }
 .footer-col ul li a:hover { color: var(--white); }
 .footer-bottom { padding-top: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.footer-bottom p { font-size: 13px; color: #94A3B8; }
+.footer-bottom p { font-size: 13px; color: #cbd5e1; }
 .footer-bottom p a { color: #CBD5E1; text-decoration: underline; font-weight: 500; }
 .footer-bottom p a:hover { color: var(--white); }
 .footer-social { display: flex; gap: 12px; }
@@ -29,7 +29,7 @@ footer { background: var(--navy); padding: 56px 5% 24px; }
 .build-badge {
   font-family: ui-monospace, 'Cascadia Code', monospace;
   font-size: 11px;
-  color: #94A3B8;
+  color: #cbd5e1;
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.15);
   border-radius: 4px;
