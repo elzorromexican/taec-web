@@ -16,10 +16,10 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Formato de historial inválido o excesivo.' }), { status: 400 });
     }
 
-    // Helper anti-XSS
     const escapeHtml = (str: string) => {
       if (!str) return '';
       return String(str)
+        .replace(/\0/g, '') // NUL bytes evasion prevention
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
@@ -35,8 +35,6 @@ export const POST: APIRoute = async ({ request }) => {
       // 2. Reemplazar sintaxis básica de Markdown blindado
       html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Negritas
       html = html.replace(/(?<!\*)\*(.*?)\*(?!\*)/g, '<em>$1</em>'); // Cursivas
-      // Remover NUL bytes por seguridad (evasión de parsers)
-      html = html.replace(/\0/g, '');
       // Regex Hardenizada: Solo se renderizan enlaces si el esquema es http:// o https://
       html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, '<a href="$2" style="color:#004775;text-decoration:underline;">$1</a>');
       html = html.replace(/\n/g, '<br/>'); // Saltos de línea
@@ -105,7 +103,9 @@ export const POST: APIRoute = async ({ request }) => {
       // Antes de salir a PRD masivo, hay que verificar un dominio en Resend (ej. notificaciones@taec.com.mx)
       from: 'Tito Bits <onboarding@resend.dev>',
       to: ['smasmoudi@taec.com.mx'], 
-      subject: `Nuevo Lead IA: ${escapeHtml(userData.name).substring(0, 50)}`,
+      // Matemáticas de seguridad: Truncado en 40 max. En el peor escenario de escape (ej. < 40 veces = &lt; = 200 chars). 
+      // 200 + titulo del asunto < 255 caracteres del límite RFC estándar.
+      subject: `Nuevo Lead IA: ${escapeHtml(String(userData.name || '').substring(0, 40))}`,
       html: emailHtml,
     });
 
