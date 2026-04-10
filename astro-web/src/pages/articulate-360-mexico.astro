@@ -179,10 +179,9 @@ const faqsArt = [
 
 <!-- ══ ANNOUNCEMENT BARS Q2 ══ -->
 
-<!-- Barra 1: Promo Teams+IA — solo MX, oculta por default -->
+<!-- Barra 1: Promo Teams+IA — solo MX, oculta por default en el resto del mundo -->
 <div id="bar-promo-mx"
-  style="display:none;background:#ea580c;color:white;padding:12px 5%;
-         text-align:center;font-size:13px;font-weight:600;line-height:1.5;">
+  style={`display:${isMexico ? 'block' : 'none'};background:#ea580c;color:white;padding:12px 5%;text-align:center;font-size:13px;font-weight:600;line-height:1.5;`}>
   🇲🇽 <strong>Precio especial Q2 para México</strong> —
   Articulate 360 Teams + IA por <strong>$1,198 USD</strong>
   <span style="opacity:0.85;font-weight:400;"> · normal $1,749 · 31% dto · Facturación en México</span>
@@ -430,16 +429,16 @@ const faqsArt = [
         <div id="card-teams" style="background:var(--white);border:3px solid var(--orange);border-radius:16px;padding:32px 24px;position:relative;display:flex;flex-direction:column;box-shadow:0 12px 32px rgba(249,115,22,0.15);overflow:hidden;height:100%;">
           <!-- RIBBON PROMO Q2 — visible solo si isMexico + AI toggle activo -->
           <div id="promo-ribbon-teams"
-            style="display:none;position:absolute;top:22px;right:-32px;background:#ea580c;color:white;
+            style={`display:${isMexico ? 'block' : 'none'};position:absolute;top:22px;right:-32px;background:#ea580c;color:white;
                    font-size:10px;font-weight:800;letter-spacing:0.5px;padding:5px 40px;
-                   transform:rotate(45deg);z-index:10;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.2);">
+                   transform:rotate(45deg);z-index:10;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.2);`}>
             PROMO Q2
           </div>
           <h3 style="font-size:16px;font-weight:700;color:var(--blue);text-align:center;margin-bottom:4px;">Integrantes de Equipos</h3>
         <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:center;margin-bottom:20px;">ARTICULATE 360 TEAMS</p>
         <!-- Precio tachado (visible solo en modo AI + MX) -->
         <div id="price-teams-original"
-          style="display:none;text-align:center;margin-bottom:2px;">
+          style={`display:${isMexico ? 'block' : 'none'};text-align:center;margin-bottom:2px;`}>
           <span style="font-size:14px;color:var(--muted);text-decoration:line-through;">
             $1,749 USD
           </span>
@@ -454,7 +453,7 @@ const faqsArt = [
         <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:4px;">USD + IVA · por seat / año</p>
         <p id="mxn-teams" style="text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin-bottom:20px;">Nueva suscripción</p>
         <div id="promo-chip-teams"
-          style="display:none;text-align:center;margin-bottom:12px;">
+          style={`display:${isMexico ? 'block' : 'none'};text-align:center;margin-bottom:12px;`}>
           <span style="display:inline-block;background:#FEF3C7;color:#92400E;
                        font-size:10px;font-weight:700;padding:3px 10px;
                        border-radius:20px;letter-spacing:0.3px;">
