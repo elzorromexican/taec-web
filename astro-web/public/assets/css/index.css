@@ -10,7 +10,7 @@
 .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
 .hero h1 { font-family: var(--font-display); font-size: 42px; line-height: 1.15; color: var(--white); margin-bottom: 18px; }
 .hero h1 em { color: var(--teal); font-style: normal; }
-.hero-sub { color: #94A3B8; font-size: 16px; line-height: 1.75; margin-bottom: 32px; max-width: 480px; }
+.hero-sub { color: #cbd5e1; font-size: 16px; line-height: 1.75; margin-bottom: 32px; max-width: 480px; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
 .btn-primary:hover { background: #d97b0e; }
@@ -22,7 +22,7 @@
 .stat-card { background: rgba(255,255,255,.08); border: 1px solid rgba(168,219,217,.15); border-radius: 12px; padding: 22px 20px; text-align: center; }
 .stat-num { font-family: var(--font-display); font-size: 34px; font-weight: 400; color: var(--white); line-height: 1; }
 .stat-num em { color: var(--teal); font-style: normal; }
-.stat-label { font-size: 12px; color: #94A3B8; margin-top: 6px; line-height: 1.4; }
+.stat-label { font-size: 12px; color: #cbd5e1; margin-top: 6px; line-height: 1.4; }
 
 /* ── CLIENTES LOADER ── */
 .clientes-section { background: var(--navy); padding: 60px 5%; border-top: 1px solid rgba(255,255,255,.1); }
@@ -160,7 +160,7 @@
 .cta-band { background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%); padding: 72px 5%; }
 .cta-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .cta-text h2 { font-family: var(--font-display); font-size: 30px; color: var(--white); margin-bottom: 8px; line-height: 1.2; }
-.cta-text p { font-size: 15px; color: #94A3B8; }
+.cta-text p { font-size: 15px; color: #cbd5e1; }
 .cta-btns { display: flex; gap: 12px; flex-wrap: wrap; flex-shrink: 0; }
 .btn-cta-band { display: inline-block; background: var(--orange); color: var(--white); padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 14px; white-space: nowrap; transition: background .15s; }
 .btn-cta-band:hover { background: #d97b0e; }
@@ -243,12 +243,12 @@
 .triaje-hero { background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%); padding: 80px 5% 100px; position: relative; overflow: hidden; }
 .triaje-bg-decor { position: absolute; top:0; right: 0; bottom: 0; width: 50%; background: linear-gradient(90deg, transparent, rgba(55, 154, 255, 0.08)); pointer-events: none; }
 .triaje-inner { max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
-.triaje-title { font-family: var(--font-display); font-size: 56px; line-height: 1.1; color: var(--white); margin-bottom: 24px; min-height: 124px; }
+.triaje-title { font-family: var(--font-display); font-size: 56px; line-height: 1.1; color: var(--white); margin-bottom: 24px; min-height: 130px; }
 .triaje-title em { color: var(--vy-orange); font-style: normal; }
-.triaje-sub { font-size: 18px; color: #cbd5e1; max-width: 700px; margin: 0 auto 56px; line-height: 1.6; }
+.triaje-sub { font-size: 18px; color: #cbd5e1; max-width: 700px; margin: 0 auto 56px; line-height: 1.6; min-height: 60px; }
 
 .triaje-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: left; }
-.triaje-card { background: var(--white); color: var(--navy); border-radius: 16px; padding: 32px 24px; transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; }
+.triaje-card { background: var(--white); color: var(--navy); border-radius: 16px; padding: 32px 24px; transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; min-height: 260px; }
 .triaje-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
 .triaje-badge { display: inline-table; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 16px; width: max-content; }
 .triaje-card h2 { font-size: 22px; margin-bottom: 12px; line-height: 1.25; color: var(--navy); }
@@ -257,8 +257,11 @@
 
 @media (max-width: 1024px) {
   .triaje-grid { grid-template-columns: repeat(2, 1fr); }
+  .triaje-card { min-height: 230px; }
 }
 @media (max-width: 640px) {
   .triaje-grid { grid-template-columns: 1fr; }
-  .triaje-title { font-size: 42px; min-height: 95px; }
+  .triaje-title { font-size: 40px; min-height: 190px; }
+  .triaje-sub { min-height: 120px; font-size: 16px; }
+  .triaje-card { min-height: 210px; }
 }

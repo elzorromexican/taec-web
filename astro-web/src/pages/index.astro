@@ -68,7 +68,7 @@ if (activePromos.length > 0) {
     categoria: p.badgeText.replace(/[^\w\s%·]/g, '').trim() || 'OFERTA',
     url: p.link || '#',
     isPromo: true,
-    color: p.color || '#EA580C'
+    color: p.color || '#c2410c'
   }));
 
   // Patrón: 2 posts normales → 1 promo (rotando entre todas las promos activas)
@@ -101,7 +101,7 @@ if (activePromos.length > 0) {
 
     {activePromos.length > 0 && (
       <div style="background:#1E3A8A; color:#FFFFFF; text-align:center; padding:12px 5%; font-size:14px; font-weight:700; width:100%; border-bottom:1px solid #1D4ED8;">
-        <span style={`background:${activePromos[0].color || '#EA580C'}; color:#FFF; padding:3px 10px; border-radius:12px; font-size:11px; margin-right:8px; vertical-align:middle; text-transform:uppercase;`}>{activePromos[0].badgeText}</span>
+        <span style={`background:${activePromos[0].color || '#c2410c'}; color:#FFF; padding:3px 10px; border-radius:12px; font-size:11px; margin-right:8px; vertical-align:middle; text-transform:uppercase;`}>{activePromos[0].badgeText}</span>
         <span style="vertical-align:middle; letter-spacing:0.3px;">{activePromos[0].title} <span style="font-weight:500; opacity:0.9;">– {activePromos[0].description}</span></span>
         <a href={activePromos[0].link ? r(activePromos[0].link) : '#'} style="color:#93C5FD; text-decoration:underline; font-weight:700; margin-left:12px; vertical-align:middle; display:inline-block;">Aprovechar oferta →</a>
       </div>
@@ -168,7 +168,7 @@ if (activePromos.length > 0) {
                   </span>
                   <span style={i.isPromo ? `color:${i.color};` : "color:var(--text-color);"}>{String(i.titulo)}</span>
                 </a>
-                <span class="ticker-item-dot" style="color:var(--border); font-weight:bold; margin: 0 24px;">·</span>
+                <span class="ticker-item-dot" style="color:#64748B; font-weight:bold; margin: 0 24px;">·</span>
               </div>
             ))}
           </div>
