@@ -53,7 +53,7 @@ export const promos: PromoConfig[] = [
     link: "/articulate-localization",
     urlTrigger: "localization",
     countries: ["GLOBAL"],
-    active: false,
+    active: true,
     color: "#0d9488"
   },
   {
@@ -64,6 +64,6 @@ export const promos: PromoConfig[] = [
     link: "https://register.articulate.com/mexico-city",
     urlTrigger: "articulate",
     countries: ["MX"],
-    active: true
+    active: false
   }
 ];
