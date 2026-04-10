@@ -17,9 +17,9 @@ export const promos: PromoConfig[] = [
   {
     id: "save-the-date-mayo",
     title: "Save the Date: 7 de mayo",
-    description: "Aparta la fecha para nuestro próximo evento exclusivo. ¡Pronto revelaremos más detalles sobre la sede y la agenda!",
+    description: "El registro oficial y la agenda completa del evento ya se encuentran disponibles.",
     badgeText: "📅 PRÓXIMO EVENTO",
-    link: "#",
+    link: "https://www.articulate.com/events/mexico/",
     urlTrigger: "eventos",
     countries: ["GLOBAL"],
     active: true,
