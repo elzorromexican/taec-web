@@ -24,6 +24,8 @@ html { scroll-behavior: smooth; }
   --art:          #16A34A;
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body:    'Inter', sans-serif;
+  --shield-card-desk: 250px;
+  --shield-card-mob: auto;
 }
 
 /* ── TIPOGRAFÍA Y ELEMENTOS BASE ── */
