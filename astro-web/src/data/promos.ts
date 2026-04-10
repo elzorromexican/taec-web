@@ -15,16 +15,14 @@ export interface PromoConfig {
 
 export const promos: PromoConfig[] = [
   {
-    id: "save-the-date-mayo",
-    title: "Save the Date: 7 de mayo",
-    description: "El registro oficial y la agenda completa del evento ya se encuentran disponibles.",
-    badgeText: "📅 PRÓXIMO EVENTO",
-    link: "https://www.articulate.com/events/mexico/",
-    urlTrigger: "eventos",
-    countries: ["GLOBAL"],
-    active: true,
-    ctaText: "Saber más →",
-    color: "#2563EB"
+    id: "art-teams-ai-q2-mx",
+    title: "Articulate 360 Teams + IA — $1,198 USD",
+    description: "31% de descuento · Precio especial Q2 para facturación en México. Precio normal $1,749.",
+    badgeText: "🇲🇽 OFERTA Q2",
+    link: "/articulate-360-mexico",
+    urlTrigger: "articulate",
+    countries: ["MX"],
+    active: true
   },
   {
     id: "descuento-articulate-latam",
@@ -46,16 +44,7 @@ export const promos: PromoConfig[] = [
     countries: ["GLOBAL"], // Esta promo saldrá en Europa, Asia, USA, etc.
     active: false // Apagada por defecto hasta que inicies la campaña
   },
-  {
-    id: "art-teams-ai-q2-mx",
-    title: "Articulate 360 Teams + IA — $1,198 USD",
-    description: "31% de descuento · Precio especial Q2 para facturación en México. Precio normal $1,749.",
-    badgeText: "🇲🇽 OFERTA Q2",
-    link: "/articulate-360-mexico",
-    urlTrigger: "articulate",
-    countries: ["MX"],
-    active: true
-  },
+
   {
     id: "art-localization-q2-global",
     title: "Localization Pack — 20% descuento Q2",
@@ -64,7 +53,7 @@ export const promos: PromoConfig[] = [
     link: "/articulate-localization",
     urlTrigger: "localization",
     countries: ["GLOBAL"],
-    active: true,
+    active: false,
     color: "#0d9488"
   },
   {
