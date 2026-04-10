@@ -99,13 +99,12 @@ if (activePromos.length > 0) {
 
   <main id="main-content">
 
-    {activePromos.length > 0 && (
-      <div style="background:#1E3A8A; color:#FFFFFF; text-align:center; padding:12px 5%; font-size:14px; font-weight:700; width:100%; border-bottom:1px solid #1D4ED8;">
-        <span style={`background:${activePromos[0].color || '#c2410c'}; color:#FFF; padding:3px 10px; border-radius:12px; font-size:11px; margin-right:8px; vertical-align:middle; text-transform:uppercase;`}>{activePromos[0].badgeText}</span>
-        <span style="vertical-align:middle; letter-spacing:0.3px;">{activePromos[0].title} <span style="font-weight:500; opacity:0.9;">– {activePromos[0].description}</span></span>
-        <a href={activePromos[0].link ? r(activePromos[0].link) : '#'} style="color:#93C5FD; text-decoration:underline; font-weight:700; margin-left:12px; vertical-align:middle; display:inline-block;">{activePromos[0].ctaText || 'Aprovechar oferta →'}</a>
-      </div>
-    )}
+    {/* BANNER ESTÁTICO DE EVENTO (Independiente de geolocalización) */}
+    <div style="background:#1E3A8A; color:#FFFFFF; text-align:center; padding:12px 5%; font-size:14px; font-weight:700; width:100%; border-bottom:1px solid #1D4ED8;">
+      <span style="background:#2563EB; color:#FFF; padding:3px 10px; border-radius:12px; font-size:11px; margin-right:8px; vertical-align:middle; text-transform:uppercase;">📅 PRÓXIMO EVENTO</span>
+      <span style="vertical-align:middle; letter-spacing:0.3px;">Save the Date: 7 de mayo <span style="font-weight:500; opacity:0.9;">– El registro oficial y la agenda completa del evento ya se encuentran disponibles.</span></span>
+      <a href="https://www.articulate.com/events/mexico/" target="_blank" rel="noopener noreferrer" style="color:#93C5FD; text-decoration:underline; font-weight:700; margin-left:12px; vertical-align:middle; display:inline-block;">Saber más →</a>
+    </div>
 
     <section class="triaje-hero">
       <div class="triaje-bg-decor"></div>
