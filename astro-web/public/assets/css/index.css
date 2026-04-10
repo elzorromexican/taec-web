@@ -41,7 +41,7 @@
 /* ── TICKER ── */
 .ticker { background: var(--light); border-bottom: 1px solid var(--border); padding: 11px 5%; overflow: hidden; }
 .ticker-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
-.ticker-badge { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); background: #DBEAFE; padding: 3px 9px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; position: relative; z-index: 10; }
+.ticker-badge { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1D4ED8; background: #DBEAFE; padding: 3px 9px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; position: relative; z-index: 10; }
 .ticker-marquee-wrapper { flex: 1; overflow: hidden; display: flex; mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent); }
 .ticker-track { display: flex; gap: 0; width: max-content; animation: scroll-ticker 65s linear infinite; will-change: transform; flex-shrink: 0; }
 .ticker-track:hover { animation-play-state: paused; }
@@ -72,7 +72,7 @@
 .partner-badge:hover { opacity: 1; }
 .partner-logo { height: 40px; display: flex; align-items: center; justify-content: center; }
 .partner-logo img { height: 40px; width: auto; object-fit: contain; }
-.partner-tag { font-size: 10px; font-weight: 600; letter-spacing: .5px; color: var(--muted); text-transform: uppercase; background: var(--light); padding: 2px 8px; border-radius: 3px; }
+.partner-tag { font-size: 10px; font-weight: 600; letter-spacing: .5px; color: #475569; text-transform: uppercase; background: var(--light); padding: 2px 8px; border-radius: 3px; }
 .logo-text { font-family: var(--font-body); font-weight: 800; font-size: 17px; color: var(--dark); letter-spacing: -.3px; }
 .logo-text.articulate { color: #E8561E; }
 .logo-text.vyond      { color: #00A4E0; }
@@ -148,7 +148,7 @@
 .rec-thumb.t2 { background: linear-gradient(135deg, rgba(168,219,217,.2), rgba(168,219,217,.4)); }
 .rec-thumb.t3 { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); }
 .rec-body { padding: 18px 20px; }
-.rec-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--blue); background: #DBEAFE; padding: 2px 8px; border-radius: 3px; margin-bottom: 10px; }
+.rec-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #1D4ED8; background: #DBEAFE; padding: 2px 8px; border-radius: 3px; margin-bottom: 10px; }
 .rec-body h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.35; }
 .rec-body p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
 .rec-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
@@ -243,7 +243,7 @@
 .triaje-hero { background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%); padding: 80px 5% 100px; position: relative; overflow: hidden; }
 .triaje-bg-decor { position: absolute; top:0; right: 0; bottom: 0; width: 50%; background: linear-gradient(90deg, transparent, rgba(55, 154, 255, 0.08)); pointer-events: none; }
 .triaje-inner { max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
-.triaje-title { font-family: var(--font-display); font-size: 56px; line-height: 1.1; color: var(--white); margin-bottom: 24px; }
+.triaje-title { font-family: var(--font-display); font-size: 56px; line-height: 1.1; color: var(--white); margin-bottom: 24px; min-height: 124px; }
 .triaje-title em { color: var(--vy-orange); font-style: normal; }
 .triaje-sub { font-size: 18px; color: #cbd5e1; max-width: 700px; margin: 0 auto 56px; line-height: 1.6; }
 
@@ -251,7 +251,7 @@
 .triaje-card { background: var(--white); color: var(--navy); border-radius: 16px; padding: 32px 24px; transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; }
 .triaje-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
 .triaje-badge { display: inline-table; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 16px; width: max-content; }
-.triaje-card h3 { font-size: 22px; margin-bottom: 12px; line-height: 1.25; color: var(--navy); }
+.triaje-card h2 { font-size: 22px; margin-bottom: 12px; line-height: 1.25; color: var(--navy); }
 .triaje-card p { font-size: 14px; color: var(--muted); margin-bottom: 24px; flex-grow: 1; }
 .triaje-cta { color: var(--blue); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 4px; }
 
@@ -260,5 +260,5 @@
 }
 @media (max-width: 640px) {
   .triaje-grid { grid-template-columns: 1fr; }
-  .triaje-title { font-size: 42px; }
+  .triaje-title { font-size: 42px; min-height: 95px; }
 }
