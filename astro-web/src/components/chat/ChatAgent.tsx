@@ -36,6 +36,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   const endRef = useRef<HTMLDivElement>(null);
   const inputChatRef = useRef<HTMLTextAreaElement>(null);
   const inputNameRef = useRef<HTMLInputElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const prevIsOpen = useRef(isOpen);
 
@@ -276,9 +277,31 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
 
     // Ejecutar al montar y delegar a Astro Events para SPA View Transitions
     handleContextHop();
+    
+    // Si cambia de ruta y estábamos streameando, cancelar
+    const abortStream = () => { if (abortControllerRef.current) abortControllerRef.current.abort(); };
+
     document.addEventListener('astro:page-load', handleContextHop);
-    return () => document.removeEventListener('astro:page-load', handleContextHop);
+    document.addEventListener('astro:page-load', abortStream);
+    return () => {
+       document.removeEventListener('astro:page-load', handleContextHop);
+       document.removeEventListener('astro:page-load', abortStream);
+    };
   }, []); // El event listener hace que funcione dinámicamente sin amarrar dependencias pesadas.
+
+  const updateMessage = (id: string, text: string, isStreaming: boolean, newRole?: 'agent' | 'error' | 'user') => {
+       const msgs = messagesStore.get();
+       const idx = msgs.findIndex((m: any) => m.id === id);
+       if (idx !== -1) {
+           const updated = [...msgs];
+           // @ts-ignore
+           updated[idx] = { ...updated[idx], text, isStreaming };
+           if (newRole) {
+               updated[idx].role = newRole as any;
+           }
+           messagesStore.set(updated);
+       }
+  };
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -286,25 +309,32 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
 
     const userMsg = input.trim();
     setInput('');
+    setIsLoading(true);
+
+    const msgId = 'msg-' + Math.random().toString(36).substring(2, 10);
     
     // Congelamos Snapshot para evitar Race Conditions y enviar el array limpio al backend (P0)
     const snapshot = [...messagesStore.get(), { role: 'user' as const, text: userMsg }];
-    messagesStore.set(snapshot);
-    setIsLoading(true);
+    
+    // Insertamos Placeholder para el streaming visual
+    messagesStore.set([...snapshot, { role: 'agent' as any, text: '', isStreaming: true, id: msgId }]);
 
     // AI Pollution Prevention: Excluimos mensajes insertados por el sistema (UI_Context)
     const ruleTexts = Object.values(chatCategoryRules).map(r => r.contextHop);
     const safeLLMHistory = snapshot.filter((m: any) => m.role !== 'error' && !ruleTexts.includes(m.text) && !m.text.includes('📍 *Explorando la sección de'));
     
-    // Abort controller timeout 25s
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 25000);
+    if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+
+    let accumulatedText = "";
 
     try {
       const res = await fetch('/api/agente-ia', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        signal: controller.signal,
+        signal: abortControllerRef.current.signal,
         body: JSON.stringify({ 
           userMessage: userMsg, 
           history: safeLLMHistory,
@@ -314,27 +344,77 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
         })
       });
       
-      clearTimeout(timeoutId);
-      const data = await res.json();
+      setIsLoading(false); // Apagamos el indicador general, ya tenemos conexión
 
-      if (!res.ok || data.error) {
-        let errorTxt = data.error || '¡Ups! Mis circuitos están un poco saturados en este momento y no pude procesar tu mensaje. Por favor, espera unos segundos e inténtalo de nuevo, o si prefieres, escríbele directo a nuestro equipo humano a **info@taec.com.mx** 📧.';
-        // Eliminamos la exposición del error raw JSON al cliente final
-        // if (data.debug_netlify) {
-        //    errorTxt += `\n\n*(Debug Netlify: ${data.debug_netlify})*`;
-        // }
-        messagesStore.set([...messagesStore.get(), { role: 'error', text: errorTxt }]);
-      } else {
-        messagesStore.set([...messagesStore.get(), { role: 'agent', text: data.reply }]);
+      if (!res.ok) {
+         let errorTxt = '¡Ups! Múltiples circuitos saturados. Intenta de nuevo por favor.';
+         try {
+           const errData = await res.json();
+           if (errData.error) errorTxt = errData.error;
+         } catch(e) {}
+         updateMessage(msgId, errorTxt, false, 'error');
+         return;
       }
+
+      // Streaming Reader
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("No reader available");
+      const decoder = new TextDecoder("utf-8");
+      
+      let chunkData = "";
+      
+      while (true) {
+         const { done, value } = await reader.read();
+         if (done) {
+             updateMessage(msgId, accumulatedText, false);
+             break;
+         }
+         
+         chunkData += decoder.decode(value, { stream: true });
+         const parts = chunkData.split('\n\n');
+         chunkData = parts.pop() || "";
+         
+         for (const part of parts) {
+             if (part.trim().startsWith('event:')) {
+                 const lines = part.split('\n');
+                 const eventLine = lines.find(l => l.startsWith('event:'));
+                 const dataLine = lines.find(l => l.startsWith('data:'));
+                 
+                 if (eventLine && dataLine) {
+                    const eventName = eventLine.replace('event:', '').trim();
+                    const jsonData = dataLine.replace('data:', '').trim();
+                    try {
+                       const parsed = JSON.parse(jsonData);
+                       if (eventName === 'context_ready') {
+                          // No actualizamos texto por context_ready, es background.
+                       } else if (eventName === 'token') {
+                          if (parsed.text) {
+                              accumulatedText += parsed.text;
+                              updateMessage(msgId, accumulatedText, true, 'agent');
+                          }
+                       } else if (eventName === 'error') {
+                          updateMessage(msgId, parsed.text || "No pude completarlo, un humano seguirá el caso.", false, 'error');
+                          return;
+                       } else if (eventName === 'done') {
+                          updateMessage(msgId, accumulatedText, false, 'agent');
+                          return;
+                       }
+                    } catch(e) {}
+                 }
+             }
+         }
+      }
+
     } catch (error: any) {
+      setIsLoading(false);
       if (error.name === 'AbortError') {
-        messagesStore.set([...messagesStore.get(), { role: 'error', text: 'Al parecer está tomando demasiado tiempo. Intenta enviarlo de nuevo o escribe a información' }]);
+         updateMessage(msgId, accumulatedText || 'Mensaje cancelado.', false, accumulatedText ? 'agent' : 'error');
       } else {
-        messagesStore.set([...messagesStore.get(), { role: 'error', text: '¡Vaya! Parece que hay un problema con la conexión a internet. Revisa tu red e inténtalo de nuevo.' }]);
+         updateMessage(msgId, 'No pude completar la respuesta con suficiente conexión. Revisa tu red e intenta de nuevo.', false, 'error');
       }
     } finally {
       setIsLoading(false);
+      abortControllerRef.current = null;
       if (window.innerWidth > 768) {
         setTimeout(() => inputChatRef.current?.focus(), 50);
       }
@@ -351,6 +431,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
 
   const resetChat = () => {
     if (window.confirm('🚨 ¿Seguro que deseas reiniciar el chat y borrar tu memoria de sesión?')) {
+      if (abortControllerRef.current) abortControllerRef.current.abort();
       messagesStore.set([]);
       hasStartedStore.set(false);
       lastGreetedCategoryStore.set('');

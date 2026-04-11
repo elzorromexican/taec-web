@@ -11,42 +11,50 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL || '';
-const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const geminiApiKey = import.meta.env.TAEC_GEMINI_KEY || process.env.TAEC_GEMINI_KEY || '';
+const getSafeEnv = (key: string) => {
+  if (typeof process !== 'undefined' && process.env && process.env[key]) return process.env[key];
+  // @ts-ignore
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env[key]) return import.meta.env[key];
+  return '';
+};
+
+const supabaseUrl = getSafeEnv('SUPABASE_URL') || getSafeEnv('PUBLIC_SUPABASE_URL') || '';
+const supabaseKey = getSafeEnv('SUPABASE_SERVICE_ROLE_KEY') || getSafeEnv('PUBLIC_SUPABASE_ANON_KEY') || '';
+const geminiApiKey = getSafeEnv('TAEC_GEMINI_KEY') || getSafeEnv('GEMINI_API_KEY') || '';
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
+
+import { GoogleGenAI } from '@google/genai';
+
+export const EMBEDDING_DIMENSION = 768;
 
 /**
  * Recupera el embedding vectorial llamando a Gemini Embeddings API u otro proveedor.
  */
 export async function getEmbedding(text: string): Promise<number[]> {
-  try {
-    if (!geminiApiKey) {
-      console.warn("Falta TAEC_GEMINI_KEY, mockeando embedding.");
-      return new Array(768).fill(0.1); 
-    }
-
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${geminiApiKey}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "models/text-embedding-004",
-        content: { parts: [{ text }] }
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Embedding API error: ${response.statusText}`);
-    }
-
-    const json = await response.json();
-    return json.embedding.values;
-  } catch (error) {
-    console.error("Error generando embedding:", error);
-    // Fallback a array de ceros para no romper el flujo
-    return new Array(768).fill(0);
+  if (!geminiApiKey) {
+    throw new Error("Falta TAEC_GEMINI_KEY. Abortando embedding real fail-fast.");
   }
+
+  const ai = new GoogleGenAI({ apiKey: geminiApiKey });
+  const response = await ai.models.embedContent({
+    model: 'gemini-embedding-001',
+    contents: text,
+    config: {
+      outputDimensionality: EMBEDDING_DIMENSION
+    }
+  });
+
+  if (!response.embeddings || response.embeddings.length === 0) {
+    throw new Error(`Embedding API returned empty results`);
+  }
+
+  const result = response.embeddings[0].values;
+  if (!result || result.length !== EMBEDDING_DIMENSION) {
+    throw new Error(`Dimensión errónea recibida: ${result?.length || 0} vs esperada ${EMBEDDING_DIMENSION}`);
+  }
+
+  return result;
 }
 
 /**
