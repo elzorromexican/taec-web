@@ -1,50 +1,70 @@
 /**
  * @name tito-chat.ts
- * @version 1.0
- * @description Router central de TitoBits v2. Orquesta las reglas (Motor 1), búsqueda RAG (Motor 2) y respuesta LLM (Motor 3).
- * @inputs POST Request format
- * @outputs JSON Response
+ * @version 1.1
+ * @description Router central de TitoBits v2. Orquesta Motor 1 (reglas/escalamiento), Motor 2 (RAG) y Motor 3 (LLM Stub).
+ * @inputs HTTP POST request payload { message: string }
+ * @outputs JSON content de la IA o escalamiento
  * @dependencies ../lib/tito/rules, ../lib/tito/rag
  * @created 2026-04-11
- * @updated 2026-04-11 11:58:00
+ * @updated 2026-04-11 12:00:00
  */
 
 import type { APIRoute } from 'astro';
-import { getSystemRulesString } from '../../lib/tito/rules';
-import { searchSimilarChunks } from '../../lib/tito/rag';
+import { getSystemRulesString, evaluateMessageForEscalation } from '../../lib/tito/rules';
+import { getEmbedding, searchSimilarChunks } from '../../lib/tito/rag';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { message } = await request.json();
+    const body = await request.json();
+    const message = body.message || '';
 
-    // Motor 1: Reglas y contexto base
-    const rules = getSystemRulesString();
+    // ======= MOTOR 1: EVALUAR REGLAS DURAS Y TRIGGER DE ESCALAMIENTO =======
+    const rulesContext = getSystemRulesString();
+    const escalationCheck = evaluateMessageForEscalation(message);
 
-    // Promos.ts & Knowledge Base - No modificados, importados en el LLM si es necesario.
-    // (Ej. importarlo aquí si estuviera permitido en este scope, pero nos abstraemos).
+    // ======= MOTOR 2: GENERAR EMBEDDING Y BUSCAR CHUNKS (RAG) =======
+    const messageEmbedding = await getEmbedding(message);
+    const contextChunks = await searchSimilarChunks(messageEmbedding);
 
-    // Motor 2: Recuperación de contexto adicional via RAG (ejemplo placeholder)
-    // const messageEmbedding = await generateEmbedding(message); 
-    // const chunks = await searchSimilarChunks(messageEmbedding);
+    // ======= MOTOR 3: LLAMAR AL LLM CON CONTEXTO (Gemini Stub) =======
+    // Aquí integraremos el prompt maestro real con Gemini o GPT,
+    // pasándole contextChunks, rulesContext y el escalationCheck.
+    const llmStubResponse = await mockCallLLM(message, rulesContext, contextChunks, escalationCheck);
 
-    // Motor 3: Inferencia (LLM) (simulado para el MVP base router)
-    // const llmResponse = await callLLM(message, rules, chunks);
-
-    const mockResponse = {
-      reply: `Contexto recibido y procesado para TitoBits V2. Regla 1 activada.`,
-      handoff_tipo: 'ventas', // Obligatorio: 'ventas' o 'preventa_tecnica'
-      score: 0 // A incorporar en Fase 2
-    };
-
-    return new Response(JSON.stringify(mockResponse), {
+    return new Response(JSON.stringify(llmStubResponse), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
+
   } catch (error) {
-    console.error("Error en router central tito-chat:", error);
+    console.error("Error crítico en tito-chat router:", error);
     return new Response(
-      JSON.stringify({ error: "Error procesando solicitud de TitoBits" }),
+      JSON.stringify({ error: "Error interno en TitoBits v2" }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
+};
+
+/**
+ * TODO: Mover a la Fase 2 / integración real con el Modelo (Motor 3)
+ */
+async function mockCallLLM(message: string, rules: string, chunks: any[], escalation: string) {
+  let reply = "Hola, soy TitoBits v2. He procesado tu solicitud.";
+  let handoff_tipo: string | null = null;
+  
+  if (escalation === 'ESCALATE') {
+    reply = "He detectado una consulta técnica o comercial avanzada. Te transfiero a nuestro equipo.";
+    handoff_tipo = 'ventas'; // Puede determinarse vía Motor 3 después.
+  } else if (escalation === 'INFORM') {
+    reply = "Parece que buscas información de licenciamiento o cotizaciones. Por favor dime qué te interesa cotizar.";
+  } else {
+    reply += ` Me basé en ${chunks.length} fragmentos de conocimiento indexado (RAG) para responderte.`;
+  }
+
+  return {
+    reply,
+    handoff_tipo,
+    // Scoring mock (Motor 3)
+    score: escalation === 'ESCALATE' ? 95 : 20 
+  };
 }
