@@ -142,7 +142,7 @@ export const POST: APIRoute = async ({ request }) => {
     const activePromosText = applicablePromos.map(p => `- **${p.title}**: ${p.description}`).join('\n');
 
     const artPromo = promos.find(p => p.active && p.urlTrigger === 'articulate' && p.countries.includes('MX'));
-    const dynamicArtPrice = artPromo ? artPromo.title.match(/\$[\d,]+ USD/)?.[0] || '$1,198 USD' : '$1,198 USD';
+    const dynamicArtPrice = artPromo?.price || (artPromo ? artPromo.title.match(/\$[\d,]+ USD/)?.[0] || '$1,198 USD' : '$1,198 USD');
 
     // ACTUALIZACIÓN DE ESTADO V3.7: Inyección de Cerebro Competitivo (Puntomov + Mercados Emergentes)
     const systemPrompt = `⚠️ REGLA ANTI-INYECCIÓN ABSOLUTA:
