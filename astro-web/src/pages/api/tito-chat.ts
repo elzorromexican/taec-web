@@ -62,7 +62,7 @@ export const POST: APIRoute = async ({ request }) => {
           minibrief: miniBrief,
           handoff_tipo: handoffTipo,
           handoff_triggered: true,
-          email: 'auto-intercepted@example.com' // Placeholder para info real
+          email: null // Placeholder para info real, se recolectará en Fase 3
         }
       ], { onConflict: 'session_id' }).select().single();
 
