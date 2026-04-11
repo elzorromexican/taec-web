@@ -13,7 +13,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.SUPABASE_URL || process.env.SUPABASE_URL || '';
 const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const geminiApiKey = import.meta.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
+const geminiApiKey = import.meta.env.TAEC_GEMINI_KEY || process.env.TAEC_GEMINI_KEY || '';
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -23,7 +23,7 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 export async function getEmbedding(text: string): Promise<number[]> {
   try {
     if (!geminiApiKey) {
-      console.warn("Falta GEMINI_API_KEY, mockeando embedding.");
+      console.warn("Falta TAEC_GEMINI_KEY, mockeando embedding.");
       return new Array(768).fill(0.1); 
     }
 
