@@ -43,7 +43,10 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       let awaitingContactUpdate = false;
-      let replyCapture = `Listo ${contacto.nombre || existingLead.nombre || ''}, nuestro equipo te contacta en menos de 24 horas hábiles.`.trim();
+      const nombreFinal = contacto.nombre || existingLead.nombre;
+      let replyCapture = nombreFinal
+        ? `Listo ${nombreFinal}, nuestro equipo te contacta en menos de 24 horas hábiles.`
+        : `Listo, nuestro equipo te contacta en menos de 24 horas hábiles.`;
 
       // Regla: Si el usuario da solo email sin nombre -> aceptarlo, preguntar nombre en siguiente turno
       if (contacto.email && !contacto.nombre && !existingLead.nombre) {
