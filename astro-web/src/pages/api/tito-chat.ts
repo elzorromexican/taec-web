@@ -13,13 +13,74 @@ import type { APIRoute } from 'astro';
 import { getSystemRulesString, evaluateMessageForEscalation } from '../../lib/tito/rules';
 import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
 import { calcularScore, determinarHandoff, type LeadSignals } from '../../lib/tito/scoring';
-import { generarMiniBrief, enviarNotificacion } from '../../lib/tito/handoff';
+import { generarMiniBrief, enviarNotificacion, extraerContacto, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const message = body.message || '';
     const sessionId = body.session_id || 'anonymous-session';
+
+    // ======= FASE 3: MODO CAPTURA =======
+    const { data: existingLead } = await supabase
+      .from('tito_leads')
+      .select('*')
+      .eq('session_id', sessionId)
+      .single();
+
+    if (existingLead && existingLead.awaiting_contact) {
+      const contacto = extraerContacto(message);
+      
+      const isRefusal = message.toLowerCase().match(/(no quiero|no te dar|no gracias)/) !== null;
+      const hasDatos = contacto.nombre || contacto.empresa || contacto.email;
+
+      if (isRefusal || !hasDatos) {
+        return new Response(JSON.stringify({
+          reply: FALLBACK_CONTACTO,
+          handoff_tipo: existingLead.handoff_tipo,
+          score: existingLead.score
+        }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+      }
+
+      let awaitingContactUpdate = false;
+      let replyCapture = `Listo ${contacto.nombre || existingLead.nombre || ''}, nuestro equipo te contacta en menos de 24 horas hábiles.`.trim();
+
+      // Regla: Si el usuario da solo email sin nombre -> aceptarlo, preguntar nombre en siguiente turno
+      if (contacto.email && !contacto.nombre && !existingLead.nombre) {
+        awaitingContactUpdate = true;
+        replyCapture = "Gracias por tu correo. ¿Me podrías indicar tu nombre, por favor?";
+      }
+
+      const mergedNombre = contacto.nombre || existingLead.nombre;
+      const mergedEmail = contacto.email || existingLead.email;
+      const mergedEmpresa = contacto.empresa || existingLead.empresa;
+
+      const { data: updatedLead, error: leadUpdateError } = await supabase.from('tito_leads').update({
+        nombre: mergedNombre,
+        empresa: mergedEmpresa,
+        email: mergedEmail,
+        awaiting_contact: awaitingContactUpdate
+      }).eq('id', existingLead.id).select().single();
+
+      if (!awaitingContactUpdate && !leadUpdateError && updatedLead) {
+        enviarNotificacion({
+          id: updatedLead.id,
+          session_id: sessionId,
+          email: updatedLead.email,
+          nombre: updatedLead.nombre,
+          empresa: updatedLead.empresa,
+          score: updatedLead.score,
+          minibrief: updatedLead.minibrief,
+          handoff_tipo: updatedLead.handoff_tipo as 'ventas' | 'preventa_tecnica'
+        });
+      }
+
+      return new Response(JSON.stringify({
+        reply: replyCapture,
+        handoff_tipo: existingLead.handoff_tipo,
+        score: existingLead.score
+      }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
 
     // ======= MOTOR 1: EVALUAR REGLAS Y TRIGGERS =======
     const rulesContext = getSystemRulesString();
@@ -62,27 +123,16 @@ export const POST: APIRoute = async ({ request }) => {
           minibrief: miniBrief,
           handoff_tipo: handoffTipo,
           handoff_triggered: true,
-          email: null // Placeholder para info real, se recolectará en Fase 3
+          email: null,
+          awaiting_contact: true // Fase 3: Set to true when handoff triggers
         }
       ], { onConflict: 'session_id' }).select().single();
 
-      if (!leadError && leadData) {
-        // Enviar Webhook/Resend de manera aislada y no bloqueante
-        enviarNotificacion({
-          id: leadData.id,
-          session_id: sessionId,
-          email: leadData.email,
-          nombre: leadData.nombre,
-          empresa: leadData.empresa,
-          score: leadData.score,
-          minibrief: leadData.minibrief,
-          handoff_tipo: leadData.handoff_tipo as 'ventas' | 'preventa_tecnica'
-        });
-      } else {
+      if (leadError || !leadData) {
         console.error("Fallo persistiendo a Supabase tito_leads:", leadError);
       }
 
-      reply = "He notificado preventivamente a nuestro equipo sobre tu requerimiento avanzado. Te contactarán a la brevedad.";
+      reply = "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?";
     } else if (escalationCheck === 'INFORM') {
       reply = "Por favor indícame la cantidad exacta de licencias o alcances para asistirte.";
     } else {

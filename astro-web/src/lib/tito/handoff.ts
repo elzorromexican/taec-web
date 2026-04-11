@@ -80,3 +80,35 @@ export async function enviarNotificacion(lead: LeadData) {
     console.warn("Falta RESEND_API_KEY. Notificación por correo (Resend) omitida. Google Chat fue invocado si su key existe.");
   }
 }
+
+// Constante de fallback — hardcodeada, no generada por LLM
+export const FALLBACK_CONTACTO = `Sin problema. Puedes contactarnos directamente:
+• Correo: info@taec.com.mx
+• WhatsApp: https://api.whatsapp.com/send/?phone=5215527758279`;
+
+// Extrae nombre, empresa y email de un mensaje de texto libre
+export function extraerContacto(message: string): {
+  nombre: string | null,
+  empresa: string | null,
+  email: string | null
+} {
+  const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/;
+  const emailMatch = message.match(emailRegex);
+  const email = emailMatch ? emailMatch[0] : null;
+
+  // Simple heuristic for name and company if explicit like "Soy Ana López de Grupo Bimbo"
+  let nombre = null;
+  let empresa = null;
+
+  const soyMatch = message.match(/soy\s+([^,.]+)(?:,|\s+de\s+|\s+en\s+|$)/i);
+  if (soyMatch && soyMatch[1]) {
+    nombre = soyMatch[1].trim();
+  }
+
+  const deMatch = message.match(/(?:de|en)\s+([A-Z][a-zA-Z0-9\s]+)(?:,|\.|@|$)/);
+  if (deMatch && deMatch[1]) {
+    empresa = deMatch[1].trim();
+  }
+
+  return { nombre, empresa, email };
+}
