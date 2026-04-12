@@ -303,6 +303,76 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
        }
   };
 
+  const sendExpandMessage = async (lastAgentText: string) => {
+    if (isLoading) return;
+    const triggerMessage = `[TITO_EXPAND]\n\nÚltima respuesta de Tito:\n${lastAgentText.substring(0, 500)}`;
+    messagesStore.set([...messagesStore.get(), { role: 'user', text: '+ info' }]);
+    
+    const currentMessages = messagesStore.get();
+    const safeLLMHistory = currentMessages
+      .filter((m: any) => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]') && !m.text.includes('[TITO_EXPAND]'))
+      .slice(-10)
+      .map((m: any) => ({ role: m.role, text: m.text }));
+  
+    setIsLoading(true);
+    abortControllerRef.current = new AbortController();
+  
+    try {
+      const res = await fetch('/api/agente-ia', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        signal: abortControllerRef.current.signal,
+        body: JSON.stringify({
+          history: safeLLMHistory,
+          userMessage: triggerMessage,
+          email: userData.email,
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          currentPath: window.location.pathname,
+          pageContext: {
+            title: document.title?.substring(0, 150) ?? '',
+            description: document.querySelector('meta[name="description"]')
+              ?.getAttribute('content')?.substring(0, 200) ?? '',
+            h1: document.querySelector('h1')?.textContent?.trim().substring(0, 150) ?? ''
+          }
+        })
+      });
+  
+      if (!res.ok || !res.body) throw new Error('Error en expand');
+  
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = '';
+      messagesStore.set([...messagesStore.get(), { role: 'agent', text: '' }]);
+  
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('data:')) {
+            try {
+              const parsed = JSON.parse(line.slice(5).trim());
+              if (parsed.text) {
+                fullText += parsed.text;
+                const msgs = messagesStore.get();
+                const updated = [...msgs];
+                updated[updated.length - 1] = { role: 'agent', text: fullText };
+                messagesStore.set(updated);
+              }
+            } catch {}
+          }
+        }
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
+        messagesStore.set([...messagesStore.get(), { role: 'error', text: 'No pude expandir la respuesta.' }]);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -659,7 +729,8 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           {/* Body */}
           <div style={{
             flex: 1, padding: '16px', background: '#F8FAFC',
-            overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px'
+            overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px',
+            overscrollBehavior: 'contain'
           }}>
             {!hasStarted ? (
               <div style={{marginTop: '20px'}}>
@@ -726,6 +797,21 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
                                  }}>Ver oferta →</a>
                               )}
                             </div>
+                          )}
+                          {m.role === 'agent' && !isLoading && i === messages.filter((x:any) => !x.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).length - 1 && (
+                            <button
+                              onClick={() => sendExpandMessage(m.text)}
+                              style={{
+                                marginTop: '6px', fontSize: '11px', color: '#3179C2',
+                                background: 'none', border: '1px solid #DBEAFE',
+                                borderRadius: '12px', padding: '3px 10px', cursor: 'pointer',
+                                display: 'inline-block', transition: 'background 0.2s'
+                              }}
+                              onMouseOver={e => { e.currentTarget.style.background = '#EFF6FF'; }}
+                              onMouseOut={e => { e.currentTarget.style.background = 'none'; }}
+                            >
+                              + info
+                            </button>
                           )}
                         </div>
                       ) : (
