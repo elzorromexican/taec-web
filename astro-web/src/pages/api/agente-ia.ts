@@ -481,12 +481,13 @@ Toda referencia externa debe construir el caso hacia TAEC.
              if (done) break;
              
              buffer += decoder.decode(value, { stream: true });
-             const parts = buffer.split('\n\n');
+             const parts = buffer.split(/\r?\n\r?\n/);
              buffer = parts.pop() || "";
              
              for (const part of parts) {
-                if (part.startsWith('data: ')) {
-                   const jsonStr = part.substring(6).trim();
+                const trimmedPart = part.trim();
+                if (trimmedPart.startsWith('data:')) {
+                   const jsonStr = trimmedPart.substring(5).trim();
                    if (jsonStr.startsWith('[DONE]')) continue;
                    try {
                       const data = JSON.parse(jsonStr);
@@ -496,7 +497,9 @@ Toda referencia externa debe construir el caso hacia TAEC.
                          if (firstTokenTime === 0) firstTokenTime = Date.now() - tStart;
                          sendEvent('token', { text: textChunk.replace(/\[CTA\]/gi, '') });
                       }
-                   } catch(e) {}
+                   } catch(e: any) {
+                      console.error("Fallo parseando SSE JSON:", jsonStr.substring(0, 50), e.message);
+                   }
                 }
              }
           }
