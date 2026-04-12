@@ -10,6 +10,7 @@ import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag'
 import { evaluateMessageForEscalation } from '../../lib/tito/rules';
 import { calcularScore, determinarHandoff } from '../../lib/tito/scoring';
 import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
+import { extractLeadSignalsConIA } from '../../lib/tito/signalExtractor';
 
 const getSafeEnv = (k: string) => {
   if (typeof process !== 'undefined' && process.env && process.env[k]) {
@@ -90,6 +91,24 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { history, userMessage, email, timeZone, currentPath, session_id, pageContext, intent, targetId, sourceMessageId } = data;
     const sessionId = session_id || 'anonymous-session';
 
+    if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
+      return new Response(JSON.stringify({ error: 'Mensaje inválido' }), { status: 400 });
+    }
+    if (userMessage.length > 1000) {
+      return new Response(JSON.stringify({ error: 'El mensaje excede el límite permitido.' }), { status: 413 });
+    }
+
+    let safeHistory: {role: string, parts: {text: string}[]}[] = [];
+    if (Array.isArray(history)) {
+      safeHistory = history
+        .filter((m: any) => m && (m.role === 'user' || m.role === 'agent') && typeof m.text === 'string')
+        .slice(-10)
+        .map((m: any) => ({
+          role: m.role === 'agent' ? 'model' : 'user',
+          parts: [{ text: m.text.substring(0, 1000) }]
+        }));
+    }
+
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
     if (sessionId !== 'anonymous-session') {
       const { data: existingLead } = await supabase
@@ -158,43 +177,57 @@ export const POST: APIRoute = async ({ request, locals }) => {
       // Evaluamos escalamiento y reglas FASE 2
       const escalationCheck = evaluateMessageForEscalation(userMessage);
 
-      // Mock temporal de señales (igual que en tito-chat)
-      const mockSignals = {
-        productos_interes: ['articulate-360'],
-        seats_mencionados: escalationCheck === 'ESCALATE' ? 120 : null,
-        requiere_integracion: false,
-        tiene_lms_actual: userMessage.toLowerCase().includes('lms'),
-        es_cliente_nuevo: true,
-        urgencia: null,
-        presupuesto_aprobado: false
-      };
-
-      const score = calcularScore(mockSignals);
-      let handoffTipo = determinarHandoff(mockSignals, score);
-
-      if (escalationCheck === 'ESCALATE' && !handoffTipo) {
-        handoffTipo = 'ventas';
-      }
-
-      if (handoffTipo || score >= 50) {
-        await supabase.from('tito_leads').upsert([
+      // Solo detonamos extracción LLM profunda y handoff bloqueante ante intenciones fuertes 'ESCALATE'
+      if (escalationCheck === 'ESCALATE') {
+         // 1. Guardar de forma sincrónica rápida el state para evitar race conditions
+         const fastScore = 50;
+         const fastHandoff = 'ventas';
+         
+         await supabase.from('tito_leads').upsert([
           {
             session_id: sessionId,
-            score: score,
-            minibrief: `Handoff automático por escalamiento. Score actual: ${score}. Mensaje: ${userMessage.substring(0, 100)}...`,
-            handoff_tipo: handoffTipo || 'ventas',
+            score: fastScore,
+            minibrief: `[Fast-Track] Escalamiento detonado. Esperando extracción en background... Mensaje: ${userMessage.substring(0, 100)}...`,
+            handoff_tipo: fastHandoff,
             handoff_triggered: true,
             email: null,
             awaiting_contact: true
           }
-        ], { onConflict: 'session_id' });
+         ], { onConflict: 'session_id' });
 
-        return new Response(JSON.stringify({
+         // 2. Ejecución Paralela: Extracción vía Gemini Structured Output para clasificar el Lead sin colgar el TTFB
+         const runExtraction = async () => {
+             try {
+                 const signals = await extractLeadSignalsConIA(userMessage, safeHistory, apiKey!);
+                 const exactScore = calcularScore(signals);
+                 const exactHandoff = determinarHandoff(signals, exactScore) || fastHandoff;
+                 
+                 const minibriefFinal = `[IA Extracted | ${signals.extraction_latency_ms}ms | Conf: ${signals.extraction_confidence}%] Score: ${exactScore}. Interés: ${signals.productos_interes.join(', ') || 'N/A'}. Asientos: ${signals.seats_mencionados || 'N/A'}. Requiere integración: ${signals.requiere_integracion}. Orig: ${userMessage.substring(0, 50)}...`;
+
+                 await supabase.from('tito_leads').update({
+                     score: exactScore,
+                     handoff_tipo: exactHandoff,
+                     minibrief: minibriefFinal
+                 }).eq('session_id', sessionId);
+             } catch(err) {
+                 console.error("Error en task paralela de extracción:", err);
+             }
+         };
+
+         // Si estamos en Netlify Edge usa waitUntil, si no fire-and-forget en Node.
+         if (locals?.netlify?.context?.waitUntil) {
+             locals.netlify.context.waitUntil(runExtraction());
+         } else {
+             runExtraction(); 
+         }
+
+         return new Response(JSON.stringify({
+          // Retornamos instantáneamente para fluidez UX
           reply: "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?",
-          handoff_tipo: handoffTipo || 'ventas',
-          score: score,
+          handoff_tipo: fastHandoff,
+          score: fastScore,
           awaiting_contact: true
-        }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+         }), { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
     }
     // ======= FIN TITO-CHAT =======
@@ -224,23 +257,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const safeH1 = typeof pageContext?.h1 === 'string'
       ? pageContext.h1.replace(/[<>]/g, '').substring(0, 150) : '';
 
-    if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
-      return new Response(JSON.stringify({ error: 'Mensaje inválido' }), { status: 400 });
-    }
-    if (userMessage.length > 1000) {
-      return new Response(JSON.stringify({ error: 'El mensaje excede el límite permitido.' }), { status: 413 });
-    }
 
-    let safeHistory: {role: string, parts: {text: string}[]}[] = [];
-    if (Array.isArray(history)) {
-      safeHistory = history
-        .filter((m: any) => m && (m.role === 'user' || m.role === 'agent') && typeof m.text === 'string')
-        .slice(-10)
-        .map((m: any) => ({
-          role: m.role === 'agent' ? 'model' : 'user',
-          parts: [{ text: m.text.substring(0, 1000) }]
-        }));
-    }
 
     const isMexico = countryCode === 'MX';
 
@@ -438,10 +455,11 @@ Toda referencia externa debe construir el caso hacia TAEC.
     if (!restRes.ok) {
        const errBody = await restRes.text().catch(() => '');
        const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
+       console.error("API Error Debug Key:", debugKey);
        
        const mockStream = new ReadableStream({
          start(controller) {
-           const payload = `event: error\ndata: ${JSON.stringify({ text: `[System Interruption] API Error ${restRes.status}: ${errBody} | DEBUG KEY: ${debugKey}` })}\n\n`;
+           const payload = `event: error\ndata: ${JSON.stringify({ text: `[System Interruption] API Error ${restRes.status}: Error de conectividad en capa semántica.` })}\n\n`;
            controller.enqueue(new TextEncoder().encode(payload));
            controller.close();
          }
@@ -526,7 +544,8 @@ Toda referencia externa debe construir el caso hacia TAEC.
         } catch (e: any) {
           console.error("Stream error:", e);
           const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
-          sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."} | DEBUG KEY: ${debugKey}` });
+          console.error("Stream Error Debug Key:", debugKey);
+          sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."}` });
         } finally {
           controller.close();
         }
