@@ -7,12 +7,10 @@ import { Ratelimit } from '@upstash/ratelimit';
 import { GoogleGenAI } from '@google/genai';
 import { titoKnowledgeBase } from '../../data/titoKnowledgeBase';
 import { promos } from '../../data/promos';
-import { getEmbedding, searchSimilarChunks } from '../../lib/tito/rag';
-
-import { evaluateMessageForEscalation } from '../lib/tito/rules';
-import { calcularScore, determinarHandoff } from '../lib/tito/scoring';
-import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../lib/tito/handoff';
-import { supabase } from '../lib/tito/rag';
+import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
+import { evaluateMessageForEscalation } from '../../lib/tito/rules';
+import { calcularScore, determinarHandoff } from '../../lib/tito/scoring';
+import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
 
 const getSafeEnv = (k: string) => {
   if (typeof process !== 'undefined' && process.env && process.env[k]) {
