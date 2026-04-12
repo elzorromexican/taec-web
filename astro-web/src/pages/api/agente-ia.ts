@@ -76,7 +76,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
     
     if (apiKey) {
-      apiKey = apiKey.trim();
+      apiKey = apiKey.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
       if (apiKey === 'undefined' || apiKey === 'null') {
         apiKey = undefined;
       }
