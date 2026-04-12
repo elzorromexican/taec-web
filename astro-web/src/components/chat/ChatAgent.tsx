@@ -4,6 +4,7 @@ import rehypeSanitize from 'rehype-sanitize';
 
 import { useStore } from '@nanostores/react';
 import { chatCategoryRules } from '../../data/chatContextRules';
+import ChatWindow from './ChatWindow';
 import { 
   isOpenStore, 
   isExpandedStore, 
@@ -557,353 +558,45 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR
 
   return (
-    <>
-      {/* Botón Flotante */}
-      <button 
-        onClick={toggleChat}
-        title="Hablar con Tito Bits"
-        style={{
-          position: 'fixed', bottom: '30px', right: '30px',
-          background: '#004775', color: 'white',
-          width: '65px', height: '65px', borderRadius: '50%',
-          boxShadow: '0 8px 24px rgba(0,71,117,0.5)',
-          border: '2px solid #fff', cursor: 'pointer', zIndex: 9999,
-          display: isOpen ? 'none' : 'flex', alignItems: 'center', justifyContent: 'center',
-          transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-        }}
-        onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-      >
-        {!isOpen && (
-          <div style={{
-            position: 'absolute', top: '-15px', right: '-20px',
-            background: userData.countryCode === 'MX' ? '#10B981' : '#F59E0B', color: 'white', padding: '4px 8px',
-            borderRadius: '12px', fontSize: '11px', fontWeight: 'bold',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.2)', animation: 'bounce 2s infinite',
-            whiteSpace: 'nowrap', zIndex: 10000
-          }}>
-            {hasUnread ? '¡Tito tiene un mensaje nuevo! 💬' : (userData.countryCode === 'MX' ? '¡Promo MX Desbloqueada! 🇲🇽' : 'Diagnóstico de e-learning ⚡')}
-          </div>
-        )}
-        <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }"}} />
-        
-        {!isOpen ? (
-          <svg viewBox="0 0 100 100" style={{width: '38px', height: '38px', fill: 'white'}}>
-             <circle cx="50" cy="40" r="35" fill="none" stroke="white" strokeWidth="5"/>
-             <rect x="32" y="32" width="36" height="22" rx="2" fill="white" />
-             <line x1="40" y1="32" x2="35" y2="15" stroke="white" strokeWidth="4" strokeLinecap="round"/>
-             <line x1="60" y1="32" x2="65" y2="15" stroke="white" strokeWidth="4" strokeLinecap="round"/>
-             <path d="M38 56 L30 75 A 5 5 0 0 0 40 75 L42 56 Z" fill="white"/>
-             <path d="M62 56 L70 75 A 5 5 0 0 1 60 75 L58 56 Z" fill="white"/>
-             <circle cx="42" cy="43" r="5" fill="#004775" />
-             <circle cx="58" cy="43" r="5" fill="#004775" />
-          </svg>
-        ) : (
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{width:'30px', height:'30px'}}>
-             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        )}
-      </button>
-
-      {/* Ventana */}
-      {isOpen && (
-        <div style={{
-          position: 'fixed', bottom: '110px', 
-          right: 'clamp(10px, 5vw, 30px)',
-          width: isExpanded ? 'min(95vw, 500px)' : 'min(90vw, 380px)', 
-          height: isExpanded ? '80vh' : '65vh',
-          maxHeight: isExpanded ? '700px' : '560px',
-          background: '#fff', borderRadius: '16px',
-          boxShadow: '0 12px 40px rgba(0,0,0,0.2)',
-          display: 'flex', flexDirection: 'column', zIndex: 9999,
-          overflow: 'hidden', fontFamily: '"Inter", sans-serif',
-          border: '1px solid #E5E7EB',
-          transition: 'all 0.3s ease'
-        }}>
-          {/* Barra de título estilo Windows — colores Mac */}
-          <div style={{
-            display: 'flex', justifyContent: 'flex-end', alignItems: 'center',
-            gap: '8px', padding: '6px 12px',
-            background: '#002d4a', borderBottom: '1px solid rgba(255,255,255,0.08)'
-          }}>
-            {/* 🔴 Cerrar */}
-            <button onClick={() => {
-              if (hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
-                transcriptSentStore.set(true);
-                sendSilentEmail();
-              }
-              isOpenStore.set(false);
-              hasStartedStore.set(false);
-              userDataStore.set({ name: '', email: '', phone: '', location: 'Ubicación Desconocida', countryCode: '' });
-              messagesStore.set([]);
-              transcriptSentStore.set(false);
-              lastGreetedCategoryStore.set('');
-              hasUnreadMessagesStore.set(false);
-              isExpandedStore.set(false);
-            }} title="Cerrar"
-              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FF5F56',
-                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
-                alignItems: 'center', justifyContent: 'center',
-                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
-              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>✕</span>
-            </button>
-
-            {/* 🟡 Minimizar */}
-            <button onClick={() => isOpenStore.set(false)} title="Minimizar"
-              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FFBD2E',
-                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
-                alignItems: 'center', justifyContent: 'center',
-                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
-              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>─</span>
-            </button>
-
-            {/* 🟢 Expandir/Contraer */}
-            <button onClick={() => isExpandedStore.set(!isExpanded)} title={isExpanded ? 'Contraer' : 'Expandir'}
-              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#27C93F',
-                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
-                alignItems: 'center', justifyContent: 'center',
-                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
-              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>
-                {isExpanded ? '⧠' : '❐'}
-              </span>
-            </button>
-          </div>
-
-          {/* Header */}
-          <div style={{
-            background: '#004775', padding: '12px 16px', color: 'white',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            flexWrap: 'wrap', gap: '8px'
-          }}>
-            <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-              <div style={{
-                width: '38px', height: '38px', borderRadius: '50%', background: '#fff',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <svg viewBox="0 0 100 100" style={{width: '28px', height: '28px', fill: '#004775'}}>
-                  <circle cx="50" cy="40" r="35" fill="none" stroke="#004775" strokeWidth="5"/>
-                  <rect x="32" y="32" width="36" height="22" rx="2" />
-                  <circle cx="42" cy="43" r="4.5" fill="white" />
-                  <circle cx="58" cy="43" r="4.5" fill="white" />
-                  <line x1="40" y1="32" x2="35" y2="18" stroke="#004775" strokeWidth="4" strokeLinecap="round"/>
-                  <line x1="60" y1="32" x2="65" y2="18" stroke="#004775" strokeWidth="4" strokeLinecap="round"/>
-                  <path d="M38 56 L30 75 A 5 5 0 0 0 40 75 L42 56 Z" />
-                  <path d="M62 56 L70 75 A 5 5 0 0 1 60 75 L58 56 Z" />
-                </svg>
-              </div>
-              <div>
-                <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Tito Bits</h3>
-                <p style={{ margin: 0, fontSize: '12px', color: '#A8DBD9' }}>Partner IA de TAEC</p>
-              </div>
-            </div>
-            
-            <div style={{display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end'}}>
-              {hasStarted && (
-                <button 
-                  onClick={resetChat} 
-                  title="Borrar memoria y reiniciar plática"
-                  style={{
-                    background: 'rgba(255, 59, 48, 0.15)', border: '1px solid rgba(255, 59, 48, 0.3)', color: '#FFD1D1', 
-                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer', transition: 'background 0.3s'
-                  }}
-                  onMouseOver={e => { e.currentTarget.style.background = 'rgba(255, 59, 48, 0.8)'; e.currentTarget.style.color = '#fff'; }}
-                  onMouseOut={e => { e.currentTarget.style.background = 'rgba(255, 59, 48, 0.15)'; e.currentTarget.style.color = '#FFD1D1'; }}
-                >
-                  Reiniciar ⟲
-                </button>
-              )}
-              
-              {hasStarted && messages.length > 1 && (
-                <>
-                <button 
-                  onClick={copyToClipboard} 
-                  disabled={isCopied}
-                  style={{
-                    background: isCopied ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
-                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
-                    transition: 'background 0.3s', marginRight: '4px'
-                  }}
-                >
-                  {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
-                </button>
-                <button 
-                  onClick={sendSilentEmail} 
-                  disabled={isSendingEmail}
-                  style={{
-                    background: isSendingEmail ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
-                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
-                    transition: 'background 0.3s'
-                  }}
-                >
-                  {isSendingEmail ? 'Enviando...' : 'Enviar 📧'}
-                </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Body */}
-          <div style={{
-            flex: 1, padding: '16px', background: '#F8FAFC',
-            overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px',
-            overscrollBehavior: 'contain'
-          }}>
-            {!hasStarted ? (
-              <div style={{marginTop: '20px'}}>
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                  <h4 style={{margin: '0 0 8px', color: '#004775', fontSize: '18px'}}>¡Hola!</h4>
-                  <p style={{margin: 0, fontSize: '14px', color: '#6B7280'}}>Yo soy Tito Bits. ¿Con quién tengo el gusto?</p>
-                </div>
-                <form onSubmit={startChat} style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
-                  <input 
-                    ref={inputNameRef}
-                    required type="text" placeholder="Tu nombre o empresa"
-                    value={userData.name} onChange={e => userDataStore.set({...userData, name: e.target.value})}
-                    style={{padding: '12px', border: '1px solid #D1D5DB', borderRadius: '8px'}}
-                  />
-                  <button type="submit" style={{
-                    padding: '12px', background: '#F59E0B', color: '#fff', 
-                    border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer'
-                  }}>
-                    Comenzar chat
-                  </button>
-                </form>
-              </div>
-            ) : (
-              <>
-                {messages.filter((m: any) => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).map((m: any, i) => (
-                  <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
-                    <div style={{
-                      maxWidth: '85%', padding: '12px 16px', fontSize: '14px', lineHeight: '1.5',
-                      borderRadius: '12px',
-                      background: m.role === 'user' ? '#3179C2' : (m.role === 'error' ? '#FEE2E2' : '#fff'),
-                      color: m.role === 'user' ? '#fff' : (m.role === 'error' ? '#B91C1C' : '#111827'),
-                      border: m.role === 'user' ? 'none' : (m.role === 'error' ? '1px solid #EF4444' : '1px solid #E5E7EB'),
-                      borderBottomRightRadius: m.role === 'user' ? '4px' : '12px',
-                      borderBottomLeftRadius: (m.role === 'agent' || m.role === 'error') ? '4px' : '12px',
-                      boxShadow: (m.role === 'agent' || m.role === 'error') ? '0 2px 4px rgba(0,0,0,0.02)' : 'none'
-                    }}>
-                      {(m.role === 'agent' || m.role === 'error') ? (
-                        <div className="react-markdown-container">
-                          <ReactMarkdown 
-                            rehypePlugins={[rehypeSanitize]}
-                            components={{
-                              p: ({node, ...props}) => <p style={markdownStyles.p} {...props} />,
-                              ul: ({node, ...props}) => <ul style={markdownStyles.ul} {...props} />,
-                              li: ({node, ...props}) => <li style={markdownStyles.li} {...props} />,
-                              strong: ({node, ...props}) => <strong style={m.role === 'error' ? {color: '#B91C1C'} : markdownStyles.strong} {...props} />,
-                              a: ({node, ...props}) => <a style={{color: m.role === 'user' ? '#fff' : '#3179C2', textDecoration: 'underline', fontWeight: 'bold'}} target="_blank" rel="noopener noreferrer" {...props} />
-                            }}
-                          >
-                            {m.text}
-                          </ReactMarkdown>
-                          {m.promo && (
-                            <div style={{
-                              marginTop: '12px', padding: '14px', background: '#FFF7ED', border: '1px solid #F97316',
-                              borderRadius: '8px', borderLeft: '4px solid #F97316'
-                            }}>
-                              <div style={{ fontSize: '10px', fontWeight: '900', color: '#EA580C', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>{m.promo.badgeText}</div>
-                              <h4 style={{ margin: '0 0 6px 0', color: '#9A3412', fontSize: '14px', fontWeight: '800' }}>{m.promo.title}</h4>
-                              <p style={{ margin: '0 0 12px 0', fontSize: '13px', color: '#C2410C', lineHeight: '1.4' }}>{m.promo.description}</p>
-                              {m.promo.link && (
-                                <a href={m.promo.link} target="_blank" rel="noopener noreferrer" style={{
-                                  display: 'inline-block', background: '#F97316', color: 'white', fontWeight: 'bold',
-                                  fontSize: '12px', padding: '6px 14px', borderRadius: '6px', textDecoration: 'none',
-                                  boxShadow: '0 2px 4px rgba(249,115,22,0.2)'
-                                 }}>Ver oferta →</a>
-                              )}
-                            </div>
-                          )}
-                          {m.role === 'agent' && !isLoading && i === messages.filter((x:any) => !x.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).length - 1 && 
-                           !m.text.includes('1.') && (m.text.match(/\n-/g) || []).length < 3 && (
-                            <button
-                              onClick={() => sendExpandMessage(m.text)}
-                              style={{
-                                marginTop: '6px', fontSize: '11px', color: '#3179C2',
-                                background: 'none', border: '1px solid #DBEAFE',
-                                borderRadius: '12px', padding: '3px 10px', cursor: 'pointer',
-                                display: 'inline-block', transition: 'background 0.2s'
-                              }}
-                              onMouseOver={e => { e.currentTarget.style.background = '#EFF6FF'; }}
-                              onMouseOut={e => { e.currentTarget.style.background = 'none'; }}
-                            >
-                              + info
-                            </button>
-                          )}
-                        </div>
-                      ) : (
-                        m.text
-                      )}
-                    </div>
-                  </div>
-                ))}
-
-                {isLoading && (
-                  <div style={{ padding: '8px', alignSelf: 'flex-start', fontSize: '13px', color: '#64748B' }}>
-                    TitoBits está escribiendo...
-                  </div>
-                )}
-                {/* Spacer físico irrompible ampliado a 60px para forzar el vacío inferior */}
-                <div ref={endRef} style={{ height: '60px', width: '100%', flexShrink: 0 }} />
-              </>
-            )}
-          </div>
-
-          {/* Footer Input */}
-          {hasStarted && (
-            <div style={{ background: '#fff', borderTop: '1px solid #E5E7EB', display: 'flex', flexDirection: 'column' }}>
-              <form onSubmit={sendMessage} style={{
-                padding: '12px', display: 'flex', gap: '8px'
-              }}>
-                <textarea 
-                  ref={inputChatRef}
-                  maxLength={1000} 
-                  rows={1}
-                  value={input}
-                  onChange={e => {
-                    setInput(e.target.value);
-                    e.target.style.height = 'auto'; // Reset para calcular bien
-                    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
-                  }}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      sendMessage(e as any);
-                    }
-                  }}
-                  placeholder="Escribe... (Shift+Enter salto línea)" 
-                  disabled={isLoading}
-                  style={{
-                    flex: 1, padding: '10px 16px', borderRadius: '20px',
-                    border: '1px solid #E5E7EB', background: '#F3F4F6',
-                    fontSize: '14px', outline: 'none', resize: 'none',
-                    lineHeight: '1.4', minHeight: '40px', maxHeight: '120px',
-                    fontFamily: 'inherit'
-                  }}
-                />
-                <button 
-                  type="submit" 
-                  disabled={!input.trim() || isLoading}
-                  style={{
-                    width: '40px', height: '40px', borderRadius: '50%',
-                    background: (!input.trim() || isLoading) ? '#D1D5DB' : '#F59E0B',
-                    color: 'white', border: 'none', cursor: (!input.trim() || isLoading) ? 'not-allowed' : 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                  }}
-                >
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{width:'20px', height:'20px', marginLeft:'2px'}}>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                </button>
-              </form>
-              
-              <div style={{ textAlign: 'center', paddingBottom: '10px', fontSize: '10px', color: '#9CA3AF', paddingLeft: '16px', paddingRight: '16px' }}>
-                Tito Bits es una IA en entrenamiento y puede cometer errores. Por favor, consulta cualquier duda técnica o financiera con tu Asesor de Ventas.
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </>
+    <ChatWindow
+      isOpen={isOpen}
+      isExpanded={isExpanded}
+      hasStarted={hasStarted}
+      hasUnread={hasUnread}
+      userData={userData}
+      messages={messages}
+      isLoading={isLoading}
+      isSendingEmail={isSendingEmail}
+      isCopied={isCopied}
+      input={input}
+      endRef={endRef}
+      inputChatRef={inputChatRef}
+      inputNameRef={inputNameRef}
+      toggleChat={toggleChat}
+      minimizeChat={() => isOpenStore.set(false)}
+      closeChat={() => {
+        if (hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
+          transcriptSentStore.set(true);
+          sendSilentEmail();
+        }
+        isOpenStore.set(false);
+        hasStartedStore.set(false);
+        userDataStore.set({ name: '', email: '', phone: '', location: 'Ubicación Desconocida', countryCode: '' });
+        messagesStore.set([]);
+        transcriptSentStore.set(false);
+        lastGreetedCategoryStore.set('');
+        hasUnreadMessagesStore.set(false);
+        isExpandedStore.set(false);
+      }}
+      toggleExpand={() => isExpandedStore.set(!isExpanded)}
+      resetChat={resetChat}
+      sendSilentEmail={sendSilentEmail}
+      startChat={startChat}
+      sendMessage={sendMessage}
+      sendExpandMessage={sendExpandMessage}
+      copyToClipboard={copyToClipboard}
+      setInput={setInput}
+      setUserDataName={(name: string) => userDataStore.set({...userData, name})}
+    />
   );
 }
