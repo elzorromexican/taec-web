@@ -378,7 +378,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           break;
         }
         chunkData += decoder.decode(value, { stream: true });
-        const parts = chunkData.split('\n\n');
+        const parts = chunkData.split(/\r?\n\r?\n/);
         chunkData = parts.pop() || "";
         
         for (const part of parts) {
@@ -528,7 +528,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
          }
          
          chunkData += decoder.decode(value, { stream: true });
-         const parts = chunkData.split('\n\n');
+         const parts = chunkData.split(/\r?\n\r?\n/);
          chunkData = parts.pop() || "";
          
          for (const part of parts) {
