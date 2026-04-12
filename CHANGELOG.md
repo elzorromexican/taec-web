@@ -6,6 +6,13 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v2.2.4 · 11 abr 2026 — Documentación, Housekeeping y Purga
+
+### 🧹 Limpieza de Archivos y Documentación Comercial
+- **MAINTENANCE.md & MANUAL_MANTENIMIENTO_COMERCIAL.md:** Creación de la guía técnica definitiva que categoriza 5 grupos de páginas (arquitectura, CSS, reglas) y actualización del manual comercial estructurado en Niveles A/B/C.
+- **Configuraciones de Rastreo (Robots/LLMs):** Actualización de `robots.txt` para denegar explícitamente `/api/` y eliminar la ruta fantasma `/comentarios/`. Mejora estructural en `llms.txt` aislando Vyond y reflejando rutas cerradas.
+- **Purga de Obsolescencia:** Eliminación de *legacy logic* (cotizador DDC .bak, `test.astro`, `CodeSentinel_Skill.md`, `_titoKnowledgeBase.ts`, etc.) para sanear el árbol subyacente.
+
 ## v2.2.3 · 10 abr 2026 — Hardening Arquitectónico y Seguridad
 
 ### 🧠 Ceguera Espacial del LLM (Context-Hopping AI)

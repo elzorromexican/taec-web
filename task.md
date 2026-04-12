@@ -9,6 +9,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 -->
 
 ## 🚀 Prioridades Inmediatas (Siguiente Sesión - Titanes y Fase 2)
+- [x] **Documentación y Mantenimiento (Abril 2026):** Creación de `MAINTENANCE.md`, reescritura del manual comercial y archivos de rastreo. Purga radical de más de 12 archivos obsoletos, herramientas de sesión en caché y lógicas previas (DDC/Tito).
 - [x] **Presentación y QA Intranet B2B (Titanes):** Revisión global de la KB en Supabase con el equipo comercial y validación final de la experiencia de usuario B2B. Estandarización SQL ejecutada.
 - [x] **Semillas Restantes de Playbooks:** Procesar `vyondgo`, `vyondmobile` y `reach360` aplicando la misma arquitectura de sanitización y formateo `\n\n` validada hoy, logrando la disponibilidad completa del catálogo.
 - [x] **Consolidación KB Vyond Enterprise:** Procesamiento y generación del script semilla `docs/supabase-interno-seed-vyondenterprise.sql` de troubleshooting, técnica y comercial. Se aplicó lógica rigurosa de fusión (Respuesta + El Plus) y depuración Regex profunda para texto plano B2B.
