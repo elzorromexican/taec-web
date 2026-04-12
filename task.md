@@ -8,7 +8,12 @@ Al recibir la orden de inicio, avanzará de forma 100% autónoma (escribiendo c�
 Solo se detendrá a pedir confirmación si la acción es destructiva/irreversible (borrar archivos, afectar bases de datos o producción).
 -->
 
-## 🚀 Prioridades Inmediatas (Siguiente Sesión - Titanes y Fase 2)
+## 🚀 Prioridades Inmediatas (Siguiente Sesión - QA Intranet y UI)
+- [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard B2B para mayor pulcritud comercial.
+- [ ] **[ISSUE-019] QA UX Hub:** Validar y corregir el comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
+- [ ] **[ISSUE-021] Reach 360:** Investigar y corregir el *z-index/position* del nav desplegable en `/articulate-reach` que se está rompiendo visualmente.
+- [ ] **Pruebas Pre-Merge (TitoBits QA):** Probar rigurosamente en local/staging el comportamiento final de TitoBits (Hard-Handoff al cerrar, Modo Consultor +info, SSR Hydration, Regla Antiderivación y Scroll) previo al merge definitivo de PR #41 a `main`.
+
 - [x] **Hardening TitoBits v4 (Abril 2026):** Fix en validación SSR (`getSafeEnv`) mitigando fugas, migración de extracciones Mock a modelo JSON con Gemini y conexión conversacional real del Hub CONTINUE a memoria vectorial RAG.
 - [x] **Documentación y Mantenimiento (Abril 2026):** Creación de `MAINTENANCE.md`, reescritura del manual comercial y archivos de rastreo. Purga radical de más de 12 archivos obsoletos, herramientas de sesión en caché y lógicas previas (DDC/Tito).
 - [x] **Presentación y QA Intranet B2B (Titanes):** Revisión global de la KB en Supabase con el equipo comercial y validación final de la experiencia de usuario B2B. Estandarización SQL ejecutada.
@@ -29,9 +34,9 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 **🟠 1 Alto**
 - [x] **[ISSUE-010] Nota interna visible al usuario:** En `/colaborar`, el texto sobre "Bases de datos en la siguiente fase" debe reemplazarse por un mensaje amigable.
 - [x] **[ISSUE-020] Admin Panel WYSIWYG:** Editor visual (`react-simple-wysiwyg`) se descuadraba al regresar al admin desde otra ruta. Fix: hard reload en todos los links de entrada a `/interno/admin`. Rama `fix/admin-novedades-ui` mergeada · 07 abr 2026.
-- [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard para mayor pulcritud comercial.
-- [ ] **[ISSUE-019] QA UX Hub:** Validar comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
-- [ ] **[ISSUE-021] Reach 360:** Abrir ticket separado `fix/header-dropdown-reach` para investigar el z-index/position del nav desplegable en ESA página.
+- [x] **[ISSUE-018] Trasladado a prioridades inmediatas**
+- [x] **[ISSUE-019] Trasladado a prioridades inmediatas**
+- [x] **[ISSUE-021] Trasladado a prioridades inmediatas**
 
 **🟡 QA Audit - UI/UX & Flow (P1)**
 - [x] [ISSUE-015] Intranet: 'Active' state del Sidebar mal manejado por JS-client, debería usar Astro.url
@@ -50,6 +55,9 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 - [x] **Consolidación KB Review 360:** Procesamiento, deduplicación e inyección del script semilla `docs/supabase-interno-seed-review360.sql` (21 registros) para expandir la matriz técnica y de troubleshooting de la Intranet B2B.
 - [x] **Estabilización de UX Intranet e Identidad (Fase 2):** Extracción inteligente de identidad OAuth desde Supabase en `middleware.ts`, bypass cognitivo en Tito Bits para saltar formulario interno, remoción de widget de WhatsApp superpuesto en rutas privadas, y despliegue del script semilla `docs/supabase-interno-seed-storyline360.sql` (33 registros) conectando la 2da matriz comercial al Hub SSR.
 - [x] **Auditoría y Blindaje de TitoBits (Red Team / P0 y P1):** Remoción completa de persistencia PII en Storage para GDPR, mitigación masiva de XSS y spam en el Handoff del correo (`escapeHtml` y Payload limits), solución al bug crónico de inyección doble hacia Gemini, filtrado estricto de roles en SSR, abort controller de 25s, migración de Geo a Netlify Edge Headers, y arreglo final del "Context Hopping" en SPA View Transitions.
+- [x] **Evolución TitoBits - Motor 3 y RAG Semántico:** Transición de text chunking básico a indexación semántica DOM con Cheerio, reforzada con control de idempotencia (SHA-256). Streaming SSE con Google GenAI y validación en QA de retrolatencia B2B. Implementación de precios USD geolocalizados ("Localization" / "Reach Pro").
+- [x] **TitoBits UX & Restricciones Conversacionales:** Despliegue del "Modo Consultor (Big 5)" oculto bajo botón `+ info`. Imposición estricta de regla "Short-Response-First" (max 4 líneas, obligatorio CTA final), refuerzo Anti-Derivación para monosílabos del usuario y regla Anti-Repetición de captura de datos (Gated Form). Bloqueo de botón expansivo en menús/viñetas para evitar ruido visual UI. Fixes completos Frontend asegurados con cierre de fugas de scroll (`overscrollBehavior: 'contain'`), control de hidratación SSR temprano, y envío de transcript al apretar botón de cierre (`[x]`).
+- [x] **Ampliación Final Data RAG L&D:** Inserción de los Capítulos 21 (OttoLearn) y 22 (LYS) a `titoKnowledgeBase.ts` ajustando el entendimiento local de micro-learning adaptativo y aprendizaje no focalizado vía WhatsApp.
 - [x] **Hardening Netlify Lambda y Copiloto IA (TitoBits v6.1):** Múltiples reescrituras para resolver conflicto *silent* (401 Unauthorized) del SDK preview `@google/genai` en AWS Lambda sobre Astro; erradicado en su totalidad migrando la infraestructura de `agente-ia.ts` hacia `fetch()` en formato REST API puro para inmunidad total.
 - [x] Concluir ajustes de Quality Assurance (QA) fotográfico o estilístico en dispositivos móviles para las colecciones secundarias.
 - [x] Preparación y revisión final previo al Embalaje / Deployment para entorno de Producción.
@@ -221,9 +229,9 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 
 **10. Automatización e IA Interactiva (Evolución Tito Bits V4 - RAG)**
 - [x] Construir "Assessment Operativo / Diagnóstico" con generación matemática de ecosistemas de 8 ejes (DC-3, Proctoring, LMS, Autor). Dispara un endpoint webhook para parsear en caliente el Horóscopo Radial en HTML y empujar prospectos cualificados directo a Zoho Bookings.
-- [ ] **[Documentación]** Plan Estratégico y Arquitectura V4 consolidado en `docs/PLAN_EVOLUCION_TITO_BITS_V4.md`.
-- [ ] **[Ejecución] Fase 1 (MVP RAG):** Desarrollar el Ruteador de Intenciones e ingestar la primera base de conocimiento (FAQs curadas de proveedor) usando Astro Content Collections.
-- [ ] **[Ejecución] Fase 2 (Seguridad y Escalamiento):** Implementar el "Sandbox Anti-Alucinación" (guardrails de pricing en duro) y el protocolo de *Handoff* Inteligente (Ventana de calificación de leads Enterprise al CRM).
+- [x] **[Documentación]** Plan Estratégico y Arquitectura V4 consolidado en `docs/PLAN_EVOLUCION_TITO_BITS_V4.md`.
+- [x] **[Ejecución] Fase 1 (MVP RAG):** Desarrollar el Ruteador de Intenciones e ingestar la primera base de conocimiento (FAQs curadas de proveedor) usando Astro Content Collections.
+- [x] **[Ejecución] Fase 2 (Seguridad y Escalamiento):** Implementar el "Sandbox Anti-Alucinación" (guardrails de pricing en duro), el protocolo de *Handoff* Inteligente (Ventana de calificación de leads Enterprise al CRM) y extracción JSON estructurada.
 - [ ] Añadir animaciones progresivas (Framer Motion / Viewport CSS) a toda la página de DDC.
 - [ ] Construir Centro de Webinars y Demos On-Demand (Videos cerrados contra captura de lead).
 - [ ] Implementar un Hero Banner inteligente (Personalización dinámica de contenido).

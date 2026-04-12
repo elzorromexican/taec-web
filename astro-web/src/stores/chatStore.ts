@@ -1,4 +1,16 @@
 import { atom } from 'nanostores';
+import { persistentAtom, setPersistentEngine } from '@nanostores/persistent';
+
+if (typeof window !== 'undefined') {
+  setPersistentEngine(window.sessionStorage, {
+    addEventListener(key, handler) {
+      window.addEventListener('storage', handler);
+    },
+    removeEventListener(key, handler) {
+      window.removeEventListener('storage', handler);
+    }
+  });
+}
 
 interface UserData {
   name: string;
@@ -14,26 +26,27 @@ interface Message {
   promo?: any;
 }
 
-// Variables UI e Historial en memoria de sesión (Desecho por refresco para proteger privacidad/GDPR)
-export const isOpenStore = atom<boolean>(false);
-
-export const isExpandedStore = atom<boolean>(false);
-
-export const hasStartedStore = atom<boolean>(false);
-
-export const userDataStore = atom<UserData>({ 
-  name: '', 
-  email: '', 
-  phone: '', 
-  location: 'Ubicación Desconocida', 
-  countryCode: '' 
+// Persisten en sessionStorage — sobreviven navegación, mueren al cerrar tab/ventana
+export const isOpenStore = persistentAtom<boolean>('tito:isOpen', false, {
+  encode: JSON.stringify,
+  decode: JSON.parse
 });
 
+export const hasStartedStore = persistentAtom<boolean>('tito:hasStarted', false, {
+  encode: JSON.stringify,
+  decode: JSON.parse
+});
+
+export const userDataStore = persistentAtom<UserData>('tito:userData', {
+  name: '', email: '', phone: '', location: 'Ubicación Desconocida', countryCode: ''
+}, {
+  encode: JSON.stringify,
+  decode: JSON.parse
+});
+
+// Efímeros — privacidad GDPR
 export const messagesStore = atom<Message[]>([]);
-
+export const isExpandedStore = atom<boolean>(false);
 export const lastGreetedCategoryStore = atom<string>('');
-
 export const hasUnreadMessagesStore = atom<boolean>(false);
-
-// Bandera única por sesión para evitar correos dobles tras múltiples aperturas
 export const transcriptSentStore = atom<boolean>(false);

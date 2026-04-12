@@ -193,6 +193,9 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       transcriptSentStore.set(true);
       sendSilentEmail();
     }
+    if (!isOpen) {
+      isExpandedStore.set(false);
+    }
     isOpenStore.set(!isOpen);
     if (!isOpen && hasUnreadMessagesStore.get()) {
       hasUnreadMessagesStore.set(false);
@@ -303,6 +306,76 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
        }
   };
 
+  const sendExpandMessage = async (lastAgentText: string) => {
+    if (isLoading) return;
+    const triggerMessage = `[TITO_EXPAND]\n\nÚltima respuesta de Tito:\n${lastAgentText.substring(0, 500)}`;
+    messagesStore.set([...messagesStore.get(), { role: 'user', text: '+ info' }]);
+    
+    const currentMessages = messagesStore.get();
+    const safeLLMHistory = currentMessages
+      .filter((m: any) => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]') && !m.text.includes('[TITO_EXPAND]'))
+      .slice(-10)
+      .map((m: any) => ({ role: m.role, text: m.text }));
+  
+    setIsLoading(true);
+    abortControllerRef.current = new AbortController();
+  
+    try {
+      const res = await fetch('/api/agente-ia', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        signal: abortControllerRef.current.signal,
+        body: JSON.stringify({
+          history: safeLLMHistory,
+          userMessage: triggerMessage,
+          email: userData.email,
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          currentPath: window.location.pathname,
+          pageContext: {
+            title: document.title?.substring(0, 150) ?? '',
+            description: document.querySelector('meta[name="description"]')
+              ?.getAttribute('content')?.substring(0, 200) ?? '',
+            h1: document.querySelector('h1')?.textContent?.trim().substring(0, 150) ?? ''
+          }
+        })
+      });
+  
+      if (!res.ok || !res.body) throw new Error('Error en expand');
+  
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = '';
+      messagesStore.set([...messagesStore.get(), { role: 'agent', text: '' }]);
+  
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('data:')) {
+            try {
+              const parsed = JSON.parse(line.slice(5).trim());
+              if (parsed.text) {
+                fullText += parsed.text;
+                const msgs = messagesStore.get();
+                const updated = [...msgs];
+                updated[updated.length - 1] = { role: 'agent', text: fullText };
+                messagesStore.set(updated);
+              }
+            } catch {}
+          }
+        }
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
+        messagesStore.set([...messagesStore.get(), { role: 'error', text: 'No pude expandir la respuesta.' }]);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -340,7 +413,13 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           history: safeLLMHistory,
           email: userData.email,
           timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          currentPath: window.location.pathname
+          currentPath: window.location.pathname,
+          pageContext: {
+            title: document.title?.substring(0, 150) ?? '',
+            description: document.querySelector('meta[name="description"]')
+              ?.getAttribute('content')?.substring(0, 200) ?? '',
+            h1: document.querySelector('h1')?.textContent?.trim().substring(0, 150) ?? ''
+          }
         })
       });
       
@@ -423,7 +502,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
 
   const copyToClipboard = () => {
     const visibleMessages = messages.filter(m => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]'));
-    const text = visibleMessages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\\n\\n');
+    const text = visibleMessages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\n\n');
     navigator.clipboard.writeText(text);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 3500);
@@ -475,7 +554,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     strong: { color: '#004775' }
   };
 
-  if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR sin romper el conteo de Hooks
+  if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR
 
   return (
     <>
@@ -489,7 +568,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           width: '65px', height: '65px', borderRadius: '50%',
           boxShadow: '0 8px 24px rgba(0,71,117,0.5)',
           border: '2px solid #fff', cursor: 'pointer', zIndex: 9999,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          display: isOpen ? 'none' : 'flex', alignItems: 'center', justifyContent: 'center',
           transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
         }}
         onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
@@ -541,6 +620,55 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           border: '1px solid #E5E7EB',
           transition: 'all 0.3s ease'
         }}>
+          {/* Barra de título estilo Windows — colores Mac */}
+          <div style={{
+            display: 'flex', justifyContent: 'flex-end', alignItems: 'center',
+            gap: '8px', padding: '6px 12px',
+            background: '#002d4a', borderBottom: '1px solid rgba(255,255,255,0.08)'
+          }}>
+            {/* 🔴 Cerrar */}
+            <button onClick={() => {
+              if (hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
+                transcriptSentStore.set(true);
+                sendSilentEmail();
+              }
+              isOpenStore.set(false);
+              hasStartedStore.set(false);
+              userDataStore.set({ name: '', email: '', phone: '', location: 'Ubicación Desconocida', countryCode: '' });
+              messagesStore.set([]);
+              transcriptSentStore.set(false);
+              lastGreetedCategoryStore.set('');
+              hasUnreadMessagesStore.set(false);
+              isExpandedStore.set(false);
+            }} title="Cerrar"
+              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FF5F56',
+                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
+              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>✕</span>
+            </button>
+
+            {/* 🟡 Minimizar */}
+            <button onClick={() => isOpenStore.set(false)} title="Minimizar"
+              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FFBD2E',
+                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
+              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>─</span>
+            </button>
+
+            {/* 🟢 Expandir/Contraer */}
+            <button onClick={() => isExpandedStore.set(!isExpanded)} title={isExpanded ? 'Contraer' : 'Expandir'}
+              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#27C93F',
+                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
+              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>
+                {isExpanded ? '⧠' : '❐'}
+              </span>
+            </button>
+          </div>
+
           {/* Header */}
           <div style={{
             background: '#004775', padding: '12px 16px', color: 'white',
@@ -569,17 +697,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
               </div>
             </div>
             
-            <div style={{display: 'flex', gap: '6px', alignItems: 'center'}}>
-              <button 
-                onClick={() => isExpandedStore.set(!isExpanded)} 
-                style={{
-                  background: 'rgba(255,255,255,0.2)', border: 'none', color: '#fff', 
-                  fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer'
-                }}
-              >
-                {isExpanded ? 'Contraer 📉' : 'Expandir 📈'}
-              </button>
-              
+            <div style={{display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end'}}>
               {hasStarted && (
                 <button 
                   onClick={resetChat} 
@@ -596,37 +714,39 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
               )}
               
               {hasStarted && messages.length > 1 && (
+                <>
                 <button 
                   onClick={copyToClipboard} 
                   disabled={isCopied}
                   style={{
                     background: isCopied ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
                     fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
-                    transition: 'background 0.3s'
+                    transition: 'background 0.3s', marginRight: '4px'
                   }}
                 >
                   {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
                 </button>
+                <button 
+                  onClick={sendSilentEmail} 
+                  disabled={isSendingEmail}
+                  style={{
+                    background: isSendingEmail ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
+                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
+                    transition: 'background 0.3s'
+                  }}
+                >
+                  {isSendingEmail ? 'Enviando...' : 'Enviar 📧'}
+                </button>
+                </>
               )}
-              
-              <button 
-                onClick={toggleChat} 
-                title="Cerrar chat"
-                style={{
-                  background: 'transparent', border: 'none', color: '#fff', 
-                  fontSize: '20px', padding: '0 4px', cursor: 'pointer',
-                  marginLeft: '4px'
-                }}
-              >
-                ✖
-              </button>
             </div>
           </div>
 
           {/* Body */}
           <div style={{
             flex: 1, padding: '16px', background: '#F8FAFC',
-            overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px'
+            overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px',
+            overscrollBehavior: 'contain'
           }}>
             {!hasStarted ? (
               <div style={{marginTop: '20px'}}>
@@ -693,6 +813,22 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
                                  }}>Ver oferta →</a>
                               )}
                             </div>
+                          )}
+                          {m.role === 'agent' && !isLoading && i === messages.filter((x:any) => !x.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).length - 1 && 
+                           !m.text.includes('1.') && (m.text.match(/\n-/g) || []).length < 3 && (
+                            <button
+                              onClick={() => sendExpandMessage(m.text)}
+                              style={{
+                                marginTop: '6px', fontSize: '11px', color: '#3179C2',
+                                background: 'none', border: '1px solid #DBEAFE',
+                                borderRadius: '12px', padding: '3px 10px', cursor: 'pointer',
+                                display: 'inline-block', transition: 'background 0.2s'
+                              }}
+                              onMouseOver={e => { e.currentTarget.style.background = '#EFF6FF'; }}
+                              onMouseOut={e => { e.currentTarget.style.background = 'none'; }}
+                            >
+                              + info
+                            </button>
                           )}
                         </div>
                       ) : (
