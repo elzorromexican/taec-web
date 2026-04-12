@@ -489,7 +489,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           width: '65px', height: '65px', borderRadius: '50%',
           boxShadow: '0 8px 24px rgba(0,71,117,0.5)',
           border: '2px solid #fff', cursor: 'pointer', zIndex: 9999,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          display: isOpen ? 'none' : 'flex', alignItems: 'center', justifyContent: 'center',
           transition: 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
         }}
         onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
@@ -596,30 +596,56 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
               )}
               
               {hasStarted && messages.length > 1 && (
+                <>
                 <button 
                   onClick={copyToClipboard} 
                   disabled={isCopied}
                   style={{
                     background: isCopied ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
                     fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
-                    transition: 'background 0.3s'
+                    transition: 'background 0.3s', marginRight: '4px'
                   }}
                 >
                   {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
                 </button>
+                <button 
+                  onClick={sendSilentEmail} 
+                  disabled={isSendingEmail}
+                  style={{
+                    background: isSendingEmail ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
+                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
+                    transition: 'background 0.3s'
+                  }}
+                >
+                  {isSendingEmail ? 'Enviando...' : 'Enviar 📧'}
+                </button>
+                </>
               )}
               
-              <button 
-                onClick={toggleChat} 
-                title="Cerrar chat"
-                style={{
-                  background: 'transparent', border: 'none', color: '#fff', 
-                  fontSize: '20px', padding: '0 4px', cursor: 'pointer',
-                  marginLeft: '4px'
-                }}
-              >
-                ✖
-              </button>
+              <div style={{display: 'flex', alignItems: 'center', marginLeft: '8px', paddingBottom: '4px'}}>
+                <button 
+                  onClick={toggleChat} 
+                  title="Minimizar chat sin perder la conversación"
+                  style={{
+                    background: 'transparent', border: 'none', color: '#fff', 
+                    fontSize: '22px', padding: '0 4px', cursor: 'pointer',
+                    fontWeight: 'bold', lineHeight: '20px'
+                  }}
+                >
+                  _
+                </button>
+                <button 
+                  onClick={toggleChat} 
+                  title="Cerrar chat"
+                  style={{
+                    background: 'transparent', border: 'none', color: '#fff', 
+                    fontSize: '20px', padding: '0 4px', cursor: 'pointer',
+                    marginLeft: '8px'
+                  }}
+                >
+                  ✖
+                </button>
+              </div>
             </div>
           </div>
 
