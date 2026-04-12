@@ -12,6 +12,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 - [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard B2B para mayor pulcritud comercial.
 - [ ] **[ISSUE-019] QA UX Hub:** Validar y corregir el comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
 - [ ] **[ISSUE-021] Reach 360:** Investigar y corregir el *z-index/position* del nav desplegable en `/articulate-reach` que se está rompiendo visualmente.
+- [ ] **Pruebas Pre-Merge (TitoBits QA):** Probar rigurosamente en local/staging el comportamiento final de TitoBits (Hard-Handoff al cerrar, Modo Consultor +info, SSR Hydration, Regla Antiderivación y Scroll) previo al merge definitivo de PR #41 a `main`.
 
 - [x] **Hardening TitoBits v4 (Abril 2026):** Fix en validación SSR (`getSafeEnv`) mitigando fugas, migración de extracciones Mock a modelo JSON con Gemini y conexión conversacional real del Hub CONTINUE a memoria vectorial RAG.
 - [x] **Documentación y Mantenimiento (Abril 2026):** Creación de `MAINTENANCE.md`, reescritura del manual comercial y archivos de rastreo. Purga radical de más de 12 archivos obsoletos, herramientas de sesión en caché y lógicas previas (DDC/Tito).
