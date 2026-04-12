@@ -193,6 +193,9 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       transcriptSentStore.set(true);
       sendSilentEmail();
     }
+    if (!isOpen) {
+      isExpandedStore.set(false);
+    }
     isOpenStore.set(!isOpen);
     if (!isOpen && hasUnreadMessagesStore.get()) {
       hasUnreadMessagesStore.set(false);
@@ -499,7 +502,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
 
   const copyToClipboard = () => {
     const visibleMessages = messages.filter(m => !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]'));
-    const text = visibleMessages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\\n\\n');
+    const text = visibleMessages.map(m => `${m.role === 'user' ? 'Tú' : 'Tito Bits'}: ${m.text}`).join('\n\n');
     navigator.clipboard.writeText(text);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 3500);
@@ -694,7 +697,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
               </div>
             </div>
             
-            <div style={{display: 'flex', gap: '6px', alignItems: 'center'}}>
+            <div style={{display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end'}}>
               {hasStarted && (
                 <button 
                   onClick={resetChat} 

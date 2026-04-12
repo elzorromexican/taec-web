@@ -1,5 +1,16 @@
 import { atom } from 'nanostores';
-import { persistentAtom } from '@nanostores/persistent';
+import { persistentAtom, setPersistentEngine } from '@nanostores/persistent';
+
+if (typeof window !== 'undefined') {
+  setPersistentEngine(window.sessionStorage, {
+    addEventListener(key, handler) {
+      window.addEventListener('storage', handler);
+    },
+    removeEventListener(key, handler) {
+      window.removeEventListener('storage', handler);
+    }
+  });
+}
 
 interface UserData {
   name: string;
@@ -15,7 +26,7 @@ interface Message {
   promo?: any;
 }
 
-// Persisten en sessionStorage — sobreviven navegación, mueren al cerrar tab
+// Persisten en sessionStorage — sobreviven navegación, mueren al cerrar tab/ventana
 export const isOpenStore = persistentAtom<boolean>('tito:isOpen', false, {
   encode: JSON.stringify,
   decode: JSON.parse
