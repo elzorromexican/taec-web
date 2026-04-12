@@ -12,12 +12,13 @@
 import type { APIRoute } from 'astro';
 import { GoogleGenAI } from '@google/genai';
 import { getSystemRulesString, evaluateMessageForEscalation } from '../../lib/tito/rules';
-import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
+import { getEmbedding, searchSimilarChunks, getSupabase } from '../../lib/tito/rag';
 import { calcularScore, determinarHandoff, type LeadSignals } from '../../lib/tito/scoring';
 import { generarMiniBrief, enviarNotificacion, extraerContacto, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    const supabase = getSupabase();
     const body = await request.json();
     const message = body.message || '';
     const sessionId = body.session_id || 'anonymous-session';

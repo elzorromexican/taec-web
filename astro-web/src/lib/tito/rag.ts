@@ -18,11 +18,30 @@ const getSafeEnv = (k: string) => {
   return undefined;
 };
 
-const supabaseUrl  = getSafeEnv('SUPABASE_URL') ?? getSafeEnv('PUBLIC_SUPABASE_URL') ?? '';
-const supabaseKey  = getSafeEnv('SUPABASE_SERVICE_ROLE_KEY') ?? getSafeEnv('PUBLIC_SUPABASE_ANON_KEY') ?? '';
-const geminiApiKey = getSafeEnv('TAEC_GEMINI_KEY') ?? getSafeEnv('GEMINI_API_KEY') ?? '';
+let _supabaseClient: any = null;
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const getSupabase = () => {
+  if (_supabaseClient) return _supabaseClient;
+  let sUrl  = getSafeEnv('SUPABASE_URL') ?? getSafeEnv('PUBLIC_SUPABASE_URL');
+  let sKey  = getSafeEnv('SUPABASE_SERVICE_ROLE_KEY') ?? getSafeEnv('PUBLIC_SUPABASE_ANON_KEY');
+  
+  if (!sUrl && typeof import.meta !== 'undefined' && import.meta.env) {
+    sUrl = import.meta.env.SUPABASE_URL || import.meta.env.PUBLIC_SUPABASE_URL;
+  }
+  if (!sKey && typeof import.meta !== 'undefined' && import.meta.env) {
+    sKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  }
+  
+  // Fake defaults for local dev / build time if completely empty
+  const finalUrl = sUrl || 'https://placeholder.supabase.co';
+  const finalKey = sKey || 'placeholder-key';
+  
+  if (!sUrl || !sKey) {
+    console.warn("Faltan variables de Supabase, usando placeholders para build/eval");
+  }
+  _supabaseClient = createClient(finalUrl, finalKey);
+  return _supabaseClient;
+};
 
 import { GoogleGenAI } from '@google/genai';
 
@@ -32,6 +51,12 @@ export const EMBEDDING_DIMENSION = 768;
  * Recupera el embedding vectorial llamando a Gemini Embeddings API u otro proveedor.
  */
 export async function getEmbedding(text: string): Promise<number[]> {
+  let geminiApiKey = getSafeEnv('TAEC_GEMINI_KEY') ?? getSafeEnv('GEMINI_API_KEY');
+  
+  if (!geminiApiKey && typeof import.meta !== 'undefined' && import.meta.env) {
+    geminiApiKey = import.meta.env.TAEC_GEMINI_KEY || import.meta.env.GEMINI_API_KEY || '';
+  }
+
   if (!geminiApiKey) {
     throw new Error("Falta TAEC_GEMINI_KEY. Abortando embedding real fail-fast.");
   }
@@ -61,6 +86,7 @@ export async function getEmbedding(text: string): Promise<number[]> {
  * Busca en la base de datos Supabase usando el embedding.
  */
 export async function searchSimilarChunks(embedding: number[], matchThreshold = 0.75, matchCount = 3) {
+  const supabase = getSupabase();
   const { data, error } = await supabase.rpc('match_tito_knowledge_chunks', {
     query_embedding: embedding,
     match_threshold: matchThreshold,

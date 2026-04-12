@@ -7,7 +7,7 @@ import { Ratelimit } from '@upstash/ratelimit';
 import { GoogleGenAI } from '@google/genai';
 import { titoKnowledgeBase } from '../../data/titoKnowledgeBase';
 import { promos } from '../../data/promos';
-import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
+import { getEmbedding, searchSimilarChunks, getSupabase } from '../../lib/tito/rag';
 import { evaluateMessageForEscalation } from '../../lib/tito/rules';
 import { calcularScore, determinarHandoff } from '../../lib/tito/scoring';
 import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
@@ -41,6 +41,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   let apiKey: string | undefined;
 
   try {
+    const supabase = getSupabase();
     let ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
     if (ip.includes(',')) ip = ip.split(',')[0].trim();
     
@@ -355,8 +356,10 @@ ${activePromosBlock}
     const lastItem = geminiHistory[geminiHistory.length - 1];
     if (!lastItem || lastItem.role !== 'user') {
       geminiHistory.push({ role: 'user', parts: [{ text: userMessage }] });
-    } else if (!lastItem.parts[0].text.includes(userMessage.substring(0, 100)) && lastItem.role === 'user') {
-      lastItem.parts[0].text += "\n" + userMessage;
+    } else {
+      if (!lastItem.parts[0].text.includes(userMessage.substring(0, 50))) {
+        lastItem.parts[0].text += "\n" + userMessage;
+      }
     }
 
     const tStart = Date.now();
