@@ -468,7 +468,12 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
 
     // AI Pollution Prevention: Excluimos mensajes insertados por el sistema (UI_Context)
     const ruleTexts = Object.values(chatCategoryRules).map(r => r.contextHop);
-    const safeLLMHistory = snapshot.filter((m: any) => m.role !== 'error' && !ruleTexts.includes(m.text) && !m.text.includes('📍 *Explorando la sección de'));
+    const safeLLMHistory = snapshot.filter((m: any) => 
+      m.role !== 'error' 
+      && !ruleTexts.includes(m.text) 
+      && !m.text.includes('[SYSTEM_HIDDEN_CONTEXT]')
+      && !m.text.includes('📍 *Explorando la sección de')
+    );
     
     if (abortControllerRef.current) {
         abortControllerRef.current.abort();
