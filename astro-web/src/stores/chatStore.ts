@@ -16,7 +16,7 @@ interface Message {
 }
 
 // Persisten en sessionStorage — sobreviven navegación, mueren al cerrar tab
-export const isOpenStore = persistentAtom<boolean>('tito:isOpen', true, {
+export const isOpenStore = persistentAtom<boolean>('tito:isOpen', false, {
   encode: JSON.stringify,
   decode: JSON.parse
 });
@@ -35,7 +35,7 @@ export const userDataStore = persistentAtom<UserData>('tito:userData', {
 
 // Efímeros — privacidad GDPR
 export const messagesStore = atom<Message[]>([]);
-export const isExpandedStore = atom<boolean>(true);
+export const isExpandedStore = atom<boolean>(false);
 export const lastGreetedCategoryStore = atom<string>('');
 export const hasUnreadMessagesStore = atom<boolean>(false);
 export const transcriptSentStore = atom<boolean>(false);

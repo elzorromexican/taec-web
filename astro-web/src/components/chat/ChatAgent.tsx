@@ -19,8 +19,6 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   const [isHydrated, setIsHydrated] = useState(false);
   useEffect(() => setIsHydrated(true), []);
 
-  if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR
-
   const isOpen = useStore(isOpenStore);
   const isExpanded = useStore(isExpandedStore);
   const hasStarted = useStore(hasStartedStore);
@@ -553,6 +551,8 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     strong: { color: '#004775' }
   };
 
+  if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR
+
   return (
     <>
       {/* Botón Flotante */}
@@ -630,6 +630,13 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
                 sendSilentEmail();
               }
               isOpenStore.set(false);
+              hasStartedStore.set(false);
+              userDataStore.set({ name: '', email: '', phone: '', location: 'Ubicación Desconocida', countryCode: '' });
+              messagesStore.set([]);
+              transcriptSentStore.set(false);
+              lastGreetedCategoryStore.set('');
+              hasUnreadMessagesStore.set(false);
+              isExpandedStore.set(false);
             }} title="Cerrar"
               style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FF5F56',
                 border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
