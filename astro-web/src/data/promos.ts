@@ -11,6 +11,7 @@ export interface PromoConfig {
   active: boolean;
   color?: string; // hex del badge en ticker. Default: '#c2410c' (naranja)
   ctaText?: string; // Texto personalizado del botón, ej. "Anotar en calendario →"
+  endDate?: string; // Fecha de vencimiento ISO, ej. "2026-06-30"
 }
 
 export const promos: PromoConfig[] = [
@@ -22,7 +23,8 @@ export const promos: PromoConfig[] = [
     link: "/articulate-360-mexico",
     urlTrigger: "articulate",
     countries: ["MX"],
-    active: true
+    active: true,
+    endDate: "2026-06-30"
   },
   {
     id: "descuento-articulate-latam",
@@ -54,7 +56,8 @@ export const promos: PromoConfig[] = [
     urlTrigger: "localization",
     countries: ["GLOBAL"],
     active: true,
-    color: "#0d9488"
+    color: "#0d9488",
+    endDate: "2026-06-30"
   },
   {
     id: "summit-cdmx-mayo-2026",
@@ -64,6 +67,7 @@ export const promos: PromoConfig[] = [
     link: "https://register.articulate.com/mexico-city",
     urlTrigger: "articulate",
     countries: ["MX"],
-    active: false
+    active: false,
+    endDate: "2026-05-07"
   }
 ];
