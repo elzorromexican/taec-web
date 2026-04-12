@@ -15,7 +15,8 @@ import {
   ctaExpandRegistryStore,
   finalizeExpansionState,
   v3_2RolloutStore,
-  initializeRollout
+  initializeRollout,
+  sessionIdStore
 } from '../../stores/chatStore';
 import { gibberishGuard, trackTitoEvent } from '../../lib/tito/titoAnalytics';
 import { safeRenderMarkdown } from '../../lib/tito/sanitizer';
@@ -224,6 +225,10 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     e.preventDefault();
     if (!userData.name) return;
 
+    if (!sessionIdStore.get()) {
+       sessionIdStore.set('sess-' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36));
+    }
+
     hasStartedStore.set(true);
     
     if (messages.length > 0) return;
@@ -354,6 +359,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           email: userData.email,
           timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
           currentPath: window.location.pathname,
+          session_id: sessionIdStore.get(),
           pageContext: {
             title: document.title?.substring(0, 150) ?? '',
             description: document.querySelector('meta[name="description"]')
@@ -420,6 +426,15 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       if (err.name !== 'AbortError') {
         messagesStore.set([...messagesStore.get(), { role: 'error', text: 'No pude expandir la respuesta.' }]);
       } else {
+        // Cancelación silenciosa
+        const msgs = messagesStore.get();
+        if (fullText) {
+           const updated = [...msgs];
+           updated[updated.length - 1] = { role: 'agent', text: safeRenderMarkdown(fullText), isStreaming: false };
+           messagesStore.set(updated);
+        } else {
+           messagesStore.set(msgs.filter((m: any) => m.text !== ''));
+        }
         trackTitoEvent('tito_expand_aborted', { sourceMessageId: msgId, targetId });
       }
     } finally {
@@ -473,6 +488,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           email: userData.email,
           timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
           currentPath: window.location.pathname,
+          session_id: sessionIdStore.get(),
           pageContext: {
             title: document.title?.substring(0, 150) ?? '',
             description: document.querySelector('meta[name="description"]')
@@ -585,7 +601,14 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     } catch (error: any) {
       setIsLoading(false);
       if (error.name === 'AbortError') {
-         updateMessage(msgId, accumulatedText || 'Mensaje cancelado.', false, accumulatedText ? 'agent' : 'error');
+         // Cancelación silenciosa (Escenario 2)
+         if (accumulatedText) {
+             updateMessage(msgId, accumulatedText, false, 'agent');
+         } else {
+             // Remueve el placeholder si ni siquiera empezó a escribir
+             const msgs = messagesStore.get().filter((m: any) => m.id !== msgId);
+             messagesStore.set(msgs);
+         }
       } else {
          updateMessage(msgId, 'No pude completar la respuesta con suficiente conexión. Revisa tu red e intenta de nuevo.', false, 'error');
       }

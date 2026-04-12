@@ -6,12 +6,22 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.2.1 · 12 abr 2026 — TitoBits Motor Conversacional (QA de Resiliencia y Rollout Provisional)
+
+### 🛡️ Seguridad, Limítes y Hardening de Inteligencia Artificial (Red-Teaming)
+- **Defensa en Profundidad (Defense in Depth):** Auditoría estricta de límites cognitivos (Red-Teaming y Jailbreaking). Se demostró inmunidad a inyecciones de *Developer Overrides*, rotación de estilo (Jerga callejera/Slang) e invocación de competencia o actividades ilegales. 
+- **Escudos Lógicos Regex:** Corrección de la vulnerabilidad de escape de palabras por strings duros en `rules.ts`. Implementación de `volumeRegex` para forzar Handoff ante engaños volumétricos ("200 asientos", "10 mil empleados") y refuerzo directo para intenciones financieras puras (adquirir, comprar). 
+- **Inmunidad de UI y Cancelación Silenciosa:** Se refactorizó la recolección de los mensajes truncados por `AbortError` (interrupción de usuario tras navegar rápido de página) para matar el stream sin generar ventanas de error rojas ni dejar estados UI zombie.
+- **Integridad de Sesión Inter-Página:** Resolución a la fuga de estados de Handoff entre backend y cliente al navegar, usando Stores persistentes en `session_id`, logrando el cierre total de la UI de entrada (bloqueo del input) una vez capturado el Lead.
+
+---
+
 ## v2.2.6 · 12 abr 2026 — TitoBits UX, Motor Consultivo y RAG Motor 3 (Fase Final Sprint)
 
 ### 🤖 Motor 3 RAG & Arquitectura Semántica
 - **Indexación Determinística (DOM):** Transición de *chunking* de texto básico a un motor de parseo estructural con `Cheerio`, garantizando integridad de documentos en la indexación RAG.
 - **Idempotencia URL:** Sistema integral de escaneo con hashing criptográfico (`SHA-256`) garantizando despliegues escalables mediante reemplazo tipo *drop-and-replace* en los ciclos de vida de indexación de vectores.
-- **Streaming de Baja Latencia (SSE):** Integración definitiva de Google GenAI SDK transmitiendo _Server-Sent Events_ a alta velocidad para reducir la espera de "El agente está escribiendo..." a mínimos absolutos.
+- **Streaming de Baja Latencia (SSE) & Fix Proxy CRLF:** Integración definitiva de Google GenAI SDK transmitiendo _Server-Sent Events_ a alta velocidad. Se solucionó un bug fantasma crítico donde Netlify (Actuando como Edge Proxy HTTP/2) mutaba forzosamente los saltos de línea de `\n\n` a `\r\n\r\n`. Se reconstruyeron los parsers tanto en el backend (`agente-ia.ts`) como el frontend (`ChatAgent.tsx`) utilizando la expresión unificada `/\r?\n\r?\n/` para asegurar un flujo ininterrumpido a prueba de *Edge Environments*.
 - **Precios Geográficos Públicos:** Ajustes a los _pricing cards_ de *Articulate Localization* e *Insights/Reach Pro* para incrustar localizaciones "USD" previendo ambigüedades geográficas de moneda ($ USD).
 
 ### 💬 Experiencia de Usuario (UI/UX) y ChatAgent Fixes

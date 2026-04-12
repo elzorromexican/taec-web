@@ -34,6 +34,11 @@ interface Message {
 }
 
 // Persisten en sessionStorage — sobreviven navegación, mueren al cerrar tab/ventana
+export const sessionIdStore = persistentAtom<string>('tito:sessionId', '', {
+  encode: JSON.stringify,
+  decode: JSON.parse
+});
+
 export const isOpenStore = persistentAtom<boolean>('tito:isOpen', false, {
   encode: JSON.stringify,
   decode: JSON.parse
