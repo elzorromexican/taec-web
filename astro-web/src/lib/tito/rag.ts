@@ -11,16 +11,16 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const getSafeEnv = (key: string) => {
-  if (typeof process !== 'undefined' && process.env && process.env[key]) return process.env[key];
-  // @ts-ignore
-  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env[key]) return import.meta.env[key];
-  return '';
+const getSafeEnv = (k: string) => {
+  if (typeof process !== 'undefined' && process.env && process.env[k]) {
+    return process.env[k] as string;
+  }
+  return undefined;
 };
 
-const supabaseUrl = getSafeEnv('SUPABASE_URL') || getSafeEnv('PUBLIC_SUPABASE_URL') || '';
-const supabaseKey = getSafeEnv('SUPABASE_SERVICE_ROLE_KEY') || getSafeEnv('PUBLIC_SUPABASE_ANON_KEY') || '';
-const geminiApiKey = getSafeEnv('TAEC_GEMINI_KEY') || getSafeEnv('GEMINI_API_KEY') || '';
+const supabaseUrl  = getSafeEnv('SUPABASE_URL') ?? getSafeEnv('PUBLIC_SUPABASE_URL') ?? '';
+const supabaseKey  = getSafeEnv('SUPABASE_SERVICE_ROLE_KEY') ?? getSafeEnv('PUBLIC_SUPABASE_ANON_KEY') ?? '';
+const geminiApiKey = getSafeEnv('TAEC_GEMINI_KEY') ?? getSafeEnv('GEMINI_API_KEY') ?? '';
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 

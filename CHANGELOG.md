@@ -6,6 +6,13 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v2.2.5 · 11 abr 2026 — TitoBits v4 Fixes (Seguridad y RAG)
+
+### 🤖 Refinamientos de TitoBits v4 (Router)
+- **Seguridad en variables de entorno (RAG):** Se mitigó una exposición de código en SSR eliminando la evaluación dinámica de VITE (`import.meta.env[k]`) a favor exclusivo del Node runtime (`process.env[k]`), previendo fugas de llaves maestras en empaquetados.
+- **Scoring y Extracción Nativa (Motor 3):** Transición de datos mock hardcodeados (`mockSignals`) hacia un parseo determinístico JSON invocado vía Gemini (`@google/genai`) para mapear eficientemente licencias, intereses y sentido de urgencia en prospects.
+- **RAG Conversacional Final (Motor 2):** Enlazada estructuralmente la vía de respuesta regular (*CONTINUE*), sustituyendo el render de logs de depuración interna por interacciones ricas naturales a través del modelo Gemini y las sentencias vectoriales (Pgvector) extraídas del historial.
+
 ## v2.2.4 · 11 abr 2026 — Documentación, Housekeeping y Purga
 
 ### 🧹 Limpieza de Archivos y Documentación Comercial
