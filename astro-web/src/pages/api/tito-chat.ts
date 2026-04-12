@@ -19,6 +19,7 @@ import { generarMiniBrief, enviarNotificacion, extraerContacto, FALLBACK_CONTACT
 export const POST: APIRoute = async ({ request }) => {
   try {
     const supabase = getSupabase();
+    if (!supabase) throw new Error("Faltan variables de entorno Supabase");
     const body = await request.json();
     const message = body.message || '';
     const sessionId = body.session_id || 'anonymous-session';

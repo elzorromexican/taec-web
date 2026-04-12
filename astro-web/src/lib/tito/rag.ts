@@ -32,14 +32,11 @@ export const getSupabase = () => {
     sKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
   }
   
-  // Fake defaults for local dev / build time if completely empty
-  const finalUrl = sUrl || 'https://placeholder.supabase.co';
-  const finalKey = sKey || 'placeholder-key';
-  
   if (!sUrl || !sKey) {
-    console.warn("Faltan variables de Supabase, usando placeholders para build/eval");
+    console.warn("Faltan variables de Supabase, desactivando conexión.");
+    return null;
   }
-  _supabaseClient = createClient(finalUrl, finalKey);
+  _supabaseClient = createClient(sUrl, sKey);
   return _supabaseClient;
 };
 
@@ -87,6 +84,10 @@ export async function getEmbedding(text: string): Promise<number[]> {
  */
 export async function searchSimilarChunks(embedding: number[], matchThreshold = 0.75, matchCount = 3) {
   const supabase = getSupabase();
+  if (!supabase) {
+    console.warn("RAG bypass: Supabase Client es null");
+    return [];
+  }
   const { data, error } = await supabase.rpc('match_tito_knowledge_chunks', {
     query_embedding: embedding,
     match_threshold: matchThreshold,
@@ -105,6 +106,10 @@ export async function searchSimilarChunks(embedding: number[], matchThreshold = 
  * Upserts a new knowledge chunk with its embedding vector.
  */
 export async function indexKnowledgeChunk(content: string, embedding: number[], metadata: Record<string, any> = {}) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    throw new Error("Supabase Client es null. No se puede indexar.");
+  }
   const { error } = await supabase.from('tito_knowledge_chunks').insert([
     {
       content,

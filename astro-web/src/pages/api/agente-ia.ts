@@ -42,6 +42,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   try {
     const supabase = getSupabase();
+    if (!supabase) throw new Error("Faltan variables de entorno Supabase");
     let ip = request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip') || 'unknown_ip';
     if (ip.includes(',')) ip = ip.split(',')[0].trim();
     
