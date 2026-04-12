@@ -37,7 +37,7 @@ const uid = () => {
     return Math.random().toString(36).substring(2, 15);
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   let apiKey: string | undefined;
 
   try {
