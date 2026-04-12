@@ -578,7 +578,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
         hasUnreadMessagesStore.set(false);
         isExpandedStore.set(false);
       }}
-      toggleExpand={() => isExpandedStore.set(!isExpanded)}
+      toggleExpand={() => isExpandedStore.set(!isExpandedStore.get())}
       resetChat={resetChat}
       sendSilentEmail={sendSilentEmail}
       startChat={startChat}
