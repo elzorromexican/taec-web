@@ -37,8 +37,15 @@ export const gibberishGuard = (text: string): { isGibberish: boolean, reason?: s
     return { isGibberish: true, reason: 'keysmash' };
   }
 
-  // Extract alphabetic characters to check consonant ratios
+  // Extract alphabetic characters to check consonant ratios and entropy
   const letters = clean.replace(/[^a-záéíóúüñ]/g, '');
+  if (letters.length > 10) {
+    const uniqueChars = new Set(letters.split('')).size;
+    if (uniqueChars <= 4) {
+      return { isGibberish: true, reason: 'low_entropy_keysmash' };
+    }
+  }
+
   if (letters.length > 5) {
     const consonants = letters.replace(/[aeiouáéíóúü]/g, '').length;
     const ratio = consonants / letters.length;
