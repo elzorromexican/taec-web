@@ -1,7 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import rehypeSanitize from 'rehype-sanitize';
-
 import { useStore } from '@nanostores/react';
 import { chatCategoryRules } from '../../data/chatContextRules';
 import ChatWindow from './ChatWindow';
@@ -546,13 +543,6 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     } finally {
       setIsSendingEmail(false);
     }
-  };
-
-  const markdownStyles = {
-    p: { margin: '0 0 8px 0' },
-    ul: { margin: '0 0 8px 16px', padding: 0 },
-    li: { margin: '4px 0' },
-    strong: { color: '#004775' }
   };
 
   if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR
