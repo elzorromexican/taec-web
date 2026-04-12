@@ -19,6 +19,8 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   const [isHydrated, setIsHydrated] = useState(false);
   useEffect(() => setIsHydrated(true), []);
 
+  if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR
+
   const isOpen = useStore(isOpenStore);
   const isExpanded = useStore(isExpandedStore);
   const hasStarted = useStore(hasStartedStore);
@@ -551,8 +553,6 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     strong: { color: '#004775' }
   };
 
-  if (!isHydrated) return null; // Previene hydration mismatch en Astro SSR sin romper el conteo de Hooks
-
   return (
     <>
       {/* Botón Flotante */}
@@ -624,7 +624,13 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
             background: '#002d4a', borderBottom: '1px solid rgba(255,255,255,0.08)'
           }}>
             {/* 🔴 Cerrar */}
-            <button onClick={toggleChat} title="Cerrar"
+            <button onClick={() => {
+              if (hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
+                transcriptSentStore.set(true);
+                sendSilentEmail();
+              }
+              isOpenStore.set(false);
+            }} title="Cerrar"
               style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FF5F56',
                 border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
                 alignItems: 'center', justifyContent: 'center',
@@ -798,7 +804,8 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
                               )}
                             </div>
                           )}
-                          {m.role === 'agent' && !isLoading && i === messages.filter((x:any) => !x.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).length - 1 && (
+                          {m.role === 'agent' && !isLoading && i === messages.filter((x:any) => !x.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).length - 1 && 
+                           !m.text.includes('1.') && (m.text.match(/\n-/g) || []).length < 3 && (
                             <button
                               onClick={() => sendExpandMessage(m.text)}
                               style={{
