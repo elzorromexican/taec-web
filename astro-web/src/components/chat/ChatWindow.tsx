@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeSanitize from 'rehype-sanitize';
 import { chatStyles, markdownStyles } from './chatStyles';
@@ -22,9 +22,9 @@ export interface ChatWindowProps {
   input: string;
   
   // Refs
-  endRef: RefObject<HTMLDivElement>;
-  inputChatRef: RefObject<HTMLTextAreaElement>;
-  inputNameRef: RefObject<HTMLInputElement>;
+  endRef: React.RefObject<HTMLDivElement>;
+  inputChatRef: React.RefObject<HTMLTextAreaElement>;
+  inputNameRef: React.RefObject<HTMLInputElement>;
   
   // Actions
   toggleChat: () => void;
