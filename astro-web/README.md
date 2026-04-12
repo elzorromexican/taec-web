@@ -1,61 +1,83 @@
-# TAEC Astro Web
+# TAEC Web
 
-Sitio comercial de **TAEC** (Tecnología Avanzada para la Educación y la Capacitación) construido con Astro 6.
-Partner e-learning para México y LATAM — Articulate, Vyond, Totara, Moodle.
+Sitio corporativo de **TAEC** — partner e-learning líder en México y LATAM.
+Reseller exclusivo de Articulate 360, Vyond, Totara y Moodle.
 
 - **Staging:** `elzorromexican.github.io/taec-web` — build estático, auto-deploy en push a `main`
 - **Producción:** `stellar-mermaid-3ba7f1.netlify.app` — SSR Netlify, auto-deploy en push a `main`
 - **Dominio final:** `nuevo.taec.com.mx` (pendiente de apuntar a Netlify)
-- **Baseline estable:** tag `v1.0-astro-foundation`
 
 ---
 
-## Comandos
+## Stack
+
+- **Framework:** Astro 6 — `output: 'server'` (SSR) por default
+- **Componentes reactivos:** React (Islands Architecture)
+- **Auth / Intranet:** Supabase Auth — OAuth Google restringido a `@taec.com.mx`
+- **Motor de IA:** Google Gemini 2.5 (`@google/genai`) — agente Tito Bits (`/api/agente-ia`)
+- **Rate limiting:** Upstash Redis (`@upstash/ratelimit`) — sliding window 15 req/min por IP
+- **Correo transaccional:** Resend — transcripts del agente IA (`/api/send-transcript`)
+- **Formulario de contacto:** Google Sheets API directo (`/api/submit-contact`) — sin GAS
+- **Estilos:** CSS puro modular
+
+---
+
+## Desarrollo local
 
 ```bash
-npm install          # Instalar dependencias
-npm run dev          # Dev server en localhost:4321
-npm run build        # Build estático → ./dist/
-npm run preview      # Preview del build local
+cd astro-web
+npm install
+npm run dev        # localhost:4321
+npm run build      # Build → ./dist/
+npm run preview    # Preview del build local
 ```
 
 ---
 
-## Estructura
+## Estructura del repositorio
 
 ```
-astro-web/
-├── public/
-│   ├── assets/
-│   │   ├── badges/     # Badges G2, partner logos
-│   │   ├── css/        # CSS legacy (index.css, etc.)
-│   │   ├── docs/       # PDFs descargables (lead magnets)
-│   │   ├── js/         # JS legacy (nav.js, etc.)
-│   │   └── logos/      # Logos de productos y partners
-│   └── data/
-│       └── ticker.json # Noticias para ticker del home
-│
-└── src/
-    ├── components/
-    │   ├── Header.astro     # Header sticky + mega-menu
-    │   ├── Footer.astro     # Footer + wa-float (ÚNICA instancia del botón WhatsApp)
-    │   ├── MobileNav.astro  # Nav móvil drawer
-    │   └── ui/
-    │       ├── HeroComercial.astro
-    │       ├── GridBeneficios.astro
-    │       ├── FAQAccordion.astro
-    │       ├── CtaFinal.astro
-    │       └── LogosGrid.astro
-    │
-    ├── data/
-    │   ├── contact.ts    # Fuente única: email, WhatsApp, TidyCal, redes
-    │   ├── navigation.ts # Fuente única: menú principal y footer links
-    │   └── emailjs.ts    # Config EmailJS: publicKey, serviceId, templates
-    │
-    ├── layouts/
-    │   └── BaseLayout.astro  # Canonical, OG tags, Header, Footer
-    │
-    └── pages/            # Una página = una ruta pública
+taec-web/
+├── astro-web/
+│   ├── public/
+│   │   ├── assets/
+│   │   │   ├── badges/     # Badges G2, partner logos
+│   │   │   ├── css/        # CSS global (base.css, header.css, footer.css)
+│   │   │   ├── docs/       # PDFs descargables (lead magnets)
+│   │   │   ├── js/         # JS legacy (nav.js)
+│   │   │   └── logos/      # Logos productos, partners, taec-og.png
+│   │   ├── data/
+│   │   │   └── ticker.json # Noticias para ticker del home
+│   │   ├── robots.txt
+│   │   └── llms.txt
+│   └── src/
+│       ├── components/
+│       │   ├── Header.astro      # Header sticky + mega-menu
+│       │   ├── MobileNav.astro   # Nav móvil drawer
+│       │   ├── experiments/
+│       │   │   └── FooterDock.astro  # Footer (ÚNICA instancia del botón WhatsApp)
+│       │   └── ui/
+│       │       ├── HeroComercial.astro
+│       │       ├── GridBeneficios.astro
+│       │       ├── FAQAccordion.astro
+│       │       ├── CtaFinal.astro
+│       │       └── LogosGrid.astro
+│       ├── data/
+│       │   ├── contact.ts    # Fuente única: email, WhatsApp, TidyCal, redes
+│       │   ├── navigation.ts # Fuente única: menú principal y footer links
+│       │   └── emailjs.ts    # Config EmailJS (solo página Totara)
+│       ├── layouts/
+│       │   ├── BaseLayout.astro     # Canonical, OG, Schema.org, Header, Footer
+│       │   └── IntranetLayout.astro # Layout para páginas /interno/
+│       ├── lib/
+│       │   └── supabase.ts   # Cliente Supabase
+│       ├── middleware.ts     # Protege /interno/* con Supabase session
+│       └── pages/
+│           ├── interno/      # Intranet SSR — protegida por middleware
+│           └── ...           # Páginas públicas (una archivo = una ruta)
+├── netlify.toml              # Config raíz Netlify (build command + redirects)
+└── .github/workflows/
+    └── deploy-pages.yml      # CI/CD GitHub Pages
 ```
 
 ---
@@ -69,22 +91,38 @@ contactData.email            // info@taec.com.mx
 contactData.phone            // 55 6822 3300
 contactData.whatsapp.url     // https://wa.me/5215527758279
 contactData.bookingUrl       // URL Zoho Bookings para agendar diagnóstico gratuito
-contactData.formEndpoint     // URL de la Web App de Google Apps Script (handler del formulario)
 contactData.socials          // { linkedin, youtube, facebook }
-contactData.regional         // [{ country, emoji, domain, url }]
+contactData.regional         // [{ country, emoji, domain, url }] — MX, CO, CL
 contactData.storeUrl         // https://tienda.taec.com.mx
+getBookingUrl(source?)       // Helper — rutea cita al calendario correcto por producto
 ```
+
+`contactData.formEndpoint` está vacío y marcado `[OBSOLETO]` — el formulario usa `/api/submit-contact`.
 
 **Regla:** dato de contacto hardcodeado en `.astro` = bug. Importar siempre desde `contact.ts`.
 
-### `src/data/emailjs.ts`
+---
 
-Config EmailJS centralizada — usada **sólo** en la página Totara (formulario de demo específico).
-No usar para el formulario general de `/contacto`; ese usa Google Apps Script directamente.
+## API Endpoints SSR
+
+| Endpoint | Método | Función |
+|---|---|---|
+| `/api/submit-contact` | POST | Formulario de contacto → Google Sheets API + validación Zod |
+| `/api/agente-ia` | POST | Chat Tito Bits — Gemini 2.5 + rate limiting Upstash Redis |
+| `/api/send-transcript` | POST | Envía transcripción del chat por Resend al lead y a TAEC |
+| `/api/get-promo` | GET | Retorna promo activa según país (header `x-nf-country` en Netlify Edge) |
+| `/api/diagnostico-lead` | POST | Captura lead del Diagnóstico de Plataforma |
+| `/api/kb` | GET | Consulta base de conocimiento interna (Tito Bits) |
+
+### Enrutamiento geográfico (`/api/get-promo`)
+
+Evalúa `locals.netlify.context.geo.country.code` en Netlify Edge,
+con fallback a `x-nf-country` / `x-country`. Si no hay header, asume `MX`.
+Las promos se definen en `src/data/promos.ts` con campos `active`, `countries[]` y `urlTrigger`.
 
 ---
 
-## Componentes UI — ver COMPONENTS.md
+## Componentes UI
 
 | Componente | Propósito |
 |---|---|
@@ -94,43 +132,29 @@ No usar para el formulario general de `/contacto`; ese usa Google Apps Script di
 | `CtaFinal` | Banda CTA con WhatsApp + TidyCal automáticos |
 | `LogosGrid` | Grid de logos clientes/partners |
 
-Temas: `moo` · `tot` · `art` · `vyond` · `general`
+Temas disponibles: `moo` · `tot` · `art` · `vyond` · `general`
 
 ---
 
 ## Flujo de contacto y conversión
 
-| CTA | Canal | Depende de | Riesgo |
-|---|---|---|---|
-| Formulario `/contacto` | Google Apps Script → Google Sheets + email interno | `contactData.formEndpoint` | Redesplegar GAS si cambia la URL |
-| WhatsApp flotante | wa.me directo | Meta/WhatsApp | Número en `contactData.whatsapp` |
-| Agendar diagnóstico | Zoho Bookings | Cuenta TAEC en Zoho | Si cambia, actualizar `contactData.bookingUrl` |
-| Correo directo | `mailto:` | Ninguna | Sin dependencia |
-| Tienda | tienda.taec.com.mx | — | URL en `contactData.storeUrl` |
+| CTA | Canal | Depende de |
+|---|---|---|
+| Formulario `/contacto` | Google Sheets API directo (`/api/submit-contact`) | `GOOGLE_SHEETS_*` env vars |
+| WhatsApp flotante | wa.me directo | `contactData.whatsapp` |
+| Agendar diagnóstico | Zoho Bookings | `contactData.bookingUrl` |
+| Correo directo | `mailto:` | Sin dependencia |
+| Tienda | tienda.taec.com.mx | `contactData.storeUrl` |
 
-### Integración Google Apps Script (formulario `/contacto`)
+### Inyección de variables al script de contacto (`data-*` pattern)
 
-El formulario de `/contacto` envía un POST a una Web App de Google Apps Script:
-
-- **Script fuente:** `astro-web/scripts/gas-contact-form.js` — pegar en apps.script.google.com
-- **URL del endpoint:** `contactData.formEndpoint` en `src/data/contact.ts`
-- **Content-Type:** `text/plain;charset=utf-8` — evita el preflight OPTIONS que GAS no expone.
-  El body es JSON puro; GAS lo parsea con `JSON.parse(e.postData.contents)`.
-- **Resultado:** nueva fila en Google Sheets + correo de notificación a `info@taec.com.mx`
-- **Fallback UI:** si el endpoint falla, se muestran el email directo y WhatsApp como alternativa.
-
-> Para actualizar el endpoint: `src/data/contact.ts` → `formEndpoint: "https://script.google.com/..."`.
-> Nunca hardcodear la URL en la página — siempre desde `contact.ts`.
-
-### Inyección de variables en el script de contacto (`data-*` pattern)
-
-El script del formulario recibe `formEndpoint`, `email` y `whatsappUrl` vía atributos `data-*`
-en el elemento `<form>`, no vía `define:vars`. Esto es necesario porque `define:vars` sólo funciona
-de forma fiable cuando el `<script>` está dentro del layout principal; un script fuera de
-`<BaseLayout>` se renderiza después de `</html>` y no recibe las variables.
+El script del formulario recibe variables vía atributos `data-*` en el elemento `<form>`,
+no vía `define:vars`. Esto es necesario porque `define:vars` solo funciona de forma fiable
+dentro del layout principal — un script fuera de `<BaseLayout>` se renderiza después de
+`</html>` y no recibe las variables.
 
 ```html
-<!-- El form en contacto.astro expone los valores así: -->
+<!-- contacto.astro — expone valores así: -->
 <form id="contactForm"
   data-endpoint={formEndpoint}
   data-email={contactEmail}
@@ -142,21 +166,19 @@ const form = document.getElementById('contactForm');
 const formEndpoint = form.dataset.endpoint || '';
 ```
 
-### CTA primaria por tipo de página
+### CTA primaria por contexto
 
 | Contexto | CTA primaria |
 |---|---|
 | Home | Agendar diagnóstico (Zoho Bookings) — baja fricción |
 | Páginas de producto | Formulario `/contacto` — califica el lead |
-| `/contacto` | Formulario GAS — acción directa |
+| `/contacto` | Formulario directo a Google Sheets |
 | Recursos / Blog | WhatsApp — engagement rápido |
 
----
+### WhatsApp flotante
 
-## WhatsApp flotante
-
-Implementado **una sola vez** en `Footer.astro`.
-No agregar instancias en páginas individuales — el Footer ya lo inyecta vía `BaseLayout`.
+Implementado **una sola vez** en `experiments/FooterDock.astro`.
+No agregar instancias en páginas individuales — el Footer lo inyecta vía `BaseLayout`.
 
 ---
 
@@ -165,18 +187,22 @@ No agregar instancias en páginas individuales — el Footer ya lo inyecta vía 
 Sección SSR protegida por `src/middleware.ts` con Supabase Auth.
 
 - **Login:** `/interno/login` — OAuth Google restringido a `@taec.com.mx`
-- **Callback:** `/interno/auth/callback` — procesa tokens y setea cookies `sb-access-token` / `sb-refresh-token`
+- **Callback:** `/interno/auth/callback` — procesa tokens, setea cookies `sb-access-token` / `sb-refresh-token`
 - **Dashboard:** `/interno/dashboard` — requiere sesión válida + registro en `usuarios_autorizados`
-- **Denegado:** `/interno/denegado` — usuarios autenticados pero sin permiso
+- **Admin:** `/interno/admin` — requiere rol `admin` en `usuarios_autorizados`
+- **Denegado:** `/interno/denegado` — autenticados sin permiso
 - Todas las páginas bajo `/interno/` tienen `export const prerender = false`
 - `robots.txt` bloquea `/interno/` para evitar indexación
 
 ### URLs permitidas en Supabase (Redirect URLs)
+
 ```
 http://localhost:4321/interno/auth/callback
 https://stellar-mermaid-3ba7f1.netlify.app/interno/auth/callback
 https://nuevo.taec.com.mx/interno/auth/callback
 ```
+
+---
 
 ## SEO
 
@@ -206,8 +232,7 @@ ASTRO_STATIC_BUILD=true     ← activa output: 'static'
 
 ### Netlify — producción SSR
 
-`netlify.toml` (raíz del repo) define el build command. Netlify inyecta `NETLIFY=true`
-automáticamente, lo que activa `@astrojs/netlify` adapter en `astro.config.mjs`.
+`netlify.toml` (raíz del repo). Netlify inyecta `NETLIFY=true` automáticamente, activando el adapter.
 
 ```toml
 [build]
@@ -231,33 +256,16 @@ adapter: isNetlify ? netlify() : undefined,
 // Dev local → output: 'server', sin adapter (Astro nativo)
 ```
 
-### Base path — GitHub Pages vs producción
-
-Astro prefija automáticamente los chunks generados (`_astro/*.css`, `_astro/*.js`) con `base`.
-**Los paths hardcodeados en templates NO se prefijan.** Por eso existe el helper `r()`:
+### Base path — staging vs producción
 
 ```typescript
 const base = import.meta.env.BASE_URL; // '/' en prod, '/taec-web/' en staging
-function r(url: string): string {
-  if (!url || url.startsWith('http') || url.startsWith('//')) return url;
-  return base.replace(/\/$/, '') + url;
-}
+
+// URLs internas de navegación
+href={r('/contacto')}
+
+// Assets del public/ folder
+src={`${base}assets/logo.svg`}
 ```
 
-- `href="/contacto"` → `href={r('/contacto')}` — URLs internas de navegación
-- `src="/assets/logo.svg"` → `src={\`${base}assets/logo.svg\`}` — assets del `public/` folder
-- `new URL('/assets/og.png', site)` → `new URL(\`${base}assets/og.png\`, site)` — OG image
-
-**Regla:** toda ruta interna en `.astro` usa `r()`. Todo `src` de asset usa `` `${base}assets/...` ``.
-
----
-
-## Estado de refactor de páginas comerciales
-
-| Página | Hero | Grid | FAQ | CTA |
-|---|---|---|---|---|
-| `moodle-mexico` | ✓ | — | ✓ | ✓ |
-| `articulate-360-mexico` | ✓ | ✓ | ✓ | ✓ |
-| `vyond-mexico` | ✓ | ✓ | ✓ | ✓ |
-| `totara-lms-mexico` | ✓ | ✓ | ✓ | ✓ |
-| Resto de páginas | — | — | — | — |
+**Regla:** toda ruta interna usa `r()`. Todo `src` de asset usa `` `${base}assets/...` ``.

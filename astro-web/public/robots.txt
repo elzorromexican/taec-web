@@ -4,8 +4,10 @@ Allow: /
 # Páginas internas y de administración — NO indexar
 Disallow: /interno/
 Disallow: /admin/
-Disallow: /comentarios/
 Disallow: /test
 Disallow: /test/
+
+# API endpoints — devuelven JSON, no indexar
+Disallow: /api/
 
 Sitemap: https://nuevo.taec.com.mx/sitemap-index.xml
