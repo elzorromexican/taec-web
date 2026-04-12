@@ -40,12 +40,16 @@ export function evaluateMessageForEscalation(message: string): EscalationAction 
   const escalateKeywords = [
     'lms',
     'renovación', 'renovacion', 'renovar',
-    '100+', '100 asientos', '100 licencias', '>100',
+    'comprar', 'compra', 'comprarlo', 'adquirir',
     'edu', 'universidad', 'colegio', 'escuela', 'educativo',
     'servicios', 'implementación', 'implementacion', 'capacitación', 'capacitacion', 'taller'
   ];
 
-  if (escalateKeywords.some(kw => msgLower.includes(kw))) {
+  // Regex para detectar menciones de alto volumen (ej. "200 asientos", "150 licencias", "100+", "10 mil usuarios")
+  const volumeRegex = /\b([1-9][0-9]{2,}|[1-9][0-9]*\s*mil)\s*(asientos|licencias|usuarios|users|personas|empleados)\b/i;
+  const triggerCienPlus = msgLower.includes('100+') || msgLower.includes('>100');
+
+  if (escalateKeywords.some(kw => msgLower.includes(kw)) || volumeRegex.test(msgLower) || triggerCienPlus) {
     return 'ESCALATE';
   }
 
