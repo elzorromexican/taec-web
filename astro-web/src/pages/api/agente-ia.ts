@@ -84,7 +84,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const data = await request.json();
-    const { history, userMessage, email, timeZone, currentPath, session_id, pageContext } = data;
+    const { history, userMessage, email, timeZone, currentPath, session_id, pageContext, intent, targetId, sourceMessageId } = data;
     const sessionId = session_id || 'anonymous-session';
 
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
@@ -104,7 +104,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
           return new Response(JSON.stringify({
             reply: FALLBACK_CONTACTO,
             handoff_tipo: existingLead.handoff_tipo,
-            score: existingLead.score
+            score: existingLead.score,
+            awaiting_contact: true
           }), { status: 200, headers: { 'Content-Type': 'application/json' } });
         }
 
@@ -146,7 +147,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
         return new Response(JSON.stringify({
           reply: replyCapture,
           handoff_tipo: existingLead.handoff_tipo,
-          score: existingLead.score
+          score: existingLead.score,
+          awaiting_contact: awaitingContactUpdate
         }), { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
 
@@ -187,13 +189,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
         return new Response(JSON.stringify({
           reply: "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?",
           handoff_tipo: handoffTipo || 'ventas',
-          score: score
+          score: score,
+          awaiting_contact: true
         }), { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
     }
     // ======= FIN TITO-CHAT =======
 
-    const isExpandMode = typeof userMessage === 'string' && userMessage.startsWith('[TITO_EXPAND]');
+    const isExpandMode = intent === 'node_expansion' || (typeof userMessage === 'string' && userMessage.startsWith('[TITO_EXPAND]'));
+
+    const VALID_TARGETS = ['default', 'pricing', 'technical', 'features', 'general', 'architecture', 'integration', 'security', 'case_studies', 'expand', 'ddc_services', 'articulate', 'tech_standards', 'platform'];
+    if (intent === 'node_expansion') {
+       if (!targetId || !VALID_TARGETS.includes(targetId)) {
+          return new Response(JSON.stringify({ error: 'invalid_target', message: 'Target ID no permitido' }), { 
+             status: 400, headers: { 'Content-Type': 'application/json' } 
+          });
+       }
+    }
 
     let safePath = 'Página General';
     if (typeof currentPath === 'string') {
@@ -421,6 +433,16 @@ Toda referencia externa debe construir el caso hacia TAEC.
 
         sendEvent('context_ready', { ok: true, messageId: msgId, hasContext: hasEnoughEvidence });
 
+        if (isExpandMode && sourceMessageId && targetId) {
+            const compositeKey = `${sourceMessageId}_${targetId}`;
+            sendEvent('ui_metadata', {
+               sourceMessageId,
+               targetId,
+               compositeKey,
+               hasChildren: true // For deeper expansions support in future
+            });
+        }
+
         let firstTokenTime = 0;
 
         try {
@@ -430,12 +452,29 @@ Toda referencia externa debe construir el caso hacia TAEC.
             config: { systemInstruction: systemPrompt }
           });
 
+          let accumulatedFullText = "";
           for await (const chunk of genStream) {
             const textChunk = chunk.text;
             if (textChunk) {
+              accumulatedFullText += textChunk;
               if (firstTokenTime === 0) firstTokenTime = Date.now() - tStart;
-              sendEvent('token', { text: textChunk });
+              sendEvent('token', { text: textChunk.replace(/\[CTA\]/gi, '') });
             }
+          }
+
+          if (!isExpandMode) {
+              let detectedTargetRow = null;
+              const lowerText = accumulatedFullText.toLowerCase();
+              if (lowerText.includes('ddc') || lowerText.includes('diseño')) detectedTargetRow = 'ddc_services';
+              else if (lowerText.includes('articulate')) detectedTargetRow = 'articulate';
+              else if (lowerText.includes('scorm') || lowerText.includes('xapi')) detectedTargetRow = 'tech_standards';
+              else if (lowerText.includes('plataforma') || lowerText.includes('lms') || lowerText.includes('comercial')) detectedTargetRow = 'platform';
+
+              if (detectedTargetRow) {
+                 sendEvent('ui_metadata', {
+                   targetId: detectedTargetRow
+                 });
+              }
           }
 
           const totalTime = Date.now() - tStart;
@@ -444,7 +483,7 @@ Toda referencia externa debe construir el caso hacia TAEC.
 
         } catch (e: any) {
           console.error("Stream error:", e);
-          sendEvent('error', { message: "Stream interrumpido abruptamente" });
+          sendEvent('error', { text: "Stream interrumpido abruptamente" });
         } finally {
           controller.close();
         }

@@ -2,20 +2,35 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { chatCategoryRules } from '../../data/chatContextRules';
 import ChatWindow from './ChatWindow';
-import { 
-  isOpenStore, 
-  isExpandedStore, 
-  hasStartedStore, 
-  userDataStore, 
+import {
+  isOpenStore,
+  isExpandedStore,
+  hasStartedStore,
+  userDataStore,
   messagesStore,
   lastGreetedCategoryStore,
   hasUnreadMessagesStore,
-  transcriptSentStore
+  transcriptSentStore,
+  chatModeStore,
+  ctaExpandRegistryStore,
+  finalizeExpansionState,
+  v3_2RolloutStore,
+  initializeRollout
 } from '../../stores/chatStore';
+import { gibberishGuard, trackTitoEvent } from '../../lib/tito/titoAnalytics';
+import { safeRenderMarkdown } from '../../lib/tito/sanitizer';
 
 export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: boolean, userName?: string }) {
   const [isHydrated, setIsHydrated] = useState(false);
-  useEffect(() => setIsHydrated(true), []);
+  useEffect(() => {
+    setIsHydrated(true);
+    initializeRollout();
+    // Anti zombie spinner post-refresh
+    const msgs = messagesStore.get();
+    if (msgs.some((m: any) => m.isStreaming)) {
+      messagesStore.set(msgs.map((m: any) => m.isStreaming ? { ...m, isStreaming: false, text: m.text || 'Conexión interrumpida por recarga de página.' } : m));
+    }
+  }, []);
 
   const isOpen = useStore(isOpenStore);
   const isExpanded = useStore(isExpandedStore);
@@ -24,6 +39,8 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   const messages = useStore(messagesStore);
   const lastCategory = useStore(lastGreetedCategoryStore);
   const hasUnread = useStore(hasUnreadMessagesStore);
+  const chatMode = useStore(chatModeStore);
+  const isV3_2 = useStore(v3_2RolloutStore);
 
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -107,7 +124,10 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       }
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+       window.removeEventListener('beforeunload', handleBeforeUnload);
+       if (abortControllerRef.current) abortControllerRef.current.abort();
+    };
   }, []);
 
   // Timer de Inactividad de 15 minutos (900,000 ms) para asegurar el envío de leads abandonados
@@ -187,15 +207,15 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   }, []);
 
   const toggleChat = () => {
-    if (isOpen && hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
+    const isCurrentlyOpen = isOpenStore.get();
+    if (isCurrentlyOpen && hasStarted && !isSendingEmail && messages.length > 1 && !transcriptSentStore.get()) {
       transcriptSentStore.set(true);
       sendSilentEmail();
     }
-    if (!isOpen) {
-      isExpandedStore.set(false);
-    }
-    isOpenStore.set(!isOpen);
-    if (!isOpen && hasUnreadMessagesStore.get()) {
+    isOpenStore.set(!isCurrentlyOpen);
+    
+    // Si la acción fue abrir el chat, limpiamos los unread
+    if (!isCurrentlyOpen && hasUnreadMessagesStore.get()) {
       hasUnreadMessagesStore.set(false);
     }
   };
@@ -290,13 +310,13 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     };
   }, []); // El event listener hace que funcione dinámicamente sin amarrar dependencias pesadas.
 
-  const updateMessage = (id: string, text: string, isStreaming: boolean, newRole?: 'agent' | 'error' | 'user') => {
+  const updateMessage = (id: string, text: string, isStreaming: boolean, newRole?: 'agent' | 'error' | 'user', extraMeta?: any) => {
        const msgs = messagesStore.get();
        const idx = msgs.findIndex((m: any) => m.id === id);
        if (idx !== -1) {
            const updated = [...msgs];
            // @ts-ignore
-           updated[idx] = { ...updated[idx], text, isStreaming };
+           updated[idx] = { ...updated[idx], text, isStreaming, ...extraMeta };
            if (newRole) {
                updated[idx].role = newRole as any;
            }
@@ -304,8 +324,10 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
        }
   };
 
-  const sendExpandMessage = async (lastAgentText: string) => {
+  const sendExpandMessage = async (msgId: string, targetId: string, lastAgentText: string) => {
     if (isLoading) return;
+    trackTitoEvent('tito_expand_clicked', { sourceMessageId: msgId, targetId });
+
     const triggerMessage = `[TITO_EXPAND]\n\nÚltima respuesta de Tito:\n${lastAgentText.substring(0, 500)}`;
     messagesStore.set([...messagesStore.get(), { role: 'user', text: '+ info' }]);
     
@@ -324,6 +346,9 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
         headers: { 'Content-Type': 'application/json' },
         signal: abortControllerRef.current.signal,
         body: JSON.stringify({
+          intent: 'node_expansion',
+          sourceMessageId: msgId,
+          targetId: targetId,
           history: safeLLMHistory,
           userMessage: triggerMessage,
           email: userData.email,
@@ -343,31 +368,59 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let fullText = '';
-      messagesStore.set([...messagesStore.get(), { role: 'agent', text: '' }]);
+      messagesStore.set([...messagesStore.get(), { role: 'agent', text: '', isStreaming: true }]);
   
+      let chunkData = '';
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n');
-        for (const line of lines) {
-          if (line.startsWith('data:')) {
-            try {
-              const parsed = JSON.parse(line.slice(5).trim());
-              if (parsed.text) {
-                fullText += parsed.text;
-                const msgs = messagesStore.get();
-                const updated = [...msgs];
-                updated[updated.length - 1] = { role: 'agent', text: fullText };
-                messagesStore.set(updated);
-              }
-            } catch {}
-          }
+        if (done) {
+          trackTitoEvent('tito_expand_completed', { sourceMessageId: msgId, targetId });
+          break;
+        }
+        chunkData += decoder.decode(value, { stream: true });
+        const parts = chunkData.split('\n\n');
+        chunkData = parts.pop() || "";
+        
+        for (const part of parts) {
+            if (part.trim().startsWith('event:')) {
+                const lines = part.split('\n');
+                const eventLine = lines.find(l => l.startsWith('event:'));
+                const dataLine = lines.find(l => l.startsWith('data:'));
+                
+                if (eventLine && dataLine) {
+                   const eventName = eventLine.replace('event:', '').trim();
+                   const jsonData = dataLine.replace('data:', '').trim();
+                   try {
+                      const parsed = JSON.parse(jsonData);
+                      if (eventName === 'ui_metadata') {
+                          if (parsed.compositeKey) {
+                              finalizeExpansionState(parsed.compositeKey, parsed.hasChildren);
+                          }
+                      } else if (eventName === 'token') {
+                          if (parsed.text) {
+                              fullText += parsed.text;
+                              const msgs = messagesStore.get();
+                              const updated = [...msgs];
+                              updated[updated.length - 1] = { role: 'agent', text: safeRenderMarkdown(fullText), isStreaming: true };
+                              messagesStore.set(updated);
+                          }
+                      }
+                   } catch {}
+                }
+            }
         }
       }
+      
+      // Cleanup streaming flag
+      const finalMsgs = messagesStore.get();
+      finalMsgs[finalMsgs.length - 1].isStreaming = false;
+      messagesStore.set([...finalMsgs]);
+
     } catch (err: any) {
       if (err.name !== 'AbortError') {
         messagesStore.set([...messagesStore.get(), { role: 'error', text: 'No pude expandir la respuesta.' }]);
+      } else {
+        trackTitoEvent('tito_expand_aborted', { sourceMessageId: msgId, targetId });
       }
     } finally {
       setIsLoading(false);
@@ -380,6 +433,14 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
 
     const userMsg = input.trim();
     setInput('');
+
+    const gibberishCheck = gibberishGuard(userMsg);
+    if (gibberishCheck.isGibberish) {
+        trackTitoEvent('tito_gibberish_rejected', { reason: gibberishCheck.reason });
+        messagesStore.set([...messagesStore.get(), { role: 'user', text: userMsg }, { role: 'error', text: 'Por favor, utiliza palabras completas para poder entenderte mejor.' }]);
+        return;
+    }
+
     setIsLoading(true);
 
     const msgId = 'msg-' + Math.random().toString(36).substring(2, 10);
@@ -423,13 +484,32 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       
       setIsLoading(false); // Apagamos el indicador general, ya tenemos conexión
 
+      const isJsonResponse = res.headers.get('content-type')?.includes('application/json');
+
       if (!res.ok) {
          let errorTxt = '¡Ups! Múltiples circuitos saturados. Intenta de nuevo por favor.';
-         try {
-           const errData = await res.json();
-           if (errData.error) errorTxt = errData.error;
-         } catch(e) {}
+         if (isJsonResponse) {
+           try {
+             const errData = await res.json();
+             if (errData.error) errorTxt = errData.error;
+             if (errData.error === 'invalid_target') {
+                 trackTitoEvent('tito_invalid_target_rejected', { msgId });
+             }
+           } catch(e) {}
+         }
          updateMessage(msgId, errorTxt, false, 'error');
+         return;
+      }
+
+      if (isJsonResponse) {
+         const jsonData = await res.json();
+         updateMessage(msgId, safeRenderMarkdown(jsonData.reply) || 'Handoff procesado.', false, 'agent');
+         if (jsonData.handoff_tipo && !jsonData.awaiting_contact) {
+             chatModeStore.set('handoff_closed');
+             trackTitoEvent('tito_handoff_started', { tipo: jsonData.handoff_tipo });
+         } else if (jsonData.handoff_tipo && jsonData.awaiting_contact) {
+             chatModeStore.set('handoff_pending');
+         }
          return;
       }
 
@@ -464,16 +544,35 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
                        const parsed = JSON.parse(jsonData);
                        if (eventName === 'context_ready') {
                           // No actualizamos texto por context_ready, es background.
+                       } else if (eventName === 'ui_metadata') {
+                          const safeCompositeKey = parsed.compositeKey || `${msgId}_${parsed.targetId}`;
+                          const reg = ctaExpandRegistryStore.get();
+                          ctaExpandRegistryStore.set({
+                              ...reg,
+                              [safeCompositeKey]: {
+                                  sourceMessageId: msgId,
+                                  targetId: parsed.targetId,
+                                  expandDepth: 0,
+                                  hasChildren: parsed.hasChildren || false,
+                                  hasExpandedOnce: false
+                              }
+                          });
+
+                          updateMessage(msgId, safeRenderMarkdown(accumulatedText), true, 'agent', { 
+                              targetId: parsed.targetId, 
+                              compositeKey: safeCompositeKey,
+                              hasChildren: parsed.hasChildren
+                          });
                        } else if (eventName === 'token') {
                           if (parsed.text) {
                               accumulatedText += parsed.text;
-                              updateMessage(msgId, accumulatedText, true, 'agent');
+                              updateMessage(msgId, safeRenderMarkdown(accumulatedText), true, 'agent');
                           }
                        } else if (eventName === 'error') {
-                          updateMessage(msgId, parsed.text || "No pude completarlo, un humano seguirá el caso.", false, 'error');
+                          updateMessage(msgId, safeRenderMarkdown(parsed.text) || "No pude completarlo, un humano seguirá el caso.", false, 'error');
                           return;
                        } else if (eventName === 'done') {
-                          updateMessage(msgId, accumulatedText, false, 'agent');
+                          updateMessage(msgId, safeRenderMarkdown(accumulatedText), false, 'agent');
                           return;
                        }
                     } catch(e) {}
@@ -507,15 +606,31 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   };
 
   const resetChat = () => {
-    if (window.confirm('🚨 ¿Seguro que deseas reiniciar el chat y borrar tu memoria de sesión?')) {
+    if (window.confirm('¿Reiniciar la conversación para un nuevo tema?')) {
+      trackTitoEvent('tito_new_chat_reset', {});
       if (abortControllerRef.current) abortControllerRef.current.abort();
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+      setIsLoading(false);
       messagesStore.set([]);
       hasStartedStore.set(false);
+      transcriptSentStore.set(false);
+      ctaExpandRegistryStore.set({});
       lastGreetedCategoryStore.set('');
       hasUnreadMessagesStore.set(false);
-      // Mantener la geolocalización viva pero vaciar la identidad
-      userDataStore.set({ name: '', email: '', phone: '', location: userData.location, countryCode: userData.countryCode });
+      chatModeStore.set('normal');
+      userDataStore.set({
+        ...userDataStore.get(),
+        name: '', 
+        email: '', 
+        phone: ''
+      });
     }
+  };
+
+  const handleCorrectEmail = () => {
+      chatModeStore.set('normal');
+      // Adding a message so user can type mail
+      messagesStore.set([...messagesStore.get(), { role: 'agent', text: 'Por favor, dime cuál es tu correo correcto.' }]);
   };
 
   const sendSilentEmail = async () => {
@@ -580,13 +695,15 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       }}
       toggleExpand={() => isExpandedStore.set(!isExpandedStore.get())}
       resetChat={resetChat}
-      sendSilentEmail={sendSilentEmail}
       startChat={startChat}
       sendMessage={sendMessage}
       sendExpandMessage={sendExpandMessage}
       copyToClipboard={copyToClipboard}
       setInput={setInput}
       setUserDataName={(name: string) => userDataStore.set({...userData, name})}
+      chatMode={chatMode}
+      handleCorrectEmail={handleCorrectEmail}
+      isRolloutActive={isV3_2}
     />
   );
 }

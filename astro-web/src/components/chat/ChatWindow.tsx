@@ -20,6 +20,8 @@ export interface ChatWindowProps {
   isSendingEmail: boolean;
   isCopied: boolean;
   input: string;
+  chatMode: string;
+  isRolloutActive: boolean;
   
   // Refs
   endRef: React.RefObject<HTMLDivElement>;
@@ -32,19 +34,19 @@ export interface ChatWindowProps {
   closeChat: () => void;
   toggleExpand: () => void;
   resetChat: () => void;
-  sendSilentEmail: () => Promise<void>;
   startChat: (e: React.FormEvent) => void;
   sendMessage: (e: React.FormEvent) => Promise<void>;
-  sendExpandMessage: (lastAgentText: string) => Promise<void>;
+  sendExpandMessage: (msgId: string, targetId: string, lastAgentText: string) => Promise<void>;
   copyToClipboard: () => void;
   setInput: (value: string) => void;
   setUserDataName: (name: string) => void;
+  handleCorrectEmail: () => void;
 }
 
 export default function ChatWindow({
-  isOpen, isExpanded, hasStarted, hasUnread, userData, messages, isLoading, isSendingEmail, isCopied, input,
+  isOpen, isExpanded, hasStarted, hasUnread, userData, messages, isLoading, isSendingEmail, isCopied, input, chatMode, isRolloutActive,
   endRef, inputChatRef, inputNameRef,
-  toggleChat, minimizeChat, closeChat, toggleExpand, resetChat, sendSilentEmail, startChat, sendMessage, sendExpandMessage, copyToClipboard, setInput, setUserDataName
+  toggleChat, minimizeChat, closeChat, toggleExpand, resetChat, startChat, sendMessage, sendExpandMessage, copyToClipboard, setInput, setUserDataName, handleCorrectEmail
 }: ChatWindowProps) {
   return (
     <>
@@ -140,22 +142,46 @@ export default function ChatWindow({
             </div>
             
             <div style={chatStyles.headerControlsContainer}>
-              {hasStarted && (
-                <button 
-                  onClick={resetChat} 
-                  title="Borrar memoria y reiniciar plática"
+              {hasStarted && messages.length > 1 && (
+                <button
+                  onClick={copyToClipboard}
+                  disabled={isCopied}
                   style={{
-                    background: 'rgba(255, 59, 48, 0.15)', border: '1px solid rgba(255, 59, 48, 0.3)', color: '#FFD1D1', 
-                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer', transition: 'background 0.3s'
+                    background: isCopied ? '#10B981' : 'rgba(255,255,255,0.15)',
+                    border: '1px solid rgba(255,255,255,0.45)',
+                    color: '#ffffff',
+                    fontWeight: 600,
+                    fontSize: '11px',
+                    padding: '5px 10px',
+                    borderRadius: '4px',
+                    cursor: isCopied ? 'default' : 'pointer',
+                    transition: 'background 0.2s'
                   }}
-                  onMouseOver={e => { e.currentTarget.style.background = 'rgba(255, 59, 48, 0.8)'; e.currentTarget.style.color = '#fff'; }}
-                  onMouseOut={e => { e.currentTarget.style.background = 'rgba(255, 59, 48, 0.15)'; e.currentTarget.style.color = '#FFD1D1'; }}
+                >
+                  {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
+                </button>
+              )}
+              {hasStarted && (
+                <button
+                  onClick={resetChat}
+                  title="Reiniciar conversación"
+                  style={{
+                    background: 'rgba(220, 38, 38, 0.75)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    color: '#ffffff',
+                    fontWeight: 600,
+                    fontSize: '11px',
+                    padding: '5px 10px',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.background = '#dc2626'; }}
+                  onMouseOut={e => { e.currentTarget.style.background = 'rgba(220, 38, 38, 0.75)'; }}
                 >
                   Reiniciar ⟲
                 </button>
               )}
-              
-
             </div>
           </div>
 
@@ -216,13 +242,16 @@ export default function ChatWindow({
                               )}
                             </div>
                           )}
-                          {m.role === 'agent' && !isLoading && i === messages.filter((x:any) => !x.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).length - 1 && 
-                           !m.text.includes('1.') && (m.text.match(/\n-/g) || []).length < 3 && (
+                          {isRolloutActive && m.role === 'agent' && !isLoading && !m.hasChildren && m.targetId && i === messages.filter((x:any) => !x.text.includes('[SYSTEM_HIDDEN_CONTEXT]')).length - 1 && (
                             <button
-                              onClick={() => sendExpandMessage(m.text)}
+                              onClick={(e) => {
+                                  e.currentTarget.disabled = true;
+                                  e.currentTarget.style.opacity = '0.5';
+                                  sendExpandMessage(m.id || `msg-${i}`, m.targetId, m.text);
+                              }}
                               style={chatStyles.expandButton}
-                              onMouseOver={e => { e.currentTarget.style.background = '#EFF6FF'; }}
-                              onMouseOut={e => { e.currentTarget.style.background = 'none'; }}
+                              onMouseOver={e => { if (!e.currentTarget.disabled) e.currentTarget.style.background = '#EFF6FF'; }}
+                              onMouseOut={e => { if (!e.currentTarget.disabled) e.currentTarget.style.background = 'none'; }}
                             >
                               + info
                             </button>
@@ -249,23 +278,28 @@ export default function ChatWindow({
           {/* Footer Input */}
           {hasStarted && (
             <div style={chatStyles.footerContainer}>
-
-              {/* NUEVO — barra de acciones sobre el textarea */}
-              {messages.length > 1 && (
-                <div style={{ display: 'flex', gap: '6px', padding: '6px 12px 0', justifyContent: 'flex-end' }}>
-                  <button onClick={copyToClipboard} disabled={isCopied}
-                    style={{ background: isCopied ? '#10B981' : '#3179C2', border: 'none', color: '#fff',
-                      fontWeight: 'bold', fontSize: '11px', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', transition: 'background 0.3s' }}>
-                    {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
-                  </button>
-                  <button onClick={sendSilentEmail} disabled={isSendingEmail}
-                    style={{ background: isSendingEmail ? '#10B981' : '#3179C2', border: 'none', color: '#fff',
-                      fontWeight: 'bold', fontSize: '11px', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', transition: 'background 0.3s' }}>
-                    {isSendingEmail ? 'Enviando...' : 'Enviar 📧'}
-                  </button>
+              {chatMode === 'handoff_closed' || chatMode === 'handoff_pending' ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '10px' }}>
+                    <button 
+                         onClick={(e) => {
+                             e.currentTarget.disabled = true;
+                             handleCorrectEmail();
+                         }} 
+                         style={{...chatStyles.footerSubmitButton, background: '#004775', width: '100%', borderRadius: '4px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'}}
+                     >
+                        Corregir correo
+                    </button>
+                    <button
+                        onClick={(e) => {
+                            e.currentTarget.disabled = true;
+                            resetChat();
+                        }}
+                        style={{...chatStyles.footerSubmitButton, background: '#F59E0B', width: '100%', borderRadius: '4px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'}}
+                    >
+                        Empezar nueva conversación
+                    </button>
                 </div>
-              )}
-
+              ) : (
               <form onSubmit={sendMessage} style={chatStyles.footerForm}>
                 <textarea 
                   ref={inputChatRef}
@@ -301,6 +335,7 @@ export default function ChatWindow({
                   </svg>
                 </button>
               </form>
+              )}
               
               <div style={chatStyles.footerDisclaimer}>
                 Tito Bits es una IA en entrenamiento y puede cometer errores. Por favor, consulta cualquier duda técnica o financiera con tu Asesor de Ventas.
