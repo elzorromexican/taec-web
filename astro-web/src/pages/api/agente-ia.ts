@@ -75,11 +75,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
       apiKey = Netlify.env.get('TAEC_GEMINI_KEY') || Netlify.env.get('GEMINI_API_KEY');
     }
     
-    if (typeof apiKey === 'string') {
-      apiKey = apiKey.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
+    if (apiKey) {
+      apiKey = apiKey.trim();
+      if (apiKey === 'undefined' || apiKey === 'null') {
+        apiKey = undefined;
+      }
     }
 
     if (!apiKey) {
+      console.warn("Critical Error: GEMINI_API_KEY not found in environment nor process.env");
       return new Response(JSON.stringify({ error: 'Mantenimiento temporal. Llave backend falló.' }), { status: 401 });
     }
 
@@ -483,7 +487,8 @@ Toda referencia externa debe construir el caso hacia TAEC.
 
         } catch (e: any) {
           console.error("Stream error:", e);
-          sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."}` });
+          const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
+          sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."} | DEBUG KEY: ${debugKey}` });
         } finally {
           controller.close();
         }
