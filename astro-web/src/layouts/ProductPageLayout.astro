@@ -1,0 +1,46 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import HeroComercial from '../components/ui/HeroComercial.astro';
+import GridBeneficios from '../components/ui/GridBeneficios.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import CtaFinal from '../components/ui/CtaFinal.astro';
+
+interface Props {
+  meta: {
+    title: string
+    description: string
+    page: string
+  }
+  hero: Parameters<typeof HeroComercial>[0]
+  beneficios: {
+    eyebrow?: string
+    title: string
+    subtitle?: string
+    cards: { icon: string; title: string; description: string }[]
+    columns?: number
+    theme?: string
+  }
+  faqs: {
+    eyebrow?: string
+    title: string
+    faqs: { question: string; answerHtml: string }[]
+    theme?: string
+  }
+  cta: Parameters<typeof CtaFinal>[0]
+}
+
+const { meta, hero, beneficios, faqs, cta } = Astro.props;
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  section="Soluciones"
+  page={meta.page}
+>
+  <HeroComercial {...hero} />
+  <slot />
+  <GridBeneficios {...beneficios} />
+  <FAQAccordion {...faqs} />
+  <CtaFinal {...cta} />
+</BaseLayout>

@@ -35,6 +35,8 @@ import { r, base } from '../utils/paths';
   .vp-feat-check{color:#FFCBA4;font-weight:700}
   .plan-cards{padding:80px 5%;background:#F8FAFC}
   .plan-cards-inner{max-width:1100px;margin:0 auto}
+  .plan-section-title{font-size:22px;font-weight:800;color:#111827;margin-bottom:6px;text-align:center}
+  .plan-section-sub{text-align:center;color:#64748B;font-size:14px;margin-bottom:36px;margin-left:auto;margin-right:auto}
   .plan-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
   .plan-card{background:white;border-radius:16px;padding:32px;border:1px solid var(--border);position:relative;display:flex;flex-direction:column}
   .plan-card.current{border-color:#C84D16;box-shadow:0 10px 30px rgba(0,0,0,.05)}
@@ -110,8 +112,8 @@ import { r, base } from '../utils/paths';
 <!-- plan comparison -->
 <section class="plan-cards">
   <div class="plan-cards-inner">
-    <h2 style="font-size:22px;font-weight:800;color:#111827;margin-bottom:6px;text-align:center">Compara los planes Vyond</h2>
-    <p style="text-align:center;color:#64748B;font-size:14px;margin-bottom:36px">Elige el plan que mejor se adapta al tamaño y necesidades de tu equipo</p>
+    <h2 class="plan-section-title">Compara los planes Vyond</h2>
+    <p class="plan-section-sub">Elige el plan que mejor se adapta al tamaño y necesidades de tu equipo</p>
     <div class="plan-cards-grid"><div class="plan-card current">
       <div class="plan-card-badge">Plan actual</div>
       <div class="plan-card-name">Vyond Starter</div>

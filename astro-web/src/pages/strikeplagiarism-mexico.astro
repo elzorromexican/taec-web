@@ -1,13 +1,9 @@
 ---
 // CHANGELOG: 2026-03-20 - Landing StrikePlagiarism completa. Contenido basado en doc estratégico DDC.
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
+import ProductPageLayout from '../layouts/ProductPageLayout.astro';
 import { getBookingUrl } from '../data/contact';
-
 import { r } from '../utils/paths';
+
 const bookingUrl = getBookingUrl();
 
 const beneficios = [
@@ -63,77 +59,92 @@ const faqs = [
 ];
 ---
 
-<BaseLayout
-  title="StrikePlagiarism en México | Integridad académica, similitud e IA | TAEC"
-  description="StrikePlagiarism con TAEC: detección de similitud, parafraseo y contenido generado por IA. Integración con Moodle, Canvas y Blackboard. Más de 1,500 instituciones. Demo en español."
-  section="Soluciones"
-  page="strikeplagiarism-mexico.html"
->
-
-  <!-- ── HERO ── -->
-  <HeroComercial
-    eyebrow="StrikePlagiarism · Integridad académica"
-    titleHtml={`Integridad académica con más evidencia<br>y <em>menos adivinanza</em>`}
-    subtitle="StrikePlagiarism ayuda a detectar similitud, parafraseo avanzado y posible contenido generado por IA — con informes claros, integración con LMS y evidencia lista para usar."
-    features={[
+<ProductPageLayout
+  meta={{
+    title: "StrikePlagiarism en México | Integridad académica, similitud e IA | TAEC",
+    description: "StrikePlagiarism con TAEC: detección de similitud, parafraseo y contenido generado por IA. Integración con Moodle, Canvas y Blackboard. Más de 1,500 instituciones. Demo en español.",
+    page: "strikeplagiarism-mexico.html"
+  }}
+  hero={{
+    eyebrow: "StrikePlagiarism · Integridad académica",
+    titleHtml: `Integridad académica con más evidencia<br>y <em>menos adivinanza</em>`,
+    subtitle: "StrikePlagiarism ayuda a detectar similitud, parafraseo avanzado y posible contenido generado por IA — con informes claros, integración con LMS y evidencia lista para usar.",
+    features: [
       "Detección de IA en español: >99% precisión, <1% falsos positivos",
       "Comparación contra bases de datos globales y repositorios",
       "Integración nativa LTI 1.3 — Moodle, Canvas, Blackboard, Brightspace",
       "Más de 1,500 organizaciones en el mundo",
       "RGPD · ISO/IEC 27001:2022 · Opción on-premise",
       "Implementación y soporte en español · CDMX"
-    ]}
-    primaryBtn={{ label: "Solicitar demo →", url: bookingUrl, target: "_blank" }}
-    secondaryBtn={{ label: "Hablar con un especialista", url: getBookingUrl('strikeplagiarism') }}
-    cardBadgeText="INTEGRIDAD ACADÉMICA · IA · LMS"
-    cardLogoSrc={r("/assets/logos/strikeplagiarism-icon.png")}
-    theme="general"
-    brandColor="#7f1933"
-  />
+    ],
+    primaryBtn: { label: "Solicitar demo →", url: bookingUrl, target: "_blank" },
+    secondaryBtn: { label: "Hablar con un especialista", url: getBookingUrl('strikeplagiarism') },
+    cardBadgeText: "INTEGRIDAD ACADÉMICA · IA · LMS",
+    cardLogoSrc: r("/assets/logos/strikeplagiarism-icon.png"),
+    theme: "general",
+    brandColor: "#7f1933"
+  }}
+  beneficios={{
+    eyebrow: "Por qué StrikePlagiarism con TAEC",
+    title: "Evidencia real para decisiones serias",
+    subtitle: "Para instituciones y organizaciones que necesitan que su proceso de revisión sea robusto, trazable y defendible.",
+    cards: beneficios,
+    columns: 2,
+    theme: "general"
+  }}
+  faqs={{
+    eyebrow: "Preguntas frecuentes",
+    title: "Todo sobre StrikePlagiarism en México",
+    faqs: faqs,
+    theme: "general"
+  }}
+  cta={{
+    title: "¿Listo para construir un proceso de integridad con respaldo real?",
+    subtitle: "Agenda una demo con nuestro equipo en CDMX. Te mostramos StrikePlagiarism con casos reales de instituciones en México y LATAM — sin costo, sin compromiso.",
+    primaryBtnText: "Solicitar demo →",
+    primaryBtnUrl: bookingUrl,
+    primaryBtnTarget: "_blank",
+    theme: "general"
+  }}
+>
 
   <!-- ── EL PROBLEMA ── -->
-  <section class="sp-problema">
-    <div class="spp-inner">
-      <p class="section-label">El reto real</p>
-      <h2 class="section-title">El problema no es solo encontrar texto parecido.<br>El problema es sostener una política seria de integridad.</h2>
-      <p class="section-sub">El contexto cambió. Más entregas digitales, parafraseo sofisticado y herramientas de IA generativa cambiaron la naturaleza del problema — y el nivel de evidencia que se necesita para tomar decisiones.</p>
-      <div class="sp-retos">
-        <div class="sp-reto">
-          <span class="sp-reto-icon">✍️</span>
-          <div>
-            <h3>Parafraseo que los detectores básicos no capturan</h3>
-            <p>Cambiar sinónimos o reordenar oraciones ya no es la técnica más común. Los detectores que solo buscan coincidencias textuales son insuficientes para el nivel actual de sofisticación.</p>
-          </div>
+  <section class="pp-section pp-section-alt">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">El reto real</p>
+      <h2 class="pp-section-title">El problema no es solo encontrar texto parecido.<br>El problema es sostener una política seria de integridad.</h2>
+      <p class="pp-section-sub">El contexto cambió. Más entregas digitales, parafraseo sofisticado y herramientas de IA generativa cambiaron la naturaleza del problema — y el nivel de evidencia que se necesita para tomar decisiones.</p>
+      <div class="pp-grid-3">
+        <div class="pp-card">
+          <span class="pp-card-icon">✍️</span>
+          <h3 class="pp-card-title">Parafraseo que los detectores básicos no capturan</h3>
+          <p class="pp-card-desc">Cambiar sinónimos o reordenar oraciones ya no es la técnica más común. Los detectores que solo buscan coincidencias textuales son insuficientes para el nivel actual de sofisticación.</p>
         </div>
-        <div class="sp-reto">
-          <span class="sp-reto-icon">🤖</span>
-          <div>
-            <h3>IA generativa como nuevo estándar del fraude</h3>
-            <p>Texto generado por ChatGPT u otras herramientas tiene baja similitud con fuentes existentes — un detector de similitud solo no es suficiente para identificarlo con precisión.</p>
-          </div>
+        <div class="pp-card">
+          <span class="pp-card-icon">🤖</span>
+          <h3 class="pp-card-title">IA generativa como nuevo estándar del fraude</h3>
+          <p class="pp-card-desc">Texto generado por ChatGPT u otras herramientas tiene baja similitud con fuentes existentes — un detector de similitud solo no es suficiente para identificarlo con precisión.</p>
         </div>
-        <div class="sp-reto">
-          <span class="sp-reto-icon">⚖️</span>
-          <div>
-            <h3>Decisiones sin evidencia defendible</h3>
-            <p>Sin un informe documentado y trazable, las apelaciones de los alumnos son difíciles de resolver. La integridad académica necesita el mismo rigor documental que cualquier proceso formal.</p>
-          </div>
+        <div class="pp-card">
+          <span class="pp-card-icon">⚖️</span>
+          <h3 class="pp-card-title">Decisiones sin evidencia defendible</h3>
+          <p class="pp-card-desc">Sin un informe documentado y trazable, las apelaciones de los alumnos son difíciles de resolver. La integridad académica necesita el mismo rigor documental que cualquier proceso formal.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── CÓMO FUNCIONA ── -->
-  <section class="sp-pasos">
-    <div class="sp-pasos-inner">
-      <p class="section-label">Proceso</p>
-      <h2 class="section-title">Cómo funciona StrikePlagiarism</h2>
-      <div class="pasos-grid">
+  <section class="pp-section pp-section-dark">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">Proceso</p>
+      <h2 class="pp-section-title pp-section-title--light">Cómo funciona StrikePlagiarism</h2>
+      <div class="pp-grid-4">
         {pasos.map(p => (
-          <div class="paso-card">
-            <span class="paso-num">{p.num}</span>
-            <h3>{p.title}</h3>
-            <p>{p.desc}</p>
+          <div class="pp-card pp-card--dark">
+            <span class="pp-card-num">{p.num}</span>
+            <h3 class="pp-card-title pp-card-title--light">{p.title}</h3>
+            <p class="pp-card-desc pp-card-desc--light">{p.desc}</p>
           </div>
         ))}
       </div>
@@ -141,38 +152,28 @@ const faqs = [
   </section>
 
   <!-- ── CAPACIDADES ── -->
-  <section class="sp-caps">
-    <div class="spc-inner">
-      <p class="section-label">Capacidades clave</p>
-      <h2 class="section-title">Un sistema de integridad completo, no solo un detector</h2>
-      <div class="caps-grid">
+  <section class="pp-section">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">Capacidades clave</p>
+      <h2 class="pp-section-title">Un sistema de integridad completo, no solo un detector</h2>
+      <div class="pp-grid-4">
         {capacidades.map(c => (
-          <div class="cap-card">
-            <span class="cap-icon">{c.icon}</span>
-            <h3>{c.label}</h3>
-            <p>{c.desc}</p>
+          <div class="pp-card">
+            <span class="pp-card-icon">{c.icon}</span>
+            <h3 class="pp-card-title">{c.label}</h3>
+            <p class="pp-card-desc">{c.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── BENEFICIOS ── -->
-  <GridBeneficios
-    eyebrow="Por qué StrikePlagiarism con TAEC"
-    title="Evidencia real para decisiones serias"
-    subtitle="Para instituciones y organizaciones que necesitan que su proceso de revisión sea robusto, trazable y defendible."
-    cards={beneficios}
-    columns={2}
-    theme="general"
-  />
-
   <!-- ── PERFIL IDEAL ── -->
-  <section class="sp-perfil">
-    <div class="sppf-inner">
-      <p class="section-label">¿Para quién es?</p>
-      <h2 class="section-title">StrikePlagiarism encaja cuando la integridad del contenido es parte del proceso</h2>
-      <div class="perfil-grid">
+  <section class="pp-section pp-section-alt">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">¿Para quién es?</p>
+      <h2 class="pp-section-title">StrikePlagiarism encaja cuando la integridad del contenido es parte del proceso</h2>
+      <div class="pp-grid-3">
         <div class="perfil-col">
           <h3>Casos de uso principales</h3>
           <ul>
@@ -208,66 +209,11 @@ const faqs = [
     </div>
   </section>
 
-  <!-- ── FAQ ── -->
-  <FAQAccordion
-    eyebrow="Preguntas frecuentes"
-    title="Todo sobre StrikePlagiarism en México"
-    faqs={faqs}
-    theme="general"
-  />
-
-  <!-- ── CTA ── -->
-  <CtaFinal
-    title="¿Listo para construir un proceso de integridad con respaldo real?"
-    subtitle="Agenda una demo con nuestro equipo en CDMX. Te mostramos StrikePlagiarism con casos reales de instituciones en México y LATAM — sin costo, sin compromiso."
-    primaryBtnText="Solicitar demo →"
-    primaryBtnUrl={bookingUrl}
-    primaryBtnTarget="_blank"
-    theme="general"
-  />
-
-</BaseLayout>
+</ProductPageLayout>
 
 <style is:global>
-/* ── EL PROBLEMA ── */
-.sp-problema { background: #F8FAFC; padding: 72px 5%; }
-.spp-inner { max-width: 1100px; margin: 0 auto; }
-.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #7f1933; margin-bottom: 10px; display: block; }
-.section-title { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); color: #111827; margin-bottom: 12px; line-height: 1.25; }
-.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 40px; max-width: 720px; }
-.sp-retos { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
-.sp-reto { display: flex; gap: 20px; background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px; align-items: flex-start; }
-.sp-reto-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
-.sp-reto h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.4; }
-.sp-reto p { font-size: 13px; color: #64748B; line-height: 1.7; margin: 0; }
+:root { --brand: #7f1933; }
 
-/* ── CÓMO FUNCIONA ── */
-.sp-pasos { background: #0f172a; padding: 72px 5%; }
-.sp-pasos-inner { max-width: 1100px; margin: 0 auto; }
-.sp-pasos .section-label { color: #7f1933; }
-.sp-pasos .section-title { color: white; margin-bottom: 40px; }
-.pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.paso-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px 22px; }
-.paso-num { font-size: clamp(28px, 3vw, 40px); font-weight: 900; color: #7f1933; opacity: .4; display: block; margin-bottom: 12px; line-height: 1; }
-.paso-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.4; }
-.paso-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
-
-/* ── CAPACIDADES ── */
-.sp-caps { background: white; padding: 72px 5%; }
-.spc-inner { max-width: 1100px; margin: 0 auto; }
-.spc-inner .section-title { margin-bottom: 40px; }
-.caps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.cap-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
-.cap-card:hover { border-color: #7f1933; }
-.cap-icon { font-size: 26px; display: block; margin-bottom: 10px; }
-.cap-card h3 { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 6px; }
-.cap-card p { font-size: 12px; color: #64748B; line-height: 1.6; }
-
-/* ── PERFIL IDEAL ── */
-.sp-perfil { background: #F8FAFC; padding: 72px 5%; }
-.sppf-inner { max-width: 1100px; margin: 0 auto; }
-.sppf-inner .section-title { margin-bottom: 40px; }
-.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
 .perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
 .perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .perfil-col ul li { font-size: 14px; color: #374151; line-height: 1.5; padding-left: 18px; position: relative; }
@@ -275,16 +221,4 @@ const faqs = [
 .perfil-col--taec { background: white; border: 1.5px solid #FCE7F3; border-radius: 14px; padding: 24px; }
 .perfil-col--taec h3 { color: #7f1933; }
 .perfil-cierre { margin-top: 20px; font-size: 13px; color: #9CA3AF; line-height: 1.7; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 16px; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .pasos-grid { grid-template-columns: repeat(2, 1fr); }
-  .caps-grid { grid-template-columns: repeat(2, 1fr); }
-  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
-}
-@media (max-width: 768px) {
-  .pasos-grid { grid-template-columns: 1fr; }
-  .caps-grid { grid-template-columns: 1fr; }
-  .sp-reto { flex-direction: column; gap: 12px; }
-}
 </style>
