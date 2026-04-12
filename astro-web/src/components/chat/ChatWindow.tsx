@@ -155,32 +155,7 @@ export default function ChatWindow({
                 </button>
               )}
               
-              {hasStarted && messages.length > 1 && (
-                <>
-                <button 
-                  onClick={copyToClipboard} 
-                  disabled={isCopied}
-                  style={{
-                    background: isCopied ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
-                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
-                    transition: 'background 0.3s', marginRight: '4px'
-                  }}
-                >
-                  {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
-                </button>
-                <button 
-                  onClick={sendSilentEmail} 
-                  disabled={isSendingEmail}
-                  style={{
-                    background: isSendingEmail ? '#10B981' : '#3179C2', border: 'none', color: '#fff', fontWeight: 'bold',
-                    fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer',
-                    transition: 'background 0.3s'
-                  }}
-                >
-                  {isSendingEmail ? 'Enviando...' : 'Enviar 📧'}
-                </button>
-                </>
-              )}
+
             </div>
           </div>
 
@@ -274,6 +249,23 @@ export default function ChatWindow({
           {/* Footer Input */}
           {hasStarted && (
             <div style={chatStyles.footerContainer}>
+
+              {/* NUEVO — barra de acciones sobre el textarea */}
+              {messages.length > 1 && (
+                <div style={{ display: 'flex', gap: '6px', padding: '6px 12px 0', justifyContent: 'flex-end' }}>
+                  <button onClick={copyToClipboard} disabled={isCopied}
+                    style={{ background: isCopied ? '#10B981' : '#3179C2', border: 'none', color: '#fff',
+                      fontWeight: 'bold', fontSize: '11px', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', transition: 'background 0.3s' }}>
+                    {isCopied ? 'Copiado ✅' : 'Copiar 📋'}
+                  </button>
+                  <button onClick={sendSilentEmail} disabled={isSendingEmail}
+                    style={{ background: isSendingEmail ? '#10B981' : '#3179C2', border: 'none', color: '#fff',
+                      fontWeight: 'bold', fontSize: '11px', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', transition: 'background 0.3s' }}>
+                    {isSendingEmail ? 'Enviando...' : 'Enviar 📧'}
+                  </button>
+                </div>
+              )}
+
               <form onSubmit={sendMessage} style={chatStyles.footerForm}>
                 <textarea 
                   ref={inputChatRef}
