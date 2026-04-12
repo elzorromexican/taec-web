@@ -11,6 +11,7 @@ export interface PromoConfig {
   active: boolean;
   color?: string; // hex del badge en ticker. Default: '#c2410c' (naranja)
   ctaText?: string; // Texto personalizado del botón, ej. "Anotar en calendario →"
+  price?: string; // Precio explícito asociado a la promoción (ej. "$1,198 USD")
   endDate?: string; // Fecha de vencimiento ISO, ej. "2026-06-30"
 }
 
@@ -24,6 +25,7 @@ export const promos: PromoConfig[] = [
     urlTrigger: "articulate",
     countries: ["MX"],
     active: true,
+    price: "$1,198 USD",
     endDate: "2026-06-30"
   },
   {

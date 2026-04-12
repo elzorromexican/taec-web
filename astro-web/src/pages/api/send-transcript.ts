@@ -101,8 +101,8 @@ export const POST: APIRoute = async ({ request }) => {
     const { data, error } = await resend.emails.send({
       // NOTA (Hallazgo de Gemini): 'onboarding@resend.dev' es un entorno Sandbox. 
       // Antes de salir a PRD masivo, hay que verificar un dominio en Resend (ej. notificaciones@taec.com.mx)
-      from: 'Tito Bits <onboarding@resend.dev>',
-      to: ['smasmoudi@taec.com.mx'], 
+      from: process.env.RESEND_FROM_EMAIL || 'TitoBits <leads@taec.com.mx>',
+      to: [(process.env.TRANSCRIPT_RECIPIENT_EMAIL || process.env.VENTAS_EMAIL) as string], 
       // Matemáticas de seguridad: Truncado en 40 max. En el peor escenario de escape (ej. < 40 veces = &lt; = 200 chars). 
       // 200 + titulo del asunto < 255 caracteres del límite RFC estándar.
       subject: `Nuevo Lead IA: ${escapeHtml(String(userData.name || '').substring(0, 40))}`,
