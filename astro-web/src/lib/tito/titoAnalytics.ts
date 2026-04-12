@@ -32,6 +32,11 @@ export const gibberishGuard = (text: string): { isGibberish: boolean, reason?: s
     return { isGibberish: true, reason: 'repeated_chars' };
   }
 
+  // Check for common keysmash patterns (e.g. "asdasdasd", "qweqwe")
+  if (/(asd|qwe|zxc|fgh|jkl){2,}/i.test(clean) || /(asdf|qwer|zxcv){1,}/i.test(clean)) {
+    return { isGibberish: true, reason: 'keysmash' };
+  }
+
   // Extract alphabetic characters to check consonant ratios
   const letters = clean.replace(/[^a-záéíóúüñ]/g, '');
   if (letters.length > 5) {
