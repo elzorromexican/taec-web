@@ -340,7 +340,13 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           history: safeLLMHistory,
           email: userData.email,
           timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          currentPath: window.location.pathname
+          currentPath: window.location.pathname,
+          pageContext: {
+            title: document.title?.substring(0, 150) ?? '',
+            description: document.querySelector('meta[name="description"]')
+              ?.getAttribute('content')?.substring(0, 200) ?? '',
+            h1: document.querySelector('h1')?.textContent?.trim().substring(0, 150) ?? ''
+          }
         })
       });
       
