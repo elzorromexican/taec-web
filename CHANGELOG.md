@@ -6,6 +6,29 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v2.2.6 · 12 abr 2026 — TitoBits UX, Motor Consultivo y RAG Motor 3 (Fase Final Sprint)
+
+### 🤖 Motor 3 RAG & Arquitectura Semántica
+- **Indexación Determinística (DOM):** Transición de *chunking* de texto básico a un motor de parseo estructural con `Cheerio`, garantizando integridad de documentos en la indexación RAG.
+- **Idempotencia URL:** Sistema integral de escaneo con hashing criptográfico (`SHA-256`) garantizando despliegues escalables mediante reemplazo tipo *drop-and-replace* en los ciclos de vida de indexación de vectores.
+- **Streaming de Baja Latencia (SSE):** Integración definitiva de Google GenAI SDK transmitiendo _Server-Sent Events_ a alta velocidad para reducir la espera de "El agente está escribiendo..." a mínimos absolutos.
+- **Precios Geográficos Públicos:** Ajustes a los _pricing cards_ de *Articulate Localization* e *Insights/Reach Pro* para incrustar localizaciones "USD" previendo ambigüedades geográficas de moneda ($ USD).
+
+### 💬 Experiencia de Usuario (UI/UX) y ChatAgent Fixes
+- **Modo Consultor Oculto (+ info):** Arquitectura de extensión de UI paramétrica interconectada al bloque `[TITO_EXPAND]`. Al detonarlo, el System Prompt transiciona hacia una identidad consultiva *Big 5* utilizando frameworks corporativos avanzados (Ej: Kirkpatrick, 70-20-10) en vez de un simple pitch de ventas.
+- **Validaciones de Render e Hidratación:** Escudos preventivos desplazando los chequeos SSR `!isHydrated` a la línea 0 del frontend, extirpando en seco los desgarres (mismatch) entre el _server_ de Astro y los nodos de React.
+- **Scroll Containment Perfecto:** Inyección directiva de `overscrollBehavior: 'contain'` restringiendo las interacciones táctiles y de mousewheel al contenedor del ChatAgent, impidiendo que desbordes visuales scroleen falsamente el contenido web de fondo (*body scroll-lock* orgánico).
+- **Hard Handoff al Cierre (Botón Rojo 🔴):** Corrección maestra en el botón primario de cierre asegurando un flujo de desmonte donde la orden de envío de _Transcript Email_ dispara silenciosamente antes de la auto-destrucción del nodo visual.
+- **Bloqueo Inteligente de Menús:** Filtrado proactivo del botón `+ info`. Desaparece automáticamente si Tito renderiza un menú (`1. `, `2. `) o listas con más de 3 viñetas, previniendo saturación visual y *clickbaiting* en UI de opciones.
+
+### 🧠 Reglas Conversacionales y Conocimiento (Tito Knowledge Base)
+- **Short-Response-First (Regla 4 Líneas):** Forjado inquebrantable de respuesta inicial. Tito no puede despachar párrafos. Siempre responde de la forma asimétrica más compacta posible, anidando un Call To Action obligatorio invitando al *"+ info"*.
+- **Anti-Repetición Cero-Fricciones:** Incorporación de estado lógico pre-emptivo (*System Prompt*) que prohíbe explícitamente re-lanzar el cuestionario de validación (`Gated Form`) luego de que el prospecto corporativo ya proveyó voluntariamente su nombre o contacto.
+- **Refuerzos Anti-Derivación:** Cortafuegos heurístico en el RAG. Si un cliente contesta puramente con monosílabos ("ok", "sí"), el bot simplifica su contexto y frena su modo explicativo a fondo, conservando la inercia rítmica de *Discovery*.
+- **Escala del Catálogo:** Adición algorítmica de los *Capítulos 21 (OttoLearn)* para batallas técnicas sobre Retención y Microlearning Adaptativo, y *Capítulo 22 (LYS)* para Deskless workers vía mensajería nativa (WhatsApp), expandiendo el universo semántico de alcance en ventas L&D.
+
+---
+
 ## v2.2.5 · 11 abr 2026 — TitoBits v4 Fixes (Seguridad y RAG)
 
 ### 🤖 Refinamientos de TitoBits v4 (Router)
