@@ -193,8 +193,9 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       hasUnreadMessagesStore.set(false);
       
       // Inyectamos el contexto como si fuera un mensaje del usuario (invisible) 
-      // y la primera respuesta de TitoBits (visible).
+      // y la primera respuesta de TitoBits (visible), ANEXÁNDOLO al historial previo
       messagesStore.set([
+        ...messagesStore.get(),
         { role: 'user', text: `[SYSTEM_HIDDEN_CONTEXT]\n${prompt}\n[/SYSTEM_HIDDEN_CONTEXT]` },
         { 
           role: 'agent', 
