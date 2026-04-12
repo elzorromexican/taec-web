@@ -86,40 +86,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     const resend = new Resend(resendKey);
 
-    const emailHtml = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto;">' +
-      '<h2 style="color: #0A7A70;">Nuevo Lead: Diagnóstico de Aprendizaje TAEC</h2>' +
-      '<p>Un visitante ha completado el diagnóstico y está siendo transferido a TitoBits.</p>' +
-      '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
-      '<p><strong>Email Institucional:</strong> ' + escapeHtml(email) + '</p>' +
-      '<p><strong>Plataforma Resultante:</strong> <span style="color:#D95A1E; font-weight:bold;">' + escapeHtml(winningPlatform) + '</span></p>' +
-      '<h3 style="color: #004775; margin-top: 20px;">Puntaje de 8 Ejes:</h3>' +
-      '<ul style="line-height: 1.6; font-size: 14px;">' +
-      '<li>LMS Ágil: ' + (scores.lms_agil || 0) + '</li>' +
-      '<li>LMS Corporativo: ' + (scores.lms_corp || 0) + '</li>' +
-      '<li>Certificación Externa: ' + (scores.lms_cert || 0) + '</li>' +
-      '<li>Fábrica DDC: ' + (scores.fabrica_ddc || 0) + '</li>' +
-      '<li>Herramientas Autor: ' + (scores.tools_autor || 0) + '</li>' +
-      '<li>VILT Zoom: ' + (scores.vilt_zoom || 0) + '</li>' +
-      '<li>Eval/Proctoring: ' + (scores.eval_proctor || 0) + '</li>' +
-      '<li>E-commerce: ' + (scores.ecommerce || 0) + '</li>' +
-      '</ul>' +
-      '<p style="margin-top: 20px; font-size: 12px; color: #666;">El lead se encuentra ahora mismo interactuando con TitoBits para armar su Business Case.</p>' +
-      '</div>';
-
-    // 1. Envío al Backoffice (Sales Team)
-    const { data, error } = await resend.emails.send({
-      from: 'Tito Bits (Diagnóstico) <onboarding@resend.dev>',
-      to: ['smasmoudi@taec.com.mx'], 
-      subject: `Lead Diagnóstico TAEC: ${escapeHtml(winningPlatform)} (${escapeHtml(email)})`,
-      html: emailHtml,
-    });
-
-    if (error) {
-      console.error("Resend API Denied the Admin Request:", error);
-      return new Response(JSON.stringify({ error: 'Fallo al despachar la notificación interna.' }), { status: 400 });
-    }
-
-    // 2. Envío al Usuario Prospecto (quien hizo la prueba) - EL "HORÓSCOPO" DETALLADO
     const axisLabels = {
       lms_corp: "Gestión Corporativa y Talento",
       lms_agil: "Despliegue Ágil y Microlearning",
@@ -132,36 +98,81 @@ export const POST: APIRoute = async ({ request }) => {
     };
 
     const axisDescriptions = {
-      lms_corp: "Requieres un motor robusto para mapear el organigrama y automatizar el plan de carrera de cientos de empleados.",
-      lms_agil: "En tu operación, el tiempo es oro. Necesitas subir contenido en minutos y que los alumnos lo consuman en el móvil.",
-      fabrica_ddc: "Tus cursos necesitan transformarse para cumplir urgentemente con normativas oficiales y atrapar al alumno.",
-      lms_cert: "Vendes o requieres auditoría externa, los certificados oficiales y las rutas de aprendizaje son obligatorias.",
-      eval_proctor: "El valor de tus cursos reside en la seguridad. Evitar suplantaciones y trampas es vital.",
-      vilt_zoom: "El aprendizaje presencial/digital está mezclado. La gestión de cohortes en Zoom es fundamental.",
-      ecommerce: "Tu proyecto debe monetizar. Las pasarelas de pago y la promoción son el pulmón de la academia.",
-      tools_autor: "Tu equipo interno requiere autonomía para diseñar e iterar contenido rápidamente sin depender de externos."
+      lms_corp: "Requiere un motor robusto para mapear el organigrama y automatizar el plan de carrera de empleados.",
+      lms_agil: "Prioridad en inmediatez: necesita subir contenido en minutos para consumo preferentemente móvil.",
+      fabrica_ddc: "Sus cursos necesitan transformarse para cumplir urgentemente con normativas oficiales y atrapar al alumno.",
+      lms_cert: "Requiere auditoría externa, certificados oficiales y las rutas de aprendizaje son obligatorias.",
+      eval_proctor: "El valor de sus cursos reside en la seguridad. Evitar suplantaciones y trampas es vital.",
+      vilt_zoom: "Aprendizaje presencial/digital mixto. La gestión de cohortes (Zoom/Teams) es fundamental.",
+      ecommerce: "Proyecto pensado para monetizar. Requiere pasarelas de pago y la promoción es vital (B2C/B2B2C).",
+      tools_autor: "Su equipo requiere autonomía para diseñar e iterar contenido rápidamente sin depender de externos."
     };
 
-    const urgentList = [];
-    const secondaryList = [];
-    const stableList = [];
+    const urgentList: string[] = [];
+    const secondaryList: string[] = [];
+    const stableList: string[] = [];
 
     // Categorización Semáforo
     for (const [key, value] of Object.entries(scores)) {
-      if (value >= 3) urgentList.push(key);
-      else if (value >= 1) secondaryList.push(key);
+      if ((value as number) >= 3) urgentList.push(key);
+      else if ((value as number) >= 1) secondaryList.push(key);
       else stableList.push(key);
     }
 
-    const buildListHtml = (list, color, colorHex) => {
+    const buildListHtml = (list: string[], color: string, colorHex: string) => {
       if (list.length === 0) return `<p style="font-size: 13px; color: #6B7280; font-style: italic; margin-left: 15px;">Ningún rubro detectado en este nivel.</p>`;
       return list.map(k => `
         <div style="margin-bottom: 12px; border-left: 4px solid ${colorHex}; padding-left: 12px; background: #fff; padding-top: 5px; padding-bottom: 5px;">
-          <strong style="color: #1B2A4A; font-size: 14px;">${axisLabels[k] || k}</strong>
-          <p style="margin: 4px 0 0 0; font-size: 13px; color: #4A4A5A;">${axisDescriptions[k] || ''}</p>
+          <strong style="color: #1B2A4A; font-size: 14px;">${axisLabels[k as keyof typeof axisLabels] || k}</strong>
+          <p style="margin: 4px 0 0 0; font-size: 13px; color: #4A4A5A;">${axisDescriptions[k as keyof typeof axisDescriptions] || ''}</p>
         </div>
       `).join('');
     };
+
+    const emailHtml = '<div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto;">' +
+      '<h2 style="color: #0A7A70;">Nuevo Lead: Diagnóstico de Aprendizaje TAEC</h2>' +
+      '<p>Un visitante ha completado el diagnóstico y está siendo transferido a TitoBits.</p>' +
+      '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
+      '<p><strong>Email Institucional:</strong> ' + escapeHtml(email) + '</p>' +
+      '<p><strong>Plataforma Resultante:</strong> <span style="color:#D95A1E; font-weight:bold;">' + escapeHtml(winningPlatform) + '</span></p>' +
+      
+      '<div style="background-color: #FEF2F2; border-left: 4px solid #EF4444; padding: 15px; margin-top: 20px;">' +
+      '<h3 style="color: #B91C1C; margin-top: 0; margin-bottom: 10px; font-size: 15px;">🚨 Puntos de Dolor Críticos (Urgentes)</h3>' +
+      buildListHtml(urgentList, 'Rojo', '#EF4444') +
+      '</div>' +
+      '<div style="background-color: #FFFBEB; border-left: 4px solid #F59E0B; padding: 15px; margin-top: 15px;">' +
+      '<h3 style="color: #D97706; margin-top: 0; margin-bottom: 10px; font-size: 15px;">⚠️ Puntos de Dolor Medios (Fase 2)</h3>' +
+      buildListHtml(secondaryList, 'Amarillo', '#F59E0B') +
+      '</div>' +
+
+      '<h3 style="color: #004775; margin-top: 30px;">Puntaje Bruto (8 Ejes):</h3>' +
+      '<ul style="line-height: 1.6; font-size: 14px; background: #F8FAFC; padding: 15px 30px; border-radius: 8px;">' +
+      '<li>LMS Ágil: ' + (scores.lms_agil || 0) + '</li>' +
+      '<li>LMS Corporativo: ' + (scores.lms_corp || 0) + '</li>' +
+      '<li>Certificación Externa: ' + (scores.lms_cert || 0) + '</li>' +
+      '<li>Fábrica DDC: ' + (scores.fabrica_ddc || 0) + '</li>' +
+      '<li>Herramientas Autor: ' + (scores.tools_autor || 0) + '</li>' +
+      '<li>VILT Zoom: ' + (scores.vilt_zoom || 0) + '</li>' +
+      '<li>Eval/Proctoring: ' + (scores.eval_proctor || 0) + '</li>' +
+      '<li>E-commerce: ' + (scores.ecommerce || 0) + '</li>' +
+      '</ul>' +
+      '<p style="margin-top: 20px; font-size: 12px; color: #666; text-align: center;">El lead se encuentra ahora mismo interactuando con TitoBits para armar su Business Case.</p>' +
+      '</div>';
+
+    // 1. Envío al Backoffice (Sales Team)
+    const { data, error } = await resend.emails.send({
+      from: 'Tito Bits (Diagnóstico) <onboarding@resend.dev>',
+      to: ['info@taec.com.mx'], 
+      subject: `Lead Diagnóstico TAEC: ${escapeHtml(winningPlatform)} (${escapeHtml(email)})`,
+      html: emailHtml,
+    });
+
+    if (error) {
+      console.error("Resend API Denied the Admin Request:", error);
+      return new Response(JSON.stringify({ error: 'Fallo al despachar la notificación interna.' }), { status: 400 });
+    }
+
+    // 2. Envío al Usuario Prospecto (quien hizo la prueba) - EL "HORÓSCOPO" DETALLADO
 
     // Generador Dinámico de Gráficas de Radar para el Correo usando QuickChart (Open Source Mapeo Seguro)
     const quickChartUrl = `https://quickchart.io/chart?width=500&height=400&c=` + encodeURIComponent(JSON.stringify({
