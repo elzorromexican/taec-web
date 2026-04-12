@@ -483,7 +483,7 @@ Toda referencia externa debe construir el caso hacia TAEC.
 
         } catch (e: any) {
           console.error("Stream error:", e);
-          sendEvent('error', { text: "Stream interrumpido abruptamente" });
+          sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."}` });
         } finally {
           controller.close();
         }

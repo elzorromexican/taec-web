@@ -569,6 +569,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
                               updateMessage(msgId, safeRenderMarkdown(accumulatedText), true, 'agent');
                           }
                        } else if (eventName === 'error') {
+                          console.error("[SSE Error] Parsed text:", parsed.text, "Raw jsonData:", jsonData);
                           updateMessage(msgId, safeRenderMarkdown(parsed.text) || "No pude completarlo, un humano seguirá el caso.", false, 'error');
                           return;
                        } else if (eventName === 'done') {
