@@ -15,9 +15,9 @@ interface Message {
 }
 
 // Variables UI e Historial en memoria de sesión (Desecho por refresco para proteger privacidad/GDPR)
-export const isOpenStore = atom<boolean>(false);
+export const isOpenStore = atom<boolean>(true);
 
-export const isExpandedStore = atom<boolean>(false);
+export const isExpandedStore = atom<boolean>(true);
 
 export const hasStartedStore = atom<boolean>(false);
 

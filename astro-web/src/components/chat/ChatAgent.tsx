@@ -541,6 +541,42 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
           border: '1px solid #E5E7EB',
           transition: 'all 0.3s ease'
         }}>
+          {/* Barra de título estilo Windows — colores Mac */}
+          <div style={{
+            display: 'flex', justifyContent: 'flex-end', alignItems: 'center',
+            gap: '8px', padding: '6px 12px',
+            background: '#002d4a', borderBottom: '1px solid rgba(255,255,255,0.08)'
+          }}>
+            {/* 🔴 Cerrar */}
+            <button onClick={toggleChat} title="Cerrar"
+              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FF5F56',
+                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
+              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>✕</span>
+            </button>
+
+            {/* 🟡 Minimizar */}
+            <button onClick={() => isOpenStore.set(false)} title="Minimizar"
+              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#FFBD2E',
+                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
+              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>─</span>
+            </button>
+
+            {/* 🟢 Expandir/Contraer */}
+            <button onClick={() => isExpandedStore.set(!isExpanded)} title={isExpanded ? 'Contraer' : 'Expandir'}
+              style={{ width: '14px', height: '14px', borderRadius: '50%', background: '#27C93F',
+                border: 'none', cursor: 'pointer', padding: 0, display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                boxShadow: 'inset 0 0 4px rgba(0,0,0,0.2)' }}>
+              <span style={{ fontSize: '8px', color: 'rgba(0,0,0,0.5)', lineHeight: 1 }}>
+                {isExpanded ? '⧠' : '❐'}
+              </span>
+            </button>
+          </div>
+
           {/* Header */}
           <div style={{
             background: '#004775', padding: '12px 16px', color: 'white',
@@ -570,16 +606,6 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
             </div>
             
             <div style={{display: 'flex', gap: '6px', alignItems: 'center'}}>
-              <button 
-                onClick={() => isExpandedStore.set(!isExpanded)} 
-                style={{
-                  background: 'rgba(255,255,255,0.2)', border: 'none', color: '#fff', 
-                  fontSize: '11px', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer'
-                }}
-              >
-                {isExpanded ? 'Contraer 📉' : 'Expandir 📈'}
-              </button>
-              
               {hasStarted && (
                 <button 
                   onClick={resetChat} 
@@ -621,31 +647,6 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
                 </button>
                 </>
               )}
-              
-              <div style={{display: 'flex', alignItems: 'center', marginLeft: '8px', paddingBottom: '4px'}}>
-                <button 
-                  onClick={toggleChat} 
-                  title="Minimizar chat sin perder la conversación"
-                  style={{
-                    background: 'transparent', border: 'none', color: '#fff', 
-                    fontSize: '22px', padding: '0 4px', cursor: 'pointer',
-                    fontWeight: 'bold', lineHeight: '20px'
-                  }}
-                >
-                  _
-                </button>
-                <button 
-                  onClick={toggleChat} 
-                  title="Cerrar chat"
-                  style={{
-                    background: 'transparent', border: 'none', color: '#fff', 
-                    fontSize: '20px', padding: '0 4px', cursor: 'pointer',
-                    marginLeft: '8px'
-                  }}
-                >
-                  ✖
-                </button>
-              </div>
             </div>
           </div>
 
