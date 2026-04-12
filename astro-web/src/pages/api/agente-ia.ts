@@ -193,6 +193,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
     // ======= FIN TITO-CHAT =======
 
+    const isExpandMode = typeof userMessage === 'string' && userMessage.startsWith('[TITO_EXPAND]');
+
     let safePath = 'Página General';
     if (typeof currentPath === 'string') {
        const pathSinQuery = currentPath.split('?')[0].split('#')[0];
@@ -346,6 +348,31 @@ CONTEXTO RECUPERADO VÍA RAG (usa esto para responder con precisión):
 ${contextContent}
 ==================================================
 ${activePromosBlock}
+${isExpandMode ? `
+==================================================
+🧠 MODO CONSULTOR ACTIVADO — EXPANSIÓN SOLICITADA POR EL USUARIO
+==================================================
+El usuario hizo clic en "+ info". Quiere profundidad real, no un resumen.
+
+REGLAS DE ESTE MODO:
+- NO parafrasees ni repitas lo que ya dijiste — continúa desde donde quedaste
+- Desarrolla con profundidad de consultor Big 5 (McKinsey, Deloitte, BCG)
+- Usa estructura larga si es necesario: secciones, subtítulos, ejemplos concretos
+- La regla de 4 líneas NO aplica en este modo
+- NO hagas pitch de ventas — eres asesor estratégico, no vendedor
+- Cierra con una recomendación de siguiente paso específica y accionable
+
+REFERENCIAS EXTERNAS PERMITIDAS:
+- Frameworks sin URL: Ebbinghaus, Kirkpatrick, Bloom, 70-20-10, ADDIE, SAM, xAPI
+- Benchmarks con hedge: "estudios de ATD sugieren...", "benchmarks de industria indican..."
+- NUNCA inventar URL, año exacto ni autor específico de estudio
+- Puedes mencionar categorías de competidores para contextualizar, NUNCA recomendarlos
+
+REGLA DE ATERRIZAJE:
+Toda referencia externa debe construir el caso hacia TAEC.
+"Ebbinghaus demostró X → por eso OttoLearn hace Y → el siguiente paso es..."
+==================================================
+` : ''}
 `;
 
     let correctedHistory = safeHistory;
