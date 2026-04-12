@@ -4,7 +4,6 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
 import { Ratelimit } from '@upstash/ratelimit';
-import { GoogleGenAI } from '@google/genai';
 import { titoKnowledgeBase } from '../../data/titoKnowledgeBase';
 import { promos } from '../../data/promos';
 import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
@@ -426,7 +425,29 @@ Toda referencia externa debe construir el caso hacia TAEC.
        promos_applied: wantsPromo
     }));
 
-    const ai = new GoogleGenAI({ apiKey });
+    const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:streamGenerateContent?alt=sse&key=${apiKey}`;
+    const restRes = await fetch(googleUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: geminiHistory,
+        system_instruction: { parts: [{ text: systemPrompt }] }
+      })
+    });
+
+    if (!restRes.ok) {
+       const errBody = await restRes.text().catch(() => '');
+       const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
+       
+       const mockStream = new ReadableStream({
+         start(controller) {
+           const payload = `event: error\ndata: ${JSON.stringify({ text: `[System Interruption] API Error ${restRes.status}: ${errBody} | DEBUG KEY: ${debugKey}` })}\n\n`;
+           controller.enqueue(new TextEncoder().encode(payload));
+           controller.close();
+         }
+       });
+       return new Response(mockStream, { headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive' } });
+    }
 
     const stream = new ReadableStream({
       async start(controller) {
@@ -448,22 +469,36 @@ Toda referencia externa debe construir el caso hacia TAEC.
         }
 
         let firstTokenTime = 0;
+        let accumulatedFullText = "";
+        
+        const reader = restRes.body!.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
 
         try {
-          const genStream = await ai.models.generateContentStream({
-            model: activeModel,
-            contents: geminiHistory,
-            config: { systemInstruction: systemPrompt }
-          });
-
-          let accumulatedFullText = "";
-          for await (const chunk of genStream) {
-            const textChunk = chunk.text;
-            if (textChunk) {
-              accumulatedFullText += textChunk;
-              if (firstTokenTime === 0) firstTokenTime = Date.now() - tStart;
-              sendEvent('token', { text: textChunk.replace(/\[CTA\]/gi, '') });
-            }
+          while(true) {
+             const { done, value } = await reader.read();
+             if (done) break;
+             
+             buffer += decoder.decode(value, { stream: true });
+             const parts = buffer.split('\n\n');
+             buffer = parts.pop() || "";
+             
+             for (const part of parts) {
+                if (part.startsWith('data: ')) {
+                   const jsonStr = part.substring(6).trim();
+                   if (jsonStr.startsWith('[DONE]')) continue;
+                   try {
+                      const data = JSON.parse(jsonStr);
+                      const textChunk = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                      if (textChunk) {
+                         accumulatedFullText += textChunk;
+                         if (firstTokenTime === 0) firstTokenTime = Date.now() - tStart;
+                         sendEvent('token', { text: textChunk.replace(/\[CTA\]/gi, '') });
+                      }
+                   } catch(e) {}
+                }
+             }
           }
 
           if (!isExpandMode) {
