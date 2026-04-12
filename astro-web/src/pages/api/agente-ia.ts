@@ -84,7 +84,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const data = await request.json();
-    const { history, userMessage, email, timeZone, currentPath, session_id } = data;
+    const { history, userMessage, email, timeZone, currentPath, session_id, pageContext } = data;
     const sessionId = session_id || 'anonymous-session';
 
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
@@ -199,6 +199,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
        const cleanPath = pathSinQuery.replace(/[^a-zA-Z0-9\/\-_]/g, '').substring(0, 100);
        if (cleanPath.length > 0) safePath = cleanPath;
     }
+
+    const safeTitle = typeof pageContext?.title === 'string'
+      ? pageContext.title.replace(/[<>]/g, '').substring(0, 150) : '';
+    const safeDescription = typeof pageContext?.description === 'string'
+      ? pageContext.description.replace(/[<>]/g, '').substring(0, 200) : '';
+    const safeH1 = typeof pageContext?.h1 === 'string'
+      ? pageContext.h1.replace(/[<>]/g, '').substring(0, 150) : '';
 
     if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
       return new Response(JSON.stringify({ error: 'Mensaje inválido' }), { status: 400 });
@@ -325,7 +332,11 @@ ${titoKnowledgeBase.replace(/\{IS_MEXICO\}/g, isMexico ? 'TRUE' : 'FALSE')}
 
 CONTEXTO EN TIEMPO REAL DEL USUARIO ACTUAL:
 📍 Ubicación detectada por IP: ${location || 'Desconocida'} (Código: ${countryCode || 'N/A'})
-📍 URL Espacial actual: ${safePath}. (Usa este dato para inferir de qué herramienta o servicio te habla si hace una pregunta ambigua).
+📍 URL actual: ${safePath}
+📋 Título de página: ${safeTitle}
+📝 Descripción: ${safeDescription}
+🔤 Tema principal (H1): ${safeH1}
+(Usa estos datos para inferir el producto o servicio del que habla el usuario si hace preguntas ambiguas. NO los menciones ni los cites al usuario.)
 - Si el usuario es de MX (México), entonces el IS_MEXICO fue resuelto como TRUE. Cotiza los ${dynamicArtPrice} + IVA.
 - Si el usuario es de CUALQUIER OTRO PAÍS (incluyendo Colombia, Chile, Argentina, España, LATAM, etc): IS_MEXICO es FALSE. TIENES ABSOLUTA Y TOTALMENTE PROHIBIDO mencionar o dar la cifra de ${dynamicArtPrice}. Diles amablemente que el modelo Emerging Markets se maneja vía distribuidor y requieres su correo para canalizar la consulta al territorio correcto.
 ${email ? `\n🚨 NOTA OPERATIVA DE SISTEMA: El usuario YA NOS PROPORCIONÓ SU CORREO ELECTRÓNICO (${email}) EN EL CUESTIONARIO PREVIO. \nTIENES ESTRICTAMENTE PROHIBIDO volver a pedirle su correo, teléfono o datos de contacto durante el resto de esta conversación. Concéntrate 100% en darle su plan de acción técnico.` : ''}
