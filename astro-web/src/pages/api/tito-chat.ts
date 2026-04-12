@@ -1,7 +1,7 @@
 /**
  * @name tito-chat.ts
  * @version 2.0
- * @description Router central de TitoBits v2. Orquesta Motor 1 (reglas), Motor 2 (RAG) y Motor 3 (Lead Scoring remoto y Handoff automatizado).
+ * @description Router central de TitoBits v4. Orquesta Motor 1 (reglas), Motor 2 (RAG) y Motor 3 (Lead Scoring remoto y Handoff automatizado).
  * @inputs HTTP POST request payload { message: string, session_id: string }
  * @outputs JSON content de la IA o notificaciones de escalamiento
  * @dependencies ../lib/tito/rules, ../lib/tito/rag, ../lib/tito/scoring, ../lib/tito/handoff
@@ -10,6 +10,7 @@
  */
 
 import type { APIRoute } from 'astro';
+import { GoogleGenAI } from '@google/genai';
 import { getSystemRulesString, evaluateMessageForEscalation } from '../../lib/tito/rules';
 import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
 import { calcularScore, determinarHandoff, type LeadSignals } from '../../lib/tito/scoring';
@@ -94,26 +95,57 @@ export const POST: APIRoute = async ({ request }) => {
     const contextChunks = await searchSimilarChunks(messageEmbedding);
 
     // ======= MOTOR 3: SCORING Y EXTRACCIONES LLM =======
-    // Mock temporal de extracción LLM - Reemplazar en integración con Gemini Final
-    const mockSignals: LeadSignals = {
-      productos_interes: ['articulate-360'],
-      seats_mencionados: escalationCheck === 'ESCALATE' ? 120 : null,
-      requiere_integracion: false,
-      tiene_lms_actual: message.toLowerCase().includes('lms'),
-      es_cliente_nuevo: true,
-      urgencia: null,
-      presupuesto_aprobado: false
-    };
+    const geminiKey = typeof process !== 'undefined' ? process.env.TAEC_GEMINI_KEY ?? '' : '';
+    const ai = new GoogleGenAI({ apiKey: geminiKey });
+
+    const extractionPrompt = `
+Analiza este mensaje de un prospecto B2B y extrae señales de calificación.
+Responde SOLO con JSON válido, sin texto adicional.
+
+Mensaje: "${message}"
+
+Schema esperado:
+{
+  "productos_interes": string[],        // productos mencionados: articulate-360, vyond, moodle, totara, reach, lys, ottolearn, proctorizer, strikeplagiarism, customguide
+  "seats_mencionados": number | null,   // número de licencias/usuarios mencionados, null si no se menciona
+  "requiere_integracion": boolean,      // menciona integración con otro sistema
+  "tiene_lms_actual": boolean,          // ya tiene un LMS en uso
+  "es_cliente_nuevo": boolean,          // parece ser nuevo cliente (true por defecto)
+  "urgencia": "alta" | "media" | "baja" | null,  // señales de urgencia o plazo
+  "presupuesto_aprobado": boolean       // menciona presupuesto aprobado o autorizado
+}
+`;
+
+    let realSignals: LeadSignals;
+    try {
+      const extraction = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: extractionPrompt
+      });
+      const rawJson = extraction.text?.replace(/\`\`\`json|\`\`\`/g, '').trim() ?? '{}';
+      realSignals = JSON.parse(rawJson);
+    } catch {
+      // Fallback conservador si falla la extracción
+      realSignals = {
+        productos_interes: [],
+        seats_mencionados: null,
+        requiere_integracion: false,
+        tiene_lms_actual: message.toLowerCase().includes('lms'),
+        es_cliente_nuevo: true,
+        urgencia: null,
+        presupuesto_aprobado: false
+      };
+    }
 
     // ======= FASE 2: HANDOFF & SUPABASE DATABASE =======
-    const score = calcularScore(mockSignals);
-    let handoffTipo = determinarHandoff(mockSignals, score);
+    const score = calcularScore(realSignals);
+    let handoffTipo = determinarHandoff(realSignals, score);
 
     if (escalationCheck === 'ESCALATE' && !handoffTipo) {
       handoffTipo = 'ventas';
     }
 
-    let reply = "Hola, soy TitoBits v2. Procesando...";
+    let reply = "Hola, soy TitoBits v4. Procesando...";
 
     if (handoffTipo) {
       const miniBrief = generarMiniBrief([{ role: 'user', content: message }]);
@@ -139,7 +171,31 @@ export const POST: APIRoute = async ({ request }) => {
     } else if (escalationCheck === 'INFORM') {
       reply = "Por favor indícame la cantidad exacta de licencias o alcances para asistirte.";
     } else {
-      reply = `Utilicé la base de conocimiento vectorial (${contextChunks.length} chunks) para evaluar tu solicitud con score ${score}.`;
+      // CONTINUE — responder con Gemini usando contexto RAG
+      const ragContext = contextChunks.map((c: any) => c.content).join('\n\n');
+
+      const conversationPrompt = `
+Eres TitoBits, el asistente comercial de TAEC — empresa líder en tecnología de aprendizaje corporativo en México y LATAM.
+Resuelves preguntas sobre productos e-learning (Articulate 360, Vyond, Moodle, Totara, LYS, OttoLearn, Proctorizer).
+
+REGLAS:
+${rulesContext}
+
+CONTEXTO DE LA BASE DE CONOCIMIENTO:
+${ragContext || 'No se encontró contexto relevante.'}
+
+Responde al siguiente mensaje del usuario de forma concisa, directa y sin emojis.
+Si no tienes la información precisa en el contexto, transfiere a ventas.
+
+Usuario: ${message}
+`;
+
+      const geminiResponse = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: conversationPrompt
+      });
+
+      reply = geminiResponse.text?.trim() ?? 'Gracias por tu consulta. Un especialista de TAEC te contactará pronto.';
     }
 
     return new Response(JSON.stringify({
@@ -154,7 +210,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error("Error crítico en tito-chat router v2:", error);
     return new Response(
-      JSON.stringify({ error: "Interrupción de servicio TitoBits v2" }),
+      JSON.stringify({ error: "Interrupción de servicio TitoBits v4" }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

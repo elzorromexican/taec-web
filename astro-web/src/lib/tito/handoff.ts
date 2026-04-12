@@ -56,7 +56,7 @@ export async function enviarNotificacion(lead: LeadData) {
       to: [ventasEmail],
       subject: `Nuevo Lead TitoBits [SCORE: ${lead.score}] - ${lead.empresa || lead.email || 'Anónimo'}`,
       html: `
-        <h2>Nuevo Lead de TitoBits v2</h2>
+        <h2>Nuevo Lead de TitoBits v4</h2>
         <ul>
           <li><strong>Handoff:</strong> ${lead.handoff_tipo}</li>
           <li><strong>Score:</strong> ${lead.score}</li>
