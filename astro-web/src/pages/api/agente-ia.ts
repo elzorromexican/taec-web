@@ -1,3 +1,14 @@
+/**
+ * @name agente-ia.ts
+ * @version v1.5
+ * @description Endpoint Backend principal para el agente de IA Tito Bits (Motor 3 - Generativo). 
+ * Realiza RAG contra la base de conocimientos y despacha SSEs hacia el frontend. 
+ * @inputs Request body con historiales de chat y metadata geopolítica del lead.
+ * @outputs Response en texto continuo usando ReadableStream (SSE).
+ * @dependencies @google/generative-ai, titoKnowledgeBase
+ * @created 2024-03-01
+ * @updated 2026-04-12 17:55:00
+ */
 export const prerender = false;
 
 

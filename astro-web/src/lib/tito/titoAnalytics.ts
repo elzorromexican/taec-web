@@ -1,3 +1,13 @@
+/**
+ * @name titoAnalytics.ts
+ * @version v1.2
+ * @description Funciones de telemetría, seguridad (gibberishGuard) y sanitización para el motor de Tito Bits.
+ * @inputs Texto de entrada del usuario en el chat, eventos para tracking.
+ * @outputs boolean (isGibberish) y textos sanitizados, u operaciones hacia plausible analytics.
+ * @dependencies window.plausible (opcional)
+ * @created 2024-03-01
+ * @updated 2026-04-12 17:55:00
+ */
 export const trackTitoEvent = (eventName: string, props: Record<string, any> = {}) => {
   if (typeof window !== 'undefined' && (window as any).plausible) {
     (window as any).plausible(eventName, { props });

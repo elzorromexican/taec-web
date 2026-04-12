@@ -1,3 +1,13 @@
+/**
+ * @name diagnostico-lead.ts
+ * @version v1.2
+ * @description Endpoint para procesar el formulario del Diagnóstico IA, enviar emails a usuario y backoffice.
+ * @inputs Request body con email prospecto y array de scores.
+ * @outputs Response JSON con success flag. Envía 2 emails vía Resend.
+ * @dependencies resend, @upstash/redis, @upstash/ratelimit
+ * @created 2024-03-01
+ * @updated 2026-04-12 17:55:00
+ */
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
