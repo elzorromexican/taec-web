@@ -1,13 +1,9 @@
 ---
 // CHANGELOG: 2026-03-20 - Landing CustomGuide completa. Contenido basado en doc estratégico DDC.
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
+import ProductPageLayout from '../layouts/ProductPageLayout.astro';
 import { getBookingUrl } from '../data/contact';
-
 import { r } from '../utils/paths';
+
 const bookingUrl = getBookingUrl();
 
 const pilares = [
@@ -79,81 +75,96 @@ const casos = [
 ];
 ---
 
-<BaseLayout
-  title="CustomGuide en México | Cursos personalizables, LMS y capacitación digital lista para usar | TAEC"
-  description="CustomGuide con TAEC: más de 300 cursos SCORM de Microsoft y Google Workspace, LMS integrado, skill assessments y Course Builder con IA. Demo en español."
-  section="Soluciones"
-  page="customguide-mexico.html"
->
-
-  <!-- ── HERO ── -->
-  <HeroComercial
-    eyebrow="CustomGuide · Capacitación digital lista para usar"
-    titleHtml={`Capacitación lista para usar,<br>personalizable y <em>fácil de desplegar</em>`}
-    subtitle="CustomGuide ayuda a capacitar a personal, usuarios o comunidad con más de 300 cursos editables de Microsoft y Google Workspace — listos para tu LMS, con evaluaciones de habilidades y Course Builder con IA incluido."
-    features={[
+<ProductPageLayout
+  meta={{
+    title: "CustomGuide en México | Cursos personalizables, LMS y capacitación digital lista para usar | TAEC",
+    description: "CustomGuide con TAEC: más de 300 cursos SCORM de Microsoft y Google Workspace, LMS integrado, skill assessments y Course Builder con IA. Demo en español.",
+    page: "customguide-mexico.html"
+  }}
+  hero={{
+    eyebrow: "CustomGuide · Capacitación digital lista para usar",
+    titleHtml: `Capacitación lista para usar,<br>personalizable y <em>fácil de desplegar</em>`,
+    subtitle: "CustomGuide ayuda a capacitar a personal, usuarios o comunidad con más de 300 cursos editables de Microsoft y Google Workspace — listos para tu LMS, con evaluaciones de habilidades y Course Builder con IA incluido.",
+    features: [
       "+300 cursos personalizables — Microsoft Office y Google Workspace",
       "100% SCORM compatible — funciona en cualquier LMS",
       "LMS integrado incluido si no tienes plataforma propia",
       "Skill assessments — mejora media documentada del 56%",
       "Course Builder con IA — crea cursos propios sin herramientas externas",
       "Más de 3,000 clientes · 4.9/5 en G2"
-    ]}
-    primaryBtn={{ label: "Solicitar demo del catálogo →", url: bookingUrl, target: "_blank" }}
-    secondaryBtn={{ label: "Hablar con un especialista", url: getBookingUrl('customguide') }}
-    cardBadgeText="MICROSOFT · GOOGLE · SCORM · IA"
-    cardLogoSrc={r("/assets/logos/customguide.svg")}
-    theme="general"
-    brandColor="#f8ab1f"
-    btnTextDark={true}
-  />
+    ],
+    primaryBtn: { label: "Solicitar demo del catálogo →", url: bookingUrl, target: "_blank" },
+    secondaryBtn: { label: "Hablar con un especialista", url: getBookingUrl('customguide') },
+    cardBadgeText: "MICROSOFT · GOOGLE · SCORM · IA",
+    cardLogoSrc: r("/assets/logos/customguide.svg"),
+    theme: "general",
+    brandColor: "#f8ab1f",
+    btnTextDark: true
+  }}
+  beneficios={{
+    eyebrow: "Por qué CustomGuide con TAEC",
+    title: "Una base sólida cuando necesitas capacitar rápido y medir mejor",
+    subtitle: "Para equipos de RH y L&D que necesitan desplegar formación digital sin reinventar la rueda cada semana.",
+    cards: beneficios,
+    columns: 2,
+    theme: "general"
+  }}
+  faqs={{
+    eyebrow: "Preguntas frecuentes",
+    title: "Todo sobre CustomGuide en México",
+    faqs: faqs,
+    theme: "general"
+  }}
+  cta={{
+    title: "¿Listo para ver el catálogo con tu equipo?",
+    subtitle: "Agenda una demo con acceso al catálogo completo. Te ayudamos a evaluar qué cursos aplican para tu audiencia y cómo integrarlo con tu LMS — sin costo, sin compromiso.",
+    primaryBtnText: "Solicitar demo del catálogo →",
+    primaryBtnUrl: bookingUrl,
+    primaryBtnTarget: "_blank",
+    theme: "general"
+  }}
+>
 
   <!-- ── EL PROBLEMA ── -->
-  <section class="cg-problema">
-    <div class="cgp-inner">
-      <p class="section-label">El reto real</p>
-      <h2 class="section-title">El problema es desplegar formación útil<br>sin gastar meses armando todo desde cero.</h2>
-      <p class="section-sub">Muchas organizaciones necesitan capacitar a su gente en las herramientas digitales del día a día — pero producir ese contenido desde cero requiere tiempo, presupuesto y expertise que no siempre están disponibles.</p>
-      <div class="cg-retos">
-        <div class="cg-reto">
-          <span class="cg-num">01</span>
-          <div>
-            <h3>Meses de producción antes de poder capacitar</h3>
-            <p>Desarrollar un curso de Excel o Teams desde cero con Articulate o Rise requiere diseño instruccional, grabaciones, revisiones y QA. CustomGuide elimina ese proceso — el contenido ya está producido.</p>
-          </div>
+  <section class="pp-section pp-section-alt">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">El reto real</p>
+      <h2 class="pp-section-title">El problema es desplegar formación útil<br>sin gastar meses armando todo desde cero.</h2>
+      <p class="pp-section-sub">Muchas organizaciones necesitan capacitar a su gente en las herramientas digitales del día a día — pero producir ese contenido desde cero requiere tiempo, presupuesto y expertise que no siempre están disponibles.</p>
+      <div class="pp-grid-3">
+        <div class="pp-card">
+          <span class="pp-card-num">01</span>
+          <h3 class="pp-card-title">Meses de producción antes de poder capacitar</h3>
+          <p class="pp-card-desc">Desarrollar un curso de Excel o Teams desde cero con Articulate o Rise requiere diseño instruccional, grabaciones, revisiones y QA. CustomGuide elimina ese proceso — el contenido ya está producido.</p>
         </div>
-        <div class="cg-reto">
-          <span class="cg-num">02</span>
-          <div>
-            <h3>Sin visibilidad de quién sabe qué</h3>
-            <p>Sin evaluaciones previas a la capacitación, todos toman el mismo curso independientemente de su nivel real. Los skill assessments permiten personalizar rutas y medir el impacto real de la formación.</p>
-          </div>
+        <div class="pp-card">
+          <span class="pp-card-num">02</span>
+          <h3 class="pp-card-title">Sin visibilidad de quién sabe qué</h3>
+          <p class="pp-card-desc">Sin evaluaciones previas a la capacitación, todos toman el mismo curso independientemente de su nivel real. Los skill assessments permiten personalizar rutas y medir el impacto real de la formación.</p>
         </div>
-        <div class="cg-reto">
-          <span class="cg-num">03</span>
-          <div>
-            <h3>Usuarios que no recuerdan lo que aprendieron</h3>
-            <p>El curso se completa y el usuario vuelve al trabajo sin una referencia rápida. Las hojas de trucos con marca resuelven ese gap — consulta inmediata sin volver a entrar al LMS.</p>
-          </div>
+        <div class="pp-card">
+          <span class="pp-card-num">03</span>
+          <h3 class="pp-card-title">Usuarios que no recuerdan lo que aprendieron</h3>
+          <p class="pp-card-desc">El curso se completa y el usuario vuelve al trabajo sin una referencia rápida. Las hojas de trucos con marca resuelven ese gap — consulta inmediata sin volver a entrar al LMS.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── 4 PILARES ── -->
-  <section class="cg-pilares">
-    <div class="cgpl-inner">
-      <p class="section-label">La propuesta</p>
-      <h2 class="section-title">Cuatro pilares en una sola plataforma</h2>
-      <div class="pilares-grid">
+  <section class="pp-section pp-section-dark">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">La propuesta</p>
+      <h2 class="pp-section-title pp-section-title--light">Cuatro pilares en una sola plataforma</h2>
+      <div class="pp-grid-4">
         {pilares.map(p => (
-          <div class="pilar-card">
+          <div class="pp-card pp-card--dark pilar-card">
             <div class="pilar-top">
               <span class="pilar-icon">{p.icon}</span>
               <span class="pilar-badge">{p.badge}</span>
             </div>
-            <h3>{p.title}</h3>
-            <p>{p.desc}</p>
+            <h3 class="pp-card-title pp-card-title--light">{p.title}</h3>
+            <p class="pp-card-desc pp-card-desc--light">{p.desc}</p>
           </div>
         ))}
       </div>
@@ -161,38 +172,28 @@ const casos = [
   </section>
 
   <!-- ── CASOS DE USO ── -->
-  <section class="cg-casos">
-    <div class="cgc-inner">
-      <p class="section-label">Casos de uso</p>
-      <h2 class="section-title">Dónde funciona mejor CustomGuide</h2>
-      <div class="casos-grid">
+  <section class="pp-section">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">Casos de uso</p>
+      <h2 class="pp-section-title">Dónde funciona mejor CustomGuide</h2>
+      <div class="pp-grid-4">
         {casos.map(c => (
-          <div class="caso-card">
-            <span class="caso-icon">{c.icon}</span>
-            <h3>{c.title}</h3>
-            <p>{c.desc}</p>
+          <div class="pp-card">
+            <span class="pp-card-icon">{c.icon}</span>
+            <h3 class="pp-card-title">{c.title}</h3>
+            <p class="pp-card-desc">{c.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── BENEFICIOS ── -->
-  <GridBeneficios
-    eyebrow="Por qué CustomGuide con TAEC"
-    title="Una base sólida cuando necesitas capacitar rápido y medir mejor"
-    subtitle="Para equipos de RH y L&D que necesitan desplegar formación digital sin reinventar la rueda cada semana."
-    cards={beneficios}
-    columns={2}
-    theme="general"
-  />
-
   <!-- ── PERFIL IDEAL ── -->
-  <section class="cg-perfil">
-    <div class="cgpf-inner">
-      <p class="section-label">¿Para quién es?</p>
-      <h2 class="section-title">CustomGuide encaja cuando necesitas capacitar rápido con contenido que ya funciona</h2>
-      <div class="perfil-grid">
+  <section class="pp-section pp-section-alt">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">¿Para quién es?</p>
+      <h2 class="pp-section-title">CustomGuide encaja cuando necesitas capacitar rápido con contenido que ya funciona</h2>
+      <div class="pp-grid-3">
         <div class="perfil-col">
           <h3>Perfil de organización ideal</h3>
           <ul>
@@ -227,85 +228,23 @@ const casos = [
     </div>
   </section>
 
-  <!-- ── FAQ ── -->
-  <FAQAccordion
-    eyebrow="Preguntas frecuentes"
-    title="Todo sobre CustomGuide en México"
-    faqs={faqs}
-    theme="general"
-  />
-
-  <!-- ── CTA ── -->
-  <CtaFinal
-    title="¿Listo para ver el catálogo con tu equipo?"
-    subtitle="Agenda una demo con acceso al catálogo completo. Te ayudamos a evaluar qué cursos aplican para tu audiencia y cómo integrarlo con tu LMS — sin costo, sin compromiso."
-    primaryBtnText="Solicitar demo del catálogo →"
-    primaryBtnUrl={bookingUrl}
-    primaryBtnTarget="_blank"
-    theme="general"
-  />
-
-</BaseLayout>
+</ProductPageLayout>
 
 <style is:global>
-/* ── EL PROBLEMA ── */
-.cg-problema { background: #F8FAFC; padding: 72px 5%; }
-.cgp-inner { max-width: 1100px; margin: 0 auto; }
-.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f8ab1f; margin-bottom: 10px; display: block; }
-.section-title { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); color: #111827; margin-bottom: 12px; line-height: 1.25; }
-.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 40px; max-width: 720px; }
-.cg-retos { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
-.cg-reto { display: flex; gap: 24px; background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px; align-items: flex-start; }
-.cg-num { font-size: 32px; font-weight: 900; color: #E2E8F0; flex-shrink: 0; line-height: 1; margin-top: 2px; }
-.cg-reto h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.4; }
-.cg-reto p { font-size: 13px; color: #64748B; line-height: 1.7; margin: 0; }
+:root { --brand: #f8ab1f; }
 
-/* ── 4 PILARES ── */
-.cg-pilares { background: #0f172a; padding: 72px 5%; }
-.cgpl-inner { max-width: 1100px; margin: 0 auto; }
-.cg-pilares .section-label { color: #f8ab1f; }
-.cg-pilares .section-title { color: white; margin-bottom: 40px; }
-.pilares-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.pilar-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px 22px; }
+/* ── 4 PILARES (Specifics) ── */
 .pilar-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
 .pilar-icon { font-size: 28px; }
-.pilar-badge { font-size: 10px; font-weight: 700; background: rgba(248,171,31,.2); color: #f8ab1f; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
-.pilar-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.4; }
-.pilar-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
+.pilar-badge { font-size: 10px; font-weight: 700; background: rgba(248,171,31,.2); color: var(--brand); padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
 
-/* ── CASOS DE USO ── */
-.cg-casos { background: white; padding: 72px 5%; }
-.cgc-inner { max-width: 1100px; margin: 0 auto; }
-.cgc-inner .section-title { margin-bottom: 40px; }
-.casos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.caso-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
-.caso-card:hover { border-color: #f8ab1f; }
-.caso-icon { font-size: 28px; display: block; margin-bottom: 12px; }
-.caso-card h3 { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.4; }
-.caso-card p { font-size: 13px; color: #64748B; line-height: 1.6; }
-
-/* ── PERFIL IDEAL ── */
-.cg-perfil { background: #F8FAFC; padding: 72px 5%; }
-.cgpf-inner { max-width: 1100px; margin: 0 auto; }
-.cgpf-inner .section-title { margin-bottom: 40px; }
-.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+/* ── PERFIL IDEAL (Specifics) ── */
 .perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
 .perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .perfil-col ul li { font-size: 14px; color: #374151; line-height: 1.5; padding-left: 18px; position: relative; }
-.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: #f8ab1f; font-weight: 700; }
+.perfil-col ul li::before { content: "→"; position: absolute; left: 0; color: var(--brand); font-weight: 700; }
 .perfil-col--taec { background: white; border: 1.5px solid #FED7AA; border-radius: 14px; padding: 24px; }
 .perfil-col--taec h3 { color: #92400E; }
 .perfil-cierre { margin-top: 20px; font-size: 13px; color: #9CA3AF; line-height: 1.7; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 16px; }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .pilares-grid { grid-template-columns: repeat(2, 1fr); }
-  .casos-grid { grid-template-columns: repeat(2, 1fr); }
-  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
-}
-@media (max-width: 768px) {
-  .pilares-grid { grid-template-columns: 1fr; }
-  .casos-grid { grid-template-columns: 1fr; }
-  .cg-reto { flex-direction: column; gap: 8px; }
-}
 </style>

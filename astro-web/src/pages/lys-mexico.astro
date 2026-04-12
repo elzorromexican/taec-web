@@ -1,13 +1,9 @@
 ---
 // CHANGELOG: 2026-03-20 - Landing LYS completa. Contenido basado en doc estratégico DDC.
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
+import ProductPageLayout from '../layouts/ProductPageLayout.astro';
 import { getBookingUrl } from '../data/contact';
-
 import { r } from '../utils/paths';
+
 const bookingUrl = getBookingUrl();
 
 const componentes = [
@@ -61,77 +57,92 @@ const faqs = [
 ];
 ---
 
-<BaseLayout
-  title="LYS en México | Aprendizaje ágil para equipos distribuidos y programas a escala | TAEC"
-  description="LYS con TAEC: aprendizaje ágil que combina contenido, diseño instruccional y entrega por WhatsApp. Para onboarding, equipos en campo y programas ESG a escala. Demo en español."
-  section="Soluciones"
-  page="lys-mexico.html"
->
-
-  <!-- ── HERO ── -->
-  <HeroComercial
-    eyebrow="LYS · Aprendizaje ágil a escala"
-    titleHtml={`Capacitación ágil, cercana<br>y lista para <em>escalar</em>`}
-    subtitle="LYS ayuda a diseñar y desplegar experiencias de aprendizaje memorables y ágiles — combinando contenido, diseño instruccional, tecnología e interacción por WhatsApp para llegar a donde el LMS no llega."
-    features={[
+<ProductPageLayout
+  meta={{
+    title: "LYS en México | Aprendizaje ágil para equipos distribuidos y programas a escala | TAEC",
+    description: "LYS con TAEC: aprendizaje ágil que combina contenido, diseño instruccional y entrega por WhatsApp. Para onboarding, equipos en campo y programas ESG a escala. Demo en español.",
+    page: "lys-mexico.html"
+  }}
+  hero={{
+    eyebrow: "LYS · Aprendizaje ágil a escala",
+    titleHtml: `Capacitación ágil, cercana<br>y lista para <em>escalar</em>`,
+    subtitle: "LYS ayuda a diseñar y desplegar experiencias de aprendizaje memorables y ágiles — combinando contenido, diseño instruccional, tecnología e interacción por WhatsApp para llegar a donde el LMS no llega.",
+    features: [
       "Entrega por WhatsApp — el canal con >90% de tasa de apertura",
       "Fábrica de contenido incluida — diseño instruccional y producción",
       "Dashboards en tiempo real — participación y resultados durante el programa",
       "Interacción activa con participantes — no solo envío de materiales",
       "Para onboarding, equipos en campo, ESG y programas a escala",
       "Implementación y soporte en español · CDMX"
-    ]}
-    primaryBtn={{ label: "Solicitar demo →", url: bookingUrl, target: "_blank" }}
-    secondaryBtn={{ label: "Hablar con un especialista", url: getBookingUrl('lys') }}
-    cardBadgeText="WHATSAPP · CONTENIDO · ESCALA"
-    cardLogoSrc={r("/assets/logos/lys.png")}
-    theme="general"
-    brandColor="#0A4191"
-  />
+    ],
+    primaryBtn: { label: "Solicitar demo →", url: bookingUrl, target: "_blank" },
+    secondaryBtn: { label: "Hablar con un especialista", url: getBookingUrl('lys') },
+    cardBadgeText: "WHATSAPP · CONTENIDO · ESCALA",
+    cardLogoSrc: r("/assets/logos/lys.png"),
+    theme: "general",
+    brandColor: "#0A4191"
+  }}
+  beneficios={{
+    eyebrow: "Por qué LYS con TAEC",
+    title: "Capacitación que llega, se usa y se puede seguir con datos reales",
+    subtitle: "Para organizaciones que necesitan llegar rápido a muchas personas, con experiencias simples, cercanas y medibles.",
+    cards: beneficios,
+    columns: 2,
+    theme: "general"
+  }}
+  faqs={{
+    eyebrow: "Preguntas frecuentes",
+    title: "Todo sobre LYS en México",
+    faqs: faqs,
+    theme: "general"
+  }}
+  cta={{
+    title: "¿Quieres ver cómo LYS llega donde el LMS no llega?",
+    subtitle: "Agenda una demo con nuestro equipo. Te mostramos casos reales de programas desplegados por WhatsApp en México y LATAM — sin costo, sin compromiso.",
+    primaryBtnText: "Solicitar demo →",
+    primaryBtnUrl: bookingUrl,
+    primaryBtnTarget: "_blank",
+    theme: "general"
+  }}
+>
 
   <!-- ── EL PROBLEMA ── -->
-  <section class="lys-problema">
-    <div class="lysp-inner">
-      <p class="section-label">El reto real</p>
-      <h2 class="section-title">El reto no siempre es crear el contenido.<br>El reto es hacerlo llegar, lograr participación y medir avance.</h2>
-      <p class="section-sub">Muchas organizaciones tienen el contenido — o pueden producirlo. Lo que no tienen es una forma de que llegue a equipos distribuidos, con alta movilidad y sin acceso regular a un escritorio.</p>
-      <div class="lys-retos">
-        <div class="lys-reto">
-          <span class="lys-reto-icon">📍</span>
-          <div>
-            <h3>Equipos dispersos geográficamente</h3>
-            <p>Fuerzas de venta, personal en campo, franquiciados o distribuidores en múltiples estados o países — el LMS no los alcanza si no tienen escritorio ni incentivo para entrar.</p>
-          </div>
+  <section class="pp-section pp-section-alt">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">El reto real</p>
+      <h2 class="pp-section-title">El reto no siempre es crear el contenido.<br>El reto es hacerlo llegar, lograr participación y medir avance.</h2>
+      <p class="pp-section-sub">Muchas organizaciones tienen el contenido — o pueden producirlo. Lo que no tienen es una forma de que llegue a equipos distribuidos, con alta movilidad y sin acceso regular a un escritorio.</p>
+      <div class="pp-grid-3">
+        <div class="pp-card">
+          <span class="pp-card-icon">📍</span>
+          <h3 class="pp-card-title">Equipos dispersos geográficamente</h3>
+          <p class="pp-card-desc">Fuerzas de venta, personal en campo, franquiciados o distribuidores en múltiples estados o países — el LMS no los alcanza si no tienen escritorio ni incentivo para entrar.</p>
         </div>
-        <div class="lys-reto">
-          <span class="lys-reto-icon">⏱️</span>
-          <div>
-            <h3>Participantes con poco tiempo y alta carga operativa</h3>
-            <p>El personal de campo, comercial o de operaciones no tiene 2 horas libres para entrar a una plataforma. Necesita formación que llegue a su flujo de trabajo, no que lo interrumpa.</p>
-          </div>
+        <div class="pp-card">
+          <span class="pp-card-icon">⏱️</span>
+          <h3 class="pp-card-title">Participantes con poco tiempo y alta carga operativa</h3>
+          <p class="pp-card-desc">El personal de campo, comercial o de operaciones no tiene 2 horas libres para entrar a una plataforma. Necesita formación que llegue a su flujo de trabajo, no que lo interrumpa.</p>
         </div>
-        <div class="lys-reto">
-          <span class="lys-reto-icon">📊</span>
-          <div>
-            <h3>Sin visibilidad hasta que el programa termina</h3>
-            <p>Los reportes de avance llegan al final — cuando ya no hay tiempo de corregir. La capacitación necesita métricas en tiempo real para que el área de RH pueda actuar durante el programa.</p>
-          </div>
+        <div class="pp-card">
+          <span class="pp-card-icon">📊</span>
+          <h3 class="pp-card-title">Sin visibilidad hasta que el programa termina</h3>
+          <p class="pp-card-desc">Los reportes de avance llegan al final — cuando ya no hay tiempo de corregir. La capacitación necesita métricas en tiempo real para que el área de RH pueda actuar durante el programa.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── CÓMO FUNCIONA ── -->
-  <section class="lys-pasos">
-    <div class="lysp2-inner">
-      <p class="section-label">Proceso</p>
-      <h2 class="section-title">Cómo funciona LYS</h2>
-      <div class="pasos-grid">
+  <section class="pp-section pp-section-dark">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">Proceso</p>
+      <h2 class="pp-section-title pp-section-title--light">Cómo funciona LYS</h2>
+      <div class="pp-grid-4">
         {pasos.map(p => (
-          <div class="paso-card">
-            <span class="paso-num">{p.num}</span>
-            <h3>{p.title}</h3>
-            <p>{p.desc}</p>
+          <div class="pp-card pp-card--dark">
+            <span class="pp-card-num">{p.num}</span>
+            <h3 class="pp-card-title pp-card-title--light">{p.title}</h3>
+            <p class="pp-card-desc pp-card-desc--light">{p.desc}</p>
           </div>
         ))}
       </div>
@@ -139,38 +150,28 @@ const faqs = [
   </section>
 
   <!-- ── COMPONENTES ── -->
-  <section class="lys-componentes">
-    <div class="lysc-inner">
-      <p class="section-label">Lo que incluye LYS</p>
-      <h2 class="section-title">Contenido, tecnología e interacción en una sola propuesta</h2>
-      <div class="comp-grid">
+  <section class="pp-section">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">Lo que incluye LYS</p>
+      <h2 class="pp-section-title">Contenido, tecnología e interacción en una sola propuesta</h2>
+      <div class="pp-grid-3">
         {componentes.map(c => (
-          <div class="comp-card">
-            <span class="comp-icon">{c.icon}</span>
-            <h3>{c.label}</h3>
-            <p>{c.desc}</p>
+          <div class="pp-card">
+            <span class="pp-card-icon">{c.icon}</span>
+            <h3 class="pp-card-title">{c.label}</h3>
+            <p class="pp-card-desc">{c.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── BENEFICIOS ── -->
-  <GridBeneficios
-    eyebrow="Por qué LYS con TAEC"
-    title="Capacitación que llega, se usa y se puede seguir con datos reales"
-    subtitle="Para organizaciones que necesitan llegar rápido a muchas personas, con experiencias simples, cercanas y medibles."
-    cards={beneficios}
-    columns={2}
-    theme="general"
-  />
-
   <!-- ── PERFIL IDEAL ── -->
-  <section class="lys-perfil">
-    <div class="lyspf-inner">
-      <p class="section-label">¿Para quién es?</p>
-      <h2 class="section-title">LYS encaja cuando la adopción del canal es tan importante como el contenido</h2>
-      <div class="perfil-grid">
+  <section class="pp-section pp-section-alt">
+    <div class="pp-section-inner">
+      <p class="pp-section-label">¿Para quién es?</p>
+      <h2 class="pp-section-title">LYS encaja cuando la adopción del canal es tan importante como el contenido</h2>
+      <div class="pp-grid-3">
         <div class="perfil-col">
           <h3>Perfil de organización ideal</h3>
           <ul>
@@ -206,66 +207,11 @@ const faqs = [
     </div>
   </section>
 
-  <!-- ── FAQ ── -->
-  <FAQAccordion
-    eyebrow="Preguntas frecuentes"
-    title="Todo sobre LYS en México"
-    faqs={faqs}
-    theme="general"
-  />
-
-  <!-- ── CTA ── -->
-  <CtaFinal
-    title="¿Quieres ver cómo LYS llega donde el LMS no llega?"
-    subtitle="Agenda una demo con nuestro equipo. Te mostramos casos reales de programas desplegados por WhatsApp en México y LATAM — sin costo, sin compromiso."
-    primaryBtnText="Solicitar demo →"
-    primaryBtnUrl={bookingUrl}
-    primaryBtnTarget="_blank"
-    theme="general"
-  />
-
-</BaseLayout>
+</ProductPageLayout>
 
 <style is:global>
-/* ── EL PROBLEMA ── */
-.lys-problema { background: #F8FAFC; padding: 72px 5%; }
-.lysp-inner { max-width: 1100px; margin: 0 auto; }
-.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #0A4191; margin-bottom: 10px; display: block; }
-.section-title { font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 36px); color: #111827; margin-bottom: 12px; line-height: 1.25; }
-.section-sub { color: #64748B; font-size: 15px; line-height: 1.75; margin-bottom: 40px; max-width: 720px; }
-.lys-retos { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
-.lys-reto { display: flex; gap: 20px; background: white; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px; align-items: flex-start; }
-.lys-reto-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
-.lys-reto h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.4; }
-.lys-reto p { font-size: 13px; color: #64748B; line-height: 1.7; margin: 0; }
+:root { --brand: #0A4191; }
 
-/* ── CÓMO FUNCIONA ── */
-.lys-pasos { background: #0f172a; padding: 72px 5%; }
-.lysp2-inner { max-width: 1100px; margin: 0 auto; }
-.lys-pasos .section-label { color: #0A4191; }
-.lys-pasos .section-title { color: white; margin-bottom: 40px; }
-.pasos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.paso-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px 22px; }
-.paso-num { font-size: clamp(28px, 3vw, 40px); font-weight: 900; color: #0A4191; opacity: .4; display: block; margin-bottom: 12px; line-height: 1; }
-.paso-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.4; }
-.paso-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
-
-/* ── COMPONENTES ── */
-.lys-componentes { background: white; padding: 72px 5%; }
-.lysc-inner { max-width: 1100px; margin: 0 auto; }
-.lysc-inner .section-title { margin-bottom: 40px; }
-.comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 0; }
-.comp-card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px 20px; transition: border-color .2s; }
-.comp-card:hover { border-color: #0A4191; }
-.comp-icon { font-size: 26px; display: block; margin-bottom: 10px; }
-.comp-card h3 { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 6px; }
-.comp-card p { font-size: 13px; color: #64748B; line-height: 1.6; }
-
-/* ── PERFIL IDEAL ── */
-.lys-perfil { background: #F8FAFC; padding: 72px 5%; }
-.lyspf-inner { max-width: 1100px; margin: 0 auto; }
-.lyspf-inner .section-title { margin-bottom: 40px; }
-.perfil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
 .perfil-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; margin-bottom: 16px; }
 .perfil-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .perfil-col ul li { font-size: 14px; color: #374151; line-height: 1.5; padding-left: 18px; position: relative; }
@@ -273,16 +219,4 @@ const faqs = [
 .perfil-col--taec { background: white; border: 1.5px solid #DBEAFE; border-radius: 14px; padding: 24px; }
 .perfil-col--taec h3 { color: #1e3a8a; }
 .perfil-cierre { margin-top: 20px; font-size: 13px; color: #9CA3AF; line-height: 1.7; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 16px; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .pasos-grid { grid-template-columns: repeat(2, 1fr); }
-  .comp-grid { grid-template-columns: repeat(2, 1fr); }
-  .perfil-grid { grid-template-columns: 1fr; gap: 24px; }
-}
-@media (max-width: 768px) {
-  .pasos-grid { grid-template-columns: 1fr; }
-  .comp-grid { grid-template-columns: 1fr; }
-  .lys-reto { flex-direction: column; gap: 12px; }
-}
 </style>

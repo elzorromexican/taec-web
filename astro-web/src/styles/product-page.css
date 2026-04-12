@@ -1,0 +1,57 @@
+/* ═══════════════════════════════════════════════════════
+   product-page.css — estilos compartidos entre páginas
+   de producto. Cada página define --brand con su color.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Stats bar ── */
+.pp-stats { border-bottom: 1px solid var(--border); padding: 28px 5%; }
+.pp-stats-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; }
+.pp-stat { text-align: center; }
+.pp-stat-num { font-size: clamp(28px, 3vw, 38px); font-weight: 800; color: var(--brand, #111827); line-height: 1; margin-bottom: 6px; }
+.pp-stat-label { font-size: 13px; color: #64748B; line-height: 1.4; }
+
+/* ── Secciones genéricas ── */
+.pp-section { padding: 72px 5%; }
+.pp-section-alt { background: #F8FAFC; }
+.pp-section-dark { background: #0f172a; }
+.pp-section-inner { max-width: 1100px; margin: 0 auto; }
+.pp-section-label,
+.pp-section-title,
+.pp-section-sub { text-align: center; }
+.pp-section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--brand, #64748B); margin-bottom: 10px; display: block; }
+.pp-section-title { font-size: clamp(24px, 2.8vw, 36px); font-weight: 800; color: #111827; margin-bottom: 12px; }
+.pp-section-title--light { color: white; }
+.pp-section-sub { font-size: 15px; color: #64748B; line-height: 1.75; margin-bottom: 48px; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+/* ── Grids de cards ── */
+.pp-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.pp-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pp-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* ── Card base ── */
+.pp-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 28px; transition: border-color .2s, box-shadow .2s; }
+.pp-card:hover { border-color: var(--brand); }
+.pp-card--dark { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 28px 22px; }
+.pp-card-icon { font-size: 30px; display: block; margin-bottom: 14px; }
+.pp-card-num { font-size: clamp(28px, 3vw, 40px); font-weight: 900; color: var(--brand); opacity: .4; display: block; margin-bottom: 12px; line-height: 1; }
+.pp-card-title { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; line-height: 1.4; }
+.pp-card-title--light { color: white; }
+.pp-card-desc { font-size: 13px; color: #64748B; line-height: 1.7; }
+.pp-card-desc--light { color: rgba(255,255,255,.55); }
+
+/* ── Testimonial ── */
+.pp-testimonial { padding: 56px 5%; text-align: center; }
+.pp-testimonial blockquote { max-width: 760px; margin: 0 auto; font-size: clamp(16px, 2vw, 24px); color: white; line-height: 1.65; font-style: italic; margin-bottom: 20px; }
+.pp-testimonial cite { font-size: 13px; font-weight: 700; font-style: normal; }
+.pp-testimonial .pp-cite-role { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; display: block; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .pp-grid-3 { grid-template-columns: 1fr; }
+  .pp-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .pp-stats-inner { gap: 28px; }
+}
+@media (max-width: 768px) {
+  .pp-grid-4 { grid-template-columns: 1fr; }
+  .pp-grid-2 { grid-template-columns: 1fr; }
+}

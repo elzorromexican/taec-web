@@ -67,9 +67,9 @@ import { r } from '../utils/paths';
        ══════════════════════════════════════ */
     .art-feats{padding:80px 5%;background:white}
     .art-feats-inner{max-width:1100px;margin:0 auto}
-    .art-section-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--art);margin-bottom:10px}
-    .art-section-title{font-size:clamp(24px,2.8vw,36px);font-weight:800;color:#111827;margin-bottom:10px}
-    .art-section-sub{font-size:16px;color:#475569;line-height:1.65;margin-bottom:48px;max-width:640px}
+    .art-section-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--art);margin-bottom:10px;text-align:center}
+    .art-section-title{font-size:clamp(24px,2.8vw,36px);font-weight:800;color:#111827;margin-bottom:10px;text-align:center}
+    .art-section-sub{font-size:16px;color:#475569;line-height:1.65;margin-bottom:48px;max-width:640px;margin-left:auto;margin-right:auto;text-align:center}
     .art-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
     .art-feat-card{background:white;border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s,box-shadow .2s}
     .art-feat-card:hover{border-color:#BAE6FD;box-shadow:0 8px 24px rgba(0,71,117,.08)}
@@ -302,8 +302,8 @@ import { r } from '../utils/paths';
 <!-- ══ SHOWCASE — CSS-only tabs ══ -->
 <section class="showcase">
   <div class="showcase-inner">
-    <p class="art-section-label" style="text-align:center">Explora Rise 360</p>
-    <h2 class="art-section-title" style="text-align:center;margin-bottom:32px">Crea experiencias de aprendizaje visualmente impactantes</h2>
+    <p class="art-section-label">Explora Rise 360</p>
+    <h2 class="art-section-title" style="margin-bottom:32px">Crea experiencias de aprendizaje visualmente impactantes</h2>
 
     <input type="radio" name="showcase" id="tab1" checked />
     <input type="radio" name="showcase" id="tab2" />
