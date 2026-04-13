@@ -183,7 +183,7 @@ Resultados:
 - Puntuación de urgencia: ${res.urgencyScore}%
 - Top Ejes de Dolor: ${res.topPains.join(', ')}
 
-RADIOGRAFÍA EXCATA DE SUS RESPUESTAS (10 preguntas):
+RADIOGRAFÍA EXACTA DE SUS RESPUESTAS (10 preguntas):
 ${fullQA}
 
 INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
