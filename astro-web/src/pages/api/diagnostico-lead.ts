@@ -1,3 +1,13 @@
+/**
+ * @name diagnostico-lead.ts
+ * @version v1.2
+ * @description Endpoint para procesar el formulario del Diagnóstico IA, enviar emails a usuario y backoffice.
+ * @inputs Request body con email prospecto y array de scores.
+ * @outputs Response JSON con success flag. Envía 2 emails vía Resend.
+ * @dependencies resend, @upstash/redis, @upstash/ratelimit
+ * @created 2024-03-01
+ * @updated 2026-04-12 17:55:00
+ */
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
@@ -184,19 +194,19 @@ export const POST: APIRoute = async ({ request }) => {
     // 2. Envío al Usuario Prospecto (quien hizo la prueba) - EL "HORÓSCOPO" DETALLADO
 
     const axisDescriptions = {
-      lms_corp: "Requieres un motor robusto para mapear el organigrama y automatizar el plan de carrera de cientos de empleados.",
-      lms_agil: "En tu operación, el tiempo es oro. Necesitas subir contenido en minutos y que los alumnos lo consuman en el móvil.",
-      fabrica_ddc: "Tus cursos necesitan transformarse para cumplir urgentemente con normativas oficiales y atrapar al alumno.",
-      lms_cert: "Vendes o requieres auditoría externa, los certificados oficiales y las rutas de aprendizaje son obligatorias.",
-      eval_proctor: "El valor de tus cursos reside en la seguridad. Evitar suplantaciones y trampas es vital.",
-      vilt_zoom: "El aprendizaje presencial/digital está mezclado. La gestión de cohortes en Zoom es fundamental.",
-      ecommerce: "Tu proyecto debe monetizar. Las pasarelas de pago y la promoción son el pulmón de la academia.",
-      tools_autor: "Tu equipo interno requiere autonomía para diseñar e iterar contenido rápidamente sin depender de externos."
+      lms_corp: "Requiere un motor robusto para mapear el organigrama y automatizar el plan de carrera de empleados.",
+      lms_agil: "Prioridad en inmediatez: necesita subir contenido en minutos para consumo preferentemente móvil.",
+      fabrica_ddc: "Sus cursos necesitan transformarse para cumplir urgentemente con normativas oficiales y atrapar al alumno.",
+      lms_cert: "Requiere auditoría externa, certificados oficiales y las rutas de aprendizaje son obligatorias.",
+      eval_proctor: "El valor de sus cursos reside en la seguridad. Evitar suplantaciones y trampas es vital.",
+      vilt_zoom: "Aprendizaje presencial/digital mixto. La gestión de cohortes (Zoom/Teams) es fundamental.",
+      ecommerce: "Proyecto pensado para monetizar. Requiere pasarelas de pago y la promoción es vital (B2C/B2B2C).",
+      tools_autor: "Su equipo requiere autonomía para diseñar e iterar contenido rápidamente sin depender de externos."
     };
 
-    const urgentList = [];
-    const secondaryList = [];
-    const stableList = [];
+    const urgentList: string[] = [];
+    const secondaryList: string[] = [];
+    const stableList: string[] = [];
 
     // Categorización Semáforo (basada en % de afinidad)
     for (const [key, value] of Object.entries(platformScores)) {
@@ -215,6 +225,7 @@ export const POST: APIRoute = async ({ request }) => {
         </div>
       `).join('');
     };
+
 
     // Generador Dinámico de Gráficas de Radar para el Correo usando QuickChart (Open Source Mapeo Seguro)
     const quickChartUrl = `https://quickchart.io/chart?width=500&height=400&c=` + encodeURIComponent(JSON.stringify({

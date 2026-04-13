@@ -1,3 +1,13 @@
+/**
+ * @name titoAnalytics.ts
+ * @version v1.2
+ * @description Funciones de telemetría, seguridad (gibberishGuard) y sanitización para el motor de Tito Bits.
+ * @inputs Texto de entrada del usuario en el chat, eventos para tracking.
+ * @outputs boolean (isGibberish) y textos sanitizados, u operaciones hacia plausible analytics.
+ * @dependencies window.plausible (opcional)
+ * @created 2024-03-01
+ * @updated 2026-04-12 17:55:00
+ */
 export const trackTitoEvent = (eventName: string, props: Record<string, any> = {}) => {
   if (typeof window !== 'undefined' && (window as any).plausible) {
     (window as any).plausible(eventName, { props });
@@ -32,8 +42,20 @@ export const gibberishGuard = (text: string): { isGibberish: boolean, reason?: s
     return { isGibberish: true, reason: 'repeated_chars' };
   }
 
-  // Extract alphabetic characters to check consonant ratios
+  // Check for common keysmash patterns (e.g. "asdasdasd", "qweqwe")
+  if (/(asd|qwe|zxc|fgh|jkl){2,}/i.test(clean) || /(asdf|qwer|zxcv){1,}/i.test(clean)) {
+    return { isGibberish: true, reason: 'keysmash' };
+  }
+
+  // Extract alphabetic characters to check consonant ratios and entropy
   const letters = clean.replace(/[^a-záéíóúüñ]/g, '');
+  if (letters.length > 10) {
+    const uniqueChars = new Set(letters.split('')).size;
+    if (uniqueChars <= 4) {
+      return { isGibberish: true, reason: 'low_entropy_keysmash' };
+    }
+  }
+
   if (letters.length > 5) {
     const consonants = letters.replace(/[aeiouáéíóúü]/g, '').length;
     const ratio = consonants / letters.length;
