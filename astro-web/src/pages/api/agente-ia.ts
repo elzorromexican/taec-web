@@ -10,6 +10,7 @@ import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag'
 import { evaluateMessageForEscalation } from '../../lib/tito/rules';
 
 import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
+import { extractLeadSignalsConIA } from '../../lib/tito/signalExtractor';
 
 const getSafeEnv = (k: string) => {
   if (typeof process !== 'undefined' && process.env && process.env[k]) {
@@ -109,7 +110,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const isDiagnostic = typeof currentPath === 'string' && currentPath.toLowerCase().includes('diagnostico');
-
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
     if (sessionId !== 'anonymous-session' && !isDiagnostic) {
       const { data: existingLead } = await supabase
@@ -196,7 +196,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           handoff_tipo: 'ventas',
           score: 50,
           awaiting_contact: true
-        }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+         }), { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
     }
     // ======= FIN TITO-CHAT =======
@@ -225,6 +225,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       ? pageContext.description.replace(/[<>]/g, '').substring(0, 200) : '';
     const safeH1 = typeof pageContext?.h1 === 'string'
       ? pageContext.h1.replace(/[<>]/g, '').substring(0, 150) : '';
+
 
     const isMexico = countryCode === 'MX';
     const isDiagnostic = typeof currentPath === 'string' && currentPath.toLowerCase().includes('diagnostico');
