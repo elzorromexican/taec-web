@@ -156,13 +156,12 @@ export default function DiagnosticoApp() {
         return;
       }
 
-      // Extraer los Dolores Críticos respondidos como "Urgente" (2)
-      const criticalPains = Object.entries(session.answers)
-        .filter(([_, val]) => val === 2)
-        .map(([id]) => {
-          const q = currentStage.questions.find(x => x.id === id);
-          return q ? q.text : '';
-        }).filter(Boolean);
+      // Extraer todas las respuestas para análisis crítico
+      const fullQA = Object.entries(session.answers).map(([id, val]) => {
+        const q = currentStage.questions.find(x => x.id === id);
+        const intensity = val === 2 ? 'CRÍTICO' : val === 1 ? 'MODERADO' : 'CONTROLADO';
+        return `[${intensity}] - ${q?.text}`;
+      }).join('\n');
 
       const sortedPlats = PLATFORM_AXIS_ORDER
         .map(p => ({ id: p, score: res.platformScores[p] || 0 }))
@@ -177,21 +176,27 @@ export default function DiagnosticoApp() {
         segundaCapa ? `segunda capa: ${platformLabels[segundaCapa.id]}` : null,
       ].filter(Boolean).join(' · ');
 
-      // System Prompt Oculto para TitoBits
+      // System Prompt Oculto para TitoBits - MODO CHALLENGER
       const prompt = `El prospecto con correo [${session.email}] acaba de completar su Diagnostico de TAEC. Etapa: ${session.stage}.
 Resultados:
 - Arquitectura recomendada: ${arquitectura}
 - Puntuación de urgencia: ${res.urgencyScore}%
 - Top Ejes de Dolor: ${res.topPains.join(', ')}
 
-El prospecto calificó como "Urgente / Crítico" los siguientes dolores en su operación:
-"${criticalPains.join('", "')}"
+RADIOGRAFÍA EXCATA DE SUS RESPUESTAS (10 preguntas):
+${fullQA}
 
 INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
-- NO SALUDES CON FRASES TÍPICAS O REPETITIVAS. Usa un enfoque consultivo agresivo y humano. Toma UNO de los dolores reales que el prospecto catalogó como urgente de la lista de arriba y ábrele conversación sobre eso. 
-- Por ejemplo, si un dolor urgente es sobre normativas o constancias DC-3, pregúntale "¿qué auditoría o NOM los está persiguiendo ahora mismo?".
-- Céntrate en justificar cómo la arquitectura recomendada (${arquitectura}) alivia ese dolor.
-- IMPORTANTE: TIENES ESTRICTAMENTE PROHIBIDO volver a pedir su correo, teléfono o nombre en todo el resto de la sesión. Ya sabemos quién es, atiende directamente sus dolores.`;
+Eres una herramienta consultiva inteligente. Tu trabajo post-diagnóstico es:
+1. Buscar CONTRADICCIONES si existen (ej. "Me llama la atención que marcaste [Pregunta A] como Controlado, pero tienes un problema CRÍTICO en [Pregunta B]. ¿Dónde se está rompiendo el proceso?").
+2. Aclarar GAPS operativos usando como marco de referencia la arquitectura recomendada (${arquitectura}).
+3. Ampliar la perspectiva de sus dolores para que se dé cuenta del costo de no actuar.
+
+REGLAS ESTRICTAS DE APERTURA Y CHARLA:
+- NO SALUDES COMO BOT GENÉRICO ("Hola, soy Tito y acabo de leer..."). Ve directo al hueso como un consultor Sr. viendo la radiografía.
+- Toma sus respuestas específicas y RÉTALO. 
+- Demuestra que LEÍSTE y analizaste sus 10 respuestas.
+- IMPORTANTE: TIENES ESTRICTAMENTE PROHIBIDO volver a pedir su correo, teléfono o nombre en esta sesión. Oblígate a mantener el diálogo profundo sobre sus problemas y arquitectura.`;
 
       updateSession({ phase: 'results', result: res });
 
