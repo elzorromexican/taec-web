@@ -243,6 +243,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       ? pageContext.h1.replace(/[<>]/g, '').substring(0, 150) : '';
 
     const isMexico = countryCode === 'MX';
+    const isDiagnostic = typeof currentPath === 'string' && currentPath.toLowerCase().includes('diagnostico');
 
     const artPromo = promos.find(p => p.active && p.urlTrigger === 'articulate' && p.countries.includes('MX'));
     const dynamicArtPrice = (artPromo as any)?.price || (artPromo ? artPromo.title.match(/\$[\d,]+ USD/)?.[0] || '$1,198 USD' : '$1,198 USD');
@@ -316,14 +317,22 @@ Solo pide datos de contacto cuando:
 → Volumen 100+ seats
 → Cliente pregunta por renovación o contrato existente
 
-REGLA LMS Y SERVICIOS:
+${isDiagnostic 
+  ? `REGLA DE CONSULTORÍA DIAGNÓSTICO (ESTADO ACTUAL):
+El prospecto ya viene del motor de diagnóstico y ya tenemos sus datos.
+TU OBJETIVO ES CONTINUAR COMO CONSULTOR EXPERTO TÉCNICO.
+→ Profundiza en los detalles arquitectónicos de su caso.
+→ NO recortes la charla diciendo "un humano analizará esto y te contactará" prematuramente.
+→ Desarrolla y justifica por qué la segunda o tercer capa de la arquitectura recomendada hace sentido para ellos.
+→ Aporta verdadero valor consultivo y mantén el diálogo abierto para dudas técnicas.`
+  : `REGLA LMS Y SERVICIOS:
 Si el usuario menciona: LMS, Totara, Moodle, NetExam, DDC,
 desarrollo a la medida, implementación, o volumen 100+ usuarios:
 → DETÉN las preguntas de calificación
 → Responde: "Para este tipo de proyecto, el dimensionamiento
   es muy específico. ¿Me confirmas tu nombre, empresa y correo
   para que un especialista TAEC te contacte hoy?"
-→ NO sigas haciendo preguntas técnicas
+→ NO sigas haciendo preguntas técnicas`}
 
 REGLA RECHAZO DE DATOS:
 Si el usuario dice que no quiere dar sus datos o información
