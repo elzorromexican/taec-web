@@ -36,11 +36,11 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const rawBody = await request.text();
-    if (!rawBody || rawBody.length > 5000) {
+    if (!rawBody || rawBody.length > 12000) {
       return new Response(JSON.stringify({ error: 'Payload body vacío o demasiado grande.' }), { status: 413 });
     }
     
-    const { email, scores, winningPlatform } = JSON.parse(rawBody);
+    const { email, stage, painProfile, platformScores, urgencyScore, winningPlatform } = JSON.parse(rawBody);
 
     if (!email || !email.includes('@')) {
       return new Response(JSON.stringify({ error: 'Email inválido.' }), { status: 400 });
@@ -91,17 +91,28 @@ export const POST: APIRoute = async ({ request }) => {
       '<p>Un visitante ha completado el diagnóstico y está siendo transferido a TitoBits.</p>' +
       '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
       '<p><strong>Email Institucional:</strong> ' + escapeHtml(email) + '</p>' +
+      '<p><strong>Etapa Operativa:</strong> ' + escapeHtml(stage) + '</p>' +
+      '<p><strong>Índice de Urgencia (Pains):</strong> ' + urgencyScore + '%</p>' +
       '<p><strong>Plataforma Resultante:</strong> <span style="color:#D95A1E; font-weight:bold;">' + escapeHtml(winningPlatform) + '</span></p>' +
-      '<h3 style="color: #004775; margin-top: 20px;">Puntaje de 8 Ejes:</h3>' +
+      '<h3 style="color: #004775; margin-top: 20px;">Puntaje de Plataformas (Afinidad %):</h3>' +
       '<ul style="line-height: 1.6; font-size: 14px;">' +
-      '<li>LMS Ágil: ' + (scores.lms_agil || 0) + '</li>' +
-      '<li>LMS Corporativo: ' + (scores.lms_corp || 0) + '</li>' +
-      '<li>Certificación Externa: ' + (scores.lms_cert || 0) + '</li>' +
-      '<li>Fábrica DDC: ' + (scores.fabrica_ddc || 0) + '</li>' +
-      '<li>Herramientas Autor: ' + (scores.tools_autor || 0) + '</li>' +
-      '<li>VILT Zoom: ' + (scores.vilt_zoom || 0) + '</li>' +
-      '<li>Eval/Proctoring: ' + (scores.eval_proctor || 0) + '</li>' +
-      '<li>E-commerce: ' + (scores.ecommerce || 0) + '</li>' +
+      '<li>LMS Ágil: ' + (platformScores.lms_agil || 0) + '%</li>' +
+      '<li>LMS Corporativo: ' + (platformScores.lms_corp || 0) + '%</li>' +
+      '<li>Certificación Externa: ' + (platformScores.lms_cert || 0) + '%</li>' +
+      '<li>Fábrica DDC: ' + (platformScores.fabrica_ddc || 0) + '%</li>' +
+      '<li>Herramientas Autor: ' + (platformScores.tools_autor || 0) + '%</li>' +
+      '<li>VILT Zoom: ' + (platformScores.vilt_zoom || 0) + '%</li>' +
+      '<li>Eval/Proctoring: ' + (platformScores.eval_proctor || 0) + '%</li>' +
+      '<li>E-commerce: ' + (platformScores.ecommerce || 0) + '%</li>' +
+      '</ul>' +
+      '<h3 style="color: #E53935; margin-top: 20px;">Perfil de Dolor (Pains %):</h3>' +
+      '<ul style="line-height: 1.6; font-size: 14px;">' +
+      '<li>Administrativo: ' + (painProfile.admin || 0) + '%</li>' +
+      '<li>Contenido: ' + (painProfile.contenido || 0) + '%</li>' +
+      '<li>Tecnología: ' + (painProfile.tecnologia || 0) + '%</li>' +
+      '<li>Normativa: ' + (painProfile.normativa || 0) + '%</li>' +
+      '<li>Escala: ' + (painProfile.escala || 0) + '%</li>' +
+      '<li>Monetización: ' + (painProfile.monetizacion || 0) + '%</li>' +
       '</ul>' +
       '<p style="margin-top: 20px; font-size: 12px; color: #666;">El lead se encuentra ahora mismo interactuando con TitoBits para armar su Business Case.</p>' +
       '</div>';
@@ -146,10 +157,11 @@ export const POST: APIRoute = async ({ request }) => {
     const secondaryList = [];
     const stableList = [];
 
-    // Categorización Semáforo
-    for (const [key, value] of Object.entries(scores)) {
-      if (value >= 3) urgentList.push(key);
-      else if (value >= 1) secondaryList.push(key);
+    // Categorización Semáforo (basada en % de afinidad)
+    for (const [key, value] of Object.entries(platformScores)) {
+      const pScore = value as number;
+      if (pScore >= 70) urgentList.push(key);
+      else if (pScore >= 40) secondaryList.push(key);
       else stableList.push(key);
     }
 
@@ -174,21 +186,21 @@ export const POST: APIRoute = async ({ request }) => {
           borderColor: 'rgb(10, 122, 112)',
           pointBackgroundColor: 'rgb(10, 122, 112)',
           data: [
-            scores.lms_corp || 0,
-            scores.lms_agil || 0,
-            scores.fabrica_ddc || 0,
-            scores.lms_cert || 0,
-            scores.eval_proctor || 0,
-            scores.vilt_zoom || 0,
-            scores.ecommerce || 0,
-            scores.tools_autor || 0
+            platformScores.lms_corp || 0,
+            platformScores.lms_agil || 0,
+            platformScores.fabrica_ddc || 0,
+            platformScores.lms_cert || 0,
+            platformScores.eval_proctor || 0,
+            platformScores.vilt_zoom || 0,
+            platformScores.ecommerce || 0,
+            platformScores.tools_autor || 0
           ]
         }]
       },
       options: {
         legend: { display: false },
         scale: {
-          ticks: { beginAtZero: true, max: 5, display: false },
+          ticks: { beginAtZero: true, max: 100, display: false },
           pointLabels: { fontSize: 13, fontColor: '#4A4A5A' }
         }
       }
