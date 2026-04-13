@@ -30,6 +30,28 @@ const getSafeEnv = (k: string) => {
   return undefined;
 };
 
+// @ts-ignore
+const gibberishGuard = (text: string) => {
+  const sanitizerFallback = (t: string) => t.replace(/[<>]/g, '').replace(/(\n\r?)+/g, '\n').trim();
+  const clean = sanitizerFallback(text).toLowerCase();
+  if (clean.length < 2) return { isGibberish: true, reason: 'too_short' };
+  const whitelist = ['hola', 'si', 'sí', 'no', 'ok', 'vale', 'gracias', 'precio', 'info'];
+  if (whitelist.includes(clean)) return { isGibberish: false };
+  if (/(.)\1{4,}/.test(clean)) return { isGibberish: true, reason: 'repeated_chars' };
+  if (/(asd|qwe|zxc|fgh|jkl){2,}/i.test(clean) || /(asdf|qwer|zxcv){1,}/i.test(clean)) return { isGibberish: true, reason: 'keysmash' };
+  
+  const letters = clean.replace(/[^a-záéíóúüñ]/g, '');
+  if (letters.length > 10) {
+    const uniqueChars = new Set(letters.split('')).size;
+    if (uniqueChars <= 4) return { isGibberish: true, reason: 'low_entropy_keysmash' };
+  }
+  if (letters.length > 5) {
+    const consonants = letters.replace(/[aeiouáéíóúü]/g, '').length;
+    if (consonants / letters.length > 0.85) return { isGibberish: true, reason: 'consonant_cluster' };
+  }
+  return { isGibberish: false };
+};
+
 const redis = new Redis({
   url: getSafeEnv('UPSTASH_REDIS_REST_URL') || '',
   token: getSafeEnv('UPSTASH_REDIS_REST_TOKEN') || '',
@@ -107,6 +129,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
     if (userMessage.length > 1000) {
       return new Response(JSON.stringify({ error: 'El mensaje excede el límite permitido.' }), { status: 413 });
+    }
+
+    // BACKEND GIBBERISH GUARD: Doble candado por si viajan sin UI, usan API testers o bypass.
+    const gibCheck = gibberishGuard(userMessage);
+    if (gibCheck.isGibberish) {
+      return new Response(JSON.stringify({ error: 'Por favor, utiliza palabras completas para poder entenderte mejor.' }), { status: 400 });
     }
 
     let safeHistory: {role: string, parts: {text: string}[]}[] = [];
