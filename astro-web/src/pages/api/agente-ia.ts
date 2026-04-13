@@ -10,7 +10,7 @@ import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag'
 import { evaluateMessageForEscalation } from '../../lib/tito/rules';
 
 import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
-import { extractLeadSignalsConIA } from '../../lib/tito/signalExtractor';
+
 
 const getSafeEnv = (k: string) => {
   if (typeof process !== 'undefined' && process.env && process.env[k]) {
