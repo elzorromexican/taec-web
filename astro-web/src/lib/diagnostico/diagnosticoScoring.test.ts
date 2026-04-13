@@ -144,11 +144,18 @@ describe('calcularDiagnostico', () => {
   });
 
   test('T9: Cross-stage hint activacion', () => {
+    // Simulamos la presencia de d_primer_dc3 en la data y comprobamos el calculo real
+    const mockT9: WeightedQuestion[] = [
+      { id: 'd_primer_dc3', text: 'DC-3', why: '', weight: 3, painAxis: 'normativa', plat: 'fabrica_ddc', insight: { none: '', mild: '', urgent: 'Hint for DC3' } }
+    ];
     const answers: DiagnosticAnswers = {
       stage: 'despegue',
       answers: { 'd_primer_dc3': 2 }
     };
-    // just dummy
-    expect(answers.answers['d_primer_dc3']).toBe(2);
+    const res = calcularDiagnostico(answers, mockT9);
+    expect(res.urgencyScore).toBe(100);
+    expect(res.painProfile.normativa).toBe(100);
+    expect(res.platformScores.fabrica_ddc).toBe(100);
+    expect(res.winningPlatform).toBe('fabrica_ddc');
   });
 });

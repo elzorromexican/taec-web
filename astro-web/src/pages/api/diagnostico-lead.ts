@@ -46,6 +46,46 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Email inválido.' }), { status: 400 });
     }
 
+    if (!platformScores || typeof platformScores !== 'object' || !painProfile || typeof painProfile !== 'object' || !winningPlatform) {
+      return new Response(JSON.stringify({ error: 'Payload incompleto.' }), { status: 400 });
+    }
+
+    const safeUrgency = Number(urgencyScore);
+    if (!isFinite(safeUrgency) || safeUrgency < 0 || safeUrgency > 100) {
+      return new Response(JSON.stringify({ error: 'Payload inválido.' }), { status: 400 });
+    }
+
+    // Validate platformScores
+    for (const [k, v] of Object.entries(platformScores)) {
+      const pScore = Number(v);
+      if (!isFinite(pScore) || pScore < 0 || pScore > 100) {
+         return new Response(JSON.stringify({ error: 'Valor numérico inválido en platformScores.' }), { status: 400 });
+      }
+      platformScores[k] = pScore;
+    }
+
+    // Validate painProfile
+    for (const [k, v] of Object.entries(painProfile)) {
+      const pScore = Number(v);
+      if (!isFinite(pScore) || pScore < 0 || pScore > 100) {
+         return new Response(JSON.stringify({ error: 'Valor numérico inválido en painProfile.' }), { status: 400 });
+      }
+      painProfile[k] = pScore;
+    }
+    
+    const axisLabels: Record<string, string> = {
+      lms_corp: "Gestión Corporativa y Talento",
+      lms_agil: "Despliegue Ágil y Microlearning",
+      fabrica_ddc: "Fábrica de Contenido y STPS",
+      lms_cert: "Certificación y Cumplimiento",
+      eval_proctor: "Evaluación Segura (Proctoring)",
+      vilt_zoom: "Formación en Vivo Síncrona",
+      ecommerce: "Venta de Cursos (E-commerce)",
+      tools_autor: "Herramientas de Autorización"
+    };
+
+    const displayPlatform = axisLabels[winningPlatform] || winningPlatform;
+
     // Rate Limiting Check (Anti-Doble Submit)
     const now = Date.now();
     for (const [k, v] of recentSubmissions.entries()) {
@@ -92,8 +132,8 @@ export const POST: APIRoute = async ({ request }) => {
       '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
       '<p><strong>Email Institucional:</strong> ' + escapeHtml(email) + '</p>' +
       '<p><strong>Etapa Operativa:</strong> ' + escapeHtml(stage) + '</p>' +
-      '<p><strong>Índice de Urgencia (Pains):</strong> ' + urgencyScore + '%</p>' +
-      '<p><strong>Plataforma Resultante:</strong> <span style="color:#D95A1E; font-weight:bold;">' + escapeHtml(winningPlatform) + '</span></p>' +
+      '<p><strong>Índice de Urgencia (Pains):</strong> ' + safeUrgency + '%</p>' +
+      '<p><strong>Plataforma Resultante:</strong> <span style="color:#D95A1E; font-weight:bold;">' + escapeHtml(displayPlatform) + '</span></p>' +
       '<h3 style="color: #004775; margin-top: 20px;">Puntaje de Plataformas (Afinidad %):</h3>' +
       '<ul style="line-height: 1.6; font-size: 14px;">' +
       '<li>LMS Ágil: ' + (platformScores.lms_agil || 0) + '%</li>' +
@@ -121,7 +161,7 @@ export const POST: APIRoute = async ({ request }) => {
     const { data, error } = await resend.emails.send({
       from: 'Tito Bits (Diagnóstico) <onboarding@resend.dev>',
       to: ['smasmoudi@taec.com.mx'], 
-      subject: `Lead Diagnóstico TAEC: ${escapeHtml(winningPlatform)} (${escapeHtml(email)})`,
+      subject: `Lead Diagnóstico TAEC: ${escapeHtml(displayPlatform)} (${escapeHtml(email)})`,
       html: emailHtml,
     });
 
@@ -131,16 +171,6 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // 2. Envío al Usuario Prospecto (quien hizo la prueba) - EL "HORÓSCOPO" DETALLADO
-    const axisLabels = {
-      lms_corp: "Gestión Corporativa y Talento",
-      lms_agil: "Despliegue Ágil y Microlearning",
-      fabrica_ddc: "Fábrica de Contenido y STPS",
-      lms_cert: "Certificación y Cumplimiento",
-      eval_proctor: "Evaluación Segura (Proctoring)",
-      vilt_zoom: "Formación en Vivo Síncrona",
-      ecommerce: "Venta de Cursos (E-commerce)",
-      tools_autor: "Herramientas de Autorización"
-    };
 
     const axisDescriptions = {
       lms_corp: "Requieres un motor robusto para mapear el organigrama y automatizar el plan de carrera de cientos de empleados.",
@@ -215,7 +245,7 @@ export const POST: APIRoute = async ({ request }) => {
         </div>
 
         <div style="padding: 30px;">
-          <h3 style="color: #1B2A4A; font-size: 20px; margin-top: 0;">Veredicto de Arquitectura: <span style="color: #D95A1E;">${escapeHtml(winningPlatform)}</span></h3>
+          <h3 style="color: #1B2A4A; font-size: 20px; margin-top: 0;">Veredicto de Arquitectura: <span style="color: #D95A1E;">${escapeHtml(displayPlatform)}</span></h3>
           <p style="color: #4A4A5A; font-size: 15px; line-height: 1.6;">
             Hemos analizado las intersecciones críticas de tu operación. Debido a tus restricciones de volumen, urgencias normativas y la forma en la que tus colaboradores acceden a la formación, este es tu ecosistema dominante. Es el "motor" sobre el cual debes montar tu academia para evitar retrabajos en los próximos meses.
           </p>
@@ -285,7 +315,7 @@ export const POST: APIRoute = async ({ request }) => {
         // que coincida con un dominio permitido o si Resend ya abrió la validación de dominio de produción.
         from: 'TAEC Consultoría <onboarding@resend.dev>',
         to: [email],
-        subject: `Resultados de tu Arquitectura: ${escapeHtml(winningPlatform)}`,
+        subject: `Resultados de tu Arquitectura: ${escapeHtml(displayPlatform)}`,
         html: prospectHtml,
       });
     } catch (prospectErr) {

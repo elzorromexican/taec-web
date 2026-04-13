@@ -90,6 +90,24 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { history, userMessage, email, timeZone, currentPath, session_id, pageContext, intent, targetId, sourceMessageId } = data;
     const sessionId = session_id || 'anonymous-session';
 
+    if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
+      return new Response(JSON.stringify({ error: 'Mensaje inválido' }), { status: 400 });
+    }
+    if (userMessage.length > 1000) {
+      return new Response(JSON.stringify({ error: 'El mensaje excede el límite permitido.' }), { status: 413 });
+    }
+
+    let safeHistory: {role: string, parts: {text: string}[]}[] = [];
+    if (Array.isArray(history)) {
+      safeHistory = history
+        .filter((m: any) => m && (m.role === 'user' || m.role === 'agent') && typeof m.text === 'string')
+        .slice(-10)
+        .map((m: any) => ({
+          role: m.role === 'agent' ? 'model' : 'user',
+          parts: [{ text: m.text.substring(0, 1000) }]
+        }));
+    }
+
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
     if (sessionId !== 'anonymous-session') {
       const { data: existingLead } = await supabase
@@ -161,7 +179,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       // Mock temporal de señales (igual que en tito-chat)
       const mockSignals = {
         productos_interes: ['articulate-360'],
-        seats_mencionados: escalationCheck === 'ESCALATE' ? 120 : null,
+        seats_mencionados: null,
         requiere_integracion: false,
         tiene_lms_actual: userMessage.toLowerCase().includes('lms'),
         es_cliente_nuevo: true,
@@ -223,24 +241,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
       ? pageContext.description.replace(/[<>]/g, '').substring(0, 200) : '';
     const safeH1 = typeof pageContext?.h1 === 'string'
       ? pageContext.h1.replace(/[<>]/g, '').substring(0, 150) : '';
-
-    if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
-      return new Response(JSON.stringify({ error: 'Mensaje inválido' }), { status: 400 });
-    }
-    if (userMessage.length > 1000) {
-      return new Response(JSON.stringify({ error: 'El mensaje excede el límite permitido.' }), { status: 413 });
-    }
-
-    let safeHistory: {role: string, parts: {text: string}[]}[] = [];
-    if (Array.isArray(history)) {
-      safeHistory = history
-        .filter((m: any) => m && (m.role === 'user' || m.role === 'agent') && typeof m.text === 'string')
-        .slice(-10)
-        .map((m: any) => ({
-          role: m.role === 'agent' ? 'model' : 'user',
-          parts: [{ text: m.text.substring(0, 1000) }]
-        }));
-    }
 
     const isMexico = countryCode === 'MX';
 
@@ -438,10 +438,11 @@ Toda referencia externa debe construir el caso hacia TAEC.
     if (!restRes.ok) {
        const errBody = await restRes.text().catch(() => '');
        const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
+       console.error("API Error Debug Key:", debugKey, "Body:", errBody);
        
        const mockStream = new ReadableStream({
          start(controller) {
-           const payload = `event: error\ndata: ${JSON.stringify({ text: `[System Interruption] API Error ${restRes.status}: ${errBody} | DEBUG KEY: ${debugKey}` })}\n\n`;
+           const payload = `event: error\ndata: ${JSON.stringify({ text: `[System Interruption] API Error ${restRes.status}` })}\n\n`;
            controller.enqueue(new TextEncoder().encode(payload));
            controller.close();
          }
@@ -524,9 +525,9 @@ Toda referencia externa debe construir el caso hacia TAEC.
           sendEvent('done', { totalTime, ttfb: firstTokenTime });
 
         } catch (e: any) {
-          console.error("Stream error:", e);
           const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
-          sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."} | DEBUG KEY: ${debugKey}` });
+          console.error("Stream error:", e, "Debug Key:", debugKey);
+          sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."}` });
         } finally {
           controller.close();
         }

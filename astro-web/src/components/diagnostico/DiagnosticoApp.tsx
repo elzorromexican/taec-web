@@ -46,14 +46,24 @@ export default function DiagnosticoApp() {
   const [session, setSession] = useState<DiagnosticSession>(defaultSession);
   const [isSending, setIsSending] = useState(false);
   const [activeInsight, setActiveInsight] = useState<string | null>(null);
+  const [renderError, setRenderError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
     const stored = sessionStorage.getItem('diagnostico_v2');
     if (stored) {
       try {
-        setSession(JSON.parse(stored));
-      } catch (e) { }
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === 'object') {
+           setSession({
+             ...defaultSession,
+             ...parsed,
+             answers: parsed.answers || {}
+           });
+        }
+      } catch (e) { 
+        console.error("Session storage parse error", e);
+      }
     }
   }, []);
 
@@ -116,7 +126,7 @@ export default function DiagnosticoApp() {
       );
 
       // Enviar el lead al backend
-      await fetch('/api/diagnostico-lead', {
+      const apiRes = await fetch('/api/diagnostico-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -129,6 +139,11 @@ export default function DiagnosticoApp() {
         })
       });
 
+      if (!apiRes.ok) {
+        alert('Error conectando al sistema. Por favor revisa los datos e intenta de nuevo.');
+        return;
+      }
+
       // Extraer los Dolores Críticos respondidos como "Urgente" (2)
       const criticalPains = Object.entries(session.answers)
         .filter(([_, val]) => val === 2)
@@ -140,7 +155,7 @@ export default function DiagnosticoApp() {
       // System Prompt Oculto para TitoBits
       const prompt = `El prospecto con correo [${session.email}] acaba de completar su Diagnostico de TAEC. Etapa: ${session.stage}.
 Resultados:
-- Principal recomendación tecnológica: ${res.winningPlatform}
+- Principal recomendación tecnológica: ${platformLabels[res.winningPlatform]}
 - Puntuación de urgencia: ${res.urgencyScore}%
 - Top Ejes de Dolor: ${res.topPains.join(', ')}
 
@@ -150,7 +165,7 @@ El prospecto calificó como "Urgente / Crítico" los siguientes dolores en su op
 INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
 - NO SALUDES CON FRASES TÍPICAS O REPETITIVAS. Usa un enfoque consultivo agresivo y humano. Toma UNO de los dolores reales que el prospecto catalogó como urgente de la lista de arriba y ábrele conversación sobre eso. 
 - Por ejemplo, si un dolor urgente es sobre normativas o constancias DC-3, pregúntale "¿qué auditoría o NOM los está persiguiendo ahora mismo?".
-- Céntrate en justificar cómo la arquitectura recomendada (${res.winningPlatform}) alivia ese dolor.
+- Céntrate en justificar cómo la arquitectura recomendada (${platformLabels[res.winningPlatform]}) alivia ese dolor.
 - IMPORTANTE: TIENES ESTRICTAMENTE PROHIBIDO volver a pedir su correo, teléfono o nombre en todo el resto de la sesión. Ya sabemos quién es, atiende directamente sus dolores.`;
 
       updateSession({ phase: 'results', result: res });
@@ -161,12 +176,14 @@ INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
 
     } catch (err) {
       console.error(err);
+      alert('Error inesperado. Inténtalo más tarde.');
     } finally {
       setIsSending(false);
     }
   };
 
   const restartDiagnostic = () => {
+    sessionStorage.removeItem('diagnostico_v2');
     updateSession(defaultSession);
     window.scrollTo({ top: 0 });
   };
@@ -177,12 +194,14 @@ INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
   };
 
   if (!isMounted) return null;
+  if (renderError) return <div style={{padding: '3rem', color: 'red'}}><h1>Error Fatal (Frontend)</h1><pre>{renderError}</pre><button onClick={() => { sessionStorage.clear(); window.location.reload(); }}>Clear Session</button></div>;
 
-  return (
-    <div style={{ fontFamily: '"DM Sans", sans-serif', background: '#F2F1EC', color: '#1B2A4A', minHeight: '100vh', paddingBottom: '4rem' }}>
-      <style>{`
-        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
+  try {
+    return (
+      <div style={{ fontFamily: '"DM Sans", sans-serif', background: '#F2F1EC', color: '#1B2A4A', minHeight: '100vh', paddingBottom: '4rem' }}>
+        <style>{`
+          @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        `}</style>
       
       {/* Sticky Bar */}
       <div style={{ position: 'sticky', top: 0, zIndex: 100, background: '#1B2A4A', padding: '10px 2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -421,5 +440,11 @@ INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
 
       </div>
     </div>
-  );
+    );
+  } catch (err: any) {
+    if (!renderError) {
+      setTimeout(() => setRenderError(err?.message || String(err)), 0);
+    }
+    return null;
+  }
 }

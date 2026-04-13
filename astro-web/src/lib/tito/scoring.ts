@@ -42,7 +42,7 @@ export function calcularScore(signals: LeadSignals): number {
   if (signals.urgencia === 'alta') score += 15;
   else if (signals.urgencia === 'media') score += 5;
 
-  return Math.min(100, score);
+  return Math.min(100, Math.round(score));
 }
 
 /**
