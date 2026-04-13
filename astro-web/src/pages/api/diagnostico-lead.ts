@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
 import { Ratelimit } from '@upstash/ratelimit';
+import { PLATFORM_AXIS_ORDER } from '../../data/diagnosticoData';
 
 export const prerender = false;
 
@@ -36,15 +37,65 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const rawBody = await request.text();
-    if (!rawBody || rawBody.length > 5000) {
+    if (!rawBody || rawBody.length > 12000) {
       return new Response(JSON.stringify({ error: 'Payload body vacío o demasiado grande.' }), { status: 413 });
     }
     
-    const { email, scores, winningPlatform } = JSON.parse(rawBody);
+    const { email, stage, painProfile, platformScores, urgencyScore, winningPlatform } = JSON.parse(rawBody);
 
     if (!email || !email.includes('@')) {
       return new Response(JSON.stringify({ error: 'Email inválido.' }), { status: 400 });
     }
+
+    if (!platformScores || typeof platformScores !== 'object' || !painProfile || typeof painProfile !== 'object' || !winningPlatform) {
+      return new Response(JSON.stringify({ error: 'Payload incompleto.' }), { status: 400 });
+    }
+
+    const safeUrgency = Number(urgencyScore);
+    if (!isFinite(safeUrgency) || safeUrgency < 0 || safeUrgency > 100) {
+      return new Response(JSON.stringify({ error: 'Payload inválido.' }), { status: 400 });
+    }
+
+    // Validate platformScores
+    for (const [k, v] of Object.entries(platformScores)) {
+      const pScore = Number(v);
+      if (!isFinite(pScore) || pScore < 0 || pScore > 100) {
+         return new Response(JSON.stringify({ error: 'Valor numérico inválido en platformScores.' }), { status: 400 });
+      }
+      platformScores[k] = pScore;
+    }
+
+    // Validate painProfile
+    for (const [k, v] of Object.entries(painProfile)) {
+      const pScore = Number(v);
+      if (!isFinite(pScore) || pScore < 0 || pScore > 100) {
+         return new Response(JSON.stringify({ error: 'Valor numérico inválido en painProfile.' }), { status: 400 });
+      }
+      painProfile[k] = pScore;
+    }
+    
+    const axisLabels: Record<string, string> = {
+      lms_corp: "Gestión Corporativa y Talento",
+      lms_agil: "Despliegue Ágil y Microlearning",
+      fabrica_ddc: "Fábrica de Contenido y STPS",
+      lms_cert: "Certificación y Cumplimiento",
+      eval_proctor: "Evaluación Segura (Proctoring)",
+      vilt_zoom: "Formación en Vivo Síncrona",
+      ecommerce: "Venta de Cursos (E-commerce)",
+      tools_autor: "Herramientas de Autorización"
+    };
+
+    const sortedPlats = PLATFORM_AXIS_ORDER
+      .map(p => ({ id: p as string, score: platformScores[p as keyof typeof platformScores] || 0 }))
+      .sort((a, b) => b.score - a.score);
+
+    const motorInicial = sortedPlats[0];
+    const segundaCapa  = sortedPlats[1]?.score >= 40 ? sortedPlats[1] : null;
+
+    const displayPlatform = [
+      `${axisLabels[motorInicial.id] || motorInicial.id}`,
+      segundaCapa ? `${axisLabels[segundaCapa.id] || segundaCapa.id}` : null
+    ].filter(Boolean).join(' + ');
 
     // Rate Limiting Check (Anti-Doble Submit)
     const now = Date.now();
@@ -91,17 +142,28 @@ export const POST: APIRoute = async ({ request }) => {
       '<p>Un visitante ha completado el diagnóstico y está siendo transferido a TitoBits.</p>' +
       '<hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />' +
       '<p><strong>Email Institucional:</strong> ' + escapeHtml(email) + '</p>' +
-      '<p><strong>Plataforma Resultante:</strong> <span style="color:#D95A1E; font-weight:bold;">' + escapeHtml(winningPlatform) + '</span></p>' +
-      '<h3 style="color: #004775; margin-top: 20px;">Puntaje de 8 Ejes:</h3>' +
+      '<p><strong>Etapa Operativa:</strong> ' + escapeHtml(stage) + '</p>' +
+      '<p><strong>Índice de Urgencia (Pains):</strong> ' + safeUrgency + '%</p>' +
+      '<p><strong>Plataforma Resultante:</strong> <span style="color:#D95A1E; font-weight:bold;">' + escapeHtml(displayPlatform) + '</span></p>' +
+      '<h3 style="color: #004775; margin-top: 20px;">Puntaje de Plataformas (Afinidad %):</h3>' +
       '<ul style="line-height: 1.6; font-size: 14px;">' +
-      '<li>LMS Ágil: ' + (scores.lms_agil || 0) + '</li>' +
-      '<li>LMS Corporativo: ' + (scores.lms_corp || 0) + '</li>' +
-      '<li>Certificación Externa: ' + (scores.lms_cert || 0) + '</li>' +
-      '<li>Fábrica DDC: ' + (scores.fabrica_ddc || 0) + '</li>' +
-      '<li>Herramientas Autor: ' + (scores.tools_autor || 0) + '</li>' +
-      '<li>VILT Zoom: ' + (scores.vilt_zoom || 0) + '</li>' +
-      '<li>Eval/Proctoring: ' + (scores.eval_proctor || 0) + '</li>' +
-      '<li>E-commerce: ' + (scores.ecommerce || 0) + '</li>' +
+      '<li>LMS Ágil: ' + (platformScores.lms_agil || 0) + '%</li>' +
+      '<li>LMS Corporativo: ' + (platformScores.lms_corp || 0) + '%</li>' +
+      '<li>Certificación Externa: ' + (platformScores.lms_cert || 0) + '%</li>' +
+      '<li>Fábrica DDC: ' + (platformScores.fabrica_ddc || 0) + '%</li>' +
+      '<li>Herramientas Autor: ' + (platformScores.tools_autor || 0) + '%</li>' +
+      '<li>VILT Zoom: ' + (platformScores.vilt_zoom || 0) + '%</li>' +
+      '<li>Eval/Proctoring: ' + (platformScores.eval_proctor || 0) + '%</li>' +
+      '<li>E-commerce: ' + (platformScores.ecommerce || 0) + '%</li>' +
+      '</ul>' +
+      '<h3 style="color: #E53935; margin-top: 20px;">Perfil de Dolor (Pains %):</h3>' +
+      '<ul style="line-height: 1.6; font-size: 14px;">' +
+      '<li>Administrativo: ' + (painProfile.admin || 0) + '%</li>' +
+      '<li>Contenido: ' + (painProfile.contenido || 0) + '%</li>' +
+      '<li>Tecnología: ' + (painProfile.tecnologia || 0) + '%</li>' +
+      '<li>Normativa: ' + (painProfile.normativa || 0) + '%</li>' +
+      '<li>Escala: ' + (painProfile.escala || 0) + '%</li>' +
+      '<li>Monetización: ' + (painProfile.monetizacion || 0) + '%</li>' +
       '</ul>' +
       '<p style="margin-top: 20px; font-size: 12px; color: #666;">El lead se encuentra ahora mismo interactuando con TitoBits para armar su Business Case.</p>' +
       '</div>';
@@ -110,7 +172,7 @@ export const POST: APIRoute = async ({ request }) => {
     const { data, error } = await resend.emails.send({
       from: 'Tito Bits (Diagnóstico) <onboarding@resend.dev>',
       to: ['smasmoudi@taec.com.mx'], 
-      subject: `Lead Diagnóstico TAEC: ${escapeHtml(winningPlatform)} (${escapeHtml(email)})`,
+      subject: `Lead Diagnóstico TAEC: ${escapeHtml(displayPlatform)} (${escapeHtml(email)})`,
       html: emailHtml,
     });
 
@@ -120,16 +182,6 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // 2. Envío al Usuario Prospecto (quien hizo la prueba) - EL "HORÓSCOPO" DETALLADO
-    const axisLabels = {
-      lms_corp: "Gestión Corporativa y Talento",
-      lms_agil: "Despliegue Ágil y Microlearning",
-      fabrica_ddc: "Fábrica de Contenido y STPS",
-      lms_cert: "Certificación y Cumplimiento",
-      eval_proctor: "Evaluación Segura (Proctoring)",
-      vilt_zoom: "Formación en Vivo Síncrona",
-      ecommerce: "Venta de Cursos (E-commerce)",
-      tools_autor: "Herramientas de Autorización"
-    };
 
     const axisDescriptions = {
       lms_corp: "Requieres un motor robusto para mapear el organigrama y automatizar el plan de carrera de cientos de empleados.",
@@ -146,19 +198,20 @@ export const POST: APIRoute = async ({ request }) => {
     const secondaryList = [];
     const stableList = [];
 
-    // Categorización Semáforo
-    for (const [key, value] of Object.entries(scores)) {
-      if (value >= 3) urgentList.push(key);
-      else if (value >= 1) secondaryList.push(key);
+    // Categorización Semáforo (basada en % de afinidad)
+    for (const [key, value] of Object.entries(platformScores)) {
+      const pScore = value as number;
+      if (pScore >= 70) urgentList.push(key);
+      else if (pScore >= 40) secondaryList.push(key);
       else stableList.push(key);
     }
 
-    const buildListHtml = (list, color, colorHex) => {
+    const buildListHtml = (list: string[], color: string, colorHex: string) => {
       if (list.length === 0) return `<p style="font-size: 13px; color: #6B7280; font-style: italic; margin-left: 15px;">Ningún rubro detectado en este nivel.</p>`;
       return list.map(k => `
         <div style="margin-bottom: 12px; border-left: 4px solid ${colorHex}; padding-left: 12px; background: #fff; padding-top: 5px; padding-bottom: 5px;">
-          <strong style="color: #1B2A4A; font-size: 14px;">${axisLabels[k] || k}</strong>
-          <p style="margin: 4px 0 0 0; font-size: 13px; color: #4A4A5A;">${axisDescriptions[k] || ''}</p>
+          <strong style="color: #1B2A4A; font-size: 14px;">${axisLabels[k as keyof typeof axisLabels] || k}</strong>
+          <p style="margin: 4px 0 0 0; font-size: 13px; color: #4A4A5A;">${axisDescriptions[k as keyof typeof axisDescriptions] || ''}</p>
         </div>
       `).join('');
     };
@@ -167,28 +220,19 @@ export const POST: APIRoute = async ({ request }) => {
     const quickChartUrl = `https://quickchart.io/chart?width=500&height=400&c=` + encodeURIComponent(JSON.stringify({
       type: 'radar',
       data: {
-        labels: ["Gestión Corporativa", "Ágil/Microlearning", "Fábrica DDC (STPS)", "Certificaciones", "Proctoring Seguro", "Clases VIRT/Zoom", "Ecommerce / Venta", "Herramientas de Autor"],
+        labels: PLATFORM_AXIS_ORDER.map(k => axisLabels[k]),
         datasets: [{
           label: 'Afinidad a dolor',
           backgroundColor: 'rgba(10, 122, 112, 0.4)',
           borderColor: 'rgb(10, 122, 112)',
           pointBackgroundColor: 'rgb(10, 122, 112)',
-          data: [
-            scores.lms_corp || 0,
-            scores.lms_agil || 0,
-            scores.fabrica_ddc || 0,
-            scores.lms_cert || 0,
-            scores.eval_proctor || 0,
-            scores.vilt_zoom || 0,
-            scores.ecommerce || 0,
-            scores.tools_autor || 0
-          ]
+          data: PLATFORM_AXIS_ORDER.map(k => platformScores[k] || 0)
         }]
       },
       options: {
         legend: { display: false },
         scale: {
-          ticks: { beginAtZero: true, max: 5, display: false },
+          ticks: { beginAtZero: true, max: 100, display: false },
           pointLabels: { fontSize: 13, fontColor: '#4A4A5A' }
         }
       }
@@ -203,7 +247,7 @@ export const POST: APIRoute = async ({ request }) => {
         </div>
 
         <div style="padding: 30px;">
-          <h3 style="color: #1B2A4A; font-size: 20px; margin-top: 0;">Veredicto de Arquitectura: <span style="color: #D95A1E;">${escapeHtml(winningPlatform)}</span></h3>
+          <h3 style="color: #1B2A4A; font-size: 20px; margin-top: 0;">Veredicto de Arquitectura: <span style="color: #D95A1E;">${escapeHtml(displayPlatform)}</span></h3>
           <p style="color: #4A4A5A; font-size: 15px; line-height: 1.6;">
             Hemos analizado las intersecciones críticas de tu operación. Debido a tus restricciones de volumen, urgencias normativas y la forma en la que tus colaboradores acceden a la formación, este es tu ecosistema dominante. Es el "motor" sobre el cual debes montar tu academia para evitar retrabajos en los próximos meses.
           </p>
@@ -273,7 +317,7 @@ export const POST: APIRoute = async ({ request }) => {
         // que coincida con un dominio permitido o si Resend ya abrió la validación de dominio de produción.
         from: 'TAEC Consultoría <onboarding@resend.dev>',
         to: [email],
-        subject: `Resultados de tu Arquitectura: ${escapeHtml(winningPlatform)}`,
+        subject: `Resultados de tu Arquitectura: ${escapeHtml(displayPlatform)}`,
         html: prospectHtml,
       });
     } catch (prospectErr) {

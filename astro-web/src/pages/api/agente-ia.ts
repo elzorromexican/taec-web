@@ -8,9 +8,9 @@ import { titoKnowledgeBase } from '../../data/titoKnowledgeBase';
 import { promos } from '../../data/promos';
 import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
 import { evaluateMessageForEscalation } from '../../lib/tito/rules';
-import { calcularScore, determinarHandoff } from '../../lib/tito/scoring';
+
 import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
-import { extractLeadSignalsConIA } from '../../lib/tito/signalExtractor';
+
 
 const getSafeEnv = (k: string) => {
   if (typeof process !== 'undefined' && process.env && process.env[k]) {
@@ -109,8 +109,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }));
     }
 
+    const isDiagnostic = typeof currentPath === 'string' && currentPath.toLowerCase().includes('diagnostico');
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
-    if (sessionId !== 'anonymous-session') {
+    if (sessionId !== 'anonymous-session' && !isDiagnostic) {
       const { data: existingLead } = await supabase
         .from('tito_leads')
         .select('*')
@@ -177,55 +178,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
       // Evaluamos escalamiento y reglas FASE 2
       const escalationCheck = evaluateMessageForEscalation(userMessage);
 
-      // Solo detonamos extracción LLM profunda y handoff bloqueante ante intenciones fuertes 'ESCALATE'
       if (escalationCheck === 'ESCALATE') {
-         // 1. Guardar de forma sincrónica rápida el state para evitar race conditions
-         const fastScore = 50;
-         const fastHandoff = 'ventas';
-         
-         await supabase.from('tito_leads').upsert([
+        await supabase.from('tito_leads').upsert([
           {
             session_id: sessionId,
-            score: fastScore,
-            minibrief: `[Fast-Track] Escalamiento detonado. Esperando extracción en background... Mensaje: ${userMessage.substring(0, 100)}...`,
-            handoff_tipo: fastHandoff,
+            score: 50,
+            minibrief: `Escalamiento por keywords. Mensaje: ${userMessage.substring(0, 100)}`,
+            handoff_tipo: 'ventas',
             handoff_triggered: true,
             email: null,
             awaiting_contact: true
           }
-         ], { onConflict: 'session_id' });
+        ], { onConflict: 'session_id' });
 
-         // 2. Ejecución Paralela: Extracción vía Gemini Structured Output para clasificar el Lead sin colgar el TTFB
-         const runExtraction = async () => {
-             try {
-                 const signals = await extractLeadSignalsConIA(userMessage, safeHistory, apiKey!);
-                 const exactScore = calcularScore(signals);
-                 const exactHandoff = determinarHandoff(signals, exactScore) || fastHandoff;
-                 
-                 const minibriefFinal = `[IA Extracted | ${signals.extraction_latency_ms}ms | Conf: ${signals.extraction_confidence}%] Score: ${exactScore}. Interés: ${signals.productos_interes.join(', ') || 'N/A'}. Asientos: ${signals.seats_mencionados || 'N/A'}. Requiere integración: ${signals.requiere_integracion}. Orig: ${userMessage.substring(0, 50)}...`;
-
-                 await supabase.from('tito_leads').update({
-                     score: exactScore,
-                     handoff_tipo: exactHandoff,
-                     minibrief: minibriefFinal
-                 }).eq('session_id', sessionId);
-             } catch(err) {
-                 console.error("Error en task paralela de extracción:", err);
-             }
-         };
-
-         // Si estamos en Netlify Edge usa waitUntil, si no fire-and-forget en Node.
-         if (locals?.netlify?.context?.waitUntil) {
-             locals.netlify.context.waitUntil(runExtraction());
-         } else {
-             runExtraction(); 
-         }
-
-         return new Response(JSON.stringify({
-          // Retornamos instantáneamente para fluidez UX
+        return new Response(JSON.stringify({
           reply: "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?",
-          handoff_tipo: fastHandoff,
-          score: fastScore,
+          handoff_tipo: 'ventas',
+          score: 50,
           awaiting_contact: true
          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
@@ -258,8 +227,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       ? pageContext.h1.replace(/[<>]/g, '').substring(0, 150) : '';
 
 
-
     const isMexico = countryCode === 'MX';
+
 
     const artPromo = promos.find(p => p.active && p.urlTrigger === 'articulate' && p.countries.includes('MX'));
     const dynamicArtPrice = (artPromo as any)?.price || (artPromo ? artPromo.title.match(/\$[\d,]+ USD/)?.[0] || '$1,198 USD' : '$1,198 USD');
@@ -333,14 +302,22 @@ Solo pide datos de contacto cuando:
 → Volumen 100+ seats
 → Cliente pregunta por renovación o contrato existente
 
-REGLA LMS Y SERVICIOS:
+${isDiagnostic 
+  ? `REGLA DE CONSULTORÍA DIAGNÓSTICO (ESTADO ACTUAL):
+El prospecto ya viene del motor de diagnóstico y ya tenemos sus datos.
+TU OBJETIVO ES CONTINUAR COMO CONSULTOR EXPERTO TÉCNICO.
+→ Profundiza en los detalles arquitectónicos de su caso.
+→ NO recortes la charla diciendo "un humano analizará esto y te contactará" prematuramente.
+→ Desarrolla y justifica por qué la segunda o tercer capa de la arquitectura recomendada hace sentido para ellos.
+→ Aporta verdadero valor consultivo y mantén el diálogo abierto para dudas técnicas.`
+  : `REGLA LMS Y SERVICIOS:
 Si el usuario menciona: LMS, Totara, Moodle, NetExam, DDC,
 desarrollo a la medida, implementación, o volumen 100+ usuarios:
 → DETÉN las preguntas de calificación
 → Responde: "Para este tipo de proyecto, el dimensionamiento
   es muy específico. ¿Me confirmas tu nombre, empresa y correo
   para que un especialista TAEC te contacte hoy?"
-→ NO sigas haciendo preguntas técnicas
+→ NO sigas haciendo preguntas técnicas`}
 
 REGLA RECHAZO DE DATOS:
 Si el usuario dice que no quiere dar sus datos o información
@@ -352,11 +329,13 @@ de contacto, responde EXACTAMENTE esto (sin modificar):
 
 No agregues nada más. No sigas intentando capturar datos.
 
-REGLAS DE CONVERSIÓN B2B (CAPTURA DE LEADS):
-- CÓMO PEDIR DATOS: Si el prospecto entra por la web general, dile: "Por favor, escribe aquí mismo en el chat tu correo corporativo...". PERO si el prospecto viene del DIAGNÓSTICO (ya leíste su correo en el sistema), JAMÁS LE VUELVAS A PEDIR EL CORREO O TELÉFONO. 
+${!isDiagnostic ? `REGLAS DE CONVERSIÓN B2B (CAPTURA DE LEADS):
+- CÓMO PEDIR DATOS: Si el prospecto entra por la web general, dile: "Por favor, escribe aquí mismo en el chat tu correo corporativo...".
 - CONFIRMACIÓN: Al recibir datos, confírmalos explícitamente: *"¡Excelente! He registrado tus datos de forma segura."*
 - CANDADO ANTI-BUCLE INFALIBLE: Si notas que estás dando vueltas en círculo realizando las mismas preguntas, O si el usuario te responde con que ya te dio la respuesta, O si te responde agresivamente/harto, TIENES ESTRICTAMENTE PROHIBIDO volver a preguntar. Debes dar el chat por CASI CONCLUIDO diciendo: *"Entendido perfectamente. Con esta información ya tengo el panorama completo de tu caso. Un especialista humano analizará esto y te contactará a la brevedad con la ruta exacta. ¿Queda alguna otra duda técnica que pueda resolver por ti hoy?"*
-- REGLA ANTI-REPETICIÓN ESTRICTA: Si el usuario te responde dándote un dato personal (nombre, email, empresa) en lugar de responder a tus preguntas técnicas, TIENES TOTALMENTE PROHIBIDO volver a imprimirle la misma lista de preguntas (bullet points) que le enviaste en el mensaje anterior. Simplemente confirma la recepción de sus datos y haz solo UNA pregunta conversacional corta para retomar la plática o asume el escenario para avanzar y darle una recomendación. No seas un robot insistente.
+- REGLA ANTI-REPETICIÓN ESTRICTA: Si el usuario te responde dándote un dato personal (nombre, email, empresa) en lugar de responder a tus preguntas técnicas, TIENES TOTALMENTE PROHIBIDO volver a imprimirle la misma lista de preguntas (bullet points) que le enviaste en el mensaje anterior. Simplemente confirma la recepción de sus datos y haz solo UNA pregunta conversacional corta para retomar la plática o asume el escenario para avanzar y darle una recomendación. No seas un robot insistente.` : `REGLAS DE CONTINUIDAD DIAGNÓSTICO (CHALLENGER):
+- MANTÉN LA PERSISTENCIA CONSULTIVA: NUNCA utilices respuestas enlatadas de finalización como "un especialista humano analizará esto". ERES el Consultor. 
+- SI EL USUARIO RESPONDE CORTO (ej. "es todo" o "no"): En lugar de cerrar el chat, reta al usuario amigablemente sobre su radiografía ("Entiendo, solo recuerda que tu falta de integración actual podría causar un cuello de botella con esos 1500 usuarios. ¿Han considerado cómo mitigar esto?"). Mantén el framework Challenger vivo.`}
 
 ==================================================
 BASE DE CONOCIMIENTO CENTRALIZADA (CEREBRO B2B):
@@ -455,11 +434,11 @@ Toda referencia externa debe construir el caso hacia TAEC.
     if (!restRes.ok) {
        const errBody = await restRes.text().catch(() => '');
        const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
-       console.error("API Error Debug Key:", debugKey);
+       console.error("API Error Debug Key:", debugKey, "Body:", errBody);
        
        const mockStream = new ReadableStream({
          start(controller) {
-           const payload = `event: error\ndata: ${JSON.stringify({ text: `[System Interruption] API Error ${restRes.status}: Error de conectividad en capa semántica.` })}\n\n`;
+           const payload = `event: error\ndata: ${JSON.stringify({ text: `[System Interruption] API Error ${restRes.status}` })}\n\n`;
            controller.enqueue(new TextEncoder().encode(payload));
            controller.close();
          }
@@ -542,9 +521,8 @@ Toda referencia externa debe construir el caso hacia TAEC.
           sendEvent('done', { totalTime, ttfb: firstTokenTime });
 
         } catch (e: any) {
-          console.error("Stream error:", e);
           const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
-          console.error("Stream Error Debug Key:", debugKey);
+          console.error("Stream error:", e, "Debug Key:", debugKey);
           sendEvent('error', { text: `[System Interruption] ${e.message || "Stream cerrado abruptamente."}` });
         } finally {
           controller.close();

@@ -1,163 +1,238 @@
-import React, { useState, useMemo } from 'react';
-import type { Dimension, Question } from '../../data/diagnosticoData';
-import { dimensions } from '../../data/diagnosticoData';
+import React, { useState, useEffect, useMemo } from 'react';
+import { stages } from '../../data/diagnosticoData';
+import type { StageId, PainLevel, DiagnosticStage, PainAxis, PlatformId } from '../../data/diagnosticoData';
+import { PLATFORM_AXIS_ORDER } from '../../data/diagnosticoData';
+import { calcularDiagnostico, type DiagnosticResult } from '../../lib/diagnostico/diagnosticoScoring';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
-type Platforms = 'lms_agil' | 'lms_corp' | 'lms_cert' | 'fabrica_ddc' | 'tools_autor' | 'vilt_zoom' | 'eval_proctor' | 'ecommerce';
-type Answer = 'yes' | 'no' | null;
+type AppPhase = 'p0' | 'questions' | 'email_gate' | 'results';
 
-interface AnswerState {
-  val: Answer;
-  insightPlat: Platforms | null;
+interface DiagnosticSession {
+  phase: AppPhase;
+  stage: StageId | null;
+  answers: Record<string, PainLevel>;
+  email: string;
+  result: DiagnosticResult | null;
 }
 
-export default function DiagnosticoApp() {
-  const [answers, setAnswers] = useState<Record<string, AnswerState>>({});
-  const [email, setEmail] = useState('');
-  const [emailSent, setEmailSent] = useState(false);
-  const [isSending, setIsSending] = useState(false);
-  const [currentDimIndex, setCurrentDimIndex] = useState(0);
-  const [activeInsight, setActiveInsight] = useState<string | null>(null);
+const defaultSession: DiagnosticSession = {
+  phase: 'p0',
+  stage: null,
+  answers: {},
+  email: '',
+  result: null
+};
 
-  const handleAnswer = (dimIndex: number, qIndex: number, val: Answer, plat: Platforms | null) => {
-    const key = `${dimIndex}-${qIndex}`;
-    setAnswers(prev => ({
-      ...prev,
-      [key]: { val, insightPlat: plat }
-    }));
-    setActiveInsight(key);
+const platformLabels: Record<PlatformId, string> = {
+  lms_agil: "LMS Ágil",
+  lms_corp: "LMS Corp",
+  lms_cert: "Externa/Cert",
+  fabrica_ddc: "Fábrica DDC",
+  tools_autor: "Herramientas",
+  vilt_zoom: "VILT/Zoom",
+  eval_proctor: "Proctoring",
+  ecommerce: "E-Commerce"
+};
+
+const painLabels: Record<PainAxis, string> = {
+  admin: "Administrativo",
+  contenido: "Contenido",
+  tecnologia: "Tecnología",
+  normativa: "Normativo",
+  escala: "Escala",
+  monetizacion: "Monetización"
+};
+
+export default function DiagnosticoApp() {
+  const [isMounted, setIsMounted] = useState(false);
+  const [session, setSession] = useState<DiagnosticSession>(defaultSession);
+  const [isSending, setIsSending] = useState(false);
+  const [activeInsight, setActiveInsight] = useState<string | null>(null);
+  const [renderError, setRenderError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get('reset') === '1') {
+        sessionStorage.removeItem('diagnostico_v2');
+        window.history.replaceState({}, document.title, window.location.pathname);
+        return;
+      }
+    } catch (_) {}
+
+    const stored = sessionStorage.getItem('diagnostico_v2');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === 'object') {
+           setSession({
+             ...defaultSession,
+             ...parsed,
+             answers: parsed.answers || {}
+           });
+        }
+      } catch (e) { 
+        console.error("Session storage parse error", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      sessionStorage.setItem('diagnostico_v2', JSON.stringify(session));
+    }
+  }, [session, isMounted]);
+
+  const updateSession = (partial: Partial<DiagnosticSession>) => {
+    setSession(prev => ({ ...prev, ...partial }));
+    setActiveInsight(null);
   };
 
-  const totalQuestions = dimensions.reduce((acc, dim) => acc + dim.questions.length, 0);
-  const totalAnswered = Object.keys(answers).length;
-  const pct = Math.round((totalAnswered / totalQuestions) * 100);
+  const currentStage = useMemo(() => stages.find(s => s.id === session.stage) || null, [session.stage]);
 
-  const isFinished = currentDimIndex === dimensions.length;
-
-  const currentDimQuestions = !isFinished ? dimensions[currentDimIndex].questions : [];
-  const isCurrentDimComplete = !isFinished && currentDimQuestions.every((_, qi) => {
-    return answers[`${currentDimIndex}-${qi}`] !== undefined;
-  });
-
-  const nextDimension = () => {
-    setCurrentDimIndex(prev => prev + 1);
-    setActiveInsight(null);
+  const handleStageSelect = (stageId: StageId) => {
+    updateSession({ phase: 'questions', stage: stageId, answers: {}, result: null });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const resetDiagnostic = () => {
-    setAnswers({});
-    setEmail('');
-    setEmailSent(false);
-    setCurrentDimIndex(0);
-    setActiveInsight(null);
-    window.scrollTo({ top: 0 });
-  };
-
-  const displayDimNum = isFinished ? 5 : currentDimIndex + 1;
-
-  // Calculate scores (Baseline 1 to prevent empty radar)
-  const scores = useMemo(() => {
-    const s = { 
-      lms_agil: 1, lms_corp: 1, lms_cert: 1, 
-      fabrica_ddc: 1, tools_autor: 1, vilt_zoom: 1, 
-      eval_proctor: 1, ecommerce: 1 
-    };
-    Object.values(answers).forEach((ans) => {
-      if (ans.val === 'yes' && ans.insightPlat) {
-        s[ans.insightPlat]++;
+  const handleLevelSelect = (questionId: string, level: PainLevel) => {
+    setSession(prev => ({
+      ...prev,
+      answers: {
+        ...prev.answers,
+        [questionId]: level
       }
-    });
-    return s;
-  }, [answers]);
-
-  const maxScore = Math.max(...Object.values(scores), 1); // Avoid 0
-
-  const platNames = {
-    lms_agil: "Ecosistema LMS Ágil",
-    lms_corp: "Arquitectura LMS Corporativa",
-    lms_cert: "Sistema de Certificación Externa",
-    fabrica_ddc: "Servicio de Fábrica DDC",
-    tools_autor: "Suite de Herramientas de Autor",
-    vilt_zoom: "Ecosistema Sincrónico (VILT)",
-    eval_proctor: "Sistema de Evaluación y Proctoring",
-    ecommerce: "Acelerador E-Commerce Educativo"
+    }));
+    setActiveInsight(questionId);
   };
 
-  const platPriority: Platforms[] = [
-    'lms_corp', 'fabrica_ddc', 'tools_autor', 'lms_cert',
-    'eval_proctor', 'ecommerce', 'vilt_zoom', 'lms_agil'
-  ];
-  const winningPlatformId = (Object.keys(scores) as Platforms[]).reduce((a, b) => {
-    if (scores[b] > scores[a]) return b;
-    if (scores[b] === scores[a]) return platPriority.indexOf(b) < platPriority.indexOf(a) ? b : a;
-    return a;
-  });
-  const winningPlatformName = platNames[winningPlatformId];
+  const isCurrentStageComplete = useMemo(() => {
+    if (!currentStage) return false;
+    return currentStage.questions.every(q => session.answers[q.id] !== undefined);
+  }, [currentStage, session.answers]);
 
-  const chartData = [
-    { subject: 'LMS Ágil', A: scores.lms_agil, fullMark: 6 },
-    { subject: 'LMS Corporativo', A: scores.lms_corp, fullMark: 6 },
-    { subject: 'Externa/Cert', A: scores.lms_cert, fullMark: 6 },
-    { subject: 'Fábrica DDC', A: scores.fabrica_ddc, fullMark: 6 },
-    { subject: 'Herramientas', A: scores.tools_autor, fullMark: 6 },
-    { subject: 'Clases Zoom', A: scores.vilt_zoom, fullMark: 6 },
-    { subject: 'Evaluaciones', A: scores.eval_proctor, fullMark: 6 },
-    { subject: 'E-Commerce', A: scores.ecommerce, fullMark: 6 },
-  ];
+  const pct = useMemo(() => {
+    if (!currentStage) return 0;
+    const answered = Object.keys(session.answers).length;
+    const total = currentStage.questions.length;
+    return total === 0 ? 0 : Math.round((answered / total) * 100);
+  }, [currentStage, session.answers]);
+
+  const goToEmailGate = () => {
+    updateSession({ phase: 'email_gate' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !email.includes('@')) return;
+    if (!session.email || !session.email.includes('@') || !currentStage) return;
 
     setIsSending(true);
 
     try {
+      const res = calcularDiagnostico(
+        { stage: session.stage!, answers: session.answers },
+        currentStage.questions
+      );
+
       // Enviar el lead al backend
-      await fetch('/api/diagnostico-lead', {
+      const apiRes = await fetch('/api/diagnostico-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, scores, winningPlatform: winningPlatformName })
+        body: JSON.stringify({ 
+          email: session.email, 
+          stage: session.stage,
+          painProfile: res.painProfile,
+          platformScores: res.platformScores,
+          urgencyScore: res.urgencyScore,
+          winningPlatform: res.winningPlatform
+        })
       });
 
-      setEmailSent(true);
+      if (!apiRes.ok) {
+        alert('Error conectando al sistema. Por favor revisa los datos e intenta de nuevo.');
+        return;
+      }
 
-      // Extraer los "Dolores" críticos donde el prospecto respondió Sí (para inyectarlo al IA)
-      const userSummary = Object.keys(answers)
-        .filter(key => answers[key].val === 'yes')
-        .map(key => {
-          const [dIdx, qIdx] = key.split('-');
-          return dimensions[dIdx as any].questions[qIdx as any].text;
-        });
+      // Extraer todas las respuestas para análisis crítico
+      const fullQA = Object.entries(session.answers).map(([id, val]) => {
+        const q = currentStage.questions.find(x => x.id === id);
+        const intensity = val === 2 ? 'CRÍTICO' : val === 1 ? 'MODERADO' : 'CONTROLADO';
+        return `[${intensity}] - ${q?.text}`;
+      }).join('\n');
 
-      // System Prompt Oculto para TitoBits ("Sacar Sopa" consultivamente)
-      const prompt = `El prospecto con correo [${email}] acaba de completar su Diagnostico de TAEC con mayores puntajes en: [${winningPlatformName}].
-El prospecto afirmó positivamente tener los siguientes desafíos exactos en su operación actual: 
-"${userSummary.join('", "')}"
+      const sortedPlats = PLATFORM_AXIS_ORDER
+        .map(p => ({ id: p, score: res.platformScores[p] || 0 }))
+        .sort((a, b) => b.score - a.score);
+
+      const motorInicial = sortedPlats[0]; // siempre existe
+      const segundaCapa  = sortedPlats[1]?.score >= 40 ? sortedPlats[1] : null;
+      const evolucion    = sortedPlats[2]?.score >= 25 ? sortedPlats[2] : null;
+
+      const arquitectura = [
+        `motor inicial: ${platformLabels[motorInicial.id]}`,
+        segundaCapa ? `segunda capa: ${platformLabels[segundaCapa.id]}` : null,
+      ].filter(Boolean).join(' · ');
+
+      // System Prompt Oculto para TitoBits - MODO CHALLENGER
+      const prompt = `El prospecto con correo [${session.email}] acaba de completar su Diagnostico de TAEC. Etapa: ${session.stage}.
+Resultados:
+- Arquitectura recomendada: ${arquitectura}
+- Puntuación de urgencia: ${res.urgencyScore}%
+- Top Ejes de Dolor: ${res.topPains.join(', ')}
+
+RADIOGRAFÍA EXACTA DE SUS RESPUESTAS (10 preguntas):
+${fullQA}
 
 INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
-- NO SAlUDES CON FRASES TÍPICAS O REPETITIVAS. Usa un enfoque consultivo agresivo y humano. Toma UNO de los dolores reales que el usuario acaba de aceptar de la lista de arriba y ábrele conversación sobre eso. 
-- Por ejemplo, si aceptó tener audiencias de diferentes países, dile "Cerraste tus respuestas diciendo que tienes alumnos globales...".
-- Si aceptó que requieren cumplimiento regulatorio estricto, profundiza diciendo "¿Qué auditoría o NOM los está persiguiendo?" o "Veo que traen urgencia por regulaciones externas".
-- IMPORTANTE: TIENES ESTRICTAMENTE PROHIBIDO volver a pedir su correo, teléfono o nombre en todo el resto de la sesión. Ya sabemos quién es y su correo, no lo fastidies con burocracia.`;
+Eres una herramienta consultiva inteligente. Tu trabajo post-diagnóstico es:
+1. Buscar CONTRADICCIONES si existen (ej. "Me llama la atención que marcaste [Pregunta A] como Controlado, pero tienes un problema CRÍTICO en [Pregunta B]. ¿Dónde se está rompiendo el proceso?").
+2. Aclarar GAPS operativos usando como marco de referencia la arquitectura recomendada (${arquitectura}).
+3. Ampliar la perspectiva de sus dolores para que se dé cuenta del costo de no actuar.
 
-      // Disparar evento para que ChatAgent inyecte el prompt y abra
+REGLAS ESTRICTAS DE APERTURA Y CHARLA:
+- NO SALUDES COMO BOT GENÉRICO ("Hola, soy Tito y acabo de leer..."). Ve directo al hueso como un consultor Sr. viendo la radiografía.
+- Toma sus respuestas específicas y RÉTALO. 
+- Demuestra que LEÍSTE y analizaste sus 10 respuestas.
+- IMPORTANTE: TIENES ESTRICTAMENTE PROHIBIDO volver a pedir su correo, teléfono o nombre en esta sesión. Oblígate a mantener el diálogo profundo sobre sus problemas y arquitectura.`;
+
+      updateSession({ phase: 'results', result: res });
+
       window.dispatchEvent(new CustomEvent('OpenTitoDiagnostic', {
-        detail: { email, diagnosticResult: winningPlatformName, prompt }
+        detail: { email: session.email, diagnosticResult: res.winningPlatform, prompt }
       }));
 
     } catch (err) {
       console.error(err);
+      alert('Error inesperado. Inténtalo más tarde.');
     } finally {
       setIsSending(false);
     }
   };
 
-  return (
-    <div style={{ fontFamily: '"DM Sans", sans-serif', background: '#F2F1EC', color: '#1B2A4A', minHeight: '100vh', paddingBottom: '4rem' }}>
-      <style>{`
-        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
+  const restartDiagnostic = () => {
+    sessionStorage.removeItem('diagnostico_v2');
+    updateSession(defaultSession);
+    window.scrollTo({ top: 0 });
+  };
+
+  const changeStage = () => {
+    updateSession({ phase: 'p0', stage: null, answers: {}, result: null });
+    window.scrollTo({ top: 0 });
+  };
+
+  if (!isMounted) return null;
+  if (renderError) return <div style={{padding: '3rem', color: 'red'}}><h1>Error Fatal (Frontend)</h1><pre>{renderError}</pre><button onClick={() => { sessionStorage.clear(); window.location.reload(); }}>Clear Session</button></div>;
+
+  try {
+    return (
+      <div style={{ fontFamily: '"DM Sans", sans-serif', background: '#F2F1EC', color: '#1B2A4A', minHeight: '100vh', paddingBottom: '4rem' }}>
+        <style>{`
+          @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        `}</style>
+      
       {/* Sticky Bar */}
       <div style={{ position: 'sticky', top: 0, zIndex: 100, background: '#1B2A4A', padding: '10px 2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <div style={{ fontFamily: '"Fraunces", serif', fontSize: '14px', fontWeight: 600, color: 'white', flexShrink: 0 }}>
@@ -165,169 +240,259 @@ INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '12px', color: 'rgba(255,255,255,0.6)', textAlign: 'right', marginBottom: '3px' }}>
-            {pct}% completado
+            {session.phase === 'p0' ? '0% completado' : `${pct}% completado`}
           </div>
           <div style={{ height: '4px', background: 'rgba(255,255,255,0.15)', borderRadius: '2px', overflow: 'hidden' }}>
-            <div style={{ height: '100%', background: '#80DDD5', borderRadius: '2px', transition: 'width 0.4s ease', width: `${pct}%` }} />
+            <div style={{ height: '100%', background: '#80DDD5', borderRadius: '2px', transition: 'width 0.4s ease', width: `${session.phase === 'p0' ? 0 : pct}%` }} />
           </div>
         </div>
-        <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '11px', color: '#80DDD5', flexShrink: 0, whiteSpace: 'nowrap' }}>
-          Dimensión {displayDimNum} / 5
+        <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '11px', color: '#80DDD5', flexShrink: 0, whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {session.stage && (
+            <button onClick={changeStage} style={{ background: 'transparent', border: '1px solid rgba(128, 221, 213, 0.4)', color: '#80DDD5', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', cursor: 'pointer', transition: 'background 0.2s' }}>
+              Cambiar etapa
+            </button>
+          )}
+          <span>Etapa: {currentStage ? currentStage.label : 'Sin seleccionar'}</span>
         </div>
       </div>
 
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem' }}>
+        {session.phase === 'p0' && (
+          <div style={{ textAlign: 'center', animation: 'fadeSlideIn 0.5s ease', marginTop: '2rem' }}>
+            <h1 style={{ fontFamily: '"Fraunces", serif', fontSize: '36px', color: '#1B2A4A', marginBottom: '1rem' }}>Selecciona tu Nivel Operativo</h1>
+            <p style={{ fontSize: '16px', color: '#4A4A5A', marginBottom: '3rem', maxWidth: '600px', margin: '0 auto 3rem' }}>
+              Para ofrecerte un diagnóstico preciso y contextualizado, necesitamos clasificar la madurez y alcance inicial de tus necesidades de digitalización de conocimiento.
+            </p>
 
-        {!isFinished ? (
-          /* Preguntas y Dimensiones (WIZARD MODE) */
-          (() => {
-            const di = currentDimIndex;
-            const dim = dimensions[di];
-            return (
-              <div key={di} style={{ marginBottom: '3rem', animation: 'fadeSlideIn 0.5s ease-out' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '2px solid #1B2A4A' }}>
-                  <div style={{ fontFamily: '"Fraunces", serif', fontSize: '42px', fontWeight: 300, fontStyle: 'italic', color: '#C8C8D4', lineHeight: 1, flexShrink: 0 }}>
-                    {dim.num}
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#4A4A5A', marginBottom: '3px' }}>{dim.eyebrow}</div>
-                    <div style={{ fontFamily: '"Fraunces", serif', fontSize: '22px', fontWeight: 600, color: '#1B2A4A', lineHeight: 1.2 }}>{dim.title}</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', textAlign: 'left' }}>
+              {stages.map(st => (
+                <div key={st.id} 
+                     onClick={() => handleStageSelect(st.id as StageId)}
+                     style={{ background: '#FFFFFF', padding: '2rem', borderRadius: '12px', border: '1.5px solid #C8C8D4', cursor: 'pointer', transition: 'all 0.2s', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column' }}
+                     onMouseEnter={e => e.currentTarget.style.borderColor = '#0A7A70'}
+                     onMouseLeave={e => e.currentTarget.style.borderColor = '#C8C8D4'}>
+                  <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '11px', color: '#0A7A70', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 600 }}>{st.eyebrow}</div>
+                  <h2 style={{ fontFamily: '"Fraunces", serif', fontSize: '24px', color: '#1B2A4A', marginBottom: '1rem' }}>{st.label}</h2>
+                  <p style={{ fontSize: '14px', color: '#4A4A5A', lineHeight: 1.5, marginBottom: '1.5rem', flex: 1 }}>{st.description}</p>
+                  <div style={{ fontSize: '12px', background: '#F4FBF9', color: '#0A7A70', padding: '8px 12px', borderRadius: '6px', fontWeight: 500, alignSelf: 'flex-start' }}>
+                    {st.examples}
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {dim.questions.map((q, qi) => {
-                    const id = `${di}-${qi}`;
-                    const ans = answers[id]?.val;
-                    const isAnswered = ans !== undefined;
-                    const globalNum = dimensions.slice(0, di).reduce((a, d) => a + d.questions.length, 0) + qi + 1;
-
-                    return (
-                      <div key={id}
-                        onClick={() => isAnswered && setActiveInsight(activeInsight === id ? null : id)}
-                        style={{
-                          background: isAnswered ? '#F4FBF9' : '#FFFFFF',
-                          border: isAnswered ? '1.5px solid #0A7A70' : '1.5px solid #C8C8D4',
-                          borderRadius: '8px', overflow: 'hidden', transition: 'border-color 0.2s',
-                          cursor: isAnswered ? 'pointer' : 'default'
-                        }}>
-                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 16px' }}>
-                          <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '12px', fontWeight: 500, color: isAnswered ? '#0A7A70' : '#C8C8D4', flexShrink: 0, minWidth: '28px', marginTop: '2px' }}>
-                            {String(globalNum).padStart(2, '0')}
-                          </div>
-                          <div style={{ flex: 1 }}>
-                            <div style={{ fontSize: '15px', fontWeight: 400, color: isAnswered ? '#0A7A70' : '#1B2A4A', lineHeight: 1.4, marginBottom: '4px' }}>{q.text}</div>
-                            <div style={{ fontSize: '12px', color: '#4A4A5A', fontWeight: 300, fontStyle: 'italic' }}>{q.why}</div>
-                          </div>
-                          <div style={{ display: 'flex', gap: '6px', flexShrink: 0, marginTop: '2px' }}>
-                            <button onClick={(e) => { e.stopPropagation(); handleAnswer(di, qi, 'yes', q.insight.plat); }} title="Sí"
-                              style={{ width: '28px', height: '28px', borderRadius: '5px', border: ans === 'yes' ? '1.5px solid #0A7A70' : '1.5px solid #C8C8D4', background: ans === 'yes' ? '#0A7A70' : '#FFFFFF', color: ans === 'yes' ? '#FFF' : '#1B2A4A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', transition: 'all 0.15s' }}>
-                              ✓
-                            </button>
-                            <button onClick={(e) => { e.stopPropagation(); handleAnswer(di, qi, 'no', q.insight.plat); }} title="No"
-                              style={{ width: '28px', height: '28px', borderRadius: '5px', border: ans === 'no' ? '1.5px solid #E53935' : '1.5px solid #C8C8D4', background: ans === 'no' ? '#E53935' : '#FFFFFF', color: ans === 'no' ? '#FFF' : '#1B2A4A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', transition: 'all 0.15s' }}>
-                              ✗
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Animación fluida CSS Grid */}
-                        <div style={{ display: 'grid', gridTemplateRows: activeInsight === id ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease-out' }}>
-                          <div style={{ overflow: 'hidden' }}>
-                            <div style={{ padding: '10px 16px 14px 56px', borderTop: '1px solid #C8C8D4', background: '#F8F8F5' }}>
-                              <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0A7A70', marginBottom: '5px', fontWeight: 500 }}>
-                                Qué significa para tu proyecto
-                              </div>
-                              <div style={{ fontSize: '13px', color: '#4A4A5A', lineHeight: 1.5, fontWeight: 300 }} dangerouslySetInnerHTML={{ __html: ans === 'yes' ? q.insight.yes : q.insight.no }} />
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Siguiente Boton */}
-                {isCurrentDimComplete && (
-                  <div style={{ marginTop: '2.5rem', marginBottom: '8rem', textAlign: 'center', animation: 'fadeSlideIn 0.5s ease' }}>
-                    <button
-                      onClick={nextDimension}
-                      style={{ background: '#1B2A4A', color: 'white', border: 'none', padding: '14px 32px', borderRadius: '8px', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', fontFamily: '"DM Sans", sans-serif', boxShadow: '0 4px 12px rgba(27,42,74,0.2)' }}
-                    >
-                      {currentDimIndex === dimensions.length - 1 ? 'Ver Resultado Final →' : 'Siguiente Dimensión →'}
-                    </button>
-                  </div>
-                )}
+        {session.phase === 'questions' && currentStage && (
+          <div style={{ animation: 'fadeSlideIn 0.5s ease' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '2rem', paddingBottom: '1rem', borderBottom: '2px solid #1B2A4A' }}>
+              <div>
+                <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#4A4A5A', marginBottom: '3px' }}>{currentStage.eyebrow}</div>
+                <div style={{ fontFamily: '"Fraunces", serif', fontSize: '28px', fontWeight: 600, color: '#1B2A4A', lineHeight: 1.2 }}>Diagnóstico de {currentStage.label}</div>
               </div>
-            );
-          })()
-        ) : (
-          /* PANTALLA FIN DE DIAGNÓSTICO */
-          <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: '3rem', marginBottom: '8rem', boxShadow: '0 10px 40px rgba(0,0,0,0.05)', textAlign: 'center' }}>
-            {!emailSent ? (
-              <>
-                <h2 style={{ fontFamily: '"Fraunces", serif', fontSize: '32px', color: '#1B2A4A', marginBottom: '1rem' }}>
-                  Tu Diagnóstico: <span style={{ color: '#0A7A70' }}>{winningPlatformName}</span>
-                </h2>
-                <p style={{ fontSize: '15px', color: '#4A4A5A', maxWidth: '600px', margin: '0 auto 2rem' }}>
-                  Hemos mapeado tus 25 respuestas y estas son las dimensiones tecnológicas críticas para tu caso.
-                </p>
+            </div>
 
-                <div style={{ width: '100%', height: '400px', marginBottom: '3rem' }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chartData}>
-                      <PolarGrid stroke="#E5E7EB" />
-                      <PolarAngleAxis dataKey="subject" tick={{ fill: '#4A4A5A', fontSize: 13, fontFamily: 'DM Mono' }} />
-                      <PolarRadiusAxis angle={30} domain={[0, Math.max(5, maxScore)]} tick={false} axisLine={false} />
-                      <Radar name="Afinidad" dataKey="A" stroke="#0A7A70" fill="#0A7A70" fillOpacity={0.6} />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {currentStage.questions.map((q, qi) => {
+                const ans = session.answers[q.id];
+                const isAnswered = ans !== undefined;
+                
+                return (
+                  <div key={q.id}
+                    onClick={() => isAnswered && setActiveInsight(activeInsight === q.id ? null : q.id)}
+                    style={{
+                      background: isAnswered ? '#F4FBF9' : '#FFFFFF',
+                      border: isAnswered ? '1.5px solid #0A7A70' : '1.5px solid #C8C8D4',
+                      borderRadius: '8px', overflow: 'hidden', transition: 'border-color 0.2s',
+                      cursor: isAnswered ? 'pointer' : 'default'
+                    }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', padding: '16px' }}>
+                      <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '12px', fontWeight: 500, color: isAnswered ? '#0A7A70' : '#C8C8D4', flexShrink: 0, minWidth: '28px', marginTop: '2px' }}>
+                        {String(qi + 1).padStart(2, '0')}
+                      </div>
+                      <div style={{ flex: '1 1 250px' }}>
+                        <div style={{ fontSize: '15px', fontWeight: 400, color: isAnswered ? '#0A7A70' : '#1B2A4A', lineHeight: 1.4, marginBottom: '6px' }}>{q.text}</div>
+                        <div style={{ fontSize: '12px', color: '#4A4A5A', fontWeight: 300, fontStyle: 'italic' }}>{q.why}</div>
+                      </div>
+                      <div style={{ display: 'flex', gap: '6px', flexShrink: 0, marginTop: '2px', background: '#F2F1EC', border: '1px solid #E5E7EB', borderRadius: '8px', padding: '4px' }}>
+                        {[0, 1, 2].map((level) => {
+                          const selected = ans === level;
+                          const labels: Record<number, string> = {
+                            0: 'Bajo',
+                            1: 'Medio',
+                            2: 'Alto'
+                          };
+                          return (
+                            <button key={level}
+                                onClick={(e) => { e.stopPropagation(); handleLevelSelect(q.id, level as PainLevel); }}
+                                style={{
+                                    padding: '8px 12px', borderRadius: '4px', cursor: 'pointer', border: 'none', transition: 'all 0.15s',
+                                    background: selected 
+                                        ? (level === 2 ? '#E53935' : level === 1 ? '#F59E0B' : '#0A7A70')
+                                        : 'transparent',
+                                    color: selected ? '#FFF' : '#4A4A5A',
+                                    fontSize: '12px', fontWeight: selected ? 600 : 400
+                                }}>
+                                {labels[level]}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
 
-                <div style={{ background: '#F8FAFC', padding: '2rem', borderRadius: '12px', border: '1.5px solid #E5E7EB' }}>
-                  <h3 style={{ fontSize: '18px', marginBottom: '1rem', color: '#1B2A4A' }}>Profundiza tus Resultados</h3>
-                  <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '1.5rem' }}>Ingresa tu correo para recibir las arquitecturas recomendadas y habilitar la consultoría interactiva inteligente (Tito Bits) con un ejecutivo en la esquina de la pantalla.</p>
-                  <form onSubmit={handleEmailSubmit} style={{ display: 'flex', gap: '10px', maxWidth: '400px', margin: '0 auto' }}>
-                    <input
-                      type="email"
-                      required
-                      placeholder="tucorreo@empresa.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      style={{ flex: 1, padding: '12px 16px', borderRadius: '8px', border: '1px solid #D1D5DB', outline: 'none', fontFamily: '"DM Sans", sans-serif' }}
-                    />
-                    <button type="submit" disabled={isSending} style={{ background: '#D95A1E', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontWeight: 'bold', cursor: isSending ? 'not-allowed' : 'pointer', fontFamily: '"DM Sans", sans-serif' }}>
-                      {isSending ? 'Autorizando...' : 'Hablar Inmediatamente'}
-                    </button>
-                  </form>
-                </div>
-              </>
-            ) : (
-              <div style={{ padding: '3rem 1rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                  <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#F4FBF9', border: '3px solid #0A7A70', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px' }}>🎯</div>
-                </div>
-                <h2 style={{ fontFamily: '"Fraunces", serif', fontSize: '32px', color: '#1B2A4A', marginBottom: '1.5rem' }}>
-                  Arquitectura Autorizada
-                </h2>
-                <div style={{ background: '#F8F8F5', padding: '2rem', borderRadius: '12px', border: '1px solid #E5E7EB', maxWidth: '600px', margin: '0 auto 2.5rem', textAlign: 'left' }}>
-                  <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '11px', color: '#0A7A70', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.1em', fontWeight: 600 }}>Tito Bits ya está al mando</div>
-                  <p style={{ fontSize: '15px', color: '#4A4A5A', lineHeight: 1.6, margin: 0 }}>
-                    Tu correo <b style={{ color: '#1B2A4A' }}>{email}</b> se verificó de forma segura. Ocultamos el desglose público por políticas de privacidad.<br/><br/>
-                    En este momento la ventana del asesor virtual en la <b>esquina inferior derecha</b> ya se despertó y analizó todas tus respuestas y vulnerabilidades detectadas.<br/><br/>
-                    <b>Siguiente Paso Crítico:</b> Interactúa con Tito Bits en el chat para complementar el análisis de tu diagnóstico respondiendo un par de preguntas clave de tu operación.
-                  </p>
-                </div>
-                <button onClick={resetDiagnostic} style={{ background: 'transparent', border: 'none', color: '#4A4A5A', fontSize: '13px', cursor: 'pointer', fontWeight: 600, textDecoration: 'underline' }}>
-                  Empezar flujo de diagnóstico nuevo
+                    <div style={{ display: 'grid', gridTemplateRows: activeInsight === q.id ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease-out' }}>
+                      <div style={{ overflow: 'hidden' }}>
+                        <div style={{ padding: '12px 16px 16px 60px', borderTop: '1px solid #C8C8D4', background: '#F8F8F5' }}>
+                          <div style={{ fontFamily: '"DM Mono", monospace', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0A7A70', marginBottom: '6px', fontWeight: 600 }}>
+                            Qué significa para tu proyecto
+                          </div>
+                          <div style={{ fontSize: '13px', color: '#4A4A5A', lineHeight: 1.5, fontWeight: 300 }} 
+                               dangerouslySetInnerHTML={{ __html: ans === 2 ? q.insight.urgent : ans === 1 ? q.insight.mild : q.insight.none }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {isCurrentStageComplete && (
+              <div style={{ marginTop: '3rem', marginBottom: '6rem', textAlign: 'center', animation: 'fadeSlideIn 0.5s ease' }}>
+                <button
+                  onClick={goToEmailGate}
+                  style={{ background: '#1B2A4A', color: 'white', border: 'none', padding: '16px 36px', borderRadius: '8px', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', fontFamily: '"DM Sans", sans-serif', boxShadow: '0 4px 12px rgba(27,42,74,0.2)' }}
+                >
+                  Finalizar Mapeo Operativo →
                 </button>
               </div>
             )}
           </div>
         )}
 
+        {session.phase === 'email_gate' && (
+          <div style={{ animation: 'fadeSlideIn 0.5s ease', background: '#FFFFFF', borderRadius: '16px', padding: '4rem 3rem', boxShadow: '0 10px 40px rgba(0,0,0,0.05)', textAlign: 'center', marginTop: '4rem' }}>
+            <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#F4FBF9', border: '2px solid #0A7A70', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '24px' }}>📊</div>
+            <h2 style={{ fontFamily: '"Fraunces", serif', fontSize: '32px', color: '#1B2A4A', marginBottom: '1rem' }}>Último Paso para ver tus Resultados</h2>
+            <p style={{ fontSize: '16px', color: '#4A4A5A', maxWidth: '500px', margin: '0 auto 2.5rem' }}>
+              Hemos consolidado tu matriz operativa en base a las vulnerabilidades reportadas. Ingresa tu correo corporativo para liberar la arquitectura recomendada.
+            </p>
+            
+            <form onSubmit={handleEmailSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '380px', margin: '0 auto' }}>
+              <input
+                type="email"
+                required
+                placeholder="ejemplo@tuempresa.com"
+                value={session.email}
+                onChange={(e) => updateSession({ email: e.target.value })}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '8px', border: '1px solid #C8C8D4', outline: 'none', fontFamily: '"DM Sans", sans-serif', fontSize: '15px' }}
+              />
+              <button type="submit" disabled={isSending} style={{ background: '#D95A1E', color: 'white', border: 'none', padding: '14px', borderRadius: '8px', fontWeight: 'bold', fontSize: '15px', cursor: isSending ? 'not-allowed' : 'pointer', fontFamily: '"DM Sans", sans-serif', transition: 'background 0.2s' }}>
+                {isSending ? 'Procesando Radiografía...' : 'Ver Diagnóstico Arquitectónico →'}
+              </button>
+            </form>
+          </div>
+        )}
+
+        {session.phase === 'results' && session.result && (
+          <div style={{ animation: 'fadeSlideIn 0.5s ease', marginBottom: '8rem' }}>
+            <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: '3.5rem', boxShadow: '0 10px 40px rgba(0,0,0,0.05)', textAlign: 'center', marginBottom: '2rem' }}>
+              <div style={{ display: 'inline-block', background: 'rgba(217, 90, 30, 0.1)', color: '#D95A1E', padding: '6px 12px', borderRadius: '20px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>
+                Índice de Urgencia Operativa: {session.result.urgencyScore}%
+              </div>
+              
+              <h2 style={{ fontFamily: '"Fraunces", serif', fontSize: '32px', color: '#1B2A4A', marginBottom: '1rem' }}>
+                Arquitectura Recomendada
+              </h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', marginBottom: '1.5rem', fontSize: '18px', color: '#1B2A4A' }}>
+                {(() => {
+                  const sortedPlats = PLATFORM_AXIS_ORDER
+                    .map(p => ({ id: p, score: session.result!.platformScores[p] || 0 }))
+                    .sort((a, b) => b.score - a.score);
+                  const motorInicial = sortedPlats[0];
+                  const segundaCapa  = sortedPlats[1]?.score >= 40 ? sortedPlats[1] : null;
+                  const evolucion    = sortedPlats[2]?.score >= 25 ? sortedPlats[2] : null;
+
+                  return (
+                    <>
+                      <div>Motor inicial · <strong style={{ color: '#0A7A70' }}>{platformLabels[motorInicial.id]}</strong></div>
+                      {segundaCapa && <div>Segunda capa · <strong style={{ color: '#0A7A70' }}>{platformLabels[segundaCapa.id]}</strong></div>}
+                      {evolucion && <div>Evolución futura · <strong style={{ color: '#0A7A70' }}>{platformLabels[evolucion.id]}</strong></div>}
+                    </>
+                  );
+                })()}
+              </div>
+              <p style={{ fontSize: '15px', color: '#4A4A5A', maxWidth: '600px', margin: '0 auto 3rem' }}>
+                Tu operación requiere intervenciones prioritarias en: <b>{session.result.topPains.map(p => painLabels[p as PainAxis]).join(', ')}</b>.
+              </p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+                <div style={{ background: '#F8F8F5', borderRadius: '12px', padding: '1.5rem', border: '1px solid #E5E7EB' }}>
+                  <h3 style={{ fontFamily: '"DM Mono", monospace', fontSize: '11px', color: '#4A4A5A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Matriz de Dolor (Pains)</h3>
+                  <div style={{ height: '250px' }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <RadarChart cx="50%" cy="50%" outerRadius="70%" data={
+                        Object.entries(session.result.painProfile).map(([axis, score]) => ({
+                          subject: painLabels[axis as PainAxis],
+                          A: score,
+                          fullMark: 100
+                        }))
+                      }>
+                        <PolarGrid stroke="#E5E7EB" />
+                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#4A4A5A', fontSize: 11, fontFamily: 'DM Mono' }} />
+                        <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                        <Radar name="Pain" dataKey="A" stroke="#E53935" fill="#E53935" fillOpacity={0.4} />
+                      </RadarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div style={{ background: '#F8F8F5', borderRadius: '12px', padding: '1.5rem', border: '1px solid #E5E7EB' }}>
+                  <h3 style={{ fontFamily: '"DM Mono", monospace', fontSize: '11px', color: '#4A4A5A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Alineación Arquitectónica (Plataformas)</h3>
+                  <div style={{ height: '250px' }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <RadarChart cx="50%" cy="50%" outerRadius="70%" data={
+                        PLATFORM_AXIS_ORDER.map(plat => ({
+                          subject: platformLabels[plat],
+                          A: session.result.platformScores[plat] || 0,
+                          fullMark: 100
+                        }))
+                      }>
+                        <PolarGrid stroke="#E5E7EB" />
+                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#4A4A5A', fontSize: 11, fontFamily: 'DM Mono' }} />
+                        <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                        <Radar name="Afinidad" dataKey="A" stroke="#0A7A70" fill="#0A7A70" fillOpacity={0.4} />
+                      </RadarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ background: '#F4FBF9', padding: '2rem', borderRadius: '12px', border: '1.5px solid #0A7A70', textAlign: 'left', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#0A7A70', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>🤖</div>
+                <div>
+                  <h3 style={{ fontSize: '18px', color: '#0A7A70', marginBottom: '0.5rem', fontFamily: '"Fraunces", serif' }}>Tito Bits ya recibió tu expediente</h3>
+                  <p style={{ fontSize: '14px', color: '#4A4A5A', lineHeight: 1.6, margin: 0 }}>
+                    Nuestro arquitecto virtual ha asimilado tus puntos críticos de dolor y la tecnología ganadora. La ventana emergente en la <b>esquina inferior derecha</b> ya está activa. <b>Escríbele para revisar a profundidad tu mapa de riesgo.</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'center' }}>
+              <button onClick={restartDiagnostic} style={{ background: 'transparent', border: 'none', color: '#4A4A5A', fontSize: '13px', cursor: 'pointer', fontWeight: 600, textDecoration: 'underline' }}>
+                Empezar flujo de diagnóstico nuevo
+              </button>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
-  );
+    );
+  } catch (err: any) {
+    if (!renderError) {
+      setTimeout(() => setRenderError(err?.message || String(err)), 0);
+    }
+    return null;
+  }
 }

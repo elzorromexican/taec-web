@@ -192,15 +192,14 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
       isOpenStore.set(true);
       hasUnreadMessagesStore.set(false);
       
-      // Inyectamos el contexto como si fuera un mensaje del usuario (invisible) 
-      // y la primera respuesta de TitoBits (visible).
-      messagesStore.set([
-        { role: 'user', text: `[SYSTEM_HIDDEN_CONTEXT]\n${prompt}\n[/SYSTEM_HIDDEN_CONTEXT]` },
-        { 
-          role: 'agent', 
-          text: `¡Hola ${aliasName}! Soy Tito Bits, Partner IA de TAEC. Acabo de procesar tu Diagnóstico y evaluar tus resultados para **${diagnosticResult}**.\n\nHe leído en las respuestas anteriores los retos específicos que tienes en tu operación. Como siguiente paso, ¿podrías confirmarme aproximadamente cuántos usuarios (empleados/clientes) usarían la plataforma en el primer año para poder dimensionar la arquitectura?` 
-        }
-      ]);
+      // Inyectamos el contexto vía sendMessage para que el LLM genere el saludo con rol Challenger.
+      // Así evitamos hardcodear el saludo y romper la metodología.
+      const userMessage = `[SYSTEM_HIDDEN_CONTEXT]\n${prompt}\n[/SYSTEM_HIDDEN_CONTEXT]\n\n¡Hola Tito! Acabo de terminar mi diagnóstico. Por favor analiza mis resultados y dime qué opinas.`;
+      
+      // Delay minúsculo para permitir que React cambie hasStarted a true antes del send
+      setTimeout(() => {
+        sendMessage(undefined, userMessage);
+      }, 50);
     };
 
     window.addEventListener('OpenTitoDiagnostic', handleDiagnosticContext);
@@ -345,6 +344,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     setIsLoading(true);
     abortControllerRef.current = new AbortController();
   
+    let fullText = '';
     try {
       const res = await fetch('/api/agente-ia', {
         method: 'POST',
@@ -373,7 +373,6 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let fullText = '';
       messagesStore.set([...messagesStore.get(), { role: 'agent', text: '', isStreaming: true }]);
   
       let chunkData = '';
@@ -442,12 +441,12 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     }
   };
 
-  const sendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  const sendMessage = async (e?: React.FormEvent, overrideText?: string) => {
+    if (e) e.preventDefault();
+    const userMsg = overrideText || input.trim();
+    if (!userMsg || isLoading) return;
 
-    const userMsg = input.trim();
-    setInput('');
+    if (!overrideText) setInput('');
 
     const gibberishCheck = gibberishGuard(userMsg);
     if (gibberishCheck.isGibberish) {
