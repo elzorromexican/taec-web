@@ -52,6 +52,16 @@ export default function DiagnosticoApp() {
 
   useEffect(() => {
     setIsMounted(true);
+
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get('reset') === '1') {
+        sessionStorage.removeItem('diagnostico_v2');
+        window.history.replaceState({}, document.title, window.location.pathname);
+        return;
+      }
+    } catch (_) {}
+
     const stored = sessionStorage.getItem('diagnostico_v2');
     if (stored) {
       try {

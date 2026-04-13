@@ -134,7 +134,7 @@ export const mainNav: MainNavItem[] = [
       {
         title: "",
         items: [
-          { label: "Diagnóstico IA", url: "/diagnostico", badge: { text: "nuevo", type: "new" } },
+          { label: "Diagnóstico IA", url: "/diagnostico?reset=1", badge: { text: "nuevo", type: "new" } },
           { label: "Blog", url: "/blog" },
           { label: "Artículos", url: "/articulos" },
           { label: "Glosario e-learning", url: "/glosario" },
