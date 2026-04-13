@@ -6,6 +6,13 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.3.0 · 13 abr 2026 — TitoBits Motor Diagnóstico V2.1 y Hardening TypeScript
+
+### 🛠️ Arquitectura y Hardening de Código
+- **Resolución de Conflictos de Scope (TypeScript):** Se eliminaron redeclaraciones de variables (`isDiagnostic`) en `agente-ia.ts` y se corrigió el alcance de variables (`fullText`) en bloques `try/catch` de streaming dentro de `ChatAgent.tsx`, estabilizando el build de producción.
+- **Unificación de Lógica Diagnóstico V2.1:** Fusión completa del motor de evaluación para radar multicapa (Astro/Recharts y QuickChart). Se centralizó el ordenamiento de los ejes mediante `PLATFORM_AXIS_ORDER` para segurar una simetría del 100% entre la web y los reportes PDF. 
+- **Consolidación y Purga del Repositorio:** Finalización del Sprint con el merge de `fix/diagnostico-coherencia-v2` a la rama `main`, resolución de dependencias fantasma y limpieza de los Pull Requests paralelos redundantes (#53).
+
 ## v3.2.1 · 12 abr 2026 — TitoBits Motor Conversacional (QA de Resiliencia y Rollout Provisional)
 
 ### 🛡️ Seguridad, Limítes y Hardening de Inteligencia Artificial (Red-Teaming)
