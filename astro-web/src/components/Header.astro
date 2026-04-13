@@ -87,7 +87,7 @@ import { r, base } from '../utils/paths';
                     {col.title && <span class="mega-head">{col.title}</span>}
                     {col.items.map((link) => {
                       if (link.isDivider) return <div class="mega-divider"></div>;
-                      return <a href={r(link.url)} role="menuitem">{link.label}</a>;
+                      return <a href={r(link.url)} role="menuitem" data-astro-reload={link.url.includes('reset=1') ? true : undefined}>{link.label}</a>;
                     })}
                     {col.bottomLink && (
                       <a href={r(col.bottomLink.url)} role="menuitem" style="color:var(--blue);font-weight:600;margin-top:4px">{col.bottomLink.label}</a>
@@ -102,7 +102,7 @@ import { r, base } from '../utils/paths';
     </nav>
     <div class="header-actions">
       <a href={contactData.storeUrl} target="_blank" rel="noopener noreferrer" class="btn-tienda">Tienda</a>
-      <a href={r('/diagnostico?reset=1')} class="btn-cta">Diagnóstico IA →</a>
+      <a href={r('/diagnostico?reset=1')} class="btn-cta" data-astro-reload>Diagnóstico IA →</a>
     </div>
     <button class="hamburger" id="menuBtn" aria-label="Abrir menú">
       <span></span><span></span><span></span>
