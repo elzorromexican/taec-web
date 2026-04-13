@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { StageId, PainLevel, DiagnosticStage, stages, PainAxis, PlatformId } from '../../data/diagnosticoData';
-import { calcularDiagnostico, DiagnosticResult } from '../../lib/diagnostico/diagnosticoScoring';
+import { stages } from '../../data/diagnosticoData';
+import type { StageId, PainLevel, DiagnosticStage, PainAxis, PlatformId } from '../../data/diagnosticoData';
+import { PLATFORM_AXIS_ORDER } from '../../data/diagnosticoData';
+import { calcularDiagnostico, type DiagnosticResult } from '../../lib/diagnostico/diagnosticoScoring';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
 type AppPhase = 'p0' | 'questions' | 'email_gate' | 'results';
@@ -152,10 +154,23 @@ export default function DiagnosticoApp() {
           return q ? q.text : '';
         }).filter(Boolean);
 
+      const sortedPlats = PLATFORM_AXIS_ORDER
+        .map(p => ({ id: p, score: res.platformScores[p] || 0 }))
+        .sort((a, b) => b.score - a.score);
+
+      const motorInicial = sortedPlats[0]; // siempre existe
+      const segundaCapa  = sortedPlats[1]?.score >= 40 ? sortedPlats[1] : null;
+      const evolucion    = sortedPlats[2]?.score >= 25 ? sortedPlats[2] : null;
+
+      const arquitectura = [
+        `motor inicial: ${platformLabels[motorInicial.id]}`,
+        segundaCapa ? `segunda capa: ${platformLabels[segundaCapa.id]}` : null,
+      ].filter(Boolean).join(' · ');
+
       // System Prompt Oculto para TitoBits
       const prompt = `El prospecto con correo [${session.email}] acaba de completar su Diagnostico de TAEC. Etapa: ${session.stage}.
 Resultados:
-- Principal recomendación tecnológica: ${platformLabels[res.winningPlatform]}
+- Arquitectura recomendada: ${arquitectura}
 - Puntuación de urgencia: ${res.urgencyScore}%
 - Top Ejes de Dolor: ${res.topPains.join(', ')}
 
@@ -165,7 +180,7 @@ El prospecto calificó como "Urgente / Crítico" los siguientes dolores en su op
 INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
 - NO SALUDES CON FRASES TÍPICAS O REPETITIVAS. Usa un enfoque consultivo agresivo y humano. Toma UNO de los dolores reales que el prospecto catalogó como urgente de la lista de arriba y ábrele conversación sobre eso. 
 - Por ejemplo, si un dolor urgente es sobre normativas o constancias DC-3, pregúntale "¿qué auditoría o NOM los está persiguiendo ahora mismo?".
-- Céntrate en justificar cómo la arquitectura recomendada (${platformLabels[res.winningPlatform]}) alivia ese dolor.
+- Céntrate en justificar cómo la arquitectura recomendada (${arquitectura}) alivia ese dolor.
 - IMPORTANTE: TIENES ESTRICTAMENTE PROHIBIDO volver a pedir su correo, teléfono o nombre en todo el resto de la sesión. Ya sabemos quién es, atiende directamente sus dolores.`;
 
       updateSession({ phase: 'results', result: res });
@@ -288,9 +303,9 @@ INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
                         {[0, 1, 2].map((level) => {
                           const selected = ans === level;
                           const labels: Record<number, string> = {
-                            0: 'No aplica',
-                            1: 'Leve',
-                            2: 'Urgente'
+                            0: 'Bajo',
+                            1: 'Medio',
+                            2: 'Alto'
                           };
                           return (
                             <button key={level}
@@ -371,10 +386,28 @@ INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
               </div>
               
               <h2 style={{ fontFamily: '"Fraunces", serif', fontSize: '32px', color: '#1B2A4A', marginBottom: '1rem' }}>
-                Recomendación: <span style={{ color: '#0A7A70' }}>{platformLabels[session.result.winningPlatform]}</span>
+                Arquitectura Recomendada
               </h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', marginBottom: '1.5rem', fontSize: '18px', color: '#1B2A4A' }}>
+                {(() => {
+                  const sortedPlats = PLATFORM_AXIS_ORDER
+                    .map(p => ({ id: p, score: session.result!.platformScores[p] || 0 }))
+                    .sort((a, b) => b.score - a.score);
+                  const motorInicial = sortedPlats[0];
+                  const segundaCapa  = sortedPlats[1]?.score >= 40 ? sortedPlats[1] : null;
+                  const evolucion    = sortedPlats[2]?.score >= 25 ? sortedPlats[2] : null;
+
+                  return (
+                    <>
+                      <div>Motor inicial · <strong style={{ color: '#0A7A70' }}>{platformLabels[motorInicial.id]}</strong></div>
+                      {segundaCapa && <div>Segunda capa · <strong style={{ color: '#0A7A70' }}>{platformLabels[segundaCapa.id]}</strong></div>}
+                      {evolucion && <div>Evolución futura · <strong style={{ color: '#0A7A70' }}>{platformLabels[evolucion.id]}</strong></div>}
+                    </>
+                  );
+                })()}
+              </div>
               <p style={{ fontSize: '15px', color: '#4A4A5A', maxWidth: '600px', margin: '0 auto 3rem' }}>
-                Tu operación actual requiere intervenciones prioritarias en: <b>{session.result.topPains.map(p => painLabels[p as PainAxis]).join(', ')}</b>.
+                Tu operación requiere intervenciones prioritarias en: <b>{session.result.topPains.map(p => painLabels[p as PainAxis]).join(', ')}</b>.
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
@@ -403,9 +436,9 @@ INSTRUCCIÓN SECRETA METODOLOGÍA CHALLENGER B2B:
                   <div style={{ height: '250px' }}>
                     <ResponsiveContainer width="100%" height="100%">
                       <RadarChart cx="50%" cy="50%" outerRadius="70%" data={
-                        Object.entries(session.result.platformScores).map(([plat, score]) => ({
-                          subject: platformLabels[plat as PlatformId],
-                          A: score,
+                        PLATFORM_AXIS_ORDER.map(plat => ({
+                          subject: platformLabels[plat],
+                          A: session.result.platformScores[plat] || 0,
                           fullMark: 100
                         }))
                       }>

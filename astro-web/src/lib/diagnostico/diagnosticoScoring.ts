@@ -9,7 +9,7 @@
  * @updated 2026-04-13 19:37:00
  */
 
-import {
+import type {
   StageId, PainAxis, PlatformId, PainLevel,
   WeightedQuestion, DiagnosticStage
 } from '../../data/diagnosticoData';

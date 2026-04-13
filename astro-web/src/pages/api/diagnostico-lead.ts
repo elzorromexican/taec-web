@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 import { Redis } from '@upstash/redis';
 import { Ratelimit } from '@upstash/ratelimit';
+import { PLATFORM_AXIS_ORDER } from '../../data/diagnosticoData';
 
 export const prerender = false;
 
@@ -84,7 +85,17 @@ export const POST: APIRoute = async ({ request }) => {
       tools_autor: "Herramientas de Autorización"
     };
 
-    const displayPlatform = axisLabels[winningPlatform] || winningPlatform;
+    const sortedPlats = PLATFORM_AXIS_ORDER
+      .map(p => ({ id: p as string, score: platformScores[p as keyof typeof platformScores] || 0 }))
+      .sort((a, b) => b.score - a.score);
+
+    const motorInicial = sortedPlats[0];
+    const segundaCapa  = sortedPlats[1]?.score >= 40 ? sortedPlats[1] : null;
+
+    const displayPlatform = [
+      `${axisLabels[motorInicial.id] || motorInicial.id}`,
+      segundaCapa ? `${axisLabels[segundaCapa.id] || segundaCapa.id}` : null
+    ].filter(Boolean).join(' + ');
 
     // Rate Limiting Check (Anti-Doble Submit)
     const now = Date.now();
@@ -209,22 +220,13 @@ export const POST: APIRoute = async ({ request }) => {
     const quickChartUrl = `https://quickchart.io/chart?width=500&height=400&c=` + encodeURIComponent(JSON.stringify({
       type: 'radar',
       data: {
-        labels: ["Gestión Corporativa", "Ágil/Microlearning", "Fábrica DDC (STPS)", "Certificaciones", "Proctoring Seguro", "Clases VIRT/Zoom", "Ecommerce / Venta", "Herramientas de Autor"],
+        labels: PLATFORM_AXIS_ORDER.map(k => axisLabels[k]),
         datasets: [{
           label: 'Afinidad a dolor',
           backgroundColor: 'rgba(10, 122, 112, 0.4)',
           borderColor: 'rgb(10, 122, 112)',
           pointBackgroundColor: 'rgb(10, 122, 112)',
-          data: [
-            platformScores.lms_corp || 0,
-            platformScores.lms_agil || 0,
-            platformScores.fabrica_ddc || 0,
-            platformScores.lms_cert || 0,
-            platformScores.eval_proctor || 0,
-            platformScores.vilt_zoom || 0,
-            platformScores.ecommerce || 0,
-            platformScores.tools_autor || 0
-          ]
+          data: PLATFORM_AXIS_ORDER.map(k => platformScores[k] || 0)
         }]
       },
       options: {

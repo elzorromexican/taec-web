@@ -372,3 +372,14 @@ export const stages: DiagnosticStage[] = [
     ]
   }
 ];
+
+export const PLATFORM_AXIS_ORDER: PlatformId[] = [
+  'lms_agil',
+  'lms_corp',
+  'lms_cert',
+  'fabrica_ddc',
+  'tools_autor',
+  'vilt_zoom',
+  'eval_proctor',
+  'ecommerce'
+];
