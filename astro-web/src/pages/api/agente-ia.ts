@@ -8,7 +8,7 @@ import { titoKnowledgeBase } from '../../data/titoKnowledgeBase';
 import { promos } from '../../data/promos';
 import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
 import { evaluateMessageForEscalation } from '../../lib/tito/rules';
-import { calcularScore, determinarHandoff } from '../../lib/tito/scoring';
+
 import { extraerContacto, enviarNotificacion, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
 
 const getSafeEnv = (k: string) => {
@@ -178,31 +178,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
       // Evaluamos escalamiento y reglas FASE 2
       const escalationCheck = evaluateMessageForEscalation(userMessage);
 
-      // Mock temporal de señales (igual que en tito-chat)
-      const mockSignals = {
-        productos_interes: ['articulate-360'],
-        seats_mencionados: null,
-        requiere_integracion: false,
-        tiene_lms_actual: userMessage.toLowerCase().includes('lms'),
-        es_cliente_nuevo: true,
-        urgencia: null,
-        presupuesto_aprobado: false
-      };
-
-      const score = calcularScore(mockSignals);
-      let handoffTipo = determinarHandoff(mockSignals, score);
-
-      if (escalationCheck === 'ESCALATE' && !handoffTipo) {
-        handoffTipo = 'ventas';
-      }
-
-      if (handoffTipo || score >= 50) {
+      if (escalationCheck === 'ESCALATE') {
         await supabase.from('tito_leads').upsert([
           {
             session_id: sessionId,
-            score: score,
-            minibrief: `Handoff automático por escalamiento. Score actual: ${score}. Mensaje: ${userMessage.substring(0, 100)}...`,
-            handoff_tipo: handoffTipo || 'ventas',
+            score: 50,
+            minibrief: `Escalamiento por keywords. Mensaje: ${userMessage.substring(0, 100)}`,
+            handoff_tipo: 'ventas',
             handoff_triggered: true,
             email: null,
             awaiting_contact: true
@@ -211,8 +193,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
         return new Response(JSON.stringify({
           reply: "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?",
-          handoff_tipo: handoffTipo || 'ventas',
-          score: score,
+          handoff_tipo: 'ventas',
+          score: 50,
           awaiting_contact: true
         }), { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
