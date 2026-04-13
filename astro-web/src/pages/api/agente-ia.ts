@@ -113,6 +113,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const isDiagnostic = typeof currentPath === 'string' && currentPath.toLowerCase().includes('diagnostico');
+    const isFirstDiagnosticTurn = isDiagnostic && safeHistory.length === 0;
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
     if (sessionId !== 'anonymous-session' && !isDiagnostic) {
       const { data: existingLead } = await supabase
@@ -305,7 +306,7 @@ Solo pide datos de contacto cuando:
 → Volumen 100+ seats
 → Cliente pregunta por renovación o contrato existente
 
-${isDiagnostic 
+${isFirstDiagnosticTurn 
   ? `REGLA DE CONSULTORÍA DIAGNÓSTICO (ESTADO ACTUAL):
 El prospecto viene de finalizar el Diagnóstico. Su primer mensaje contiene su [Radiografía Completa].
 TU OBJETIVO ES ACTUAR COMO CONSULTOR EXPERTO TÉCNICO B2B (Framework Challenger):
