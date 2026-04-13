@@ -344,6 +344,7 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
     setIsLoading(true);
     abortControllerRef.current = new AbortController();
   
+    let fullText = '';
     try {
       const res = await fetch('/api/agente-ia', {
         method: 'POST',
@@ -372,7 +373,6 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let fullText = '';
       messagesStore.set([...messagesStore.get(), { role: 'agent', text: '', isStreaming: true }]);
   
       let chunkData = '';

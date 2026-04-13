@@ -228,7 +228,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
 
     const isMexico = countryCode === 'MX';
-    const isDiagnostic = typeof currentPath === 'string' && currentPath.toLowerCase().includes('diagnostico');
+
 
     const artPromo = promos.find(p => p.active && p.urlTrigger === 'articulate' && p.countries.includes('MX'));
     const dynamicArtPrice = (artPromo as any)?.price || (artPromo ? artPromo.title.match(/\$[\d,]+ USD/)?.[0] || '$1,198 USD' : '$1,198 USD');

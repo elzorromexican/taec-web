@@ -206,12 +206,12 @@ export const POST: APIRoute = async ({ request }) => {
       else stableList.push(key);
     }
 
-    const buildListHtml = (list, color, colorHex) => {
+    const buildListHtml = (list: string[], color: string, colorHex: string) => {
       if (list.length === 0) return `<p style="font-size: 13px; color: #6B7280; font-style: italic; margin-left: 15px;">Ningún rubro detectado en este nivel.</p>`;
       return list.map(k => `
         <div style="margin-bottom: 12px; border-left: 4px solid ${colorHex}; padding-left: 12px; background: #fff; padding-top: 5px; padding-bottom: 5px;">
-          <strong style="color: #1B2A4A; font-size: 14px;">${axisLabels[k] || k}</strong>
-          <p style="margin: 4px 0 0 0; font-size: 13px; color: #4A4A5A;">${axisDescriptions[k] || ''}</p>
+          <strong style="color: #1B2A4A; font-size: 14px;">${axisLabels[k as keyof typeof axisLabels] || k}</strong>
+          <p style="margin: 4px 0 0 0; font-size: 13px; color: #4A4A5A;">${axisDescriptions[k as keyof typeof axisDescriptions] || ''}</p>
         </div>
       `).join('');
     };

@@ -10,8 +10,9 @@
  */
 
 import { expect, test, describe } from 'vitest';
-import { calcularDiagnostico, DiagnosticAnswers } from './diagnosticoScoring';
-import { WeightedQuestion } from '../../data/diagnosticoData';
+import { calcularDiagnostico } from './diagnosticoScoring';
+import type { DiagnosticAnswers } from './diagnosticoScoring';
+import type { WeightedQuestion } from '../../data/diagnosticoData';
 
 describe('calcularDiagnostico', () => {
 
