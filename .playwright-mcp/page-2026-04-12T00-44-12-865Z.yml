@@ -1,0 +1,65 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - img "TAEC Logo" [ref=e6]
+      - navigation [ref=e7]:
+        - list [ref=e8]:
+          - listitem [ref=e9]:
+            - link "Inicio" [ref=e10] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/dashboarduser
+          - listitem [ref=e11]:
+            - link "Perfil" [ref=e12] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/edituser
+          - listitem [ref=e13]:
+            - link "Carrito 1" [ref=e14] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/shopping-cart
+              - text: Carrito
+              - generic [ref=e15]: "1"
+          - listitem [ref=e16]:
+            - link "toto" [ref=e17] [cursor=pointer]:
+              - /url: "#"
+  - generic [ref=e18]:
+    - generic [ref=e20]:
+      - heading "Bienvenido a nuestro Catálogo" [level=1] [ref=e21]
+      - paragraph [ref=e22]: Explora nuestros productos de alta calidad
+    - generic [ref=e26]:
+      - textbox "Buscar productos" [ref=e27]:
+        - /placeholder: Buscar productos...
+      - button "Buscar" [ref=e28] [cursor=pointer]
+    - generic [ref=e31]:
+      - heading "Categorías" [level=2] [ref=e32]
+      - generic [ref=e33]:
+        - link "Cursos" [ref=e34] [cursor=pointer]:
+          - /url: https://tienda.taec.com.mx/dashboarduser?descrip=Cursos
+        - link "Articulate / VYOND" [ref=e35] [cursor=pointer]:
+          - /url: https://tienda.taec.com.mx/dashboarduser?descrip=Articulate / VYOND
+        - link "Cursos OnDemand" [ref=e36] [cursor=pointer]:
+          - /url: https://tienda.taec.com.mx/dashboarduser?descrip=Cursos OnDemand
+    - generic [ref=e37]:
+      - generic [ref=e39]:
+        - heading "Productos Destacados" [level=2] [ref=e40]
+        - paragraph [ref=e41]: Mira algunos de nuestros productos más populares
+      - generic [ref=e42]:
+        - generic [ref=e44]:
+          - link "Paquete de 2 usuarios Articulate 360 Teams AI (9 meses)" [ref=e45] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/119
+            - img "Paquete de 2 usuarios Articulate 360 Teams AI (9 meses)" [ref=e46]
+          - generic [ref=e47]:
+            - heading "Paquete de 2 usuarios Articulate 360 Teams AI (9 meses)" [level=5] [ref=e48]
+            - paragraph [ref=e49]: Articulate / VYOND
+        - generic [ref=e51]:
+          - link "Curso Cerrado Articulate con AI Assistant" [ref=e52] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/117
+            - img "Curso Cerrado Articulate con AI Assistant" [ref=e53]
+          - generic [ref=e54]:
+            - heading "Curso Cerrado Articulate con AI Assistant" [level=5] [ref=e55]
+            - paragraph [ref=e56]: Cursos
+        - generic [ref=e58]:
+          - link "Desarrollo de paquete de actividades" [ref=e59] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/114
+            - img "Desarrollo de paquete de actividades" [ref=e60]
+          - generic [ref=e61]:
+            - heading "Desarrollo de paquete de actividades" [level=5] [ref=e62]
+            - paragraph [ref=e63]: Cursos OnDemand
+  - contentinfo [ref=e64]:
+    - paragraph [ref=e66]: © 2026 TAEC. Todos los derechos reservados.

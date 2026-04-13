@@ -8,3 +8,6 @@ OLDYS/
 *.env
 .env
 .gstack/
+.mcp.json
+.claude/
+.gemini/

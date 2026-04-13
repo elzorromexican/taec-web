@@ -1,0 +1,102 @@
+name: Netlify Smoke Tests
+
+# Se dispara cuando un workflow anterior (o Netlify webhook) 
+# indique un deployment de preview exitoso.
+# También soporta pruebas manuales (workflow_dispatch).
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: "URL de Netlify para probar (Ej: https://deploy-preview-59--taec-web.netlify.app)"
+        required: true
+
+jobs:
+  smoke-test:
+    # Solo ejecutar si el deployment fue de tipo 'success' o si es manual
+    if: github.event_name == 'workflow_dispatch' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+
+      - name: Install dependencies
+        working-directory: ./astro-web
+        run: npm i # usamos i normal porque package-lock puede estar out-of-sync en PRs
+        
+      - name: Install Playwright Browsers
+        working-directory: ./astro-web
+        run: npx playwright install --with-deps chromium
+        
+      - name: Determinar Target URL
+        id: url
+        run: |
+          # Si viene desde deployment status (Netlify), usa esa URL. Si no, usa el parám manual.
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "TARGET_URL=${{ github.event.inputs.preview_url }}" >> $GITHUB_ENV
+          else
+            echo "TARGET_URL=${{ github.event.deployment_status.target_url }}" >> $GITHUB_ENV
+          fi
+
+      - name: Correr E2E Tests contra Preview
+        id: playwright
+        working-directory: ./astro-web
+        env:
+          URL: ${{ env.TARGET_URL }}
+        run: npx playwright test tests/smoke.spec.ts
+
+      - name: Reporte de fallos a Claude (Solo en failure)
+        if: failure()
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # Extraer log de error asumiendo reporter HTML guardado o parseo de consola.
+          # Para esta versión ligera, le pasamos los logs del step a Claude mediante Github.
+          PROMPT="Eres QA E2E. El test de Playwright en Netlify falló contra la URL ${{ env.TARGET_URL }}. Tu objetivo es decirle al desarrollador por qué. (No des respuestas genéricas, enfócate en el humo). Responde en español justificando."
+          
+          # Recuperamos algo de contexto, por ejemplo log final.
+          LOG="Fallo general de playwright step execution."
+          
+          payload=$(jq -n \
+            --arg prompt "$PROMPT" \
+            --arg log "$LOG" \
+            '{
+              "model": "claude-sonnet-4-6",
+              "max_tokens": 500,
+              "messages": [
+                {"role": "user", "content": "\($prompt)\n\nDetalles:\n\($log)"}
+              ]
+            }')
+            
+          response=$(curl -s -X POST https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$payload")
+            
+          comment=$(echo "$response" | jq -r '.content[0].text // "Error al contactar Claude para analizar el fallo."')
+          echo "CLAUDE_TEST_COMMENT<<EOF" >> $GITHUB_ENV
+          echo "$comment" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Comment error in PR (via Commit SHA)
+        if: failure() && env.CLAUDE_TEST_COMMENT != ''
+        uses: actions/github-script@v6
+        env:
+          COMMENT_BODY: ${{ env.CLAUDE_TEST_COMMENT }}
+          SHA: ${{ github.event.deployment.sha }}
+        with:
+          script: |
+            // Comentar en el commit específico ya que deployment no siempre liga a issue de PR directo.
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: process.env.SHA || context.sha,
+              body: `### 🔴 Playwright Smoke Test Falló\n\n**Análisis de Claude QA:**\n${process.env.COMMENT_BODY}`
+            })

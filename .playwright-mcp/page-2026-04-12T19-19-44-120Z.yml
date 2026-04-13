@@ -1,0 +1,645 @@
+- generic [ref=e1]:
+  - link "Ir al contenido principal" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "TAEC — Ir al inicio" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "TAEC" [ref=e6]
+      - button "Abrir menú" [ref=e7] [cursor=pointer]
+  - main [ref=e11]:
+    - generic [ref=e12]:
+      - text: 📅 PRÓXIMO EVENTO
+      - generic [ref=e13]: "Save the Date: 7 de mayo – El registro oficial y la agenda completa del evento ya se encuentran disponibles."
+      - link "Saber más →" [ref=e14] [cursor=pointer]:
+        - /url: https://www.articulate.com/events/mexico/
+    - generic [ref=e16]:
+      - heading "¿Qué gran reto e-learning necesitas resolver en tu organización?" [level=1] [ref=e17]:
+        - text: ¿Qué gran
+        - emphasis [ref=e18]: reto e-learning
+        - text: necesitas resolver en tu organización?
+      - paragraph [ref=e19]: Sin catálogos laberínticos ni discursos genéricos. Selecciona el dolor actual de tu empresa y te llevaremos a la solución exacta.
+      - generic [ref=e20]:
+        - link "AGENCIA / EXTERNALIZACIÓN \"No tengo tiempo para producir, háganlo por mí\" Delega tus proyectos en nuestra fábrica de contenidos a medida (DDC) o adquiere catálogos listos. Explorar soluciones DDC →" [ref=e21] [cursor=pointer]:
+          - /url: /desarrollo-de-contenidos
+          - generic [ref=e22]: AGENCIA / EXTERNALIZACIÓN
+          - heading "\"No tengo tiempo para producir, háganlo por mí\"" [level=2] [ref=e23]
+          - paragraph [ref=e24]: Delega tus proyectos en nuestra fábrica de contenidos a medida (DDC) o adquiere catálogos listos.
+          - generic [ref=e25]: Explorar soluciones DDC →
+        - link "SOFTWARE DE AUTORÍA \"Quiero crear mis propios cursos interactivos\" Equipa a tu área de talento con Articulate 360 o Vyond IA para producir e-learning en masa. 🇲🇽 Oferta Q2 · Articulate 360 desde $1,198 USD → Ver licencias software →" [ref=e26] [cursor=pointer]:
+          - /url: /articulate-360-mexico
+          - generic [ref=e27]: SOFTWARE DE AUTORÍA
+          - heading "\"Quiero crear mis propios cursos interactivos\"" [level=2] [ref=e28]
+          - paragraph [ref=e29]: Equipa a tu área de talento con Articulate 360 o Vyond IA para producir e-learning en masa.
+          - generic [ref=e30]: 🇲🇽 Oferta Q2 · Articulate 360 desde $1,198 USD →
+          - generic [ref=e31]: Ver licencias software →
+        - link "PLATAFORMAS MÉTRICAS \"Necesito organizar y medir a mi equipo\" Migra, hospeda o implementa un LMS corporativo escalable con Moodle o Totara Workspace. Explorar LMS y Ecosistemas →" [ref=e32] [cursor=pointer]:
+          - /url: /soluciones
+          - generic [ref=e33]: PLATAFORMAS MÉTRICAS
+          - heading "\"Necesito organizar y medir a mi equipo\"" [level=2] [ref=e34]
+          - paragraph [ref=e35]: Migra, hospeda o implementa un LMS corporativo escalable con Moodle o Totara Workspace.
+          - generic [ref=e36]: Explorar LMS y Ecosistemas →
+        - link "CONSULTORÍA ALTO NIVEL \"Quiero innovar y escalar mi área L&D\" Auditorías de madurez e-learning, acompañamiento estratégico y diseño de arquitecturas empresariales. Solicitar Diagnóstico L&D →" [ref=e37] [cursor=pointer]:
+          - /url: /contacto
+          - generic [ref=e38]: CONSULTORÍA ALTO NIVEL
+          - heading "\"Quiero innovar y escalar mi área L&D\"" [level=2] [ref=e39]
+          - paragraph [ref=e40]: Auditorías de madurez e-learning, acompañamiento estratégico y diseño de arquitecturas empresariales.
+          - generic [ref=e41]: Solicitar Diagnóstico L&D →
+    - generic [ref=e43]:
+      - generic [ref=e44]: Recursos
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - 'link "Liderazgo El rol del liderazgo en la capacitación: una responsabilidad ineludible" [ref=e48] [cursor=pointer]':
+            - /url: /articulos/el-rol-del-liderazgo-en-la-capacitacion
+            - generic [ref=e49]: Liderazgo
+            - generic [ref=e50]: "El rol del liderazgo en la capacitación: una responsabilidad ineludible"
+          - generic [ref=e51]: ·
+        - generic [ref=e52]:
+          - link "ADDIE Cómo la Metodología ADDIE Revoluciona tu Contenido en LinkedIn" [ref=e53] [cursor=pointer]:
+            - /url: /articulos/co-mo-la-metodologi-a-addie-pede-mejorar-t-estrategia-de-contenido
+            - generic [ref=e54]: ADDIE
+            - generic [ref=e55]: Cómo la Metodología ADDIE Revoluciona tu Contenido en LinkedIn
+          - generic [ref=e56]: ·
+        - generic [ref=e57]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e58] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e59]: 🔥 OFERTA Q2
+            - generic [ref=e60]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e61]: ·
+        - generic [ref=e62]:
+          - link "LMS Cómo elegir un LMS sin perder tiempo ni dinero (versión LATAM 2026)" [ref=e63] [cursor=pointer]:
+            - /url: /articulos/co-mo-elegir-n-lms-sin-perder-tiempo-ni-dinero-versio-n-latam
+            - generic [ref=e64]: LMS
+            - generic [ref=e65]: Cómo elegir un LMS sin perder tiempo ni dinero (versión LATAM 2026)
+          - generic [ref=e66]: ·
+        - generic [ref=e67]:
+          - link "LMS ¡Es la hora de actualizar su LMS!" [ref=e68] [cursor=pointer]:
+            - /url: /articulos/es-la-hora-de-actalizar-s-lms
+            - generic [ref=e69]: LMS
+            - generic [ref=e70]: ¡Es la hora de actualizar su LMS!
+          - generic [ref=e71]: ·
+        - generic [ref=e72]:
+          - link "🔥 PROMO Q2 Localization Pack — 20% descuento Q2" [ref=e73] [cursor=pointer]:
+            - /url: /articulate-localization
+            - generic [ref=e74]: 🔥 PROMO Q2
+            - generic [ref=e75]: Localization Pack — 20% descuento Q2
+          - generic [ref=e76]: ·
+        - generic [ref=e77]:
+          - 'link "Blog Domina el arte del video: Guía completa para profesionales de e-Learning" [ref=e78] [cursor=pointer]':
+            - /url: /blog/domina-el-arte-del-video-guia-completa-para-profesionales-de-e-learning
+            - generic [ref=e79]: Blog
+            - generic [ref=e80]: "Domina el arte del video: Guía completa para profesionales de e-Learning"
+          - generic [ref=e81]: ·
+        - generic [ref=e82]:
+          - 'link "Metodología El eLearning no es solo ''tomar un curso en línea'': 10 metodologías que lo demuestran" [ref=e83] [cursor=pointer]':
+            - /url: /articulos/el-elearning-no-es-solo-qottomar-n-crso-en-li-nea-qot-metodologi-as-qe-lo-demestran
+            - generic [ref=e84]: Metodología
+            - generic [ref=e85]: "El eLearning no es solo 'tomar un curso en línea': 10 metodologías que lo demuestran"
+          - generic [ref=e86]: ·
+        - generic [ref=e87]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e88] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e89]: 🔥 OFERTA Q2
+            - generic [ref=e90]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e91]: ·
+        - generic [ref=e92]:
+          - 'link "Accesibilidad eLearning accesible: la tecnología que educa cuando incluye" [ref=e93] [cursor=pointer]':
+            - /url: /articulos/elearning-accesible-la-tecnologi-a-qe-edca-cando-inclye
+            - generic [ref=e94]: Accesibilidad
+            - generic [ref=e95]: "eLearning accesible: la tecnología que educa cuando incluye"
+          - generic [ref=e96]: ·
+        - generic [ref=e97]:
+          - 'link "Marketing Educativo Marketing y eLearning: estrategias que transforman la educación digital" [ref=e98] [cursor=pointer]':
+            - /url: /articulos/marketing-y-elearning-estrategias-qe-transorman-la-edcacio-n-digital
+            - generic [ref=e99]: Marketing Educativo
+            - generic [ref=e100]: "Marketing y eLearning: estrategias que transforman la educación digital"
+          - generic [ref=e101]: ·
+        - generic [ref=e102]:
+          - link "🔥 PROMO Q2 Localization Pack — 20% descuento Q2" [ref=e103] [cursor=pointer]:
+            - /url: /articulate-localization
+            - generic [ref=e104]: 🔥 PROMO Q2
+            - generic [ref=e105]: Localization Pack — 20% descuento Q2
+          - generic [ref=e106]: ·
+        - generic [ref=e107]:
+          - link "Innovación ¿Está rota la educación tradicional? El modelo revolucionario de 2Hr Learning" [ref=e108] [cursor=pointer]:
+            - /url: /articulos/esta-rota-la-educacion-tradicional-el-modelo-revolucionario-de-2hr-learning
+            - generic [ref=e109]: Innovación
+            - generic [ref=e110]: ¿Está rota la educación tradicional? El modelo revolucionario de 2Hr Learning
+          - generic [ref=e111]: ·
+        - generic [ref=e112]:
+          - link "Gamificación ✨ Cómo Usar Simulaciones de eLearning para Fomentar la Empatía y Retener Clientes ✨" [ref=e113] [cursor=pointer]:
+            - /url: /articulos/simlaciones-de-elearning-para-omentar-la-empati-a-y-retener-clientes
+            - generic [ref=e114]: Gamificación
+            - generic [ref=e115]: ✨ Cómo Usar Simulaciones de eLearning para Fomentar la Empatía y Retener Clientes ✨
+          - generic [ref=e116]: ·
+        - generic [ref=e117]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e118] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e119]: 🔥 OFERTA Q2
+            - generic [ref=e120]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e121]: ·
+        - generic [ref=e122]:
+          - 'link "IA El futuro de la educación según Elon Musk: la revolución adaptativa" [ref=e123] [cursor=pointer]':
+            - /url: /articulos/el-tro-de-la-edcacio-n-seg-n-elon-msk-la-revolcio-n-adaptativa
+            - generic [ref=e124]: IA
+            - generic [ref=e125]: "El futuro de la educación según Elon Musk: la revolución adaptativa"
+          - generic [ref=e126]: ·
+        - generic [ref=e127]:
+          - 'link "Cultura de Aprendizaje La Paradoja de la Capacitación Empresarial: Entre la Obligación y el Deseo" [ref=e128] [cursor=pointer]':
+            - /url: /articulos/la-paradoja-de-la-capacitacio-n-empresarial-entre-la-obligacio-n-y-el-deseo
+            - generic [ref=e129]: Cultura de Aprendizaje
+            - generic [ref=e130]: "La Paradoja de la Capacitación Empresarial: Entre la Obligación y el Deseo"
+          - generic [ref=e131]: ·
+        - generic [ref=e132]:
+          - link "🔥 PROMO Q2 Localization Pack — 20% descuento Q2" [ref=e133] [cursor=pointer]:
+            - /url: /articulate-localization
+            - generic [ref=e134]: 🔥 PROMO Q2
+            - generic [ref=e135]: Localization Pack — 20% descuento Q2
+          - generic [ref=e136]: ·
+        - generic [ref=e137]:
+          - 'link "IA Adaptativa La revolución del aprendizaje adaptativo con IA: más allá de la educación tradicional" [ref=e138] [cursor=pointer]':
+            - /url: /articulos/la-revolcio-n-del-aprendizaje-adaptativo-con-ia-ma-s-alla-de-la-edcacio-n-tradicional
+            - generic [ref=e139]: IA Adaptativa
+            - generic [ref=e140]: "La revolución del aprendizaje adaptativo con IA: más allá de la educación tradicional"
+          - generic [ref=e141]: ·
+        - generic [ref=e142]:
+          - link "L&D El rol evolutivo del líder de aprendizaje corporativo en la era de la IA" [ref=e143] [cursor=pointer]:
+            - /url: /articulos/el-rol-evoltivo-del-li-der-de-aprendizaje-corporativo-en-la-era-de-la-ia
+            - generic [ref=e144]: L&D
+            - generic [ref=e145]: El rol evolutivo del líder de aprendizaje corporativo en la era de la IA
+          - generic [ref=e146]: ·
+        - generic [ref=e147]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e148] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e149]: 🔥 OFERTA Q2
+            - generic [ref=e150]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e151]: ·
+        - generic [ref=e152]:
+          - 'link "PYMEs eLearning para PYMEs: cómo capacitar a tu equipo sin gastar de más" [ref=e153] [cursor=pointer]':
+            - /url: /articulos/elearning-para-pymes-co-mo-capacitar-a-t-eqipo-sin-gastar-de-ma-s
+            - generic [ref=e154]: PYMEs
+            - generic [ref=e155]: "eLearning para PYMEs: cómo capacitar a tu equipo sin gastar de más"
+          - generic [ref=e156]: ·
+        - generic [ref=e157]:
+          - 'link "Liderazgo El rol del liderazgo en la capacitación: una responsabilidad ineludible" [ref=e158] [cursor=pointer]':
+            - /url: /articulos/el-rol-del-liderazgo-en-la-capacitacion
+            - generic [ref=e159]: Liderazgo
+            - generic [ref=e160]: "El rol del liderazgo en la capacitación: una responsabilidad ineludible"
+          - generic [ref=e161]: ·
+        - generic [ref=e162]:
+          - link "ADDIE Cómo la Metodología ADDIE Revoluciona tu Contenido en LinkedIn" [ref=e163] [cursor=pointer]:
+            - /url: /articulos/co-mo-la-metodologi-a-addie-pede-mejorar-t-estrategia-de-contenido
+            - generic [ref=e164]: ADDIE
+            - generic [ref=e165]: Cómo la Metodología ADDIE Revoluciona tu Contenido en LinkedIn
+          - generic [ref=e166]: ·
+        - generic [ref=e167]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e168] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e169]: 🔥 OFERTA Q2
+            - generic [ref=e170]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e171]: ·
+        - generic [ref=e172]:
+          - link "LMS Cómo elegir un LMS sin perder tiempo ni dinero (versión LATAM 2026)" [ref=e173] [cursor=pointer]:
+            - /url: /articulos/co-mo-elegir-n-lms-sin-perder-tiempo-ni-dinero-versio-n-latam
+            - generic [ref=e174]: LMS
+            - generic [ref=e175]: Cómo elegir un LMS sin perder tiempo ni dinero (versión LATAM 2026)
+          - generic [ref=e176]: ·
+        - generic [ref=e177]:
+          - link "LMS ¡Es la hora de actualizar su LMS!" [ref=e178] [cursor=pointer]:
+            - /url: /articulos/es-la-hora-de-actalizar-s-lms
+            - generic [ref=e179]: LMS
+            - generic [ref=e180]: ¡Es la hora de actualizar su LMS!
+          - generic [ref=e181]: ·
+        - generic [ref=e182]:
+          - link "🔥 PROMO Q2 Localization Pack — 20% descuento Q2" [ref=e183] [cursor=pointer]:
+            - /url: /articulate-localization
+            - generic [ref=e184]: 🔥 PROMO Q2
+            - generic [ref=e185]: Localization Pack — 20% descuento Q2
+          - generic [ref=e186]: ·
+        - generic [ref=e187]:
+          - 'link "Blog Domina el arte del video: Guía completa para profesionales de e-Learning" [ref=e188] [cursor=pointer]':
+            - /url: /blog/domina-el-arte-del-video-guia-completa-para-profesionales-de-e-learning
+            - generic [ref=e189]: Blog
+            - generic [ref=e190]: "Domina el arte del video: Guía completa para profesionales de e-Learning"
+          - generic [ref=e191]: ·
+        - generic [ref=e192]:
+          - 'link "Metodología El eLearning no es solo ''tomar un curso en línea'': 10 metodologías que lo demuestran" [ref=e193] [cursor=pointer]':
+            - /url: /articulos/el-elearning-no-es-solo-qottomar-n-crso-en-li-nea-qot-metodologi-as-qe-lo-demestran
+            - generic [ref=e194]: Metodología
+            - generic [ref=e195]: "El eLearning no es solo 'tomar un curso en línea': 10 metodologías que lo demuestran"
+          - generic [ref=e196]: ·
+        - generic [ref=e197]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e198] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e199]: 🔥 OFERTA Q2
+            - generic [ref=e200]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e201]: ·
+        - generic [ref=e202]:
+          - 'link "Accesibilidad eLearning accesible: la tecnología que educa cuando incluye" [ref=e203] [cursor=pointer]':
+            - /url: /articulos/elearning-accesible-la-tecnologi-a-qe-edca-cando-inclye
+            - generic [ref=e204]: Accesibilidad
+            - generic [ref=e205]: "eLearning accesible: la tecnología que educa cuando incluye"
+          - generic [ref=e206]: ·
+        - generic [ref=e207]:
+          - 'link "Marketing Educativo Marketing y eLearning: estrategias que transforman la educación digital" [ref=e208] [cursor=pointer]':
+            - /url: /articulos/marketing-y-elearning-estrategias-qe-transorman-la-edcacio-n-digital
+            - generic [ref=e209]: Marketing Educativo
+            - generic [ref=e210]: "Marketing y eLearning: estrategias que transforman la educación digital"
+          - generic [ref=e211]: ·
+        - generic [ref=e212]:
+          - link "🔥 PROMO Q2 Localization Pack — 20% descuento Q2" [ref=e213] [cursor=pointer]:
+            - /url: /articulate-localization
+            - generic [ref=e214]: 🔥 PROMO Q2
+            - generic [ref=e215]: Localization Pack — 20% descuento Q2
+          - generic [ref=e216]: ·
+        - generic [ref=e217]:
+          - link "Innovación ¿Está rota la educación tradicional? El modelo revolucionario de 2Hr Learning" [ref=e218] [cursor=pointer]:
+            - /url: /articulos/esta-rota-la-educacion-tradicional-el-modelo-revolucionario-de-2hr-learning
+            - generic [ref=e219]: Innovación
+            - generic [ref=e220]: ¿Está rota la educación tradicional? El modelo revolucionario de 2Hr Learning
+          - generic [ref=e221]: ·
+        - generic [ref=e222]:
+          - link "Gamificación ✨ Cómo Usar Simulaciones de eLearning para Fomentar la Empatía y Retener Clientes ✨" [ref=e223] [cursor=pointer]:
+            - /url: /articulos/simlaciones-de-elearning-para-omentar-la-empati-a-y-retener-clientes
+            - generic [ref=e224]: Gamificación
+            - generic [ref=e225]: ✨ Cómo Usar Simulaciones de eLearning para Fomentar la Empatía y Retener Clientes ✨
+          - generic [ref=e226]: ·
+        - generic [ref=e227]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e228] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e229]: 🔥 OFERTA Q2
+            - generic [ref=e230]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e231]: ·
+        - generic [ref=e232]:
+          - 'link "IA El futuro de la educación según Elon Musk: la revolución adaptativa" [ref=e233] [cursor=pointer]':
+            - /url: /articulos/el-tro-de-la-edcacio-n-seg-n-elon-msk-la-revolcio-n-adaptativa
+            - generic [ref=e234]: IA
+            - generic [ref=e235]: "El futuro de la educación según Elon Musk: la revolución adaptativa"
+          - generic [ref=e236]: ·
+        - generic [ref=e237]:
+          - 'link "Cultura de Aprendizaje La Paradoja de la Capacitación Empresarial: Entre la Obligación y el Deseo" [ref=e238] [cursor=pointer]':
+            - /url: /articulos/la-paradoja-de-la-capacitacio-n-empresarial-entre-la-obligacio-n-y-el-deseo
+            - generic [ref=e239]: Cultura de Aprendizaje
+            - generic [ref=e240]: "La Paradoja de la Capacitación Empresarial: Entre la Obligación y el Deseo"
+          - generic [ref=e241]: ·
+        - generic [ref=e242]:
+          - link "🔥 PROMO Q2 Localization Pack — 20% descuento Q2" [ref=e243] [cursor=pointer]:
+            - /url: /articulate-localization
+            - generic [ref=e244]: 🔥 PROMO Q2
+            - generic [ref=e245]: Localization Pack — 20% descuento Q2
+          - generic [ref=e246]: ·
+        - generic [ref=e247]:
+          - 'link "IA Adaptativa La revolución del aprendizaje adaptativo con IA: más allá de la educación tradicional" [ref=e248] [cursor=pointer]':
+            - /url: /articulos/la-revolcio-n-del-aprendizaje-adaptativo-con-ia-ma-s-alla-de-la-edcacio-n-tradicional
+            - generic [ref=e249]: IA Adaptativa
+            - generic [ref=e250]: "La revolución del aprendizaje adaptativo con IA: más allá de la educación tradicional"
+          - generic [ref=e251]: ·
+        - generic [ref=e252]:
+          - link "L&D El rol evolutivo del líder de aprendizaje corporativo en la era de la IA" [ref=e253] [cursor=pointer]:
+            - /url: /articulos/el-rol-evoltivo-del-li-der-de-aprendizaje-corporativo-en-la-era-de-la-ia
+            - generic [ref=e254]: L&D
+            - generic [ref=e255]: El rol evolutivo del líder de aprendizaje corporativo en la era de la IA
+          - generic [ref=e256]: ·
+        - generic [ref=e257]:
+          - link "🔥 OFERTA Q2 Articulate 360 Teams + IA — $1,198 USD" [ref=e258] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - generic [ref=e259]: 🔥 OFERTA Q2
+            - generic [ref=e260]: Articulate 360 Teams + IA — $1,198 USD
+          - generic [ref=e261]: ·
+        - generic [ref=e262]:
+          - 'link "PYMEs eLearning para PYMEs: cómo capacitar a tu equipo sin gastar de más" [ref=e263] [cursor=pointer]':
+            - /url: /articulos/elearning-para-pymes-co-mo-capacitar-a-t-eqipo-sin-gastar-de-ma-s
+            - generic [ref=e264]: PYMEs
+            - generic [ref=e265]: "eLearning para PYMEs: cómo capacitar a tu equipo sin gastar de más"
+          - generic [ref=e266]: ·
+    - generic [ref=e268]:
+      - paragraph [ref=e269]: Partners y distribuidores oficiales
+      - generic [ref=e270]:
+        - link "Articulate Authorized Reseller Authorized Reseller" [ref=e271] [cursor=pointer]:
+          - /url: /articulate-360-mexico
+          - img "Articulate Authorized Reseller" [ref=e273]
+          - generic [ref=e274]: Authorized Reseller
+        - link "Articulate Certified Training Partner Certified Training Partner" [ref=e275] [cursor=pointer]:
+          - /url: /curso-articulate
+          - img "Articulate Certified Training Partner" [ref=e277]
+          - generic [ref=e278]: Certified Training Partner
+        - link "Vyond Authorized Reseller" [ref=e279] [cursor=pointer]:
+          - /url: /vyond-mexico
+          - img "Vyond" [ref=e281]
+          - generic [ref=e282]: Authorized Reseller
+        - link "Totara Solutions Partner" [ref=e283] [cursor=pointer]:
+          - /url: /totara-lms-mexico
+          - img "Totara" [ref=e285]
+          - generic [ref=e286]: Solutions Partner
+        - link "Moodle Partner" [ref=e287] [cursor=pointer]:
+          - /url: /moodle-mexico
+          - img "Moodle" [ref=e289]
+          - generic [ref=e290]: Partner
+        - link "7 Minutes Learning Authorized Reseller" [ref=e291] [cursor=pointer]:
+          - /url: /7minutes-learning
+          - img "7 Minutes Learning" [ref=e293]
+          - generic [ref=e294]: Authorized Reseller
+    - generic [ref=e296]:
+      - generic [ref=e297]:
+        - generic [ref=e298]:
+          - paragraph [ref=e299]: Lo que hacemos
+          - heading "Soluciones de aprendizaje a tu medida" [level=2] [ref=e300]
+          - paragraph [ref=e301]: Del diagnóstico a la implementación — cubrimos todo el ecosistema e-learning de tu organización.
+        - link "Ver todas las soluciones →" [ref=e302] [cursor=pointer]:
+          - /url: /soluciones
+          - text: Ver todas las soluciones
+          - generic [ref=e303]: →
+      - generic [ref=e304]:
+        - generic [ref=e305]:
+          - generic [ref=e306]: 🛠️
+          - heading "Herramientas de autoría" [level=3] [ref=e307]
+          - paragraph [ref=e308]: Articulate 360, Vyond y más. Licencias oficiales con soporte en español, factura mexicana y precio en pesos al tipo de cambio del día.
+          - link "Ver herramientas →" [ref=e309] [cursor=pointer]:
+            - /url: /articulate-360-mexico
+            - text: Ver herramientas
+            - generic [ref=e310]: →
+        - generic [ref=e311]:
+          - generic [ref=e312]: 🎬
+          - heading "Desarrollo de cursos a medida" [level=3] [ref=e313]
+          - paragraph [ref=e314]: Diseño instruccional + producción en Articulate o Vyond. E-learning, microlearning, blended learning y MOOCs listos para tu LMS.
+          - link "Ver proceso →" [ref=e315] [cursor=pointer]:
+            - /url: /desarrollo-de-contenidos
+        - generic [ref=e316]:
+          - generic [ref=e317]: ⚙️
+          - heading "Implementación LMS" [level=3] [ref=e318]
+          - paragraph [ref=e319]: Moodle, Totara, Articulate Reach y más. Instalación, configuración, migración de contenidos y capacitación a tu equipo.
+          - link "Ver plataformas →" [ref=e320] [cursor=pointer]:
+            - /url: /moodle-mexico
+        - generic [ref=e321]:
+          - generic [ref=e322]: 💡
+          - heading "Consultoría L&D" [level=3] [ref=e323]
+          - paragraph [ref=e324]: Diagnóstico de brechas, estrategia de capacitación, analítica de aprendizaje y acompañamiento de adopción con metodología probada.
+          - link "Saber más →" [ref=e325] [cursor=pointer]:
+            - /url: /nosotros
+        - generic [ref=e326]:
+          - generic [ref=e327]: 📋
+          - heading "Evaluaciones de alta seguridad" [level=3] [ref=e328]
+          - paragraph [ref=e329]: Plataforma especializada en exámenes de alta importancia. Diseño y análisis de evaluaciones con estándares para certificación.
+          - link "Ver más →" [ref=e330] [cursor=pointer]:
+            - /url: /contacto
+    - generic [ref=e332]:
+      - generic [ref=e333]:
+        - paragraph [ref=e334]: Nuestro proceso
+        - heading "Cómo trabajamos contigo" [level=2] [ref=e335]
+        - paragraph [ref=e336]: Sin soluciones genéricas. Analizamos tu contexto real antes de recomendar nada.
+      - generic [ref=e337]:
+        - generic [ref=e338]:
+          - generic [ref=e339]: "1"
+          - heading "Diagnóstico" [level=3] [ref=e340]
+          - paragraph [ref=e341]: Analizamos tus necesidades reales de capacitación, presupuesto, infraestructura y equipo — no el ideal teórico.
+        - generic [ref=e342]:
+          - generic [ref=e343]: "2"
+          - heading "Recomendación" [level=3] [ref=e344]
+          - paragraph [ref=e345]: Proponemos la solución que funciona para tu contexto específico. No la más cara ni la más popular — la correcta.
+        - generic [ref=e346]:
+          - generic [ref=e347]: "3"
+          - heading "Implementación" [level=3] [ref=e348]
+          - paragraph [ref=e349]: Entregamos, configuramos y capacitamos a tu equipo hasta que dominen las herramientas. En español, desde CDMX.
+        - generic [ref=e350]:
+          - generic [ref=e351]: "4"
+          - heading "Acompañamiento" [level=3] [ref=e352]
+          - paragraph [ref=e353]: Soporte continuo post-implementación. Estamos cuando nos necesitas, no solo en la venta.
+    - generic [ref=e355]:
+      - generic [ref=e356]:
+        - generic [ref=e357]:
+          - paragraph [ref=e358]: Clientes que confían en TAEC
+          - heading "Lo que dicen quienes nos eligieron" [level=2] [ref=e359]
+        - link "Ver todos →" [ref=e360] [cursor=pointer]:
+          - /url: /clientes
+      - generic [ref=e361]:
+        - generic [ref=e362]:
+          - generic [ref=e363]:
+            - generic [ref=e364]: "\""
+            - paragraph [ref=e365]: La colaboración con TAEC ha sido fructífera, hemos podido implementar exitosamente la plataforma de Totara y nos ayudaron a desarrollar el contenido que necesitábamos para las capacitaciones a distancia.
+            - generic [ref=e366]:
+              - generic [ref=e367]: GS
+              - generic [ref=e368]:
+                - generic [ref=e369]: GS1 México
+                - generic [ref=e370]: Estándares globales de negocio
+          - generic [ref=e371]:
+            - generic [ref=e372]: "\""
+            - paragraph [ref=e373]: Escogimos a TAEC como nuestro socio en e-learning por su calidad, profesionalismo y conocimiento en la creación de estrategias de capacitación.
+            - generic [ref=e374]:
+              - generic [ref=e375]: LT
+              - generic [ref=e376]:
+                - generic [ref=e377]: Linktech
+                - generic [ref=e378]: Tecnología y capacitación
+        - generic [ref=e379]:
+          - button "Testimonio anterior" [ref=e380] [cursor=pointer]: ←
+          - button "Siguiente testimonio" [ref=e381] [cursor=pointer]: →
+    - generic [ref=e383]:
+      - paragraph [ref=e384]: Confían en TAEC
+      - generic [ref=e386]:
+        - generic [ref=e388]: GS1
+        - generic [ref=e390]: VivaAerobús
+        - generic [ref=e392]: UNICEF
+        - generic [ref=e394]: OIM
+        - generic [ref=e396]: Peñoles
+        - generic [ref=e398]: Tec de Monterrey
+        - generic [ref=e400]: GS1
+        - generic [ref=e402]: VivaAerobús
+        - generic [ref=e404]: UNICEF
+        - generic [ref=e406]: OIM
+        - generic [ref=e408]: Peñoles
+        - generic [ref=e410]: Tec de Monterrey
+    - generic [ref=e412]:
+      - generic [ref=e413]:
+        - generic [ref=e414]:
+          - paragraph [ref=e415]: Biblioteca gratuita
+          - heading "Recursos para equipos L&D" [level=2] [ref=e416]
+        - link "Ver todos los recursos →" [ref=e417] [cursor=pointer]:
+          - /url: /recursos
+      - generic [ref=e419]:
+        - generic [ref=e420]: 📋
+        - generic [ref=e421]:
+          - generic [ref=e422]: Guía
+          - 'heading "Cómo elegir un LMS en México: guía práctica 2026" [level=3] [ref=e423]'
+          - paragraph [ref=e424]: Checklist de requerimientos, comparativo de plataformas y preguntas clave para tu evaluación.
+        - generic [ref=e425]:
+          - generic [ref=e426]: PDF · Gratis
+          - link "Solicitar →" [ref=e427] [cursor=pointer]:
+            - /url: /contacto
+    - generic [ref=e429]:
+      - generic [ref=e430]:
+        - heading "¿Tu organización necesita una estrategia de capacitación?" [level=2] [ref=e431]
+        - paragraph [ref=e432]: Una llamada de 30 minutos es suficiente para saber si podemos ayudarte.
+      - generic [ref=e433]:
+        - link "Agendar diagnóstico gratuito →" [ref=e434] [cursor=pointer]:
+          - /url: https://taec.zohobookings.com
+        - link "WhatsApp" [ref=e435] [cursor=pointer]:
+          - /url: https://wa.me/5215527758279
+  - contentinfo [ref=e436]:
+    - generic [ref=e437] [cursor=pointer]:
+      - generic [ref=e438]: ▲
+      - text: Explorar sitio y legal
+    - generic [ref=e440]:
+      - generic [ref=e441]:
+        - generic [ref=e442]:
+          - link "TAEC — Ir al inicio" [ref=e443] [cursor=pointer]:
+            - /url: /
+            - img "TAEC" [ref=e444]
+          - paragraph [ref=e445]: Aprendizaje corporativo para organizaciones que necesitan resultados medibles. Desde 2007 en CDMX para México y LATAM.
+          - generic [ref=e446]:
+            - link "✉ info@taec.com.mx" [ref=e447] [cursor=pointer]:
+              - /url: mailto:info@taec.com.mx
+            - link "📞 55 6822 3300" [ref=e448] [cursor=pointer]:
+              - /url: tel:5568223300
+            - link "💬 WhatsApp" [ref=e449] [cursor=pointer]:
+              - /url: https://wa.me/5215527758279
+        - generic [ref=e450]:
+          - heading "Soluciones" [level=3] [ref=e451]
+          - list [ref=e452]:
+            - listitem [ref=e453]:
+              - link "Articulate 360" [ref=e454] [cursor=pointer]:
+                - /url: /articulate-360-mexico
+            - listitem [ref=e455]:
+              - link "Vyond" [ref=e456] [cursor=pointer]:
+                - /url: /vyond-mexico
+            - listitem [ref=e457]:
+              - link "Moodle" [ref=e458] [cursor=pointer]:
+                - /url: /moodle-mexico
+            - listitem [ref=e459]:
+              - link "Totara LMS" [ref=e460] [cursor=pointer]:
+                - /url: /totara-lms-mexico
+            - listitem [ref=e461]:
+              - link "Todas las soluciones →" [ref=e462] [cursor=pointer]:
+                - /url: /soluciones
+        - generic [ref=e463]:
+          - heading "Recursos" [level=3] [ref=e464]
+          - list [ref=e465]:
+            - listitem [ref=e466]:
+              - link "Blog" [ref=e467] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e468]:
+              - link "Artículos" [ref=e469] [cursor=pointer]:
+                - /url: /articulos
+            - listitem [ref=e470]:
+              - link "Glosario e-learning" [ref=e471] [cursor=pointer]:
+                - /url: /glosario
+            - listitem [ref=e472]:
+              - link "Comparativos" [ref=e473] [cursor=pointer]:
+                - /url: /comparativos
+            - listitem [ref=e474]:
+              - link "Ver todos →" [ref=e475] [cursor=pointer]:
+                - /url: /recursos
+        - generic [ref=e476]:
+          - heading "Empresa" [level=3] [ref=e477]
+          - list [ref=e478]:
+            - listitem [ref=e479]:
+              - link "Quiénes somos" [ref=e480] [cursor=pointer]:
+                - /url: /nosotros
+            - listitem [ref=e481]:
+              - link "Clientes y casos" [ref=e482] [cursor=pointer]:
+                - /url: /clientes
+            - listitem [ref=e483]:
+              - link "Tienda" [ref=e484] [cursor=pointer]:
+                - /url: https://tienda.taec.com.mx
+            - listitem [ref=e485]:
+              - link "Contacto" [ref=e486] [cursor=pointer]:
+                - /url: /contacto
+            - listitem [ref=e487]:
+              - link "Soporte técnico" [ref=e488] [cursor=pointer]:
+                - /url: /contacto
+      - generic [ref=e489]:
+        - generic [ref=e490]: "También en:"
+        - link "🇲🇽 México — taec.com.mx" [ref=e491] [cursor=pointer]:
+          - /url: https://www.taec.com.mx/
+        - link "🇨🇴 Colombia — taec.com.co" [ref=e492] [cursor=pointer]:
+          - /url: https://www.taec.com.co/
+        - link "🇨🇱 Chile — taec.cl" [ref=e493] [cursor=pointer]:
+          - /url: https://www.taec.cl/
+      - generic [ref=e494]:
+        - paragraph [ref=e495]:
+          - text: © 2026 TAEC · Ciudad de México ·
+          - link "Aviso de privacidad" [ref=e496] [cursor=pointer]:
+            - /url: /aviso-de-privacidad
+          - link "Términos y condiciones" [ref=e497] [cursor=pointer]:
+            - /url: /terminos-y-condiciones
+        - generic [ref=e498]:
+          - link "LinkedIn" [ref=e499] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/taec
+            - text: in
+          - link "YouTube" [ref=e500] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCHQvrBBESK9JPJqxJW8DVgQ
+            - text: YT
+          - link "Facebook" [ref=e501] [cursor=pointer]:
+            - /url: https://www.facebook.com/TAEC.eLearning
+            - text: fb
+          - link "WhatsApp" [ref=e502] [cursor=pointer]:
+            - /url: https://wa.me/5215527758279
+            - text: WA
+  - link "¿Hablamos?" [ref=e503] [cursor=pointer]:
+    - /url: https://wa.me/5215527758279
+    - generic: ¿Hablamos?
+    - img [ref=e504]
+  - generic [ref=e507]:
+    - generic [ref=e508]:
+      - button "✕" [ref=e509] [cursor=pointer]:
+        - generic [ref=e510]: ✕
+      - button "─" [ref=e511] [cursor=pointer]:
+        - generic [ref=e512]: ─
+      - button "⧠" [ref=e513] [cursor=pointer]:
+        - generic [ref=e514]: ⧠
+    - generic [ref=e515]:
+      - generic [ref=e516]:
+        - img [ref=e518]
+        - generic [ref=e527]:
+          - heading "Tito Bits" [level=3] [ref=e528]
+          - paragraph [ref=e529]: Partner IA de TAEC
+      - button "Reiniciar ⟲" [ref=e531] [cursor=pointer]
+    - generic [ref=e534]:
+      - generic [ref=e535]:
+        - textbox "Escribe... (Shift+Enter salto línea)" [active] [ref=e536]: precio de articulate 360
+        - button [disabled] [ref=e537]:
+          - img [ref=e538]
+      - generic [ref=e540]: Tito Bits es una IA en entrenamiento y puede cometer errores. Por favor, consulta cualquier duda técnica o financiera con tu Asesor de Ventas.
+  - iframe [ref=e542]:
+    - generic [active]:
+      - generic:
+        - generic [ref=f3e2]:
+          - tablist [ref=f3e3]:
+            - tab "Logo Deploy Preview" [ref=f3e68] [cursor=pointer]:
+              - img "Logo" [ref=f3e69]
+              - strong [ref=f3e6]: Deploy Preview
+          - tablist [ref=f3e7]:
+            - button "Expand" [ref=f3e70] [cursor=pointer]:
+              - img [ref=f3e10]
+          - tablist [ref=f3e12]:
+            - button "Dismiss" [ref=f3e71] [cursor=pointer]:
+              - img [ref=f3e15]
+        - generic [ref=f3e18]:
+          - generic [ref=f3e19]:
+            - generic [ref=f3e20]:
+              - tablist [ref=f3e21]:
+                - tab [ref=f3e72] [cursor=pointer]:
+                  - img [ref=f3e73]
+                  - strong [ref=f3e24]: Collaborate
+              - tablist [ref=f3e25]:
+                - tab [ref=f3e74] [cursor=pointer]:
+                  - strong [ref=f3e27]: Log in
+                  - img [ref=f3e28]
+            - tablist [ref=f3e31]:
+              - button [ref=f3e75] [cursor=pointer]:
+                - img [ref=f3e34]
+          - generic [ref=f3e37]:
+            - heading [level=2] [ref=f3e77]:
+              - generic [ref=f3e39]:
+                - img [ref=f3e40]
+                - text: Collaborate
+              - text: on projects before going
+              - generic [ref=f3e41]:
+                - img [ref=f3e42]
+                - text: live
+            - generic [ref=f3e47]:
+              - paragraph [ref=f3e51]: Share feedback — with images & video — directly from the browser.
+              - paragraph [ref=f3e55]: It flows right into the tools you already know and love.
+              - paragraph [ref=f3e59]: Notify with @replies and make sure that the whole team stays aligned.
+            - generic [ref=f3e65]:
+              - button [ref=f3e78] [cursor=pointer]: Create a free account
+              - paragraph [ref=f3e67]: Already have a Netlify account? Log in
+      - alert [ref=f3e1]
