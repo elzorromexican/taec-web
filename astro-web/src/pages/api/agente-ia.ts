@@ -19,9 +19,12 @@ const getSafeEnv = (k: string) => {
   return undefined;
 };
 
+const redisUrl = getSafeEnv('UPSTASH_REDIS_REST_URL') || import.meta.env.UPSTASH_REDIS_REST_URL || '';
+const redisToken = getSafeEnv('UPSTASH_REDIS_REST_TOKEN') || import.meta.env.UPSTASH_REDIS_REST_TOKEN || '';
+
 const redis = new Redis({
-  url: getSafeEnv('UPSTASH_REDIS_REST_URL') || '',
-  token: getSafeEnv('UPSTASH_REDIS_REST_TOKEN') || '',
+  url: redisUrl,
+  token: redisToken,
 });
 
 const ratelimit = new Ratelimit({
@@ -66,7 +69,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       config();
     }
 
-    const activeModel = getSafeEnv('TAEC_GEMINI_MODEL') || getSafeEnv('GEMINI_MODEL') || 'gemini-2.5-flash';
+    const activeModel = getSafeEnv('TAEC_GEMINI_MODEL') || getSafeEnv('GEMINI_MODEL') || 'gemini-2.5-flash-lite';
     apiKey = getSafeEnv('TAEC_GEMINI_KEY') || getSafeEnv('GEMINI_API_KEY');
 
     // @ts-ignore
@@ -92,10 +95,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const sessionId = session_id || 'anonymous-session';
 
     if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
-      return new Response(JSON.stringify({ error: 'Mensaje inválido' }), { status: 400 });
+      return new Response(JSON.stringify({ error: 'Mensaje inválido' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
     }
-    if (userMessage.length > 1000) {
-      return new Response(JSON.stringify({ error: 'El mensaje excede el límite permitido.' }), { status: 413 });
+    if (userMessage.length > 5000) {
+      return new Response(JSON.stringify({ error: 'El mensaje excede el límite permitido.' }), { status: 413, headers: { 'Content-Type': 'application/json' } });
     }
 
     let safeHistory: {role: string, parts: {text: string}[]}[] = [];
@@ -245,7 +248,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const tEmbedding = Date.now();
     try {
-       const embeddingVector = await getEmbedding(retrievalQuery);
+       const embeddingVector = await getEmbedding(retrievalQuery, apiKey);
        embeddingTimeMs = Date.now() - tEmbedding;
 
        const tSearch = Date.now();
@@ -304,12 +307,12 @@ Solo pide datos de contacto cuando:
 
 ${isDiagnostic 
   ? `REGLA DE CONSULTORÍA DIAGNÓSTICO (ESTADO ACTUAL):
-El prospecto ya viene del motor de diagnóstico y ya tenemos sus datos.
-TU OBJETIVO ES CONTINUAR COMO CONSULTOR EXPERTO TÉCNICO.
-→ Profundiza en los detalles arquitectónicos de su caso.
-→ NO recortes la charla diciendo "un humano analizará esto y te contactará" prematuramente.
-→ Desarrolla y justifica por qué la segunda o tercer capa de la arquitectura recomendada hace sentido para ellos.
-→ Aporta verdadero valor consultivo y mantén el diálogo abierto para dudas técnicas.`
+El prospecto viene de finalizar el Diagnóstico. Su primer mensaje contiene su [Radiografía Completa].
+TU OBJETIVO ES ACTUAR COMO CONSULTOR EXPERTO TÉCNICO B2B (Framework Challenger):
+→ OBLIGATORIO: Analiza la "Radiografía" inyectada. Construye tu respuesta mencionando explícitamente sus "Dolores principales" y su "Gestión actual" (ej. "Al revisar que manejan su operación con X, veo que el mayor dolor es Y, por lo tanto la arquitectura recomendada...").
+→ Profundiza en los detalles arquitectónicos de su caso y justifica la recomendación.
+→ NO recortes la charla despidiendo o diciendo "un humano analizará esto" de manera prematura.
+→ Aporta verdadero valor consultivo, demuestra experiencia técnica y mantén el diálogo abierto.`
   : `REGLA LMS Y SERVICIOS:
 Si el usuario menciona: LMS, Totara, Moodle, NetExam, DDC,
 desarrollo a la medida, implementación, o volumen 100+ usuarios:
@@ -422,19 +425,35 @@ Toda referencia externa debe construir el caso hacia TAEC.
     }));
 
     const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:streamGenerateContent?alt=sse&key=${apiKey}`;
-    const restRes = await fetch(googleUrl, {
+    const fetchPayload = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: geminiHistory,
         system_instruction: { parts: [{ text: systemPrompt }] }
       })
-    });
+    };
+    
+    let restRes = await fetch(googleUrl, fetchPayload);
+
+    // Estrategia de reintento con backoff exponencial para errores 503 (Unavailable) o 429 (Too many requests)
+    if (!restRes.ok && (restRes.status === 503 || restRes.status === 429)) {
+       console.warn(`[RETRY 1] Gemini devolvió ${restRes.status} con modelo ${activeModel}. Reintentando en 1000ms...`);
+       await new Promise(r => setTimeout(r, 1000));
+       const retryUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:streamGenerateContent?alt=sse&key=${apiKey}`;
+       restRes = await fetch(retryUrl, fetchPayload);
+       
+       if (!restRes.ok && (restRes.status === 503 || restRes.status === 429)) {
+           console.warn(`[RETRY 2] Gemini devolvió ${restRes.status} nuevamente. Reintentando por última vez en 2000ms...`);
+           await new Promise(r => setTimeout(r, 2000));
+           restRes = await fetch(retryUrl, fetchPayload);
+       }
+    }
 
     if (!restRes.ok) {
        const errBody = await restRes.text().catch(() => '');
        const debugKey = apiKey ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)} [Len: ${apiKey.length}]` : 'N/A';
-       console.error("API Error Debug Key:", debugKey, "Body:", errBody);
+       console.error("API Error Debug Key:", debugKey, "Status:", restRes.status, "Body:", errBody);
        
        const mockStream = new ReadableStream({
          start(controller) {
@@ -466,6 +485,7 @@ Toda referencia externa debe construir el caso hacia TAEC.
         }
 
         let firstTokenTime = 0;
+        let ctaDetected = false;
         let accumulatedFullText = "";
         
         const reader = restRes.body!.getReader();
@@ -492,6 +512,9 @@ Toda referencia externa debe construir el caso hacia TAEC.
                       if (textChunk) {
                          accumulatedFullText += textChunk;
                          if (firstTokenTime === 0) firstTokenTime = Date.now() - tStart;
+                         if (!ctaDetected && /\[CTA\]/i.test(accumulatedFullText)) {
+                            ctaDetected = true;
+                         }
                          sendEvent('token', { text: textChunk.replace(/\[CTA\]/gi, '') });
                       }
                    } catch(e: any) {
@@ -501,19 +524,14 @@ Toda referencia externa debe construir el caso hacia TAEC.
              }
           }
 
-          if (!isExpandMode) {
-              let detectedTargetRow = null;
-              const lowerText = accumulatedFullText.toLowerCase();
-              if (lowerText.includes('ddc') || lowerText.includes('diseño')) detectedTargetRow = 'ddc_services';
-              else if (lowerText.includes('articulate')) detectedTargetRow = 'articulate';
-              else if (lowerText.includes('scorm') || lowerText.includes('xapi')) detectedTargetRow = 'tech_standards';
-              else if (lowerText.includes('plataforma') || lowerText.includes('lms') || lowerText.includes('comercial')) detectedTargetRow = 'platform';
-
-              if (detectedTargetRow) {
-                 sendEvent('ui_metadata', {
-                   targetId: detectedTargetRow
-                 });
-              }
+          if (!isExpandMode && ctaDetected) {
+            const lowerText = accumulatedFullText.toLowerCase();
+            let targetId = 'general';
+            if (lowerText.includes('ddc') || lowerText.includes('diseño')) targetId = 'ddc_services';
+            else if (lowerText.includes('articulate')) targetId = 'articulate';
+            else if (lowerText.includes('scorm') || lowerText.includes('xapi')) targetId = 'tech_standards';
+            else if (lowerText.includes('lms') || lowerText.includes('plataforma') || lowerText.includes('totara')) targetId = 'platform';
+            sendEvent('ui_metadata', { targetId });
           }
 
           const totalTime = Date.now() - tStart;
