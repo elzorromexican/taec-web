@@ -109,8 +109,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }));
     }
 
+    const isDiagnostic = typeof currentPath === 'string' && currentPath.toLowerCase().includes('diagnostico');
+
     // ======= 1. INTEGRACIÓN TITO-CHAT (SCORING Y HANDOFF) =======
-    if (sessionId !== 'anonymous-session') {
+    if (sessionId !== 'anonymous-session' && !isDiagnostic) {
       const { data: existingLead } = await supabase
         .from('tito_leads')
         .select('*')
@@ -352,11 +354,13 @@ de contacto, responde EXACTAMENTE esto (sin modificar):
 
 No agregues nada más. No sigas intentando capturar datos.
 
-REGLAS DE CONVERSIÓN B2B (CAPTURA DE LEADS):
-- CÓMO PEDIR DATOS: Si el prospecto entra por la web general, dile: "Por favor, escribe aquí mismo en el chat tu correo corporativo...". PERO si el prospecto viene del DIAGNÓSTICO (ya leíste su correo en el sistema), JAMÁS LE VUELVAS A PEDIR EL CORREO O TELÉFONO. 
+${!isDiagnostic ? `REGLAS DE CONVERSIÓN B2B (CAPTURA DE LEADS):
+- CÓMO PEDIR DATOS: Si el prospecto entra por la web general, dile: "Por favor, escribe aquí mismo en el chat tu correo corporativo...".
 - CONFIRMACIÓN: Al recibir datos, confírmalos explícitamente: *"¡Excelente! He registrado tus datos de forma segura."*
 - CANDADO ANTI-BUCLE INFALIBLE: Si notas que estás dando vueltas en círculo realizando las mismas preguntas, O si el usuario te responde con que ya te dio la respuesta, O si te responde agresivamente/harto, TIENES ESTRICTAMENTE PROHIBIDO volver a preguntar. Debes dar el chat por CASI CONCLUIDO diciendo: *"Entendido perfectamente. Con esta información ya tengo el panorama completo de tu caso. Un especialista humano analizará esto y te contactará a la brevedad con la ruta exacta. ¿Queda alguna otra duda técnica que pueda resolver por ti hoy?"*
-- REGLA ANTI-REPETICIÓN ESTRICTA: Si el usuario te responde dándote un dato personal (nombre, email, empresa) en lugar de responder a tus preguntas técnicas, TIENES TOTALMENTE PROHIBIDO volver a imprimirle la misma lista de preguntas (bullet points) que le enviaste en el mensaje anterior. Simplemente confirma la recepción de sus datos y haz solo UNA pregunta conversacional corta para retomar la plática o asume el escenario para avanzar y darle una recomendación. No seas un robot insistente.
+- REGLA ANTI-REPETICIÓN ESTRICTA: Si el usuario te responde dándote un dato personal (nombre, email, empresa) en lugar de responder a tus preguntas técnicas, TIENES TOTALMENTE PROHIBIDO volver a imprimirle la misma lista de preguntas (bullet points) que le enviaste en el mensaje anterior. Simplemente confirma la recepción de sus datos y haz solo UNA pregunta conversacional corta para retomar la plática o asume el escenario para avanzar y darle una recomendación. No seas un robot insistente.` : `REGLAS DE CONTINUIDAD DIAGNÓSTICO (CHALLENGER):
+- MANTÉN LA PERSISTENCIA CONSULTIVA: NUNCA utilices respuestas enlatadas de finalización como "un especialista humano analizará esto". ERES el Consultor. 
+- SI EL USUARIO RESPONDE CORTO (ej. "es todo" o "no"): En lugar de cerrar el chat, reta al usuario amigablemente sobre su radiografía ("Entiendo, solo recuerda que tu falta de integración actual podría causar un cuello de botella con esos 1500 usuarios. ¿Han considerado cómo mitigar esto?"). Mantén el framework Challenger vivo.`}
 
 ==================================================
 BASE DE CONOCIMIENTO CENTRALIZADA (CEREBRO B2B):
