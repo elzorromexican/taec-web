@@ -9,9 +9,9 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 -->
 
 ## 🚀 Prioridades Inmediatas (Siguiente Sesión - QA Intranet y UI)
-- [ ] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard B2B para mayor pulcritud comercial.
-- [ ] **[ISSUE-019] QA UX Hub:** Validar y corregir el comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
-- [ ] **[ISSUE-021] Reach 360:** Investigar y corregir el *z-index/position* del nav desplegable en `/articulate-reach` que se está rompiendo visualmente.
+- [x] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard B2B para mayor pulcritud comercial.
+- [x] **[ISSUE-019] QA UX Hub:** Validar y corregir el comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
+- [x] **[ISSUE-021] Reach 360:** Investigar y corregir el *z-index/position* del nav desplegable en `/articulate-reach` que se está rompiendo visualmente.
 - [x] **Sprint Coherencia Diagnóstico V2.1 (TitoBits):** Resolución de inconsistencias de UI y backend en el onboarding por diagnóstico. Radar multicapa de tecnologías parametrizado (vía Recharts y QuickChart). Hardening de TypeScript y resolución definitiva de arquitecturas paralelas de Extracción de Leads vs Diagnóstico. Fusión a main y limpieza del repo, unificando lógica bajo isDiagnostic.
 - [x] **Pruebas Pre-Merge y Hardening (TitoBits QA & v3.2.1 Rollout):** Pruebas rigurosas en local/staging superadas. Se mitigaron *AbortErrors* silenciosos, fuga de estado (UI zombies), y se fortalecieron los escudos lógicos de Handoff (`rules.ts`) contra bypass de volúmenes ofuscados (`volumeRegex`) e intenciones de compra explícitas tras simulacros Red-Team Nivel 3. Listo para merge a `main`.
 

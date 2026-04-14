@@ -97,6 +97,10 @@ const { data: novedades } = await scopedSupabase
 </IntranetLayout>
 
 <style>
+  .dashboard-hero {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
   .dashboard-hero h1 {
     font-size: 2rem;
     font-weight: 800;
@@ -123,9 +127,14 @@ const { data: novedades } = await scopedSupabase
 
   .news-grid {
     display: grid;
-    /* Fuerza estrictamente 2 columnas para no wrap */
+    /* Fuerza estrictamente 2 columnas para no wrap en desktop */
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .news-card {
