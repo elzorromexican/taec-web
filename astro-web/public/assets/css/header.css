@@ -179,3 +179,20 @@ header a.active {
   .header-actions .btn-tienda, .header-actions .btn-cta { display: none; }
   .hamburger { display: flex; }
 }
+
+/* ── FIX #69 · Touch targets WCAG 2.5.5 (min 44px) ── */
+/* Nav dropdown triggers */
+.mega-menu-trigger,
+.simple-dropdown-trigger,
+nav button {
+  min-height: 44px;
+  padding-block: 8px;
+}
+
+/* Links tipo 'Saber más →' */
+.saber-mas-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 11px;
+}
