@@ -324,10 +324,12 @@ const isActive = (path) => currentPath === path || (path !== '/interno/dashboard
     .intranet-sidebar {
       position: fixed;
       top: 60px; bottom: 0; left: 0;
+      height: calc(100dvh - 60px); /* Evita que el 100vh oculte elementos debajo del topbar */
       transform: translateX(-100%);
+      z-index: 60;
     }
     .intranet-sidebar.open { transform: translateX(0); }
-    .intranet-main-content { margin-top: 60px; margin-left: 0; }
+    .intranet-main-content { margin-top: 60px; margin-left: 0; height: calc(100dvh - 60px); }
     .content-wrapper { padding: 2rem 1.5rem; }
   }
 </style>
