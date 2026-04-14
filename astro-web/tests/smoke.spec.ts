@@ -12,16 +12,12 @@ test.describe('Smoke Tests Básicos', () => {
     await page.goto('/');
     
     // Verificamos que al menos el selector base que carga el Chat Agent exista en el DOM.
-    // Dependiendo del ID base, buscaremos '#chat-window', '#chat-agent' o un rol similar.
-    // Usaremos un locator para un posible iframe, div o boton burbuja con aria o ids comunes.
-    const chatContainer = page.locator('.chat-window, #antigravity-chat-btn, button[aria-label="Chat"]');
+    // Buscamos el botón flotante de TitoBits por su title.
+    const chatContainer = page.locator('button[title="Hablar con Tito Bits"]');
     
     // Al menos un elemento del chat debería existir 
     // (usualmente es un botón flotante antes de la hidratación completa).
     // Esperamos pacientemente porque los componentes pesados (React) tardan un par de segundos.
-    await chatContainer.first().waitFor({ state: 'attached', timeout: 5000 }).catch(() => {
-        // Fallback fallback, el framework React carga todo en un root
-        return page.locator('#root').waitFor({ state: 'attached' });
-    });
+    await chatContainer.waitFor({ state: 'attached', timeout: 5000 });
   });
 });

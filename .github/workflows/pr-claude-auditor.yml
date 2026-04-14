@@ -34,19 +34,6 @@ jobs:
         run: |
           PROMPT="Eres auditor de seguridad y calidad para taec-web. Revisa este diff buscando específicamente: API keys o secrets expuestos, console.log olvidados, imports de módulos eliminados que aún se usan, cambios en agente-ia.ts que afecten el modelo o la key de Gemini. Responde en español con veredicto: APROBADO o BLOQUEADO + razón."
           
-          payload=$(jq -n \
-            --arg prompt "$PROMPT" \
-            --arg diff "${diff_content}" \
-            '{
-              "model": "claude-3-5-sonnet-20241022",
-              "max_tokens": 1000,
-              "messages": [
-                {"role": "user", "content": "\($prompt)\n\nDiff:\n\($diff)"}
-              ]
-            }')
-            
-          # Nota: Claude 3.5 Sonnet / 3.7 Sonnet son los actuales de la API de Anthropic.
-          # claude-sonnet-4-6 parece un typo interno, usaremos la version actual disponible u omitiremos a la version estable.
           # Reemplazamos si el usuario prefirió claude-sonnet-4-6 literalmente:
           payload=$(jq -n \
             --arg prompt "$PROMPT" \
