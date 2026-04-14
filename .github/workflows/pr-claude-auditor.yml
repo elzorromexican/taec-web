@@ -1,0 +1,73 @@
+name: Claude PR Auditor
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  audit-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necesitamos el historial para el diff
+
+      - name: Get PR diff
+        id: get_diff
+        run: |
+          # Extraemos el target de la base branch
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          # Obtenemos el diff, ignorando package-lock y *.json pesados
+          DIFF=$(git diff origin/${{ github.event.pull_request.base.ref }}...HEAD -- . ':(exclude)package-lock.json' ':(exclude)*.json' ':(exclude)dist/*' ':(exclude).astro/*')
+          
+          # Escapar para el archivo de entorno
+          echo "diff_content<<EOF" >> $GITHUB_ENV
+          echo "$DIFF" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Run Claude Audit
+        if: ${{ env.diff_content != '' }}
+        id: claude_audit
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          PROMPT="Eres auditor de seguridad y calidad para taec-web. Revisa este diff buscando específicamente: API keys o secrets expuestos, console.log olvidados, imports de módulos eliminados que aún se usan, cambios en agente-ia.ts que afecten el modelo o la key de Gemini. Responde en español con veredicto: APROBADO o BLOQUEADO + razón."
+          
+          # Reemplazamos si el usuario prefirió claude-sonnet-4-6 literalmente:
+          payload=$(jq -n \
+            --arg prompt "$PROMPT" \
+            --arg diff "${diff_content}" \
+            '{
+              "model": "claude-sonnet-4-6",
+              "max_tokens": 1000,
+              "messages": [
+                {"role": "user", "content": "\($prompt)\n\nDiff:\n\($diff)"}
+              ]
+            }')
+
+          response=$(curl -s -X POST https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$payload")
+
+          # Extraer comentario (texto de la respuesta)
+          comment=$(echo "$response" | jq -r '.content[0].text // "Hubo un error al contactar la API de Claude."')
+          echo "CLAUDE_COMMENT<<EOF" >> $GITHUB_ENV
+          echo "$comment" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          
+      - name: Comment PR
+        if: ${{ env.CLAUDE_COMMENT != '' }}
+        uses: actions/github-script@v6
+        env:
+          COMMENT_BODY: ${{ env.CLAUDE_COMMENT }}
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `### 🛡️ Auditoría de Claude QA\n\n${process.env.COMMENT_BODY}`
+            })

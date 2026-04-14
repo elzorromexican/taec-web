@@ -1,0 +1,112 @@
+[
+  {
+    "scenario": "1. Comparación de planes Vyond",
+    "log": [
+      {
+        "userMsg": "¿Qué cambia entre Professional y Enterprise?",
+        "agentReply": "",
+        "contextReady": true
+      },
+      {
+        "userMsg": "¿y para un equipo regional?",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "2. Articulate pricing / promo aplicable",
+    "log": [
+      {
+        "userMsg": "¿Tienen alguna promoción vigente de Articulate?",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "3. Follow-up ambiguo puro",
+    "log": [
+      {
+        "userMsg": "Estoy viendo Vyond",
+        "agentReply": "",
+        "contextReady": true
+      },
+      {
+        "userMsg": "¿y en enterprise qué cambia?",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "4. Totara con integración",
+    "log": [
+      {
+        "userMsg": "Necesitamos LMS con SSO y Active Directory",
+        "agentReply": "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?",
+        "contextReady": true
+      },
+      {
+        "userMsg": "somos más de 1000 usuarios",
+        "agentReply": "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "5. DDC versus solo licencias",
+    "log": [
+      {
+        "userMsg": "¿Ustedes me desarrollan el curso o solo venden la herramienta?",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "6. Caso sin suficiente contexto",
+    "log": [
+      {
+        "userMsg": "Necesito algo moderno",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "7. Customer education / partner enablement",
+    "log": [
+      {
+        "userMsg": "Busco capacitar canales y distribuidores",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "8. Interrupción del stream",
+    "log": [
+      {
+        "userMsg": "Dime a detalle todo lo que incluye Articulate 360 y compáralo con Vyond en todos sus planes",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  },
+  {
+    "scenario": "10. Soporte en español / LATAM",
+    "log": [
+      {
+        "userMsg": "¿Dan soporte en español en México?",
+        "agentReply": "",
+        "contextReady": true
+      },
+      {
+        "userMsg": "¿y si el proveedor es de fuera?",
+        "agentReply": "",
+        "contextReady": true
+      }
+    ]
+  }
+]

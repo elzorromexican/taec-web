@@ -1,0 +1,20 @@
+
+> astro-web@4.0.0 dev
+> astro dev --port 5555
+
+19:38:21 [WARN] [config] This project contains server-rendered routes, but no adapter is installed. This is fine for development, but an adapter will be required to build your site for production.
+[vite] connected.
+19:38:22 [types] Generated 1ms
+[vite] connected.
+19:38:22 [content] Syncing content
+19:38:22 [content] Synced content
+ astro  v6.1.4 ready in 2315 ms
+┃ Local    http://localhost:5555/
+┃ Network  use --host to expose
+19:38:22 watching for file changes...
+{"event":"motor3_turn_start","message_id":"ef21d443-e1fe-4ea2-8ba1-caba50217f8d","embedding_time_ms":523,"retrieval_time_ms":314,"chunks_used":3,"scores":[0.793423831701426,0.744532974308483,0.728265474264784],"promos_applied":true}
+19:38:28 [200] POST /api/agente-ia 2474ms
+{"event":"motor3_turn_completed","message_id":"ef21d443-e1fe-4ea2-8ba1-caba50217f8d","totalTime_ms":12817,"ttfb_ms":12412}
+{"event":"motor3_turn_start","message_id":"546ff91a-2b7e-4d4e-852d-4f5aba6e5ffe","embedding_time_ms":215,"retrieval_time_ms":128,"chunks_used":3,"scores":[0.70396526866428,0.685364289947308,0.65456139525341],"promos_applied":true}
+19:38:41 [200] POST /api/agente-ia 820ms
+{"event":"motor3_turn_completed","message_id":"546ff91a-2b7e-4d4e-852d-4f5aba6e5ffe","totalTime_ms":11716,"ttfb_ms":8138}

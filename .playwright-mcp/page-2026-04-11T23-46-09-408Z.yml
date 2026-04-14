@@ -1,0 +1,146 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - img "TAEC Logo" [ref=e6]
+      - navigation [ref=e7]:
+        - list [ref=e8]:
+          - listitem [ref=e9]:
+            - link "Inicio" [ref=e10] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/dashboarduser
+          - listitem [ref=e11]:
+            - link "Perfil" [ref=e12] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/edituser
+          - listitem [ref=e13]:
+            - link "Carrito 0" [ref=e14] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/shopping-cart
+              - text: Carrito
+              - generic [ref=e15]: "0"
+          - listitem [ref=e16]:
+            - link "toto" [ref=e17] [cursor=pointer]:
+              - /url: "#"
+  - generic [ref=e18]:
+    - generic [ref=e20]:
+      - heading "Bienvenido a nuestro Catálogo" [level=1] [ref=e21]
+      - paragraph [ref=e22]: Explora nuestros productos de alta calidad
+    - generic [ref=e26]:
+      - textbox "Buscar productos" [ref=e27]:
+        - /placeholder: Buscar productos...
+      - button "Buscar" [ref=e28] [cursor=pointer]
+    - generic [ref=e29]:
+      - generic [ref=e31]:
+        - heading "Categorías" [level=2] [ref=e32]
+        - generic [ref=e33]:
+          - link "Cursos" [ref=e34] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/dashboarduser?descrip=Cursos
+          - link "Articulate / VYOND" [ref=e35] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/dashboarduser?descrip=Articulate / VYOND
+          - link "Cursos OnDemand" [ref=e36] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/dashboarduser?descrip=Cursos OnDemand
+      - generic [ref=e37]:
+        - generic [ref=e39]:
+          - link "Articulate 360 AI Personal (Licencia de uso personal)" [ref=e40] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/105
+            - img "Articulate 360 AI Personal (Licencia de uso personal)" [ref=e41]
+          - generic [ref=e42]:
+            - heading "Articulate 360 AI Personal (Licencia de uso personal)" [level=5] [ref=e43]
+            - paragraph [ref=e44]: Explora todas las herramientas de Articulate y crea una experiencia e-learning responsiva,interactiv...
+            - paragraph [ref=e45]: $1,449 USD
+            - link "Ver más" [ref=e46] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/descarticuser/105
+        - generic [ref=e48]:
+          - link "Articulate 360 AI Teams (Licencia de uso empresarial)" [ref=e49] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/103
+            - img "Articulate 360 AI Teams (Licencia de uso empresarial)" [ref=e50]
+          - generic [ref=e51]:
+            - heading "Articulate 360 AI Teams (Licencia de uso empresarial)" [level=5] [ref=e52]
+            - paragraph [ref=e53]: Explora todas las herramientas de Articulate y crea una experiencia e-learning responsiva,interactiv...
+            - paragraph [ref=e54]: $1,198 USD
+            - link "Ver más" [ref=e55] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/descarticuser/103
+        - generic [ref=e57]:
+          - link "Articulate 360 Personal (Licencia de uso personal)" [ref=e58] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/1
+            - img "Articulate 360 Personal (Licencia de uso personal)" [ref=e59]
+          - generic [ref=e60]:
+            - heading "Articulate 360 Personal (Licencia de uso personal)" [level=5] [ref=e61]
+            - paragraph [ref=e62]: Explora todas las herramientas de Articulate y crea una experiencia e-learning responsiva,interactiv...
+            - paragraph [ref=e63]: $1,199 USD
+            - link "Ver más" [ref=e64] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/descarticuser/1
+        - generic [ref=e66]:
+          - link "Articulate 360 Teams (Licencia de uso empresarial)" [ref=e67] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/3
+            - img "Articulate 360 Teams (Licencia de uso empresarial)" [ref=e68]
+          - generic [ref=e69]:
+            - heading "Articulate 360 Teams (Licencia de uso empresarial)" [level=5] [ref=e70]
+            - paragraph [ref=e71]: Explora todas las herramientas de Articulate y crea una experiencia e-learning responsiva,interactiv...
+            - paragraph [ref=e72]: $1,499 USD
+            - link "Ver más" [ref=e73] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/descarticuser/3
+        - generic [ref=e75]:
+          - link "Crear cursos accesibles con Articulate 360" [ref=e76] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/100
+            - img "Crear cursos accesibles con Articulate 360" [ref=e77]
+          - generic [ref=e78]:
+            - heading "Crear cursos accesibles con Articulate 360" [level=5] [ref=e79]
+            - paragraph [ref=e80]: La accesibilidad en el aprendizaje se refiere a la capacidad de los estudiantes para acceder al cont...
+            - paragraph [ref=e81]: $580 USD
+            - link "Ver más" [ref=e82] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/descarticuser/100
+        - generic [ref=e84]:
+          - link "Curso Articulate 360 Avanzado" [ref=e85] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/94
+            - img "Curso Articulate 360 Avanzado" [ref=e86]
+          - generic [ref=e87]:
+            - heading "Curso Articulate 360 Avanzado" [level=5] [ref=e88]
+            - paragraph [ref=e89]: Esta capacitación virtual de 2 sesiones está diseñada para aquellos que ya asistieron a la capacitac...
+            - paragraph [ref=e90]: $289 USD
+            - link "Ver más" [ref=e91] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/descarticuser/94
+      - navigation [ref=e93]:
+        - list [ref=e94]:
+          - listitem "« Previous" [ref=e95]:
+            - generic: ‹
+          - listitem [ref=e96]:
+            - generic [ref=e97] [cursor=pointer]: "1"
+          - listitem [ref=e98]:
+            - link "2" [ref=e99] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/dashboarduser?user_country=MX&is_mexican=1&page=2
+          - listitem [ref=e100]:
+            - link "3" [ref=e101] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/dashboarduser?user_country=MX&is_mexican=1&page=3
+          - listitem [ref=e102]:
+            - link "4" [ref=e103] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/dashboarduser?user_country=MX&is_mexican=1&page=4
+          - listitem [ref=e104]:
+            - link "Next »" [ref=e105] [cursor=pointer]:
+              - /url: https://tienda.taec.com.mx/dashboarduser?user_country=MX&is_mexican=1&page=2
+              - text: ›
+    - generic [ref=e106]:
+      - generic [ref=e108]:
+        - heading "Productos Destacados" [level=2] [ref=e109]
+        - paragraph [ref=e110]: Mira algunos de nuestros productos más populares
+      - generic [ref=e111]:
+        - generic [ref=e113]:
+          - link "Paquete de 2 usuarios Articulate 360 Teams AI (9 meses)" [ref=e114] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/119
+            - img "Paquete de 2 usuarios Articulate 360 Teams AI (9 meses)" [ref=e115]
+          - generic [ref=e116]:
+            - heading "Paquete de 2 usuarios Articulate 360 Teams AI (9 meses)" [level=5] [ref=e117]
+            - paragraph [ref=e118]: Articulate / VYOND
+        - generic [ref=e120]:
+          - link "Curso Cerrado Articulate con AI Assistant" [ref=e121] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/117
+            - img "Curso Cerrado Articulate con AI Assistant" [ref=e122]
+          - generic [ref=e123]:
+            - heading "Curso Cerrado Articulate con AI Assistant" [level=5] [ref=e124]
+            - paragraph [ref=e125]: Cursos
+        - generic [ref=e127]:
+          - link "Desarrollo de paquete de actividades" [ref=e128] [cursor=pointer]:
+            - /url: https://tienda.taec.com.mx/descarticuser/114
+            - img "Desarrollo de paquete de actividades" [ref=e129]
+          - generic [ref=e130]:
+            - heading "Desarrollo de paquete de actividades" [level=5] [ref=e131]
+            - paragraph [ref=e132]: Cursos OnDemand
+  - contentinfo [ref=e133]:
+    - paragraph [ref=e135]: © 2026 TAEC. Todos los derechos reservados.

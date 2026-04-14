@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "verify:dev": "node scripts/verify-dev.mjs"
+    "verify:dev": "node scripts/verify-dev.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@astrojs/netlify": "^7.0.5",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
+    "@playwright/test": "^1.50.0",
     "typescript": "^5.9.3",
     "vitest": "^4.1.4"
   }
