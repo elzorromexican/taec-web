@@ -268,4 +268,19 @@ const { data: novedades } = await scopedSupabase
     font-size: 0.8rem;
     color: #64748b;
   }
+
+  @media (max-width: 640px) {
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
+    .grid-links {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .grid-links {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
