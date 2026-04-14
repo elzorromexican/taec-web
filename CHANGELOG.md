@@ -6,6 +6,14 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.4.0 · 13 abr 2026 — Orquestación CI/CD Multi-Agente (QA Automatizado)
+
+### 🚀 Infraestructura, CI/CD y DevOps B2B
+- **QA Multi-Agente en Pull Requests:** Despliegue de un pipeline de auditoría asíncrona liderado por Inteligencia Artificial (`pr-claude-auditor.yml`). La arquitectura intercepta todo nuevo código propuesto en la rama y empaqueta un `git diff` filtrado directamente hacia la API de Claude (`claude-sonnet-4-6`) vía GitHub Actions. Claude funciona como un *Bouncer* de control de calidad: bloquea el mergeo ante *console.logs* olvidados, degradación de dependencias o exposición accidental de variables de entorno y deja un review de código documentando los riesgos dentro del mismo Pull Request.
+- **Smoke Tests Determinísticos E2E:** Implementación robusta de regresiones con Playwright (`netlify-smoke-tests.yml`) enlazadas al *lifecycle* post-deploy de Netlify al entorno de *Staging*. Las pruebas de extremo a extremo verifican el correcto renderizado de componentes críticos del DOM (ej. el nodo del Copiloto `ChatAgent`) y levantan alertas tempranas antes de promover silenciosamente hacia producción.
+- **Fallback Cognitivo sobre Fallas E2E:** Ingeniería de un interceptor de *logs* (`tee`) montado sobre los Smoke Tests determinísticos. Si Playwright explota o hay timeout, el pipeline captura el volcado de salida directo a un archivo temporal local y lo redirige a la API de Claude, interpretándolo para que se genere de inmediato un reporte inteligente en los comentarios del último *commit*, diagnosticando fallas exógenas (como derivaciones en los selectores visuales).
+- **Flujo Autónomo CLI (Agentic Loop):** Normalización y endurecimiento de la cuenta Git local para implementaciones multi-gentes (Agente Antigravity). Autenticación unificada mediante GitHub CLI (`gh auth setup-git` vía entorno HTTPS) mitigando fricciones clásicas de SSH y habilitando iteración autónoma ciega. La agencia IA ahora tiene capacidades plenas para crear ramas, proponer PRs, responder al review de QA y enviar los *commits* automatizados hasta cerrar los *Issues*.
+
 ## v3.3.0 · 13 abr 2026 — TitoBits Motor Diagnóstico V2.1 y Hardening TypeScript
 
 ### 🛠️ Arquitectura y Hardening de Código
