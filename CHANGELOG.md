@@ -6,6 +6,13 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.4.1 · 14 abr 2026 — Estabilización UI/UX Intranet B2B (Cierre QA)
+
+### 🎨 Correcciones Estéticas y de Navegación 
+- **Reach 360 Z-Index Overlay:** Corrección de la posición del `mega-menu` en el viewport. Aplicación del nuevo contexto de apilamiento explícito en la sección `.art-hero` de `art-pricing` forzando un nivel bajo respecto al componente general de cabecera (`Header`). 
+- **Dashboard Hub Spacing:** Mejoras paramétricas de espacio visual sobre `.dashboard-hero` para una jerarquía gráfica más limpia acorde a patrones corporativos evitando la saturación del Main Layout.
+- **Fluid Layout y Accordions iOS:** Despliegue de media query preventiva obligando la unificación de 1 columna a la grilla de novedades (`.news-grid`) debajo de 768px. Sustitución de cotas de altura cerradas (`100vh`) por cálculo reactivo moderno iterativo (`100dvh - 60px`) neutralizando quiebres crónicos en los dispositivos de Apple para la altura del menú `sidebar` de la intranet previniendo cortes en las llamadas finales del UI (ej. botón de logout).
+
 ## v3.4.0 · 13 abr 2026 — Orquestación CI/CD Multi-Agente (QA Automatizado)
 
 ### 🚀 Infraestructura, CI/CD y DevOps B2B
