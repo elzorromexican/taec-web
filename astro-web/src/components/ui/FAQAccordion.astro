@@ -2,41 +2,41 @@
 // CHANGELOG: 19/03/2026 - Extracted FAQAccordion component to remove duplication across product pages.
 // CHANGELOG: 19/03/2026 - Use r() to prefix internal URLs with BASE_URL for staging support.
 export interface FaqItem {
-  question: string;
-  answerHtml: string;
+	question: string;
+	answerHtml: string;
 }
 
 export interface Props {
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-  subtitleLink?: { text: string; url: string };
-  faqs: FaqItem[];
-  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+	eyebrow?: string;
+	title: string;
+	subtitle?: string;
+	subtitleLink?: { text: string; url: string };
+	faqs: FaqItem[];
+	theme?: "moo" | "tot" | "art" | "vyond" | "general";
 }
 
 const {
-  eyebrow = "Preguntas frecuentes",
-  title,
-  subtitle,
-  subtitleLink,
-  faqs,
-  theme = 'general'
+	eyebrow = "Preguntas frecuentes",
+	title,
+	subtitle,
+	subtitleLink,
+	faqs,
+	theme = "general",
 } = Astro.props;
 
-import { r } from '../../utils/paths';
+import { r } from "../../utils/paths";
 
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map((faq) => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answerHtml
-    }
-  }))
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map((faq) => ({
+		"@type": "Question",
+		name: faq.question,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: faq.answerHtml,
+		},
+	})),
 };
 ---
 

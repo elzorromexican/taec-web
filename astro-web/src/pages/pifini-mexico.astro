@@ -1,76 +1,137 @@
 ---
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import FAQAccordion from "../components/ui/FAQAccordion.astro";
+import GridBeneficios from "../components/ui/GridBeneficios.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import LogosGrid from "../components/ui/LogosGrid.astro";
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Nueva landing Pifini Learn / NetExam LMS+ · v2 con contenido completo.
 // Fuentes: pifini.ai · netexam.com · PDF Craig Weiss Group Top 10 (Dic 2025)
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import LogosGrid from '../components/ui/LogosGrid.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
-import { getBookingUrl } from '../data/contact';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const bookingUrl = getBookingUrl();
 
 const modulos = [
-  { icon: "🎓", label: "Enterprise LMS+", desc: "Plataforma de aprendizaje completa para capacitación externa: canales, clientes y socios. Base tecnológica de 20 años como NetExam." },
-  { icon: "🤖", label: "AI Content Creator", desc: "Generación rápida de cursos, exámenes, flashcards y listas de observación con inteligencia artificial." },
-  { icon: "🎯", label: "Sales Roleplay IA", desc: "Simulaciones de ventas con retroalimentación en tiempo real. Practica objeciones, precios y cierres antes de la llamada real." },
-  { icon: "📞", label: "Live Call Copilot", desc: "IA que escucha en tiempo real durante llamadas de ventas y proporciona guía instantánea para cerrar más tratos." },
-  { icon: "📊", label: "Training Impact Analysis", desc: "Conecta el aprendizaje con resultados reales: más ventas, menos tickets de soporte, ROI medible de cada programa." },
-  { icon: "🏆", label: "Certification Engine", desc: "Motor de certificaciones con exámenes dinámicos, vouchers y control de cumplimiento para canales y distribuidores." },
-  { icon: "🤝", label: "Partner Enablement Hub", desc: "Centro de habilitación para revendedores, distribuidores y alianzas. Mantiene a tus socios vendiendo con el conocimiento correcto." },
-  { icon: "🛒", label: "eCommerce + Integraciones", desc: "Venta de capacitación, 100+ integraciones (CRM, HRMS, SSO), reportes avanzados ETL y apps móviles." }
+	{
+		icon: "🎓",
+		label: "Enterprise LMS+",
+		desc: "Plataforma de aprendizaje completa para capacitación externa: canales, clientes y socios. Base tecnológica de 20 años como NetExam.",
+	},
+	{
+		icon: "🤖",
+		label: "AI Content Creator",
+		desc: "Generación rápida de cursos, exámenes, flashcards y listas de observación con inteligencia artificial.",
+	},
+	{
+		icon: "🎯",
+		label: "Sales Roleplay IA",
+		desc: "Simulaciones de ventas con retroalimentación en tiempo real. Practica objeciones, precios y cierres antes de la llamada real.",
+	},
+	{
+		icon: "📞",
+		label: "Live Call Copilot",
+		desc: "IA que escucha en tiempo real durante llamadas de ventas y proporciona guía instantánea para cerrar más tratos.",
+	},
+	{
+		icon: "📊",
+		label: "Training Impact Analysis",
+		desc: "Conecta el aprendizaje con resultados reales: más ventas, menos tickets de soporte, ROI medible de cada programa.",
+	},
+	{
+		icon: "🏆",
+		label: "Certification Engine",
+		desc: "Motor de certificaciones con exámenes dinámicos, vouchers y control de cumplimiento para canales y distribuidores.",
+	},
+	{
+		icon: "🤝",
+		label: "Partner Enablement Hub",
+		desc: "Centro de habilitación para revendedores, distribuidores y alianzas. Mantiene a tus socios vendiendo con el conocimiento correcto.",
+	},
+	{
+		icon: "🛒",
+		label: "eCommerce + Integraciones",
+		desc: "Venta de capacitación, 100+ integraciones (CRM, HRMS, SSO), reportes avanzados ETL y apps móviles.",
+	},
 ];
 
 const beneficios = [
-  { icon: "💰", title: "$50 USD/usuario/año — todo incluido", description: "Pifini.ai incluye LMS, IA de ventas, roleplay, call copilot y analytics en un solo precio. Competidores como Seismic o Bigtincan cobran $300–$600/usuario/año solo por el LMS." },
-  { icon: "🏆", title: "#7 mundial Craig Weiss 2025", description: "El analista independiente más respetado del sector LMS nombró a Pifini Learn el #7 sistema de aprendizaje del mundo, destacando su IA y enfoque en capacitación de canales." },
-  { icon: "🌐", title: "Especialista en formación externa", description: "Diseñado específicamente para capacitar canales, distribuidores, revendedores y clientes. No es un LMS de RR.HH. adaptado: es la plataforma correcta para el reto correcto." },
-  { icon: "📈", title: "AMD: +2x participación, −40 días admin/año", description: "Caso real documentado: AMD duplicó la participación en su programa de capacitación y eliminó 40 días de trabajo administrativo al año con NetExam LMS+." }
+	{
+		icon: "💰",
+		title: "$50 USD/usuario/año — todo incluido",
+		description:
+			"Pifini.ai incluye LMS, IA de ventas, roleplay, call copilot y analytics en un solo precio. Competidores como Seismic o Bigtincan cobran $300–$600/usuario/año solo por el LMS.",
+	},
+	{
+		icon: "🏆",
+		title: "#7 mundial Craig Weiss 2025",
+		description:
+			"El analista independiente más respetado del sector LMS nombró a Pifini Learn el #7 sistema de aprendizaje del mundo, destacando su IA y enfoque en capacitación de canales.",
+	},
+	{
+		icon: "🌐",
+		title: "Especialista en formación externa",
+		description:
+			"Diseñado específicamente para capacitar canales, distribuidores, revendedores y clientes. No es un LMS de RR.HH. adaptado: es la plataforma correcta para el reto correcto.",
+	},
+	{
+		icon: "📈",
+		title: "AMD: +2x participación, −40 días admin/año",
+		description:
+			"Caso real documentado: AMD duplicó la participación en su programa de capacitación y eliminó 40 días de trabajo administrativo al año con NetExam LMS+.",
+	},
 ];
 
 const faqs = [
-  {
-    question: "¿Pifini Learn y NetExam son lo mismo?",
-    answerHtml: "Son de la misma empresa pero productos distintos. <strong>NetExam LMS+</strong> es el sistema de gestión de aprendizaje especializado en formación externa, con casi 20 años en el mercado. <strong>Pifini Learn / Pifini.ai</strong> es la suite completa que incluye NetExam LMS+ más herramientas de IA para ventas: roleplay, call copilot, digital sales rooms y partner hub — todo por <strong>$50 USD/usuario/año</strong>."
-  },
-  {
-    question: "¿Cuánto cuesta Pifini Learn?",
-    answerHtml: "<strong>Pifini.ai: $50 USD/usuario/año</strong> — plataforma completa sin costos adicionales. <br><strong>NetExam LMS+</strong> tiene dos modelos: <em>por usuario</em> (tarifa plana, acceso ilimitado a cursos) o <em>por curso</em> (pago por consumo, ideal para bibliotecas pequeñas o grupos reducidos). Las sedes de administradores son gratuitas en ambos modelos. Contáctanos para una cotización a la medida de tu organización."
-  },
-  {
-    question: "¿Para qué tipo de organizaciones es ideal?",
-    answerHtml: "Para empresas que necesitan capacitar <strong>audiencias externas</strong>: canales de distribución, revendedores, franquiciados, clientes y socios comerciales. También para asociaciones que necesitan mantener actualizados a sus miembros. Si el reto es <strong>sales enablement o partner training</strong>, Pifini/NetExam es la solución correcta."
-  },
-  {
-    question: "¿Qué diferencia a NetExam/Pifini de Moodle o Totara?",
-    answerHtml: "Moodle y Totara son excelentes para formación interna de empleados. <strong>NetExam LMS+ está ingeniado específicamente para formación externa</strong>: gestión multi-organización, certificaciones de canal, eCommerce de capacitación, vouchers y métricas que conectan el aprendizaje con el desempeño de ventas. No es un LMS genérico adaptado — es una plataforma construida para este caso de uso."
-  },
-  {
-    question: "¿Qué capacidades de IA incluye?",
-    answerHtml: "NetExam LMS+ incluye: <strong>AI Content Creator</strong> (cursos y exámenes en minutos), <strong>AI Tutor</strong>, <strong>AI Exam Generation</strong>, <strong>AI Flashcard Generator</strong>, <strong>AI Report Bot</strong>, <strong>AI SME Bot</strong>, <strong>AI Interactive Simulation</strong> y <strong>AI Impact Analyzer</strong>. La suite Pifini.ai añade <strong>Sales Roleplay IA</strong>, <strong>Live Call Copilot</strong> y <strong>AI CAM Avatar</strong> para soporte de canales en tiempo real."
-  },
-  {
-    question: "¿TAEC puede implementar y dar soporte en México?",
-    answerHtml: "Sí. TAEC es el partner de Pifini / NetExam LMS+ en México y LATAM. Ofrecemos: implementación completa, configuración de la plataforma, integración con tu CRM o HRMS, capacitación de administradores y <strong>soporte técnico en español en horario de oficina CDMX</strong>. También gestionamos el contrato en pesos mexicanos con factura CFDI."
-  },
-  {
-    question: "¿Puedo ver una demo con casos reales del sector?",
-    answerHtml: "Sí. Agenda una sesión con nuestro equipo y te mostramos la plataforma con casos reales de canales y distribución en México y LATAM. La demo es sin costo y sin compromiso. <a href='" + bookingUrl + "' target='_blank' rel='noopener noreferrer' style='color:#f97316'>Agenda aquí →</a>"
-  }
+	{
+		question: "¿Pifini Learn y NetExam son lo mismo?",
+		answerHtml:
+			"Son de la misma empresa pero productos distintos. <strong>NetExam LMS+</strong> es el sistema de gestión de aprendizaje especializado en formación externa, con casi 20 años en el mercado. <strong>Pifini Learn / Pifini.ai</strong> es la suite completa que incluye NetExam LMS+ más herramientas de IA para ventas: roleplay, call copilot, digital sales rooms y partner hub — todo por <strong>$50 USD/usuario/año</strong>.",
+	},
+	{
+		question: "¿Cuánto cuesta Pifini Learn?",
+		answerHtml:
+			"<strong>Pifini.ai: $50 USD/usuario/año</strong> — plataforma completa sin costos adicionales. <br><strong>NetExam LMS+</strong> tiene dos modelos: <em>por usuario</em> (tarifa plana, acceso ilimitado a cursos) o <em>por curso</em> (pago por consumo, ideal para bibliotecas pequeñas o grupos reducidos). Las sedes de administradores son gratuitas en ambos modelos. Contáctanos para una cotización a la medida de tu organización.",
+	},
+	{
+		question: "¿Para qué tipo de organizaciones es ideal?",
+		answerHtml:
+			"Para empresas que necesitan capacitar <strong>audiencias externas</strong>: canales de distribución, revendedores, franquiciados, clientes y socios comerciales. También para asociaciones que necesitan mantener actualizados a sus miembros. Si el reto es <strong>sales enablement o partner training</strong>, Pifini/NetExam es la solución correcta.",
+	},
+	{
+		question: "¿Qué diferencia a NetExam/Pifini de Moodle o Totara?",
+		answerHtml:
+			"Moodle y Totara son excelentes para formación interna de empleados. <strong>NetExam LMS+ está ingeniado específicamente para formación externa</strong>: gestión multi-organización, certificaciones de canal, eCommerce de capacitación, vouchers y métricas que conectan el aprendizaje con el desempeño de ventas. No es un LMS genérico adaptado — es una plataforma construida para este caso de uso.",
+	},
+	{
+		question: "¿Qué capacidades de IA incluye?",
+		answerHtml:
+			"NetExam LMS+ incluye: <strong>AI Content Creator</strong> (cursos y exámenes en minutos), <strong>AI Tutor</strong>, <strong>AI Exam Generation</strong>, <strong>AI Flashcard Generator</strong>, <strong>AI Report Bot</strong>, <strong>AI SME Bot</strong>, <strong>AI Interactive Simulation</strong> y <strong>AI Impact Analyzer</strong>. La suite Pifini.ai añade <strong>Sales Roleplay IA</strong>, <strong>Live Call Copilot</strong> y <strong>AI CAM Avatar</strong> para soporte de canales en tiempo real.",
+	},
+	{
+		question: "¿TAEC puede implementar y dar soporte en México?",
+		answerHtml:
+			"Sí. TAEC es el partner de Pifini / NetExam LMS+ en México y LATAM. Ofrecemos: implementación completa, configuración de la plataforma, integración con tu CRM o HRMS, capacitación de administradores y <strong>soporte técnico en español en horario de oficina CDMX</strong>. También gestionamos el contrato en pesos mexicanos con factura CFDI.",
+	},
+	{
+		question: "¿Puedo ver una demo con casos reales del sector?",
+		answerHtml:
+			"Sí. Agenda una sesión con nuestro equipo y te mostramos la plataforma con casos reales de canales y distribución en México y LATAM. La demo es sin costo y sin compromiso. <a href='" +
+			bookingUrl +
+			"' target='_blank' rel='noopener noreferrer' style='color:#f97316'>Agenda aquí →</a>",
+	},
 ];
 
 const logos = [
-  { type: "text" as const, text: "AMD" },
-  { type: "text" as const, text: "Sabre" },
-  { type: "text" as const, text: "Stanley" },
-  { type: "text" as const, text: "Omron" },
-  { type: "text" as const, text: "Hexagon" },
-  { type: "text" as const, text: "Qlik" },
-  { type: "text" as const, text: "Bobcat" },
-  { type: "text" as const, text: "ABBYY" },
-  { type: "text" as const, text: "AVIXA" },
-  { type: "text" as const, text: "BlueCross" }
+	{ type: "text" as const, text: "AMD" },
+	{ type: "text" as const, text: "Sabre" },
+	{ type: "text" as const, text: "Stanley" },
+	{ type: "text" as const, text: "Omron" },
+	{ type: "text" as const, text: "Hexagon" },
+	{ type: "text" as const, text: "Qlik" },
+	{ type: "text" as const, text: "Bobcat" },
+	{ type: "text" as const, text: "ABBYY" },
+	{ type: "text" as const, text: "AVIXA" },
+	{ type: "text" as const, text: "BlueCross" },
 ];
 ---
 

@@ -1,5 +1,6 @@
 ---
 
+import { contactData, getBookingUrl } from "../data/contact";
 /**
  * @name Index (Inicio)
  * @version 1.1
@@ -10,81 +11,97 @@
  * @created 2026-03-22
  * @updated 2026-03-22
  */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { contactData, getBookingUrl } from '../data/contact';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Calcular años de experiencia en el build de Astro
 const founded = new Date(2007, 9, 11);
 const now = new Date();
-const anni = now.getFullYear() - founded.getFullYear() - (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
+const anni =
+	now.getFullYear() -
+	founded.getFullYear() -
+	(now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
 
 export const prerender = false; // <-- CRITICO: Forza SSR para interceptar Headers de Netlify por visitante
 
-import { r, base } from '../utils/paths';
-import AnimatedCounter from '../components/ui/AnimatedCounter.astro';
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
+import AnimatedCounter from "../components/ui/AnimatedCounter.astro";
+import { base, r } from "../utils/paths";
 
-const articulosColl = await getCollection('articulos').catch(() => []);
-const blogColl = await getCollection('blog').catch(() => []);
+const articulosColl = await getCollection("articulos").catch(() => []);
+const blogColl = await getCollection("blog").catch(() => []);
 
-const dbPosts = [...articulosColl, ...blogColl].map(p => {
-  // En Astro 6, p.id es el identificador (e.g. "mi-post") dado por el glob loader
-  const finalSlug = p.id;
-  
-  // Extraemos el año del string (ej: "Octubre 2, 2009" -> 2009). Si no hay fecha, asumimos el año actual.
-  const dateStr = p.data.date || p.data.fecha || '';
-  const yearMatch = dateStr.match(/\d{4}/);
-  const year = yearMatch ? parseInt(yearMatch[0], 10) : new Date().getFullYear();
+const dbPosts = [...articulosColl, ...blogColl]
+	.map((p) => {
+		// En Astro 6, p.id es el identificador (e.g. "mi-post") dado por el glob loader
+		const finalSlug = p.id;
 
-  return {
-    titulo: p.data.title || p.data.titulo || finalSlug.replace(/-/g, ' '),
-    categoria: p.data.category || p.data.categoria || (p.collection === 'articulos' ? 'Artículos' : 'Blog'),
-    url: `/${p.collection}/${finalSlug}`,
-    year
-  };
-}).filter(p => p.year >= 2024); // Evita noticias Legacy (pre-2024) en la home
+		// Extraemos el año del string (ej: "Octubre 2, 2009" -> 2009). Si no hay fecha, asumimos el año actual.
+		const dateStr = p.data.date || p.data.fecha || "";
+		const yearMatch = dateStr.match(/\d{4}/);
+		const year = yearMatch
+			? parseInt(yearMatch[0], 10)
+			: new Date().getFullYear();
 
-import fallbackTicker from '../../public/data/ticker.json';
-import { promos, latamCountries } from '../data/promos';
+		return {
+			titulo: p.data.title || p.data.titulo || finalSlug.replace(/-/g, " "),
+			categoria:
+				p.data.category ||
+				p.data.categoria ||
+				(p.collection === "articulos" ? "Artículos" : "Blog"),
+			url: `/${p.collection}/${finalSlug}`,
+			year,
+		};
+	})
+	.filter((p) => p.year >= 2024); // Evita noticias Legacy (pre-2024) en la home
+
+import fallbackTicker from "../../public/data/ticker.json";
+import { latamCountries, promos } from "../data/promos";
 
 // Lectura exhaustiva de País: Priorizando Contexto Nativo de Netlify Edge > Cabecera Netlify > Fallback
 const netlifyGeo = Astro.locals.netlify?.context?.geo?.country?.code;
-const headerGeo = Astro.request.headers.get('x-country') || Astro.request.headers.get('x-nf-country');
-const countryCode = netlifyGeo || headerGeo || 'MX';
+const headerGeo =
+	Astro.request.headers.get("x-country") ||
+	Astro.request.headers.get("x-nf-country");
+const countryCode = netlifyGeo || headerGeo || "MX";
 const isLatam = latamCountries.includes(countryCode);
 
-const activePromos = promos.filter(p => p.active && (
-  p.countries.includes(countryCode) ||
-  (isLatam && p.countries.includes('LATAM')) ||
-  p.countries.includes('GLOBAL')
-));
+const activePromos = promos.filter(
+	(p) =>
+		p.active &&
+		(p.countries.includes(countryCode) ||
+			(isLatam && p.countries.includes("LATAM")) ||
+			p.countries.includes("GLOBAL")),
+);
 
-const basePool: any[] = dbPosts.length > 5 ? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15) : fallbackTicker;
+const basePool: any[] =
+	dbPosts.length > 5
+		? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15)
+		: fallbackTicker;
 let tickerPool: any[] = [];
 
 if (activePromos.length > 0) {
-  const promoItems = activePromos.map(p => ({
-    titulo: p.title,
-    categoria: p.badgeText.replace(/[^\w\s%·]/g, '').trim() || 'OFERTA',
-    url: p.link || '#',
-    isPromo: true,
-    color: p.color || '#c2410c'
-  }));
+	const promoItems = activePromos.map((p) => ({
+		titulo: p.title,
+		categoria: p.badgeText.replace(/[^\w\s%·]/g, "").trim() || "OFERTA",
+		url: p.link || "#",
+		isPromo: true,
+		color: p.color || "#c2410c",
+	}));
 
-  // Patrón: 2 posts normales → 1 promo (rotando entre todas las promos activas)
-  let normalCount = 0;
-  let promoIdx = 0;
-  for (let i = 0; i < basePool.length; i++) {
-    tickerPool.push(basePool[i]);
-    normalCount++;
-    if (normalCount === 2) {
-      tickerPool.push(promoItems[promoIdx % promoItems.length]);
-      promoIdx++;
-      normalCount = 0;
-    }
-  }
+	// Patrón: 2 posts normales → 1 promo (rotando entre todas las promos activas)
+	let normalCount = 0;
+	let promoIdx = 0;
+	for (let i = 0; i < basePool.length; i++) {
+		tickerPool.push(basePool[i]);
+		normalCount++;
+		if (normalCount === 2) {
+			tickerPool.push(promoItems[promoIdx % promoItems.length]);
+			promoIdx++;
+			normalCount = 0;
+		}
+	}
 } else {
-  tickerPool = basePool;
+	tickerPool = basePool;
 }
 ---
 

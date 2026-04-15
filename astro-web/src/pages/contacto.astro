@@ -1,13 +1,13 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { contactData, getBookingUrl } from '../data/contact';
+import { contactData, getBookingUrl } from "../data/contact";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Valores usados en el template HTML y en atributos data-* del formulario.
 // El script cliente los lee via form.dataset — NO se usa define:vars.
-const formEndpoint  = "/api/submit-contact";   // Internal SSR Endpoint
-const bookingUrl    = getBookingUrl();             // URL de agenda activa o fallback de desarrollo
-const contactEmail  = contactData.email;
-const whatsappUrl   = contactData.whatsapp.url;
+const formEndpoint = "/api/submit-contact"; // Internal SSR Endpoint
+const bookingUrl = getBookingUrl(); // URL de agenda activa o fallback de desarrollo
+const contactEmail = contactData.email;
+const whatsappUrl = contactData.whatsapp.url;
 ---
 
 <BaseLayout

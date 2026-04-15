@@ -1,75 +1,134 @@
 ---
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Landing Proctorizer completa. Contenido basado en doc estratégico DDC.
-import ProductPageLayout from '../layouts/ProductPageLayout.astro';
-import { getBookingUrl } from '../data/contact';
-import { r } from '../utils/paths';
+import ProductPageLayout from "../layouts/ProductPageLayout.astro";
+import { r } from "../utils/paths";
 
 const bookingUrl = getBookingUrl();
 
 const beneficios = [
-  { icon: "🔍", title: "Verificación de identidad", description: "Confirma que quien responde el examen es quien dice ser. Foto, documento y análisis de rostro antes de comenzar." },
-  { icon: "🚨", title: "Detección automática de incidentes", description: "Detecta cambios de pestaña, segunda pantalla, personas adicionales en la sala, audio sospechoso y movimiento fuera de cámara." },
-  { icon: "🔒", title: "Navegador seguro — Proctorizer Lock", description: "Bloquea copiar, pegar, capturas de pantalla, impresión, descargas, aplicaciones no permitidas y segundo monitor." },
-  { icon: "📊", title: "Reportes y evidencia accionable", description: "Dashboard con timeline de incidentes, filtros, exportación en PDF y evidencia clara para apelaciones o auditorías." }
+	{
+		icon: "🔍",
+		title: "Verificación de identidad",
+		description:
+			"Confirma que quien responde el examen es quien dice ser. Foto, documento y análisis de rostro antes de comenzar.",
+	},
+	{
+		icon: "🚨",
+		title: "Detección automática de incidentes",
+		description:
+			"Detecta cambios de pestaña, segunda pantalla, personas adicionales en la sala, audio sospechoso y movimiento fuera de cámara.",
+	},
+	{
+		icon: "🔒",
+		title: "Navegador seguro — Proctorizer Lock",
+		description:
+			"Bloquea copiar, pegar, capturas de pantalla, impresión, descargas, aplicaciones no permitidas y segundo monitor.",
+	},
+	{
+		icon: "📊",
+		title: "Reportes y evidencia accionable",
+		description:
+			"Dashboard con timeline de incidentes, filtros, exportación en PDF y evidencia clara para apelaciones o auditorías.",
+	},
 ];
 
 const modalidades = [
-  {
-    letra: "A",
-    title: "Supervisión integrada con LMS",
-    desc: "Se conecta directamente con Moodle, Canvas, Blackboard, Open LMS y Chamilo. El alumno toma el examen en su LMS habitual con supervisión activa en segundo plano.",
-    tags: ["Moodle", "Canvas", "Blackboard", "Open LMS", "Chamilo"]
-  },
-  {
-    letra: "B",
-    title: "Proctorizer Lock — Navegador seguro",
-    desc: "Bloquea el entorno del equipo durante el examen: sin copiar/pegar, sin capturas, sin impresión, sin aplicaciones paralelas, sin segundo monitor. Funciona sin integración LMS.",
-    tags: ["Sin LMS requerido", "Windows y Mac", "Configuración simple"]
-  },
-  {
-    letra: "C",
-    title: "Plataforma completa de exámenes supervisados",
-    desc: "Gestión integral: banco de preguntas, asignación de exámenes, supervisión remota y reportes en un solo sistema. Ideal para organizaciones sin LMS propio.",
-    tags: ["Todo en uno", "Sin LMS propio", "Para instituciones"]
-  }
+	{
+		letra: "A",
+		title: "Supervisión integrada con LMS",
+		desc: "Se conecta directamente con Moodle, Canvas, Blackboard, Open LMS y Chamilo. El alumno toma el examen en su LMS habitual con supervisión activa en segundo plano.",
+		tags: ["Moodle", "Canvas", "Blackboard", "Open LMS", "Chamilo"],
+	},
+	{
+		letra: "B",
+		title: "Proctorizer Lock — Navegador seguro",
+		desc: "Bloquea el entorno del equipo durante el examen: sin copiar/pegar, sin capturas, sin impresión, sin aplicaciones paralelas, sin segundo monitor. Funciona sin integración LMS.",
+		tags: ["Sin LMS requerido", "Windows y Mac", "Configuración simple"],
+	},
+	{
+		letra: "C",
+		title: "Plataforma completa de exámenes supervisados",
+		desc: "Gestión integral: banco de preguntas, asignación de exámenes, supervisión remota y reportes en un solo sistema. Ideal para organizaciones sin LMS propio.",
+		tags: ["Todo en uno", "Sin LMS propio", "Para instituciones"],
+	},
 ];
 
 const capacidades = [
-  { icon: "👁️", label: "Supervisión remota automatizada", desc: "IA que monitorea en tiempo real sin requerir un supervisor humano dedicado por sesión." },
-  { icon: "🪪", label: "Verificación de identidad", desc: "Foto + documento + análisis facial antes de comenzar. Sin suplantación." },
-  { icon: "⚠️", label: "Detección de incidentes", desc: "Cambios de pestaña, personas adicionales, audio, movimiento fuera de cámara — todo registrado." },
-  { icon: "🔒", label: "Navegador seguro", desc: "Proctorizer Lock bloquea el entorno del equipo durante el examen." },
-  { icon: "📋", label: "Dashboard intuitivo", desc: "Timeline de incidentes, filtros, exportación PDF y evidencia lista para usar." },
-  { icon: "🔗", label: "Integración con LMS", desc: "Moodle, Canvas, Blackboard, Open LMS, Chamilo — conexión directa vía API." },
-  { icon: "🏷️", label: "Personalización de marca", desc: "Logo, colores y dominio de tu institución en la experiencia del evaluado." },
-  { icon: "🇲🇽", label: "Soporte en español", desc: "Equipo de soporte en horario LATAM. Más de 120 instituciones en la región." }
+	{
+		icon: "👁️",
+		label: "Supervisión remota automatizada",
+		desc: "IA que monitorea en tiempo real sin requerir un supervisor humano dedicado por sesión.",
+	},
+	{
+		icon: "🪪",
+		label: "Verificación de identidad",
+		desc: "Foto + documento + análisis facial antes de comenzar. Sin suplantación.",
+	},
+	{
+		icon: "⚠️",
+		label: "Detección de incidentes",
+		desc: "Cambios de pestaña, personas adicionales, audio, movimiento fuera de cámara — todo registrado.",
+	},
+	{
+		icon: "🔒",
+		label: "Navegador seguro",
+		desc: "Proctorizer Lock bloquea el entorno del equipo durante el examen.",
+	},
+	{
+		icon: "📋",
+		label: "Dashboard intuitivo",
+		desc: "Timeline de incidentes, filtros, exportación PDF y evidencia lista para usar.",
+	},
+	{
+		icon: "🔗",
+		label: "Integración con LMS",
+		desc: "Moodle, Canvas, Blackboard, Open LMS, Chamilo — conexión directa vía API.",
+	},
+	{
+		icon: "🏷️",
+		label: "Personalización de marca",
+		desc: "Logo, colores y dominio de tu institución en la experiencia del evaluado.",
+	},
+	{
+		icon: "🇲🇽",
+		label: "Soporte en español",
+		desc: "Equipo de soporte en horario LATAM. Más de 120 instituciones en la región.",
+	},
 ];
 
 const faqs = [
-  {
-    question: "¿Proctorizer requiere que el alumno instale algo?",
-    answerHtml: "Depende de la modalidad. La <strong>supervisión integrada con LMS</strong> funciona desde el navegador sin instalación. <strong>Proctorizer Lock</strong> requiere descargar el navegador seguro — proceso simple de 2–3 minutos que el alumno hace una sola vez."
-  },
-  {
-    question: "¿Funciona con Moodle?",
-    answerHtml: "Sí. Proctorizer tiene integración nativa con <strong>Moodle, Canvas, Blackboard, Open LMS y Chamilo</strong>. El alumno toma el examen en el LMS habitual y Proctorizer supervisa en segundo plano sin interrumpir la experiencia."
-  },
-  {
-    question: "¿Qué pasa si el alumno no tiene cámara o internet estable?",
-    answerHtml: "Proctorizer tiene configuraciones de tolerancia ajustables. Puedes definir qué nivel de supervisión requiere cada examen: desde verificación básica de identidad hasta supervisión completa con detección de incidentes. Si el caso requiere condiciones específicas de conectividad, lo evaluamos juntos."
-  },
-  {
-    question: "¿Cuántos exámenes simultáneos puede manejar?",
-    answerHtml: "La plataforma tiene capacidad documentada para <strong>más de 100,000 exámenes simultáneos</strong>. Es adecuada tanto para aplicaciones pequeñas (20–50 alumnos) como para eventos masivos de certificación o admisión."
-  },
-  {
-    question: "¿Cómo se manejan las apelaciones o disputas?",
-    answerHtml: "Cada sesión genera un <strong>reporte con evidencia</strong>: timeline de incidentes, capturas del momento, audio y video del evento. Esa evidencia es exportable en PDF y está disponible para el área académica o de RH para tomar decisiones con respaldo documental."
-  },
-  {
-    question: "¿TAEC puede implementar Proctorizer en mi institución en México?",
-    answerHtml: "Sí. TAEC es el partner de Proctorizer en México y LATAM. Acompañamos desde la evaluación del caso de uso, la integración con tu LMS, la capacitación de administradores y el soporte operativo en español. Contáctanos para una demo con casos reales de instituciones en la región."
-  }
+	{
+		question: "¿Proctorizer requiere que el alumno instale algo?",
+		answerHtml:
+			"Depende de la modalidad. La <strong>supervisión integrada con LMS</strong> funciona desde el navegador sin instalación. <strong>Proctorizer Lock</strong> requiere descargar el navegador seguro — proceso simple de 2–3 minutos que el alumno hace una sola vez.",
+	},
+	{
+		question: "¿Funciona con Moodle?",
+		answerHtml:
+			"Sí. Proctorizer tiene integración nativa con <strong>Moodle, Canvas, Blackboard, Open LMS y Chamilo</strong>. El alumno toma el examen en el LMS habitual y Proctorizer supervisa en segundo plano sin interrumpir la experiencia.",
+	},
+	{
+		question: "¿Qué pasa si el alumno no tiene cámara o internet estable?",
+		answerHtml:
+			"Proctorizer tiene configuraciones de tolerancia ajustables. Puedes definir qué nivel de supervisión requiere cada examen: desde verificación básica de identidad hasta supervisión completa con detección de incidentes. Si el caso requiere condiciones específicas de conectividad, lo evaluamos juntos.",
+	},
+	{
+		question: "¿Cuántos exámenes simultáneos puede manejar?",
+		answerHtml:
+			"La plataforma tiene capacidad documentada para <strong>más de 100,000 exámenes simultáneos</strong>. Es adecuada tanto para aplicaciones pequeñas (20–50 alumnos) como para eventos masivos de certificación o admisión.",
+	},
+	{
+		question: "¿Cómo se manejan las apelaciones o disputas?",
+		answerHtml:
+			"Cada sesión genera un <strong>reporte con evidencia</strong>: timeline de incidentes, capturas del momento, audio y video del evento. Esa evidencia es exportable en PDF y está disponible para el área académica o de RH para tomar decisiones con respaldo documental.",
+	},
+	{
+		question:
+			"¿TAEC puede implementar Proctorizer en mi institución en México?",
+		answerHtml:
+			"Sí. TAEC es el partner de Proctorizer en México y LATAM. Acompañamos desde la evaluación del caso de uso, la integración con tu LMS, la capacitación de administradores y el soporte operativo en español. Contáctanos para una demo con casos reales de instituciones en la región.",
+	},
 ];
 ---
 

@@ -9,96 +9,129 @@
  * @updated 2026-04-11 12:12:00
  */
 
-import type { APIRoute } from 'astro';
-import { GoogleGenAI } from '@google/genai';
-import { getSystemRulesString, evaluateMessageForEscalation } from '../../lib/tito/rules';
-import { getEmbedding, searchSimilarChunks, supabase } from '../../lib/tito/rag';
-import { calcularScore, determinarHandoff, type LeadSignals } from '../../lib/tito/scoring';
-import { generarMiniBrief, enviarNotificacion, extraerContacto, FALLBACK_CONTACTO } from '../../lib/tito/handoff';
+import { GoogleGenAI } from "@google/genai";
+import type { APIRoute } from "astro";
+import {
+	enviarNotificacion,
+	extraerContacto,
+	FALLBACK_CONTACTO,
+	generarMiniBrief,
+} from "../../lib/tito/handoff";
+import {
+	getEmbedding,
+	searchSimilarChunks,
+	supabase,
+} from "../../lib/tito/rag";
+import {
+	evaluateMessageForEscalation,
+	getSystemRulesString,
+} from "../../lib/tito/rules";
+import {
+	calcularScore,
+	determinarHandoff,
+	type LeadSignals,
+} from "../../lib/tito/scoring";
 
 export const POST: APIRoute = async ({ request }) => {
-  try {
-    const body = await request.json();
-    const message = body.message || '';
-    const sessionId = body.session_id || 'anonymous-session';
+	try {
+		const body = await request.json();
+		const message = body.message || "";
+		const sessionId = body.session_id || "anonymous-session";
 
-    // ======= FASE 3: MODO CAPTURA =======
-    const { data: existingLead } = await supabase
-      .from('tito_leads')
-      .select('*')
-      .eq('session_id', sessionId)
-      .single();
+		// ======= FASE 3: MODO CAPTURA =======
+		const { data: existingLead } = await supabase
+			.from("tito_leads")
+			.select("*")
+			.eq("session_id", sessionId)
+			.single();
 
-    if (existingLead && existingLead.awaiting_contact) {
-      const contacto = extraerContacto(message);
-      
-      const isRefusal = message.toLowerCase().match(/(no quiero|no te dar|no gracias)/) !== null;
-      const hasDatos = contacto.nombre || contacto.empresa || contacto.email;
+		if (existingLead && existingLead.awaiting_contact) {
+			const contacto = extraerContacto(message);
 
-      if (isRefusal || !hasDatos) {
-        return new Response(JSON.stringify({
-          reply: FALLBACK_CONTACTO,
-          handoff_tipo: existingLead.handoff_tipo,
-          score: existingLead.score
-        }), { status: 200, headers: { 'Content-Type': 'application/json' } });
-      }
+			const isRefusal =
+				message.toLowerCase().match(/(no quiero|no te dar|no gracias)/) !==
+				null;
+			const hasDatos = contacto.nombre || contacto.empresa || contacto.email;
 
-      let awaitingContactUpdate = false;
-      const nombreFinal = contacto.nombre || existingLead.nombre;
-      let replyCapture = nombreFinal
-        ? `Listo ${nombreFinal}, nuestro equipo te contacta en menos de 24 horas hábiles.`
-        : `Listo, nuestro equipo te contacta en menos de 24 horas hábiles.`;
+			if (isRefusal || !hasDatos) {
+				return new Response(
+					JSON.stringify({
+						reply: FALLBACK_CONTACTO,
+						handoff_tipo: existingLead.handoff_tipo,
+						score: existingLead.score,
+					}),
+					{ status: 200, headers: { "Content-Type": "application/json" } },
+				);
+			}
 
-      // Regla: Si el usuario da solo email sin nombre -> aceptarlo, preguntar nombre en siguiente turno
-      if (contacto.email && !contacto.nombre && !existingLead.nombre) {
-        awaitingContactUpdate = true;
-        replyCapture = "Gracias por tu correo. ¿Me podrías indicar tu nombre, por favor?";
-      }
+			let awaitingContactUpdate = false;
+			const nombreFinal = contacto.nombre || existingLead.nombre;
+			let replyCapture = nombreFinal
+				? `Listo ${nombreFinal}, nuestro equipo te contacta en menos de 24 horas hábiles.`
+				: `Listo, nuestro equipo te contacta en menos de 24 horas hábiles.`;
 
-      const mergedNombre = contacto.nombre || existingLead.nombre;
-      const mergedEmail = contacto.email || existingLead.email;
-      const mergedEmpresa = contacto.empresa || existingLead.empresa;
+			// Regla: Si el usuario da solo email sin nombre -> aceptarlo, preguntar nombre en siguiente turno
+			if (contacto.email && !contacto.nombre && !existingLead.nombre) {
+				awaitingContactUpdate = true;
+				replyCapture =
+					"Gracias por tu correo. ¿Me podrías indicar tu nombre, por favor?";
+			}
 
-      const { data: updatedLead, error: leadUpdateError } = await supabase.from('tito_leads').update({
-        nombre: mergedNombre,
-        empresa: mergedEmpresa,
-        email: mergedEmail,
-        awaiting_contact: awaitingContactUpdate
-      }).eq('id', existingLead.id).select().single();
+			const mergedNombre = contacto.nombre || existingLead.nombre;
+			const mergedEmail = contacto.email || existingLead.email;
+			const mergedEmpresa = contacto.empresa || existingLead.empresa;
 
-      if (!awaitingContactUpdate && !leadUpdateError && updatedLead) {
-        enviarNotificacion({
-          id: updatedLead.id,
-          session_id: sessionId,
-          email: updatedLead.email,
-          nombre: updatedLead.nombre,
-          empresa: updatedLead.empresa,
-          score: updatedLead.score,
-          minibrief: updatedLead.minibrief,
-          handoff_tipo: updatedLead.handoff_tipo as 'ventas' | 'preventa_tecnica'
-        });
-      }
+			const { data: updatedLead, error: leadUpdateError } = await supabase
+				.from("tito_leads")
+				.update({
+					nombre: mergedNombre,
+					empresa: mergedEmpresa,
+					email: mergedEmail,
+					awaiting_contact: awaitingContactUpdate,
+				})
+				.eq("id", existingLead.id)
+				.select()
+				.single();
 
-      return new Response(JSON.stringify({
-        reply: replyCapture,
-        handoff_tipo: existingLead.handoff_tipo,
-        score: existingLead.score
-      }), { status: 200, headers: { 'Content-Type': 'application/json' } });
-    }
+			if (!awaitingContactUpdate && !leadUpdateError && updatedLead) {
+				enviarNotificacion({
+					id: updatedLead.id,
+					session_id: sessionId,
+					email: updatedLead.email,
+					nombre: updatedLead.nombre,
+					empresa: updatedLead.empresa,
+					score: updatedLead.score,
+					minibrief: updatedLead.minibrief,
+					handoff_tipo: updatedLead.handoff_tipo as
+						| "ventas"
+						| "preventa_tecnica",
+				});
+			}
 
-    // ======= MOTOR 1: EVALUAR REGLAS Y TRIGGERS =======
-    const rulesContext = getSystemRulesString();
-    const escalationCheck = evaluateMessageForEscalation(message);
+			return new Response(
+				JSON.stringify({
+					reply: replyCapture,
+					handoff_tipo: existingLead.handoff_tipo,
+					score: existingLead.score,
+				}),
+				{ status: 200, headers: { "Content-Type": "application/json" } },
+			);
+		}
 
-    // ======= MOTOR 2: RAG (VECTORES) =======
-    const messageEmbedding = await getEmbedding(message);
-    const contextChunks = await searchSimilarChunks(messageEmbedding);
+		// ======= MOTOR 1: EVALUAR REGLAS Y TRIGGERS =======
+		const rulesContext = getSystemRulesString();
+		const escalationCheck = evaluateMessageForEscalation(message);
 
-    // ======= MOTOR 3: SCORING Y EXTRACCIONES LLM =======
-    const geminiKey = typeof process !== 'undefined' ? process.env.TAEC_GEMINI_KEY ?? '' : '';
-    const ai = new GoogleGenAI({ apiKey: geminiKey });
+		// ======= MOTOR 2: RAG (VECTORES) =======
+		const messageEmbedding = await getEmbedding(message);
+		const contextChunks = await searchSimilarChunks(messageEmbedding);
 
-    const extractionPrompt = `
+		// ======= MOTOR 3: SCORING Y EXTRACCIONES LLM =======
+		const geminiKey =
+			typeof process !== "undefined" ? (process.env.TAEC_GEMINI_KEY ?? "") : "";
+		const ai = new GoogleGenAI({ apiKey: geminiKey });
+
+		const extractionPrompt = `
 Analiza este mensaje de un prospecto B2B y extrae señales de calificación.
 Responde SOLO con JSON válido, sin texto adicional.
 
@@ -116,65 +149,75 @@ Schema esperado:
 }
 `;
 
-    let realSignals: LeadSignals;
-    try {
-      const extraction = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: extractionPrompt
-      });
-      const rawJson = extraction.text?.replace(/\`\`\`json|\`\`\`/g, '').trim() ?? '{}';
-      realSignals = JSON.parse(rawJson);
-    } catch {
-      // Fallback conservador si falla la extracción
-      realSignals = {
-        productos_interes: [],
-        seats_mencionados: null,
-        requiere_integracion: false,
-        tiene_lms_actual: message.toLowerCase().includes('lms'),
-        es_cliente_nuevo: true,
-        urgencia: null,
-        presupuesto_aprobado: false
-      };
-    }
+		let realSignals: LeadSignals;
+		try {
+			const extraction = await ai.models.generateContent({
+				model: "gemini-2.5-flash",
+				contents: extractionPrompt,
+			});
+			const rawJson =
+				extraction.text?.replace(/```json|```/g, "").trim() ?? "{}";
+			realSignals = JSON.parse(rawJson);
+		} catch {
+			// Fallback conservador si falla la extracción
+			realSignals = {
+				productos_interes: [],
+				seats_mencionados: null,
+				requiere_integracion: false,
+				tiene_lms_actual: message.toLowerCase().includes("lms"),
+				es_cliente_nuevo: true,
+				urgencia: null,
+				presupuesto_aprobado: false,
+			};
+		}
 
-    // ======= FASE 2: HANDOFF & SUPABASE DATABASE =======
-    const score = calcularScore(realSignals);
-    let handoffTipo = determinarHandoff(realSignals, score);
+		// ======= FASE 2: HANDOFF & SUPABASE DATABASE =======
+		const score = calcularScore(realSignals);
+		let handoffTipo = determinarHandoff(realSignals, score);
 
-    if (escalationCheck === 'ESCALATE' && !handoffTipo) {
-      handoffTipo = 'ventas';
-    }
+		if (escalationCheck === "ESCALATE" && !handoffTipo) {
+			handoffTipo = "ventas";
+		}
 
-    let reply = "Hola, soy TitoBits v4. Procesando...";
+		let reply = "Hola, soy TitoBits v4. Procesando...";
 
-    if (handoffTipo) {
-      const miniBrief = generarMiniBrief([{ role: 'user', content: message }]);
-      
-      // Upsert Supabase para generar o actualizar Lead
-      const { data: leadData, error: leadError } = await supabase.from('tito_leads').upsert([
-        {
-          session_id: sessionId,
-          score: score,
-          minibrief: miniBrief,
-          handoff_tipo: handoffTipo,
-          handoff_triggered: true,
-          email: null,
-          awaiting_contact: true // Fase 3: Set to true when handoff triggers
-        }
-      ], { onConflict: 'session_id' }).select().single();
+		if (handoffTipo) {
+			const miniBrief = generarMiniBrief([{ role: "user", content: message }]);
 
-      if (leadError || !leadData) {
-        console.error("Fallo persistiendo a Supabase tito_leads:", leadError);
-      }
+			// Upsert Supabase para generar o actualizar Lead
+			const { data: leadData, error: leadError } = await supabase
+				.from("tito_leads")
+				.upsert(
+					[
+						{
+							session_id: sessionId,
+							score: score,
+							minibrief: miniBrief,
+							handoff_tipo: handoffTipo,
+							handoff_triggered: true,
+							email: null,
+							awaiting_contact: true, // Fase 3: Set to true when handoff triggers
+						},
+					],
+					{ onConflict: "session_id" },
+				)
+				.select()
+				.single();
 
-      reply = "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?";
-    } else if (escalationCheck === 'INFORM') {
-      reply = "Por favor indícame la cantidad exacta de licencias o alcances para asistirte.";
-    } else {
-      // CONTINUE — responder con Gemini usando contexto RAG
-      const ragContext = contextChunks.map((c: any) => c.content).join('\n\n');
+			if (leadError || !leadData) {
+				console.error("Fallo persistiendo a Supabase tito_leads:", leadError);
+			}
 
-      const conversationPrompt = `
+			reply =
+				"Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?";
+		} else if (escalationCheck === "INFORM") {
+			reply =
+				"Por favor indícame la cantidad exacta de licencias o alcances para asistirte.";
+		} else {
+			// CONTINUE — responder con Gemini usando contexto RAG
+			const ragContext = contextChunks.map((c: any) => c.content).join("\n\n");
+
+			const conversationPrompt = `
 Eres TitoBits, el asistente comercial de TAEC — empresa líder en tecnología de aprendizaje corporativo en México y LATAM.
 Resuelves preguntas sobre productos e-learning (Articulate 360, Vyond, Moodle, Totara, LYS, OttoLearn, Proctorizer).
 
@@ -182,7 +225,7 @@ REGLAS:
 ${rulesContext}
 
 CONTEXTO DE LA BASE DE CONOCIMIENTO:
-${ragContext || 'No se encontró contexto relevante.'}
+${ragContext || "No se encontró contexto relevante."}
 
 Responde al siguiente mensaje del usuario de forma concisa, directa y sin emojis.
 Si no tienes la información precisa en el contexto, transfiere a ventas.
@@ -190,28 +233,32 @@ Si no tienes la información precisa en el contexto, transfiere a ventas.
 Usuario: ${message}
 `;
 
-      const geminiResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: conversationPrompt
-      });
+			const geminiResponse = await ai.models.generateContent({
+				model: "gemini-2.5-flash",
+				contents: conversationPrompt,
+			});
 
-      reply = geminiResponse.text?.trim() ?? 'Gracias por tu consulta. Un especialista de TAEC te contactará pronto.';
-    }
+			reply =
+				geminiResponse.text?.trim() ??
+				"Gracias por tu consulta. Un especialista de TAEC te contactará pronto.";
+		}
 
-    return new Response(JSON.stringify({
-      reply,
-      handoff_tipo: handoffTipo,
-      score: score
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-  } catch (error) {
-    console.error("Error crítico en tito-chat router v2:", error);
-    return new Response(
-      JSON.stringify({ error: "Interrupción de servicio TitoBits v4" }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
-  }
+		return new Response(
+			JSON.stringify({
+				reply,
+				handoff_tipo: handoffTipo,
+				score: score,
+			}),
+			{
+				status: 200,
+				headers: { "Content-Type": "application/json" },
+			},
+		);
+	} catch (error) {
+		console.error("Error crítico en tito-chat router v2:", error);
+		return new Response(
+			JSON.stringify({ error: "Interrupción de servicio TitoBits v4" }),
+			{ status: 500, headers: { "Content-Type": "application/json" } },
+		);
+	}
 };

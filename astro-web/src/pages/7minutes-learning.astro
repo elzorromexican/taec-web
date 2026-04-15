@@ -1,56 +1,107 @@
 ---
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import FAQAccordion from "../components/ui/FAQAccordion.astro";
+import GridBeneficios from "../components/ui/GridBeneficios.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Landing 7Minutes completa. Contenido basado en doc estratégico DDC.
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
-import { getBookingUrl } from '../data/contact';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-import { r } from '../utils/paths';
+import { r } from "../utils/paths";
+
 const bookingUrl = getBookingUrl();
 
 const categorias = [
-  { icon: "🤝", label: "Habilidades blandas", desc: "Comunicación, liderazgo, trabajo en equipo, inteligencia emocional y negociación." },
-  { icon: "📊", label: "Management", desc: "Gestión de equipos, toma de decisiones, feedback y desarrollo de personas." },
-  { icon: "✅", label: "Compliance", desc: "Ética empresarial, prevención de riesgos, normativas y conducta organizacional." },
-  { icon: "💻", label: "Transformación digital", desc: "Herramientas digitales, agilidad organizacional y cultura de innovación." },
-  { icon: "📈", label: "Ventas y marketing", desc: "Técnicas de venta, atención al cliente, marketing digital y negociación comercial." },
-  { icon: "🎓", label: "Desarrollo personal", desc: "Gestión del tiempo, productividad, bienestar y crecimiento profesional." }
+	{
+		icon: "🤝",
+		label: "Habilidades blandas",
+		desc: "Comunicación, liderazgo, trabajo en equipo, inteligencia emocional y negociación.",
+	},
+	{
+		icon: "📊",
+		label: "Management",
+		desc: "Gestión de equipos, toma de decisiones, feedback y desarrollo de personas.",
+	},
+	{
+		icon: "✅",
+		label: "Compliance",
+		desc: "Ética empresarial, prevención de riesgos, normativas y conducta organizacional.",
+	},
+	{
+		icon: "💻",
+		label: "Transformación digital",
+		desc: "Herramientas digitales, agilidad organizacional y cultura de innovación.",
+	},
+	{
+		icon: "📈",
+		label: "Ventas y marketing",
+		desc: "Técnicas de venta, atención al cliente, marketing digital y negociación comercial.",
+	},
+	{
+		icon: "🎓",
+		label: "Desarrollo personal",
+		desc: "Gestión del tiempo, productividad, bienestar y crecimiento profesional.",
+	},
 ];
 
 const beneficios = [
-  { icon: "⏱️", title: "Micro, Mobile and Open — los 3 ejes", description: "Cursos con duración media de 7 minutos, optimizados para celular y accesibles desde cualquier dispositivo sin fricción de instalación." },
-  { icon: "🔗", title: "Integración flexible con cualquier LMS", description: "Contenido compatible con SCORM para usar en Moodle, Totara, Canvas o cualquier LMS. También disponible en la plataforma propia de 7Minutes." },
-  { icon: "📚", title: "Catálogo listo para usar — sin desarrollo", description: "Cursos producidos y actualizados por expertos. Sin tiempos de producción, sin costo de autoría — el contenido está disponible desde el primer día." },
-  { icon: "🎙️", title: "7Minutes Coaching opcional", description: "Encuentros online con los autores y expertos del catálogo. Una capa adicional de profundidad para quienes quieren ir más allá del microlearning." }
+	{
+		icon: "⏱️",
+		title: "Micro, Mobile and Open — los 3 ejes",
+		description:
+			"Cursos con duración media de 7 minutos, optimizados para celular y accesibles desde cualquier dispositivo sin fricción de instalación.",
+	},
+	{
+		icon: "🔗",
+		title: "Integración flexible con cualquier LMS",
+		description:
+			"Contenido compatible con SCORM para usar en Moodle, Totara, Canvas o cualquier LMS. También disponible en la plataforma propia de 7Minutes.",
+	},
+	{
+		icon: "📚",
+		title: "Catálogo listo para usar — sin desarrollo",
+		description:
+			"Cursos producidos y actualizados por expertos. Sin tiempos de producción, sin costo de autoría — el contenido está disponible desde el primer día.",
+	},
+	{
+		icon: "🎙️",
+		title: "7Minutes Coaching opcional",
+		description:
+			"Encuentros online con los autores y expertos del catálogo. Una capa adicional de profundidad para quienes quieren ir más allá del microlearning.",
+	},
 ];
 
 const faqs = [
-  {
-    question: "¿7Minutes es solo microlearning o también tiene cursos largos?",
-    answerHtml: "El formato principal es <strong>microlearning</strong> — cursos con duración media de 7 minutos. El catálogo está diseñado específicamente para este formato: no son cursos largos cortados, son módulos construidos desde cero para ser consumidos en sesiones breves y frecuentes."
-  },
-  {
-    question: "¿El contenido está en español?",
-    answerHtml: "El catálogo está disponible en varios idiomas incluyendo español. Te recomendamos validar la disponibilidad de los temas específicos que necesitas durante la demo — el catálogo se actualiza regularmente."
-  },
-  {
-    question: "¿Se puede usar en nuestro LMS?",
-    answerHtml: "Sí. 7Minutes ofrece <strong>integración flexible</strong>: el contenido puede distribuirse en SCORM para cargarlo en tu LMS (Moodle, Totara, Canvas, etc.) o usarse en la <strong>plataforma propia de 7Minutes</strong> si no tienes LMS o prefieres un entorno separado."
-  },
-  {
-    question: "¿Qué diferencia a 7Minutes de OttoLearn?",
-    answerHtml: "<strong>7Minutes</strong> es un catálogo de contenido listo para usar — soft skills, management, compliance. <strong>OttoLearn</strong> es una plataforma de microlearning adaptativo para reforzar conocimiento propio de la organización con repetición espaciada. Son complementarios: 7Minutes aporta el contenido, OttoLearn aporta el mecanismo de retención."
-  },
-  {
-    question: "¿Qué es 7Minutes Coaching?",
-    answerHtml: "Es un complemento opcional: <strong>sesiones en vivo</strong> con los autores y expertos del catálogo para profundizar en los temas que el equipo ya trabajó en formato micro. No es coaching ejecutivo individual — es un encuentro grupal con el experto del contenido, ideal para cerrar el ciclo formativo."
-  },
-  {
-    question: "¿TAEC puede ayudarnos a elegir el catálogo correcto?",
-    answerHtml: "Sí. TAEC acompaña la evaluación del catálogo según tu audiencia y necesidades de formación, la configuración de acceso en tu LMS o la plataforma propia de 7Minutes, y el soporte posterior. Contáctanos para una demo con acceso al catálogo completo."
-  }
+	{
+		question: "¿7Minutes es solo microlearning o también tiene cursos largos?",
+		answerHtml:
+			"El formato principal es <strong>microlearning</strong> — cursos con duración media de 7 minutos. El catálogo está diseñado específicamente para este formato: no son cursos largos cortados, son módulos construidos desde cero para ser consumidos en sesiones breves y frecuentes.",
+	},
+	{
+		question: "¿El contenido está en español?",
+		answerHtml:
+			"El catálogo está disponible en varios idiomas incluyendo español. Te recomendamos validar la disponibilidad de los temas específicos que necesitas durante la demo — el catálogo se actualiza regularmente.",
+	},
+	{
+		question: "¿Se puede usar en nuestro LMS?",
+		answerHtml:
+			"Sí. 7Minutes ofrece <strong>integración flexible</strong>: el contenido puede distribuirse en SCORM para cargarlo en tu LMS (Moodle, Totara, Canvas, etc.) o usarse en la <strong>plataforma propia de 7Minutes</strong> si no tienes LMS o prefieres un entorno separado.",
+	},
+	{
+		question: "¿Qué diferencia a 7Minutes de OttoLearn?",
+		answerHtml:
+			"<strong>7Minutes</strong> es un catálogo de contenido listo para usar — soft skills, management, compliance. <strong>OttoLearn</strong> es una plataforma de microlearning adaptativo para reforzar conocimiento propio de la organización con repetición espaciada. Son complementarios: 7Minutes aporta el contenido, OttoLearn aporta el mecanismo de retención.",
+	},
+	{
+		question: "¿Qué es 7Minutes Coaching?",
+		answerHtml:
+			"Es un complemento opcional: <strong>sesiones en vivo</strong> con los autores y expertos del catálogo para profundizar en los temas que el equipo ya trabajó en formato micro. No es coaching ejecutivo individual — es un encuentro grupal con el experto del contenido, ideal para cerrar el ciclo formativo.",
+	},
+	{
+		question: "¿TAEC puede ayudarnos a elegir el catálogo correcto?",
+		answerHtml:
+			"Sí. TAEC acompaña la evaluación del catálogo según tu audiencia y necesidades de formación, la configuración de acceso en tu LMS o la plataforma propia de 7Minutes, y el soporte posterior. Contáctanos para una demo con acceso al catálogo completo.",
+	},
 ];
 ---
 

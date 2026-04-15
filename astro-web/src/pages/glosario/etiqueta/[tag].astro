@@ -9,27 +9,39 @@
  * @created 2026-03-22
  * @updated 2026-03-22
  */
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { r } from '../../../utils/paths';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { r } from "../../../utils/paths";
 
-const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+const slugify = (str: string) =>
+	str
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/(^-|-$)+/g, "");
 
 export async function getStaticPaths() {
-  const _slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-  const allTerms = await getCollection('glosario');
-  const uniqueTags = [...new Set(allTerms.map(t => t.data.related || []).flat())];
+	const _slugify = (str: string) =>
+		str
+			.toLowerCase()
+			.replace(/[^a-z0-9]+/g, "-")
+			.replace(/(^-|-$)+/g, "");
+	const allTerms = await getCollection("glosario");
+	const uniqueTags = [
+		...new Set(allTerms.flatMap((t) => t.data.related || [])),
+	];
 
-  return uniqueTags.map((tag: string) => {
-    const slug = _slugify(tag);
-    return {
-      params: { tag: slug },
-      props: { 
-        tagName: tag, 
-        terms: allTerms.filter(t => t.data.related?.map((rt:string) => _slugify(rt)).includes(slug))
-      },
-    };
-  });
+	return uniqueTags.map((tag: string) => {
+		const slug = _slugify(tag);
+		return {
+			params: { tag: slug },
+			props: {
+				tagName: tag,
+				terms: allTerms.filter((t) =>
+					t.data.related?.map((rt: string) => _slugify(rt)).includes(slug),
+				),
+			},
+		};
+	});
 }
 
 const { tagName, terms } = Astro.props;

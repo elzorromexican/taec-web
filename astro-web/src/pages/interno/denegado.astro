@@ -1,14 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-const reason = Astro.url.searchParams.get('reason') || '';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const reason = Astro.url.searchParams.get("reason") || "";
 
 let titulo = "Acceso Denegado";
 let mensaje = "No tienes permisos para acceder a la Intranet.";
 
-if (reason === 'domain') {
-  mensaje = "Tu correo no pertenece al dominio @taec.com.mx. Por favor, inicia sesión con tu cuenta corporativa.";
-} else if (reason === 'whitelist') {
-  mensaje = "Tu correo @taec.com.mx es válido, pero no estás en la lista de usuarios autorizados contacta al administrador.";
+if (reason === "domain") {
+	mensaje =
+		"Tu correo no pertenece al dominio @taec.com.mx. Por favor, inicia sesión con tu cuenta corporativa.";
+} else if (reason === "whitelist") {
+	mensaje =
+		"Tu correo @taec.com.mx es válido, pero no estás en la lista de usuarios autorizados contacta al administrador.";
 }
 ---
 <BaseLayout title="Acceso Restringido | TAEC" description="Acceso restrictivo a la Intranet">

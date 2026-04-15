@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { r } from '../../utils/paths';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
 
 export async function getStaticPaths() {
-  const cursos = await getCollection('cursos');
-  return cursos.map((curso) => ({
-    params: { slug: curso.id.replace(/\.mdx?$/, '') },
-    props: { curso },
-  }));
+	const cursos = await getCollection("cursos");
+	return cursos.map((curso) => ({
+		params: { slug: curso.id.replace(/\.mdx?$/, "") },
+		props: { curso },
+	}));
 }
 
 const { curso } = Astro.props;
@@ -16,9 +16,9 @@ const { Content } = await curso.render();
 
 const TITLE = curso.data.titulo || curso.id;
 const PRECIO = curso.data.precio_usd || 0;
-const CATEGORIA = curso.data.categoria || 'Curso';
-const DESC = curso.data.descripcion || 'Capacitación Oficial TAEC';
-const IMAGE = curso.data.portada || '/images/cursos/default.webp';
+const CATEGORIA = curso.data.categoria || "Curso";
+const DESC = curso.data.descripcion || "Capacitación Oficial TAEC";
+const IMAGE = curso.data.portada || "/images/cursos/default.webp";
 ---
 
 <BaseLayout 

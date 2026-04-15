@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import { mainNav } from '../data/navigation';
-import { r, base } from '../utils/paths';
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import { mainNav } from "../data/navigation";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { base, r } from "../utils/paths";
 
 // Extraemos directamente toda la información de "Soluciones" desde la navegación
-const solucionesNav = mainNav.find(item => item.id === "soluciones");
+const solucionesNav = mainNav.find((item) => item.id === "soluciones");
 ---
 
 <BaseLayout 

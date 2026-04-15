@@ -1,61 +1,135 @@
 ---
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Landing StrikePlagiarism completa. Contenido basado en doc estratégico DDC.
-import ProductPageLayout from '../layouts/ProductPageLayout.astro';
-import { getBookingUrl } from '../data/contact';
-import { r } from '../utils/paths';
+import ProductPageLayout from "../layouts/ProductPageLayout.astro";
+import { r } from "../utils/paths";
 
 const bookingUrl = getBookingUrl();
 
 const beneficios = [
-  { icon: "🤖", title: "Detección de IA en español >99% precisión", description: "Identifica contenido generado por IA en más de 30 idiomas. En español: precisión superior al 99% con menos del 1% de falsos positivos — dato publicado por el proveedor." },
-  { icon: "🌐", title: "Bases de datos globales y repositorios", description: "Comparación contra revistas científicas, repositorios institucionales, publicaciones académicas, fuentes abiertas de internet y archivos internos de la institución." },
-  { icon: "🔗", title: "Integración nativa con LMS vía LTI 1.3", description: "Conexión directa con Canvas, Blackboard, Moodle, Brightspace y OJS. El flujo de entrega y revisión no sale del LMS — sin cambiar procesos existentes." },
-  { icon: "🔒", title: "RGPD, ISO 27001 y opción on-premise", description: "Servidores en la Unión Europea, cifrado SSL, certificación ISO/IEC 27001:2022. Para instituciones con requisitos estrictos de privacidad: opción de instalación on-premise." }
+	{
+		icon: "🤖",
+		title: "Detección de IA en español >99% precisión",
+		description:
+			"Identifica contenido generado por IA en más de 30 idiomas. En español: precisión superior al 99% con menos del 1% de falsos positivos — dato publicado por el proveedor.",
+	},
+	{
+		icon: "🌐",
+		title: "Bases de datos globales y repositorios",
+		description:
+			"Comparación contra revistas científicas, repositorios institucionales, publicaciones académicas, fuentes abiertas de internet y archivos internos de la institución.",
+	},
+	{
+		icon: "🔗",
+		title: "Integración nativa con LMS vía LTI 1.3",
+		description:
+			"Conexión directa con Canvas, Blackboard, Moodle, Brightspace y OJS. El flujo de entrega y revisión no sale del LMS — sin cambiar procesos existentes.",
+	},
+	{
+		icon: "🔒",
+		title: "RGPD, ISO 27001 y opción on-premise",
+		description:
+			"Servidores en la Unión Europea, cifrado SSL, certificación ISO/IEC 27001:2022. Para instituciones con requisitos estrictos de privacidad: opción de instalación on-premise.",
+	},
 ];
 
 const capacidades = [
-  { icon: "📊", label: "Informe de similitud interactivo", desc: "Coeficientes por fuente, desglose de coincidencias, análisis de citas, alertas de parafraseo y manipulación detectada." },
-  { icon: "🤖", label: "Detección de contenido IA", desc: "Más de 30 idiomas. En español: >99% precisión, <1% falsos positivos. Identificación de texto generado por herramientas como ChatGPT." },
-  { icon: "🌐", label: "Verificación en múltiples bases de datos", desc: "Revistas científicas, repositorios, publicaciones, fuentes de internet y archivos institucionales propios." },
-  { icon: "🔗", label: "LTI 1.3 — integración con LMS", desc: "Canvas, Blackboard, Moodle, Brightspace, OJS. El proceso de entrega no sale del LMS habitual." },
-  { icon: "📋", label: "Gestión de asignaciones", desc: "Configura reglas de entrega, plazos, permisos y acceso al informe por alumno o institución." },
-  { icon: "🪪", label: "LDAP y SSO", desc: "Autenticación centralizada integrada con el directorio institucional — sin cuentas adicionales." },
-  { icon: "🏗️", label: "Opción on-premise", desc: "Instalación en servidores propios para instituciones con políticas estrictas de soberanía de datos." },
-  { icon: "🌍", label: "Soporte en +15 idiomas", desc: "Interfaz, informes y soporte disponible en más de 15 idiomas, incluido español." }
+	{
+		icon: "📊",
+		label: "Informe de similitud interactivo",
+		desc: "Coeficientes por fuente, desglose de coincidencias, análisis de citas, alertas de parafraseo y manipulación detectada.",
+	},
+	{
+		icon: "🤖",
+		label: "Detección de contenido IA",
+		desc: "Más de 30 idiomas. En español: >99% precisión, <1% falsos positivos. Identificación de texto generado por herramientas como ChatGPT.",
+	},
+	{
+		icon: "🌐",
+		label: "Verificación en múltiples bases de datos",
+		desc: "Revistas científicas, repositorios, publicaciones, fuentes de internet y archivos institucionales propios.",
+	},
+	{
+		icon: "🔗",
+		label: "LTI 1.3 — integración con LMS",
+		desc: "Canvas, Blackboard, Moodle, Brightspace, OJS. El proceso de entrega no sale del LMS habitual.",
+	},
+	{
+		icon: "📋",
+		label: "Gestión de asignaciones",
+		desc: "Configura reglas de entrega, plazos, permisos y acceso al informe por alumno o institución.",
+	},
+	{
+		icon: "🪪",
+		label: "LDAP y SSO",
+		desc: "Autenticación centralizada integrada con el directorio institucional — sin cuentas adicionales.",
+	},
+	{
+		icon: "🏗️",
+		label: "Opción on-premise",
+		desc: "Instalación en servidores propios para instituciones con políticas estrictas de soberanía de datos.",
+	},
+	{
+		icon: "🌍",
+		label: "Soporte en +15 idiomas",
+		desc: "Interfaz, informes y soporte disponible en más de 15 idiomas, incluido español.",
+	},
 ];
 
 const pasos = [
-  { num: "01", title: "El alumno entrega su trabajo", desc: "Desde el LMS habitual (Canvas, Moodle, etc.) o directamente en StrikePlagiarism. El proceso no cambia para el alumno." },
-  { num: "02", title: "El sistema analiza el documento", desc: "Comparación contra bases de datos globales, repositorios y archivos internos. Detección simultánea de similitud, parafraseo y posible contenido generado por IA." },
-  { num: "03", title: "El revisor obtiene el informe", desc: "Informe interactivo con coeficiente de similitud, fuentes identificadas, fragmentos marcados, análisis de citas y alertas de manipulación. Disponible en minutos." },
-  { num: "04", title: "Decisión con respaldo documental", desc: "El informe es exportable y está disponible como evidencia para apelaciones, comités académicos o auditorías editoriales." }
+	{
+		num: "01",
+		title: "El alumno entrega su trabajo",
+		desc: "Desde el LMS habitual (Canvas, Moodle, etc.) o directamente en StrikePlagiarism. El proceso no cambia para el alumno.",
+	},
+	{
+		num: "02",
+		title: "El sistema analiza el documento",
+		desc: "Comparación contra bases de datos globales, repositorios y archivos internos. Detección simultánea de similitud, parafraseo y posible contenido generado por IA.",
+	},
+	{
+		num: "03",
+		title: "El revisor obtiene el informe",
+		desc: "Informe interactivo con coeficiente de similitud, fuentes identificadas, fragmentos marcados, análisis de citas y alertas de manipulación. Disponible en minutos.",
+	},
+	{
+		num: "04",
+		title: "Decisión con respaldo documental",
+		desc: "El informe es exportable y está disponible como evidencia para apelaciones, comités académicos o auditorías editoriales.",
+	},
 ];
 
 const faqs = [
-  {
-    question: "¿StrikePlagiarism detecta contenido generado por ChatGPT o IA?",
-    answerHtml: "Sí. StrikePlagiarism incluye <strong>detección de contenido generado por IA</strong> en más de 30 idiomas. En español, el proveedor publica una precisión superior al 99% con menos del 1% de falsos positivos. Es uno de sus diferenciadores más relevantes dado el contexto actual."
-  },
-  {
-    question: "¿En qué se diferencia de Turnitin?",
-    answerHtml: "Las diferencias principales: <strong>precio más accesible</strong> para instituciones latinoamericanas, <strong>opción on-premise</strong> (Turnitin no la ofrece), <strong>servidores en la UE</strong> con cumplimiento RGPD, y soporte comercial y técnico en español con presencia local en LATAM a través de TAEC."
-  },
-  {
-    question: "¿Funciona con Moodle?",
-    answerHtml: "Sí. StrikePlagiarism tiene integración nativa vía <strong>LTI 1.3</strong> con Moodle, Canvas, Blackboard, Brightspace y OJS. El alumno entrega desde el LMS habitual y el instructor recibe el informe directamente en la misma plataforma."
-  },
-  {
-    question: "¿Los documentos de los alumnos quedan almacenados?",
-    answerHtml: "Depende de la configuración. Por defecto, los documentos pueden agregarse al repositorio institucional para comparaciones futuras — una práctica estándar en plataformas de integridad académica. Para instituciones con requisitos de privacidad específicos, existe la <strong>opción on-premise</strong> con control total de los datos."
-  },
-  {
-    question: "¿Solo sirve para universidades?",
-    answerHtml: "No. Además de educación superior, StrikePlagiarism sirve para <strong>editoriales y publicaciones científicas</strong> (verificación pre-publicación), <strong>centros de investigación</strong>, <strong>organismos certificadores</strong> con producción de materiales y <strong>organizaciones con LMS</strong> que requieren integridad en evaluaciones escritas."
-  },
-  {
-    question: "¿TAEC puede implementar StrikePlagiarism en México?",
-    answerHtml: "Sí. TAEC acompaña desde la evaluación de la necesidad, la integración con tu LMS, la configuración de políticas de integridad y la capacitación del equipo académico. Soporte en español y seguimiento cercano en horario CDMX."
-  }
+	{
+		question: "¿StrikePlagiarism detecta contenido generado por ChatGPT o IA?",
+		answerHtml:
+			"Sí. StrikePlagiarism incluye <strong>detección de contenido generado por IA</strong> en más de 30 idiomas. En español, el proveedor publica una precisión superior al 99% con menos del 1% de falsos positivos. Es uno de sus diferenciadores más relevantes dado el contexto actual.",
+	},
+	{
+		question: "¿En qué se diferencia de Turnitin?",
+		answerHtml:
+			"Las diferencias principales: <strong>precio más accesible</strong> para instituciones latinoamericanas, <strong>opción on-premise</strong> (Turnitin no la ofrece), <strong>servidores en la UE</strong> con cumplimiento RGPD, y soporte comercial y técnico en español con presencia local en LATAM a través de TAEC.",
+	},
+	{
+		question: "¿Funciona con Moodle?",
+		answerHtml:
+			"Sí. StrikePlagiarism tiene integración nativa vía <strong>LTI 1.3</strong> con Moodle, Canvas, Blackboard, Brightspace y OJS. El alumno entrega desde el LMS habitual y el instructor recibe el informe directamente en la misma plataforma.",
+	},
+	{
+		question: "¿Los documentos de los alumnos quedan almacenados?",
+		answerHtml:
+			"Depende de la configuración. Por defecto, los documentos pueden agregarse al repositorio institucional para comparaciones futuras — una práctica estándar en plataformas de integridad académica. Para instituciones con requisitos de privacidad específicos, existe la <strong>opción on-premise</strong> con control total de los datos.",
+	},
+	{
+		question: "¿Solo sirve para universidades?",
+		answerHtml:
+			"No. Además de educación superior, StrikePlagiarism sirve para <strong>editoriales y publicaciones científicas</strong> (verificación pre-publicación), <strong>centros de investigación</strong>, <strong>organismos certificadores</strong> con producción de materiales y <strong>organizaciones con LMS</strong> que requieren integridad en evaluaciones escritas.",
+	},
+	{
+		question: "¿TAEC puede implementar StrikePlagiarism en México?",
+		answerHtml:
+			"Sí. TAEC acompaña desde la evaluación de la necesidad, la integración con tu LMS, la configuración de políticas de integridad y la capacitación del equipo académico. Soporte en español y seguimiento cercano en horario CDMX.",
+	},
 ];
 ---
 

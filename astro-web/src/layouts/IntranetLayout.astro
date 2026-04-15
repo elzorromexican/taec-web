@@ -9,19 +9,41 @@
  * @created 2026-03-01
  * @updated 2026-04-04 12:12:00
  */
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout from "./BaseLayout.astro";
 
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname;
-const isAdmin = Astro.locals?.rol === 'admin';
+const isAdmin = Astro.locals?.rol === "admin";
 
-const isArticulate = currentPath.includes('rise360') || currentPath.includes('storyline360') || currentPath.includes('review360') || currentPath.includes('reach360') || currentPath.includes('aiassistant') || currentPath.includes('localization');
-const isVyond = currentPath.includes('vyond');
-const isLMS = currentPath.includes('moodle') || currentPath.includes('totara') || currentPath.includes('pifinilearn') || currentPath.includes('ottolearn') || currentPath.includes('lys');
-const isAddons = currentPath.includes('ddc') || currentPath.includes('class') || currentPath.includes('proctorizer') || currentPath.includes('strikeplagiarism');
-const isCatalog = currentPath.includes('7minutes') || currentPath.includes('customguide');
+const isArticulate =
+	currentPath.includes("rise360") ||
+	currentPath.includes("storyline360") ||
+	currentPath.includes("review360") ||
+	currentPath.includes("reach360") ||
+	currentPath.includes("aiassistant") ||
+	currentPath.includes("localization");
+const isVyond = currentPath.includes("vyond");
+const isLMS =
+	currentPath.includes("moodle") ||
+	currentPath.includes("totara") ||
+	currentPath.includes("pifinilearn") ||
+	currentPath.includes("ottolearn") ||
+	currentPath.includes("lys");
+const isAddons =
+	currentPath.includes("ddc") ||
+	currentPath.includes("class") ||
+	currentPath.includes("proctorizer") ||
+	currentPath.includes("strikeplagiarism");
+const isCatalog =
+	currentPath.includes("7minutes") || currentPath.includes("customguide");
 
-const isActive = (path) => currentPath === path || (path !== '/interno/dashboard' && path !== '/' && currentPath.startsWith(path)) ? 'active' : '';
+const isActive = (path) =>
+	currentPath === path ||
+	(path !== "/interno/dashboard" &&
+		path !== "/" &&
+		currentPath.startsWith(path))
+		? "active"
+		: "";
 ---
 <BaseLayout title={title} description={description} isApp={true} robots="noindex, nofollow">
   <div class="intranet-layout">

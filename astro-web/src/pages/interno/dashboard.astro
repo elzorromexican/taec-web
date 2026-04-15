@@ -11,23 +11,23 @@
  */
 export const prerender = false;
 
-import IntranetLayout from '../../layouts/IntranetLayout.astro';
-import { createClient } from '@supabase/supabase-js';
-import { marked } from 'marked';
+import { createClient } from "@supabase/supabase-js";
+import { marked } from "marked";
+import IntranetLayout from "../../layouts/IntranetLayout.astro";
 
 const accessToken = Astro.locals.accessToken || "";
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 const scopedSupabase = createClient(supabaseUrl, supabaseAnonKey, {
-  global: { headers: { Authorization: `Bearer ${accessToken}` } }
+	global: { headers: { Authorization: `Bearer ${accessToken}` } },
 });
 
 const { data: novedades } = await scopedSupabase
-  .from('intranet_novedades')
-  .select('*')
-  .eq('activo', true)
-  .order('orden', { ascending: true })
-  .order('created_at', { ascending: false });
+	.from("intranet_novedades")
+	.select("*")
+	.eq("activo", true)
+	.order("orden", { ascending: true })
+	.order("created_at", { ascending: false });
 ---
 
 <IntranetLayout title="Dashboard Intranet | TAEC" description="Lobby corporativo">
