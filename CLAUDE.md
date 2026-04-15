@@ -22,10 +22,15 @@ Todo cambio sigue este flujo obligatorio:
    - `feature/` — funcionalidad nueva
    - `fix/` — corrección de bug
    - `agent/` — trabajo de agente IA
+   - `chore/biome-reformat-[fecha]` — Reformat masivo con Biome
 2. Hacer commits en esa rama
 3. Abrir PR hacia `main`
 4. Esperar auditoría/aprobación
 5. Merge solo después de aprobación
+
+### Formateo con Biome (Reformat Masivo)
+
+**Nunca mezcles** reformateos masivos con `biome` y cambios lógicos (features/fixes) en la misma rama o commit. Si el proyecto requiere un reformat masivo (`npx @biomejs/biome check --write .`), hazlo en una rama separada e independiente (ej. `chore/biome-reformat-2026-04-15`) y ábrele su propio PR antes de iniciar la rama de tu feature o fix.
 
 ### Hook anti-AIza (secrets scanner)
 
