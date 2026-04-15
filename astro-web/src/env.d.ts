@@ -7,5 +7,10 @@ declare namespace App {
     name: string;
     rol: string;
     accessToken: string;
+    netlify?: {
+      context?: {
+        geo?: { country?: { code?: string } }
+      }
+    };
   }
 }

@@ -24,9 +24,9 @@ export interface ChatWindowProps {
   isRolloutActive: boolean;
   
   // Refs
-  endRef: React.RefObject<HTMLDivElement>;
-  inputChatRef: React.RefObject<HTMLTextAreaElement>;
-  inputNameRef: React.RefObject<HTMLInputElement>;
+  endRef: React.RefObject<HTMLDivElement | null>;
+  inputChatRef: React.RefObject<HTMLTextAreaElement | null>;
+  inputNameRef: React.RefObject<HTMLInputElement | null>;
   
   // Actions
   toggleChat: () => void;

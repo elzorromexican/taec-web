@@ -49,9 +49,9 @@ export default function ChatAgent({ isApp = false, userName = '' }: { isApp?: bo
   const [isCopied, setIsCopied] = useState(false);
   const [activePromo, setActivePromo] = useState<any>(null);
   
-  const endRef = useRef<HTMLDivElement>(null);
-  const inputChatRef = useRef<HTMLTextAreaElement>(null);
-  const inputNameRef = useRef<HTMLInputElement>(null);
+  const endRef = useRef<HTMLDivElement | null>(null);
+  const inputChatRef = useRef<HTMLTextAreaElement | null>(null);
+  const inputNameRef = useRef<HTMLInputElement | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const prevIsOpen = useRef(isOpen);
