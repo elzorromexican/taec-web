@@ -60,7 +60,7 @@ const { tagName, posts } = Astro.props;
       <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
         {posts.map((post: any) => (
           <a href={r(`/blog/${post.id.replace(/\\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; text-decoration: none; background: #ffffff; transition: transform 0.2s, box-shadow 0.2s;" class="post-rel-card">
-            <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.25rem; color: #0f172a; font-weight: 600; line-height: 1.35; margin-bottom: 12px;">{post.data.title}</span>
+            <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.25rem; color: var(--navy-slate); font-weight: 600; line-height: 1.35; margin-bottom: 12px;">{post.data.title}</span>
             <p style="font-size: 14px; color: #475569; margin-bottom: 16px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{post.data.description || ''}</p>
             <span style="font-family: monospace; font-size: 11px; color: #1d4ed8; margin-top: auto; font-weight: 600;">Leer completo &rarr;</span>
           </a>

@@ -295,11 +295,11 @@ export const POST: APIRoute = async ({ request }) => {
 
             <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 15px;">
               <tr>
-                <td width="30" valign="top"><div style="width: 14px; height: 14px; background-color: #10B981; border-radius: 50%; margin-top: 4px;"></div></td>
+                <td width="30" valign="top"><div style="width: 14px; height: 14px; background-color: var(--check-green); border-radius: 50%; margin-top: 4px;"></div></td>
                 <td>
-                  <strong style="color: #10B981; font-size: 14px; text-transform: uppercase;">Estabilizado / No Primordial</strong>
+                  <strong style="color: var(--check-green); font-size: 14px; text-transform: uppercase;">Estabilizado / No Primordial</strong>
                   <p style="font-size: 12px; color: #6B7280; margin: 2px 0 10px 0;">Áreas donde tu negocio no sufre y no necesitas invertir herramientas costosas actualmente.</p>
-                  ${buildListHtml(stableList, 'Verde', '#10B981')}
+                  ${buildListHtml(stableList, 'Verde', 'var(--check-green)')}
                 </td>
               </tr>
             </table>

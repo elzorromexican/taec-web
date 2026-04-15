@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if(link) link.style.display = 'block';
           if(msg) {
             msg.style.display  = 'block';
-            msg.style.color    = '#10B981';
+            msg.style.color    = 'var(--check-green)';
             msg.textContent    = '✓ ¡Listo! Haz clic para descargar.';
           }
         } else {

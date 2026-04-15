@@ -64,7 +64,7 @@ export default function ChatWindow({
         {!isOpen && (
           <div style={{
             ...chatStyles.notificationBadge,
-            background: userData.countryCode === 'MX' ? '#10B981' : '#F59E0B'
+            background: userData.countryCode === 'MX' ? 'var(--check-green)' : '#F59E0B'
           }}>
             {hasUnread ? '¡Tito tiene un mensaje nuevo! 💬' : (userData.countryCode === 'MX' ? '¡Promo MX Desbloqueada! 🇲🇽' : 'Diagnóstico de e-learning ⚡')}
           </div>
@@ -147,7 +147,7 @@ export default function ChatWindow({
                   onClick={copyToClipboard}
                   disabled={isCopied}
                   style={{
-                    background: isCopied ? '#10B981' : 'rgba(255,255,255,0.15)',
+                    background: isCopied ? 'var(--check-green)' : 'rgba(255,255,255,0.15)',
                     border: '1px solid rgba(255,255,255,0.45)',
                     color: '#ffffff',
                     fontWeight: 600,

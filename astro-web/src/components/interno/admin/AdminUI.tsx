@@ -27,8 +27,8 @@ export default function AdminUI({
             cursor: 'pointer',
             fontSize: '1.05rem',
             fontWeight: activeTab === 'novedades' ? 'bold' : 'normal',
-            color: activeTab === 'novedades' ? '#0f172a' : '#64748b',
-            borderBottom: activeTab === 'novedades' ? '2px solid #0f172a' : '2px solid transparent',
+            color: activeTab === 'novedades' ? 'var(--navy-slate)' : '#64748b',
+            borderBottom: activeTab === 'novedades' ? '2px solid var(--navy-slate)' : '2px solid transparent',
             outline: 'none'
           }}
         >
@@ -43,8 +43,8 @@ export default function AdminUI({
             cursor: 'pointer',
             fontSize: '1.05rem',
             fontWeight: activeTab === 'playbooks' ? 'bold' : 'normal',
-            color: activeTab === 'playbooks' ? '#0f172a' : '#64748b',
-            borderBottom: activeTab === 'playbooks' ? '2px solid #0f172a' : '2px solid transparent',
+            color: activeTab === 'playbooks' ? 'var(--navy-slate)' : '#64748b',
+            borderBottom: activeTab === 'playbooks' ? '2px solid var(--navy-slate)' : '2px solid transparent',
             outline: 'none'
           }}
         >

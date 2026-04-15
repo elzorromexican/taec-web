@@ -159,13 +159,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           let actionButtons = '';
           if (currentStatus === 'pending') {
             actionButtons = `
-              <button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✅ Aprobar</button>
+              <button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: var(--check-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✅ Aprobar</button>
               <button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">🗑️ Rechazar</button>
             `;
           } else if (currentStatus === 'approved') {
             actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Mover a Rechazados</button>`;
           } else {
-            actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Aprobar y Restaurar</button>`;
+            actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: var(--check-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Aprobar y Restaurar</button>`;
           }
 
           commentsContainer.innerHTML += `

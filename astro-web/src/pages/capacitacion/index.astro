@@ -47,7 +47,7 @@ const tags = Object.keys(tagCounts).sort();
     </div>
 
     <div style="display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 40px;">
-      <h2 style="font-family: var(--font-display, Georgia, serif); font-size: 1.75rem; font-weight: 700; color: #0f172a; margin:0;">Catálogo de Cursos</h2>
+      <h2 style="font-family: var(--font-display, Georgia, serif); font-size: 1.75rem; font-weight: 700; color: var(--navy-slate); margin:0;">Catálogo de Cursos</h2>
       <span style="font-family: monospace; font-size: 12px; color: #64748b; text-transform: uppercase;">{cursos.length} Programas</span>
     </div>
 
@@ -64,12 +64,12 @@ const tags = Object.keys(tagCounts).sort();
                     <span style="font-family: monospace; font-size: 11px; background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 6px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
                       {curso.data.categoria}
                     </span>
-                    <span style="font-size: 15px; font-weight: 800; color: #0f172a; background: #f8fafc; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <span style="font-size: 15px; font-weight: 800; color: var(--navy-slate); background: #f8fafc; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
                       ${curso.data.precio_usd?.toLocaleString() || 0} USD
                     </span>
                 </div>
                 
-                <h3 style="font-family: var(--font-body, sans-serif); font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; line-height: 1.35; color: #0f172a; flex-grow: 1;">
+                <h3 style="font-family: var(--font-body, sans-serif); font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; line-height: 1.35; color: var(--navy-slate); flex-grow: 1;">
                   {curso.data.titulo}
                 </h3>
                 
@@ -97,7 +97,7 @@ const tags = Object.keys(tagCounts).sort();
 /* Estética Premium UI/UX */
 .filter-btn { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-family: monospace; font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 10px 20px; cursor: pointer; color: #475569; transition: all 0.25s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
 .filter-btn:hover { background: #ffffff; border-color: #94a3b8; transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
-.filter-btn.active { background: #0f172a; color: #ffffff; border-color: #0f172a; font-weight: 800; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
+.filter-btn.active { background: var(--navy-slate); color: #ffffff; border-color: var(--navy-slate); font-weight: 800; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
 
 /* Micro-Animaciones Cards */
 .grid-item article.premium-blog-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #06b6d4); opacity: 0; transition: opacity 0.3s ease; }

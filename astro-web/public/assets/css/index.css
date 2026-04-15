@@ -74,10 +74,10 @@
 .partner-logo img { height: 40px; width: auto; object-fit: contain; }
 .partner-tag { font-size: 10px; font-weight: 600; letter-spacing: .5px; color: #475569; text-transform: uppercase; background: var(--light); padding: 2px 8px; border-radius: 3px; }
 .logo-text { font-family: var(--font-body); font-weight: 800; font-size: 17px; color: var(--dark); letter-spacing: -.3px; }
-.logo-text.articulate { color: #E8561E; }
-.logo-text.vyond      { color: #00A4E0; }
-.logo-text.totara     { color: #6A2C8E; }
-.logo-text.moodle     { color: #F98012; }
+.logo-text.articulate { color: var(--logo-articulate); }
+.logo-text.vyond      { color: var(--logo-vyond); }
+.logo-text.totara     { color: var(--logo-totara); }
+.logo-text.moodle     { color: var(--logo-moodle); }
 .logo-text.seven      { color: #1A1A2E; }
 
 /* ── SERVICIOS ── */

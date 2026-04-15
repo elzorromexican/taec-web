@@ -31,7 +31,7 @@ export default function CurrencyCalculator() {
           type="number" 
           value={usdAmount} 
           onChange={(e) => setUsdAmount(e.target.value === '' ? '' : Number(e.target.value))} 
-          style={{ border: 'none', outline: 'none', width: '100%', fontSize: '14px', fontWeight: 700, color: '#0f172a', background: 'transparent' }}
+          style={{ border: 'none', outline: 'none', width: '100%', fontSize: '14px', fontWeight: 700, color: 'var(--navy-slate)', background: 'transparent' }}
         />
       </div>
 
@@ -39,37 +39,37 @@ export default function CurrencyCalculator() {
         {/* MXN */}
         <div style={{ background: '#fff', padding: '6px 8px', borderRadius: '4px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div style={{ fontWeight: 600, color: '#0f172a', fontSize: '12px' }}>🇲🇽 Peso MXN</div>
+            <div style={{ fontWeight: 600, color: 'var(--navy-slate)', fontSize: '12px' }}>🇲🇽 Peso MXN</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
               <span style={{ fontSize: '10px', color: '#64748b' }}>TC Oficial:</span>
               <input type="number" step="0.0001" value={rateMXN} onChange={e => setRateMXN(e.target.value)} style={{ width: '45px', padding: '1px 2px', border: '1px solid #cbd5e1', borderRadius: '3px', color: '#2563eb', fontWeight: 600, fontSize: '11px', outline: 'none' }} title="Editar Tipo de Cambio" />
             </div>
           </div>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#10b981' }}>{formatC(currentUsd * Number(rateMXN), 'MXN')}</span>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--check-green)' }}>{formatC(currentUsd * Number(rateMXN), 'MXN')}</span>
         </div>
 
         {/* COP */}
         <div style={{ background: '#fff', padding: '6px 8px', borderRadius: '4px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div style={{ fontWeight: 600, color: '#0f172a', fontSize: '12px' }}>🇨🇴 Plata COP</div>
+            <div style={{ fontWeight: 600, color: 'var(--navy-slate)', fontSize: '12px' }}>🇨🇴 Plata COP</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
               <span style={{ fontSize: '10px', color: '#64748b' }}>TC Oficial:</span>
               <input type="number" step="0.01" value={rateCOP} onChange={e => setRateCOP(e.target.value)} style={{ width: '45px', padding: '1px 2px', border: '1px solid #cbd5e1', borderRadius: '3px', color: '#2563eb', fontWeight: 600, fontSize: '11px', outline: 'none' }} />
             </div>
           </div>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>{formatC(currentUsd * Number(rateCOP), 'COP')}</span>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy-slate)' }}>{formatC(currentUsd * Number(rateCOP), 'COP')}</span>
         </div>
 
         {/* CLP */}
         <div style={{ background: '#fff', padding: '6px 8px', borderRadius: '4px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div style={{ fontWeight: 600, color: '#0f172a', fontSize: '12px' }}>🇨🇱 Peso CLP</div>
+            <div style={{ fontWeight: 600, color: 'var(--navy-slate)', fontSize: '12px' }}>🇨🇱 Peso CLP</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
               <span style={{ fontSize: '10px', color: '#64748b' }}>TC Oficial:</span>
               <input type="number" step="0.01" value={rateCLP} onChange={e => setRateCLP(e.target.value)} style={{ width: '45px', padding: '1px 2px', border: '1px solid #cbd5e1', borderRadius: '3px', color: '#2563eb', fontWeight: 600, fontSize: '11px', outline: 'none' }} />
             </div>
           </div>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>{formatC(currentUsd * Number(rateCLP), 'CLP')}</span>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy-slate)' }}>{formatC(currentUsd * Number(rateCLP), 'CLP')}</span>
         </div>
 
       </div>

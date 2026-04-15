@@ -58,7 +58,7 @@ const tags = Object.entries(tagCounts).sort((a,b) => b[1] - a[1]).slice(0, 6).ma
     </div>
 
     <div style="display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 40px;">
-      <h2 style="font-family: var(--font-display, Georgia, serif); font-size: 1.75rem; font-weight: 700; color: #0f172a;">Últimas publicaciones</h2>
+      <h2 style="font-family: var(--font-display, Georgia, serif); font-size: 1.75rem; font-weight: 700; color: var(--navy-slate);">Últimas publicaciones</h2>
       <span style="font-family: monospace; font-size: 12px; color: #64748b; text-transform: uppercase;" id="results-count">{posts.length} posts</span>
     </div>
 
@@ -102,7 +102,7 @@ const tags = Object.entries(tagCounts).sort((a,b) => b[1] - a[1]).slice(0, 6).ma
                     {Math.max(1, Math.ceil((post.body ? post.body.trim().split(/\s+/).length : 500) / 200))} min
                   </span>
                 </div>
-                <h3 style="font-family: var(--font-body, sans-serif); font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: #0f172a; flex-grow: 1; text-wrap: balance;">
+                <h3 style="font-family: var(--font-body, sans-serif); font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; line-height: 1.4; color: var(--navy-slate); flex-grow: 1; text-wrap: balance;">
                   {post.data.title}
                 </h3>
                 {post.data.description && (
@@ -130,7 +130,7 @@ const tags = Object.entries(tagCounts).sort((a,b) => b[1] - a[1]).slice(0, 6).ma
 /* Estética Premium UI/UX */
 .filter-btn { background: transparent; border: 1px solid #cbd5e1; border-radius: 6px; font-family: monospace; font-size: 12px; text-transform: uppercase; padding: 8px 16px; cursor: pointer; color: #475569; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
 .filter-btn:hover { background: #f8fafc; border-color: #94a3b8; transform: translateY(-1px); }
-.filter-btn.active { background: #0f172a; color: #ffffff; border-color: #0f172a; font-weight: 700; transform: none; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
+.filter-btn.active { background: var(--navy-slate); color: #ffffff; border-color: var(--navy-slate); font-weight: 700; transform: none; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
 
 /* Efecto Glass y Búsqueda */
 .search-container { position: relative; margin-bottom: 32px; }

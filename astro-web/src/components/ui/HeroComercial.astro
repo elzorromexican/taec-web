@@ -24,7 +24,7 @@ const {
 } = Astro.props;
 
 const brandStyle = brandColor
-  ? `--hero-primary:${brandColor};--hero-accent:${brandColor};${btnTextDark ? '--btn-text:#0f172a;' : ''}`
+  ? `--hero-primary:${brandColor};--hero-accent:${brandColor};${btnTextDark ? '--btn-text:var(--navy-slate);' : ''}`
   : '';
 
 import { r, base } from '../../utils/paths';
@@ -62,7 +62,7 @@ import { r, base } from '../../utils/paths';
 
 <style>
 .hero-comercial {
-  background: var(--hero-bg, #0f172a);
+  background: var(--hero-bg, var(--navy-slate));
   padding: 72px 5% 80px;
   color: white;
 }
@@ -119,7 +119,7 @@ h1 :global(em) { color: var(--hero-accent, #38bdf8); font-style: normal; }
   --btn-text: #001f3d;
 }
 .theme-art {
-  --hero-bg: linear-gradient(135deg, #0f172a 0%, #00355a 100%);
+  --hero-bg: linear-gradient(135deg, var(--navy-slate) 0%, #00355a 100%);
   --hero-accent: #7DD3FC;
   --hero-primary: #c2410c;
 }

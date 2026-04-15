@@ -92,12 +92,12 @@ export default function AdminPlaybooks({
                 <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 'bold', background: '#f1f5f9', color: '#334155', marginBottom: '8px', textTransform: 'uppercase' }}>
                   {pb.id_producto}
                 </span>
-                <h4 style={{ margin: '0 0 0.25rem 0', color: '#0f172a' }}>{pb.display_name}</h4>
+                <h4 style={{ margin: '0 0 0.25rem 0', color: 'var(--navy-slate)' }}>{pb.display_name}</h4>
                 <p style={{ margin: '0 0 1rem 0', fontSize: '0.8rem', color: '#475569' }}>Familia: {pb.familia} | Ícono: {pb.svg_icon}</p>
               </div>
               <button 
                 onClick={() => setSelectedPb(pb)}
-                style={{ marginTop: 'auto', background: '#f1f5f9', color: '#0f172a', border: '1px solid #94a3b8', padding: '6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                style={{ marginTop: 'auto', background: '#f1f5f9', color: 'var(--navy-slate)', border: '1px solid #94a3b8', padding: '6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}>
                 Editar Cabecera
               </button>
             </div>
@@ -180,7 +180,7 @@ export default function AdminPlaybooks({
                 </div>
               </div>
 
-              <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
+              <button type="submit" style={{ background: 'var(--navy-slate)', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
                 Guardar Cambios
               </button>
             </form>

@@ -27,7 +27,7 @@ const IMAGE = curso.data.portada || '/images/cursos/default.webp';
   section="Cursos"
   page={`capacitacion/${curso.id}.html`}
 >
-  <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 80px 24px 64px; border-bottom: 1px solid #334155;">
+  <div style="background: linear-gradient(135deg, var(--navy-slate) 0%, #1e293b 100%); padding: 80px 24px 64px; border-bottom: 1px solid #334155;">
     <div style="max-width: 1080px; margin: 0 auto;">
       <a href={r("/capacitacion/")} style="font-family: monospace; font-size: 13px; color: #94a3b8; text-decoration: none; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 32px; transition: color 0.2s;">
         &larr; Volver al Catálogo
@@ -80,7 +80,7 @@ const IMAGE = curso.data.portada || '/images/cursos/default.webp';
       
       <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); margin-bottom: 24px;">
         <div style="padding: 24px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
-          <h3 style="margin: 0; font-family: var(--font-display, Georgia, serif); font-size: 1.25rem; font-weight: 700; color: #0f172a;">Recursos del Curso</h3>
+          <h3 style="margin: 0; font-family: var(--font-display, Georgia, serif); font-size: 1.25rem; font-weight: 700; color: var(--navy-slate);">Recursos del Curso</h3>
         </div>
         
         <div style="display: flex; flex-direction: column;">
@@ -126,7 +126,7 @@ const IMAGE = curso.data.portada || '/images/cursos/default.webp';
 
 <style>
 /* Markdown Styles para el Temario */
-.curso-content h2 { font-family: var(--font-display, Georgia, serif); font-size: 1.75rem; color: #0f172a; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+.curso-content h2 { font-family: var(--font-display, Georgia, serif); font-size: 1.75rem; color: var(--navy-slate); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
 .curso-content h3 { font-family: var(--font-body, sans-serif); font-size: 1.25rem; color: #1e293b; margin-top: 2rem; margin-bottom: 0.75rem; font-weight: 800; }
 .curso-content p { color: #475569; line-height: 1.7; font-size: 1.05rem; margin-bottom: 1.5rem; }
 .curso-content ul { padding-left: 20px; color: #475569; margin-bottom: 2rem; }
