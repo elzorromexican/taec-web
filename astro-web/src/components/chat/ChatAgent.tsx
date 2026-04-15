@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { navigate } from "astro:transitions/client";
 import { chatCategoryRules } from "../../data/chatContextRules";
 import { safeRenderMarkdown } from "../../lib/tito/sanitizer";
 import { gibberishGuard, trackTitoEvent } from "../../lib/tito/titoAnalytics";
@@ -573,7 +574,7 @@ export default function ChatAgent({
 		if (!overrideText) setInput("");
 
 		if (userMsg.toUpperCase().includes("MODO DIAGNOSTICO")) {
-			window.location.href = "/diagnostico";
+			navigate("/diagnostico");
 			return;
 		}
 
