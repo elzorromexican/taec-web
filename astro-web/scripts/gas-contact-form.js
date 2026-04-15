@@ -21,40 +21,39 @@
 // ═══════════════════════════════════════════════════════════════════════════
 
 const CONFIG = {
+	/**
+	 * ID de la Google Sheet donde se guardarán los leads.
+	 * Se obtiene de la URL de la hoja:
+	 *   https://docs.google.com/spreadsheets/d/ESTE_ES_EL_ID/edit
+	 */
+	SHEET_ID: "TU_GOOGLE_SHEET_ID",
 
-  /**
-   * ID de la Google Sheet donde se guardarán los leads.
-   * Se obtiene de la URL de la hoja:
-   *   https://docs.google.com/spreadsheets/d/ESTE_ES_EL_ID/edit
-   */
-  SHEET_ID: 'TU_GOOGLE_SHEET_ID',
+	/** Nombre exacto de la pestaña (tab) dentro de la hoja */
+	SHEET_TAB: "Leads",
 
-  /** Nombre exacto de la pestaña (tab) dentro de la hoja */
-  SHEET_TAB: 'Leads',
+	/**
+	 * Correo(s) que recibirán la notificación interna.
+	 * Para múltiples destinatarios: 'a@taec.com.mx, b@taec.com.mx'
+	 */
+	NOTIFY_EMAIL: "info@taec.com.mx",
 
-  /**
-   * Correo(s) que recibirán la notificación interna.
-   * Para múltiples destinatarios: 'a@taec.com.mx, b@taec.com.mx'
-   */
-  NOTIFY_EMAIL: 'info@taec.com.mx',
+	/** Prefijo del asunto del correo de notificación */
+	EMAIL_SUBJECT_PREFIX: "[TAEC Lead]",
 
-  /** Prefijo del asunto del correo de notificación */
-  EMAIL_SUBJECT_PREFIX: '[TAEC Lead]',
-
-  // ──────────────────────────────────────────────────────────────
-  // ZOHO CRM — Integración futura
-  // ──────────────────────────────────────────────────────────────
-  // Cuando esté listo:
-  //   1. Cambiar enabled: true
-  //   2. Obtener token desde Zoho Developer Console
-  //   3. Verificar el módulo correcto (Leads, Contacts, etc.)
-  //   4. Redesplegar la Web App
-  ZOHO_CRM: {
-    enabled:   false,
-    // apiUrl:  'https://www.zohoapis.com/crm/v2/Leads',
-    // token:   'TU_ZOHO_ACCESS_TOKEN',   // Zoho OAuth access token
-    // module:  'Leads',
-  },
+	// ──────────────────────────────────────────────────────────────
+	// ZOHO CRM — Integración futura
+	// ──────────────────────────────────────────────────────────────
+	// Cuando esté listo:
+	//   1. Cambiar enabled: true
+	//   2. Obtener token desde Zoho Developer Console
+	//   3. Verificar el módulo correcto (Leads, Contacts, etc.)
+	//   4. Redesplegar la Web App
+	ZOHO_CRM: {
+		enabled: false,
+		// apiUrl:  'https://www.zohoapis.com/crm/v2/Leads',
+		// token:   'TU_ZOHO_ACCESS_TOKEN',   // Zoho OAuth access token
+		// module:  'Leads',
+	},
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -62,16 +61,16 @@ const CONFIG = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const SHEET_HEADERS = [
-  'Fecha',
-  'Nombre',
-  'Empresa',
-  'Correo',
-  'Teléfono',
-  'País',
-  'Interés',
-  'Mensaje',
-  'Página origen',
-  'CTA origen',
+	"Fecha",
+	"Nombre",
+	"Empresa",
+	"Correo",
+	"Teléfono",
+	"País",
+	"Interés",
+	"Mensaje",
+	"Página origen",
+	"CTA origen",
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -84,47 +83,55 @@ const SHEET_HEADERS = [
  * El body es JSON puro → parseable con JSON.parse(e.postData.contents).
  */
 function doPost(e) {
-  // Respuesta base (siempre incluye encabezado CORS)
-  let response;
+	// Respuesta base (siempre incluye encabezado CORS)
+	let response;
 
-  try {
-    // ── 1. Parsear el payload JSON
-    if (!e || !e.postData || !e.postData.contents) {
-      return jsonResponse({ success: false, error: 'Payload vacío o malformado.' }, 400);
-    }
+	try {
+		// ── 1. Parsear el payload JSON
+		if (!e || !e.postData || !e.postData.contents) {
+			return jsonResponse(
+				{ success: false, error: "Payload vacío o malformado." },
+				400,
+			);
+		}
 
-    let data;
-    try {
-      data = JSON.parse(e.postData.contents);
-    } catch (_) {
-      return jsonResponse({ success: false, error: 'JSON inválido.' }, 400);
-    }
+		let data;
+		try {
+			data = JSON.parse(e.postData.contents);
+		} catch (_) {
+			return jsonResponse({ success: false, error: "JSON inválido." }, 400);
+		}
 
-    // ── 2. Validación mínima del lado del servidor
-    const validationError = validatePayload(data);
-    if (validationError) {
-      return jsonResponse({ success: false, error: validationError }, 422);
-    }
+		// ── 2. Validación mínima del lado del servidor
+		const validationError = validatePayload(data);
+		if (validationError) {
+			return jsonResponse({ success: false, error: validationError }, 422);
+		}
 
-    // ── 3. Guardar en Google Sheets
-    appendToSheet(data);
+		// ── 3. Guardar en Google Sheets
+		appendToSheet(data);
 
-    // ── 4. Enviar correo de notificación interna
-    sendInternalEmail(data);
+		// ── 4. Enviar correo de notificación interna
+		sendInternalEmail(data);
 
-    // ── 5. Integración con Zoho CRM (opcional / futura)
-    if (CONFIG.ZOHO_CRM.enabled) {
-      pushToZohoCRM(data);
-    }
+		// ── 5. Integración con Zoho CRM (opcional / futura)
+		if (CONFIG.ZOHO_CRM.enabled) {
+			pushToZohoCRM(data);
+		}
 
-    // ── 6. Respuesta de éxito
-    return jsonResponse({ success: true, message: 'Lead registrado correctamente.' }, 200);
-
-  } catch (err) {
-    // Error inesperado — registrar en el log de Apps Script y responder
-    console.error('doPost error:', err.message, err.stack);
-    return jsonResponse({ success: false, error: 'Error interno del servidor.' }, 500);
-  }
+		// ── 6. Respuesta de éxito
+		return jsonResponse(
+			{ success: true, message: "Lead registrado correctamente." },
+			200,
+		);
+	} catch (err) {
+		// Error inesperado — registrar en el log de Apps Script y responder
+		console.error("doPost error:", err.message, err.stack);
+		return jsonResponse(
+			{ success: false, error: "Error interno del servidor." },
+			500,
+		);
+	}
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -136,16 +143,16 @@ function doPost(e) {
  * @returns {string|null} Mensaje de error, o null si todo es válido.
  */
 function validatePayload(data) {
-  if (!data.nombre || !String(data.nombre).trim()) {
-    return 'El campo nombre es requerido.';
-  }
-  if (!data.correo || !isValidEmail(String(data.correo).trim())) {
-    return 'El campo correo es requerido y debe ser un email válido.';
-  }
-  if (!data.mensaje || !String(data.mensaje).trim()) {
-    return 'El campo mensaje es requerido.';
-  }
-  return null; // válido
+	if (!data.nombre || !String(data.nombre).trim()) {
+		return "El campo nombre es requerido.";
+	}
+	if (!data.correo || !isValidEmail(String(data.correo).trim())) {
+		return "El campo correo es requerido y debe ser un email válido.";
+	}
+	if (!data.mensaje || !String(data.mensaje).trim()) {
+		return "El campo mensaje es requerido.";
+	}
+	return null; // válido
 }
 
 /**
@@ -154,7 +161,7 @@ function validatePayload(data) {
  * @returns {boolean}
  */
 function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -166,41 +173,41 @@ function isValidEmail(email) {
  * Si la hoja no existe o está vacía, escribe los encabezados automáticamente.
  */
 function appendToSheet(data) {
-  const ss    = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-  let   sheet = ss.getSheetByName(CONFIG.SHEET_TAB);
+	const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+	let sheet = ss.getSheetByName(CONFIG.SHEET_TAB);
 
-  // Crear la pestaña si no existe
-  if (!sheet) {
-    sheet = ss.insertSheet(CONFIG.SHEET_TAB);
-  }
+	// Crear la pestaña si no existe
+	if (!sheet) {
+		sheet = ss.insertSheet(CONFIG.SHEET_TAB);
+	}
 
-  // Escribir encabezados si la hoja está vacía
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(SHEET_HEADERS);
-    sheet.getRange(1, 1, 1, SHEET_HEADERS.length).setFontWeight('bold');
-    sheet.setFrozenRows(1);
-  }
+	// Escribir encabezados si la hoja está vacía
+	if (sheet.getLastRow() === 0) {
+		sheet.appendRow(SHEET_HEADERS);
+		sheet.getRange(1, 1, 1, SHEET_HEADERS.length).setFontWeight("bold");
+		sheet.setFrozenRows(1);
+	}
 
-  // Fila del lead — mismo orden que SHEET_HEADERS
-  const row = [
-    new Date(),                                // Fecha
-    sanitize(data.nombre),                     // Nombre
-    sanitize(data.empresa),                    // Empresa
-    sanitize(data.correo),                     // Correo
-    sanitize(data.telefono),                   // Teléfono
-    sanitize(data.pais),                       // País
-    sanitize(data.interes),                    // Interés
-    sanitize(data.mensaje),                    // Mensaje
-    sanitize(data.pagina_origen),              // Página origen
-    sanitize(data.cta_origen),                 // CTA origen
-  ];
+	// Fila del lead — mismo orden que SHEET_HEADERS
+	const row = [
+		new Date(), // Fecha
+		sanitize(data.nombre), // Nombre
+		sanitize(data.empresa), // Empresa
+		sanitize(data.correo), // Correo
+		sanitize(data.telefono), // Teléfono
+		sanitize(data.pais), // País
+		sanitize(data.interes), // Interés
+		sanitize(data.mensaje), // Mensaje
+		sanitize(data.pagina_origen), // Página origen
+		sanitize(data.cta_origen), // CTA origen
+	];
 
-  sheet.appendRow(row);
+	sheet.appendRow(row);
 
-  // Formato: fecha legible en columna A
-  const lastRow  = sheet.getLastRow();
-  const dateCell = sheet.getRange(lastRow, 1);
-  dateCell.setNumberFormat('dd/mm/yyyy hh:mm');
+	// Formato: fecha legible en columna A
+	const lastRow = sheet.getLastRow();
+	const dateCell = sheet.getRange(lastRow, 1);
+	dateCell.setNumberFormat("dd/mm/yyyy hh:mm");
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -211,31 +218,40 @@ function appendToSheet(data) {
  * Envía notificación interna con los datos del lead.
  */
 function sendInternalEmail(data) {
-  const subject = CONFIG.EMAIL_SUBJECT_PREFIX
-    + ' ' + sanitize(data.nombre)
-    + ' — ' + sanitize(data.interes || 'Sin tema')
-    + ' (' + sanitize(data.pais || '?') + ')';
+	const subject =
+		CONFIG.EMAIL_SUBJECT_PREFIX +
+		" " +
+		sanitize(data.nombre) +
+		" — " +
+		sanitize(data.interes || "Sin tema") +
+		" (" +
+		sanitize(data.pais || "?") +
+		")";
 
-  const body = buildEmailBody(data);
+	const body = buildEmailBody(data);
 
-  MailApp.sendEmail({
-    to:      CONFIG.NOTIFY_EMAIL,
-    subject: subject,
-    htmlBody: body,
-  });
+	MailApp.sendEmail({
+		to: CONFIG.NOTIFY_EMAIL,
+		subject: subject,
+		htmlBody: body,
+	});
 }
 
 /**
  * Construye el HTML del correo de notificación interna.
  */
 function buildEmailBody(data) {
-  const fecha = Utilities.formatDate(new Date(), 'America/Mexico_City', 'dd/MM/yyyy HH:mm');
+	const fecha = Utilities.formatDate(
+		new Date(),
+		"America/Mexico_City",
+		"dd/MM/yyyy HH:mm",
+	);
 
-  return `
+	return `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1e293b;">
       <div style="background:#0f3460;padding:24px 28px;border-radius:8px 8px 0 0;">
         <h1 style="color:white;margin:0;font-size:20px;">📩 Nuevo lead — TAEC</h1>
-        <p style="color:#94A3B8;margin:4px 0 0;font-size:13px;">${fecha} · ${sanitize(data.pagina_origen || '/contacto')}</p>
+        <p style="color:#94A3B8;margin:4px 0 0;font-size:13px;">${fecha} · ${sanitize(data.pagina_origen || "/contacto")}</p>
       </div>
 
       <div style="background:white;padding:28px;border:1px solid #e2e8f0;border-top:none;">
@@ -247,7 +263,7 @@ function buildEmailBody(data) {
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Empresa</td>
-            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">${sanitize(data.empresa) || '—'}</td>
+            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">${sanitize(data.empresa) || "—"}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Correo</td>
@@ -257,25 +273,25 @@ function buildEmailBody(data) {
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Teléfono</td>
-            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">${sanitize(data.telefono) || '—'}</td>
+            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">${sanitize(data.telefono) || "—"}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">País</td>
-            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">${sanitize(data.pais) || '—'}</td>
+            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">${sanitize(data.pais) || "—"}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Interés</td>
-            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:700;color:#0f3460;">${sanitize(data.interes) || '—'}</td>
+            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:700;color:#0f3460;">${sanitize(data.interes) || "—"}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">CTA origen</td>
-            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:12px;color:#94A3B8;">${sanitize(data.cta_origen) || '—'}</td>
+            <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:12px;color:#94A3B8;">${sanitize(data.cta_origen) || "—"}</td>
           </tr>
         </table>
 
         <div style="background:#f8fafc;border-radius:8px;padding:16px;margin-top:20px;">
           <p style="font-weight:600;color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;">Mensaje</p>
-          <p style="margin:0;line-height:1.6;font-size:14px;">${sanitize(data.mensaje).replace(/\n/g, '<br>')}</p>
+          <p style="margin:0;line-height:1.6;font-size:14px;">${sanitize(data.mensaje).replace(/\n/g, "<br>")}</p>
         </div>
 
         <div style="margin-top:24px;text-align:center;">
@@ -311,7 +327,7 @@ function buildEmailBody(data) {
  * Para producción: usar Zoho OAuth + refresh token, no un token estático.
  */
 function pushToZohoCRM(data) {
-  /* ── PUNTO DE INTEGRACIÓN ZOHO CRM ──
+	/* ── PUNTO DE INTEGRACIÓN ZOHO CRM ──
   const payload = {
     data: [{
       Last_Name:   sanitize(data.nombre),
@@ -352,13 +368,13 @@ function pushToZohoCRM(data) {
  * Previene inyección de fórmulas en Google Sheets (valores que empiezan con = + - @).
  */
 function sanitize(value) {
-  if (value === null || value === undefined) return '';
-  const str = String(value).trim();
-  // Prevenir inyección de fórmulas en celdas de Sheets
-  if (['+', '-', '=', '@'].includes(str[0])) {
-    return "'" + str;
-  }
-  return str;
+	if (value === null || value === undefined) return "";
+	const str = String(value).trim();
+	// Prevenir inyección de fórmulas en celdas de Sheets
+	if (["+", "-", "=", "@"].includes(str[0])) {
+		return "'" + str;
+	}
+	return str;
 }
 
 /**
@@ -376,9 +392,9 @@ function sanitize(value) {
  * @param {number} _code - Código HTTP (informativo; GAS siempre devuelve 200)
  */
 function jsonResponse(data, _code) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
+	return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(
+		ContentService.MimeType.JSON,
+	);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -391,25 +407,26 @@ function jsonResponse(data, _code) {
  * Verificar en la hoja y en el correo que todo llegó correctamente.
  */
 function testDoPost() {
-  const mockPayload = {
-    nombre:       'Ana García',
-    empresa:      'Empresa Prueba SA',
-    correo:       'ana@prueba.com',
-    telefono:     '+52 55 9999 0000',
-    pais:         'México',
-    interes:      'Articulate 360',
-    mensaje:      'Prueba de integración del formulario TAEC. Necesito información sobre licencias.',
-    pagina_origen: '/contacto',
-    cta_origen:   'formulario-contacto',
-  };
+	const mockPayload = {
+		nombre: "Ana García",
+		empresa: "Empresa Prueba SA",
+		correo: "ana@prueba.com",
+		telefono: "+52 55 9999 0000",
+		pais: "México",
+		interes: "Articulate 360",
+		mensaje:
+			"Prueba de integración del formulario TAEC. Necesito información sobre licencias.",
+		pagina_origen: "/contacto",
+		cta_origen: "formulario-contacto",
+	};
 
-  const mockEvent = {
-    postData: {
-      contents: JSON.stringify(mockPayload),
-      type:     'text/plain;charset=utf-8',   // refleja el Content-Type real del frontend
-    },
-  };
+	const mockEvent = {
+		postData: {
+			contents: JSON.stringify(mockPayload),
+			type: "text/plain;charset=utf-8", // refleja el Content-Type real del frontend
+		},
+	};
 
-  const result = doPost(mockEvent);
-  console.log('Respuesta:', result.getContent());
+	const result = doPost(mockEvent);
+	console.log("Respuesta:", result.getContent());
 }

@@ -1,67 +1,149 @@
 ---
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import FAQAccordion from "../components/ui/FAQAccordion.astro";
+import GridBeneficios from "../components/ui/GridBeneficios.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Landing Class completa. Contenido basado en doc estratégico DDC.
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
-import { getBookingUrl } from '../data/contact';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-import { r } from '../utils/paths';
+import { r } from "../utils/paths";
+
 const bookingUrl = getBookingUrl();
 
 const beneficios = [
-  { icon: "🎛️", title: "Control total para el instructor", description: "Gestión de breakout rooms, silenciar participantes, ceder el micrófono, tomar asistencia y monitorear engagement — todo desde un solo panel." },
-  { icon: "📊", title: "Métricas reales de participación", description: "Engagement scoring, asistencia, actividad en chat, respuestas a encuestas y tiempo activo — no solo quién se conectó, sino quién participó." },
-  { icon: "🔗", title: "Integración con LMS", description: "Se conecta con Docebo, Cornerstone, Canvas, D2L, Blackboard y Open LMS. Las sesiones quedan registradas en el sistema de aprendizaje." },
-  { icon: "🎬", title: "Grabaciones interactivas y persistencia", description: "Las sesiones se gravan y el contenido persiste como recurso de aprendizaje. El alumno puede revisarla con los materiales del curso disponibles." }
+	{
+		icon: "🎛️",
+		title: "Control total para el instructor",
+		description:
+			"Gestión de breakout rooms, silenciar participantes, ceder el micrófono, tomar asistencia y monitorear engagement — todo desde un solo panel.",
+	},
+	{
+		icon: "📊",
+		title: "Métricas reales de participación",
+		description:
+			"Engagement scoring, asistencia, actividad en chat, respuestas a encuestas y tiempo activo — no solo quién se conectó, sino quién participó.",
+	},
+	{
+		icon: "🔗",
+		title: "Integración con LMS",
+		description:
+			"Se conecta con Docebo, Cornerstone, Canvas, D2L, Blackboard y Open LMS. Las sesiones quedan registradas en el sistema de aprendizaje.",
+	},
+	{
+		icon: "🎬",
+		title: "Grabaciones interactivas y persistencia",
+		description:
+			"Las sesiones se gravan y el contenido persiste como recurso de aprendizaje. El alumno puede revisarla con los materiales del curso disponibles.",
+	},
 ];
 
 const capacidades = [
-  { icon: "🖥️", label: "Aula sobre Zoom, Teams y web", desc: "Class corre sobre Zoom o Microsoft Teams — no requiere cambiar la infraestructura de videoconferencia que ya tienes." },
-  { icon: "🏠", label: "Breakout rooms mejorados", desc: "Grupos configurables, temporizadores, rotación automática y visibilidad del instructor en todas las salas." },
-  { icon: "💬", label: "Chat avanzado y encuestas", desc: "Chat con moderación, encuestas en tiempo real, whiteboards colaborativos y Q&A estructurado." },
-  { icon: "📋", label: "Course templates y persistencia", desc: "Estructura el curso completo antes de la sesión: agenda, materiales, actividades y recursos quedan disponibles para el alumno." },
-  { icon: "📈", label: "Dashboard y engagement scoring", desc: "Visibilidad de participación individual y grupal. Exportable para reportes de RH o área académica." },
-  { icon: "✅", label: "Asistencia e ID verification", desc: "Registro automático de asistencia y verificación de identidad para sesiones con requisitos de compliance." },
-  { icon: "🤖", label: "AI Assistant para instructores", desc: "Sugerencias en tiempo real para el facilitador: preguntas para activar la discusión, resúmenes de sesión y detección de bajo engagement." },
-  { icon: "♿", label: "Accesibilidad y escalabilidad", desc: "WCAG 2.1, subtítulos automáticos, soporte HIPAA (healthcare) y FedRAMP (gobierno). Escala desde 20 hasta miles de participantes." }
+	{
+		icon: "🖥️",
+		label: "Aula sobre Zoom, Teams y web",
+		desc: "Class corre sobre Zoom o Microsoft Teams — no requiere cambiar la infraestructura de videoconferencia que ya tienes.",
+	},
+	{
+		icon: "🏠",
+		label: "Breakout rooms mejorados",
+		desc: "Grupos configurables, temporizadores, rotación automática y visibilidad del instructor en todas las salas.",
+	},
+	{
+		icon: "💬",
+		label: "Chat avanzado y encuestas",
+		desc: "Chat con moderación, encuestas en tiempo real, whiteboards colaborativos y Q&A estructurado.",
+	},
+	{
+		icon: "📋",
+		label: "Course templates y persistencia",
+		desc: "Estructura el curso completo antes de la sesión: agenda, materiales, actividades y recursos quedan disponibles para el alumno.",
+	},
+	{
+		icon: "📈",
+		label: "Dashboard y engagement scoring",
+		desc: "Visibilidad de participación individual y grupal. Exportable para reportes de RH o área académica.",
+	},
+	{
+		icon: "✅",
+		label: "Asistencia e ID verification",
+		desc: "Registro automático de asistencia y verificación de identidad para sesiones con requisitos de compliance.",
+	},
+	{
+		icon: "🤖",
+		label: "AI Assistant para instructores",
+		desc: "Sugerencias en tiempo real para el facilitador: preguntas para activar la discusión, resúmenes de sesión y detección de bajo engagement.",
+	},
+	{
+		icon: "♿",
+		label: "Accesibilidad y escalabilidad",
+		desc: "WCAG 2.1, subtítulos automáticos, soporte HIPAA (healthcare) y FedRAMP (gobierno). Escala desde 20 hasta miles de participantes.",
+	},
 ];
 
 const pasos = [
-  { num: "01", title: "Preparar la experiencia", desc: "Configuras el curso con agenda, materiales, actividades y breakout rooms antes de la sesión. Todo disponible para el alumno desde el día uno." },
-  { num: "02", title: "Facilitar mejor la sesión", desc: "El instructor tiene un panel de control completo: silenciar, activar, mover a breakout, lanzar encuestas, monitorear engagement — sin salir de Zoom o Teams." },
-  { num: "03", title: "Medir lo que pasó", desc: "Al terminar la sesión tienes: asistencia, tiempo activo, participación en encuestas, engagement score y eventos del chat. Sin pedirle nada al alumno." },
-  { num: "04", title: "Extender el aprendizaje", desc: "La grabación queda disponible con el contenido del curso. El alumno puede revisarla con materiales, recursos y actividades en el mismo entorno." }
+	{
+		num: "01",
+		title: "Preparar la experiencia",
+		desc: "Configuras el curso con agenda, materiales, actividades y breakout rooms antes de la sesión. Todo disponible para el alumno desde el día uno.",
+	},
+	{
+		num: "02",
+		title: "Facilitar mejor la sesión",
+		desc: "El instructor tiene un panel de control completo: silenciar, activar, mover a breakout, lanzar encuestas, monitorear engagement — sin salir de Zoom o Teams.",
+	},
+	{
+		num: "03",
+		title: "Medir lo que pasó",
+		desc: "Al terminar la sesión tienes: asistencia, tiempo activo, participación en encuestas, engagement score y eventos del chat. Sin pedirle nada al alumno.",
+	},
+	{
+		num: "04",
+		title: "Extender el aprendizaje",
+		desc: "La grabación queda disponible con el contenido del curso. El alumno puede revisarla con materiales, recursos y actividades en el mismo entorno.",
+	},
 ];
 
-const integraciones = ["Docebo", "Cornerstone", "Canvas", "D2L / Brightspace", "Blackboard", "Open LMS"];
+const integraciones = [
+	"Docebo",
+	"Cornerstone",
+	"Canvas",
+	"D2L / Brightspace",
+	"Blackboard",
+	"Open LMS",
+];
 
 const faqs = [
-  {
-    question: "¿Class reemplaza a Zoom o Microsoft Teams?",
-    answerHtml: "No. Class funciona <strong>sobre Zoom o Microsoft Teams</strong> — es una capa especializada de virtual classroom que agrega funciones de L&D a la infraestructura de videoconferencia que ya tienes. No necesitas cambiar ni cancelar tu licencia de Zoom o Teams."
-  },
-  {
-    question: "¿Qué diferencia hay entre Class y una sesión de Zoom normal?",
-    answerHtml: "Zoom está diseñado para reuniones. Class está diseñado para <strong>enseñar</strong>. Agrega: gestión de breakout rooms avanzada, materiales persistentes, engagement scoring, asistencia automática, verificación de identidad, gradebook, AI assistant para el instructor y grabaciones interactivas vinculadas al contenido del curso."
-  },
-  {
-    question: "¿Funciona con el LMS que ya tenemos?",
-    answerHtml: "Sí, si usas <strong>Docebo, Cornerstone, Canvas, D2L, Blackboard u Open LMS</strong>. La integración sincroniza inscripciones, asistencia y registros de sesión directamente en tu LMS. Si usas otro LMS, evaluamos la compatibilidad juntos."
-  },
-  {
-    question: "¿Para cuántos participantes escala?",
-    answerHtml: "Class escala desde sesiones pequeñas de 20 personas hasta eventos con miles de participantes. La capacidad depende del plan y del proveedor de videoconferencia subyacente (Zoom o Teams)."
-  },
-  {
-    question: "¿Qué pasa con las grabaciones?",
-    answerHtml: "Las sesiones se graban y quedan disponibles como recurso de aprendizaje dentro de Class. El alumno puede revisarlas con los materiales del curso activos — no es solo un video, es la experiencia del curso en modo revisión."
-  },
-  {
-    question: "¿TAEC puede implementar Class en México?",
-    answerHtml: "Sí. TAEC acompaña desde la evaluación del modelo de capacitación sincrónica, la integración con tu LMS, la capacitación de instructores y administradores, y el soporte operativo en español. Contáctanos para una demo con casos reales."
-  }
+	{
+		question: "¿Class reemplaza a Zoom o Microsoft Teams?",
+		answerHtml:
+			"No. Class funciona <strong>sobre Zoom o Microsoft Teams</strong> — es una capa especializada de virtual classroom que agrega funciones de L&D a la infraestructura de videoconferencia que ya tienes. No necesitas cambiar ni cancelar tu licencia de Zoom o Teams.",
+	},
+	{
+		question: "¿Qué diferencia hay entre Class y una sesión de Zoom normal?",
+		answerHtml:
+			"Zoom está diseñado para reuniones. Class está diseñado para <strong>enseñar</strong>. Agrega: gestión de breakout rooms avanzada, materiales persistentes, engagement scoring, asistencia automática, verificación de identidad, gradebook, AI assistant para el instructor y grabaciones interactivas vinculadas al contenido del curso.",
+	},
+	{
+		question: "¿Funciona con el LMS que ya tenemos?",
+		answerHtml:
+			"Sí, si usas <strong>Docebo, Cornerstone, Canvas, D2L, Blackboard u Open LMS</strong>. La integración sincroniza inscripciones, asistencia y registros de sesión directamente en tu LMS. Si usas otro LMS, evaluamos la compatibilidad juntos.",
+	},
+	{
+		question: "¿Para cuántos participantes escala?",
+		answerHtml:
+			"Class escala desde sesiones pequeñas de 20 personas hasta eventos con miles de participantes. La capacidad depende del plan y del proveedor de videoconferencia subyacente (Zoom o Teams).",
+	},
+	{
+		question: "¿Qué pasa con las grabaciones?",
+		answerHtml:
+			"Las sesiones se graban y quedan disponibles como recurso de aprendizaje dentro de Class. El alumno puede revisarlas con los materiales del curso activos — no es solo un video, es la experiencia del curso en modo revisión.",
+	},
+	{
+		question: "¿TAEC puede implementar Class en México?",
+		answerHtml:
+			"Sí. TAEC acompaña desde la evaluación del modelo de capacitación sincrónica, la integración con tu LMS, la capacitación de instructores y administradores, y el soporte operativo en español. Contáctanos para una demo con casos reales.",
+	},
 ];
 ---
 

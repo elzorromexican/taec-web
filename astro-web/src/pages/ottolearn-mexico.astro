@@ -1,61 +1,135 @@
 ---
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Landing OttoLearn completa. Contenido basado en doc estratégico DDC.
-import ProductPageLayout from '../layouts/ProductPageLayout.astro';
-import { getBookingUrl } from '../data/contact';
-import { r } from '../utils/paths';
+import ProductPageLayout from "../layouts/ProductPageLayout.astro";
+import { r } from "../utils/paths";
 
 const bookingUrl = getBookingUrl();
 
 const beneficios = [
-  { icon: "🧠", title: "Microlearning adaptativo", description: "OttoLearn ajusta el ritmo y los contenidos según el nivel de dominio de cada persona. No todos aprenden igual ni al mismo ritmo." },
-  { icon: "🔁", title: "Repetición espaciada", description: "El algoritmo determina cuándo y qué reforzar para maximizar la retención a largo plazo, no solo la completación del módulo." },
-  { icon: "🏆", title: "Gamificación útil", description: "Leaderboards, concursos, puntos, insignias y recompensas. La gamificación que motiva sin distraer del objetivo de aprendizaje." },
-  { icon: "📱", title: "Mobile-first y authoring integrado", description: "Acceso desde cualquier dispositivo. Creación de contenido directo en la plataforma, sin herramientas externas requeridas." }
+	{
+		icon: "🧠",
+		title: "Microlearning adaptativo",
+		description:
+			"OttoLearn ajusta el ritmo y los contenidos según el nivel de dominio de cada persona. No todos aprenden igual ni al mismo ritmo.",
+	},
+	{
+		icon: "🔁",
+		title: "Repetición espaciada",
+		description:
+			"El algoritmo determina cuándo y qué reforzar para maximizar la retención a largo plazo, no solo la completación del módulo.",
+	},
+	{
+		icon: "🏆",
+		title: "Gamificación útil",
+		description:
+			"Leaderboards, concursos, puntos, insignias y recompensas. La gamificación que motiva sin distraer del objetivo de aprendizaje.",
+	},
+	{
+		icon: "📱",
+		title: "Mobile-first y authoring integrado",
+		description:
+			"Acceso desde cualquier dispositivo. Creación de contenido directo en la plataforma, sin herramientas externas requeridas.",
+	},
 ];
 
 const funcionalidades = [
-  { icon: "🎯", label: "Microlearning adaptativo", desc: "Sesiones breves personalizadas según el nivel de dominio del usuario." },
-  { icon: "🔁", label: "Repetición espaciada", desc: "El sistema decide cuándo y qué reforzar para maximizar retención." },
-  { icon: "🏆", label: "Gamificación", desc: "Leaderboards, concursos, puntos, insignias y recompensas configurables." },
-  { icon: "✏️", label: "Authoring integrado", desc: "Crea y edita contenido directamente en la plataforma, sin herramientas extra." },
-  { icon: "📋", label: "Knowledge cards", desc: "Apoyo al desempeño y consultas rápidas dentro de la misma experiencia." },
-  { icon: "📱", label: "Mobile-first", desc: "Experiencia optimizada para celular — funciona donde está el usuario." },
-  { icon: "📊", label: "Analítica y dashboards", desc: "Visibilidad de dominio, brechas y avance por persona, equipo o grupo." },
-  { icon: "🌐", label: "Multilingüe y accesible", desc: "Soporte para múltiples idiomas y estándares de accesibilidad." }
+	{
+		icon: "🎯",
+		label: "Microlearning adaptativo",
+		desc: "Sesiones breves personalizadas según el nivel de dominio del usuario.",
+	},
+	{
+		icon: "🔁",
+		label: "Repetición espaciada",
+		desc: "El sistema decide cuándo y qué reforzar para maximizar retención.",
+	},
+	{
+		icon: "🏆",
+		label: "Gamificación",
+		desc: "Leaderboards, concursos, puntos, insignias y recompensas configurables.",
+	},
+	{
+		icon: "✏️",
+		label: "Authoring integrado",
+		desc: "Crea y edita contenido directamente en la plataforma, sin herramientas extra.",
+	},
+	{
+		icon: "📋",
+		label: "Knowledge cards",
+		desc: "Apoyo al desempeño y consultas rápidas dentro de la misma experiencia.",
+	},
+	{
+		icon: "📱",
+		label: "Mobile-first",
+		desc: "Experiencia optimizada para celular — funciona donde está el usuario.",
+	},
+	{
+		icon: "📊",
+		label: "Analítica y dashboards",
+		desc: "Visibilidad de dominio, brechas y avance por persona, equipo o grupo.",
+	},
+	{
+		icon: "🌐",
+		label: "Multilingüe y accesible",
+		desc: "Soporte para múltiples idiomas y estándares de accesibilidad.",
+	},
 ];
 
 const pasos = [
-  { num: "01", title: "Definir qué debe saber cada perfil", desc: "Mapeas qué conocimientos son críticos para cada rol, área o proceso. OttoLearn estructura el contenido por objetivos de dominio." },
-  { num: "02", title: "Organizar el contenido", desc: "Usas el authoring integrado para crear o cargar los materiales. Cards cortas, preguntas, escenarios — formatos diseñados para retención." },
-  { num: "03", title: "Entrenar en sesiones breves", desc: "Los usuarios practican en sesiones de 5–10 minutos. El algoritmo adapta qué reforzar según el desempeño de cada persona." },
-  { num: "04", title: "Medir y adaptar", desc: "Los dashboards muestran el nivel de dominio real, no solo completaciones. Identificas brechas y ajustas el programa con datos." }
+	{
+		num: "01",
+		title: "Definir qué debe saber cada perfil",
+		desc: "Mapeas qué conocimientos son críticos para cada rol, área o proceso. OttoLearn estructura el contenido por objetivos de dominio.",
+	},
+	{
+		num: "02",
+		title: "Organizar el contenido",
+		desc: "Usas el authoring integrado para crear o cargar los materiales. Cards cortas, preguntas, escenarios — formatos diseñados para retención.",
+	},
+	{
+		num: "03",
+		title: "Entrenar en sesiones breves",
+		desc: "Los usuarios practican en sesiones de 5–10 minutos. El algoritmo adapta qué reforzar según el desempeño de cada persona.",
+	},
+	{
+		num: "04",
+		title: "Medir y adaptar",
+		desc: "Los dashboards muestran el nivel de dominio real, no solo completaciones. Identificas brechas y ajustas el programa con datos.",
+	},
 ];
 
 const faqs = [
-  {
-    question: "¿OttoLearn es un LMS?",
-    answerHtml: "No exactamente. OttoLearn es una <strong>plataforma de microlearning adaptativo</strong>, no un sistema de gestión de aprendizaje tradicional. Está diseñada para <em>reforzar</em> conocimiento — complementa a un LMS, no lo reemplaza. Si buscas un LMS completo, te podemos orientar hacia Moodle, Totara o Pifini según tu caso."
-  },
-  {
-    question: "¿Para qué sirve OttoLearn en onboarding?",
-    answerHtml: "Muy bien para el <strong>refuerzo post-onboarding</strong>. Después de las primeras semanas donde el nuevo colaborador recibe mucha información, OttoLearn mantiene activo el aprendizaje con sesiones cortas que consolidan lo más importante antes de que se olvide."
-  },
-  {
-    question: "¿Sirve para compliance y seguridad?",
-    answerHtml: "Sí. Es uno de sus casos de uso más fuertes. Los temas de compliance se olvidan rápido si solo se toman una vez al año. OttoLearn mantiene el conocimiento activo con refuerzo periódico, detecta quién tiene brechas y garantiza que el conocimiento crítico esté disponible cuando se necesita."
-  },
-  {
-    question: "¿Funciona en celular?",
-    answerHtml: "Sí, es <strong>mobile-first</strong>. Las sesiones están diseñadas para completarse en 5–10 minutos desde cualquier dispositivo. Ideal para personal en campo, equipos distribuidos y usuarios con poco tiempo en escritorio."
-  },
-  {
-    question: "¿Permite crear contenido dentro de la plataforma?",
-    answerHtml: "Sí. OttoLearn incluye <strong>authoring integrado</strong>. Puedes crear cards de conocimiento, preguntas, escenarios y materiales de apoyo directamente en la plataforma, sin necesidad de herramientas externas como Articulate o Vyond (aunque se pueden integrar si ya las tienes)."
-  },
-  {
-    question: "¿TAEC puede implementar OttoLearn en México?",
-    answerHtml: "Sí. TAEC acompaña todo el proceso: evaluación del encaje para tu caso de uso, demo en español, implementación, definición de casos de uso y diseño o adaptación de contenido. También ofrecemos soporte local y seguimiento cercano en horario CDMX."
-  }
+	{
+		question: "¿OttoLearn es un LMS?",
+		answerHtml:
+			"No exactamente. OttoLearn es una <strong>plataforma de microlearning adaptativo</strong>, no un sistema de gestión de aprendizaje tradicional. Está diseñada para <em>reforzar</em> conocimiento — complementa a un LMS, no lo reemplaza. Si buscas un LMS completo, te podemos orientar hacia Moodle, Totara o Pifini según tu caso.",
+	},
+	{
+		question: "¿Para qué sirve OttoLearn en onboarding?",
+		answerHtml:
+			"Muy bien para el <strong>refuerzo post-onboarding</strong>. Después de las primeras semanas donde el nuevo colaborador recibe mucha información, OttoLearn mantiene activo el aprendizaje con sesiones cortas que consolidan lo más importante antes de que se olvide.",
+	},
+	{
+		question: "¿Sirve para compliance y seguridad?",
+		answerHtml:
+			"Sí. Es uno de sus casos de uso más fuertes. Los temas de compliance se olvidan rápido si solo se toman una vez al año. OttoLearn mantiene el conocimiento activo con refuerzo periódico, detecta quién tiene brechas y garantiza que el conocimiento crítico esté disponible cuando se necesita.",
+	},
+	{
+		question: "¿Funciona en celular?",
+		answerHtml:
+			"Sí, es <strong>mobile-first</strong>. Las sesiones están diseñadas para completarse en 5–10 minutos desde cualquier dispositivo. Ideal para personal en campo, equipos distribuidos y usuarios con poco tiempo en escritorio.",
+	},
+	{
+		question: "¿Permite crear contenido dentro de la plataforma?",
+		answerHtml:
+			"Sí. OttoLearn incluye <strong>authoring integrado</strong>. Puedes crear cards de conocimiento, preguntas, escenarios y materiales de apoyo directamente en la plataforma, sin necesidad de herramientas externas como Articulate o Vyond (aunque se pueden integrar si ya las tienes).",
+	},
+	{
+		question: "¿TAEC puede implementar OttoLearn en México?",
+		answerHtml:
+			"Sí. TAEC acompaña todo el proceso: evaluación del encaje para tu caso de uso, demo en español, implementación, definición de casos de uso y diseño o adaptación de contenido. También ofrecemos soporte local y seguimiento cercano en horario CDMX.",
+	},
 ];
 ---
 

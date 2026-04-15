@@ -1,27 +1,29 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroComercial from '../../components/ui/HeroComercial.astro';
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
+import HeroComercial from "../../components/ui/HeroComercial.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const items = await getCollection('quiz');
+const items = await getCollection("quiz");
 
 // Preparar los datos reales para el componente interactivo en cliente
 const quizData = items.map((t, index) => {
-  // Extraer SOLAMENTE la parte de la respuesta (ignorando la pregunta en el markdown)
-  let cleanAns = t.body || '';
-  const matchResp = cleanAns.match(/\*\*Respuesta:\*\*([\s\S]*)/i);
-  if (matchResp) {
-    cleanAns = matchResp[1].trim();
-  } else {
-    cleanAns = cleanAns.replace(/\*\*Pregunta:\*\*.*?\n/i, '').trim();
-  }
+	// Extraer SOLAMENTE la parte de la respuesta (ignorando la pregunta en el markdown)
+	let cleanAns = t.body || "";
+	const matchResp = cleanAns.match(/\*\*Respuesta:\*\*([\s\S]*)/i);
+	if (matchResp) {
+		cleanAns = matchResp[1].trim();
+	} else {
+		cleanAns = cleanAns.replace(/\*\*Pregunta:\*\*.*?\n/i, "").trim();
+	}
 
-  const cleanQ = (t.data.description || t.data.title).replace(/\*\*Pregunta:\*\*\s*/i, '').trim();
-  return {
-    id: index + 1,
-    q: cleanQ,
-    a: cleanAns
-  };
+	const cleanQ = (t.data.description || t.data.title)
+		.replace(/\*\*Pregunta:\*\*\s*/i, "")
+		.trim();
+	return {
+		id: index + 1,
+		q: cleanQ,
+		a: cleanAns,
+	};
 });
 
 const quizDataStr = JSON.stringify(quizData);

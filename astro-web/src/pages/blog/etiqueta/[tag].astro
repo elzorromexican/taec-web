@@ -9,27 +9,37 @@
  * @created 2026-03-22
  * @updated 2026-03-22
  */
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { r } from '../../../utils/paths';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { r } from "../../../utils/paths";
 
-const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+const slugify = (str: string) =>
+	str
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/(^-|-$)+/g, "");
 
 export async function getStaticPaths() {
-  const _slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-  const allPosts = await getCollection('blog');
-  const uniqueTags = [...new Set(allPosts.map(p => p.data.tags || []).flat())];
+	const _slugify = (str: string) =>
+		str
+			.toLowerCase()
+			.replace(/[^a-z0-9]+/g, "-")
+			.replace(/(^-|-$)+/g, "");
+	const allPosts = await getCollection("blog");
+	const uniqueTags = [...new Set(allPosts.flatMap((p) => p.data.tags || []))];
 
-  return uniqueTags.map((tag: string) => {
-    const slug = _slugify(tag);
-    return {
-      params: { tag: slug },
-      props: { 
-        tagName: tag, 
-        posts: allPosts.filter(p => p.data.tags?.map((t:string) => _slugify(t)).includes(slug))
-      },
-    };
-  });
+	return uniqueTags.map((tag: string) => {
+		const slug = _slugify(tag);
+		return {
+			params: { tag: slug },
+			props: {
+				tagName: tag,
+				posts: allPosts.filter((p) =>
+					p.data.tags?.map((t: string) => _slugify(t)).includes(slug),
+				),
+			},
+		};
+	});
 }
 
 const { tagName, posts } = Astro.props;

@@ -1,10 +1,9 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroComercial from '../../components/ui/HeroComercial.astro';
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
+import HeroComercial from "../../components/ui/HeroComercial.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
-
-const items = await getCollection('comparativos');
+const items = await getCollection("comparativos");
 ---
 
 <BaseLayout 

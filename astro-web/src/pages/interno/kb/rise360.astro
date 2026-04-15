@@ -1,31 +1,31 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import KBViewer from '../../../components/interno/KBViewer';
-import { supabase } from '../../../lib/supabase';
+import KBViewer from "../../../components/interno/KBViewer";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { supabase } from "../../../lib/supabase";
 
 // Como el middleware ya validó el auth, podemos simplemente cargar la data aquí sin preocuparnos tanto por accesos denegados aleatorios.
 const { data: kbItems, error } = await supabase
-  .from('kb_items')
-  .select('*')
-  .contains('audiencia', ['interno'])
-  .order('orden', { ascending: true });
+	.from("kb_items")
+	.select("*")
+	.contains("audiencia", ["interno"])
+	.order("orden", { ascending: true });
 
 if (error) {
-  console.error("Error cargando KB:", error);
+	console.error("Error cargando KB:", error);
 }
 
 // Extraemos las secciones presentes para generar los tabs.
 const seccionesMap = new Map();
 if (kbItems) {
-  kbItems.forEach(item => {
-    if (!seccionesMap.has(item.seccion)) {
-      seccionesMap.set(item.seccion, {
-        id: item.seccion,
-        label: item.seccion_label,
-        color: item.seccion_color
-      });
-    }
-  });
+	kbItems.forEach((item) => {
+		if (!seccionesMap.has(item.seccion)) {
+			seccionesMap.set(item.seccion, {
+				id: item.seccion,
+				label: item.seccion_label,
+				color: item.seccion_color,
+			});
+		}
+	});
 }
 const seccionesList = Array.from(seccionesMap.values());
 ---

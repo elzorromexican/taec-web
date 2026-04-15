@@ -1,13 +1,12 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroComercial from '../../components/ui/HeroComercial.astro';
-import { getCollection } from 'astro:content';
-import { r } from '../../utils/paths';
+import { getCollection } from "astro:content";
+import HeroComercial from "../../components/ui/HeroComercial.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
 
-const items = await getCollection('radar');
+const items = await getCollection("radar");
 // Sort by date mostly
-items.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
-
+items.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""));
 ---
 
 <BaseLayout 

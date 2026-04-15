@@ -1,27 +1,27 @@
 ---
 // CHANGELOG: 19/03/2026 - Extracted CtaFinal component to enforce global CTA policy.
 // CHANGELOG: 19/03/2026 - Use r() to prefix internal URLs with BASE_URL for staging support.
-import { contactData, getBookingUrl } from '../../data/contact';
+import { contactData, getBookingUrl } from "../../data/contact";
 
 export interface Props {
-  title: string;
-  subtitle: string;
-  primaryBtnText?: string;
-  primaryBtnUrl?: string;
-  primaryBtnTarget?: string;
-  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+	title: string;
+	subtitle: string;
+	primaryBtnText?: string;
+	primaryBtnUrl?: string;
+	primaryBtnTarget?: string;
+	theme?: "moo" | "tot" | "art" | "vyond" | "general";
 }
 
 const {
-  title,
-  subtitle,
-  primaryBtnText = "Solicitar propuesta →",
-  primaryBtnUrl = "/contacto",
-  primaryBtnTarget,
-  theme = 'general'
+	title,
+	subtitle,
+	primaryBtnText = "Solicitar propuesta →",
+	primaryBtnUrl = "/contacto",
+	primaryBtnTarget,
+	theme = "general",
 } = Astro.props;
 
-import { r, base } from '../../utils/paths';
+import { base, r } from "../../utils/paths";
 ---
 <section class={`cta-band theme-${theme}`}>
   <div class="cta-inner">

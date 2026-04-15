@@ -1,59 +1,125 @@
 ---
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Landing LYS completa. Contenido basado en doc estratégico DDC.
-import ProductPageLayout from '../layouts/ProductPageLayout.astro';
-import { getBookingUrl } from '../data/contact';
-import { r } from '../utils/paths';
+import ProductPageLayout from "../layouts/ProductPageLayout.astro";
+import { r } from "../utils/paths";
 
 const bookingUrl = getBookingUrl();
 
 const componentes = [
-  { icon: "🏭", label: "Fábrica de contenido", desc: "Diseño instruccional y producción de materiales de aprendizaje listos para desplegar." },
-  { icon: "📲", label: "WhatsApp como canal", desc: "Entrega de capacitación por WhatsApp — el canal con mayor tasa de apertura y adopción en México y LATAM." },
-  { icon: "🤝", label: "Interacción con participantes", desc: "Preguntas, retroalimentación, recordatorios y seguimiento activo durante el programa." },
-  { icon: "📊", label: "Dashboards inteligentes", desc: "Reportes y resultados en tiempo real para el área de RH, L&D o el cliente del programa." },
-  { icon: "🎯", label: "Diseño instruccional", desc: "Estrategia pedagógica para que el contenido sea efectivo, no solo consumible." },
-  { icon: "📈", label: "Analítica de resultados", desc: "Medición de avance, participación y resultados por persona, grupo o programa completo." }
+	{
+		icon: "🏭",
+		label: "Fábrica de contenido",
+		desc: "Diseño instruccional y producción de materiales de aprendizaje listos para desplegar.",
+	},
+	{
+		icon: "📲",
+		label: "WhatsApp como canal",
+		desc: "Entrega de capacitación por WhatsApp — el canal con mayor tasa de apertura y adopción en México y LATAM.",
+	},
+	{
+		icon: "🤝",
+		label: "Interacción con participantes",
+		desc: "Preguntas, retroalimentación, recordatorios y seguimiento activo durante el programa.",
+	},
+	{
+		icon: "📊",
+		label: "Dashboards inteligentes",
+		desc: "Reportes y resultados en tiempo real para el área de RH, L&D o el cliente del programa.",
+	},
+	{
+		icon: "🎯",
+		label: "Diseño instruccional",
+		desc: "Estrategia pedagógica para que el contenido sea efectivo, no solo consumible.",
+	},
+	{
+		icon: "📈",
+		label: "Analítica de resultados",
+		desc: "Medición de avance, participación y resultados por persona, grupo o programa completo.",
+	},
 ];
 
 const beneficios = [
-  { icon: "📱", title: "WhatsApp — el canal que ya usan", description: "Sin apps adicionales, sin credenciales nuevas, sin fricción de acceso. LYS llega donde ya está el usuario — con la mayor tasa de apertura del mercado." },
-  { icon: "⚡", title: "De la estrategia al despliegue en semanas", description: "LYS combina contenido, tecnología y operación en una sola propuesta. No tienes que coordinar múltiples proveedores — todo avanza junto." },
-  { icon: "📐", title: "Experiencias diseñadas para aprender, no solo para consumir", description: "El diseño instruccional está dentro de la propuesta. El contenido se construye para que funcione en el canal y logre el objetivo — no para cumplir un formato." },
-  { icon: "📊", title: "Métricas reales desde el primer día", description: "Dashboards con participación, avance y resultados en tiempo real. Sin esperar al cierre del programa para saber qué está pasando." }
+	{
+		icon: "📱",
+		title: "WhatsApp — el canal que ya usan",
+		description:
+			"Sin apps adicionales, sin credenciales nuevas, sin fricción de acceso. LYS llega donde ya está el usuario — con la mayor tasa de apertura del mercado.",
+	},
+	{
+		icon: "⚡",
+		title: "De la estrategia al despliegue en semanas",
+		description:
+			"LYS combina contenido, tecnología y operación en una sola propuesta. No tienes que coordinar múltiples proveedores — todo avanza junto.",
+	},
+	{
+		icon: "📐",
+		title: "Experiencias diseñadas para aprender, no solo para consumir",
+		description:
+			"El diseño instruccional está dentro de la propuesta. El contenido se construye para que funcione en el canal y logre el objetivo — no para cumplir un formato.",
+	},
+	{
+		icon: "📊",
+		title: "Métricas reales desde el primer día",
+		description:
+			"Dashboards con participación, avance y resultados en tiempo real. Sin esperar al cierre del programa para saber qué está pasando.",
+	},
 ];
 
 const pasos = [
-  { num: "01", title: "Diseñar la estrategia", desc: "Definimos contigo el objetivo, la audiencia, el contenido y los canales. La estrategia pedagógica es parte del proceso, no un paso previo separado." },
-  { num: "02", title: "Producir el contenido", desc: "El equipo de LYS produce los materiales en los formatos correctos para el canal y la audiencia. Sin herramientas de autoría adicionales de tu parte." },
-  { num: "03", title: "Desplegar por WhatsApp", desc: "El programa se activa por WhatsApp. Los participantes reciben contenido, actividades y seguimiento directamente en el canal que ya usan todos los días." },
-  { num: "04", title: "Acompañar y medir", desc: "Interacción activa con participantes, recordatorios automáticos y dashboards en tiempo real. El programa no termina cuando el contenido se entrega — se sigue midiendo." }
+	{
+		num: "01",
+		title: "Diseñar la estrategia",
+		desc: "Definimos contigo el objetivo, la audiencia, el contenido y los canales. La estrategia pedagógica es parte del proceso, no un paso previo separado.",
+	},
+	{
+		num: "02",
+		title: "Producir el contenido",
+		desc: "El equipo de LYS produce los materiales en los formatos correctos para el canal y la audiencia. Sin herramientas de autoría adicionales de tu parte.",
+	},
+	{
+		num: "03",
+		title: "Desplegar por WhatsApp",
+		desc: "El programa se activa por WhatsApp. Los participantes reciben contenido, actividades y seguimiento directamente en el canal que ya usan todos los días.",
+	},
+	{
+		num: "04",
+		title: "Acompañar y medir",
+		desc: "Interacción activa con participantes, recordatorios automáticos y dashboards en tiempo real. El programa no termina cuando el contenido se entrega — se sigue midiendo.",
+	},
 ];
 
 const faqs = [
-  {
-    question: "¿LYS es un LMS?",
-    answerHtml: "No en el sentido tradicional. LYS es una <strong>solución de aprendizaje ágil</strong> que combina contenido, tecnología e interacción. Su diferenciador principal es la <strong>entrega por WhatsApp</strong> — lo que elimina la fricción de acceso que tienen los LMS convencionales con equipos distribuidos o sin escritorio."
-  },
-  {
-    question: "¿Por qué WhatsApp y no una app de aprendizaje?",
-    answerHtml: "Porque WhatsApp ya está instalado, ya está abierto y ya tiene la atención del usuario. La tasa de apertura de mensajes en WhatsApp supera el 90% — ninguna plataforma de e-learning se acerca a ese número. Para equipos en campo, con movilidad alta o sin acceso regular a un escritorio, es el canal más efectivo disponible."
-  },
-  {
-    question: "¿LYS produce el contenido o solo lo distribuye?",
-    answerHtml: "Ambas cosas. LYS incluye una <strong>fábrica de contenido</strong> con diseño instruccional y producción. No solo distribuye materiales que tú produces — construye la experiencia de aprendizaje desde el principio. Si ya tienes contenido, también puede adaptarlo al canal."
-  },
-  {
-    question: "¿Para qué tipo de programas funciona mejor?",
-    answerHtml: "Funciona especialmente bien para: <strong>onboarding a escala</strong>, <strong>equipos comerciales o de campo</strong> distribuidos geográficamente, <strong>programas ESG o sociales</strong> con audiencias externas a la organización, y <strong>capacitación de alta frecuencia</strong> donde la adopción del canal es crítica."
-  },
-  {
-    question: "¿Se puede medir el avance y los resultados?",
-    answerHtml: "Sí. LYS incluye <strong>dashboards en tiempo real</strong> con participación, avance por persona o grupo, respuestas a actividades y métricas de resultado. El área de RH o L&D tiene visibilidad durante el programa, no solo al final."
-  },
-  {
-    question: "¿TAEC puede implementar LYS en México?",
-    answerHtml: "Sí. TAEC acompaña la evaluación del caso de uso, la definición de la estrategia pedagógica y el despliegue del programa. Soporte en español y seguimiento cercano en horario CDMX. Contáctanos para una demo con casos reales de programas en México y LATAM."
-  }
+	{
+		question: "¿LYS es un LMS?",
+		answerHtml:
+			"No en el sentido tradicional. LYS es una <strong>solución de aprendizaje ágil</strong> que combina contenido, tecnología e interacción. Su diferenciador principal es la <strong>entrega por WhatsApp</strong> — lo que elimina la fricción de acceso que tienen los LMS convencionales con equipos distribuidos o sin escritorio.",
+	},
+	{
+		question: "¿Por qué WhatsApp y no una app de aprendizaje?",
+		answerHtml:
+			"Porque WhatsApp ya está instalado, ya está abierto y ya tiene la atención del usuario. La tasa de apertura de mensajes en WhatsApp supera el 90% — ninguna plataforma de e-learning se acerca a ese número. Para equipos en campo, con movilidad alta o sin acceso regular a un escritorio, es el canal más efectivo disponible.",
+	},
+	{
+		question: "¿LYS produce el contenido o solo lo distribuye?",
+		answerHtml:
+			"Ambas cosas. LYS incluye una <strong>fábrica de contenido</strong> con diseño instruccional y producción. No solo distribuye materiales que tú produces — construye la experiencia de aprendizaje desde el principio. Si ya tienes contenido, también puede adaptarlo al canal.",
+	},
+	{
+		question: "¿Para qué tipo de programas funciona mejor?",
+		answerHtml:
+			"Funciona especialmente bien para: <strong>onboarding a escala</strong>, <strong>equipos comerciales o de campo</strong> distribuidos geográficamente, <strong>programas ESG o sociales</strong> con audiencias externas a la organización, y <strong>capacitación de alta frecuencia</strong> donde la adopción del canal es crítica.",
+	},
+	{
+		question: "¿Se puede medir el avance y los resultados?",
+		answerHtml:
+			"Sí. LYS incluye <strong>dashboards en tiempo real</strong> con participación, avance por persona o grupo, respuestas a actividades y métricas de resultado. El área de RH o L&D tiene visibilidad durante el programa, no solo al final.",
+	},
+	{
+		question: "¿TAEC puede implementar LYS en México?",
+		answerHtml:
+			"Sí. TAEC acompaña la evaluación del caso de uso, la definición de la estrategia pedagógica y el despliegue del programa. Soporte en español y seguimiento cercano en horario CDMX. Contáctanos para una demo con casos reales de programas en México y LATAM.",
+	},
 ];
 ---
 

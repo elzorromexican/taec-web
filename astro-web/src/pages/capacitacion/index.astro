@@ -1,16 +1,16 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroComercial from '../../components/ui/HeroComercial.astro';
-import { getCollection } from 'astro:content';
-import { r } from '../../utils/paths';
+import { getCollection } from "astro:content";
+import HeroComercial from "../../components/ui/HeroComercial.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
 
-const cursos = await getCollection('cursos');
-cursos.sort((a, b) => (a.data.titulo || '').localeCompare(b.data.titulo || ''));
+const cursos = await getCollection("cursos");
+cursos.sort((a, b) => (a.data.titulo || "").localeCompare(b.data.titulo || ""));
 
 const tagCounts: Record<string, number> = {};
-cursos.forEach(p => {
-    const cat = p.data.categoria;
-    if (cat) tagCounts[cat] = (tagCounts[cat] || 0) + 1;
+cursos.forEach((p) => {
+	const cat = p.data.categoria;
+	if (cat) tagCounts[cat] = (tagCounts[cat] || 0) + 1;
 });
 const tags = Object.keys(tagCounts).sort();
 ---

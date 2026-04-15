@@ -1,77 +1,120 @@
 ---
+import { getBookingUrl } from "../data/contact";
 // CHANGELOG: 2026-03-20 - Landing CustomGuide completa. Contenido basado en doc estratégico DDC.
-import ProductPageLayout from '../layouts/ProductPageLayout.astro';
-import { getBookingUrl } from '../data/contact';
-import { r } from '../utils/paths';
+import ProductPageLayout from "../layouts/ProductPageLayout.astro";
+import { r } from "../utils/paths";
 
 const bookingUrl = getBookingUrl();
 
 const pilares = [
-  {
-    icon: "📚",
-    title: "Más de 300 cursos personalizables",
-    desc: "Microsoft Office, Google Workspace y alfabetización digital. Listos para cargar en tu LMS en formato SCORM — sin tiempo de producción.",
-    badge: "100% SCORM"
-  },
-  {
-    icon: "🖥️",
-    title: "LMS integrado",
-    desc: "Si no tienes LMS o prefieres un entorno separado, CustomGuide incluye su propio sistema de gestión de aprendizaje con seguimiento de progreso.",
-    badge: "Incluido"
-  },
-  {
-    icon: "🎯",
-    title: "Evaluaciones de habilidades",
-    desc: "Skill assessments para identificar brechas antes y después de la capacitación. Mejora media documentada del 56% en habilidades evaluadas.",
-    badge: "+56% mejora"
-  },
-  {
-    icon: "📋",
-    title: "Hojas de trucos con tu marca",
-    desc: "Referencias rápidas para el día a día — personalizables con el logo y colores de tu organización. El usuario las consulta sin entrar al LMS.",
-    badge: "Marca propia"
-  }
+	{
+		icon: "📚",
+		title: "Más de 300 cursos personalizables",
+		desc: "Microsoft Office, Google Workspace y alfabetización digital. Listos para cargar en tu LMS en formato SCORM — sin tiempo de producción.",
+		badge: "100% SCORM",
+	},
+	{
+		icon: "🖥️",
+		title: "LMS integrado",
+		desc: "Si no tienes LMS o prefieres un entorno separado, CustomGuide incluye su propio sistema de gestión de aprendizaje con seguimiento de progreso.",
+		badge: "Incluido",
+	},
+	{
+		icon: "🎯",
+		title: "Evaluaciones de habilidades",
+		desc: "Skill assessments para identificar brechas antes y después de la capacitación. Mejora media documentada del 56% en habilidades evaluadas.",
+		badge: "+56% mejora",
+	},
+	{
+		icon: "📋",
+		title: "Hojas de trucos con tu marca",
+		desc: "Referencias rápidas para el día a día — personalizables con el logo y colores de tu organización. El usuario las consulta sin entrar al LMS.",
+		badge: "Marca propia",
+	},
 ];
 
 const beneficios = [
-  { icon: "⚡", title: "Listo para usar desde el primer día", description: "Sin tiempo de producción, sin autoría desde cero. Los 300+ cursos están producidos, actualizados y disponibles para desplegar en tu LMS o en la plataforma propia." },
-  { icon: "🤖", title: "Course Builder con IA", description: "Si necesitas cursos adicionales o personalizados, el Course Builder con IA permite crear contenido nuevo con drag & drop — sin herramientas de autoría externas." },
-  { icon: "📊", title: "4.9/5 en G2 — más de 3,000 clientes", description: "Una de las plataformas mejor calificadas en su categoría. Utilizada por bibliotecas, asociaciones, gobierno, ONGs y empresas en múltiples industrias." },
-  { icon: "🎨", title: "Personalización con tu marca", description: "Cursos editables con tu identidad visual. Las hojas de trucos llevan tu logo. La experiencia del usuario refleja tu organización — no un proveedor externo." }
+	{
+		icon: "⚡",
+		title: "Listo para usar desde el primer día",
+		description:
+			"Sin tiempo de producción, sin autoría desde cero. Los 300+ cursos están producidos, actualizados y disponibles para desplegar en tu LMS o en la plataforma propia.",
+	},
+	{
+		icon: "🤖",
+		title: "Course Builder con IA",
+		description:
+			"Si necesitas cursos adicionales o personalizados, el Course Builder con IA permite crear contenido nuevo con drag & drop — sin herramientas de autoría externas.",
+	},
+	{
+		icon: "📊",
+		title: "4.9/5 en G2 — más de 3,000 clientes",
+		description:
+			"Una de las plataformas mejor calificadas en su categoría. Utilizada por bibliotecas, asociaciones, gobierno, ONGs y empresas en múltiples industrias.",
+	},
+	{
+		icon: "🎨",
+		title: "Personalización con tu marca",
+		description:
+			"Cursos editables con tu identidad visual. Las hojas de trucos llevan tu logo. La experiencia del usuario refleja tu organización — no un proveedor externo.",
+	},
 ];
 
 const faqs = [
-  {
-    question: "¿Qué temas cubre el catálogo de CustomGuide?",
-    answerHtml: "El catálogo se especializa en <strong>herramientas digitales de trabajo</strong>: Microsoft Office (Word, Excel, PowerPoint, Outlook, Teams), Google Workspace (Docs, Sheets, Slides, Gmail, Meet) y alfabetización digital general. Más de 300 cursos editables listos para usar."
-  },
-  {
-    question: "¿Los cursos son compatibles con nuestro LMS?",
-    answerHtml: "Sí. Los cursos son <strong>100% compatibles con SCORM</strong> — el estándar universal de e-learning. Puedes cargarlos en Moodle, Totara, Canvas, Cornerstone, Blackboard o cualquier LMS que acepte SCORM. Si no tienes LMS, CustomGuide incluye el suyo propio."
-  },
-  {
-    question: "¿Qué es el Course Builder con IA?",
-    answerHtml: "Una herramienta de <strong>creación de cursos con drag & drop e inteligencia artificial</strong> incluida en CustomGuide. Permite crear cursos nuevos o complementar el catálogo existente con contenido propio — sin necesidad de Articulate, Rise ni herramientas de autoría adicionales."
-  },
-  {
-    question: "¿Las evaluaciones de habilidades sirven antes y después del curso?",
-    answerHtml: "Sí. Los <strong>skill assessments</strong> permiten medir el nivel de habilidad antes de la capacitación (para identificar brechas y personalizar rutas) y después (para medir el impacto real). CustomGuide documenta una mejora media del <strong>56% en habilidades evaluadas</strong>."
-  },
-  {
-    question: "¿Para qué tipo de organizaciones funciona mejor?",
-    answerHtml: "Especialmente para: <strong>empresas que capacitan en Microsoft o Google Workspace</strong>, equipos de RH o L&D con poco tiempo de desarrollo de contenido, <strong>bibliotecas, asociaciones, gobierno y ONGs</strong> que necesitan formación digital accesible, y organizaciones con LMS propio que buscan un catálogo sólido sin desarrollar desde cero."
-  },
-  {
-    question: "¿TAEC puede implementar CustomGuide en México?",
-    answerHtml: "Sí. TAEC acompaña la evaluación del catálogo según tu audiencia, la integración con tu LMS o la configuración del LMS integrado de CustomGuide, y el soporte posterior. Contacta con nuestro equipo para una demo con acceso al catálogo completo."
-  }
+	{
+		question: "¿Qué temas cubre el catálogo de CustomGuide?",
+		answerHtml:
+			"El catálogo se especializa en <strong>herramientas digitales de trabajo</strong>: Microsoft Office (Word, Excel, PowerPoint, Outlook, Teams), Google Workspace (Docs, Sheets, Slides, Gmail, Meet) y alfabetización digital general. Más de 300 cursos editables listos para usar.",
+	},
+	{
+		question: "¿Los cursos son compatibles con nuestro LMS?",
+		answerHtml:
+			"Sí. Los cursos son <strong>100% compatibles con SCORM</strong> — el estándar universal de e-learning. Puedes cargarlos en Moodle, Totara, Canvas, Cornerstone, Blackboard o cualquier LMS que acepte SCORM. Si no tienes LMS, CustomGuide incluye el suyo propio.",
+	},
+	{
+		question: "¿Qué es el Course Builder con IA?",
+		answerHtml:
+			"Una herramienta de <strong>creación de cursos con drag & drop e inteligencia artificial</strong> incluida en CustomGuide. Permite crear cursos nuevos o complementar el catálogo existente con contenido propio — sin necesidad de Articulate, Rise ni herramientas de autoría adicionales.",
+	},
+	{
+		question:
+			"¿Las evaluaciones de habilidades sirven antes y después del curso?",
+		answerHtml:
+			"Sí. Los <strong>skill assessments</strong> permiten medir el nivel de habilidad antes de la capacitación (para identificar brechas y personalizar rutas) y después (para medir el impacto real). CustomGuide documenta una mejora media del <strong>56% en habilidades evaluadas</strong>.",
+	},
+	{
+		question: "¿Para qué tipo de organizaciones funciona mejor?",
+		answerHtml:
+			"Especialmente para: <strong>empresas que capacitan en Microsoft o Google Workspace</strong>, equipos de RH o L&D con poco tiempo de desarrollo de contenido, <strong>bibliotecas, asociaciones, gobierno y ONGs</strong> que necesitan formación digital accesible, y organizaciones con LMS propio que buscan un catálogo sólido sin desarrollar desde cero.",
+	},
+	{
+		question: "¿TAEC puede implementar CustomGuide en México?",
+		answerHtml:
+			"Sí. TAEC acompaña la evaluación del catálogo según tu audiencia, la integración con tu LMS o la configuración del LMS integrado de CustomGuide, y el soporte posterior. Contacta con nuestro equipo para una demo con acceso al catálogo completo.",
+	},
 ];
 
 const casos = [
-  { icon: "🏢", title: "Capacitación en herramientas digitales", desc: "Microsoft 365 y Google Workspace para toda la organización — desde empleados nuevos hasta usuarios avanzados." },
-  { icon: "🚀", title: "Onboarding digital", desc: "Inducción tecnológica desde el primer día. El nuevo colaborador aprende las herramientas que va a usar antes de su primera semana." },
-  { icon: "🏛️", title: "Gobierno, bibliotecas y ONGs", desc: "Acceso a formación digital de calidad para instituciones con presupuesto limitado y alto volumen de usuarios." },
-  { icon: "⚙️", title: "Academias internas sin tiempo de desarrollo", desc: "Catálogo listo para complementar el LMS existente — sin meses de producción de contenido propio." }
+	{
+		icon: "🏢",
+		title: "Capacitación en herramientas digitales",
+		desc: "Microsoft 365 y Google Workspace para toda la organización — desde empleados nuevos hasta usuarios avanzados.",
+	},
+	{
+		icon: "🚀",
+		title: "Onboarding digital",
+		desc: "Inducción tecnológica desde el primer día. El nuevo colaborador aprende las herramientas que va a usar antes de su primera semana.",
+	},
+	{
+		icon: "🏛️",
+		title: "Gobierno, bibliotecas y ONGs",
+		desc: "Acceso a formación digital de calidad para instituciones con presupuesto limitado y alto volumen de usuarios.",
+	},
+	{
+		icon: "⚙️",
+		title: "Academias internas sin tiempo de desarrollo",
+		desc: "Catálogo listo para complementar el LMS existente — sin meses de producción de contenido propio.",
+	},
 ];
 ---
 

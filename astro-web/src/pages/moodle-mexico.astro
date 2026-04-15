@@ -1,19 +1,43 @@
 ---
-import { getBookingUrl } from '../data/contact';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import FAQAccordion from "../components/ui/FAQAccordion.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import { getBookingUrl } from "../data/contact";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-import { base } from '../utils/paths';
+import { base } from "../utils/paths";
 
 const faqsMoodle = [
-  { question: "¿Moodle es realmente gratuito?", answerHtml: "El software Moodle es gratuito y de código abierto. Lo que tiene un costo es el hospedaje (hosting), la implementación y el soporte. El servicio SaaS de TAEC incluye todo eso: infraestructura en la nube, actualizaciones automáticas, backups diarios y soporte técnico en español — sin que tengas que preocuparte por los servidores." },
-  { question: "¿Qué incluye el hosting SaaS de Moodle con TAEC?", answerHtml: "El hosting SaaS incluye: servidor dedicado o compartido según el plan, dominio o subdominio personalizado, certificado SSL, actualizaciones de Moodle y plugins incluidos, backups diarios automatizados, monitoreo de disponibilidad 24/7 y soporte técnico en español en horario de oficina. También incluimos la instalación inicial y configuración básica de la plataforma." },
-  { question: "¿Cuánto tiempo tarda una implementación de Moodle?", answerHtml: "Una implementación estándar (hosting SaaS + configuración inicial + tema básico) está lista en 48 a 72 horas hábiles. Una implementación completa con personalización de tema, plugins a medida, migración de datos e integración con sistemas externos puede tomar entre 2 y 6 semanas dependiendo de la complejidad." },
-  { question: "¿Puedo migrar mi Moodle actual a TAEC?", answerHtml: "Sí. Realizamos migraciones desde otras instancias de Moodle (auto-hospedadas u hospedadas por otros proveedores) conservando cursos, usuarios, calificaciones, foros y toda la información de la plataforma. También podemos migrar desde otras plataformas LMS exportando el contenido en formatos estándar (SCORM, xAPI)." },
-  { question: "¿Cuál es la diferencia entre Moodle LMS y Moodle Workplace?", answerHtml: "Moodle LMS es la plataforma open source estándar, ideal para instituciones educativas y empresas que necesitan un LMS robusto y flexible. Moodle Workplace es la edición enterprise construida sobre Moodle LMS, que agrega gestión multi-empresa, automatizaciones de RR.HH., flujos de trabajo corporativos, reportes avanzados y certificados digitales. Workplace es la opción recomendada para organizaciones con más de 500 usuarios o requerimientos de cumplimiento normativo complejos." },
-  { question: "¿Ofrecen capacitación para administradores de Moodle?", answerHtml: "Sí. TAEC ofrece cursos abiertos de Moodle para administradores de plataforma y cursos cerrados personalizados para equipos de e-learning. También incluimos una capacitación básica de administración en cada implementación nueva. Contáctanos para conocer el calendario de cursos abiertos." }
+	{
+		question: "¿Moodle es realmente gratuito?",
+		answerHtml:
+			"El software Moodle es gratuito y de código abierto. Lo que tiene un costo es el hospedaje (hosting), la implementación y el soporte. El servicio SaaS de TAEC incluye todo eso: infraestructura en la nube, actualizaciones automáticas, backups diarios y soporte técnico en español — sin que tengas que preocuparte por los servidores.",
+	},
+	{
+		question: "¿Qué incluye el hosting SaaS de Moodle con TAEC?",
+		answerHtml:
+			"El hosting SaaS incluye: servidor dedicado o compartido según el plan, dominio o subdominio personalizado, certificado SSL, actualizaciones de Moodle y plugins incluidos, backups diarios automatizados, monitoreo de disponibilidad 24/7 y soporte técnico en español en horario de oficina. También incluimos la instalación inicial y configuración básica de la plataforma.",
+	},
+	{
+		question: "¿Cuánto tiempo tarda una implementación de Moodle?",
+		answerHtml:
+			"Una implementación estándar (hosting SaaS + configuración inicial + tema básico) está lista en 48 a 72 horas hábiles. Una implementación completa con personalización de tema, plugins a medida, migración de datos e integración con sistemas externos puede tomar entre 2 y 6 semanas dependiendo de la complejidad.",
+	},
+	{
+		question: "¿Puedo migrar mi Moodle actual a TAEC?",
+		answerHtml:
+			"Sí. Realizamos migraciones desde otras instancias de Moodle (auto-hospedadas u hospedadas por otros proveedores) conservando cursos, usuarios, calificaciones, foros y toda la información de la plataforma. También podemos migrar desde otras plataformas LMS exportando el contenido en formatos estándar (SCORM, xAPI).",
+	},
+	{
+		question: "¿Cuál es la diferencia entre Moodle LMS y Moodle Workplace?",
+		answerHtml:
+			"Moodle LMS es la plataforma open source estándar, ideal para instituciones educativas y empresas que necesitan un LMS robusto y flexible. Moodle Workplace es la edición enterprise construida sobre Moodle LMS, que agrega gestión multi-empresa, automatizaciones de RR.HH., flujos de trabajo corporativos, reportes avanzados y certificados digitales. Workplace es la opción recomendada para organizaciones con más de 500 usuarios o requerimientos de cumplimiento normativo complejos.",
+	},
+	{
+		question: "¿Ofrecen capacitación para administradores de Moodle?",
+		answerHtml:
+			"Sí. TAEC ofrece cursos abiertos de Moodle para administradores de plataforma y cursos cerrados personalizados para equipos de e-learning. También incluimos una capacitación básica de administración en cada implementación nueva. Contáctanos para conocer el calendario de cursos abiertos.",
+	},
 ];
 ---
 

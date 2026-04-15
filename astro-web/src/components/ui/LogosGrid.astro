@@ -1,20 +1,20 @@
 ---
 // CHANGELOG: 19/03/2026 - Extracted LogosGrid component to standardize partners and badges.
 export interface LogoItem {
-  type: 'image' | 'text';
-  src?: string;
-  text?: string;
-  alt?: string;
-  badge?: string;
+	type: "image" | "text";
+	src?: string;
+	text?: string;
+	alt?: string;
+	badge?: string;
 }
 
 export interface Props {
-  eyebrow?: string;
-  logos: LogoItem[];
-  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+	eyebrow?: string;
+	logos: LogoItem[];
+	theme?: "moo" | "tot" | "art" | "vyond" | "general";
 }
 
-const { eyebrow, logos, theme = 'general' } = Astro.props;
+const { eyebrow, logos, theme = "general" } = Astro.props;
 ---
 <section class={`logos-grid-section theme-${theme}`}>
   <div class="logos-inner">

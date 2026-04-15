@@ -2,32 +2,42 @@
 // CHANGELOG: 19/03/2026 - Extracted HeroComercial component to remove duplication across product pages.
 // CHANGELOG: 19/03/2026 - Use r() to prefix internal URLs with BASE_URL for staging support.
 export interface Props {
-  eyebrow: string;
-  titleHtml: string;
-  subtitle: string;
-  features?: string[];
-  primaryBtn?: { label: string; url: string; target?: string };
-  secondaryBtn?: { label: string; url: string; target?: string };
-  bottomText?: string;
-  cardLogoSrc?: string;
-  cardLogoStyle?: string;
-  cardBadgeText?: string;
-  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
-  brandColor?: string;   // Sobreescribe --hero-primary y --hero-accent
-  btnTextDark?: boolean; // true = texto oscuro en botón (para colores claros como amarillo/ámbar)
+	eyebrow: string;
+	titleHtml: string;
+	subtitle: string;
+	features?: string[];
+	primaryBtn?: { label: string; url: string; target?: string };
+	secondaryBtn?: { label: string; url: string; target?: string };
+	bottomText?: string;
+	cardLogoSrc?: string;
+	cardLogoStyle?: string;
+	cardBadgeText?: string;
+	theme?: "moo" | "tot" | "art" | "vyond" | "general";
+	brandColor?: string; // Sobreescribe --hero-primary y --hero-accent
+	btnTextDark?: boolean; // true = texto oscuro en botón (para colores claros como amarillo/ámbar)
 }
 
 const {
-  eyebrow, titleHtml, subtitle, features, primaryBtn, secondaryBtn,
-  bottomText, cardLogoSrc, cardLogoStyle = "height:44px;width:auto;", cardBadgeText,
-  theme = 'general', brandColor, btnTextDark = false
+	eyebrow,
+	titleHtml,
+	subtitle,
+	features,
+	primaryBtn,
+	secondaryBtn,
+	bottomText,
+	cardLogoSrc,
+	cardLogoStyle = "height:44px;width:auto;",
+	cardBadgeText,
+	theme = "general",
+	brandColor,
+	btnTextDark = false,
 } = Astro.props;
 
 const brandStyle = brandColor
-  ? `--hero-primary:${brandColor};--hero-accent:${brandColor};${btnTextDark ? '--btn-text:var(--navy-slate);' : ''}`
-  : '';
+	? `--hero-primary:${brandColor};--hero-accent:${brandColor};${btnTextDark ? "--btn-text:var(--navy-slate);" : ""}`
+	: "";
 
-import { r, base } from '../../utils/paths';
+import { base, r } from "../../utils/paths";
 ---
 <section class={`hero-comercial theme-${theme}`} style={brandStyle}>
   <div class="hero-inner">

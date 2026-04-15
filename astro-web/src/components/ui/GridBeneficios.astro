@@ -1,28 +1,28 @@
 ---
 // CHANGELOG: 19/03/2026 - Extracted GridBeneficios component to remove HTML duplication.
 export interface ContenidoCard {
-  icon: string;
-  title: string;
-  description: string;
-  url?: string;
+	icon: string;
+	title: string;
+	description: string;
+	url?: string;
 }
 
 export interface Props {
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-  cards: ContenidoCard[];
-  columns?: 2 | 3 | 4;
-  theme?: 'moo' | 'tot' | 'art' | 'vyond' | 'general';
+	eyebrow?: string;
+	title: string;
+	subtitle?: string;
+	cards: ContenidoCard[];
+	columns?: 2 | 3 | 4;
+	theme?: "moo" | "tot" | "art" | "vyond" | "general";
 }
 
 const {
-  eyebrow,
-  title,
-  subtitle,
-  cards,
-  columns = 3,
-  theme = 'general'
+	eyebrow,
+	title,
+	subtitle,
+	cards,
+	columns = 3,
+	theme = "general",
 } = Astro.props;
 ---
 <section class={`grid-beneficios theme-${theme}`}>

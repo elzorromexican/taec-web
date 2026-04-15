@@ -1,15 +1,15 @@
 ---
 export const prerender = false;
 
-import IntranetLayout from '../../../layouts/IntranetLayout.astro';
-import KBViewer from '../../../components/interno/KBViewer';
-import { supabase } from '../../../lib/supabase';
+import KBViewer from "../../../components/interno/KBViewer";
+import IntranetLayout from "../../../layouts/IntranetLayout.astro";
+import { supabase } from "../../../lib/supabase";
 
 // En Astro SSR, el parametro dinámico se extrae directamente
 const { producto } = Astro.params;
 
 if (!producto) {
-  return Astro.redirect('/interno/dashboard');
+	return Astro.redirect("/interno/dashboard");
 }
 
 // Usamos el token fresco que el middleware validó (puede haber renovado el JWT)
@@ -17,134 +17,179 @@ if (!producto) {
 const accessToken = Astro.locals.accessToken || "";
 
 // Re-instanciamos Supabase inyectando el header de Auth
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
+
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 const scopedSupabase = createClient(supabaseUrl, supabaseAnonKey, {
-  global: { headers: { Authorization: `Bearer ${accessToken}` } }
+	global: { headers: { Authorization: `Bearer ${accessToken}` } },
 });
 
 // Sacamos los contenidos de la base de datos de manera dinámica
 const { data: kbItems, error } = await scopedSupabase
-  .from('kb_items')
-  .select('*')
-  .eq('producto', producto) 
-  .contains('audiencia', ['interno'])
-  .order('orden', { ascending: true });
+	.from("kb_items")
+	.select("*")
+	.eq("producto", producto)
+	.contains("audiencia", ["interno"])
+	.order("orden", { ascending: true });
 
 if (error) {
-  console.error("Error cargando KB para:", producto, error);
+	console.error("Error cargando KB para:", producto, error);
 }
 
 // Fetch de los metadatos de configuración del playbook
 const { data: playbook, error: pError } = await scopedSupabase
-  .from('kb_playbooks')
-  .select('*')
-  .eq('id_producto', producto)
-  .single();
+	.from("kb_playbooks")
+	.select("*")
+	.eq("id_producto", producto)
+	.single();
 
-if (pError && pError.code !== 'PGRST116') { // Ignoramos Not Found
-  console.error("Error cargando metadatos para:", producto, pError);
+if (pError && pError.code !== "PGRST116") {
+	// Ignoramos Not Found
+	console.error("Error cargando metadatos para:", producto, pError);
 }
 
 // Mapeo exhaustivo para unificar las secciones de todos los productos
-const CATEGORY_MAP: Record<string, { id: string, label: string, color: string, order: number }> = {
-  comercial: { id: 'comercial', label: 'La Matriz Comercial', color: '#185FA5', order: 1 },
-  tecnica: { id: 'tecnica', label: 'La Matriz Técnica', color: '#0F6E56', order: 2 },
-  troubleshooting: { id: 'troubleshooting', label: 'Troubleshooting', color: '#D85A30', order: 3 },
-  objeciones: { id: 'objeciones', label: 'Las Objeciones', color: '#993556', order: 4 },
+const CATEGORY_MAP: Record<
+	string,
+	{ id: string; label: string; color: string; order: number }
+> = {
+	comercial: {
+		id: "comercial",
+		label: "La Matriz Comercial",
+		color: "#185FA5",
+		order: 1,
+	},
+	tecnica: {
+		id: "tecnica",
+		label: "La Matriz Técnica",
+		color: "#0F6E56",
+		order: 2,
+	},
+	troubleshooting: {
+		id: "troubleshooting",
+		label: "Troubleshooting",
+		color: "#D85A30",
+		order: 3,
+	},
+	objeciones: {
+		id: "objeciones",
+		label: "Las Objeciones",
+		color: "#993556",
+		order: 4,
+	},
 };
 
 const LEGACY_MAP: Record<string, string> = {
-  'tecnico': 'tecnica',
-  'ventas': 'comercial',
-  'pre-ventas': 'comercial',
-  'uso': 'tecnica',
-  'admin': 'tecnica',
-  'soporte': 'troubleshooting',
-  'errores': 'troubleshooting',
-  
-  // Reducción y Homologación de tabs heredadas (ej. Rise 360, Vyond)
-  'accesibilidad': 'tecnica',
-  'licenciamiento': 'comercial',
-  'lms': 'tecnica',
-  'lms e integraciones': 'tecnica',
-  'diseño': 'tecnica',
-  'colaboracion': 'comercial',
-  'colaboración': 'comercial'
+	tecnico: "tecnica",
+	ventas: "comercial",
+	"pre-ventas": "comercial",
+	uso: "tecnica",
+	admin: "tecnica",
+	soporte: "troubleshooting",
+	errores: "troubleshooting",
+
+	// Reducción y Homologación de tabs heredadas (ej. Rise 360, Vyond)
+	accesibilidad: "tecnica",
+	licenciamiento: "comercial",
+	lms: "tecnica",
+	"lms e integraciones": "tecnica",
+	diseño: "tecnica",
+	colaboracion: "comercial",
+	colaboración: "comercial",
 };
 
 // Extraemos las secciones presentes para generar los tabs y las unificamos.
 const seccionesMap = new Map();
 if (kbItems) {
-  kbItems.forEach((item: any) => {
-    let baseId = item.seccion?.toLowerCase() || 'comercial';
-    let mappedId = LEGACY_MAP[baseId] || baseId;
+	kbItems.forEach((item: any) => {
+		let baseId = item.seccion?.toLowerCase() || "comercial";
+		let mappedId = LEGACY_MAP[baseId] || baseId;
 
-    if (CATEGORY_MAP[mappedId]) {
-      item.seccion = CATEGORY_MAP[mappedId].id;
-      item.seccion_label = CATEGORY_MAP[mappedId].label;
-      item.seccion_color = CATEGORY_MAP[mappedId].color;
-      item.cat_order = CATEGORY_MAP[mappedId].order;
-    } else {
-      item.cat_order = 99;
-    }
+		if (CATEGORY_MAP[mappedId]) {
+			item.seccion = CATEGORY_MAP[mappedId].id;
+			item.seccion_label = CATEGORY_MAP[mappedId].label;
+			item.seccion_color = CATEGORY_MAP[mappedId].color;
+			item.cat_order = CATEGORY_MAP[mappedId].order;
+		} else {
+			item.cat_order = 99;
+		}
 
-    if (!seccionesMap.has(item.seccion)) {
-      seccionesMap.set(item.seccion, {
-        id: item.seccion,
-        label: item.seccion_label,
-        color: item.seccion_color,
-        order: item.cat_order
-      });
-    }
-  });
+		if (!seccionesMap.has(item.seccion)) {
+			seccionesMap.set(item.seccion, {
+				id: item.seccion,
+				label: item.seccion_label,
+				color: item.seccion_color,
+				order: item.cat_order,
+			});
+		}
+	});
 }
-const seccionesList = Array.from(seccionesMap.values()).sort((a: any, b: any) => a.order - b.order);
+const seccionesList = Array.from(seccionesMap.values()).sort(
+	(a: any, b: any) => a.order - b.order,
+);
 
 const displayName = playbook?.display_name || producto.toUpperCase();
 
 // Consultamos los metadatos visuales del producto
 const { data: playbookMeta } = await scopedSupabase
-  .from('kb_playbooks')
-  .select('*')
-  .eq('id_producto', producto)
-  .single();
+	.from("kb_playbooks")
+	.select("*")
+	.eq("id_producto", producto)
+	.single();
 
-let heroPattern = 'pattern-grid';
-let heroIconKey = 'box';
+let heroPattern = "pattern-grid";
+let heroIconKey = "box";
 
 // Fallback por defecto si no existe en BD
 let pageMetadata = [
-  { label: 'Categoría SaaS', value: 'EdTech / e-Learning' },
-  { label: 'Distribución', value: 'Vía Partner Exclusivo' },
-  { label: 'Soporte', value: 'Gestionado por TAEC' }
+	{ label: "Categoría SaaS", value: "EdTech / e-Learning" },
+	{ label: "Distribución", value: "Vía Partner Exclusivo" },
+	{ label: "Soporte", value: "Gestionado por TAEC" },
 ];
 
 if (playbookMeta) {
-  if (playbookMeta.familia === 'vyond') heroPattern = 'pattern-dots';
-  else if (playbookMeta.familia === 'lms') heroPattern = 'pattern-boxes';
-  else if (playbookMeta.familia === 'servicios') heroPattern = 'pattern-waves';
-  else heroPattern = 'pattern-grid';
+	if (playbookMeta.familia === "vyond") heroPattern = "pattern-dots";
+	else if (playbookMeta.familia === "lms") heroPattern = "pattern-boxes";
+	else if (playbookMeta.familia === "servicios") heroPattern = "pattern-waves";
+	else heroPattern = "pattern-grid";
 
-  heroIconKey = playbookMeta.svg_icon || 'box';
+	heroIconKey = playbookMeta.svg_icon || "box";
 
-  pageMetadata = [];
-  if (playbookMeta.meta_l1) pageMetadata.push({ label: playbookMeta.meta_l1, value: playbookMeta.meta_v1 || '' });
-  if (playbookMeta.meta_l2) pageMetadata.push({ label: playbookMeta.meta_l2, value: playbookMeta.meta_v2 || '' });
-  if (playbookMeta.meta_l3) pageMetadata.push({ label: playbookMeta.meta_l3, value: playbookMeta.meta_v3 || '' });
+	pageMetadata = [];
+	if (playbookMeta.meta_l1)
+		pageMetadata.push({
+			label: playbookMeta.meta_l1,
+			value: playbookMeta.meta_v1 || "",
+		});
+	if (playbookMeta.meta_l2)
+		pageMetadata.push({
+			label: playbookMeta.meta_l2,
+			value: playbookMeta.meta_v2 || "",
+		});
+	if (playbookMeta.meta_l3)
+		pageMetadata.push({
+			label: playbookMeta.meta_l3,
+			value: playbookMeta.meta_v3 || "",
+		});
 }
 
 const getSVGPath = (key: string) => {
-  switch(key) {
-    case 'clapperboard': return '<path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.4-2.2 1.5-2.5l13.5-4c1.1-.3 2.2.4 2.5 1.5l.1.4Z"/><path d="m2.6 15.6 2.2-.6"/><path d="m7.8 14 2.2-.6"/><path d="m13 12.5 2.2-.6"/><path d="m18.2 11 2.2-.6"/><path d="m2 18 1.4-3.8"/><path d="m7 16.5 1.4-3.8"/><path d="m12 15 1.4-3.8"/><path d="m17 13.5 1.4-3.8"/><rect width="18" height="12" x="3" y="11" rx="2" ry="2"/>';
-    case 'smartphone': return '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>';
-    case 'sparkles': return '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>';
-    case 'building': return '<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>';
-    case 'check-circle': return '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>';
-    default: return '<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/>';
-  }
-}
+	switch (key) {
+		case "clapperboard":
+			return '<path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.4-2.2 1.5-2.5l13.5-4c1.1-.3 2.2.4 2.5 1.5l.1.4Z"/><path d="m2.6 15.6 2.2-.6"/><path d="m7.8 14 2.2-.6"/><path d="m13 12.5 2.2-.6"/><path d="m18.2 11 2.2-.6"/><path d="m2 18 1.4-3.8"/><path d="m7 16.5 1.4-3.8"/><path d="m12 15 1.4-3.8"/><path d="m17 13.5 1.4-3.8"/><rect width="18" height="12" x="3" y="11" rx="2" ry="2"/>';
+		case "smartphone":
+			return '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>';
+		case "sparkles":
+			return '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>';
+		case "building":
+			return '<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>';
+		case "check-circle":
+			return '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>';
+		default:
+			return '<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/>';
+	}
+};
 ---
 
 <IntranetLayout title={`Playbook: ${displayName} | TAEC Hub`} description={`Base de conocimientos B2B para ${displayName}`}>

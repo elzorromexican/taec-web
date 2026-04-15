@@ -10,14 +10,18 @@
  * @updated 2026-04-04
  */
 export const prerender = false;
-import IntranetLayout from '../../../layouts/IntranetLayout.astro';
-import { supabase } from '../../../lib/supabase';
-import AdminUI from '../../../components/interno/admin/AdminUI';
 
-const supabaseDashboardUrl = import.meta.env.PUBLIC_SUPABASE_URL ? import.meta.env.PUBLIC_SUPABASE_URL.replace('.supabase.co', '') + '/project/default' : 'https://supabase.com/dashboard/projects';
+import AdminUI from "../../../components/interno/admin/AdminUI";
+import IntranetLayout from "../../../layouts/IntranetLayout.astro";
+import { supabase } from "../../../lib/supabase";
 
-if (Astro.locals?.rol !== 'admin') {
-  return Astro.redirect('/interno/denegado');
+const supabaseDashboardUrl = import.meta.env.PUBLIC_SUPABASE_URL
+	? import.meta.env.PUBLIC_SUPABASE_URL.replace(".supabase.co", "") +
+		"/project/default"
+	: "https://supabase.com/dashboard/projects";
+
+if (Astro.locals?.rol !== "admin") {
+	return Astro.redirect("/interno/denegado");
 }
 ---
 

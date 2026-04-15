@@ -1,29 +1,75 @@
 ---
-import { vendors } from '../data/vendors';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
-import VyondNav from '../components/ui/VyondNav.astro';
-import { r, base } from '../utils/paths';
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import FAQAccordion from "../components/ui/FAQAccordion.astro";
+import GridBeneficios from "../components/ui/GridBeneficios.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import VyondNav from "../components/ui/VyondNav.astro";
+import { vendors } from "../data/vendors";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { base, r } from "../utils/paths";
 
 const appsVyond = [
-  { icon: "⚡", title: "Vyond Go", description: "Tu creador de video instantáneo con IA. Escribe un prompt como «Curso de onboarding», presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo.", url: r('/vyond-go') },
-  { icon: "🎬", title: "Vyond Studio", description: "El editor de video completo con drag-and-drop. Genera fondos e imágenes con IA, sincroniza audio en 70+ idiomas, elimina fondos de fotos, personaliza movimientos de personajes filmando un video como prompt, y crea tu propio avatar desde una foto.", url: r('/vyond-studio') },
-  { icon: "📱", title: "Vyond Mobile", description: "Creación de video en cualquier lugar. Descarga la app gratuita (Android / iOS), usa Smart Capture para que la IA combine props, fondos y personajes de la librería con tus fotos. Los cambios se sincronizan en todos tus dispositivos al instante.", url: r('/vyond-mobile') }
+	{
+		icon: "⚡",
+		title: "Vyond Go",
+		description:
+			"Tu creador de video instantáneo con IA. Escribe un prompt como «Curso de onboarding», presiona Vyond Go y en segundos tienes un video listo. Edita texto, personajes y voz directamente, o llévalo a Vyond Studio para personalizarlo a fondo.",
+		url: r("/vyond-go"),
+	},
+	{
+		icon: "🎬",
+		title: "Vyond Studio",
+		description:
+			"El editor de video completo con drag-and-drop. Genera fondos e imágenes con IA, sincroniza audio en 70+ idiomas, elimina fondos de fotos, personaliza movimientos de personajes filmando un video como prompt, y crea tu propio avatar desde una foto.",
+		url: r("/vyond-studio"),
+	},
+	{
+		icon: "📱",
+		title: "Vyond Mobile",
+		description:
+			"Creación de video en cualquier lugar. Descarga la app gratuita (Android / iOS), usa Smart Capture para que la IA combine props, fondos y personajes de la librería con tus fotos. Los cambios se sincronizan en todos tus dispositivos al instante.",
+		url: r("/vyond-mobile"),
+	},
 ];
 
 const faqsVyond = [
-  { question: "¿Cómo accedo a Vyond Go?", answerHtml: "Todos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando \"Crear con IA\" desde el botón +Crear en la página de listado de videos." },
-  { question: "¿Cuánto tiempo pueden durar los videos creados en Vyond?", answerHtml: "Los usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos." },
-  { question: "¿En qué formatos puedo exportar mis videos?", answerHtml: "Los videos de Vyond se exportan fácilmente en los formatos comunes GIF y MP4, compatibles con cualquier LMS, plataforma web o red social." },
-  { question: "¿Cuáles son los 3 estilos de personajes disponibles?", answerHtml: "<strong>Whiteboard:</strong> simple, sin color, ideal para entornos educativos donde quieres enfocar la atención del usuario.<br/><strong>Contemporary:</strong> moderno y colorido, adecuado para casi cualquier propósito.<br/><strong>Business friendly:</strong> más formal, ideal para presentaciones y material de marketing." },
-  { question: "¿Puedo crear mi propio avatar IA personalizado?", answerHtml: "Los avatares personalizados no están incluidos en las licencias base pero se pueden solicitar como add-on. El proceso requiere grabar un video de 2 minutos como entrenamiento. Solo tú tienes acceso a tu avatar, aunque puedes compartirlo con tu equipo. Contáctanos para más información." },
-  { question: "¿Cuáles son las diferencias clave entre Enterprise y Professional?", answerHtml: "<strong>Enterprise:</strong> colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.<br/><strong>Professional:</strong> perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.<br/>Contáctanos y te ayudamos a elegir el plan correcto para tu organización." },
-  { question: "¿Hay límite en la generación de imágenes con IA?", answerHtml: "Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México." }
+	{
+		question: "¿Cómo accedo a Vyond Go?",
+		answerHtml:
+			'Todos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando "Crear con IA" desde el botón +Crear en la página de listado de videos.',
+	},
+	{
+		question: "¿Cuánto tiempo pueden durar los videos creados en Vyond?",
+		answerHtml:
+			"Los usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos.",
+	},
+	{
+		question: "¿En qué formatos puedo exportar mis videos?",
+		answerHtml:
+			"Los videos de Vyond se exportan fácilmente en los formatos comunes GIF y MP4, compatibles con cualquier LMS, plataforma web o red social.",
+	},
+	{
+		question: "¿Cuáles son los 3 estilos de personajes disponibles?",
+		answerHtml:
+			"<strong>Whiteboard:</strong> simple, sin color, ideal para entornos educativos donde quieres enfocar la atención del usuario.<br/><strong>Contemporary:</strong> moderno y colorido, adecuado para casi cualquier propósito.<br/><strong>Business friendly:</strong> más formal, ideal para presentaciones y material de marketing.",
+	},
+	{
+		question: "¿Puedo crear mi propio avatar IA personalizado?",
+		answerHtml:
+			"Los avatares personalizados no están incluidos en las licencias base pero se pueden solicitar como add-on. El proceso requiere grabar un video de 2 minutos como entrenamiento. Solo tú tienes acceso a tu avatar, aunque puedes compartirlo con tu equipo. Contáctanos para más información.",
+	},
+	{
+		question:
+			"¿Cuáles son las diferencias clave entre Enterprise y Professional?",
+		answerHtml:
+			"<strong>Enterprise:</strong> colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.<br/><strong>Professional:</strong> perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.<br/>Contáctanos y te ayudamos a elegir el plan correcto para tu organización.",
+	},
+	{
+		question: "¿Hay límite en la generación de imágenes con IA?",
+		answerHtml:
+			"Para usuarios Enterprise prácticamente no hay límite. Los usuarios Professional tienen un sistema de créditos. Consúltanos para más detalles sobre los planes disponibles en México.",
+	},
 ];
-
 ---
 ---
 

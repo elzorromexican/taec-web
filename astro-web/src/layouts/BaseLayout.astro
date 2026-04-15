@@ -1,40 +1,50 @@
 ---
+import { ClientRouter } from "astro:transitions";
+import ChatAgent from "../components/chat/ChatAgent";
+import FooterDock from "../components/experiments/FooterDock.astro";
 /**
  * @name BaseLayout
  * @version 1.1
  * @description Layout principal que provee la estructura HTML, el <head> global con SEO, Header y Footer.
  * @inputs title, description, section, page, image
- * @outputs Estructura HTML completa 
+ * @outputs Estructura HTML completa
  * @dependencies Header.astro, Footer.astro, MobileNav.astro
  * @created 2026-03-22
  * @updated 2026-03-22
  */
 // CHANGELOG: 19/03/2026 - Centralized SEO logic and dynamic canonical URLs
 // CHANGELOG: 19/03/2026 - Use BASE_URL for asset paths to support GitHub Pages staging
-import Header from '../components/Header.astro';
-import ChatAgent from '../components/chat/ChatAgent';
-import { contactData } from '../data/contact';
-import FooterDock from '../components/experiments/FooterDock.astro';
-import MobileNav from '../components/MobileNav.astro';
-import { ClientRouter } from 'astro:transitions';
-import '../styles/product-page.css';
+import Header from "../components/Header.astro";
+import MobileNav from "../components/MobileNav.astro";
+import { contactData } from "../data/contact";
+import "../styles/product-page.css";
 
 const {
-  title = "TAEC – Partner e-learning para empresas | México y LATAM",
-  description = "18 años ayudando a empresas en México y LATAM a implementar e-learning.",
-  section = "",
-  page = "",
-  image = "",
-  robots = "index, follow",
-  footerTheme = "default",
-  isApp = false
+	title = "TAEC – Partner e-learning para empresas | México y LATAM",
+	description = "18 años ayudando a empresas en México y LATAM a implementar e-learning.",
+	section = "",
+	page = "",
+	image = "",
+	robots = "index, follow",
+	footerTheme = "default",
+	isApp = false,
 } = Astro.props;
 
-import { base } from '../utils/paths';
+import { base } from "../utils/paths";
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://nuevo.taec.com.mx');
+const canonicalURL = new URL(
+	Astro.url.pathname,
+	Astro.site || "https://nuevo.taec.com.mx",
+);
 // BASE_URL = '/' prod, '/taec-web/' staging — use it to build the absolute OG image URL
-const ogImageURL = new URL(image ? (image.startsWith('http') ? image : `${base}${image.replace(/^\//,'')}`) : `${base}assets/logos/taec-og.png`, Astro.site || 'https://nuevo.taec.com.mx');
+const ogImageURL = new URL(
+	image
+		? image.startsWith("http")
+			? image
+			: `${base}${image.replace(/^\//, "")}`
+		: `${base}assets/logos/taec-og.png`,
+	Astro.site || "https://nuevo.taec.com.mx",
+);
 
 /**
  * import.meta.env.BASE_URL always ends with '/':

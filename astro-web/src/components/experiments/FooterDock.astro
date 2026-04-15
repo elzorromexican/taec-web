@@ -1,17 +1,21 @@
 ---
-import { footerLinks } from '../../data/navigation';
-import { contactData, getBookingUrl } from '../../data/contact';
-import { r, base } from '../../utils/paths';
+import { contactData, getBookingUrl } from "../../data/contact";
+import { footerLinks } from "../../data/navigation";
+import { base, r } from "../../utils/paths";
 
 const currentYear = new Date().getFullYear();
-const buildHash   = (import.meta.env.PUBLIC_BUILD_HASH  || 'local').slice(0, 7);
-const buildRaw    = import.meta.env.PUBLIC_BUILD_DATE || '';
-const buildDate   = buildRaw
-  ? new Date(buildRaw).toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' })
-  : 'local';
-const buildVersion = '4.0.0';
+const buildHash = (import.meta.env.PUBLIC_BUILD_HASH || "local").slice(0, 7);
+const buildRaw = import.meta.env.PUBLIC_BUILD_DATE || "";
+const buildDate = buildRaw
+	? new Date(buildRaw).toLocaleDateString("es-MX", {
+			day: "2-digit",
+			month: "short",
+			year: "numeric",
+		})
+	: "local";
+const buildVersion = "4.0.0";
 
-const { theme = 'default' } = Astro.props;
+const { theme = "default" } = Astro.props;
 ---
 <style is:global>
 /* ── FOOTER DOCK EXPERIMENT ── */

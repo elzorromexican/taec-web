@@ -1,33 +1,33 @@
 ---
-import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { r } from '../../utils/paths';
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('articulos');
-  return posts.map(post => ({
-    params: { slug: post.id.replace(/\.mdx?$/, '') },
-    props: { post },
-  }));
+	const posts = await getCollection("articulos");
+	return posts.map((post) => ({
+		params: { slug: post.id.replace(/\.mdx?$/, "") },
+		props: { post },
+	}));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": post.data.title,
-  "description": post.data.description || post.data.title,
-  "datePublished": post.data.date,
-  "author": {
-    "@type": "Organization",
-    "name": post.data.author || "TAEC"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "TAEC"
-  }
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: post.data.title,
+	description: post.data.description || post.data.title,
+	datePublished: post.data.date,
+	author: {
+		"@type": "Organization",
+		name: post.data.author || "TAEC",
+	},
+	publisher: {
+		"@type": "Organization",
+		name: "TAEC",
+	},
 };
 ---
 

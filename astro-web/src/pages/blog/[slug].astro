@@ -1,52 +1,54 @@
 ---
-import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogComments from '../../components/blog/BlogComments.astro';
-import { r } from '../../utils/paths';
-
-import { parseDate } from '../../utils/dateParser';
-import { slugify } from '../../utils/slugify';
+import { getCollection, render } from "astro:content";
+import BlogComments from "../../components/blog/BlogComments.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { parseDate } from "../../utils/dateParser";
+import { r } from "../../utils/paths";
+import { slugify } from "../../utils/slugify";
 
 export async function getStaticPaths() {
+	const posts = await getCollection("blog");
 
-  const posts = await getCollection('blog');
-  
-  // Sort posts descending by date
-  posts.sort((a, b) => parseDate(b.data.date) - parseDate(a.data.date));
+	// Sort posts descending by date
+	posts.sort((a, b) => parseDate(b.data.date) - parseDate(a.data.date));
 
-  return posts.map((post, i) => ({
-    params: { slug: post.id.replace(/\.mdx?$/, '') },
-    props: { 
-      post,
-      prevPost: i < posts.length - 1 ? posts[i + 1] : null,
-      nextPost: i > 0 ? posts[i - 1] : null
-    },
-  }));
+	return posts.map((post, i) => ({
+		params: { slug: post.id.replace(/\.mdx?$/, "") },
+		props: {
+			post,
+			prevPost: i < posts.length - 1 ? posts[i + 1] : null,
+			nextPost: i > 0 ? posts[i - 1] : null,
+		},
+	}));
 }
 
 const { post, prevPost, nextPost } = Astro.props;
 const { Content } = await render(post);
 
 // Relacionados Blog-a-Blog
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection("blog");
 const relatedPosts = allPosts
-  .filter(p => p.id !== post.id && p.data.tags?.some((t: string) => post.data.tags?.includes(t)))
-  .slice(0, 3);
+	.filter(
+		(p) =>
+			p.id !== post.id &&
+			p.data.tags?.some((t: string) => post.data.tags?.includes(t)),
+	)
+	.slice(0, 3);
 
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": post.data.title,
-  "description": post.data.description || post.data.title,
-  "datePublished": post.data.date,
-  "author": {
-    "@type": "Organization",
-    "name": post.data.author || "TAEC"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "TAEC"
-  }
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: post.data.title,
+	description: post.data.description || post.data.title,
+	datePublished: post.data.date,
+	author: {
+		"@type": "Organization",
+		name: post.data.author || "TAEC",
+	},
+	publisher: {
+		"@type": "Organization",
+		name: "TAEC",
+	},
 };
 ---
 

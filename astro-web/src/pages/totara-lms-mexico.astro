@@ -1,31 +1,84 @@
 ---
-import { getBookingUrl } from '../data/contact';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
-
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import FAQAccordion from "../components/ui/FAQAccordion.astro";
+import GridBeneficios from "../components/ui/GridBeneficios.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import { getBookingUrl } from "../data/contact";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const ventajasTot = [
-  { icon: "⚙️", title: "Personalización sin límites", description: "Código abierto y arquitectura flexible. Adapta la plataforma exactamente a tus procesos, marca y flujos de trabajo — sin depender del proveedor." },
-  { icon: "📋", title: "Cumplimiento normativo a escala", description: "Gestiona onboarding, certificaciones y cumplimiento regulatorio para miles de empleados. Automatiza asignaciones, recordatorios y reportes de vencimiento." },
-  { icon: "🌎", title: "Escala global, operación local", description: "35+ idiomas, zonas horarias múltiples y gestión multi-tenant. Crece de 100 a 100,000 usuarios sin cambiar de plataforma." },
-  { icon: "📊", title: "Impacto medible en el negocio", description: "Reportes avanzados y analíticas que conectan el aprendizaje con resultados de negocio. Demuestra el ROI de tu inversión en formación con datos concretos." },
-  { icon: "🔗", title: "Integración con tu ecosistema", description: "Se conecta con Microsoft Teams, HR, ERP, SSO y herramientas de autoría como Articulate 360 y Vyond. API robusta para integraciones personalizadas." },
-  { icon: "🤝", title: "Partner local con expertise global", description: "TAEC es partner oficial Totara para México y LATAM. Implementación, soporte en español, factura en MXN y acompañamiento durante toda la vida del contrato." }
+	{
+		icon: "⚙️",
+		title: "Personalización sin límites",
+		description:
+			"Código abierto y arquitectura flexible. Adapta la plataforma exactamente a tus procesos, marca y flujos de trabajo — sin depender del proveedor.",
+	},
+	{
+		icon: "📋",
+		title: "Cumplimiento normativo a escala",
+		description:
+			"Gestiona onboarding, certificaciones y cumplimiento regulatorio para miles de empleados. Automatiza asignaciones, recordatorios y reportes de vencimiento.",
+	},
+	{
+		icon: "🌎",
+		title: "Escala global, operación local",
+		description:
+			"35+ idiomas, zonas horarias múltiples y gestión multi-tenant. Crece de 100 a 100,000 usuarios sin cambiar de plataforma.",
+	},
+	{
+		icon: "📊",
+		title: "Impacto medible en el negocio",
+		description:
+			"Reportes avanzados y analíticas que conectan el aprendizaje con resultados de negocio. Demuestra el ROI de tu inversión en formación con datos concretos.",
+	},
+	{
+		icon: "🔗",
+		title: "Integración con tu ecosistema",
+		description:
+			"Se conecta con Microsoft Teams, HR, ERP, SSO y herramientas de autoría como Articulate 360 y Vyond. API robusta para integraciones personalizadas.",
+	},
+	{
+		icon: "🤝",
+		title: "Partner local con expertise global",
+		description:
+			"TAEC es partner oficial Totara para México y LATAM. Implementación, soporte en español, factura en MXN y acompañamiento durante toda la vida del contrato.",
+	},
 ];
 
 const faqsTot = [
-  { question: "¿Qué diferencia a Totara de Moodle?", answerHtml: "Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa." },
-  { question: "¿Totara es open source?", answerHtml: "Sí. Totara tiene un núcleo de código abierto, lo que permite personalización total sin depender de un solo proveedor. TAEC ofrece la plataforma como SaaS gestionado — tú te concentras en el contenido, nosotros en la infraestructura." },
-  { question: "¿Puedo integrar Totara con Articulate 360 o Vyond?", answerHtml: "Sí. Totara es compatible con SCORM, xAPI y cmi5. Los cursos creados en Articulate Storyline, Rise 360 o videos de Vyond se publican directamente en Totara Learn. TAEC gestiona la integración completa." },
-  { question: "¿Cuánto tiempo toma implementar Totara?", answerHtml: "Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días." },
-  { question: "¿Puedo gestionar múltiples empresas o subsidiarias?", answerHtml: "Sí. Totara soporta arquitecturas multi-tenant y multi-organización. Ideal para corporativos con múltiples filiales, franquicias o para empresas que necesitan capacitar a clientes y partners externos." },
-  { question: "¿Cómo funciona el soporte de TAEC?", answerHtml: "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara." }
+	{
+		question: "¿Qué diferencia a Totara de Moodle?",
+		answerHtml:
+			"Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
+	},
+	{
+		question: "¿Totara es open source?",
+		answerHtml:
+			"Sí. Totara tiene un núcleo de código abierto, lo que permite personalización total sin depender de un solo proveedor. TAEC ofrece la plataforma como SaaS gestionado — tú te concentras en el contenido, nosotros en la infraestructura.",
+	},
+	{
+		question: "¿Puedo integrar Totara con Articulate 360 o Vyond?",
+		answerHtml:
+			"Sí. Totara es compatible con SCORM, xAPI y cmi5. Los cursos creados en Articulate Storyline, Rise 360 o videos de Vyond se publican directamente en Totara Learn. TAEC gestiona la integración completa.",
+	},
+	{
+		question: "¿Cuánto tiempo toma implementar Totara?",
+		answerHtml:
+			"Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días.",
+	},
+	{
+		question: "¿Puedo gestionar múltiples empresas o subsidiarias?",
+		answerHtml:
+			"Sí. Totara soporta arquitecturas multi-tenant y multi-organización. Ideal para corporativos con múltiples filiales, franquicias o para empresas que necesitan capacitar a clientes y partners externos.",
+	},
+	{
+		question: "¿Cómo funciona el soporte de TAEC?",
+		answerHtml:
+			"El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara.",
+	},
 ];
 
-import { r, base } from '../utils/paths';
+import { base, r } from "../utils/paths";
 ---
 
 <BaseLayout 

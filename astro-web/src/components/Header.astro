@@ -1,4 +1,5 @@
 ---
+import { contactData, getBookingUrl } from "../data/contact";
 /**
  * @name Header
  * @version 1.1
@@ -11,10 +12,9 @@
  */
 // CHANGELOG: 19/03/2026 - Refactored to use centralized data from src/data/navigation.ts and src/data/contact.ts
 // CHANGELOG: 19/03/2026 - Use r() helper to prefix internal links with BASE_URL for staging
-import { mainNav } from '../data/navigation';
-import { contactData, getBookingUrl } from '../data/contact';
+import { mainNav } from "../data/navigation";
 
-import { r, base } from '../utils/paths';
+import { base, r } from "../utils/paths";
 ---
 <header style="position: sticky; top: 0; z-index: 999999; background: #ffffff;">
   <div class="header-inner">

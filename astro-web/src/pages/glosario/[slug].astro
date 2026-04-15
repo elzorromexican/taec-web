@@ -1,35 +1,39 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { r } from '../../utils/paths';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
 
-import { slugify } from '../../utils/slugify';
+import { slugify } from "../../utils/slugify";
 
 // Genera todas las rutas posibles basándose en los .md de src/content/glosario
 export async function getStaticPaths() {
-  const terms = await getCollection('glosario');
-  return terms.map(term => ({
-    params: { slug: term.id.replace(/\.mdx?$/, '') },
-    props: { term },
-  }));
+	const terms = await getCollection("glosario");
+	return terms.map((term) => ({
+		params: { slug: term.id.replace(/\.mdx?$/, "") },
+		props: { term },
+	}));
 }
 
 const { term } = Astro.props;
 
 // Obtener los términos del glosario que comparten etiquetas (Circular Interlinking Glosario-a-Glosario)
-const allTerms = await getCollection('glosario');
+const allTerms = await getCollection("glosario");
 const relatedTermsFound = allTerms
-  .filter(t => t.id !== term.id && t.data.related?.some((rTag: string) => term.data.related?.includes(rTag)))
-  .slice(0, 3);
+	.filter(
+		(t) =>
+			t.id !== term.id &&
+			t.data.related?.some((rTag: string) => term.data.related?.includes(rTag)),
+	)
+	.slice(0, 3);
 
 // relatedPosts query eliminado por no existencia en schema (H-08)
 
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "DefinedTerm",
-  "name": term.data.title,
-  "description": term.data.description,
-  "inDefinedTermSet": "https://nuevo.taec.com.mx/glosario"
+	"@context": "https://schema.org",
+	"@type": "DefinedTerm",
+	name: term.data.title,
+	description: term.data.description,
+	inDefinedTermSet: "https://nuevo.taec.com.mx/glosario",
 };
 ---
 

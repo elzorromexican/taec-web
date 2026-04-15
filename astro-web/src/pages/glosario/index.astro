@@ -1,19 +1,23 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroComercial from '../../components/ui/HeroComercial.astro';
-import { getCollection } from 'astro:content';
-import { r } from '../../utils/paths';
+import { getCollection } from "astro:content";
+import HeroComercial from "../../components/ui/HeroComercial.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
 
-const terms = await getCollection('glosario');
+const terms = await getCollection("glosario");
 terms.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 // Extraer primera letra de cada término
-const letters = [...new Set(terms.map(t => {
-  const char = t.data.title.charAt(0).toUpperCase();
-  // Validar si es número u otro símbolo
-  if (/[A-ZÁÉÍÓÚÑ]/.test(char)) return char;
-  return '#';
-}))].sort();
+const letters = [
+	...new Set(
+		terms.map((t) => {
+			const char = t.data.title.charAt(0).toUpperCase();
+			// Validar si es número u otro símbolo
+			if (/[A-ZÁÉÍÓÚÑ]/.test(char)) return char;
+			return "#";
+		}),
+	),
+].sort();
 ---
 
 <BaseLayout 

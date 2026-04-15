@@ -1,14 +1,16 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroComercial from '../../components/ui/HeroComercial.astro';
-import { getCollection } from 'astro:content';
-import { r } from '../../utils/paths';
+import { getCollection } from "astro:content";
+import HeroComercial from "../../components/ui/HeroComercial.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
 
-const items = await getCollection('estandares');
+const items = await getCollection("estandares");
 // Sort by title alphabetically
 items.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-const categories = [...new Set(items.map(p => p.data.category).filter(Boolean))].sort();
+const categories = [
+	...new Set(items.map((p) => p.data.category).filter(Boolean)),
+].sort();
 ---
 
 <BaseLayout 

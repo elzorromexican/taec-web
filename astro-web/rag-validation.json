@@ -1,797 +1,797 @@
 [
-  {
-    "query": "¿Cuáles son las promociones vigentes de Articulate?",
-    "chunks": [
-      {
-        "content": "Articulate activa tu licencia en menos de 24 horas hábiles directamente en tu correo.",
-        "similarity": 0.72970083859665,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 10,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "ef49905969ce3d199cbf6687189695fa57e8c4ba07ab0d0b10c4aaea8f3bb747",
-          "product_hint": "articulate",
-          "section_title": "Cuenta activa"
-        }
-      },
-      {
-        "content": "Los precios base los publica Articulate en USD y son fijos. Los precios publicados están en USD sin IVA. En TAEC aplicamos el tipo de cambio oficial del día (SAT / Banxico) al momento de pagar. Tu cotización tiene vigencia de 30 días hábiles.",
-        "similarity": 0.721343274718531,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 26,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "07fc50cc4a0828eae43f8ed79696b81f9a225af1faa4d37503865671a5443401",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      },
-      {
-        "content": "FAQ: ¿Qué otras herramientas de Articulate distribuyen? - Respuesta: ¿Qué otras herramientas de Articulate distribuyen? Además de Articulate 360 (Personal y Teams), distribuimos el add-on de Articulate AI Assistant ($250 USD/seat/año) que integra generación de contenido con IA en Storyline y Rise. ¿Necesitas algo más? Consulta también nuestras soluciones de Vyond, Moodle y Totara LMS.",
-        "similarity": 0.717544440910586,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 39,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "baf6a5779e7fb12573c3ef6f6befc5584757a0c06ba610581b7bb3818d453b99",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Cuáles son las principales diferencias entre Rise 360 y Storyline 360?",
-    "chunks": [
-      {
-        "content": "Articulate 360 es la suite de herramientas más usada en el mundo para crear cursos de e-learning interactivos. Con una sola suscripción accedes a todas las aplicaciones, plantillas y recursos que necesita tu equipo de L&D.\n\nDesde cursos con ramificaciones en Storyline hasta módulos responsive en Rise, pasando por revisiones colaborativas en Review 360 — todo en una plataforma integrada, en español.",
-        "similarity": 0.776047218688381,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 1,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "1b1b238c433810ce70227ef04a125de6a6d68c603c36617167173b2eb9723ce1",
-          "product_hint": "articulate",
-          "section_title": "La suite completa para crear e-learning profesional"
-        }
-      },
-      {
-        "content": "FAQ: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? - Respuesta: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? Sí. Impartimos talleres de Storyline 360 y Rise 360 en español, presenciales en CDMX o en línea. Los adaptamos al nivel de tu equipo: desde introducción para autores nuevos hasta técnicas avanzadas de interactividad. Contáctanos para un programa a medida.",
-        "similarity": 0.747803879826825,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 37,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "d51996926057acc7c78ab907bea7dad7f7d80c0ad8e73c87e50687a1201864c6",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      },
-      {
-        "content": "Sí. Impartimos talleres de Storyline 360 y Rise 360 en español, presenciales en CDMX o en línea. Los adaptamos al nivel de tu equipo: desde introducción para autores nuevos hasta técnicas avanzadas de interactividad. Contáctanos para un programa a medida.",
-        "similarity": 0.740621234627173,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 38,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "6ecda8f47dee1b65d6463c3e2fb6f7dcc7611675c032d65701f48c3cf94183f9",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Cómo es el proceso de instalación y onboarding para Articulate?",
-    "chunks": [
-      {
-        "content": "En menos de 24 horas hábiles confirmado el pago. Articulate activa la licencia directamente en tu correo y nuestro equipo de Customer Success te hace el onboarding para que empieces sin contratiempos.",
-        "similarity": 0.781359870253309,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 28,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "3a1ed1fe3587f7d1b89e0123e5a27af718e913548d84ecc1c92cb18f21873453",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      },
-      {
-        "content": "FAQ: ¿En cuánto tiempo tendré mi cuenta activa? - Respuesta: ¿En cuánto tiempo tendré mi cuenta activa? En menos de 24 horas hábiles confirmado el pago. Articulate activa la licencia directamente en tu correo y nuestro equipo de Customer Success te hace el onboarding para que empieces sin contratiempos.",
-        "similarity": 0.774119512801892,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 27,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "53443cbfe7c4429f40bb1ae19dc48252a284ff20a2ce5209395e98e5b57af90b",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      },
-      {
-        "content": "Articulate activa tu licencia en menos de 24 horas hábiles directamente en tu correo.",
-        "similarity": 0.745052109933292,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 10,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "ef49905969ce3d199cbf6687189695fa57e8c4ba07ab0d0b10c4aaea8f3bb747",
-          "product_hint": "articulate",
-          "section_title": "Cuenta activa"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Qué características tiene la versión enterprise de Vyond?",
-    "chunks": [
-      {
-        "content": "Los avatares personalizados no están incluidos en las licencias base pero se pueden solicitar como add-on. El proceso requiere grabar un video de 2 minutos como entrenamiento. Solo tú tienes acceso a tu avatar, aunque puedes compartirlo con tu equipo. Contáctanos para más información.\n\nFAQ: ¿Cuáles son las diferencias clave entre Enterprise y Professional? - Respuesta: ¿Cuáles son las diferencias clave entre Enterprise y Professional? Enterprise: colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.Professional: perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.Contáctanos y te ayudamos a elegir el plan correcto para tu organización.\n\nEnterprise: colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.Professional: perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.Contáctanos y te ayudamos a elegir el plan correcto para tu organización.",
-        "similarity": 0.793879189858477,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:39.764Z",
-          "page_title": "Vyond en México – Animación para e-learning | TAEC",
-          "source_url": "/vyond-mexico",
-          "chunk_index": 9,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "66f15839a6c2d7a0c31677306512f5a824bdbd91d0095b189327062dd3f7e80e",
-          "product_hint": "vyond",
-          "section_title": "Preguntas frecuentes"
-        }
-      },
-      {
-        "content": "Todo lo que necesitas saber antes de empezar\n\nFAQ: ¿Cómo accedo a Vyond Go? - Respuesta: ¿Cómo accedo a Vyond Go? Todos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando \"Crear con IA\" desde el botón +Crear en la página de listado de videos.\n\nTodos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando \"Crear con IA\" desde el botón +Crear en la página de listado de videos.\n\nFAQ: ¿Cuánto tiempo pueden durar los videos creados en Vyond? - Respuesta: ¿Cuánto tiempo pueden durar los videos creados en Vyond? Los usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos.\n\nLos usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos.\n\nFAQ: ¿En qué formatos puedo exportar mis videos? - Respuesta: ¿En qué formatos puedo exportar mis videos? Los videos de Vyond se exportan fácilmente en los formatos comunes GIF y MP4, compatibles con cualquier LMS, plataforma web o red social.",
-        "similarity": 0.75539902321366,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:39.764Z",
-          "page_title": "Vyond en México – Animación para e-learning | TAEC",
-          "source_url": "/vyond-mexico",
-          "chunk_index": 7,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "8bea151214e50e6b3780e423c798179a7e83945887b87efd2d89e240fc3540ef",
-          "product_hint": "vyond",
-          "section_title": "Preguntas frecuentes"
-        }
-      },
-      {
-        "content": "Precios en USD sin IVA · facturación anual · pago en MXN al tipo de cambio oficial\n\n• ✓Acceso a Vyond Go, Studio y Mobile\n• ✓IA: texto a video, avatares, estilos\n• ✓Exporta y descarga tus videos\n\n✓Acceso a Vyond Go, Studio y Mobile\n\n✓IA: texto a video, avatares, estilos\n\npor usuario · un solo pago al año\n\n• ✓Herramientas de colaboración en equipo\n• ✓4M+ assets Shutterstock incluidos\n• ✓Traducción instantánea a 80+ idiomas\n• ✓Avatares generativos desde texto\n• ✓20,000 créditos por usuario/mes\n\n✓Herramientas de colaboración en equipo\n\n✓4M+ assets Shutterstock incluidos\n\n✓Traducción instantánea a 80+ idiomas\n\n✓Avatares generativos desde texto\n\n✓20,000 créditos por usuario/mes\n\npor usuario · un solo pago al año\n\n• ✓130+ voces text-to-speech ultra HD\n• ✓Brand Management Suite\n• ✓Seguridad empresarial avanzada\n• ✓Créditos prácticamente ilimitados\n\n✓130+ voces text-to-speech ultra HD\n\n✓Seguridad empresarial avanzada\n\n✓Créditos prácticamente ilimitados\n\nPrecios en USD sin IVA. Como partner oficial, TAEC factura en MXN/COP/CLP al tipo de cambio oficial. Solicitar precio en tu moneda →",
-        "similarity": 0.730508028139352,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:39.764Z",
-          "page_title": "Vyond en México – Animación para e-learning | TAEC",
-          "source_url": "/vyond-mexico",
-          "chunk_index": 6,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "bd36f605e7b44586e4b5bb2c36ebd40360df4c8bc29878b737f50ce03691b1ee",
-          "product_hint": "vyond",
-          "section_title": "Planes Vyond"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Ofrecen soporte y atención técnica en español?",
-    "chunks": [
-      {
-        "content": "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara.",
-        "similarity": 0.75594897612113,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 24,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "ca2561da097a313578aff31c8393ce6e2f70f122735e4e0c11dbba27318c84d8",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      },
-      {
-        "content": "Acceso directo a un especialista en horario laboral mexicano. Sin tickets en inglés ni esperas de 48 horas para una respuesta.",
-        "similarity": 0.737131255425586,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 15,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "4d7e5026a3902b223409991763123fa1492b078a55db7fc1ccd9c9916c02573b",
-          "product_hint": "articulate",
-          "section_title": "Soporte en español desde CDMX"
-        }
-      },
-      {
-        "content": "Sí. Para consultas de uso, dudas sobre funciones o problemas con tu licencia, contáctanos por WhatsApp o correo. Para soporte técnico profundo de la herramienta, Articulate tiene su propio portal de soporte 24/7 en inglés — y nosotros te ayudamos a navegarlo si lo necesitas.",
-        "similarity": 0.732028888833929,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 36,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "49515f872915de4d8c3a13520803f136eb905974dff33f09390d30c7ce9c77cd",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Se puede contratar DDC (Desarrollo de Cursos) usando Rise o Storyline?",
-    "chunks": [
-      {
-        "content": "¿Necesitas cursos además de la herramienta? Nuestro equipo de diseñadores instruccionales puede crear los cursos por ti en Storyline o Rise.",
-        "similarity": 0.822752150544259,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 17,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "9625aa6bf664a018bb514678472df403818f83a4b149e926f7e9ca24d407f37c",
-          "product_hint": "articulate",
-          "section_title": "Producción de cursos a medida"
-        }
-      },
-      {
-        "content": "FAQ: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? - Respuesta: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? Sí. Impartimos talleres de Storyline 360 y Rise 360 en español, presenciales en CDMX o en línea. Los adaptamos al nivel de tu equipo: desde introducción para autores nuevos hasta técnicas avanzadas de interactividad. Contáctanos para un programa a medida.",
-        "similarity": 0.750044567901666,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 37,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "d51996926057acc7c78ab907bea7dad7f7d80c0ad8e73c87e50687a1201864c6",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      },
-      {
-        "content": "FAQ: ¿Me entregan los archivos editables del curso? - Respuesta: ¿Me entregan los archivos editables del curso? Sí, siempre. Es una política de TAEC DDC. Recibirás los archivos fuente de Articulate (.story / .rise) y los archivos de Vyond, para que puedas actualizar el contenido de forma independiente, sin depender del desarrollador.",
-        "similarity": 0.749044945757434,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 25,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "2657981ea092dd41dbc1d69c1c2602abd93b34fcf44b1242904c2b4c3261d294",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber antes de cotizar"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Es posible integrar Totara con SSO y Active Directory?",
-    "chunks": [
-      {
-        "content": "Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
-        "similarity": 0.725259327072791,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 14,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "f3ac601dceffe96564498a401f3f01d20c4ae8b45bac490c4a6efa59c5d8c9b1",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      },
-      {
-        "content": "FAQ: ¿Qué diferencia a Totara de Moodle? - Respuesta: ¿Qué diferencia a Totara de Moodle? Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
-        "similarity": 0.711529412785982,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 13,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "f5d5ca09cf98826a5950ab8988376c2e53a8a61ce20f590e20a361673d61b69e",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      },
-      {
-        "content": "Agenda una demo con nuestros especialistas y descubre cómo Totara se adapta a tu empresa.",
-        "similarity": 0.698684582675716,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 25,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "04f8f74e8341465a3f5313661cd53efe17c965e3ed949b4fc326accf767a0006",
-          "product_hint": "",
-          "section_title": "¿Listo para modernizar tu plataforma de aprendizaje?"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Cuáles son los tiempos promedio de implementación de un LMS?",
-    "chunks": [
-      {
-        "content": "FAQ: ¿Cuánto tiempo toma implementar Totara? - Respuesta: ¿Cuánto tiempo toma implementar Totara? Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días.",
-        "similarity": 0.764553657613151,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 19,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "51a2b65dbb9a36b6b72316c10731a49c283845b16017a17d721639aa50c9bda8",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      },
-      {
-        "content": "FAQ: ¿Cuánto tiempo toma producir un curso? - Respuesta: ¿Cuánto tiempo toma producir un curso? Definimos planes de trabajo específicos según la disponibilidad de tu equipo revisor. Es posible producir varios cursos de forma simultánea y escalonada, liberando objetos de aprendizaje semanalmente para cumplir fechas de lanzamiento ajustadas.",
-        "similarity": 0.736615438892246,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 21,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "eff29d8b0d571d8973f3eb2ba55709b45a9335ea483d500a0f73f68107a0e80b",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber antes de cotizar"
-        }
-      },
-      {
-        "content": "Sí. Tenemos amplia experiencia coordinando con equipos de TI corporativos para implementación en plataformas internas, configuración de SCORM y pruebas de integración con el LMS del cliente. Respaldamos a tu equipo de L&D en todo el proceso.",
-        "similarity": 0.724689364497829,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 30,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "e30ebba588e79ea2f6b19ca54d71ab7221ab0731cceda19fbc3354d760262475",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber antes de cotizar"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Tienen soluciones centradas en customer education?",
-    "chunks": [
-      {
-        "content": "Organizaciones que además de contratar producción quieren entender e-learning e innovación en capacitación para crecer su expertise interno.",
-        "similarity": 0.698420852807445,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 14,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "4814ef648595202ebf4adbd9dbfa090eca13156c7c26c1b0bf2ef21f3bd2596b",
-          "product_hint": "",
-          "section_title": "Equipos que quieren aprender"
-        }
-      },
-      {
-        "content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
-        "similarity": 0.68670238900369,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:10:06.375Z",
-          "page_title": "Todas las Soluciones | TAEC",
-          "source_url": "/soluciones",
-          "chunk_index": 0,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
-          "product_hint": "",
-          "section_title": "Todas las Soluciones"
-        }
-      },
-      {
-        "content": "LMS sencillo incluido para distribuir y trackear cursos sin plataforma adicional.",
-        "similarity": 0.680793920363489,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 7,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "afe0d21196cf8943509f6c5611f1529a33ba39435f06188598e2275f2523646b",
-          "product_hint": "articulate",
-          "section_title": "Reach 360"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Cuáles son las diferencias entre exportar a SCORM o xAPI?",
-    "chunks": [
-      {
-        "content": "FAQ: ¿Qué estándares de eLearning soportan? - Respuesta: ¿Qué estándares de eLearning soportan? Producimos bajo SCORM 1.2, SCORM 2004 y xAPI (Tin Can). El paquete garantiza registro de avance, evaluaciones y seguimiento individual en cualquier LMS o LXP. Probamos funcionamiento en nuestra plataforma LMS antes de entregar.",
-        "similarity": 0.81014402067169,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 23,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "ac5cb8ec9c8cde451e17c407e8ed9792d76c5cc23cff397289c94a61b5ce91cf",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber antes de cotizar"
-        }
-      },
-      {
-        "content": "Producimos bajo SCORM 1.2, SCORM 2004 y xAPI (Tin Can). El paquete garantiza registro de avance, evaluaciones y seguimiento individual en cualquier LMS o LXP. Probamos funcionamiento en nuestra plataforma LMS antes de entregar.",
-        "similarity": 0.790124043217923,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 24,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "01f0bf69eb25cc0cb2eaee80a3891d5f315583e63bc9ab9098fb4dd920c4e2b8",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber antes de cotizar"
-        }
-      },
-      {
-        "content": "Sí. Totara es compatible con SCORM, xAPI y cmi5. Los cursos creados en Articulate Storyline, Rise 360 o videos de Vyond se publican directamente en Totara Learn. TAEC gestiona la integración completa.",
-        "similarity": 0.715953198532051,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 18,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "fb2bbe287d46c80868523e67947151331c5b6137774622f75394f1ea2183edc8",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Se brinda soporte local para LATAM (América Latina)?",
-    "chunks": [
-      {
-        "content": "Acceso directo a un especialista en horario laboral mexicano. Sin tickets en inglés ni esperas de 48 horas para una respuesta.",
-        "similarity": 0.687990090350693,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 15,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "4d7e5026a3902b223409991763123fa1492b078a55db7fc1ccd9c9916c02573b",
-          "product_hint": "articulate",
-          "section_title": "Soporte en español desde CDMX"
-        }
-      },
-      {
-        "content": "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara.",
-        "similarity": 0.684953072773964,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 24,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "ca2561da097a313578aff31c8393ce6e2f70f122735e4e0c11dbba27318c84d8",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      },
-      {
-        "content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
-        "similarity": 0.683888369775039,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:10:06.375Z",
-          "page_title": "Todas las Soluciones | TAEC",
-          "source_url": "/soluciones",
-          "chunk_index": 0,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
-          "product_hint": "",
-          "section_title": "Todas las Soluciones"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Cómo es el proceso de migración de Moodle hacia Totara?",
-    "chunks": [
-      {
-        "content": "Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
-        "similarity": 0.790684164767082,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 14,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "f3ac601dceffe96564498a401f3f01d20c4ae8b45bac490c4a6efa59c5d8c9b1",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      },
-      {
-        "content": "FAQ: ¿Qué diferencia a Totara de Moodle? - Respuesta: ¿Qué diferencia a Totara de Moodle? Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
-        "similarity": 0.789158379223057,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 13,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "f5d5ca09cf98826a5950ab8988376c2e53a8a61ce20f590e20a361673d61b69e",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      },
-      {
-        "content": "FAQ: ¿Cuánto tiempo toma implementar Totara? - Respuesta: ¿Cuánto tiempo toma implementar Totara? Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días.",
-        "similarity": 0.742744036313245,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 19,
-          "intent_hint": "faq",
-          "source_type": "website_html",
-          "content_hash": "51a2b65dbb9a36b6b72316c10731a49c283845b16017a17d721639aa50c9bda8",
-          "product_hint": "",
-          "section_title": "Todo lo que necesitas saber sobre Totara"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Sirven sus plataformas para la capacitación de equipos comerciales?",
-    "chunks": [
-      {
-        "content": "Agendemos una sesión sin costo: te mostramos casos reales, resolvemos tus dudas y diseñamos una propuesta a medida para tu programa de formación.",
-        "similarity": 0.688417987841306,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 31,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "9944e7fbade41f8be6e6088f6ee5b851d8df426621166032272ce08a84fed2ba",
-          "product_hint": "",
-          "section_title": "¿Listo para ver ejemplos de nuestro trabajo?"
-        }
-      },
-      {
-        "content": "Que necesitan un socio estratégico confiable para ejecutar su plan de formación anual, con certeza en calidad y tiempos.",
-        "similarity": 0.688092761040297,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 12,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "8276743d672e91d9350a48f6bb5211348a443ad40d0a1ae0320b34b9e36c7ab1",
-          "product_hint": "",
-          "section_title": "Responsables de L&D y Capacitación"
-        }
-      },
-      {
-        "content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
-        "similarity": 0.687968290100912,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:10:06.375Z",
-          "page_title": "Todas las Soluciones | TAEC",
-          "source_url": "/soluciones",
-          "chunk_index": 0,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
-          "product_hint": "",
-          "section_title": "Todas las Soluciones"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Tienen opciones para programas de canales y partner enablement?",
-    "chunks": [
-      {
-        "content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
-        "similarity": 0.680174918049115,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:10:06.375Z",
-          "page_title": "Todas las Soluciones | TAEC",
-          "source_url": "/soluciones",
-          "chunk_index": 0,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
-          "product_hint": "",
-          "section_title": "Todas las Soluciones"
-        }
-      },
-      {
-        "content": "Además de Articulate 360 (Personal y Teams), distribuimos el add-on de Articulate AI Assistant ($250 USD/seat/año) que integra generación de contenido con IA en Storyline y Rise. ¿Necesitas algo más? Consulta también nuestras soluciones de Vyond, Moodle y Totara LMS.",
-        "similarity": 0.651912440730835,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:24.899Z",
-          "page_title": "Articulate 360 en México – Partner Oficial | TAEC",
-          "source_url": "/articulate-360-mexico",
-          "chunk_index": 40,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "868ecee4c6b2af94ca15326839e4f0b8c1e055bad7b20ec568d041706d1c385c",
-          "product_hint": "articulate",
-          "section_title": "Resolvemos tus dudas antes de comprar"
-        }
-      },
-      {
-        "content": "Que necesitan un socio estratégico confiable para ejecutar su plan de formación anual, con certeza en calidad y tiempos.",
-        "similarity": 0.648870210150014,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 12,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "8276743d672e91d9350a48f6bb5211348a443ad40d0a1ae0320b34b9e36c7ab1",
-          "product_hint": "",
-          "section_title": "Responsables de L&D y Capacitación"
-        }
-      }
-    ]
-  },
-  {
-    "query": "¿Tienen algún caso de éxito enterprise con más de 1000 usuarios?",
-    "chunks": [
-      {
-        "content": "35+ idiomas, zonas horarias múltiples y gestión multi-tenant. Crece de 100 a 100,000 usuarios sin cambiar de plataforma.",
-        "similarity": 0.7305462791483,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 8,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "d703bfe3a6d635b1f32be6a771c13f0ff34484b1ce589517ca0ea17c5eef5a45",
-          "product_hint": "",
-          "section_title": "Escala global, operación local"
-        }
-      },
-      {
-        "content": "Explora más de 120 casos de éxito reales donde hemos digitalizado el conocimiento corporativo usando las herramientas líderes del mercado.",
-        "similarity": 0.707433646111219,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:53.544Z",
-          "page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
-          "source_url": "/desarrollo-de-contenidos",
-          "chunk_index": 6,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "ffd16a4467d4e2684afe5d0560f9c7908278535ef47345e132b7757f7afcd706",
-          "product_hint": "",
-          "section_title": "Transformamos la teoría en experiencias memorables"
-        }
-      },
-      {
-        "content": "Más de 500 organizaciones en todo el mundo confían en Totara para escalar su aprendizaje.",
-        "similarity": 0.676601350555415,
-        "metadata": {
-          "lang": "es",
-          "indexed_at": "2026-04-11T21:09:43.813Z",
-          "page_title": "Totara LMS en México – Partner oficial | TAEC",
-          "source_url": "/totara-lms-mexico",
-          "chunk_index": 5,
-          "intent_hint": "general",
-          "source_type": "website_html",
-          "content_hash": "2dc7f3f8bbd587d1de8aeb1284d6fee72541054d63346dd511bef9ef99d43925",
-          "product_hint": "",
-          "section_title": "Por qué las empresas eligen Totara"
-        }
-      }
-    ]
-  }
+	{
+		"query": "¿Cuáles son las promociones vigentes de Articulate?",
+		"chunks": [
+			{
+				"content": "Articulate activa tu licencia en menos de 24 horas hábiles directamente en tu correo.",
+				"similarity": 0.72970083859665,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 10,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "ef49905969ce3d199cbf6687189695fa57e8c4ba07ab0d0b10c4aaea8f3bb747",
+					"product_hint": "articulate",
+					"section_title": "Cuenta activa"
+				}
+			},
+			{
+				"content": "Los precios base los publica Articulate en USD y son fijos. Los precios publicados están en USD sin IVA. En TAEC aplicamos el tipo de cambio oficial del día (SAT / Banxico) al momento de pagar. Tu cotización tiene vigencia de 30 días hábiles.",
+				"similarity": 0.721343274718531,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 26,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "07fc50cc4a0828eae43f8ed79696b81f9a225af1faa4d37503865671a5443401",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			},
+			{
+				"content": "FAQ: ¿Qué otras herramientas de Articulate distribuyen? - Respuesta: ¿Qué otras herramientas de Articulate distribuyen? Además de Articulate 360 (Personal y Teams), distribuimos el add-on de Articulate AI Assistant ($250 USD/seat/año) que integra generación de contenido con IA en Storyline y Rise. ¿Necesitas algo más? Consulta también nuestras soluciones de Vyond, Moodle y Totara LMS.",
+				"similarity": 0.717544440910586,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 39,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "baf6a5779e7fb12573c3ef6f6befc5584757a0c06ba610581b7bb3818d453b99",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Cuáles son las principales diferencias entre Rise 360 y Storyline 360?",
+		"chunks": [
+			{
+				"content": "Articulate 360 es la suite de herramientas más usada en el mundo para crear cursos de e-learning interactivos. Con una sola suscripción accedes a todas las aplicaciones, plantillas y recursos que necesita tu equipo de L&D.\n\nDesde cursos con ramificaciones en Storyline hasta módulos responsive en Rise, pasando por revisiones colaborativas en Review 360 — todo en una plataforma integrada, en español.",
+				"similarity": 0.776047218688381,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 1,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "1b1b238c433810ce70227ef04a125de6a6d68c603c36617167173b2eb9723ce1",
+					"product_hint": "articulate",
+					"section_title": "La suite completa para crear e-learning profesional"
+				}
+			},
+			{
+				"content": "FAQ: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? - Respuesta: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? Sí. Impartimos talleres de Storyline 360 y Rise 360 en español, presenciales en CDMX o en línea. Los adaptamos al nivel de tu equipo: desde introducción para autores nuevos hasta técnicas avanzadas de interactividad. Contáctanos para un programa a medida.",
+				"similarity": 0.747803879826825,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 37,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "d51996926057acc7c78ab907bea7dad7f7d80c0ad8e73c87e50687a1201864c6",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			},
+			{
+				"content": "Sí. Impartimos talleres de Storyline 360 y Rise 360 en español, presenciales en CDMX o en línea. Los adaptamos al nivel de tu equipo: desde introducción para autores nuevos hasta técnicas avanzadas de interactividad. Contáctanos para un programa a medida.",
+				"similarity": 0.740621234627173,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 38,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "6ecda8f47dee1b65d6463c3e2fb6f7dcc7611675c032d65701f48c3cf94183f9",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Cómo es el proceso de instalación y onboarding para Articulate?",
+		"chunks": [
+			{
+				"content": "En menos de 24 horas hábiles confirmado el pago. Articulate activa la licencia directamente en tu correo y nuestro equipo de Customer Success te hace el onboarding para que empieces sin contratiempos.",
+				"similarity": 0.781359870253309,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 28,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "3a1ed1fe3587f7d1b89e0123e5a27af718e913548d84ecc1c92cb18f21873453",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			},
+			{
+				"content": "FAQ: ¿En cuánto tiempo tendré mi cuenta activa? - Respuesta: ¿En cuánto tiempo tendré mi cuenta activa? En menos de 24 horas hábiles confirmado el pago. Articulate activa la licencia directamente en tu correo y nuestro equipo de Customer Success te hace el onboarding para que empieces sin contratiempos.",
+				"similarity": 0.774119512801892,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 27,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "53443cbfe7c4429f40bb1ae19dc48252a284ff20a2ce5209395e98e5b57af90b",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			},
+			{
+				"content": "Articulate activa tu licencia en menos de 24 horas hábiles directamente en tu correo.",
+				"similarity": 0.745052109933292,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 10,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "ef49905969ce3d199cbf6687189695fa57e8c4ba07ab0d0b10c4aaea8f3bb747",
+					"product_hint": "articulate",
+					"section_title": "Cuenta activa"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Qué características tiene la versión enterprise de Vyond?",
+		"chunks": [
+			{
+				"content": "Los avatares personalizados no están incluidos en las licencias base pero se pueden solicitar como add-on. El proceso requiere grabar un video de 2 minutos como entrenamiento. Solo tú tienes acceso a tu avatar, aunque puedes compartirlo con tu equipo. Contáctanos para más información.\n\nFAQ: ¿Cuáles son las diferencias clave entre Enterprise y Professional? - Respuesta: ¿Cuáles son las diferencias clave entre Enterprise y Professional? Enterprise: colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.Professional: perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.Contáctanos y te ayudamos a elegir el plan correcto para tu organización.\n\nEnterprise: colaboración entre equipos, créditos de IA prácticamente ilimitados, ideal para grandes organizaciones. Videos hasta 90 min.Professional: perfecto para equipos y empresas medianas. Cada generación en Vyond Go usa 400 créditos. Videos hasta 40 min.Contáctanos y te ayudamos a elegir el plan correcto para tu organización.",
+				"similarity": 0.793879189858477,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:39.764Z",
+					"page_title": "Vyond en México – Animación para e-learning | TAEC",
+					"source_url": "/vyond-mexico",
+					"chunk_index": 9,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "66f15839a6c2d7a0c31677306512f5a824bdbd91d0095b189327062dd3f7e80e",
+					"product_hint": "vyond",
+					"section_title": "Preguntas frecuentes"
+				}
+			},
+			{
+				"content": "Todo lo que necesitas saber antes de empezar\n\nFAQ: ¿Cómo accedo a Vyond Go? - Respuesta: ¿Cómo accedo a Vyond Go? Todos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando \"Crear con IA\" desde el botón +Crear en la página de listado de videos.\n\nTodos los usuarios de Vyond tienen acceso automático a Vyond Go. Lo encuentras seleccionando \"Crear con IA\" desde el botón +Crear en la página de listado de videos.\n\nFAQ: ¿Cuánto tiempo pueden durar los videos creados en Vyond? - Respuesta: ¿Cuánto tiempo pueden durar los videos creados en Vyond? Los usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos.\n\nLos usuarios de Vyond Enterprise pueden crear videos de hasta 90 minutos de duración. Los usuarios de Vyond Professional pueden crear videos de hasta 40 minutos.\n\nFAQ: ¿En qué formatos puedo exportar mis videos? - Respuesta: ¿En qué formatos puedo exportar mis videos? Los videos de Vyond se exportan fácilmente en los formatos comunes GIF y MP4, compatibles con cualquier LMS, plataforma web o red social.",
+				"similarity": 0.75539902321366,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:39.764Z",
+					"page_title": "Vyond en México – Animación para e-learning | TAEC",
+					"source_url": "/vyond-mexico",
+					"chunk_index": 7,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "8bea151214e50e6b3780e423c798179a7e83945887b87efd2d89e240fc3540ef",
+					"product_hint": "vyond",
+					"section_title": "Preguntas frecuentes"
+				}
+			},
+			{
+				"content": "Precios en USD sin IVA · facturación anual · pago en MXN al tipo de cambio oficial\n\n• ✓Acceso a Vyond Go, Studio y Mobile\n• ✓IA: texto a video, avatares, estilos\n• ✓Exporta y descarga tus videos\n\n✓Acceso a Vyond Go, Studio y Mobile\n\n✓IA: texto a video, avatares, estilos\n\npor usuario · un solo pago al año\n\n• ✓Herramientas de colaboración en equipo\n• ✓4M+ assets Shutterstock incluidos\n• ✓Traducción instantánea a 80+ idiomas\n• ✓Avatares generativos desde texto\n• ✓20,000 créditos por usuario/mes\n\n✓Herramientas de colaboración en equipo\n\n✓4M+ assets Shutterstock incluidos\n\n✓Traducción instantánea a 80+ idiomas\n\n✓Avatares generativos desde texto\n\n✓20,000 créditos por usuario/mes\n\npor usuario · un solo pago al año\n\n• ✓130+ voces text-to-speech ultra HD\n• ✓Brand Management Suite\n• ✓Seguridad empresarial avanzada\n• ✓Créditos prácticamente ilimitados\n\n✓130+ voces text-to-speech ultra HD\n\n✓Seguridad empresarial avanzada\n\n✓Créditos prácticamente ilimitados\n\nPrecios en USD sin IVA. Como partner oficial, TAEC factura en MXN/COP/CLP al tipo de cambio oficial. Solicitar precio en tu moneda →",
+				"similarity": 0.730508028139352,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:39.764Z",
+					"page_title": "Vyond en México – Animación para e-learning | TAEC",
+					"source_url": "/vyond-mexico",
+					"chunk_index": 6,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "bd36f605e7b44586e4b5bb2c36ebd40360df4c8bc29878b737f50ce03691b1ee",
+					"product_hint": "vyond",
+					"section_title": "Planes Vyond"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Ofrecen soporte y atención técnica en español?",
+		"chunks": [
+			{
+				"content": "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara.",
+				"similarity": 0.75594897612113,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 24,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "ca2561da097a313578aff31c8393ce6e2f70f122735e4e0c11dbba27318c84d8",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			},
+			{
+				"content": "Acceso directo a un especialista en horario laboral mexicano. Sin tickets en inglés ni esperas de 48 horas para una respuesta.",
+				"similarity": 0.737131255425586,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 15,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "4d7e5026a3902b223409991763123fa1492b078a55db7fc1ccd9c9916c02573b",
+					"product_hint": "articulate",
+					"section_title": "Soporte en español desde CDMX"
+				}
+			},
+			{
+				"content": "Sí. Para consultas de uso, dudas sobre funciones o problemas con tu licencia, contáctanos por WhatsApp o correo. Para soporte técnico profundo de la herramienta, Articulate tiene su propio portal de soporte 24/7 en inglés — y nosotros te ayudamos a navegarlo si lo necesitas.",
+				"similarity": 0.732028888833929,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 36,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "49515f872915de4d8c3a13520803f136eb905974dff33f09390d30c7ce9c77cd",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Se puede contratar DDC (Desarrollo de Cursos) usando Rise o Storyline?",
+		"chunks": [
+			{
+				"content": "¿Necesitas cursos además de la herramienta? Nuestro equipo de diseñadores instruccionales puede crear los cursos por ti en Storyline o Rise.",
+				"similarity": 0.822752150544259,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 17,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "9625aa6bf664a018bb514678472df403818f83a4b149e926f7e9ca24d407f37c",
+					"product_hint": "articulate",
+					"section_title": "Producción de cursos a medida"
+				}
+			},
+			{
+				"content": "FAQ: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? - Respuesta: ¿Ofrecen talleres o cursos de Storyline y Rise para mi equipo? Sí. Impartimos talleres de Storyline 360 y Rise 360 en español, presenciales en CDMX o en línea. Los adaptamos al nivel de tu equipo: desde introducción para autores nuevos hasta técnicas avanzadas de interactividad. Contáctanos para un programa a medida.",
+				"similarity": 0.750044567901666,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 37,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "d51996926057acc7c78ab907bea7dad7f7d80c0ad8e73c87e50687a1201864c6",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			},
+			{
+				"content": "FAQ: ¿Me entregan los archivos editables del curso? - Respuesta: ¿Me entregan los archivos editables del curso? Sí, siempre. Es una política de TAEC DDC. Recibirás los archivos fuente de Articulate (.story / .rise) y los archivos de Vyond, para que puedas actualizar el contenido de forma independiente, sin depender del desarrollador.",
+				"similarity": 0.749044945757434,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 25,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "2657981ea092dd41dbc1d69c1c2602abd93b34fcf44b1242904c2b4c3261d294",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber antes de cotizar"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Es posible integrar Totara con SSO y Active Directory?",
+		"chunks": [
+			{
+				"content": "Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
+				"similarity": 0.725259327072791,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 14,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "f3ac601dceffe96564498a401f3f01d20c4ae8b45bac490c4a6efa59c5d8c9b1",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			},
+			{
+				"content": "FAQ: ¿Qué diferencia a Totara de Moodle? - Respuesta: ¿Qué diferencia a Totara de Moodle? Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
+				"similarity": 0.711529412785982,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 13,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "f5d5ca09cf98826a5950ab8988376c2e53a8a61ce20f590e20a361673d61b69e",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			},
+			{
+				"content": "Agenda una demo con nuestros especialistas y descubre cómo Totara se adapta a tu empresa.",
+				"similarity": 0.698684582675716,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 25,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "04f8f74e8341465a3f5313661cd53efe17c965e3ed949b4fc326accf767a0006",
+					"product_hint": "",
+					"section_title": "¿Listo para modernizar tu plataforma de aprendizaje?"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Cuáles son los tiempos promedio de implementación de un LMS?",
+		"chunks": [
+			{
+				"content": "FAQ: ¿Cuánto tiempo toma implementar Totara? - Respuesta: ¿Cuánto tiempo toma implementar Totara? Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días.",
+				"similarity": 0.764553657613151,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 19,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "51a2b65dbb9a36b6b72316c10731a49c283845b16017a17d721639aa50c9bda8",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			},
+			{
+				"content": "FAQ: ¿Cuánto tiempo toma producir un curso? - Respuesta: ¿Cuánto tiempo toma producir un curso? Definimos planes de trabajo específicos según la disponibilidad de tu equipo revisor. Es posible producir varios cursos de forma simultánea y escalonada, liberando objetos de aprendizaje semanalmente para cumplir fechas de lanzamiento ajustadas.",
+				"similarity": 0.736615438892246,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 21,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "eff29d8b0d571d8973f3eb2ba55709b45a9335ea483d500a0f73f68107a0e80b",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber antes de cotizar"
+				}
+			},
+			{
+				"content": "Sí. Tenemos amplia experiencia coordinando con equipos de TI corporativos para implementación en plataformas internas, configuración de SCORM y pruebas de integración con el LMS del cliente. Respaldamos a tu equipo de L&D en todo el proceso.",
+				"similarity": 0.724689364497829,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 30,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "e30ebba588e79ea2f6b19ca54d71ab7221ab0731cceda19fbc3354d760262475",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber antes de cotizar"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Tienen soluciones centradas en customer education?",
+		"chunks": [
+			{
+				"content": "Organizaciones que además de contratar producción quieren entender e-learning e innovación en capacitación para crecer su expertise interno.",
+				"similarity": 0.698420852807445,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 14,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "4814ef648595202ebf4adbd9dbfa090eca13156c7c26c1b0bf2ef21f3bd2596b",
+					"product_hint": "",
+					"section_title": "Equipos que quieren aprender"
+				}
+			},
+			{
+				"content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
+				"similarity": 0.68670238900369,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:10:06.375Z",
+					"page_title": "Todas las Soluciones | TAEC",
+					"source_url": "/soluciones",
+					"chunk_index": 0,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
+					"product_hint": "",
+					"section_title": "Todas las Soluciones"
+				}
+			},
+			{
+				"content": "LMS sencillo incluido para distribuir y trackear cursos sin plataforma adicional.",
+				"similarity": 0.680793920363489,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 7,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "afe0d21196cf8943509f6c5611f1529a33ba39435f06188598e2275f2523646b",
+					"product_hint": "articulate",
+					"section_title": "Reach 360"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Cuáles son las diferencias entre exportar a SCORM o xAPI?",
+		"chunks": [
+			{
+				"content": "FAQ: ¿Qué estándares de eLearning soportan? - Respuesta: ¿Qué estándares de eLearning soportan? Producimos bajo SCORM 1.2, SCORM 2004 y xAPI (Tin Can). El paquete garantiza registro de avance, evaluaciones y seguimiento individual en cualquier LMS o LXP. Probamos funcionamiento en nuestra plataforma LMS antes de entregar.",
+				"similarity": 0.81014402067169,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 23,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "ac5cb8ec9c8cde451e17c407e8ed9792d76c5cc23cff397289c94a61b5ce91cf",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber antes de cotizar"
+				}
+			},
+			{
+				"content": "Producimos bajo SCORM 1.2, SCORM 2004 y xAPI (Tin Can). El paquete garantiza registro de avance, evaluaciones y seguimiento individual en cualquier LMS o LXP. Probamos funcionamiento en nuestra plataforma LMS antes de entregar.",
+				"similarity": 0.790124043217923,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 24,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "01f0bf69eb25cc0cb2eaee80a3891d5f315583e63bc9ab9098fb4dd920c4e2b8",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber antes de cotizar"
+				}
+			},
+			{
+				"content": "Sí. Totara es compatible con SCORM, xAPI y cmi5. Los cursos creados en Articulate Storyline, Rise 360 o videos de Vyond se publican directamente en Totara Learn. TAEC gestiona la integración completa.",
+				"similarity": 0.715953198532051,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 18,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "fb2bbe287d46c80868523e67947151331c5b6137774622f75394f1ea2183edc8",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Se brinda soporte local para LATAM (América Latina)?",
+		"chunks": [
+			{
+				"content": "Acceso directo a un especialista en horario laboral mexicano. Sin tickets en inglés ni esperas de 48 horas para una respuesta.",
+				"similarity": 0.687990090350693,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 15,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "4d7e5026a3902b223409991763123fa1492b078a55db7fc1ccd9c9916c02573b",
+					"product_hint": "articulate",
+					"section_title": "Soporte en español desde CDMX"
+				}
+			},
+			{
+				"content": "El soporte incluye atención en español, mesa de ayuda por email y WhatsApp, tiempo de respuesta garantizado y acompañamiento proactivo en actualizaciones de la plataforma. Como partner oficial, tenemos acceso directo al equipo técnico de Totara.",
+				"similarity": 0.684953072773964,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 24,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "ca2561da097a313578aff31c8393ce6e2f70f122735e4e0c11dbba27318c84d8",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			},
+			{
+				"content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
+				"similarity": 0.683888369775039,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:10:06.375Z",
+					"page_title": "Todas las Soluciones | TAEC",
+					"source_url": "/soluciones",
+					"chunk_index": 0,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
+					"product_hint": "",
+					"section_title": "Todas las Soluciones"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Cómo es el proceso de migración de Moodle hacia Totara?",
+		"chunks": [
+			{
+				"content": "Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
+				"similarity": 0.790684164767082,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 14,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "f3ac601dceffe96564498a401f3f01d20c4ae8b45bac490c4a6efa59c5d8c9b1",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			},
+			{
+				"content": "FAQ: ¿Qué diferencia a Totara de Moodle? - Respuesta: ¿Qué diferencia a Totara de Moodle? Totara está basado en Moodle pero diseñado específicamente para entornos corporativos. Incluye gestión de desempeño (Totara Perform), audiencias dinámicas, rutas de aprendizaje avanzadas y soporte empresarial garantizado. Moodle es ideal para academia; Totara para empresa.",
+				"similarity": 0.789158379223057,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 13,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "f5d5ca09cf98826a5950ab8988376c2e53a8a61ce20f590e20a361673d61b69e",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			},
+			{
+				"content": "FAQ: ¿Cuánto tiempo toma implementar Totara? - Respuesta: ¿Cuánto tiempo toma implementar Totara? Con la implementación SaaS de TAEC, tu plataforma puede estar operativa en 2 a 4 semanas. Incluye configuración inicial, migración de usuarios, capacitación al equipo administrador y acompañamiento en los primeros 90 días.",
+				"similarity": 0.742744036313245,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 19,
+					"intent_hint": "faq",
+					"source_type": "website_html",
+					"content_hash": "51a2b65dbb9a36b6b72316c10731a49c283845b16017a17d721639aa50c9bda8",
+					"product_hint": "",
+					"section_title": "Todo lo que necesitas saber sobre Totara"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Sirven sus plataformas para la capacitación de equipos comerciales?",
+		"chunks": [
+			{
+				"content": "Agendemos una sesión sin costo: te mostramos casos reales, resolvemos tus dudas y diseñamos una propuesta a medida para tu programa de formación.",
+				"similarity": 0.688417987841306,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 31,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "9944e7fbade41f8be6e6088f6ee5b851d8df426621166032272ce08a84fed2ba",
+					"product_hint": "",
+					"section_title": "¿Listo para ver ejemplos de nuestro trabajo?"
+				}
+			},
+			{
+				"content": "Que necesitan un socio estratégico confiable para ejecutar su plan de formación anual, con certeza en calidad y tiempos.",
+				"similarity": 0.688092761040297,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 12,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "8276743d672e91d9350a48f6bb5211348a443ad40d0a1ae0320b34b9e36c7ab1",
+					"product_hint": "",
+					"section_title": "Responsables de L&D y Capacitación"
+				}
+			},
+			{
+				"content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
+				"similarity": 0.687968290100912,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:10:06.375Z",
+					"page_title": "Todas las Soluciones | TAEC",
+					"source_url": "/soluciones",
+					"chunk_index": 0,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
+					"product_hint": "",
+					"section_title": "Todas las Soluciones"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Tienen opciones para programas de canales y partner enablement?",
+		"chunks": [
+			{
+				"content": "Encuentra la plataforma, herramienta de autoría o servicio exacto que tu ecosistema de capacitación necesita, todo con soporte oficial en español.",
+				"similarity": 0.680174918049115,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:10:06.375Z",
+					"page_title": "Todas las Soluciones | TAEC",
+					"source_url": "/soluciones",
+					"chunk_index": 0,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "bc4da38b6f3ab8faa19fe307b94a4109e62f1a8f53e0e1004d800e0d84f7d7f4",
+					"product_hint": "",
+					"section_title": "Todas las Soluciones"
+				}
+			},
+			{
+				"content": "Además de Articulate 360 (Personal y Teams), distribuimos el add-on de Articulate AI Assistant ($250 USD/seat/año) que integra generación de contenido con IA en Storyline y Rise. ¿Necesitas algo más? Consulta también nuestras soluciones de Vyond, Moodle y Totara LMS.",
+				"similarity": 0.651912440730835,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:24.899Z",
+					"page_title": "Articulate 360 en México – Partner Oficial | TAEC",
+					"source_url": "/articulate-360-mexico",
+					"chunk_index": 40,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "868ecee4c6b2af94ca15326839e4f0b8c1e055bad7b20ec568d041706d1c385c",
+					"product_hint": "articulate",
+					"section_title": "Resolvemos tus dudas antes de comprar"
+				}
+			},
+			{
+				"content": "Que necesitan un socio estratégico confiable para ejecutar su plan de formación anual, con certeza en calidad y tiempos.",
+				"similarity": 0.648870210150014,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 12,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "8276743d672e91d9350a48f6bb5211348a443ad40d0a1ae0320b34b9e36c7ab1",
+					"product_hint": "",
+					"section_title": "Responsables de L&D y Capacitación"
+				}
+			}
+		]
+	},
+	{
+		"query": "¿Tienen algún caso de éxito enterprise con más de 1000 usuarios?",
+		"chunks": [
+			{
+				"content": "35+ idiomas, zonas horarias múltiples y gestión multi-tenant. Crece de 100 a 100,000 usuarios sin cambiar de plataforma.",
+				"similarity": 0.7305462791483,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 8,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "d703bfe3a6d635b1f32be6a771c13f0ff34484b1ce589517ca0ea17c5eef5a45",
+					"product_hint": "",
+					"section_title": "Escala global, operación local"
+				}
+			},
+			{
+				"content": "Explora más de 120 casos de éxito reales donde hemos digitalizado el conocimiento corporativo usando las herramientas líderes del mercado.",
+				"similarity": 0.707433646111219,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:53.544Z",
+					"page_title": "Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC",
+					"source_url": "/desarrollo-de-contenidos",
+					"chunk_index": 6,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "ffd16a4467d4e2684afe5d0560f9c7908278535ef47345e132b7757f7afcd706",
+					"product_hint": "",
+					"section_title": "Transformamos la teoría en experiencias memorables"
+				}
+			},
+			{
+				"content": "Más de 500 organizaciones en todo el mundo confían en Totara para escalar su aprendizaje.",
+				"similarity": 0.676601350555415,
+				"metadata": {
+					"lang": "es",
+					"indexed_at": "2026-04-11T21:09:43.813Z",
+					"page_title": "Totara LMS en México – Partner oficial | TAEC",
+					"source_url": "/totara-lms-mexico",
+					"chunk_index": 5,
+					"intent_hint": "general",
+					"source_type": "website_html",
+					"content_hash": "2dc7f3f8bbd587d1de8aeb1284d6fee72541054d63346dd511bef9ef99d43925",
+					"product_hint": "",
+					"section_title": "Por qué las empresas eligen Totara"
+				}
+			}
+		]
+	}
 ]

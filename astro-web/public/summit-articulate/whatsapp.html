@@ -487,7 +487,7 @@
 <script>
 function copyWA(id, btn) {
   const el = document.getElementById(id);
-  let text = el.textContent.trim();
+  const text = el.textContent.trim();
   navigator.clipboard.writeText(text).then(() => {
     btn.textContent = 'Copiado';
     btn.classList.add('copied');

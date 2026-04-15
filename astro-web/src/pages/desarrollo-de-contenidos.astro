@@ -1,19 +1,24 @@
 ---
+import CtaFinal from "../components/ui/CtaFinal.astro";
+import FAQAccordion from "../components/ui/FAQAccordion.astro";
+import GridBeneficios from "../components/ui/GridBeneficios.astro";
+import HeroComercial from "../components/ui/HeroComercial.astro";
+import LogosGrid from "../components/ui/LogosGrid.astro";
+import { getBookingUrl } from "../data/contact";
+import {
+	ddcBeneficios,
+	ddcCta,
+	ddcFaqs,
+	ddcHero,
+	ddcLogos,
+	ddcProceso,
+	ddcServicios,
+} from "../data/ddc";
 // CHANGELOG: 2026-03-20 - Nueva landing DDC (Desarrollo de Contenidos).
 // Fuente de contenido: src/data/ddc.ts · PDF "Info DDC para sitio web"
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroComercial from '../components/ui/HeroComercial.astro';
-import GridBeneficios from '../components/ui/GridBeneficios.astro';
-import LogosGrid from '../components/ui/LogosGrid.astro';
-import FAQAccordion from '../components/ui/FAQAccordion.astro';
-import CtaFinal from '../components/ui/CtaFinal.astro';
-import {
-  ddcHero, ddcServicios, ddcBeneficios,
-  ddcProceso, ddcFaqs, ddcLogos, ddcCta
-} from '../data/ddc';
-import { getBookingUrl } from '../data/contact';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-import { r } from '../utils/paths';
+import { r } from "../utils/paths";
 
 const bookingUrl = getBookingUrl();
 ---
