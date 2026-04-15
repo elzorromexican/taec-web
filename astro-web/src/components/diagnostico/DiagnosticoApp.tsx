@@ -453,7 +453,7 @@ REGLAS ESTRICTAS DE APERTURA Y CHARLA:
                       <RadarChart cx="50%" cy="50%" outerRadius="70%" data={
                         PLATFORM_AXIS_ORDER.map(plat => ({
                           subject: platformLabels[plat],
-                          A: session.result.platformScores[plat] || 0,
+                          A: session.result!.platformScores[plat] || 0,
                           fullMark: 100
                         }))
                       }>

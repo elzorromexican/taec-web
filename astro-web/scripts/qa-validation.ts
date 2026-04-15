@@ -53,13 +53,13 @@ async function runReport() {
       const embedding = await getEmbedding(q);
       const chunks = await searchSimilarChunks(embedding, 0.2, 3);
       if (chunks && chunks.length > 0) {
-        queryResult.chunks = chunks.map(c => ({
+        queryResult.chunks = chunks.map((c: any) => ({
           content: c.content,
           similarity: c.similarity,
           metadata: c.metadata
         }));
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error(`Error procesando query ${i}:`, e.message);
     }
     results.push(queryResult);

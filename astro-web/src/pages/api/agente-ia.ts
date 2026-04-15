@@ -274,7 +274,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const tEmbedding = Date.now();
     try {
-       const embeddingVector = await getEmbedding(retrievalQuery, apiKey);
+       const embeddingVector = await getEmbedding(retrievalQuery);
        embeddingTimeMs = Date.now() - tEmbedding;
 
        const tSearch = Date.now();

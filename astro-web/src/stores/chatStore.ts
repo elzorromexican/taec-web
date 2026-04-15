@@ -4,10 +4,10 @@ import { persistentAtom, setPersistentEngine } from '@nanostores/persistent';
 if (typeof window !== 'undefined') {
   setPersistentEngine(window.sessionStorage, {
     addEventListener(key, handler) {
-      window.addEventListener('storage', handler);
+      window.addEventListener('storage', handler as any);
     },
     removeEventListener(key, handler) {
-      window.removeEventListener('storage', handler);
+      window.removeEventListener('storage', handler as any);
     }
   });
 }
