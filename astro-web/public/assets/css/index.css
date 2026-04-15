@@ -83,16 +83,12 @@
 /* ── SERVICIOS ── */
 .servicios { padding: 72px 5%; background: var(--light); }
 .servicios-inner { max-width: 1200px; margin: 0 auto; }
-.servicios-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-.serv-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 26px 22px; transition: box-shadow .3s ease, transform .3s ease, background-color .3s ease; display: flex; flex-direction: column; }
-.serv-card:hover { background-color: #004775; box-shadow: 0 8px 28px rgba(0,71,117,.1); transform: translateY(-3px); }
-.serv-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, rgba(168,219,217,.3), rgba(49,121,194,.15)); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; flex-shrink: 0; }
-.serv-card h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.3; transition: color .3s ease; }
-.serv-card:hover h3 { color: var(--white); }
-.serv-card p { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; transition: color .3s ease; }
-.serv-card:hover p { color: #E2E8F0; }
-.serv-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 16px; font-size: 14px; font-weight: 700; color: var(--blue); letter-spacing: .2px; transition: color .15s, gap .15s; }
-.serv-card:hover .serv-link { color: var(--teal); }
+.servicios-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); margin-top: 40px; }
+.serv-row { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; padding: 40px 0; border-bottom: 1px solid var(--border); transition: background-color .3s; align-items: start; }
+.serv-row:hover { background-color: var(--light); }
+.serv-row-left h3 { font-family: var(--font-display); font-size: 24px; color: var(--navy); line-height: 1.25; }
+.serv-row-right p { font-size: 16px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+.serv-link { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700; color: var(--blue); letter-spacing: .2px; transition: color .15s, gap .15s; }
 .serv-link:hover { color: var(--navy); gap: 8px; }
 
 /* ── CÓMO TRABAJAMOS ── */
@@ -104,6 +100,8 @@
 .paso:hover { background-color: #004775; transform: translateY(-3px); }
 .paso-num { width: 56px; height: 56px; border-radius: 50%; background: var(--white); border: 2px solid var(--teal); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 20px; color: var(--blue); margin-bottom: 20px; flex-shrink: 0; position: relative; transition: background .3s, border-color .3s, color .3s; }
 .paso:hover .paso-num { background: var(--teal); border-color: var(--teal); color: var(--white); }
+.step-number { font-family: var(--font-display); font-size: 3rem; color: var(--blue); opacity: 0.35; line-height: 1; margin-bottom: 16px; transition: opacity .3s, color .3s; }
+.paso:hover .step-number { color: var(--teal); opacity: 0.8; }
 .paso h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; transition: color .3s ease; }
 .paso:hover h3 { color: var(--white); }
 .paso p  { font-size: 13px; color: var(--muted); line-height: 1.6; transition: color .3s ease; }
@@ -203,7 +201,7 @@
 
 /* ── RESPONSIVE EXCLUSIVO HOME ── */
 @media (max-width: 1024px) {
-  .servicios-grid { grid-template-columns: repeat(3, 1fr); }
+  .serv-row { gap: 24px; }
   .pasos-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   .pasos-grid::before { display: none; }
   /* footer grid is managed in footer.css */
@@ -215,7 +213,7 @@
   .hero-sub { font-size: 15px; }
   .hero-tag { white-space: normal; }
   .stat-grid { grid-template-columns: 1fr 1fr; }
-  .servicios-grid { grid-template-columns: 1fr 1fr; }
+  .serv-row { grid-template-columns: 1fr; gap: 16px; padding: 32px 0; }
   .pasos-grid { grid-template-columns: 1fr; gap: 24px; }
   .testi-card { flex: 0 0 280px; }
   .recursos-grid { grid-template-columns: 1fr; }
@@ -225,9 +223,6 @@
   .section-head { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 
-@media (max-width: 480px) {
-  .servicios-grid { grid-template-columns: 1fr; }
-}
 
 /* ── ACCESIBILIDAD ── */
 @media (prefers-reduced-motion: reduce) {
