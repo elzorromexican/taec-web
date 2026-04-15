@@ -22,6 +22,16 @@ html { scroll-behavior: smooth; }
   --white:        #FFFFFF;
   --text:         #111827;
   --art:          #16A34A;
+  /* Extended Brand Tokens */
+  --articulate-blue: var(--articulate-blue);
+  --check-green:     var(--check-green);
+  --navy-slate:      var(--navy-slate);
+  --navy-darker:     var(--navy-darker);
+  /* Logo Brand Colors */
+  --logo-articulate: var(--logo-articulate);
+  --logo-vyond:      var(--logo-vyond);
+  --logo-totara:     var(--logo-totara);
+  --logo-moodle:     var(--logo-moodle);
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body:    'Inter', sans-serif;
   --shield-card-desk: 250px;

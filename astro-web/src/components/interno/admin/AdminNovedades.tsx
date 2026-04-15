@@ -123,7 +123,7 @@ export default function AdminNovedades({
         <h3>Gestión de Novedades (Dashboard)</h3>
         <button 
           onClick={openCreate} 
-          style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>
+          style={{ background: 'var(--navy-slate)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>
           + Nuevo Aviso
         </button>
       </div>
@@ -139,7 +139,7 @@ export default function AdminNovedades({
                   <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: '99px', fontSize: '0.75rem', fontWeight: 'bold', background: nov.badge_color === 'orange' ? '#ffedd5' : '#dbeafe', color: nov.badge_color === 'orange' ? '#c2410c' : '#1d4ed8', marginBottom: '8px' }}>
                     {nov.badge_text}
                   </span>
-                  <h4 style={{ margin: '0 0 0.5rem 0', color: '#0f172a' }}>{nov.titulo}</h4>
+                  <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--navy-slate)' }}>{nov.titulo}</h4>
                   <p style={{ margin: 0, fontSize: '0.9rem', color: '#475569' }}>{nov.fecha_display} | Orden: {nov.orden}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
@@ -150,7 +150,7 @@ export default function AdminNovedades({
                   </button>
                   <button 
                     onClick={() => toggleActivo(nov.id, nov.activo)}
-                    style={{ background: nov.activo ? '#ef4444' : '#10b981', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>
+                    style={{ background: nov.activo ? '#ef4444' : 'var(--check-green)', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>
                     {nov.activo ? 'Desactivar' : 'Activar'}
                   </button>
                   <button 
@@ -241,7 +241,7 @@ export default function AdminNovedades({
               </div>
             </div>
 
-            <button type="submit" style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
+            <button type="submit" style={{ background: 'var(--navy-slate)', color: 'white', border: 'none', padding: '0.75rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer', marginTop: '0.5rem' }}>
               {editingId ? 'Guardar Cambios' : 'Publicar Aviso'}
             </button>
           </form>

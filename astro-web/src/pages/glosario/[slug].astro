@@ -80,7 +80,7 @@ const schema = {
           <div style="display: grid; gap: 16px;">
             {relatedTermsFound.map((t: any) => (
               <a href={r(`/glosario/${t.id.replace(/\\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; background: #f8fafc; transition: transform 0.2s;" class="term-rel-card">
-                <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.1rem; color: #0f172a; font-weight: 600; margin-bottom: 6px;">{t.data.title}</span>
+                <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.1rem; color: var(--navy-slate); font-weight: 600; margin-bottom: 6px;">{t.data.title}</span>
                 <span style="font-family: monospace; font-size: 11px; color: #64748b;">Concepto &rarr;</span>
               </a>
             ))}

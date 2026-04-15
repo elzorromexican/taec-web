@@ -13,7 +13,7 @@
 /* ── Secciones genéricas ── */
 .pp-section { padding: 72px 5%; }
 .pp-section-alt { background: #F8FAFC; }
-.pp-section-dark { background: #0f172a; }
+.pp-section-dark { background: var(--navy-slate); }
 .pp-section-inner { max-width: 1100px; margin: 0 auto; }
 .pp-section-label,
 .pp-section-title,

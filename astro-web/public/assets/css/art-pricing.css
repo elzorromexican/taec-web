@@ -6,7 +6,7 @@
 .art-tab.active{color:var(--art);border-bottom-color:var(--art)}
 
 /* ── hero ── */
-.art-hero{background:linear-gradient(135deg, #050E14 0%, #0B3347 45%, #13668D 100%);padding:72px 5% 80px;position:relative;z-index:10}
+.art-hero{background:linear-gradient(135deg, var(--navy-darker) 0%, #0B3347 45%, #13668D 100%);padding:72px 5% 80px;position:relative;z-index:10}
 .art-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:11}
 .art-logo-pill{display:inline-flex;background:white;border-radius:10px;padding:10px 20px;margin-bottom:20px;box-shadow:0 2px 14px rgba(0,0,0,.2)}
 .art-logo-pill img{height:34px;width:auto}
@@ -17,7 +17,7 @@
 .art-hero h1 em{font-style:normal;color:#BAE6FD}
 .art-hero-sub{font-size:16px;color:rgba(255,255,255,.8);margin-bottom:28px;line-height:1.65}
 .art-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-art-primary{background:#0284C7;color:white;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;transition:background .15s}
+.btn-art-primary{background:var(--articulate-blue);color:white;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;transition:background .15s}
 .btn-art-primary:hover{background:#0369a1}
 .btn-art-ghost{background:rgba(255,255,255,.12);color:white;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);transition:background .15s}
 .btn-art-ghost:hover{background:rgba(255,255,255,.2)}
@@ -42,7 +42,7 @@
 .art-feat-desc{font-size:13px;color:#475569;line-height:1.55}
 
 /* ── quote ── */
-.art-quote{background:linear-gradient(135deg, #001018 0%, #003045 60%, #0284C7 100%);padding:56px 5%;text-align:center}
+.art-quote{background:linear-gradient(135deg, #001018 0%, #003045 60%, var(--articulate-blue) 100%);padding:56px 5%;text-align:center}
 .art-quote-inner{max-width:760px;margin:0 auto}
 .art-quote-text{font-size:clamp(16px,2vw,22px);color:white;line-height:1.65;font-style:italic;margin-bottom:20px}
 .art-quote-author{font-size:13px;color:#BAE6FD;font-weight:700}
@@ -60,16 +60,16 @@
 .art-pricing-public { padding: 64px 5%; background: white; }
 .art-pricing-inner { max-width: 1000px; margin: 0 auto; }
 .art-pricing-card { display: grid; grid-template-columns: 240px 1fr 280px; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0,0,0,.05), 0 8px 10px -6px rgba(0,0,0,.01); }
-.art-pricing-col-left { padding: 40px 24px; background: #0F172A; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.art-pricing-col-left { padding: 40px 24px; background: var(--navy-slate); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 .art-pricing-icon { font-size: 48px; margin-bottom: 16px; line-height: 1; }
 .art-pricing-name { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
 .art-pricing-col-center { padding: 40px 32px; display: flex; align-items: center; }
 .art-pricing-features { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; width: 100%; }
 .art-pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #475569; line-height: 1.4; }
-.feat-check { color: #10B981; font-weight: 800; flex-shrink: 0; }
+.feat-check { color: var(--check-green); font-weight: 800; flex-shrink: 0; }
 .art-pricing-col-right { padding: 40px 24px; background: #F1F5F9; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-left: 1px solid var(--border); }
 .price-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #64748B; letter-spacing: 1px; margin-bottom: 8px; }
-.price-amount { font-size: 44px; font-weight: 900; color: #0F172A; line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
+.price-amount { font-size: 44px; font-weight: 900; color: var(--navy-slate); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
 .price-period { font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 16px; }
 .price-note { font-size: 11px; color: #64748B; line-height: 1.4; }
 

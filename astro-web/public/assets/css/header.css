@@ -80,7 +80,7 @@ header { position: sticky; top: 0; z-index: 9999; background: var(--white); bord
   background: var(--light); padding: 12px; border-radius: 8px; margin-top: 6px;
   transition: background .15s, color .15s;
 }
-.mega-bottom-action:hover { background: #e0f2fe; color: #0284c7; }
+.mega-bottom-action:hover { background: #e0f2fe; color: var(--articulate-blue); }
 
 /* ── SIMPLE DROPDOWN (Capacitación / Recursos) ── */
 .simple-dropdown {

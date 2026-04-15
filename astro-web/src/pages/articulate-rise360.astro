@@ -17,7 +17,7 @@ import { r } from '../utils/paths';
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     :root {
-      --navy:#004775; --blue:#3179C2; --teal:#A8DBD9; --orange:#F59E0B; --green:#10B981;
+      --navy:#004775; --blue:#3179C2; --teal:#A8DBD9; --orange:#F59E0B; --green:var(--check-green);
       --dark:#111827; --muted:#6B7280; --light:#F3F4F6; --white:#FFFFFF; --border:#E5E7EB;
       --art:#004775; --art-accent:#7DD3FC; --art-glow:rgba(49,121,194,.15);
     }
@@ -37,7 +37,7 @@ import { r } from '../utils/paths';
        HERO — navy gradient
        ══════════════════════════════════════ */
     /* ── PROPUESTA A: Rise Orange ── */
-    .art-hero{background:linear-gradient(135deg, #050E14 0%, #0B3347 45%, #13668D 100%);padding:80px 5% 88px;position:relative;overflow:hidden}
+    .art-hero{background:linear-gradient(135deg, var(--navy-darker) 0%, #0B3347 45%, #13668D 100%);padding:80px 5% 88px;position:relative;overflow:hidden}
     .art-hero::before{content:'';position:absolute;top:-30%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(19,102,141,.3) 0%,transparent 65%);pointer-events:none}
     .art-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}    .art-product-eyebrow{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:#7DD3FC;letter-spacing:-.01em;margin-bottom:10px;line-height:1}
     .art-hero h1{font-size:clamp(34px,4.2vw,56px);font-weight:900;color:#FFFFFF;line-height:1.08;margin-bottom:18px;letter-spacing:-.03em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
@@ -112,7 +112,7 @@ import { r } from '../utils/paths';
     /* ══════════════════════════════════════
        QUOTE — navy
        ══════════════════════════════════════ */
-    .art-quote{background:linear-gradient(135deg, #020617 0%, #0F172A 50%, #1E3A5F 100%);padding:64px 5%;text-align:center}
+    .art-quote{background:linear-gradient(135deg, #020617 0%, var(--navy-slate) 50%, #1E3A5F 100%);padding:64px 5%;text-align:center}
     .art-quote-inner{max-width:760px;margin:0 auto}
     .art-quote-text{font-size:clamp(17px,2vw,22px);color:white;line-height:1.65;font-style:italic;margin-bottom:20px}
     .art-quote-author{font-size:13px;color:var(--art-accent);font-weight:700}
@@ -176,10 +176,10 @@ import { r } from '../utils/paths';
         <!-- Rise 360 CSS Mockup -->
         <div style="background:#1E293B;border-radius:12px;overflow:hidden;font-family:Inter,sans-serif;">
           <!-- Browser bar -->
-          <div style="background:#0F172A;padding:10px 14px;display:flex;align-items:center;gap:6px;">
+          <div style="background:var(--navy-slate);padding:10px 14px;display:flex;align-items:center;gap:6px;">
             <span style="width:10px;height:10px;border-radius:50%;background:#EF4444;display:inline-block;"></span>
             <span style="width:10px;height:10px;border-radius:50%;background:#F59E0B;display:inline-block;"></span>
-            <span style="width:10px;height:10px;border-radius:50%;background:#10B981;display:inline-block;"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--check-green);display:inline-block;"></span>
             <div style="flex:1;background:#1E293B;border-radius:4px;height:20px;margin-left:8px;display:flex;align-items:center;padding:0 10px;">
               <span style="font-size:10px;color:#64748B;">articulate.com/rise360</span>
             </div>
@@ -187,7 +187,7 @@ import { r } from '../utils/paths';
           <!-- Editor UI -->
           <div style="display:grid;grid-template-columns:200px 1fr;min-height:280px;">
             <!-- Sidebar -->
-            <div style="background:#0F172A;padding:14px;border-right:1px solid rgba(255,255,255,.07);">
+            <div style="background:var(--navy-slate);padding:14px;border-right:1px solid rgba(255,255,255,.07);">
               <p style="font-size:9px;font-weight:700;letter-spacing:1px;color:#475569;text-transform:uppercase;margin-bottom:10px;">Bloques</p>
               <div style="background:#1E293B;border-radius:6px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
                 <span style="font-size:14px;">📝</span><span style="font-size:11px;color:#CBD5E1;">Texto</span>
