@@ -23,15 +23,15 @@ html { scroll-behavior: smooth; }
   --text:         #111827;
   --art:          #16A34A;
   /* Extended Brand Tokens */
-  --articulate-blue: var(--articulate-blue);
-  --check-green:     var(--check-green);
-  --navy-slate:      var(--navy-slate);
-  --navy-darker:     var(--navy-darker);
+  --articulate-blue: #0284C7;
+  --check-green:     #10B981;
+  --navy-slate:      #0F172A;
+  --navy-darker:     #050E14;
   /* Logo Brand Colors */
-  --logo-articulate: var(--logo-articulate);
-  --logo-vyond:      var(--logo-vyond);
-  --logo-totara:     var(--logo-totara);
-  --logo-moodle:     var(--logo-moodle);
+  --logo-articulate: #E8561E;
+  --logo-vyond:      #00A4E0;
+  --logo-totara:     #6A2C8E;
+  --logo-moodle:     #F98012;
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body:    'Inter', sans-serif;
   --shield-card-desk: 250px;
