@@ -43,6 +43,53 @@ sh scripts/install-hooks.sh
 ```
 ---
 
+## Optimización de Cuota en Antigravity
+
+Antigravity tiene un sistema de cuota dual: **rolling 5 horas** + **techo semanal**. Cuando se agota cualquiera, todos los modelos quedan bloqueados.
+
+### Costo por tipo de tarea (de menor a mayor)
+| Tarea | Costo |
+|-------|-------|
+| Tab completion | Gratis |
+| Chat simple / consultas | Bajo |
+| Planning mode | Medio |
+| Edición multi-archivo | Alto |
+| Browser / terminal / commits / PRs | Muy alto |
+
+### Reglas de optimización
+1. **Revisar cuota antes de empezar** — `Settings → Models` en Antigravity. Si algún modelo está por debajo del 20%, cambiar a uno más ligero.
+2. **Abrir chat nuevo al cambiar de tarea** — el historial largo consume más cuota en cada request.
+3. **Reservar Gemini 3.1 Pro (High) para implementación real** — usar Flash o Low para consultas, explicaciones y typos.
+4. **Cuando Gemini esté caído o sin cuota** — cambiar a **Claude Sonnet 4.6 (Thinking)** como fallback. Validado con PR #81.
+5. **Los intentos fallidos también consumen cuota** — si hay un 503 que dura varios segundos antes de fallar, ya gastó tokens.
+6. **Orden de fallback recomendado:** Gemini 3.1 Pro High → Gemini 3.1 Pro Low → Claude Sonnet 4.6 → Gemini 3 Flash.
+
+### Diagnóstico rápido de errores
+- `503 MODEL_CAPACITY_EXHAUSTED` + cuota en 0 → **cuota agotada**, esperar refresco
+- `503 MODEL_CAPACITY_EXHAUSTED` + cuota disponible → **saturación de Google**, esperar o cambiar modelo
+- Modelo trabaja N segundos y truena → misma causa, el request consumió lo que quedaba
+
+---
+
+## Cómo usar Skills con Antigravity
+
+Los skills de Claude Code (`~/.claude/skills/`) son locales — Antigravity no tiene acceso directo a ellos.
+
+**Protocolo para pasarle un skill a Antigravity:**
+
+1. Slim o Claude Code identifican qué skill aplica a la tarea
+2. Se copia el contenido del `SKILL.md` directamente en el issue o comentario de GitHub
+3. Antigravity lo recibe como instrucción y lo ejecuta
+
+**Referencia de todos los skills disponibles:** `SKILLS.md` en la raíz del repo.
+
+**Skills más usados con Antigravity:**
+- `/frontend-design` — pegar contenido de `~/.claude/skills/frontend-design/SKILL.md` antes de pedir UI
+- `/ui-ux-pro-max` — pegar contenido antes de pedir sistema de diseño
+- Los de contenido (`article-writing`, `brand-voice`) — útiles si Antigravity genera copy
+
+---
+
 ## Roles del equipo de IA
 
 Este proyecto es operado por múltiples IAs con roles definidos:
