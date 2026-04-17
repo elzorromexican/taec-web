@@ -46,76 +46,98 @@ export const POST: APIRoute = async ({ request }) => {
 			.single();
 
 		if (existingLead && existingLead.awaiting_contact) {
-			const contacto = extraerContacto(message);
+			const tieneEmail = !!existingLead.email;
+			const esConsulta =
+				message.length > 15 &&
+				!message.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+)|soy\s|de\s+[A-Z]/);
 
-			const isRefusal =
-				message.toLowerCase().match(/(no quiero|no te dar|no gracias)/) !==
-				null;
-			const hasDatos = contacto.nombre || contacto.empresa || contacto.email;
+			if (tieneEmail && esConsulta) {
+				await supabase
+					.from("tito_leads")
+					.update({ awaiting_contact: false })
+					.eq("id", existingLead.id);
+				// continuar al flujo normal
+			} else {
+				const contacto = extraerContacto(message);
 
-			if (isRefusal || !hasDatos) {
+				const isRefusal =
+					message.toLowerCase().match(/(no quiero|no te dar|no gracias)/) !==
+					null;
+				const hasDatos = contacto.nombre || contacto.empresa || contacto.email;
+
+				if (isRefusal || !hasDatos) {
+					return new Response(
+						JSON.stringify({
+							reply: FALLBACK_CONTACTO,
+							handoff_tipo: existingLead.handoff_tipo,
+							score: existingLead.score,
+						}),
+						{ status: 200, headers: { "Content-Type": "application/json" } },
+					);
+				}
+
+				const mergedNombre = contacto.nombre || existingLead.nombre;
+				const mergedEmail = contacto.email || existingLead.email;
+				const mergedEmpresa = contacto.empresa || existingLead.empresa;
+
+				const faltaNombre = !mergedNombre;
+				const faltaEmail = !mergedEmail;
+
+				let replyCapture = "";
+				let awaitingContactUpdate = false;
+
+				if (!faltaNombre && !faltaEmail) {
+					replyCapture = `Listo ${mergedNombre}, nuestro equipo te contacta en menos de 24 horas hábiles.`;
+					awaitingContactUpdate = false;
+				} else if (faltaEmail) {
+					replyCapture = faltaNombre
+						? "Gracias. ¿Me compartes tu nombre y correo corporativo?"
+						: `Gracias ${mergedNombre}. ¿Me compartes tu correo corporativo?`;
+					awaitingContactUpdate = true;
+				} else if (faltaNombre) {
+					replyCapture = "Casi listo, ¿me confirmas tu nombre?";
+					awaitingContactUpdate = true;
+				} else {
+					replyCapture = "Gracias. ¿Me compartes tu nombre y correo corporativo?";
+					awaitingContactUpdate = true;
+				}
+
+				const { data: updatedLead, error: leadUpdateError } = await supabase
+					.from("tito_leads")
+					.update({
+						nombre: mergedNombre,
+						empresa: mergedEmpresa,
+						email: mergedEmail,
+						awaiting_contact: awaitingContactUpdate,
+					})
+					.eq("id", existingLead.id)
+					.select()
+					.single();
+
+				if (!awaitingContactUpdate && !leadUpdateError && updatedLead) {
+					enviarNotificacion({
+						id: updatedLead.id,
+						session_id: sessionId,
+						email: updatedLead.email,
+						nombre: updatedLead.nombre,
+						empresa: updatedLead.empresa,
+						score: updatedLead.score,
+						minibrief: updatedLead.minibrief,
+						handoff_tipo: updatedLead.handoff_tipo as
+							| "ventas"
+							| "preventa_tecnica",
+					});
+				}
+
 				return new Response(
 					JSON.stringify({
-						reply: FALLBACK_CONTACTO,
+						reply: replyCapture,
 						handoff_tipo: existingLead.handoff_tipo,
 						score: existingLead.score,
 					}),
 					{ status: 200, headers: { "Content-Type": "application/json" } },
 				);
 			}
-
-			let awaitingContactUpdate = false;
-			const nombreFinal = contacto.nombre || existingLead.nombre;
-			let replyCapture = nombreFinal
-				? `Listo ${nombreFinal}, nuestro equipo te contacta en menos de 24 horas hábiles.`
-				: `Listo, nuestro equipo te contacta en menos de 24 horas hábiles.`;
-
-			// Regla: Si el usuario da solo email sin nombre -> aceptarlo, preguntar nombre en siguiente turno
-			if (contacto.email && !contacto.nombre && !existingLead.nombre) {
-				awaitingContactUpdate = true;
-				replyCapture =
-					"Gracias por tu correo. ¿Me podrías indicar tu nombre, por favor?";
-			}
-
-			const mergedNombre = contacto.nombre || existingLead.nombre;
-			const mergedEmail = contacto.email || existingLead.email;
-			const mergedEmpresa = contacto.empresa || existingLead.empresa;
-
-			const { data: updatedLead, error: leadUpdateError } = await supabase
-				.from("tito_leads")
-				.update({
-					nombre: mergedNombre,
-					empresa: mergedEmpresa,
-					email: mergedEmail,
-					awaiting_contact: awaitingContactUpdate,
-				})
-				.eq("id", existingLead.id)
-				.select()
-				.single();
-
-			if (!awaitingContactUpdate && !leadUpdateError && updatedLead) {
-				enviarNotificacion({
-					id: updatedLead.id,
-					session_id: sessionId,
-					email: updatedLead.email,
-					nombre: updatedLead.nombre,
-					empresa: updatedLead.empresa,
-					score: updatedLead.score,
-					minibrief: updatedLead.minibrief,
-					handoff_tipo: updatedLead.handoff_tipo as
-						| "ventas"
-						| "preventa_tecnica",
-				});
-			}
-
-			return new Response(
-				JSON.stringify({
-					reply: replyCapture,
-					handoff_tipo: existingLead.handoff_tipo,
-					score: existingLead.score,
-				}),
-				{ status: 200, headers: { "Content-Type": "application/json" } },
-			);
 		}
 
 		// ======= MOTOR 1: EVALUAR REGLAS Y TRIGGERS =======

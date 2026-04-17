@@ -110,21 +110,23 @@ export function extraerContacto(message: string): {
 	const emailMatch = message.match(emailRegex);
 	const email = emailMatch ? emailMatch[0] : null;
 
-	// Simple heuristic for name and company if explicit like "Soy Ana López de Grupo Bimbo"
-	let nombre = null;
-	let empresa = null;
+	const textWithoutEmail = message.replace(emailRegex, "").trim();
 
-	const soyMatch = message.match(/soy\s+([^,.]+)(?:,|\s+de\s+|\s+en\s+|$)/i);
-	if (soyMatch && soyMatch[1]) {
-		nombre = soyMatch[1].trim();
+	let nombre: string | null = null;
+	let empresa: string | null = null;
+
+	const soyMatch = textWithoutEmail.match(/soy\s+([^,.]+?)(?:\s+de\s+|\s+en\s+|,|$)/i);
+	if (soyMatch?.[1]) nombre = soyMatch[1].trim();
+
+	if (!nombre) {
+		const lines = textWithoutEmail.split(/[\n,]+/).map((l) => l.trim()).filter(Boolean);
+		if (lines[0] && lines[0].length > 1 && lines[0].length < 60) {
+			nombre = lines[0];
+		}
 	}
 
-	const deMatch = message.match(
-		/(?:de|en)\s+([A-Z][a-zA-Z0-9\s]+)(?:,|\.|@|$)/,
-	);
-	if (deMatch && deMatch[1]) {
-		empresa = deMatch[1].trim();
-	}
+	const deMatch = textWithoutEmail.match(/(?:de|en)\s+([A-Z][a-zA-Z0-9\s]+?)(?:\s*$|,|\.|@)/m);
+	if (deMatch?.[1]) empresa = deMatch[1].trim();
 
 	return { nombre, empresa, email };
 }

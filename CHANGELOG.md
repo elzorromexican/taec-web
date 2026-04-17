@@ -6,6 +6,27 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.5.1 · 15 abr 2026 — Tracking URL Articulate Trial
+
+### 🔗 URLs de Tracking Articulate (PR #99)
+- **Reemplazo de URL trial:** Sustituida la URL base `articulate.com/es/360/trial/` por la URL directa con parámetros UTM provistos por Articulate (`utm_source=em_partner`, `utm_medium=referral`, `utm_campaign=a360|-|04-03-2026`, `utm_content=empartnersdirectreferral`). Descartado el wrapper `google.com/url` (generado para email) que stripeaba los UTMs al ejecutarse desde web.
+- **Fuente de verdad unificada:** Eliminada variable hardcodeada en `articulate-ai-assistant.astro`; todos los botones del sitio consumen `vendors.articulate.trial` (PR #98). 16 botones "Prueba gratis" correctamente atribuidos a TAEC en GA4 de Articulate.
+
+## v3.5.0 · 15 abr 2026 — QA Regresión General & Estabilización de CI/CD (Cierre de Sprint)
+
+### 🧹 Higiene de Repositorio y Git Workflow (`/CLAUDE.md`)
+- **Política Estricta de Reformat (Biome):** Implementación de una nueva regla arquitectónica en las directrices del proyecto; queda estrictamente prohibido mezclar *mass-formatting* lógico (vía `biome check --write`) con los *commits* de Features o Bugfixes para proteger el trackeo forense de código. Todos los reformat masivos deberán cursarse en exclusividad desde la nomenclatura `chore/biome-reformat-[date]`.
+- **Resolución de Conflictos Merge (Main vs QA):** Saneadas las discrepancias entre las ramas tras la inyección de Biome. Mantenimiento del reestructurado CSS nativo de `index.css` (`.serv-row` flexbox pattern) sobre escribiendo lógicas temporales pasadas de PRs divergentes.
+
+### 🤖 TitoBits Motor Conversacional (Agente L&D)
+- **Persistencia Fluida (CSR SPA):** Finalizada la interconexión con `@nanostores/persistent`. Transicionar entre views ahora preserva íntegramente la charla corporativa montada en *localStorage*, evitando *reloads* fatídicos de estado en pleno embudo de captación L&D.
+- **Micro-interacciones y UX Constraints:** Despliegue reforzado de la Inactividad Forzada ("*Hard Handoff*"), el bloqueo inminente del TextBox tras capturar un lead válido, y contención algorítmica de texto obligando respuestas iniciales de 4 líneas máximo y provocación constante de *Call to Action* (`+ info`).
+- **Refactorización de Navegación B2B (Modo Diagnóstico):** Abolición del ancla primitiva `window.location.href` hacia enrutamiento puro por transición SPA usando `navigate()` de `astro:transitions/client`. Soluciona el parpadeo en la derivación hacia URLs de evaluación ("MODO DIAGNOSTICO").
+
+### 🚀 QA Multi-Agente B2B (Claude PR Auditor)
+- **Elevación de Permisos de Pipeline:** Corrección maestra de bloqueos HTTP 403 en Github Actions (Issue #95). Adición explícita del bloque topológico `permissions: { pull-requests: write }` en `pr-claude-auditor.yml` permitiendo con éxito el volcado inteligente de veredictos del Agente Claude Code en el panel de interacción (Reviews/Comments) frenando despliegues con secretos expuestos.
+- **Compilador SSR Local (`astro.config.mjs`):** Ajustabilidad de compatibilidad `@astrojs/node({ mode: 'standalone' })` reparando crashes súbitos del bundler en en entornos Unix nativos para optimizar el Development Queue.
+
 ## v3.4.1 · 14 abr 2026 — Estabilización UI/UX Intranet B2B (Cierre QA)
 
 ### 🎨 Correcciones Estéticas y de Navegación 
