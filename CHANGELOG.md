@@ -6,6 +6,13 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.6.0 · 17 abr 2026 — TitoBits Personality Modes & Performance Optimization
+
+### 🤖 Dinámica de Personalidad y Configuración (Supabase)
+- **Modos de Personalidad On-the-fly:** Implementado soporte dinámico para modos conversacionales (`breve`, `medio`, `bavardo`) mediante inyección de modificadores directamente al *System Prompt* de Gemini, expandiendo la versatilidad de la interacción B2B.
+- **Topología Configuración-First:** Creación de la tabla `tito_config` en Supabase como fuente de verdad única para los ajustes del agente. Permite modificar el tono global de TitoBits en tiempo real sin requerir una ventana de re-despliegue del código.
+- **Optimización de Latencia en Embudo (Fase 3):** Refactorización algorítmica del *fetch* de configuración. Su ejecución ahora se aplaza de forma exclusiva hasta la activación de LLM conversacional, previniendo latencia y consultas de red inútiles cuando el flujo de chat intercepta capturas de lead.
+
 ## v3.5.1 · 15 abr 2026 — Tracking URL Articulate Trial
 
 ### 🔗 URLs de Tracking Articulate (PR #99)
