@@ -122,8 +122,18 @@ import { base, r } from "../utils/paths";
     </section>
 
     <!-- ══ PRICING ══ -->
-    <section class="art-pricing-public">
+    <section class="art-pricing-public" id="precios">
       <div class="art-pricing-inner">
+        <!-- Banner promo Q2 -->
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="display:inline-flex;align-items:center;gap:10px;background:#c2410c;color:white;border-radius:12px;padding:12px 28px;box-shadow:0 4px 16px rgba(194,65,12,0.35);">
+            <span style="font-size:32px;font-weight:900;letter-spacing:-1px;">20%</span>
+            <div style="text-align:left;line-height:1.2;">
+              <div style="font-size:13px;font-weight:800;letter-spacing:0.5px;">DESCUENTO Q2</div>
+              <div style="font-size:11px;opacity:0.9;">sobre precios de lista · válido hasta jun 2026</div>
+            </div>
+          </div>
+        </div>
         <div class="art-pricing-card">
           <div class="art-pricing-col-left">
             <div class="art-pricing-icon">🌐</div>
@@ -141,8 +151,12 @@ import { base, r } from "../utils/paths";
           </div>
           <div class="art-pricing-col-right">
             <span class="price-label">A partir de</span>
-            <div class="price-amount">$5,000</div>
+            <div style="display:flex;align-items:baseline;justify-content:center;gap:8px;margin-bottom:2px;">
+              <div class="price-amount" style="text-decoration:line-through;color:#94a3b8;font-size:28px;">$5,000</div>
+              <div class="price-amount" style="color:#c2410c;">$4,000</div>
+            </div>
             <div class="price-period">USD por año</div>
+            <div style="margin:8px 0;background:#FEF3C7;border-radius:8px;padding:5px 12px;font-size:11px;font-weight:700;color:#92400E;text-align:center;">20% dto aplicado · Q2 2026</div>
             <div class="price-note">*Precios basados en el volumen anual de traducciones</div>
           </div>
         </div>
