@@ -31,6 +31,7 @@ import {
 	determinarHandoff,
 	type LeadSignals,
 } from "../../lib/tito/scoring";
+import { getPersonalityModifier, type PersonalityMode } from '../../lib/tito/personality';
 
 export const POST: APIRoute = async ({ request }) => {
 	try {
@@ -239,6 +240,20 @@ Schema esperado:
 			// CONTINUE — responder con Gemini usando contexto RAG
 			const ragContext = contextChunks.map((c: any) => c.content).join("\n\n");
 
+			// Fetch personality mode from Supabase config (non-blocking, default 'medio')
+			let personalityMode: PersonalityMode = 'medio';
+			try {
+				const { data: config } = await supabase
+					.from('tito_config')
+					.select('mode')
+					.eq('id', 1)
+					.single();
+				if (config?.mode) personalityMode = config.mode as PersonalityMode;
+			} catch {
+				// keep default
+			}
+			const personalityModifier = getPersonalityModifier(personalityMode);
+
 			const conversationPrompt = `
 Eres TitoBits, el asistente comercial de TAEC — empresa líder en tecnología de aprendizaje corporativo en México y LATAM.
 Resuelves preguntas sobre productos e-learning (Articulate 360, Vyond, Moodle, Totara, LYS, OttoLearn, Proctorizer).
@@ -246,10 +261,11 @@ Resuelves preguntas sobre productos e-learning (Articulate 360, Vyond, Moodle, T
 REGLAS:
 ${rulesContext}
 
+${personalityModifier}
+
 CONTEXTO DE LA BASE DE CONOCIMIENTO:
 ${ragContext || "No se encontró contexto relevante."}
 
-Responde al siguiente mensaje del usuario de forma concisa, directa y sin emojis.
 Si no tienes la información precisa en el contexto, transfiere a ventas.
 
 Usuario: ${message}
