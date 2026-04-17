@@ -41,7 +41,7 @@ export const promos: PromoConfig[] = [
 		description:
 			"31% de descuento · Precio especial Q2 para facturación en México. Precio normal $1,749.",
 		badgeText: "🇲🇽 OFERTA Q2",
-		link: "/articulate-360-mexico",
+		link: "/articulate-360-mexico#precios",
 		urlTrigger: "articulate",
 		countries: ["MX"],
 		active: true,
