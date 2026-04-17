@@ -77,7 +77,7 @@ export const promos: PromoConfig[] = [
 		description:
 			"20% de descuento en el paquete de Localization de Articulate. Válido en todo el mundo.",
 		badgeText: "⭐ PROMO Q2",
-		link: "/articulate-localization",
+		link: "/articulate-localization#precios",
 		urlTrigger: "localization",
 		countries: ["GLOBAL"],
 		active: true,
