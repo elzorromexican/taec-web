@@ -97,6 +97,9 @@ export const POST: APIRoute = async ({ request }) => {
 				} else if (faltaNombre) {
 					replyCapture = "Casi listo, ¿me confirmas tu nombre?";
 					awaitingContactUpdate = true;
+				} else {
+					replyCapture = "Gracias. ¿Me compartes tu nombre y correo corporativo?";
+					awaitingContactUpdate = true;
 				}
 
 				const { data: updatedLead, error: leadUpdateError } = await supabase
