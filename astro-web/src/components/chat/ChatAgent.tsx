@@ -71,6 +71,7 @@ export default function ChatAgent({
 	const inputChatRef = useRef<HTMLTextAreaElement | null>(null);
 	const inputNameRef = useRef<HTMLInputElement | null>(null);
 	const abortControllerRef = useRef<AbortController | null>(null);
+	const isMountRef = useRef(true);
 
 	const prevIsOpen = useRef(isOpen);
 
@@ -377,18 +378,23 @@ export default function ChatAgent({
 			}
 		};
 
-		// Ejecutar al montar y delegar a Astro Events para SPA View Transitions
-		handleContextHop();
-
 		// Si cambia de ruta y estábamos streameando, cancelar
 		const abortStream = () => {
 			if (abortControllerRef.current) abortControllerRef.current.abort();
 		};
 
-		document.addEventListener("astro:page-load", handleContextHop);
+		const handleContextHopIfNavigated = () => {
+			if (isMountRef.current) {
+				isMountRef.current = false;
+				return;
+			}
+			handleContextHop();
+		};
+
+		document.addEventListener("astro:page-load", handleContextHopIfNavigated);
 		document.addEventListener("astro:page-load", abortStream);
 		return () => {
-			document.removeEventListener("astro:page-load", handleContextHop);
+			document.removeEventListener("astro:page-load", handleContextHopIfNavigated);
 			document.removeEventListener("astro:page-load", abortStream);
 		};
 	}, []); // El event listener hace que funcione dinámicamente sin amarrar dependencias pesadas.
@@ -679,12 +685,28 @@ export default function ChatAgent({
 
 			if (isJsonResponse) {
 				const jsonData = await res.json();
+				const syntheticTargetId = `tito-${msgId}`;
+
 				updateMessage(
 					msgId,
 					safeRenderMarkdown(jsonData.reply) || "Handoff procesado.",
 					false,
 					"agent",
+					{ targetId: syntheticTargetId },
 				);
+
+				const reg = ctaExpandRegistryStore.get();
+				ctaExpandRegistryStore.set({
+					...reg,
+					[`${msgId}_${syntheticTargetId}`]: {
+						sourceMessageId: msgId,
+						targetId: syntheticTargetId,
+						expandDepth: 0,
+						hasChildren: false,
+						hasExpandedOnce: false,
+					},
+				});
+
 				if (jsonData.handoff_tipo && !jsonData.awaiting_contact) {
 					chatModeStore.set("handoff_closed");
 					trackTitoEvent("tito_handoff_started", {
