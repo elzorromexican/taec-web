@@ -39,20 +39,6 @@ export const POST: APIRoute = async ({ request }) => {
 		const message = body.message || "";
 		const sessionId = body.session_id || "anonymous-session";
 
-		// Fetch personality mode from Supabase config (non-blocking, default 'medio')
-		let personalityMode: PersonalityMode = 'medio';
-		try {
-			const { data: config } = await supabase
-				.from('tito_config')
-				.select('mode')
-				.eq('id', 1)
-				.single();
-			if (config?.mode) personalityMode = config.mode as PersonalityMode;
-		} catch {
-			// keep default
-		}
-		const personalityModifier = getPersonalityModifier(personalityMode);
-
 		// ======= FASE 3: MODO CAPTURA =======
 		const { data: existingLead } = await supabase
 			.from("tito_leads")
@@ -253,6 +239,20 @@ Schema esperado:
 		} else {
 			// CONTINUE — responder con Gemini usando contexto RAG
 			const ragContext = contextChunks.map((c: any) => c.content).join("\n\n");
+
+			// Fetch personality mode from Supabase config (non-blocking, default 'medio')
+			let personalityMode: PersonalityMode = 'medio';
+			try {
+				const { data: config } = await supabase
+					.from('tito_config')
+					.select('mode')
+					.eq('id', 1)
+					.single();
+				if (config?.mode) personalityMode = config.mode as PersonalityMode;
+			} catch {
+				// keep default
+			}
+			const personalityModifier = getPersonalityModifier(personalityMode);
 
 			const conversationPrompt = `
 Eres TitoBits, el asistente comercial de TAEC — empresa líder en tecnología de aprendizaje corporativo en México y LATAM.
