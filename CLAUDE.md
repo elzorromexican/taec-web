@@ -28,15 +28,20 @@ Todo cambio sigue este flujo obligatorio:
 4. Esperar auditoría/aprobación
 5. Merge solo después de aprobación
 
-### Deploy a producción — MANUAL, una vez al día
+### Deploy a producción — MANUAL, sin builds automáticos en Netlify
 
-Netlify tiene **auto-publish desactivado**. Un merge a `main` buildea pero **no publica** automáticamente.
+Netlify tiene **builds automáticos desactivados** ("Stopped builds"). Un merge a `main` **no dispara ningún build ni deploy**.
 
-**Regla:** El deploy a producción lo ejecuta Slim (o Claude Code con permiso explícito) **una vez al día**, al cierre del bloque de trabajo, desde el panel de Netlify → Deploys → "Publish deploy".
+**Cómo deployar (solo Slim):**
+```bash
+cd astro-web && npm run build && netlify deploy --prod
+```
 
-**Por qué:** Cada deploy de producción cuesta 15 créditos Netlify. El plan tiene 1,000 créditos/mes (≈66 deploys). Mergear PRs sueltos durante el día no despliega — se acumulan y se publican juntos.
+**Cuándo:** Al cierre del bloque de trabajo del día, o cuando haya urgencia puntual.
 
-**Antigravity:** Después de que tu PR sea mergeado a `main`, **no esperes un deploy inmediato**. El cambio llegará a producción en el próximo deploy manual del día.
+**Por qué:** Cada build en Netlify cuesta 15 créditos. El plan tiene 1,000/mes. Con builds automáticos se agotaban en 10 días.
+
+**Antigravity:** Después de que tu PR sea mergeado a `main`, **no hay deploy automático**. El cambio llega a producción cuando Slim ejecute el build manual.
 
 ---
 
