@@ -74,7 +74,7 @@ const testimonios = [
     /* ── HERO ── */
     .clientes-hero {
       background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%;
+      padding: 60px 5% 48px;
       text-align: center;
     }
     .clientes-hero-inner { max-width: 800px; margin: 0 auto; }
@@ -95,6 +95,7 @@ const testimonios = [
     .testimonios-section {
       padding: 72px 5%;
       background: var(--light);
+      overflow: visible;
     }
     .testimonios-grid {
       max-width: 1200px;
@@ -107,18 +108,24 @@ const testimonios = [
     .testimonio-card {
       background: var(--white);
       border: 1px solid rgba(0,0,0,.08);
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 32px 24px;
       display: flex;
       flex-direction: column;
       height: 100%;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .testimonio-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,.1);
     }
     .testimonio-quote-mark {
       font-family: var(--font-display);
-      font-size: 48px;
+      font-size: 56px;
       color: var(--teal);
-      line-height: 1;
-      margin-bottom: -10px;
+      line-height: 0.8;
+      margin-bottom: 8px;
     }
     .testimonio-quote {
       font-size: 15px;
@@ -201,10 +208,15 @@ const testimonios = [
 <main id="main-content">
   <section class="clientes-hero">
     <div class="clientes-hero-inner">
+      <span class="section-label" style="justify-content:center; margin-bottom:16px;">EMPRESA</span>
       <h1>Clientes que confían en TAEC</h1>
       <p>Empresas líderes en México y LATAM que confían en TAEC para su estrategia de capacitación corporativa.</p>
     </div>
   </section>
+
+  <div style="text-align:center; padding: 48px 5% 0; background: var(--light);">
+    <p class="section-label" style="justify-content:center;">Lo que dicen nuestros clientes</p>
+  </div>
 
   <section class="testimonios-section">
     <div class="testimonios-grid">
