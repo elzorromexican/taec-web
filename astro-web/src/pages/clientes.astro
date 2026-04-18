@@ -91,78 +91,65 @@ const testimonios = [
       line-height: 1.6;
     }
 
-    /* ── TESTIMONIOS GRID ── */
+    /* ── COVERFLOW ── */
     .testimonios-section {
-      padding: 72px 5%;
+      padding: 72px 0 32px 0;
       background: var(--light);
-      overflow: visible;
+      position: relative;
+      overflow: hidden; /* Evitar scroll horizontal en pantallas móviles */
     }
-    .testimonios-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+    .coverflow {
+      perspective: 1100px;
+      perspective-origin: 50% 50%;
+      width: 100%;
+      height: 300px;
+      position: relative;
     }
-    
-    .testimonio-card {
-      background: var(--white);
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: 16px;
-      padding: 32px 24px;
-      display: flex;
-      flex-direction: column;
+    .belt {
+      position: absolute;
+      top: 0; left: 50%;
       height: 100%;
-      box-shadow: 0 2px 16px rgba(0,0,0,.06);
-      transition: transform .2s, box-shadow .2s;
+      transform-style: preserve-3d;
+      transition: none; /* JS-driven */
     }
-    .testimonio-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,0,0,.1);
+    .card {
+      position: absolute;
+      width: 100vw;
+      max-width: 480px;
+      height: 260px;
+      top: 0;
+      margin-left: calc(min(90vw, 480px) / -2);
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px 36px;
+      text-align: left;
+      box-shadow: 0 16px 40px rgba(0,0,0,.15);
+      transition: transform 0.55s cubic-bezier(.4,0,.2,1),
+                  filter   0.55s cubic-bezier(.4,0,.2,1),
+                  opacity  0.55s cubic-bezier(.4,0,.2,1);
+      will-change: transform, filter, opacity;
+      cursor: pointer;
+      user-select: none;
     }
-    .testimonio-quote-mark {
-      font-family: var(--font-display);
-      font-size: 56px;
-      color: var(--teal);
-      line-height: 0.8;
-      margin-bottom: 8px;
+    @media (max-width: 480px) {
+      .card { height: 300px; padding: 24px; }
+      .author { bottom: 24px; left: 24px; right: 24px; }
     }
-    .testimonio-quote {
-      font-size: 15px;
-      color: var(--dark);
-      line-height: 1.6;
-      flex-grow: 1;
-      margin-bottom: 32px;
-      font-style: italic;
-    }
-    .testimonio-author {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .testimonio-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--teal);
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .testimonio-info h3 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 4px;
-    }
-    .testimonio-info p {
-      font-size: 13px;
-      color: var(--muted);
-    }
+    .qmark { font-family: var(--font-display); font-size: 56px; color: var(--teal); line-height: 0.8; margin-bottom: 8px; }
+    .qtext { font-size: 14.5px; color: var(--dark); line-height: 1.6; margin-bottom: 24px; font-style: italic; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .author { display: flex; align-items: center; gap: 16px; position: absolute; bottom: 32px; left: 36px; right: 36px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--white); flex-shrink: 0; }
+    .aname { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .aindustry { font-size: 13px; color: var(--muted); }
+
+    /* ── NAV ── */
+    .nav-controls { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 48px; }
+    .cf-btn { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(168,219,217,.4); background: var(--white); color: var(--teal); font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+    .cf-btn:hover { border-color: var(--teal); background: rgba(168,219,217,.1); transform: scale(1.08); }
+    .cf-count { font-size: 14px; font-weight: 600; color: var(--teal); min-width: 44px; letter-spacing: .5px; text-align: center; }
+    .dots { display: flex; gap: 7px; justify-content: center; margin-top: 20px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(168,219,217,.3); transition: all .3s; cursor: pointer; }
+    .dot.active { background: var(--teal); width: 22px; border-radius: 3px; }
 
     /* ── CTA ── */
     .cta-final {
@@ -196,13 +183,6 @@ const testimonios = [
       transition: background .15s;
     }
     .btn-primary:hover { background: #d97b0e; }
-
-    @media (max-width: 1024px) {
-      .testimonios-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 768px) {
-      .testimonios-grid { grid-template-columns: 1fr; }
-    }
   </style>
 
 <main id="main-content">
@@ -219,21 +199,30 @@ const testimonios = [
   </div>
 
   <section class="testimonios-section">
-    <div class="testimonios-grid">
-      {testimonios.map((t) => (
-        <div class="testimonio-card">
-          <div class="testimonio-quote-mark">"</div>
-          <p class="testimonio-quote">{t.quote}</p>
-          <div class="testimonio-author">
-            <div class="testimonio-avatar">{t.iniciales}</div>
-            <div class="testimonio-info">
-              <h3>{t.org}</h3>
-              <p>{t.industria}</p>
+    <div class="coverflow">
+      <div class="belt" id="belt">
+        {testimonios.map((t, i) => (
+          <div class="card" data-idx={i} style={`left: ${i * 380}px`}>
+            <div class="qmark">"</div>
+            <p class="qtext">{t.quote}</p>
+            <div class="author">
+              <div class="avatar">{t.iniciales}</div>
+              <div class="testimonio-info">
+                <div class="aname">{t.org}</div>
+                <div class="aindustry">{t.industria}</div>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
+
+    <div class="nav-controls">
+      <button class="cf-btn" id="prev">&#8592;</button>
+      <span class="cf-count" id="count">1 / {testimonios.length}</span>
+      <button class="cf-btn" id="next">&#8594;</button>
+    </div>
+    <div class="dots" id="dots"></div>
   </section>
 
   <section class="cta-final">
@@ -244,4 +233,100 @@ const testimonios = [
     </div>
   </section>
 </main>
+
+<script>
+  const belt = document.getElementById('belt');
+  const dotsEl = document.getElementById('dots');
+  const countEl = document.getElementById('count');
+  
+  if (belt) {
+    const cards = belt.querySelectorAll('.card');
+    const total = cards.length;
+    const GAP = 380;
+    let cur = 0;
+
+    // Build dots and attach clicks to cards
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot';
+      d.onclick = () => go(i);
+      if (dotsEl) dotsEl.appendChild(d);
+      
+      const card = cards[i];
+      card.addEventListener('click', () => { if (i !== cur) go(i); });
+    }
+
+    function positionFor(offset) {
+      const abs = Math.abs(offset);
+      if (abs === 0) return { rotY: 0,   tx: 0,   tz: 0,    blur: 0,   opacity: 1,    scale: 1 };
+      if (abs === 1) return { rotY: offset > 0 ? -42 : 42, tx: offset * 20, tz: -130, blur: 2,   opacity: .72,  scale: .87 };
+      if (abs === 2) return { rotY: offset > 0 ? -58 : 58, tx: offset * 30, tz: -230, blur: 5,   opacity: .38,  scale: .75 };
+      return             { rotY: offset > 0 ? -70 : 70, tx: offset * 40, tz: -320, blur: 8,   opacity: .12,  scale: .65 };
+    }
+
+    function update(animate) {
+      cards.forEach(card => {
+        const cElement = card;
+        const idxAttr = cElement.getAttribute('data-idx') || "0";
+        const i = parseInt(idxAttr, 10);
+        const offset = i - cur;
+        const p = positionFor(offset);
+        const transform = `translateX(${p.tx}px) translateZ(${p.tz}px) rotateY(${p.rotY}deg) scale(${p.scale})`;
+        
+        cElement.style.transition = animate
+          ? 'transform .55s cubic-bezier(.4,0,.2,1), filter .55s, opacity .55s'
+          : 'none';
+        cElement.style.transform = transform;
+        cElement.style.filter = p.blur ? `blur(${p.blur}px)` : 'none';
+        cElement.style.opacity = p.opacity;
+        cElement.style.zIndex = 10 - Math.abs(offset);
+        cElement.style.pointerEvents = offset === 0 ? 'none' : 'auto';
+      });
+
+      belt.style.transition = animate ? 'margin-left .55s cubic-bezier(.4,0,.2,1)' : 'none';
+      belt.style.marginLeft = (-cur * GAP) + 'px';
+
+      if (countEl) countEl.textContent = `${cur + 1} / ${total}`;
+      if (dotsEl) {
+        dotsEl.querySelectorAll('.dot').forEach((d, i) => {
+          if (i === cur) d.classList.add('active');
+          else d.classList.remove('active');
+        });
+      }
+    }
+
+    function go(i) {
+      cur = i;
+      update(true);
+    }
+
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+    if (nextBtn) nextBtn.onclick = () => go(Math.min(cur + 1, total - 1));
+    if (prevBtn) prevBtn.onclick = () => go(Math.max(cur - 1, 0));
+    
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') go(Math.min(cur + 1, total - 1));
+      if (e.key === 'ArrowLeft')  go(Math.max(cur - 1, 0));
+    });
+
+    let tx0 = 0;
+    let isTouching = false;
+    document.addEventListener('touchstart', e => { 
+      tx0 = e.touches[0].clientX; 
+      isTouching = true;
+    }, {passive: true});
+    
+    document.addEventListener('touchend', e => {
+      if (!isTouching) return;
+      const dx = e.changedTouches[0].clientX - tx0;
+      if (dx < -40) go(Math.min(cur + 1, total - 1));
+      if (dx > 40)  go(Math.max(cur - 1, 0));
+      isTouching = false;
+    });
+
+    update(false);
+  }
+</script>
+
 </BaseLayout>
