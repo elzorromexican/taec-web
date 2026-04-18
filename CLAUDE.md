@@ -28,6 +28,18 @@ Todo cambio sigue este flujo obligatorio:
 4. Esperar auditoría/aprobación
 5. Merge solo después de aprobación
 
+### Deploy a producción — MANUAL, una vez al día
+
+Netlify tiene **auto-publish desactivado**. Un merge a `main` buildea pero **no publica** automáticamente.
+
+**Regla:** El deploy a producción lo ejecuta Slim (o Claude Code con permiso explícito) **una vez al día**, al cierre del bloque de trabajo, desde el panel de Netlify → Deploys → "Publish deploy".
+
+**Por qué:** Cada deploy de producción cuesta 15 créditos Netlify. El plan tiene 1,000 créditos/mes (≈66 deploys). Mergear PRs sueltos durante el día no despliega — se acumulan y se publican juntos.
+
+**Antigravity:** Después de que tu PR sea mergeado a `main`, **no esperes un deploy inmediato**. El cambio llegará a producción en el próximo deploy manual del día.
+
+---
+
 ### Formateo con Biome (Reformat Masivo)
 
 **Nunca mezcles** reformateos masivos con `biome` y cambios lógicos (features/fixes) en la misma rama o commit. Si el proyecto requiere un reformat masivo (`npx @biomejs/biome check --write .`), hazlo en una rama separada e independiente (ej. `chore/biome-reformat-2026-04-15`) y ábrele su propio PR antes de iniciar la rama de tu feature o fix.
