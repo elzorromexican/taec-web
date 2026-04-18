@@ -134,6 +134,12 @@
 .cliente-logo-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
 .cliente-logo-pill img { height: 28px; width: auto; max-width: 100px; object-fit: contain; display: block; }
 .cliente-logo-pill span { font-size: 13px; font-weight: 800; color: #111827; letter-spacing: .3px; white-space: nowrap; }
+.cliente-logo-pill.brand-gs1 span       { color: #003DA5; }
+.cliente-logo-pill.brand-viva span      { color: #FF5A00; }
+.cliente-logo-pill.brand-unicef span    { color: #00AEEF; }
+.cliente-logo-pill.brand-oim span       { color: #009FE3; }
+.cliente-logo-pill.brand-penoles span   { color: #003366; }
+.cliente-logo-pill.brand-tec span       { color: #003865; }
 
 /* ── RECURSOS ── */
 .recursos { padding: 72px 5%; background: var(--white); }

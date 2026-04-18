@@ -17,9 +17,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const founded = new Date(2007, 9, 11);
 const now = new Date();
 const anni =
-	now.getFullYear() -
-	founded.getFullYear() -
-	(now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
+  now.getFullYear() -
+  founded.getFullYear() -
+  (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
 
 export const prerender = false; // <-- CRITICO: Forza SSR para interceptar Headers de Netlify por visitante
 
@@ -31,28 +31,28 @@ const articulosColl = await getCollection("articulos").catch(() => []);
 const blogColl = await getCollection("blog").catch(() => []);
 
 const dbPosts = [...articulosColl, ...blogColl]
-	.map((p) => {
-		// En Astro 6, p.id es el identificador (e.g. "mi-post") dado por el glob loader
-		const finalSlug = p.id;
+  .map((p) => {
+    // En Astro 6, p.id es el identificador (e.g. "mi-post") dado por el glob loader
+    const finalSlug = p.id;
 
-		// Extraemos el año del string (ej: "Octubre 2, 2009" -> 2009). Si no hay fecha, asumimos el año actual.
-		const dateStr = p.data.date || p.data.fecha || "";
-		const yearMatch = dateStr.match(/\d{4}/);
-		const year = yearMatch
-			? parseInt(yearMatch[0], 10)
-			: new Date().getFullYear();
+    // Extraemos el año del string (ej: "Octubre 2, 2009" -> 2009). Si no hay fecha, asumimos el año actual.
+    const dateStr = p.data.date || p.data.fecha || "";
+    const yearMatch = dateStr.match(/\d{4}/);
+    const year = yearMatch
+      ? parseInt(yearMatch[0], 10)
+      : new Date().getFullYear();
 
-		return {
-			titulo: p.data.title || p.data.titulo || finalSlug.replace(/-/g, " "),
-			categoria:
-				p.data.category ||
-				p.data.categoria ||
-				(p.collection === "articulos" ? "Artículos" : "Blog"),
-			url: `/${p.collection}/${finalSlug}`,
-			year,
-		};
-	})
-	.filter((p) => p.year >= 2024); // Evita noticias Legacy (pre-2024) en la home
+    return {
+      titulo: p.data.title || p.data.titulo || finalSlug.replace(/-/g, " "),
+      categoria:
+        p.data.category ||
+        p.data.categoria ||
+        (p.collection === "articulos" ? "Artículos" : "Blog"),
+      url: `/${p.collection}/${finalSlug}`,
+      year,
+    };
+  })
+  .filter((p) => p.year >= 2024); // Evita noticias Legacy (pre-2024) en la home
 
 import fallbackTicker from "../../public/data/ticker.json";
 import { latamCountries, promos } from "../data/promos";
@@ -60,48 +60,48 @@ import { latamCountries, promos } from "../data/promos";
 // Lectura exhaustiva de País: Priorizando Contexto Nativo de Netlify Edge > Cabecera Netlify > Fallback
 const netlifyGeo = Astro.locals.netlify?.context?.geo?.country?.code;
 const headerGeo =
-	Astro.request.headers.get("x-country") ||
-	Astro.request.headers.get("x-nf-country");
+  Astro.request.headers.get("x-country") ||
+  Astro.request.headers.get("x-nf-country");
 const countryCode = netlifyGeo || headerGeo || "MX";
 const isLatam = latamCountries.includes(countryCode);
 
 const activePromos = promos.filter(
-	(p) =>
-		p.active &&
-		(p.countries.includes(countryCode) ||
-			(isLatam && p.countries.includes("LATAM")) ||
-			p.countries.includes("GLOBAL")),
+  (p) =>
+    p.active &&
+    (p.countries.includes(countryCode) ||
+      (isLatam && p.countries.includes("LATAM")) ||
+      p.countries.includes("GLOBAL")),
 );
 
 const basePool: any[] =
-	dbPosts.length > 5
-		? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15)
-		: fallbackTicker;
+  dbPosts.length > 5
+    ? dbPosts.sort(() => 0.5 - Math.random()).slice(0, 15)
+    : fallbackTicker;
 let tickerPool: any[] = [];
 
 if (activePromos.length > 0) {
-	const promoItems = activePromos.map((p) => ({
-		titulo: p.title,
-		categoria: p.badgeText.replace(/[^\w\s%·]/g, "").trim() || "OFERTA",
-		url: p.link || "#",
-		isPromo: true,
-		color: p.color || "#c2410c",
-	}));
+  const promoItems = activePromos.map((p) => ({
+    titulo: p.title,
+    categoria: p.badgeText.replace(/[^\w\s%·]/g, "").trim() || "OFERTA",
+    url: p.link || "#",
+    isPromo: true,
+    color: p.color || "#c2410c",
+  }));
 
-	// Patrón: 2 posts normales → 1 promo (rotando entre todas las promos activas)
-	let normalCount = 0;
-	let promoIdx = 0;
-	for (let i = 0; i < basePool.length; i++) {
-		tickerPool.push(basePool[i]);
-		normalCount++;
-		if (normalCount === 2) {
-			tickerPool.push(promoItems[promoIdx % promoItems.length]);
-			promoIdx++;
-			normalCount = 0;
-		}
-	}
+  // Patrón: 2 posts normales → 1 promo (rotando entre todas las promos activas)
+  let normalCount = 0;
+  let promoIdx = 0;
+  for (let i = 0; i < basePool.length; i++) {
+    tickerPool.push(basePool[i]);
+    normalCount++;
+    if (normalCount === 2) {
+      tickerPool.push(promoItems[promoIdx % promoItems.length]);
+      promoIdx++;
+      normalCount = 0;
+    }
+  }
 } else {
-	tickerPool = basePool;
+  tickerPool = basePool;
 }
 ---
 
@@ -373,19 +373,19 @@ if (activePromos.length > 0) {
         <div class="clientes-marquee reveal-up">
           <div class="clientes-track">
             <!-- Set 1 -->
-            <div class="cliente-logo-pill"><span>GS1</span></div>
-            <div class="cliente-logo-pill"><span>VivaAerobús</span></div>
-            <div class="cliente-logo-pill"><span>UNICEF</span></div>
-            <div class="cliente-logo-pill"><span>OIM</span></div>
-            <div class="cliente-logo-pill"><span>Peñoles</span></div>
-            <div class="cliente-logo-pill"><span>Tec de Monterrey</span></div>
+            <div class="cliente-logo-pill brand-gs1"><span>GS1</span></div>
+            <div class="cliente-logo-pill brand-viva"><span>VivaAerobús</span></div>
+            <div class="cliente-logo-pill brand-unicef"><span>UNICEF</span></div>
+            <div class="cliente-logo-pill brand-oim"><span>OIM</span></div>
+            <div class="cliente-logo-pill brand-penoles"><span>Peñoles</span></div>
+            <div class="cliente-logo-pill brand-tec"><span>Tec de Monterrey</span></div>
             <!-- Set 2 (Duplicado para loop infinito) -->
-            <div class="cliente-logo-pill"><span>GS1</span></div>
-            <div class="cliente-logo-pill"><span>VivaAerobús</span></div>
-            <div class="cliente-logo-pill"><span>UNICEF</span></div>
-            <div class="cliente-logo-pill"><span>OIM</span></div>
-            <div class="cliente-logo-pill"><span>Peñoles</span></div>
-            <div class="cliente-logo-pill"><span>Tec de Monterrey</span></div>
+            <div class="cliente-logo-pill brand-gs1"><span>GS1</span></div>
+            <div class="cliente-logo-pill brand-viva"><span>VivaAerobús</span></div>
+            <div class="cliente-logo-pill brand-unicef"><span>UNICEF</span></div>
+            <div class="cliente-logo-pill brand-oim"><span>OIM</span></div>
+            <div class="cliente-logo-pill brand-penoles"><span>Peñoles</span></div>
+            <div class="cliente-logo-pill brand-tec"><span>Tec de Monterrey</span></div>
           </div>
         </div>
       </div>
