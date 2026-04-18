@@ -6,6 +6,12 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.6.1 · 17 abr 2026 — Glosario de Accesibilidad e-Learning
+
+### 📖 Contenido y SEO (Issue #105)
+- **Términos Especializados (A11y):** Añadidos 17 nuevos términos enfocados en la accesibilidad web y e-learning al glosario del sitio, fortaleciendo la indexación SEO y la riqueza semántica técnica del portal.
+- **Ruta Documentada:** Implementado y mergeado mediante la rama `feature/glosario-accesibilidad` (PR #106) garantizando un pipeline limpio de Astro `getStaticPaths()`.
+
 ## v3.6.0 · 17 abr 2026 — TitoBits Personality Modes & Performance Optimization
 
 ### 🤖 Dinámica de Personalidad y Configuración (Supabase)
