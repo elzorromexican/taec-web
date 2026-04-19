@@ -9,6 +9,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 -->
 
 ## 🚀 Prioridades Inmediatas (Siguiente Sesión - QA Intranet y UI)
+- [x] **[ISSUE-112] Carrusel Testimonios 3D (Coverflow):** Implementación de diseño stacked-3d de alta fidelidad para la sección de clientes (PR #113), interactivo vía teclado, clic y swipe, integrado íntegramente con Vanilla JS.
 - [x] **TitoBits Personality Modes:** Implementar sistema dinámico de personalidades (breve, medio, bavardo) controlable vía tabla `tito_config` en Supabase, con defer de fetch conversacional para optimizar performance en Fase 3.
 - [x] **[ISSUE-018] QA UX Hub:** Rectificar el *spacing* superior en la vista principal del Dashboard B2B para mayor pulcritud comercial.
 - [x] **[ISSUE-019] QA UX Hub:** Validar y corregir el comportamiento del Grid horizontal y los Macro-acordeones en dispositivos móviles (iPhone/Android).
