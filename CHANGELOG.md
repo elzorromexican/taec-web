@@ -6,6 +6,13 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.7.2 · 20 abr 2026 — Integración Vectorial de Base de Conocimientos RAG (Issue #127)
+
+### 🤖 Motor 2: RAG Híbrido (Pgvector)
+- **Vectorización Estructural:** Implementación y volcado automático de secuencias vectoriales (Embeddings de `768` dimensiones vía Gemini) en la tabla transaccional `kb_items`. Adición de índices HNSW en Supabase para maximizar el vector similarity search.
+- **Paralelismo Híbrido Asíncrono:** Refactor del enrutador central `tito-chat.ts` incorporando solicitudes concurrentes mediante `Promise.all()`. El Motor 2 evalúa instantáneamente tanto fragmentos genéricos (`tito_knowledge_chunks`) como registros estructurados formales limitando fricción de latencia B2B.
+- **Jerarquía Contextual (Prompting):** Reconfiguración del parseo *ragContext* de TitoBits para anteponer los resultados de la Base de Conocimientos marcando "Prioridad Alta" e inyectando las lógicas de restricción comercial dura (*A evitar:*), reduciendo alucinaciones y objeciones incontroladas.
+
 ## v3.7.1 · 20 abr 2026 — Hardening de Seguridad RLS KB (Issue #124)
 
 ### 🛡️ Seguridad y Row Level Security (RLS)

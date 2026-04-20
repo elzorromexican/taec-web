@@ -89,6 +89,28 @@ export async function searchSimilarChunks(
 }
 
 /**
+ * Busca en la base de datos Supabase usando el embedding sobre kb_items.
+ */
+export async function searchKbItems(
+	embedding: number[],
+	matchThreshold = 0.5,
+	matchCount = 3,
+) {
+	const { data, error } = await supabase.rpc("match_kb_items", {
+		query_embedding: embedding,
+		match_threshold: matchThreshold,
+		match_count: matchCount,
+	});
+
+	if (error) {
+		console.error("Error en pgvector RPC match_kb_items:", error);
+		return [];
+	}
+
+	return data || [];
+}
+
+/**
  * Upserts a new knowledge chunk with its embedding vector.
  */
 export async function indexKnowledgeChunk(

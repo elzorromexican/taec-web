@@ -20,6 +20,7 @@ import {
 import {
 	getEmbedding,
 	searchSimilarChunks,
+	searchKbItems,
 	supabase,
 } from "../../lib/tito/rag";
 import {
@@ -145,9 +146,12 @@ export const POST: APIRoute = async ({ request }) => {
 		const rulesContext = getSystemRulesString();
 		const escalationCheck = evaluateMessageForEscalation(message);
 
-		// ======= MOTOR 2: RAG (VECTORES) =======
+		// ======= MOTOR 2: RAG (VECTORES HÍBRIDO) =======
 		const messageEmbedding = await getEmbedding(message);
-		const contextChunks = await searchSimilarChunks(messageEmbedding);
+		const [contextChunks, kbItems] = await Promise.all([
+			searchSimilarChunks(messageEmbedding, 0.75, 2),
+			searchKbItems(messageEmbedding, 0.5, 3)
+		]);
 
 		// ======= MOTOR 3: SCORING Y EXTRACCIONES LLM =======
 		const geminiKey =
@@ -238,7 +242,14 @@ Schema esperado:
 				"Por favor indícame la cantidad exacta de licencias o alcances para asistirte.";
 		} else {
 			// CONTINUE — responder con Gemini usando contexto RAG
-			const ragContext = contextChunks.map((c: any) => c.content).join("\n\n");
+			let ragContext = "";
+			if (kbItems && kbItems.length > 0) {
+				ragContext += "### BASE DE CONOCIMIENTOS (Prioridad Alta):\n" + kbItems.map((kb: any) => `Q: ${kb.pregunta}\nA: ${kb.plus}\nA evitar: ${kb.menos}`).join("\n\n") + "\n\n";
+			}
+			if (contextChunks && contextChunks.length > 0) {
+				ragContext += "### DOCUMENTACIÓN GENERAL:\n" + contextChunks.map((c: any) => c.content).join("\n\n");
+			}
+			ragContext = ragContext.trim();
 
 			// Fetch personality mode from Supabase config (non-blocking, default 'medio')
 			let personalityMode: PersonalityMode = 'medio';
