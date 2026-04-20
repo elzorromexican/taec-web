@@ -1,14 +1,16 @@
 import ast
 import csv
 import os
+import sys
+from pathlib import Path
 from dotenv import load_dotenv
 from supabase import create_client
 
-load_dotenv("astro-web/.env")
+load_dotenv(Path(__file__).parent.parent / "astro-web/.env")
 
 CSV_PATH = "kb_traducido_FINAL.csv"
 SUPABASE_URL = os.environ["PUBLIC_SUPABASE_URL"]
-SUPABASE_KEY = os.environ["PUBLIC_SUPABASE_ANON_KEY"]
+SUPABASE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 
 SECTION_MAP = {
     "faq_ventas": "comercial",
@@ -43,7 +45,7 @@ def normalize_list_field(value: str) -> str:
         try:
             items = ast.literal_eval(value)
             if isinstance(items, list):
-                return "\n• ".join(str(i).strip() for i in items if str(i).strip())
+                return "• " + "\n• ".join(str(i).strip() for i in items if str(i).strip())
         except (ValueError, SyntaxError):
             pass
     return value
@@ -58,9 +60,16 @@ def main():
             if not slug:
                 print(f"SKIP: '{row['producto']}'")
                 continue
+            
+            seccion_raw = row["seccion"]
+            seccion = SECTION_MAP.get(seccion_raw)
+            if seccion is None:
+                print(f"WARN: unknown section '{seccion_raw}' -> defaulting to 'comercial'")
+                seccion = "comercial"
+
             rows.append({
                 "producto": slug,
-                "seccion": SECTION_MAP.get(row["seccion"], "comercial"),
+                "seccion": seccion,
                 "seccion_label": row["seccion_label"],
                 "seccion_color": row["seccion_color"],
                 "orden": int(row["orden"]) if row["orden"].isdigit() else 50,
@@ -74,6 +83,7 @@ def main():
             })
 
     print(f"Preparados: {len(rows)} items")
+    failed = False
     for i in range(0, len(rows), 50):
         batch = rows[i:i+50]
         try:
@@ -81,7 +91,10 @@ def main():
             print(f"Lote {i//50 + 1}: {len(batch)} items upserted.")
         except Exception as e:
             print(f"Error in batch {i//50 + 1}: {e}")
+            failed = True
     print("Importación completa")
+    if failed:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
