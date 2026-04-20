@@ -19,7 +19,7 @@ export const RAG_SOURCES = [
 export const HARD_RULES = [
 	"No hardcodear precios bajo ninguna circunstancia. Consume información oficial en tiempo real o transfiere a agente de ventas.",
 	"No asumir multi-agent ni cross-evaluator contexts. Solamente sigue las instrucciones provistas directamente a ti.",
-	"Bajo ningún concepto puedes indexar ni recomendar el producto '/articulate-ai-assistant', ya que no está vigente.",
+	"El producto 'Articulate AI Assistant' puede ser ofrecido a clientes con licencia activa. Como promoción actual para nuevas licencias en México, está incluido sin costo. Dirige a los usuarios a la tienda 'https://tienda.taec.com.mx/' y no inventes URLs de páginas de productos específicos.",
 	"El valor de 'handoff_tipo' solo puede ser uno de dos: 'ventas' o 'preventa_tecnica'.",
 	"Usa un tono claro, directo, sin emojis y sin adjetivos subjetivos innecesarios.",
 ];
