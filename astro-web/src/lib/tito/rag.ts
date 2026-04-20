@@ -93,7 +93,7 @@ export async function searchSimilarChunks(
  */
 export async function searchKbItems(
 	embedding: number[],
-	matchThreshold = 0.5,
+	matchThreshold = 0.75,
 	matchCount = 3,
 ) {
 	const { data, error } = await supabase.rpc("match_kb_items", {
