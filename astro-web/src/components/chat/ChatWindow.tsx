@@ -501,8 +501,7 @@ export default function ChatWindow({
 					{/* Footer Input */}
 					{hasStarted && (
 						<div style={chatStyles.footerContainer}>
-							{chatMode === "handoff_closed" ||
-							chatMode === "handoff_pending" ? (
+							{chatMode === "handoff_closed" ? (
 								<div
 									style={{
 										display: "flex",
