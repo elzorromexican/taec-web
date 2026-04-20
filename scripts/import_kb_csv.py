@@ -13,7 +13,9 @@ SUPABASE_URL = os.environ["PUBLIC_SUPABASE_URL"]
 SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 
 if not SUPABASE_KEY:
-    sys.exit("[SECURITY BLOCK] Missing SUPABASE_SERVICE_ROLE_KEY. Aborting import.")
+    print("CRITICAL ERROR: SUPABASE_SERVICE_ROLE_KEY no está definida.")
+    print("Por razones de seguridad (Issue #124), la importación de KB debe realizarse EXCLUSIVAMENTE con la llave de Service Role.")
+    sys.exit(1)
 
 SECTION_MAP = {
     "faq_ventas": "comercial",

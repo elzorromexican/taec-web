@@ -6,6 +6,12 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.7.1 · 20 abr 2026 — Hardening de Seguridad RLS KB (Issue #124)
+
+### 🛡️ Seguridad y Row Level Security (RLS)
+- **Aislamiento de Escritura en Knowledge Base:** Auditoría e implementación de política estricta de Row-Level Security (`Permitir escrituras solo a Service Role`) sobre la tabla `kb_items` en Supabase. Se certificó la imposibilidad de escrituras con el rol `anon`, bloqueando cualquier vector de ataque de subida de datos no autorizado.
+- **Validación Estricta de Llaves en Migración:** Reforzamiento estructural en `import_kb_csv.py` inyectando trampas lógicas para abortar categóricamente la ejecución si detecta ausencia de `SUPABASE_SERVICE_ROLE_KEY` o el uso accidental de llaves públicas (`anon`/`publishable`).
+
 ## v3.7.0 · 18 abr 2026 — Rediseño de Testimonios 3D (Coverflow)
 
 ### 🎨 UI/UX y Animación 3D
