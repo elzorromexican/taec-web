@@ -14,7 +14,7 @@ export const onRequest = defineMiddleware(
 			const refreshToken = cookies.get("sb-refresh-token")?.value;
 
 			if (!accessToken || !refreshToken) {
-				return redirect("/interno/login");
+				return redirect("/interno/login?reason=missing");
 			}
 
 			// Instancia limpia para SSR (Evita fuga de memoria cruzada entre peticiones GET simultáneas)
@@ -49,7 +49,7 @@ export const onRequest = defineMiddleware(
 			});
 
 			if (error || !session) {
-				return redirect("/interno/login");
+				return redirect("/interno/login?reason=expired");
 			}
 
 			// Actualizamos las cookies en el cliente si es que Supabase renovó la sesión por debajo
