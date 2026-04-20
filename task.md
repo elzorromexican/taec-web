@@ -163,7 +163,7 @@ Solo se detendrá a pedir confirmación si la acción es destructiva/irreversibl
 
 **🟡 Backlog Medio (UX & Trazabilidad SSR)**
 - [ ] **Arquitectura y A11y del Mega Menú:** Cirugía visual y semántica sobre la densidad del `navigation.ts` público para transicionar la retención de usuarios hacia "Casos de Uso", eliminando la sobrecarga cognitiva.
-- [ ] **Trazabilidad de Errores Internos:** Sustituir los redireccionamientos masivos genéricos del `middleware.ts` en `/interno/*` por códigos analíticos finos (ej. Token inválido, Expirado, Dominio denegado, Usuario inactivo), inyectando observabilidad al modelo de seguridad Zero-Trust B2B.
+- [x] **Trazabilidad de Errores Internos:** Sustituir los redireccionamientos masivos genéricos del `middleware.ts` en `/interno/*` por códigos analíticos finos (ej. Token inválido, Expirado, Dominio denegado, Usuario inactivo), inyectando observabilidad al modelo de seguridad Zero-Trust B2B.
 
 ## 🗺️ Roadmap Fase 2 (Detallado)
 **1. Reestructuración Profunda de Menú y UX (Postergado para el Final)**
