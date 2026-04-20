@@ -93,8 +93,8 @@ const testimonios = [
 
     /* ── COVERFLOW ── */
     .testimonios-section {
-      padding: 72px 0 32px 0;
-      background: var(--light);
+      padding: 72px 0;
+      background: var(--navy);
       position: relative;
       overflow: hidden; /* Evitar scroll horizontal en pantallas móviles */
     }
@@ -136,15 +136,15 @@ const testimonios = [
       .author { bottom: 24px; left: 24px; right: 24px; }
     }
     .qmark { font-family: var(--font-display); font-size: 56px; color: var(--teal); line-height: 0.8; margin-bottom: 8px; }
-    .qtext { font-size: 14.5px; color: var(--dark); line-height: 1.6; margin-bottom: 24px; font-style: italic; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .qtext { font-size: 14.5px; color: #1e3a4f; line-height: 1.6; margin-bottom: 24px; font-style: italic; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
     .author { display: flex; align-items: center; gap: 16px; position: absolute; bottom: 32px; left: 36px; right: 36px; }
     .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--white); flex-shrink: 0; }
     .aname { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
     .aindustry { font-size: 13px; color: var(--muted); }
 
     /* ── NAV ── */
-    .nav-controls { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 48px; }
-    .cf-btn { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(168,219,217,.4); background: var(--white); color: var(--teal); font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+    .nav-controls { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 52px; }
+    .cf-btn { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(168,219,217,.35); background: transparent; color: var(--teal); font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; }
     .cf-btn:hover { border-color: var(--teal); background: rgba(168,219,217,.1); transform: scale(1.08); }
     .cf-count { font-size: 14px; font-weight: 600; color: var(--teal); min-width: 44px; letter-spacing: .5px; text-align: center; }
     .dots { display: flex; gap: 7px; justify-content: center; margin-top: 20px; }
@@ -194,11 +194,11 @@ const testimonios = [
     </div>
   </section>
 
-  <div style="text-align:center; padding: 24px 5% 0; background: var(--light);">
-    <p class="section-label" style="justify-content:center;">Lo que dicen nuestros clientes</p>
-  </div>
-
   <section class="testimonios-section">
+    <div style="text-align:center; padding: 0 5%;">
+      <h2 style="font-size: 32px; font-weight: 700; color: var(--white); margin-bottom: 64px; font-family: var(--font-display);">Lo que dicen de nosotros</h2>
+    </div>
+
     <div class="coverflow">
       <div class="belt" id="belt">
         {testimonios.map((t, i) => (

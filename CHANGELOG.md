@@ -6,6 +6,13 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.7.0 · 18 abr 2026 — Rediseño de Testimonios 3D (Coverflow)
+
+### 🎨 UI/UX y Animación 3D
+- **Carrusel 3D Stacked (Coverflow):** Implementación de una nueva galería interactiva en `clientes.astro` con efecto de profundidad 3D (`perspective`), desplazamiento rotacional y desenfoque dinámico (`blur`) para las tarjetas no activas, alineándose con el *look & feel* corporativo premium (Issue #112).
+- **Interacción Multimodal:** El carrusel ahora cuenta con soporte funcional *client-side* en Vanilla JS para interacción táctil responsiva (*swipe* en móviles), navegación por flechas de teclado y clics directos sobre las tarjetas laterales (PR #113).
+- **Jerarquía y Estética Institucional:** Refinamiento visual aislando la sección bajo fondo `var(--navy)` y eliminando el ruido jerárquico (eyebrows repetidos). Se estandarizó el color de los testimonios al claro corporativo para maximizar legibilidad.
+
 ## v3.6.0 · 17 abr 2026 — TitoBits Personality Modes & Performance Optimization
 
 ### 🤖 Dinámica de Personalidad y Configuración (Supabase)
