@@ -10,7 +10,10 @@ load_dotenv(Path(__file__).parent.parent / "astro-web/.env")
 
 CSV_PATH = "kb_traducido_FINAL.csv"
 SUPABASE_URL = os.environ["PUBLIC_SUPABASE_URL"]
-SUPABASE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+
+if not SUPABASE_KEY:
+    sys.exit("[SECURITY BLOCK] Missing SUPABASE_SERVICE_ROLE_KEY. Aborting import.")
 
 SECTION_MAP = {
     "faq_ventas": "comercial",
