@@ -88,9 +88,9 @@ export default function AdminTitoConfig({
 								fontSize: "0.95rem"
 							}}
 						>
-							<option value="breve">Breve (Directo, telegrafico, 1 párrafo máximo)</option>
-							<option value="medio">Medio (Equilibrado, 2-3 párrafos)</option>
-							<option value="bavardo">Bavardo (Explicativo, detallado)</option>
+							<option value="breve">Breve (Máximo 2 oraciones, directo y sin extras)</option>
+							<option value="medio">Medio (2 a 4 oraciones, equilibrado)</option>
+							<option value="bavardo">Bavardo (Hasta 6 oraciones, consultivo y detallado)</option>
 						</select>
 					</label>
 					<button
