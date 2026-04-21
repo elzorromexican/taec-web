@@ -19,10 +19,15 @@ const getSafeEnv = (k: string) => {
 };
 
 const supabaseUrl =
-	getSafeEnv("SUPABASE_URL") ?? getSafeEnv("PUBLIC_SUPABASE_URL") ?? "";
+	(import.meta.env && import.meta.env.PUBLIC_SUPABASE_URL) ||
+	getSafeEnv("SUPABASE_URL") ||
+	getSafeEnv("PUBLIC_SUPABASE_URL") ||
+	"";
 const supabaseKey =
-	getSafeEnv("SUPABASE_SERVICE_ROLE_KEY") ??
-	getSafeEnv("PUBLIC_SUPABASE_ANON_KEY") ??
+	(import.meta.env && import.meta.env.SUPABASE_SERVICE_ROLE_KEY) ||
+	(import.meta.env && import.meta.env.PUBLIC_SUPABASE_ANON_KEY) ||
+	getSafeEnv("SUPABASE_SERVICE_ROLE_KEY") ||
+	getSafeEnv("PUBLIC_SUPABASE_ANON_KEY") ||
 	"";
 const geminiApiKey =
 	getSafeEnv("TAEC_GEMINI_KEY") ?? getSafeEnv("GEMINI_API_KEY") ?? "";
