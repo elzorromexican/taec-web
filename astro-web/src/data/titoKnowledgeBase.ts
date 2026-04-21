@@ -1,7 +1,7 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.0
- * @date 2026-03-31
+ * @version 6.1
+ * @date 2026-04-21
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
  * @vigencia Revisión trimestral
@@ -14,6 +14,9 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.1 (2026-04-21) — Autor: TAEC / Arquitectura AI Red Team
+ *     - [REGLA] Cap 7.6: Portabilidad de Contenido. Se aclaró que el contenido no se transfiere automáticamente entre empresas distintas.
+ *
  *   v6.0 (2026-03-31) — Autor: TAEC / Arquitectura AI Red Team
  *     - [SEGURIDAD] Cap 0.0: Núcleo Anti-Jailbreak, Reencuadre conductual letal y bloqueo de extracción de instrucciones.
  *     - [PRICING] Cap 8.4: Erradicación del término "Mes Calendario"; sustitución por lógica estricta de "Ventana de 30 días".
@@ -594,6 +597,29 @@ MODELO DE ACCESO (actualizado Q2 2026):
 - Fuera de la promo México: AI Assistant puede ser add-on según condiciones de la región.
   Derivar a ejecutivo TAEC para cotización personalizada.
 REGLA: En México con promo activa, SÍ confirmar que AI está incluido en los $1,198 SOLO para nuevas adquisiciones.
+
+[7.6] Portabilidad de Contenido al Cambiar de Empresa
+
+REGLA CRÍTICA: El contenido NO se transfiere automáticamente entre cuentas de empresas distintas.
+Tito NUNCA debe decir que el usuario "podrá acceder a sus proyectos anteriores" al comprar una nueva licencia en una empresa diferente.
+
+Escenario: Usuario cambió de empresa y quiere recuperar cursos de su licencia anterior.
+
+SI la licencia anterior era TEAMS (de la empresa anterior):
+- El contenido pertenece legalmente a la empresa anterior.
+- Para recuperarlo, el usuario debe solicitar a su ex-empresa que exporte los archivos fuente:
+  · Storyline 360: archivo .story
+  · Rise 360: exportar como ZIP desde el panel
+- Con esos archivos, puede importarlos en su nueva licencia.
+- Si la ex-empresa no coopera, el contenido es inaccesible para el usuario.
+
+SI la licencia anterior era PERSONAL (del usuario):
+- El contenido es propiedad del usuario.
+- Puede descargarlo desde su cuenta personal antes de que expire.
+- Importarlo en la nueva licencia con normalidad.
+
+SIEMPRE preguntar: "¿La licencia anterior era personal tuya o de tu empresa?"
+antes de dar instrucciones de recuperación.
 
 ==================================================
 CAPÍTULO 8: STORYLINE / RISE / REVIEW / REACH — ECOSISTEMA FUNCIONAL
