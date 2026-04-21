@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AdminNovedades from "./AdminNovedades";
 import AdminPlaybooks from "./AdminPlaybooks";
+import AdminTitoConfig from "./AdminTitoConfig";
 
 export default function AdminUI({
 	supabaseUrl,
@@ -11,7 +12,7 @@ export default function AdminUI({
 	supabaseKey: string;
 	accessToken: string;
 }) {
-	const [activeTab, setActiveTab] = useState<"novedades" | "playbooks">(
+	const [activeTab, setActiveTab] = useState<"novedades" | "playbooks" | "tito">(
 		"novedades",
 	);
 
@@ -63,6 +64,25 @@ export default function AdminUI({
 				>
 					Metadatos de Playbooks
 				</button>
+				<button
+					onClick={() => setActiveTab("tito")}
+					style={{
+						background: "transparent",
+						border: "none",
+						padding: "0.75rem 0",
+						cursor: "pointer",
+						fontSize: "1.05rem",
+						fontWeight: activeTab === "tito" ? "bold" : "normal",
+						color: activeTab === "tito" ? "var(--navy-slate)" : "#64748b",
+						borderBottom:
+							activeTab === "tito"
+								? "2px solid var(--navy-slate)"
+								: "2px solid transparent",
+						outline: "none",
+					}}
+				>
+					Personalidad TitoBits
+				</button>
 			</div>
 
 			{/* TAB CONTENT */}
@@ -76,6 +96,13 @@ export default function AdminUI({
 				)}
 				{activeTab === "playbooks" && (
 					<AdminPlaybooks
+						supabaseUrl={supabaseUrl}
+						supabaseKey={supabaseKey}
+						accessToken={accessToken}
+					/>
+				)}
+				{activeTab === "tito" && (
+					<AdminTitoConfig
 						supabaseUrl={supabaseUrl}
 						supabaseKey={supabaseKey}
 						accessToken={accessToken}
