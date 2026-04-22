@@ -72,57 +72,62 @@ const isActive = (path) =>
         <p class="nav-label">Lobby</p>
         <a href="/interno/dashboard" class={`nav-link ${isActive('/interno/dashboard')}`}>🏠 Dashboard & News</a>
         
-        <p class="nav-label">Portafolio SaaS</p>
-        
-        <details class="nav-group" open={isArticulate}>
-          <summary class="nav-group-btn">Articulate 360</summary>
+        <details class="nav-group" open={isArticulate || isVyond || isLMS || isAddons || isCatalog}>
+          <summary class="nav-group-btn">📦 Portafolio SaaS</summary>
           <div class="nav-group-content">
-            <a href="/interno/playbooks/rise360" class={`nav-link ${isActive('/interno/playbooks/rise360')}`}>📚 Rise 360</a>
-            <a href="/interno/playbooks/storyline360" class={`nav-link ${isActive('/interno/playbooks/storyline360')}`}>📚 Storyline 360</a>
-            <a href="/interno/playbooks/review360" class={`nav-link ${isActive('/interno/playbooks/review360')}`}>📚 Review 360</a>
-            <a href="/interno/playbooks/reach360" class={`nav-link ${isActive('/interno/playbooks/reach360')}`}>📚 Reach 360</a>
-            <a href="/interno/playbooks/aiassistant" class={`nav-link ${isActive('/interno/playbooks/aiassistant')}`}>🤖 AI Assistant</a>
-            <a href="/interno/playbooks/localization" class={`nav-link ${isActive('/interno/playbooks/localization')}`}>🌐 Localization</a>
-          </div>
-        </details>
-        
-        <details class="nav-group" open={isVyond}>
-          <summary class="nav-group-btn">Vyond</summary>
-          <div class="nav-group-content">
-            <a href="/interno/playbooks/vyondgo" class={`nav-link ${isActive('/interno/playbooks/vyondgo')}`}>🤖 Vyond Go</a>
-            <a href="/interno/playbooks/vyondstudio" class={`nav-link ${isActive('/interno/playbooks/vyondstudio')}`}>🎬 Vyond Studio</a>
-            <a href="/interno/playbooks/vyondmobile" class={`nav-link ${isActive('/interno/playbooks/vyondmobile')}`}>📱 Vyond Mobile</a>
-            <a href="/interno/playbooks/vyondenterprise" class={`nav-link ${isActive('/interno/playbooks/vyondenterprise')}`}>🏢 Enterprise</a>
-            <a href="/interno/playbooks/vyondprofessional" class={`nav-link ${isActive('/interno/playbooks/vyondprofessional')}`}>💼 Professional</a>
-          </div>
-        </details>
 
-        <details class="nav-group" open={isLMS}>
-          <summary class="nav-group-btn">Plataformas & LMS</summary>
-          <div class="nav-group-content">
-            <a href="/interno/playbooks/moodle" class={`nav-link ${isActive('/interno/playbooks/moodle')}`}>📚 Moodle Workspace</a>
-            <a href="/interno/playbooks/totara" class={`nav-link ${isActive('/interno/playbooks/totara')}`}>📚 Totara LMS</a>
-            <a href="/interno/playbooks/pifinilearn" class={`nav-link ${isActive('/interno/playbooks/pifinilearn')}`}>📚 Pifini Learn</a>
-            <a href="/interno/playbooks/ottolearn" class={`nav-link ${isActive('/interno/playbooks/ottolearn')}`}>📚 Ottolearn</a>
-            <a href="/interno/playbooks/lys" class={`nav-link ${isActive('/interno/playbooks/lys')}`}>📚 Lys</a>
-          </div>
-        </details>
+            <details class="nav-group nav-group-nested" open={isArticulate}>
+              <summary class="nav-group-btn">Articulate 360</summary>
+              <div class="nav-group-content">
+                <a href="/interno/playbooks/rise360" class={`nav-link ${isActive('/interno/playbooks/rise360')}`}>📚 Rise 360</a>
+                <a href="/interno/playbooks/storyline360" class={`nav-link ${isActive('/interno/playbooks/storyline360')}`}>📚 Storyline 360</a>
+                <a href="/interno/playbooks/review360" class={`nav-link ${isActive('/interno/playbooks/review360')}`}>📚 Review 360</a>
+                <a href="/interno/playbooks/reach360" class={`nav-link ${isActive('/interno/playbooks/reach360')}`}>📚 Reach 360</a>
+                <a href="/interno/playbooks/aiassistant" class={`nav-link ${isActive('/interno/playbooks/aiassistant')}`}>🤖 AI Assistant</a>
+                <a href="/interno/playbooks/localization" class={`nav-link ${isActive('/interno/playbooks/localization')}`}>🌐 Localization</a>
+              </div>
+            </details>
+            
+            <details class="nav-group nav-group-nested" open={isVyond}>
+              <summary class="nav-group-btn">Vyond</summary>
+              <div class="nav-group-content">
+                <a href="/interno/playbooks/vyondgo" class={`nav-link ${isActive('/interno/playbooks/vyondgo')}`}>🤖 Vyond Go</a>
+                <a href="/interno/playbooks/vyondstudio" class={`nav-link ${isActive('/interno/playbooks/vyondstudio')}`}>🎬 Vyond Studio</a>
+                <a href="/interno/playbooks/vyondmobile" class={`nav-link ${isActive('/interno/playbooks/vyondmobile')}`}>📱 Vyond Mobile</a>
+                <a href="/interno/playbooks/vyondenterprise" class={`nav-link ${isActive('/interno/playbooks/vyondenterprise')}`}>🏢 Enterprise</a>
+                <a href="/interno/playbooks/vyondprofessional" class={`nav-link ${isActive('/interno/playbooks/vyondprofessional')}`}>💼 Professional</a>
+              </div>
+            </details>
 
-        <details class="nav-group" open={isAddons}>
-          <summary class="nav-group-btn">Servicios & Add-ons</summary>
-          <div class="nav-group-content">
-            <a href="/interno/playbooks/ddc" class={`nav-link ${isActive('/interno/playbooks/ddc')}`}>📚 DDC (Desarrollo)</a>
-            <a href="/interno/playbooks/class" class={`nav-link ${isActive('/interno/playbooks/class')}`}>📚 Class</a>
-            <a href="/interno/playbooks/proctorizer" class={`nav-link ${isActive('/interno/playbooks/proctorizer')}`}>📚 Proctorizer</a>
-            <a href="/interno/playbooks/strikeplagiarism" class={`nav-link ${isActive('/interno/playbooks/strikeplagiarism')}`}>📚 StrikePlagiarism</a>
-          </div>
-        </details>
+            <details class="nav-group nav-group-nested" open={isLMS}>
+              <summary class="nav-group-btn">Plataformas & LMS</summary>
+              <div class="nav-group-content">
+                <a href="/interno/playbooks/moodle" class={`nav-link ${isActive('/interno/playbooks/moodle')}`}>📚 Moodle Workspace</a>
+                <a href="/interno/playbooks/totara" class={`nav-link ${isActive('/interno/playbooks/totara')}`}>📚 Totara LMS</a>
+                <a href="/interno/playbooks/pifinilearn" class={`nav-link ${isActive('/interno/playbooks/pifinilearn')}`}>📚 Pifini Learn</a>
+                <a href="/interno/playbooks/ottolearn" class={`nav-link ${isActive('/interno/playbooks/ottolearn')}`}>📚 Ottolearn</a>
+                <a href="/interno/playbooks/lys" class={`nav-link ${isActive('/interno/playbooks/lys')}`}>📚 Lys</a>
+              </div>
+            </details>
 
-        <details class="nav-group" open={isCatalog}>
-          <summary class="nav-group-btn">Catálogo Listo</summary>
-          <div class="nav-group-content">
-            <a href="/interno/playbooks/7minutes" class={`nav-link ${isActive('/interno/playbooks/7minutes')}`}>📚 7 Minutes</a>
-            <a href="/interno/playbooks/customguide" class={`nav-link ${isActive('/interno/playbooks/customguide')}`}>📚 Custom Guide</a>
+            <details class="nav-group nav-group-nested" open={isAddons}>
+              <summary class="nav-group-btn">Servicios & Add-ons</summary>
+              <div class="nav-group-content">
+                <a href="/interno/playbooks/ddc" class={`nav-link ${isActive('/interno/playbooks/ddc')}`}>📚 DDC (Desarrollo)</a>
+                <a href="/interno/playbooks/class" class={`nav-link ${isActive('/interno/playbooks/class')}`}>📚 Class</a>
+                <a href="/interno/playbooks/proctorizer" class={`nav-link ${isActive('/interno/playbooks/proctorizer')}`}>📚 Proctorizer</a>
+                <a href="/interno/playbooks/strikeplagiarism" class={`nav-link ${isActive('/interno/playbooks/strikeplagiarism')}`}>📚 StrikePlagiarism</a>
+              </div>
+            </details>
+
+            <details class="nav-group nav-group-nested" open={isCatalog}>
+              <summary class="nav-group-btn">Catálogo Listo</summary>
+              <div class="nav-group-content">
+                <a href="/interno/playbooks/7minutes" class={`nav-link ${isActive('/interno/playbooks/7minutes')}`}>📚 7 Minutes</a>
+                <a href="/interno/playbooks/customguide" class={`nav-link ${isActive('/interno/playbooks/customguide')}`}>📚 Custom Guide</a>
+              </div>
+            </details>
+
           </div>
         </details>
 
@@ -185,7 +190,7 @@ const isActive = (path) =>
   }
 
   .sidebar-header {
-    padding: 2rem 1.5rem;
+    padding: 1.25rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -216,19 +221,29 @@ const isActive = (path) =>
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #475569;
-    margin: 1.5rem 0 0.5rem 0.5rem;
+    margin: 1rem 0 0.25rem 0.5rem;
     font-weight: 700;
   }
 
   .nav-group {
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .nav-group-nested .nav-group-btn {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.6rem;
+    color: #64748b;
+  }
+
+  .nav-group-nested.nav-group {
+    margin-top: 0.15rem;
   }
 
   .nav-group-btn {
     font-size: 0.75rem;
     color: #94a3b8;
     margin: 0.25rem 0;
-    padding: 0.5rem 0.8rem;
+    padding: 0.4rem 0.8rem;
     cursor: pointer;
     font-weight: 600;
     list-style: none; /* Hide default arrow in modern browsers */
@@ -281,10 +296,10 @@ const isActive = (path) =>
   .nav-link {
     display: flex;
     align-items: center;
-    padding: 0.5rem 0.8rem;
+    padding: 0.4rem 0.8rem;
     color: #cbd5e1;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     border-radius: 0.5rem;
     font-weight: 500;
     transition: all 0.2s;
@@ -362,18 +377,20 @@ const isActive = (path) =>
   document.addEventListener('astro:page-load', () => {
     // 1. Encontrar la categoría activa (la que tiene el link activo)
     const activeLink = document.querySelector('.intranet-sidebar .nav-link.active');
-    let activeGroup = null;
+    const activeGroups = activeLink ? Array.from(document.querySelectorAll('.sidebar-nav details.nav-group')).filter(g => g.contains(activeLink)) : [];
+    
     if (activeLink) {
-      activeGroup = activeLink.closest('details.nav-group');
-      if (activeGroup && !activeGroup.hasAttribute('open')) {
-        activeGroup.setAttribute('open', '');
-      }
+      activeGroups.forEach(group => {
+        if (!group.hasAttribute('open')) {
+          group.setAttribute('open', '');
+        }
+      });
     }
 
     // 2. Forzar el cierre de todas las demás categorías para limpiar el estado de la vista anterior
     const navGroups = document.querySelectorAll('details.nav-group');
     navGroups.forEach(group => {
-      if (group !== activeGroup && group.hasAttribute('open')) {
+      if (!activeGroups.includes(group) && group.hasAttribute('open')) {
         group.removeAttribute('open');
       }
     });
@@ -389,7 +406,7 @@ const isActive = (path) =>
           if (group) {
             const isCurrentlyClosed = !group.hasAttribute('open');
             if (isCurrentlyClosed) { // Si vamos a abrirlo, cerramos los demás
-              const allGroups = sidebarNav.querySelectorAll('details.nav-group');
+              const allGroups = group.parentElement.querySelectorAll(':scope > details.nav-group');
               allGroups.forEach(otherGroup => {
                 if (otherGroup !== group && otherGroup.hasAttribute('open')) {
                   otherGroup.removeAttribute('open');
