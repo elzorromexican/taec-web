@@ -1,31 +1,37 @@
 /**
  * @name rag.ts
- * @version 1.1
+ * @version 1.2
  * @description Motor 2: indexación, generación de embeddings genéricos mediante API y búsqueda con Supabase pgvector.
  * @inputs Texto natural de consulta
  * @outputs Chunks de contexto relevante
  * @dependencies @supabase/supabase-js
  * @created 2026-04-11
- * @updated 2026-04-11 12:00:00
+ * @updated 2026-04-23 10:46:00
+ *
+ * Changelog:
+ *   v1.2 (2026-04-23) — Autor: Antigravity
+ *     - [FIX] Resolución de env vars compatible con Astro SSR (import.meta.env + process.env) para config Supabase y Gemini
  */
 
 import { createClient } from "@supabase/supabase-js";
 
-const getSafeEnv = (k: string) => {
-	if (typeof process !== "undefined" && process.env && process.env[k]) {
-		return process.env[k] as string;
-	}
-	return undefined;
-};
-
 const supabaseUrl =
-	getSafeEnv("SUPABASE_URL") ?? getSafeEnv("PUBLIC_SUPABASE_URL") ?? "";
-const supabaseKey =
-	getSafeEnv("SUPABASE_SERVICE_ROLE_KEY") ??
-	getSafeEnv("PUBLIC_SUPABASE_ANON_KEY") ??
+	(typeof process !== "undefined" && process.env.SUPABASE_URL) ||
+	(typeof process !== "undefined" && process.env.PUBLIC_SUPABASE_URL) ||
+	(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.PUBLIC_SUPABASE_URL) ||
 	"";
+
+const supabaseKey =
+	(typeof process !== "undefined" && process.env.SUPABASE_SERVICE_ROLE_KEY) ||
+	(typeof process !== "undefined" && process.env.PUBLIC_SUPABASE_ANON_KEY) ||
+	(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.PUBLIC_SUPABASE_ANON_KEY) ||
+	"";
+
 const geminiApiKey =
-	getSafeEnv("TAEC_GEMINI_KEY") ?? getSafeEnv("GEMINI_API_KEY") ?? "";
+	(typeof process !== "undefined" && process.env.TAEC_GEMINI_KEY) ||
+	(typeof process !== "undefined" && process.env.GEMINI_API_KEY) ||
+	(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.TAEC_GEMINI_KEY) ||
+	"";
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
