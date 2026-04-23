@@ -1,13 +1,16 @@
 ---
 /**
  * @name IntranetLayout.astro
- * @version 1.1
+ * @version 1.2
  * @description Master layout de la intranet B2B. Incluye Sidebar para la navegación y barra responsiva.
  * @inputs title, description
  * @outputs Layout renderizado
  * @dependencies BaseLayout.astro
  * @created 2026-03-01
- * @updated 2026-04-04 12:12:00
+ * @updated 2026-04-23 12:00:00
+ * 
+ * Changelog:
+ * - 1.2: Removed AI Assistant playbook link per Issue #145
  */
 import BaseLayout from "./BaseLayout.astro";
 
@@ -20,7 +23,6 @@ const isArticulate =
 	currentPath.includes("storyline360") ||
 	currentPath.includes("review360") ||
 	currentPath.includes("reach360") ||
-	currentPath.includes("aiassistant") ||
 	currentPath.includes("localization");
 const isVyond = currentPath.includes("vyond");
 const isLMS =
@@ -83,7 +85,6 @@ const isActive = (path) =>
                 <a href="/interno/playbooks/storyline360" class={`nav-link ${isActive('/interno/playbooks/storyline360')}`}>📚 Storyline 360</a>
                 <a href="/interno/playbooks/review360" class={`nav-link ${isActive('/interno/playbooks/review360')}`}>📚 Review 360</a>
                 <a href="/interno/playbooks/reach360" class={`nav-link ${isActive('/interno/playbooks/reach360')}`}>📚 Reach 360</a>
-                <a href="/interno/playbooks/aiassistant" class={`nav-link ${isActive('/interno/playbooks/aiassistant')}`}>🤖 AI Assistant</a>
                 <a href="/interno/playbooks/localization" class={`nav-link ${isActive('/interno/playbooks/localization')}`}>🌐 Localization</a>
               </div>
             </details>

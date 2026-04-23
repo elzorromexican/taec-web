@@ -1,4 +1,6 @@
-// CHANGELOG: 19/03/2026 - Centralized data source for navigation menus (Desktop and Mobile).
+// CHANGELOG:
+// 23/04/2026 - Removed legacy AI Assistant standalone product from Articulate menu. (Issue #145)
+// 19/03/2026 - Centralized data source for navigation menus (Desktop and Mobile).
 
 export type NavSubItem = {
 	label: string;
@@ -58,11 +60,6 @@ export const mainNav: MainNavItem[] = [
 								label: "Reach",
 								url: "/articulate-reach",
 								badge: { text: "Teams", type: "teams" },
-							},
-							{
-								label: "AI Assistant",
-								url: "/articulate-ai-assistant",
-								badge: { text: "add-on", type: "new" },
 							},
 							{
 								label: "Localization",

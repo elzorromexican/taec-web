@@ -1,12 +1,18 @@
 /**
  * REGLAS DE CONTEXTO PARA EL CHATBOT (TITO BITS)
  *
+ * @version 1.1
+ * @updated 2026-04-23
+ * 
  * Aquí puedes modificar libremente los textos que Tito Bits enviará a los clientes
  * dependiendo de la página en la que se encuentren navegando.
  *
  * - paths: Las palabras clave en la URL que detonarán este contexto (ej. "/vyond").
  * - initialGreeting: Lo que dirá Tito si el cliente INICIA su primer chat en esta rama. Usa {name} para meter el nombre del prospecto.
  * - contextHop: Lo que dirá Tito si el cliente viene de otra página y SALTA a esta rama con la memoria ya activada.
+ * 
+ * Changelog:
+ * - 1.1: Removed AI Assistant standalone context rule (Issue #145)
  */
 
 export const chatCategoryRules = {
@@ -38,13 +44,6 @@ export const chatCategoryRules = {
 			"Hola {name}, soy Tito Bits. Veo que exploras **Rise 360** — cursos responsive y nativo mobile sin código.\n\n¿Buscas producir contenido rápido para equipos distribuidos o móviles? *Platícame el caso.*",
 		contextHop:
 			"📌 Saltaste a **Rise 360**. Si necesitas cursos rápidos y mobile-first, aquí sigo.",
-	},
-	articulate_ai: {
-		paths: ["/articulate-ai-assistant"],
-		initialGreeting:
-			"Hola {name}, soy Tito Bits. Veo que exploras el **AI Assistant de Articulate**.\n\n¿Buscas acelerar la producción de cursos con IA integrada al ecosistema? *Cuéntame cómo produce contenido tu equipo hoy.*",
-		contextHop:
-			"📌 Saltaste al **AI Assistant de Articulate**. Si quieres ver cómo la IA reduce tiempos de producción, cuéntame.",
 	},
 	articulate_review: {
 		paths: ["/articulate-review360"],
