@@ -32,6 +32,38 @@ Todo cambio sigue este flujo obligatorio:
 
 **Nunca mezcles** reformateos masivos con `biome` y cambios lógicos (features/fixes) en la misma rama o commit. Si el proyecto requiere un reformat masivo (`npx @biomejs/biome check --write .`), hazlo en una rama separada e independiente (ej. `chore/biome-reformat-2026-04-15`) y ábrele su propio PR antes de iniciar la rama de tu feature o fix.
 
+### Estándar de Documentación — OBLIGATORIO
+
+Todo archivo del proyecto debe incluir:
+
+**1. Header JSDoc al inicio:**
+```js
+/**
+ * @name [nombre del archivo]
+ * @version X.X
+ * @date YYYY-MM-DD
+ * @owner TAEC / Slim
+ * @status [Borrador | Activo | Deprecado]
+ * @vigencia [ej. Revisión trimestral]
+ *
+ * @description [descripción breve del propósito]
+ *
+ * Fuentes: (si aplica)
+ *   - [fuente 1]
+ *
+ * Changelog:
+ *   vX.X (YYYY-MM-DD) — Autor: [nombre]
+ *     - [CATEGORÍA] Descripción del cambio
+ */
+```
+
+**2. Changelog acumulativo:** cada modificación agrega su entrada — nunca se borra el historial.
+Categorías entre corchetes: `SEGURIDAD` · `FIX` · `REFACTOR` · `UX` · `PRICING` · `FEAT`
+
+**3. Comentarios inline** en todas las funciones y bloques de lógica.
+
+---
+
 ### Hook anti-AIza (secrets scanner)
 
 El literal `AIza` en cualquier archivo causa falsos positivos en el secrets scanner de Netlify

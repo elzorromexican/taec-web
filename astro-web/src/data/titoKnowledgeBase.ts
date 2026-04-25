@@ -1,7 +1,7 @@
 /**
  * @name titoKnowledgeBase
  * @version 6.1
- * @date 2026-04-21
+ * @date 2026-04-23
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
  * @vigencia Revisión trimestral
@@ -14,6 +14,8 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.2 (2026-04-23) — Autor: Antigravity
+ *     - [FAQ] Cap 7.5 y 15.1: Integrar FAQ oficial Articulate + eliminar AI Assistant como producto separado (Issue 145)
  *   v6.1 (2026-04-21) — Autor: TAEC / Arquitectura AI Red Team
  *     - [REGLA] Cap 7.6: Portabilidad de Contenido. Se aclaró que el contenido no se transfiere automáticamente entre empresas distintas.
  *
@@ -583,20 +585,21 @@ Infraestructura enterprise:
 - AWS (Amazon Web Services, EE. UU.)
 - 99.9% uptime SLA
 
-[7.5] AI Assistant
+[7.5] IA Integrada en Articulate 360 AI
+La IA ya NO es un add-on separado. Está integrada nativamente en la suscripción Articulate 360 AI.
+
 Funcionalidades disponibles:
-- generación de contenido desde prompt o PDF
-- quiz automático con un clic
-- mejora de audio con eliminación de ruido
-- localización a más de 80 idiomas (ver Capítulo 17)
+- Generación de cursos completos desde prompt, PDF o URL
+- Quiz automático con un clic
+- Mejora de audio con eliminación de ruido
+- Localización a más de 80 idiomas (ver Capítulo 17)
+- Generación de imágenes y media dentro de Rise y Storyline
 
 MODELO DE ACCESO (actualizado Q2 2026):
-- En la PROMO MÉXICO ($1,198 USD/seat/año): AI Assistant INCLUIDO — EXCLUSIVAMENTE en NUEVAS suscripciones.
-  El producto ofertado es "Articulate 360 AI" (precio normal $1,749). El descuento del 31% cubre AI incluido.
-- Renovaciones o suscripciones existentes: NO aplica automáticamente. Derivar a ejecutivo TAEC.
-- Fuera de la promo México: AI Assistant puede ser add-on según condiciones de la región.
-  Derivar a ejecutivo TAEC para cotización personalizada.
-REGLA: En México con promo activa, SÍ confirmar que AI está incluido en los $1,198 SOLO para nuevas adquisiciones.
+- Cualquier suscripción "Articulate 360 AI" incluye IA. No existe la SKU "$250/seat add-on" — fue descontinuada.
+- En la PROMO MÉXICO ($1,198 USD/seat/año): Articulate 360 AI completo con descuento 31%.
+- Renovaciones en plan legacy (sin "AI" en el nombre): derivar a ejecutivo TAEC para upgrade.
+REGLA: NUNCA mencionar el add-on de $250 USD. Si el prospecto lo conoce, aclarar que ahora está incluido en la suscripción base.
 
 [7.6] Portabilidad de Contenido al Cambiar de Empresa
 
@@ -988,6 +991,24 @@ R: Ilimitados. No existe límite de cantidad de cursos ni de exportaciones SCORM
 P: ¿Puedo probar Articulate antes de comprar?
 R: Sí. Trial de 30 días sin tarjeta de crédito. Acceso al 100% de las herramientas. Para evaluación corporativa real, crear un "Team Trial" e invitar a 2–3 colegas para probar co-autoría, revisión con stakeholders y transferencia de contenido.
 
+P: ¿La IA está incluida en la suscripción de Articulate 360?
+R: Sí. La IA es parte nativa de Articulate 360 AI — no es un add-on de pago aparte (el $250/seat add-on fue descontinuado). Incluye: generación de cursos desde fuentes, mejora de textos, evaluaciones automáticas, generación de imágenes y resúmenes.
+
+P: ¿El contenido de los clientes se usa para entrenar los modelos de IA?
+R: No. Los datos quedan bajo control del cliente. Certificaciones: FedRAMP, ISO 27001, ISO 42001, SOC 2.
+
+P: ¿Articulate cumple con estándares de seguridad empresarial?
+R: Sí. SSO + FedRAMP + ISO 27001 + ISO 42001 + SOC 2. Escalar a especialista TAEC si el prospecto tiene RFP de seguridad.
+
+P: ¿Reach 360 está incluido con Teams?
+R: Sí. Reach Starter: hasta 300 estudiantes activos/año sin costo adicional. Para más → Reach Pro vía TAEC.
+
+P: ¿La localización está incluida en Articulate 360?
+R: Traducción y validación en Rise: incluida. Publicación a estudiantes: requiere plan de Localización de pago. Storyline: contactar especialista TAEC.
+
+P: ¿Puedo gestionar seats si mi equipo cambia?
+R: Sí. Account Owners pueden agregar seats, transferir licencias y gestionar facturación desde panel centralizado. Revisores y estudiantes NO necesitan licencia.
+
 P: ¿Puedo compartir una cuenta de Vyond con mi equipo?
 R: No. Vyond es por asiento nominal: 1 cuenta = 1 persona. Compartir credenciales viola los términos de servicio y puede resultar en suspensión de la cuenta. Si necesitas que 3 personas creen animaciones, necesitas 3 asientos.
 
@@ -1352,7 +1373,7 @@ REGLA ANTI-EVASIÓN Y PRECIO UNITARIO: Tienes ESTRICTAMENTE PROHIBIDO decir "el 
     *   Curso Storyline 360 Técnicas Avanzadas: $345 USD
     *   Curso Articulate Rise 360+: $289 USD
     *   Crear cursos accesibles con Articulate 360: $580 USD
-    *   Curso Cerrado Articulate con AI Assistant: $3,750 USD (Para grupos corporativos íntegros. Cupo máximo de 25 personas online o 15 presencial. Aplican restricciones de aforo.)
+    *   Curso Cerrado Articulate 360 AI: $3,750 USD (Para grupos corporativos íntegros. Cupo máximo de 25 personas online o 15 presencial. Aplican restricciones de aforo.)
 
 *   Mundo LMS (Moodle):
     *   Moodle Administración: $90 USD
@@ -1505,7 +1526,7 @@ promos_q2_2026: {
   
   promo_001_teams_ai: {
     condicion: "IS_MEXICO === true",
-    producto: "Articulate 360 Teams + AI Assistant",
+    producto: "Articulate 360 AI Teams",
     precio_promo: "$1,198 USD/seat/año",
     precio_normal: "$1,749 USD",
     descuento: "31%",

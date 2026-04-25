@@ -1,12 +1,16 @@
 /**
  * @name handoff.ts
- * @version 1.0
+ * @version 1.1
  * @description Funciones para generar mini briefs de leads y notificar vía Webhook y Correo (Resend).
  * @inputs Record del lead estructurado
  * @outputs Promesa vacía o respuesta de la API de comunicación.
  * @dependencies node-fetch / native fetch
  * @created 2026-04-11
- * @updated 2026-04-11 12:12:00
+ * @updated 2026-04-23 10:46:00
+ *
+ * Changelog:
+ *   v1.1 (2026-04-23) — Autor: Antigravity
+ *     - [FIX] Resolución de env vars compatible con Astro SSR (import.meta.env + process.env)
  */
 
 interface LeadData {
@@ -37,13 +41,16 @@ export function generarMiniBrief(
  */
 export async function enviarNotificacion(lead: LeadData) {
 	const resendKey =
-		import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+		(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.RESEND_API_KEY) ||
+		(typeof process !== "undefined" && process.env.RESEND_API_KEY) ||
+		"";
 	const webhookUrl =
-		import.meta.env.GOOGLE_CHAT_WEBHOOK_URL ||
-		process.env.GOOGLE_CHAT_WEBHOOK_URL;
+		(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.GOOGLE_CHAT_WEBHOOK_URL) ||
+		(typeof process !== "undefined" && process.env.GOOGLE_CHAT_WEBHOOK_URL) ||
+		"";
 	const ventasEmail =
-		import.meta.env.VENTAS_EMAIL ||
-		process.env.VENTAS_EMAIL ||
+		(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VENTAS_EMAIL) ||
+		(typeof process !== "undefined" && process.env.VENTAS_EMAIL) ||
 		"info@taec.com.mx";
 
 	// 1. Notificación a Google Chat

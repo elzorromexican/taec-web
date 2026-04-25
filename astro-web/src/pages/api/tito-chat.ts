@@ -1,12 +1,16 @@
 /**
  * @name tito-chat.ts
- * @version 2.0
+ * @version 2.1
  * @description Router central de TitoBits v4. Orquesta Motor 1 (reglas), Motor 2 (RAG) y Motor 3 (Lead Scoring remoto y Handoff automatizado).
  * @inputs HTTP POST request payload { message: string, session_id: string }
  * @outputs JSON content de la IA o notificaciones de escalamiento
  * @dependencies ../lib/tito/rules, ../lib/tito/rag, ../lib/tito/scoring, ../lib/tito/handoff
  * @created 2026-04-11
- * @updated 2026-04-11 12:12:00
+ * @updated 2026-04-23 10:46:00
+ *
+ * Changelog:
+ *   v2.1 (2026-04-23) — Autor: Antigravity
+ *     - [FIX] Resolución de env vars compatible con Astro SSR (import.meta.env + process.env) para TAEC_GEMINI_KEY
  */
 
 import { GoogleGenAI } from "@google/genai";
@@ -155,7 +159,9 @@ export const POST: APIRoute = async ({ request }) => {
 
 		// ======= MOTOR 3: SCORING Y EXTRACCIONES LLM =======
 		const geminiKey =
-			typeof process !== "undefined" ? (process.env.TAEC_GEMINI_KEY ?? "") : "";
+			(typeof process !== "undefined" && process.env.TAEC_GEMINI_KEY) ||
+			(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.TAEC_GEMINI_KEY) ||
+			"";
 		const ai = new GoogleGenAI({ apiKey: geminiKey });
 
 		const extractionPrompt = `

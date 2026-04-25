@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { r } from "../../utils/paths";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
 	const cursos = await getCollection("cursos");
 	return cursos.map((curso) => ({

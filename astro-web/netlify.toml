@@ -10,6 +10,13 @@
   # Netlify Pro/Business soporta hasta 26s; free plan máximo 10s.
   timeout = 26
 
+# Redirecciones 301 para SEO (Páginas deprecadas)
+[[redirects]]
+  from = "/articulate-ai-assistant"
+  to = "/articulate-360-mexico"
+  status = 301
+  force = true
+
 # Catch-all: cualquier ruta no encontrada como archivo estático
 # en dist/ se delega a la función SSR de Astro.
 # force = false garantiza que los archivos estáticos siguen teniendo prioridad.
