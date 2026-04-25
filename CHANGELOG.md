@@ -6,6 +6,12 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.7.3 · 21 abr 2026 — Fix Excepción de Preguntas Implícitas TitoBits (Issue #139)
+
+### 🤖 TitoBits Knowledge Base
+- **Regla de Prioridad de Preguntas Implícitas:** Se expandió la directiva `[1.X]` en `titoKnowledgeBase.ts`. Ahora el agente prioriza responder descripciones de problemas, intenciones de recuperación y rescate de información sin depender de la existencia de un signo de interrogación explícito (`?`). Esto elimina el comportamiento errático de escudarse tras un Call to Action o detonar un intento de lead capture precipitadamente mientras el problema real sigue sin resolverse.
+
+---
 ## v3.7.2 · 20 abr 2026 — Integración Vectorial de Base de Conocimientos RAG (Issue #127)
 
 ### 🤖 Motor 2: RAG Híbrido (Pgvector)
