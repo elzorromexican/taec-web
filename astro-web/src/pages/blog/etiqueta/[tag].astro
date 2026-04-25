@@ -19,6 +19,8 @@ const slugify = (str: string) =>
 		.replace(/[^a-z0-9]+/g, "-")
 		.replace(/(^-|-$)+/g, "");
 
+export const prerender = true;
+
 export async function getStaticPaths() {
 	const _slugify = (str: string) =>
 		str

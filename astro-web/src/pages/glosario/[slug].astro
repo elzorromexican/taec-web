@@ -6,6 +6,8 @@ import { r } from "../../utils/paths";
 import { slugify } from "../../utils/slugify";
 
 // Genera todas las rutas posibles basándose en los .md de src/content/glosario
+export const prerender = true;
+
 export async function getStaticPaths() {
 	const terms = await getCollection("glosario");
 	return terms.map((term) => ({
