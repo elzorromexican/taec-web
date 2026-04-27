@@ -14,7 +14,8 @@
     "test:e2e": "playwright test",
     "lint": "biome check .",
     "lint:fix": "biome check . --write",
-    "format": "biome format . --write"
+    "format": "biome format . --write",
+    "build:kb": "npx tsx scripts/build-kb.ts"
   },
   "dependencies": {
     "@astrojs/netlify": "^7.0.5",
