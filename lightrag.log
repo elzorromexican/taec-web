@@ -1,0 +1,6 @@
+2026-04-22 09:08:11,397 - lightrag - INFO - Gemini LLM Options: {}
+2026-04-22 09:08:11,397 - lightrag - INFO - Gemini Embedding Options: {}
+2026-04-22 09:08:19,818 - lightrag - INFO - Embedding config: binding=gemini model=None embedding_dim=1536 max_token_size=2048
+2026-04-22 09:08:19,819 - lightrag - INFO - Send embedding dimension: True forced by Gemini API (dimensions=1536, has_param=True, binding=gemini)
+2026-04-22 09:08:19,819 - lightrag - INFO - Embedding max_token_size: 2048 (from gemini provider default)
+2026-04-22 09:08:19,820 - lightrag - INFO - Reranking is disabled
