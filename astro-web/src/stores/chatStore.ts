@@ -2,7 +2,7 @@ import { persistentAtom, setPersistentEngine } from "@nanostores/persistent";
 import { atom } from "nanostores";
 
 if (typeof window !== "undefined") {
-	setPersistentEngine(window.localStorage, {
+	setPersistentEngine(window.sessionStorage, {
 		addEventListener(key, handler) {
 			window.addEventListener("storage", handler as any);
 		},
@@ -140,7 +140,7 @@ export const v3_2RolloutStore = persistentAtom<boolean>(
 export const initializeRollout = () => {
 	if (
 		typeof window !== "undefined" &&
-		!localStorage.getItem("tito:v3_2Rollout")
+		!sessionStorage.getItem("tito:v3_2Rollout")
 	) {
 		const isDesktop = window.innerWidth > 768;
 		const isSelected = Math.random() < 0.1; // 10% sesiones desktop
