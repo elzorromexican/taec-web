@@ -158,7 +158,7 @@ const ogImageURL = new URL(
   </a>
   )}
 
-  <ChatAgent client:load isApp={isApp} userName={Astro.locals?.user?.name || Astro.locals?.name || 'Visitante'} />
+  <ChatAgent client:load transition:persist isApp={isApp} userName={Astro.locals?.user?.name || Astro.locals?.name || 'Visitante'} />
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
   <script>
     let globalRevealObserver = null;

@@ -46,10 +46,6 @@ export function evaluateMessageForEscalation(
 		"renovación",
 		"renovacion",
 		"renovar",
-		"comprar",
-		"compra",
-		"comprarlo",
-		"adquirir",
 		"edu",
 		"universidad",
 		"colegio",
@@ -84,6 +80,10 @@ export function evaluateMessageForEscalation(
 		"cotizacion",
 		"costo",
 		"descuento",
+		"comprar",
+		"compra",
+		"comprarlo",
+		"adquirir",
 	];
 
 	if (informKeywords.some((kw) => msgLower.includes(kw))) {
