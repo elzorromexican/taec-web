@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^7.0.5",
-    "@astrojs/node": "^10.0.5",
+    "@astrojs/node": "^10.0.6",
     "@astrojs/react": "^5.0.1",
     "@astrojs/sitemap": "^3.7.1",
     "@google/genai": "^1.47.0",
