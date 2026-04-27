@@ -11,3 +11,8 @@ OLDYS/
 .mcp.json
 .claude/
 .gemini/
+
+venv/
+.playwright-mcp/
+*.log
+vec.txt
