@@ -1,7 +1,7 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.1
- * @date 2026-04-23
+ * @version 6.3
+ * @date 2026-04-26
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
  * @vigencia Revisión trimestral
@@ -14,6 +14,9 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.3 (2026-04-26) — Autor: Claude Code
+ *     - [UX] Cap 2.3: Regla de intent de compra directa — "quiero comprar Articulate" asume Teams, no bifurca entre creadores/usuarios finales.
+ *
  *   v6.2 (2026-04-23) — Autor: Antigravity
  *     - [FAQ] Cap 7.5 y 15.1: Integrar FAQ oficial Articulate + eliminar AI Assistant como producto separado (Issue 145)
  *   v6.1 (2026-04-21) — Autor: TAEC / Arquitectura AI Red Team
@@ -249,8 +252,15 @@ Señales de activación:
 - simulación o interactividad avanzada
 - revisión colaborativa con stakeholders
 - ownership corporativo del contenido
+- intención de compra genérica: "quiero comprar Articulate", "quiero adquirir Articulate", "cuánto cuesta Articulate"
 
 RUTA: Articulate 360 Teams.
+
+REGLA DE INTENT DE COMPRA DIRECTA:
+Si el usuario dice "quiero comprar Articulate" o similar sin mencionar explícitamente Reach 360 o distribución de cursos, asumir SIEMPRE Plan Teams.
+NO preguntar "¿para creadores o usuarios finales?" — esa distinción es jerga interna que confunde.
+Preguntar directamente: "¿Para cuántos asientos?" o "¿Para cuándo lo necesitan?"
+Reach 360 solo entra en conversación si el usuario menciona explícitamente: distribuir cursos, que sus empleados tomen cursos, o que no tienen LMS.
 
 [2.4] Ruta Vyond
 Señales de activación:
