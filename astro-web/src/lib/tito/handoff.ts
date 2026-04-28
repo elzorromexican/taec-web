@@ -1,14 +1,16 @@
 /**
  * @name handoff.ts
- * @version 1.1
+ * @version 1.2
  * @description Funciones para generar mini briefs de leads y notificar vía Webhook y Correo (Resend).
  * @inputs Record del lead estructurado
  * @outputs Promesa vacía o respuesta de la API de comunicación.
  * @dependencies node-fetch / native fetch
  * @created 2026-04-11
- * @updated 2026-04-23 10:46:00
+ * @updated 2026-04-28
  *
  * Changelog:
+ *   v1.2 (2026-04-28) — Autor: Antigravity
+ *     - [FIX] Enlaces de contacto hechos clickeables en FALLBACK_CONTACTO.
  *   v1.1 (2026-04-23) — Autor: Antigravity
  *     - [FIX] Resolución de env vars compatible con Astro SSR (import.meta.env + process.env)
  */
@@ -104,8 +106,8 @@ export async function enviarNotificacion(lead: LeadData) {
 
 // Constante de fallback — hardcodeada, no generada por LLM
 export const FALLBACK_CONTACTO = `Sin problema. Puedes contactarnos directamente:
-• Correo: info@taec.com.mx
-• WhatsApp: https://api.whatsapp.com/send/?phone=5215527758279`;
+• Correo: [info@taec.com.mx](mailto:info@taec.com.mx)
+• WhatsApp: [Escríbenos por WhatsApp](https://api.whatsapp.com/send/?phone=5215527758279)`;
 
 // Extrae nombre, empresa y email de un mensaje de texto libre
 export function extraerContacto(message: string): {

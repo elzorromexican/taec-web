@@ -1,13 +1,17 @@
 /**
  * @name agente-ia.ts
- * @version v1.5
+ * @version v1.6
  * @description Endpoint Backend principal para el agente de IA Tito Bits (Motor 3 - Generativo).
  * Realiza RAG contra la base de conocimientos y despacha SSEs hacia el frontend.
  * @inputs Request body con historiales de chat y metadata geopolítica del lead.
  * @outputs Response en texto continuo usando ReadableStream (SSE).
  * @dependencies @google/generative-ai, titoKnowledgeBase
  * @created 2024-03-01
- * @updated 2026-04-12 17:55:00
+ * @updated 2026-04-28
+ *
+ * Changelog:
+ *   v1.6 (2026-04-28) — Autor: Antigravity
+ *     - [FIX] Enlaces de contacto (email y whatsapp) hechos clickeables en el prompt de fallback.
  */
 export const prerender = false;
 
@@ -510,8 +514,8 @@ Si el usuario dice que no quiere dar sus datos o información
 de contacto, responde EXACTAMENTE esto (sin modificar):
 
 "Sin problema. Puedes contactarnos directamente:
-• Correo: info@taec.com.mx
-• WhatsApp: https://api.whatsapp.com/send/?phone=5215527758279"
+• Correo: [info@taec.com.mx](mailto:info@taec.com.mx)
+• WhatsApp: [Escríbenos por WhatsApp](https://api.whatsapp.com/send/?phone=5215527758279)"
 
 No agregues nada más. No sigas intentando capturar datos.
 
