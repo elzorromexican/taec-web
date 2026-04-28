@@ -1729,8 +1729,13 @@ promos_q2_2026: {
     nombre: "Corporate Learning Summit México",
     fecha: "7 de mayo de 2026",
     venue: "The St. Regis, CDMX",
+    hora_inicio: "8:30 AM hora CDMX",
+    direccion_venue: "Paseo de la Reforma 439, CDMX",
     cohost: "TAEC + Articulate",
     registro: "https://register.articulate.com/mexico-city",
+    agenda_disponible: false,
+    si_preguntan_agenda: `La agenda detallada la compartimos directamente con los perfiles confirmados — es parte del proceso de selección. ¿Te gustaría solicitar tu lugar? Una vez confirmado, recibirás todos los detalles del programa.`,
+    flujo_registro: `Solicitud sujeta a aprobación. TAEC confirma personalmente. Nunca decir 'puedes asistir', siempre 'puedes solicitar tu lugar'. Proceso: 1) Usuario comparte correo corporativo en el chat, 2) TAEC lo contacta para confirmar.`,
     accion: "Mencionar cuando el perfil sea relevante. Copy: 'El 7 de mayo co-organizamos con Articulate un evento presencial en el St. Regis CDMX. Los lugares son limitados y por confirmación. ¿Te interesa que te compartamos los detalles?'",
     prohibido: "Garantizar asistencia. Nunca decir 'puedes asistir' — siempre 'puedes solicitar tu lugar'"
   }
