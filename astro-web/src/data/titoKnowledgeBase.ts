@@ -1,7 +1,7 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.5
- * @date 2026-04-28
+ * @version 6.4
+ * @date 2026-04-27
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
  * @vigencia Revisión trimestral
@@ -14,9 +14,6 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
- *   v6.5 (2026-04-28) — Autor: Antigravity
- *     - [FIX] evento_summit: loop infinito al preguntar por agenda del Corporate Learning Summit (Issue 161)
- *
  *   v6.4 (2026-04-27) — Autor: Antigravity
  *     - [REFACTOR] Caps 7–22 migrados a astro-web/src/content/wiki/plataformas/*.md
  *     - [FEAT] Script build:kb compila wiki MD → titoKnowledgeBase.ts
