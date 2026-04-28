@@ -1,4 +1,10 @@
 ---
+/**
+ * Hub de Recursos TAEC.
+ * 
+ * @changelog
+ * 2026-04-28 - issue #159: Añadida card para el nuevo artículo "Ecosistema EdTech LATAM".
+ */
 import { getBookingUrl } from "../data/contact";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -109,6 +115,15 @@ import { r } from "../utils/paths";
         <h3 class="sec-card-name">Artículos</h3>
         <p class="sec-card-desc">Análisis de fondo sobre diseño instruccional, implementación de LMS, accesibilidad, IA en el aprendizaje y estrategia L&D. Para quienes quieren ir más allá.</p>
         <span class="sec-card-link">Explorar artículos →</span>
+      </a>
+
+      <!-- Artículo Destacado: Ecosistema EdTech -->
+      <a href={r('/recursos/ecosistema-edtech-latam')} class="sec-card featured">
+        <div class="sec-card-icon">🚀</div>
+        <span class="sec-card-count">Nuevo Artículo</span>
+        <h3 class="sec-card-name">Ecosistema EdTech LATAM</h3>
+        <p class="sec-card-desc">Análisis de las 4 plataformas complementarias (Totara, Pifini, Proctorizer, Strike) que forman El Estándar de Oro en L&D.</p>
+        <span class="sec-card-link">Leer artículo completo →</span>
       </a>
 
       <!-- Glosario -->

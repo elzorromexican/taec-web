@@ -1,0 +1,195 @@
+---
+/**
+ * Artículo de recursos: Ecosistema EdTech en LATAM.
+ * 
+ * @changelog
+ * 2026-04-28 - issue #159: Creación del artículo completo sobre el ecosistema de plataformas complementarias.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { r } from "../../utils/paths";
+---
+<BaseLayout 
+  title="Ecosistema EdTech LATAM: Totara, Pifini, Proctorizer y Strike | TAEC"
+  description="Análisis del ecosistema de plataformas complementarias para e-learning en LATAM."
+  section="Recursos"
+  page="ecosistema-edtech-latam.html"
+>
+  <style is:global>
+    .article-hero { background: var(--navy); padding: 80px 5%; color: white; text-align: center; }
+    .breadcrumb { font-size: 14px; color: var(--teal); margin-bottom: 20px; font-weight: bold; }
+    .article-title { font-size: clamp(32px, 5vw, 48px); margin-bottom: 24px; font-family: var(--font-display); }
+    .article-intro { font-size: 18px; max-width: 800px; margin: 0 auto; line-height: 1.6; color: rgba(255,255,255,0.8); }
+    .article-content { padding: 60px 5%; background: white; color: var(--text); }
+    .article-inner { max-width: 800px; margin: 0 auto; }
+    .article-inner h2 { color: var(--blue); margin-top: 48px; margin-bottom: 20px; font-family: var(--font-display); }
+    .article-inner h3 { color: var(--navy); margin-top: 32px; margin-bottom: 16px; font-size: 20px; }
+    .article-inner p { margin-bottom: 20px; line-height: 1.7; }
+    .article-inner ul { margin-bottom: 20px; padding-left: 20px; }
+    .article-inner li { margin-bottom: 10px; line-height: 1.7; }
+    .cta-section { background: var(--light); padding: 60px 5%; text-align: center; }
+    
+    /* Table styles */
+    .article-inner table { width: 100%; margin-bottom: 24px; border-collapse: collapse; font-size: 15px; }
+    .article-inner th, .article-inner td { padding: 12px 16px; border: 1px solid var(--border); text-align: left; }
+    .article-inner th { background-color: var(--light); font-weight: bold; color: var(--navy); }
+    .article-inner tr:nth-child(even) { background-color: #f8fafc; }
+  </style>
+
+  <main>
+    <section class="article-hero">
+      <div class="breadcrumb">Recursos > Artículos</div>
+      <h1 class="article-title">Ecosistema EdTech en LATAM: Plataformas Complementarias</h1>
+      <p class="article-intro">
+        El e-learning corporativo ha evolucionado más allá del LMS tradicional. Hoy en día, las organizaciones líderes en LATAM construyen ecosistemas de aprendizaje combinando plataformas especializadas. En este artículo analizamos cuatro soluciones clave: Totara Learn, Pifini Learn, Proctorizer y Strike Plagiarism, y cómo se complementan para formar El Estándar de Oro en tecnología educativa corporativa.
+      </p>
+    </section>
+
+    <section class="article-content">
+      <div class="article-inner">
+        <h2>Sección 1: Totara Learn (El LMS Empresarial Abierto)</h2>
+        <p>Totara Learn transforma la rigidez de los LMS tradicionales en un ecosistema flexible y adaptable, ideal para organizaciones con estructuras complejas o necesidades regulatorias estrictas.</p>
+        
+        <h3>Moodle vs Totara</h3>
+        <table>
+          <tr>
+            <th>Característica</th>
+            <th>Moodle</th>
+            <th>Totara Learn</th>
+          </tr>
+          <tr>
+            <td>Enfoque Principal</td>
+            <td>Académico (Escuelas y Universidades)</td>
+            <td>Corporativo (Capacitación y Cumplimiento)</td>
+          </tr>
+          <tr>
+            <td>Gestión de Jerarquías</td>
+            <td>Básica</td>
+            <td>Avanzada (Audiencias Dinámicas)</td>
+          </tr>
+          <tr>
+            <td>Cumplimiento y Recertificación</td>
+            <td>Manual / Plugins</td>
+            <td>Nativo (Certificaciones con caducidad)</td>
+          </tr>
+        </table>
+
+        <h3>Q&A Ejecutivo</h3>
+        <ul>
+          <li><strong>¿Cómo se justifica Totara frente a un LMS básico?</strong> Reduce horas de gestión manual y evita costos por incumplimiento en auditorías.</li>
+          <li><strong>¿Qué métricas de ROI ofrece?</strong> Disminución de tiempos para certificar nuevos ingresos y aumento en tasas de finalización de rutas críticas.</li>
+          <li><strong>¿Cómo gestiona audiencias externas?</strong> Mediante multi-tenencia, permitiendo portales independientes para cada socio comercial.</li>
+        </ul>
+
+        <h3>Casos de Éxito LATAM</h3>
+        <ul>
+          <li><strong>Clínica Alemana (Chile):</strong> Academia CAS centralizó a 8,000 colaboradores logrando 100% de cumplimiento JCI y una reducción del 50% en carga administrativa (según Totara).</li>
+          <li><strong>Salud Digna (México):</strong> Más de 1 millón de cursos completados, con integración a WhatsApp para notificaciones y 93% de satisfacción (según Totara).</li>
+        </ul>
+
+        <h2>Sección 2: Pifini Learn / NetExam (Partner Enablement)</h2>
+        <p>Capacitar a tu fuerza de ventas interna es un paso, pero habilitar a tus distribuidores y partners externos es lo que realmente escala los ingresos.</p>
+        
+        <h3>Beneficios Comerciales</h3>
+        <table>
+          <tr>
+            <th>Característica</th>
+            <th>Beneficio Comercial</th>
+          </tr>
+          <tr>
+            <td>IA Prescriptiva</td>
+            <td>Asignación automática de cursos al detectar caídas en ventas</td>
+          </tr>
+          <tr>
+            <td>Integración CRM (Salesforce)</td>
+            <td>Correlacionar formación directamente con el aumento de ingresos</td>
+          </tr>
+          <tr>
+            <td>Apps White-Label</td>
+            <td>Fortalecer la identidad de marca de los partners más grandes</td>
+          </tr>
+        </table>
+
+        <h3>Q&A Ejecutivo</h3>
+        <ul>
+          <li><strong>¿Qué ROI pueden esperar?</strong> Los partners certificados cierran deals un 38% más rápido y tratos un 32% más grandes (según Pifini).</li>
+          <li><strong>¿Cómo se justifica ante el CFO?</strong> Aumento de ventas por socio y menor tiempo para activar nuevos canales.</li>
+          <li><strong>¿Por qué no usar el LMS interno?</strong> Pifini trae procesos, analítica e integraciones B2B nativas sin forzar la herramienta interna.</li>
+        </ul>
+
+        <h2>Sección 3: Proctorizer (Supervisión Remota de Exámenes)</h2>
+        <p>La integridad académica y la validez de las certificaciones corporativas son innegociables, especialmente en entornos regulados.</p>
+
+        <h3>Soluciones de Supervisión</h3>
+        <table>
+          <tr>
+            <th>Nivel de Supervisión</th>
+            <th>Uso Recomendado</th>
+          </tr>
+          <tr>
+            <td>Automatizada (IA)</td>
+            <td>Evaluaciones formativas y cursos internos de bajo riesgo</td>
+          </tr>
+          <tr>
+            <td>Híbrida (IA + Humano)</td>
+            <td>Certificaciones de nivel medio y reclutamiento masivo</td>
+          </tr>
+          <tr>
+            <td>En Vivo</td>
+            <td>Exámenes de alto riesgo, normativos o regulatorios</td>
+          </tr>
+        </table>
+
+        <h3>Q&A Ejecutivo</h3>
+        <ul>
+          <li><strong>¿Qué ROI se argumenta frente a lo presencial?</strong> Eliminación de viáticos y logística. Organizaciones reportan reducción del 60% en costos operativos (según Proctorizer).</li>
+          <li><strong>¿Por qué no basta con confiar?</strong> En auditorías externas, la evidencia forense blinda legalmente a la empresa y da validez a las certificaciones.</li>
+          <li><strong>¿Funciona con internet inestable en LATAM?</strong> Sí, almacena datos localmente y sincroniza de forma resiliente sin interrumpir al usuario.</li>
+        </ul>
+
+        <h2>Sección 4: Strike Plagiarism (Originalidad y Detección de IA)</h2>
+        <p>Proteger la propiedad intelectual y garantizar la originalidad de los documentos corporativos es crítico frente al auge de la inteligencia artificial generativa.</p>
+
+        <h3>Strike vs Turnitin</h3>
+        <table>
+          <tr>
+            <th>Punto de Comparación</th>
+            <th>Strike Plagiarism</th>
+            <th>Turnitin</th>
+          </tr>
+          <tr>
+            <td>Modelo de Precios</td>
+            <td>Pago por tokens (paga lo que usas)</td>
+            <td>Suscripción institucional rígida</td>
+          </tr>
+          <tr>
+            <td>Enfoque Idiomático</td>
+            <td>Optimizado para español y LATAM</td>
+            <td>Enfoque primario en inglés</td>
+          </tr>
+        </table>
+
+        <h3>Q&A Ejecutivo</h3>
+        <ul>
+          <li><strong>¿Cuál es el riesgo de no usar detección?</strong> Riesgos legales, daño reputacional, invalidación de patentes y penalizaciones de SEO (Google).</li>
+          <li><strong>¿Detecta texto generado por ChatGPT?</strong> Sí, Strike declara una precisión superior al 99% en detección de IA generativa (según el vendor).</li>
+          <li><strong>¿Es viable para PYMEs?</strong> Sí, el modelo de tokens elimina las altas barreras de entrada de las suscripciones anuales rígidas de la competencia.</li>
+        </ul>
+
+        <h2>Síntesis Estratégica</h2>
+        <ul>
+          <li><strong>Mide el ROI real:</strong> El e-learning moderno no se mide en "horas cursadas", sino en aceleración de ventas, reducción de riesgos y ahorro operativo.</li>
+          <li><strong>Usa la herramienta adecuada:</strong> No fuerces tu LMS interno para partners ni ignores la integridad en evaluaciones regulatorias.</li>
+          <li><strong>Crea un ecosistema unificado:</strong> Estas plataformas se integran perfectamente para abarcar todo el ciclo: contenido, LMS, habilitación de partners, supervisión e integridad documental.</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="article-inner">
+        <h2>¿Quieres explorar estas plataformas para tu organización?</h2>
+        <a href={r('/contacto')} class="btn-rec-primary" style="background: var(--orange); color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Agenda una consultoría</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
