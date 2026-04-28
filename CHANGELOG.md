@@ -6,6 +6,14 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.7.4 · 28 abr 2026 — PR Template con Regeneración Embeddings TitoBits (Issue #168)
+
+### 🧹 Higiene de Repositorio y CI/CD
+- **PR Template Obligatorio:** Creación de `.github/pull_request_template.md` estandarizando el checklist para todas las contribuciones.
+- **Checklist Post-Merge:** Inyección de instrucciones estrictas para la regeneración manual de embeddings (`generate_kb_embeddings.py` y `run-reindex.ts`) y la prueba de humo en el chat de producción, garantizando que las actualizaciones de conocimiento de TitoBits (KB, Wiki y Reglas) sean reflejadas exitosamente en el entorno productivo.
+
+---
+
 ## v3.7.3 · 21 abr 2026 — Fix Excepción de Preguntas Implícitas TitoBits (Issue #139)
 
 ### 🤖 TitoBits Knowledge Base
