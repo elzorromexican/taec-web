@@ -6,6 +6,20 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.7.4 · 28 abr 2026 — Cumplimiento JSDoc y Estabilización UI (Sprint #159)
+
+### 🧹 Higiene de Repositorio y Estándares de Documentación
+- **Estandarización de JSDoc en Páginas Astro:** Se actualizaron los encabezados JSDoc en cuatro archivos críticos (`totara-lms-mexico.astro`, `recursos.astro`, `ecosistema-edtech-latam.astro` y `proctorizer-mexico.astro`). Se eliminaron etiquetas no estándar (`@changelog`) y se exigió el cumplimiento irrestricto de los campos definidos en `CLAUDE.md`: `@name`, `@version`, `@date`, `@owner`, `@status`, `@vigencia`, `@description` y el bloque `Changelog:`.
+- **Integridad del Repositorio:** El código en la rama de trabajo cumple con todas las políticas de linting y estructura de documentación.
+
+### 🎨 Correcciones Estéticas y UI/UX
+- **Eliminación de Clases Fantasma:** En `ecosistema-edtech-latam.astro`, se eliminó la dependencia de la clase CSS inexistente `btn-rec-primary` para el botón "Agenda una consultoría", sustituyéndola por estilos en línea consistentes. Esto previene comportamientos visuales indefinidos y se adhiere a las prácticas globales.
+
+### 📝 Contenido y Casos de Éxito LATAM (Recursos & Landing Pages)
+- **Integración de Social Proof:** Se añadieron tarjetas de éxito localizadas (Clínica Alemana, Salud Digna y Claro Colombia) en las landings de productos core (`totara-lms-mexico.astro` y `proctorizer-mexico.astro`), y se destacó el artículo "Ecosistema EdTech LATAM" en el hub de recursos para potenciar el engagement regional.
+
+---
+
 ## v3.7.3 · 21 abr 2026 — Fix Excepción de Preguntas Implícitas TitoBits (Issue #139)
 
 ### 🤖 TitoBits Knowledge Base
