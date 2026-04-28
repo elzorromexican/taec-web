@@ -1,6 +1,18 @@
 ---
+/**
+ * @name proctorizer-mexico.astro
+ * @version 1.0
+ * @date 2026-04-28
+ * @owner Slim Masmoudi
+ * @status Active
+ * @vigencia 2027-04-28
+ * @description Landing Page de Proctorizer para México y LATAM.
+ * 
+ * Changelog:
+ * 2026-04-28 - issue #159: Añadido caso de éxito de Claro Colombia.
+ * 2026-03-20 - Landing Proctorizer completa. Contenido basado en doc estratégico DDC.
+ */
 import { getBookingUrl } from "../data/contact";
-// CHANGELOG: 2026-03-20 - Landing Proctorizer completa. Contenido basado en doc estratégico DDC.
 import ProductPageLayout from "../layouts/ProductPageLayout.astro";
 import { r } from "../utils/paths";
 
@@ -254,6 +266,22 @@ const faqs = [
             <p class="pp-card-desc">{c.desc}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CASO DE ÉXITO LATAM ── -->
+  <section class="pp-section" style="padding-top: 0;">
+    <div class="pp-section-inner">
+      <div style="background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 40px; display: flex; gap: 32px; align-items: center; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--brand); margin-bottom: 8px;">Impacto en LATAM</p>
+          <h3 style="font-size: 22px; font-weight: 800; color: #111827; margin-bottom: 12px;">El caso de Claro Colombia</h3>
+          <p style="font-size: 15px; color: #475569; line-height: 1.6; margin: 0;">Claro Colombia trasladó sus evaluaciones psicométricas al entorno online utilizando Proctorizer. Esto les permitió certificar la identidad de sus candidatos y escalar su proceso de reclutamiento sin depender de centros de evaluación presenciales.</p>
+        </div>
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: white; border: 1.5px solid #E2E8F0; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          📊
+        </div>
       </div>
     </div>
   </section>

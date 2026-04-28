@@ -1,4 +1,16 @@
 ---
+/**
+ * @name totara-lms-mexico.astro
+ * @version 1.0
+ * @date 2026-04-28
+ * @owner Slim Masmoudi
+ * @status Active
+ * @vigencia 2027-04-28
+ * @description Landing Page de Totara LMS para México y LATAM.
+ * 
+ * Changelog:
+ * 2026-04-28 - issue #159: Añadidos casos de éxito de Clínica Alemana y Salud Digna en la sección testimonial.
+ */
 import CtaFinal from "../components/ui/CtaFinal.astro";
 import FAQAccordion from "../components/ui/FAQAccordion.astro";
 import GridBeneficios from "../components/ui/GridBeneficios.astro";
@@ -308,11 +320,25 @@ import { base, r } from "../utils/paths";
       </div>
     </div>
 
-    <!-- ══ TESTIMONIAL ══ -->
+    <!-- ══ TESTIMONIAL & CASOS LATAM ══ -->
     <section class="tot-testimonial">
       <p class="tot-quote">"Totara no solo nos da una plataforma, nos da la llave para crecer, inspirar y desarrollar todo nuestro talento."</p>
       <p class="tot-quote-author">Isabel Flores</p>
-      <p class="tot-quote-role">Corporate Training &amp; Learning Manager · ISDIN</p>
+      <p class="tot-quote-role" style="margin-bottom: 40px;">Corporate Training &amp; Learning Manager · ISDIN</p>
+      
+      <div style="border-top: 1px solid rgba(255,255,255,.15); padding-top: 40px; max-width: 900px; margin: 0 auto; text-align: left;">
+        <h3 style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--tot-teal); margin-bottom: 24px; text-align: center;">Impacto real en Latinoamérica</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          <div style="background: rgba(0,0,0,.2); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,.05);">
+            <p style="font-size: 16px; font-weight: 700; color: white; margin-bottom: 8px;">🏥 Clínica Alemana (Chile)</p>
+            <p style="font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.6; margin: 0;">Logró capacitar al 98% de su staff médico en 3 semanas, alcanzando un 100% de cumplimiento para su acreditación JCI mediante Totara.</p>
+          </div>
+          <div style="background: rgba(0,0,0,.2); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,.05);">
+            <p style="font-size: 16px; font-weight: 700; color: white; margin-bottom: 8px;">⚕️ Salud Digna (México)</p>
+            <p style="font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.6; margin: 0;">Gestionó más de 1 millón de cursos con un 93% de satisfacción, sumando integración con WhatsApp para alertar a los colaboradores.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ══ LEAD MAGNET ══ -->
