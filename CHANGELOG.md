@@ -6,10 +6,14 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
-## v3.7.4 · 28 abr 2026 — Cumplimiento JSDoc y Estabilización UI (Sprint #159)
+## v3.7.4 · 28 abr 2026 — Cumplimiento JSDoc, TitoBits y Estabilización UI (Sprint #159)
+
+### 🤖 TitoBits Knowledge Base & Agenda Loop
+- **Resolución de Infinite Loop en Agenda Summit:** Se actualizó la lógica del `evento_summit` en `titoKnowledgeBase.ts` inyectando los campos `agenda_disponible`, `si_preguntan_agenda` y `flujo_registro` (Issue #161). Esto previene que el agente entre en bucle cuando le solicitan la agenda del evento y, en cambio, dirige limpiamente a los usuarios a registrarse mediante correo corporativo.
+- **Migración de Knowledge Base (Wiki):** Se retomó la arquitectura de migración del script `build-kb.ts`. Se ajustó al estándar de codificación exigido por el proyecto, eliminando cadenas prohibidas y garantizando el formato de JSDoc estricto de cara al despliegue híbrido de la Wiki.
 
 ### 🧹 Higiene de Repositorio y Estándares de Documentación
-- **Estandarización de JSDoc en Páginas Astro:** Se actualizaron los encabezados JSDoc en cuatro archivos críticos (`totara-lms-mexico.astro`, `recursos.astro`, `ecosistema-edtech-latam.astro` y `proctorizer-mexico.astro`). Se eliminaron etiquetas no estándar (`@changelog`) y se exigió el cumplimiento irrestricto de los campos definidos en `CLAUDE.md`: `@name`, `@version`, `@date`, `@owner`, `@status`, `@vigencia`, `@description` y el bloque `Changelog:`.
+- **Estandarización de JSDoc en Páginas Astro:** Se actualizaron los encabezados JSDoc en cuatro archivos críticos (`totara-lms-mexico.astro`, `recursos.astro`, `ecosistema-edtech-latam.astro` y `proctorizer-mexico.astro` así como en `titoKnowledgeBase.ts`). Se eliminaron etiquetas no estándar (`@changelog`) y se exigió el cumplimiento irrestricto de los campos definidos en `CLAUDE.md`: `@name`, `@version`, `@date`, `@owner`, `@status`, `@vigencia`, `@description` y el bloque `Changelog:`.
 - **Integridad del Repositorio:** El código en la rama de trabajo cumple con todas las políticas de linting y estructura de documentación.
 
 ### 🎨 Correcciones Estéticas y UI/UX
