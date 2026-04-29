@@ -1,6 +1,6 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.7
+ * @version 6.8
  * @date 2026-04-29
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
@@ -14,6 +14,9 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.8 (2026-04-29) — Autor: Antigravity
+ *     - [FIX] Issue #174: Aclarar que el aprendizaje adaptativo ocurre en la capa de autoría (Articulate 360), no en el LMS.
+ *
  *   v6.7 (2026-04-29) — Autor: Antigravity
  *     - [FIX] Issue #173: Agregar ejemplo explícito para evitar evaluación errónea de implementaciones de iSpring.
  *
@@ -800,6 +803,12 @@ No empujar Totara si:
 - no hay necesidad de rutas automatizadas
 
 Primero validar Reach 360, PIFINI o DDC + distribución simple.
+
+[10.5] Aprendizaje Adaptativo
+Si el usuario pide que el LMS "adapte el contenido según el perfil del alumno":
+- Aclarar: el aprendizaje adaptativo ocurre en la capa de AUTORÍA (Articulate 360), no en el LMS.
+- El LMS gestiona inscripciones, progreso y reportes — no la lógica de adaptación de contenido.
+- Respuesta modelo: "La adaptación del contenido según perfil del alumno se diseña en la herramienta de autoría (como Articulate 360), no en el LMS. El LMS recibe el curso ya configurado y administra quién lo toma y cómo avanza. ¿Te gustaría explorar cómo Articulate 360 maneja rutas adaptativas?"
 
 ==================================================
 CAPÍTULO 11: PIFINI / NETEXAM — PLATAFORMA FUNCIONAL DE ENABLEMENT
