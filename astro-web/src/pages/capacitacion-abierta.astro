@@ -1,8 +1,33 @@
 ---
+/**
+ * capacitacion-abierta.astro
+ *
+ * @owner TAEC / Slim
+ * @status Activo
+ * @vigencia Revisión continua
+ *
+ * @description Página de Cursos Abiertos consumida desde la API de la tienda con sección de políticas
+ *
+ * Changelog:
+ *   v1.0 (2026-04-28) — Autor: Antigravity
+ *     - [FEAT] Implementación de listado de cursos abiertos SSG y políticas de inscripción
+ */
+
 import { contactData } from "../data/contact";
 import BaseLayout from "../layouts/BaseLayout.astro";
-
 import { r } from "../utils/paths";
+
+let cursos = [];
+try {
+  const res = await fetch('https://tienda.taec.com.mx/api/cursosPagina');
+  if (res.ok) {
+    cursos = await res.json();
+    // Ordenar por f_inicio (más próximo primero)
+    cursos.sort((a, b) => new Date(a.f_inicio).getTime() - new Date(b.f_inicio).getTime());
+  }
+} catch (e) {
+  console.error("Error fetching cursos:", e);
+}
 ---
 
 <BaseLayout 
@@ -10,104 +35,310 @@ import { r } from "../utils/paths";
   description="Cursos técnicos en grupos abiertos: Articulate 360, Storyline, Vyond, Moodle y más. Fechas fijas con inscripción individual."
   section="Capacitación"
   page="capacitacion-abierta.html"
-  robots="noindex, nofollow"
 >
   <style is:global>
+    /* ── Dropdown open state (JS-managed) ── */
+    .nav-item.open > .mega-menu        { display: grid !important; }
+    .nav-item.open > .simple-dropdown  { display: grid !important; }
+    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
+    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
 
-  /* ── EN CONSTRUCCIÓN ── */
-    .wip-hero {
+    .hero-cursos {
       background: linear-gradient(135deg, var(--navy) 0%, #00355a 100%);
-      padding: 72px 5%; text-align: center;
+      padding: 72px 5%;
+      text-align: center;
+      color: var(--white);
     }
-    .wip-hero-inner { max-width: 680px; margin: 0 auto; }
-    .wip-tag {
+    .hero-cursos-inner { max-width: 680px; margin: 0 auto; }
+    .tag-cursos {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(168,219,217,.15); color: var(--teal);
       font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
       text-transform: uppercase; padding: 4px 14px; border-radius: 4px;
       margin-bottom: 20px;
     }
-    .wip-icon {
-      font-size: 64px; margin-bottom: 20px; display: block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-    .wip-hero h1 {
+    .hero-cursos h1 {
       font-family: var(--font-display); font-size: 40px;
-      color: var(--white); line-height: 1.2; margin-bottom: 16px;
+      line-height: 1.2; margin-bottom: 16px;
     }
-    .wip-hero p {
-      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 32px;
+    .hero-cursos p {
+      font-size: 17px; color: #94A3B8; line-height: 1.75; margin-bottom: 0;
     }
-    .wip-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 32px; margin-top: 40px; text-align: left;
-    }
-    .wip-card-title {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--teal); margin-bottom: 16px;
-    }
-    .wip-features { display: flex; flex-direction: column; gap: 10px; }
-    .wip-feature {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #CBD5E1;
-    }
-    .wip-feature::before { content: "⚡"; flex-shrink: 0; }
 
-    .wip-cta {
-      background: var(--light); padding: 64px 5%; text-align: center;
+    /* Grid de Cursos */
+    .cursos-section {
+      background: var(--light);
+      padding: 64px 5%;
     }
-    .wip-cta-inner { max-width: 580px; margin: 0 auto; }
-    .wip-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
-    .wip-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
-    .wip-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cursos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 992px) {
+      .cursos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .cursos-grid { grid-template-columns: 1fr; }
+    }
+
+    .curso-card {
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+    .curso-card-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--navy);
+      line-height: 1.3;
+      font-weight: 700;
+    }
+    .curso-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      color: #475569;
+    }
+    .curso-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .curso-via {
+      display: inline-block;
+      background: var(--light);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    .curso-card-cta {
+      margin-top: auto;
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      text-align: center;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .curso-card-cta:hover { background: #d97706; }
+
+    /* Fallback */
+    .fallback-block {
+      text-align: center;
+      padding: 64px 24px;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.05);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .fallback-block p {
+      font-size: 16px;
+      color: #475569;
+      margin-bottom: 24px;
+    }
+
+    /* Políticas */
+    .politicas-section {
+      padding: 64px 5%;
+      background: var(--white);
+    }
+    .politicas-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .politicas-inner h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--navy);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .politicas-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .politica-details {
+      background: var(--light);
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .politica-summary {
+      padding: 16px 20px;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      list-style: none;
+      position: relative;
+      font-size: 16px;
+    }
+    .politica-summary::-webkit-details-marker { display: none; }
+    .politica-summary::after {
+      content: '+';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--teal);
+      transition: transform 0.2s;
+    }
+    .politica-details[open] .politica-summary::after {
+      transform: translateY(-50%) rotate(45deg);
+    }
+    .politica-content {
+      padding: 0 20px 20px 20px;
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .politica-content ul {
+      padding-left: 20px;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+    .politica-content li { margin-bottom: 8px; }
+
+    /* CTA Final */
+    .final-cta {
+      background: var(--light); padding: 64px 5%; text-align: center; border-top: 1px solid var(--border);
+    }
+    .final-cta-inner { max-width: 580px; margin: 0 auto; }
+    .final-cta h2 { font-family: var(--font-display); font-size: 28px; color: var(--navy); margin-bottom: 12px; }
+    .final-cta p { color: var(--dark); margin-bottom: 28px; line-height: 1.7; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    
     .btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 13px 26px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
     .btn-primary:hover { background: #d97b0e; }
+    
     .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: var(--white); padding: 13px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; transition: background .15s; }
     .btn-wa:hover { background: #1ebe5c; }
     .btn-wa svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
-
-    /* ── Dropdown open state (JS-managed) ── */
-    .nav-item.open > .mega-menu        { display: grid !important; }
-    .nav-item.open > .simple-dropdown  { display: grid !important; }
-    .nav-item.open > .nav-link         { background: var(--light); color: var(--blue); }
-    .nav-item.open > .nav-link svg     { transform: rotate(180deg); }
-  
   </style>
 
-<main id="main-content">
+  <main id="main-content">
 
-<!-- ══ HERO EN CONSTRUCCIÓN ══ -->
-<section class="wip-hero">
-  <div class="wip-hero-inner">
-    <span class="wip-tag">Capacitación</span>
-    <span class="wip-icon" role="img" aria-label="Cursos Abiertos">📅</span>
-    <h1>Cursos Abiertos</h1>
-    <p>Cursos técnicos en grupos abiertos: Articulate 360, Storyline, Vyond, Moodle y más. Fechas fijas con inscripción individual.</p>
-    <div class="wip-card">
-      <p class="wip-card-title">🚧 Página en construcción</p>
-      <div class="wip-features">
-        <div class="wip-feature">Estamos preparando el contenido completo de esta página</div>
-        <div class="wip-feature">Mientras tanto, puedes escribirnos directamente y te respondemos en menos de 24 h</div>
-        <div class="wip-feature">Toda la información de precios, planes y soporte disponible por email o WhatsApp</div>
+    <!-- HERO -->
+    <section class="hero-cursos">
+      <div class="hero-cursos-inner">
+        <span class="tag-cursos">CAPACITACIÓN ABIERTA</span>
+        <h1>Cursos Abiertos</h1>
+        <p>Capacitación técnica en grupos abiertos: Articulate 360, Storyline, Vyond, Moodle y más. Fechas fijas con inscripción individual.</p>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ══ CTA ══ -->
-<section class="wip-cta">
-  <div class="wip-cta-inner">
-    <h2>¿Necesitas información sobre Cursos Abiertos?</h2>
-    <p>Habla con uno de nuestros especialistas. Sin compromiso, sin demoras — respondemos el mismo día hábil.</p>
-    <div class="wip-cta-btns">
-      <a href={r('/contacto')} class="btn-primary">Escribirnos →</a>
-      <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-wa">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        WhatsApp
-      </a>
-    </div>
-  </div>
-</section>
+    <!-- GRID DE CURSOS -->
+    <section class="cursos-section">
+      {cursos.length > 0 ? (
+        <div class="cursos-grid">
+          {cursos.map(curso => (
+            <div class="curso-card">
+              <span class="curso-via">{curso.via}</span>
+              <h3 class="curso-card-title">{curso.producto}</h3>
+              
+              <div class="curso-meta">
+                <div class="curso-meta-row">
+                  <span aria-hidden="true">📅</span>
+                  <span>{curso.detalle}</span>
+                </div>
+                <div class="curso-meta-row">
+                  <span aria-hidden="true">⏰</span>
+                  <span>{curso.horaini} – {curso.horafin}</span>
+                </div>
+                <div class="curso-meta-row">
+                  <span aria-hidden="true">🔄</span>
+                  <span>{curso.sesion} sesiones</span>
+                </div>
+              </div>
 
-</main>
+              <a href={`https://tienda.taec.com.mx/descarticuser/${curso.id}`} target="_blank" rel="noopener noreferrer" class="curso-card-cta">
+                Inscribirse &rarr;
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="fallback-block">
+          <p>Próximamente nuevas fechas — escríbenos para más información</p>
+          <a href={r('/contacto')} class="btn-primary">Contáctanos</a>
+        </div>
+      )}
+    </section>
+
+    <!-- POLÍTICAS -->
+    <section class="politicas-section">
+      <div class="politicas-inner">
+        <h2>Políticas de Cursos Abiertos</h2>
+        <div class="politicas-accordion">
+          
+          <details class="politica-details">
+            <summary class="politica-summary">Política de inscripción</summary>
+            <div class="politica-content">
+              <ul>
+                <li>La fecha límite de inscripción es <strong>24 horas antes</strong> del inicio del curso.</li>
+                <li>TAEC se reserva el derecho de cancelar un curso si no se alcanza el mínimo de participantes, reagendando para la siguiente fecha disponible.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="politica-details">
+            <summary class="politica-summary">Políticas de cancelación y/o reprogramación</summary>
+            <div class="politica-content">
+              <p>TAEC puede cancelar o suspender un curso cuando:</p>
+              <ul>
+                <li>No se logró el mínimo de <strong>2 participantes</strong> para abrir el curso.</li>
+                <li>El instructor o TAEC no puede impartirlo por causas de fuerza mayor (emergencias de salud, sismos, fallas de electricidad o internet, etc.).</li>
+              </ul>
+              <p>En caso de reprogramación, TAEC notifica <strong>con una semana de anticipación</strong> a los correos registrados en la inscripción, con la nueva fecha y horario.</p>
+            </div>
+          </details>
+
+          <details class="politica-details">
+            <summary class="politica-summary">Políticas de reembolso por cancelación</summary>
+            <div class="politica-content">
+              <p>En caso de que TAEC cancele el curso:</p>
+              <ul>
+                <li>El participante tiene <strong>5 días hábiles</strong> para solicitar reembolso desde el aviso de cancelación.</li>
+                <li>El monto se reembolsa a la <strong>tarjeta con la que se realizó el pago</strong>.</li>
+                <li>Enviar solicitud de reembolso con comprobante de pago a: <strong>training@taec.com.mx</strong></li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="final-cta">
+      <div class="final-cta-inner">
+        <h2>¿Necesitas un curso a la medida de tu equipo?</h2>
+        <p>También ofrecemos capacitación cerrada, con fechas, contenido y ritmo adaptados a tu empresa.</p>
+        <div class="cta-btns">
+          <a href={r('/capacitacion-cerrada')} class="btn-primary">Ver Capacitación Cerrada &rarr;</a>
+          <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn-wa">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 </BaseLayout>

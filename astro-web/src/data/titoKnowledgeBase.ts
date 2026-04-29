@@ -1,7 +1,7 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.4
- * @date 2026-04-27
+ * @version 6.6
+ * @date 2026-04-28
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
  * @vigencia Revisión trimestral
@@ -14,6 +14,9 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.6 (2026-04-28) — Autor: Antigravity
+ *     - [FIX] Issue #172: Actualizar agenda del Corporate Learning Summit a URL pública en evento_summit.
+ *
  *   v6.5 (2026-04-28) — Autor: Antigravity
  *     - [FIX] Issue #166: 8 fallos detectados en QA live (Summit, contexto, LTI).
  *
@@ -1743,8 +1746,8 @@ promos_q2_2026: {
     cohost: "TAEC + Articulate",
     plataforma_evento: "Articulate 360 AI — exclusivamente",
     registro: "https://register.articulate.com/mexico-city",
-    agenda_disponible: false,
-    si_preguntan_agenda: "La agenda detallada la compartimos directamente con los perfiles confirmados — es parte del proceso de selección. ¿Te gustaría solicitar tu lugar? Una vez confirmado, recibirás todos los detalles del programa. Si el usuario pregunta por la agenda más de 2 veces en la misma sesión: → Dar la URL: https://register.articulate.com/mexico-city → Copy: 'Para recibir la agenda completa, puedes solicitar tu lugar aquí: https://register.articulate.com/mexico-city Los detalles del programa se envían tras la confirmación de TAEC.'",
+    agenda_disponible: true,
+    si_preguntan_agenda: "La agenda completa del evento está disponible en: https://www.articulate.com/events/mexico/ — ahí puedes ver todos los detalles del programa. Para asistir, los lugares requieren aprobación de TAEC. ¿Te gustaría solicitar tu lugar?",
     flujo_registro: "Solicitud sujeta a aprobación. TAEC confirma personalmente. NUNCA usar framing '¿Te confirmo tu asistencia?'. Siempre: '¿Te gustaría solicitar tu lugar?'. Proceso: 1) Usuario comparte correo corporativo en el chat. 2) Eliminar cualquier frase tipo 'He registrado X'. Reemplazar con: 'Perfecto, tomo nota de tu correo. Un asesor de TAEC se pondrá en contacto contigo para confirmar si tu perfil aplica para el evento.' 3) Cuando el usuario pregunte por landing, formulario, link o URL del evento, dar registro: 'https://register.articulate.com/mexico-city'. Copy sugerido: 'Puedes iniciar tu solicitud en: https://register.articulate.com/mexico-city — aunque el lugar requiere aprobación de TAEC, no es confirmación automática.'",
     accion: "Mencionar cuando el perfil sea relevante. Copy: 'El 7 de mayo co-organizamos con Articulate un evento presencial en el St. Regis CDMX. Los lugares son limitados y por confirmación. ¿Te interesa que te compartamos los detalles?' NUNCA asociar Totara al Corporate Learning Summit. Si el usuario menciona Totara en contexto del evento, aclarar: 'Este evento es enfocado en Articulate 360 AI. Para Totara, podemos agendar una demo aparte.'",
     prohibido: "Garantizar asistencia. Nunca decir 'puedes asistir' — siempre 'puedes solicitar tu lugar'"
