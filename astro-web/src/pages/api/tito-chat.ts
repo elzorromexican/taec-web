@@ -1,6 +1,6 @@
 /**
  * @name tito-chat.ts
- * @version 2.1
+ * @version 2.3
  * @description Router central de TitoBits v4. Orquesta Motor 1 (reglas), Motor 2 (RAG) y Motor 3 (Lead Scoring remoto y Handoff automatizado).
  * @inputs HTTP POST request payload { message: string, session_id: string }
  * @outputs JSON content de la IA o notificaciones de escalamiento
@@ -9,6 +9,8 @@
  * @updated 2026-04-23 10:46:00
  *
  * Changelog:
+ *   v2.3 (2026-04-29) — Autor: Antigravity
+ *     - [FEAT] Issue #184: Acumular LeadSignals por sesión en Supabase y fusionar con las señales actuales.
  *   v2.2 (2026-04-29) — Autor: Antigravity
  *     - [REFACTOR] Issue #182: Reemplazar getSystemRulesString por getActiveSystemRules.
  *     - [FEAT] Issue #185: Expandir LeadSignals con campos de intent comercial.
@@ -220,8 +222,31 @@ Schema esperado:
 		}
 
 		// ======= FASE 2: HANDOFF & SUPABASE DATABASE =======
-		const score = calcularScore(realSignals);
-		let handoffTipo = determinarHandoff(realSignals, score);
+		const accumulatedSignals: Partial<LeadSignals> = existingLead?.accumulated_signals ?? {};
+
+		const mergedSignals: LeadSignals = {
+			productos_interes: [
+				...new Set([
+					...(accumulatedSignals.productos_interes ?? []),
+					...(realSignals.productos_interes ?? [])
+				])
+			],
+			seats_mencionados: realSignals.seats_mencionados ?? accumulatedSignals.seats_mencionados ?? null,
+			requiere_integracion: realSignals.requiere_integracion || (accumulatedSignals.requiere_integracion ?? false),
+			tiene_lms_actual: realSignals.tiene_lms_actual || (accumulatedSignals.tiene_lms_actual ?? false),
+			es_cliente_nuevo: realSignals.es_cliente_nuevo ?? accumulatedSignals.es_cliente_nuevo ?? true,
+			urgencia: realSignals.urgencia ?? accumulatedSignals.urgencia ?? null,
+			presupuesto_aprobado: realSignals.presupuesto_aprobado || (accumulatedSignals.presupuesto_aprobado ?? false),
+			quiere_cotizacion: realSignals.quiere_cotizacion || (accumulatedSignals.quiere_cotizacion ?? false),
+			quiere_demo: realSignals.quiere_demo || (accumulatedSignals.quiere_demo ?? false),
+			quiere_contacto: realSignals.quiere_contacto || (accumulatedSignals.quiere_contacto ?? false),
+			empresa_mencionada: realSignals.empresa_mencionada ?? accumulatedSignals.empresa_mencionada ?? null,
+			cargo_mencionado: realSignals.cargo_mencionado ?? accumulatedSignals.cargo_mencionado ?? null,
+			dolor_negocio: realSignals.dolor_negocio ?? accumulatedSignals.dolor_negocio ?? null,
+		};
+
+		const score = calcularScore(mergedSignals);
+		let handoffTipo = determinarHandoff(mergedSignals, score);
 
 		if (escalationCheck === "ESCALATE" && !handoffTipo) {
 			handoffTipo = "ventas";
@@ -245,6 +270,7 @@ Schema esperado:
 							handoff_triggered: true,
 							email: null,
 							awaiting_contact: true, // Fase 3: Set to true when handoff triggers
+							accumulated_signals: mergedSignals, // ISSUE #184: persist accumulated signals
 						},
 					],
 					{ onConflict: "session_id" },
@@ -311,6 +337,25 @@ Usuario: ${message}
 			reply =
 				geminiResponse.text?.trim() ??
 				"Gracias por tu consulta. Un especialista de TAEC te contactará pronto.";
+		}
+
+		// Guardar siempre las señales acumuladas y score, incluso si no hubo handoff
+		if (!handoffTipo) {
+			const { error: upsertError } = await supabase
+				.from("tito_leads")
+				.upsert(
+					[
+						{
+							session_id: sessionId,
+							score: score,
+							accumulated_signals: mergedSignals,
+						},
+					],
+					{ onConflict: "session_id" },
+				);
+			if (upsertError) {
+				console.error("Fallo persistiendo accumulated_signals:", upsertError);
+			}
 		}
 
 		return new Response(
