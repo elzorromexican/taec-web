@@ -1,12 +1,12 @@
 /**
  * @name tito-chat.ts
- * @version 2.3
+ * @version 2.4
  * @description Router central de TitoBits v4. Orquesta Motor 1 (reglas), Motor 2 (RAG) y Motor 3 (Lead Scoring remoto y Handoff automatizado).
  * @inputs HTTP POST request payload { message: string, session_id: string }
  * @outputs JSON content de la IA o notificaciones de escalamiento
  * @dependencies ../lib/tito/rules, ../lib/tito/rag, ../lib/tito/scoring, ../lib/tito/handoff
  * @created 2026-04-11
- * @updated 2026-04-23 10:46:00
+ * @updated 2026-04-29
  *
  * Changelog:
  *   v2.4 (2026-04-29) — Autor: Antigravity
