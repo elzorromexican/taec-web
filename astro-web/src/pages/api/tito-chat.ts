@@ -11,6 +11,7 @@
  * Changelog:
  *   v2.2 (2026-04-29) — Autor: Antigravity
  *     - [REFACTOR] Issue #182: Reemplazar getSystemRulesString por getActiveSystemRules.
+ *     - [FEAT] Issue #185: Expandir LeadSignals con campos de intent comercial.
  *   v2.1 (2026-04-23) — Autor: Antigravity
  *     - [FIX] Resolución de env vars compatible con Astro SSR (import.meta.env + process.env) para TAEC_GEMINI_KEY
  */
@@ -180,7 +181,13 @@ Schema esperado:
   "tiene_lms_actual": boolean,          // ya tiene un LMS en uso
   "es_cliente_nuevo": boolean,          // parece ser nuevo cliente (true por defecto)
   "urgencia": "alta" | "media" | "baja" | null,  // señales de urgencia o plazo
-  "presupuesto_aprobado": boolean       // menciona presupuesto aprobado o autorizado
+  "presupuesto_aprobado": boolean,      // menciona presupuesto aprobado o autorizado
+  "quiere_cotizacion": boolean,         // "quiero cotizar", "necesito propuesta", "cuánto cuesta"
+  "quiere_demo": boolean,               // "quiero ver una demo", "pueden mostrarme"
+  "quiere_contacto": boolean,           // "quiero hablar con alguien", "me contacten"
+  "empresa_mencionada": string | null,
+  "cargo_mencionado": string | null,    // "soy director de RH", "soy coordinador"
+  "dolor_negocio": string | null        // resumen del pain point, máx 10 palabras
 }
 `;
 
@@ -203,6 +210,12 @@ Schema esperado:
 				es_cliente_nuevo: true,
 				urgencia: null,
 				presupuesto_aprobado: false,
+				quiere_cotizacion: false,
+				quiere_demo: false,
+				quiere_contacto: false,
+				empresa_mencionada: null,
+				cargo_mencionado: null,
+				dolor_negocio: null,
 			};
 		}
 
