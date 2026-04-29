@@ -1,12 +1,12 @@
 /**
  * @name rules.ts
- * @version 1.2
+ * @version 1.3
  * @description Motor 1: Reglas duras, RAG_SOURCES y lógica de escalamiento ejecutable.
  * @inputs Mensaje de usuario (string)
  * @outputs RAG_SOURCES, HARD_RULES, evaluación de escalamiento (ESCALATE | INFORM | CONTINUE)
  * @dependencies N/A
  * @created 2026-04-11
- * @updated 2026-04-23
+ * @updated 2026-04-29
  * @changelog
  * - 1.3 (2026-04-29): Refactor Issue #182 - Remover HARD_RULES y afinar escalateKeywords para evitar falsos positivos en escalamiento.
  * - 1.2 (2026-04-23): Integrar FAQ oficial Articulate + eliminar AI Assistant como producto separado (Issue 145)

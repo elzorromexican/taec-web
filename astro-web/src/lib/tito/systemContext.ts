@@ -3,6 +3,9 @@
  * @version 1.0
  * @description Centraliza todas las reglas deterministas de alto nivel para el comportamiento de Tito, independientes del RAG.
  * @created 2026-04-29
+ * @owner TAEC / Slim
+ * @status Activo
+ * @vigencia Revisión trimestral
  * 
  * Changelog:
  *   v1.0 (2026-04-29) - Autor: Antigravity
