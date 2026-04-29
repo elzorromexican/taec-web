@@ -1,6 +1,6 @@
 /**
  * @name scoring.ts
- * @version 1.1
+ * @version 1.2
  * @description Lógica de asignación de puntajes (Lead Scoring) y determinación de tipo de handoff.
  * @inputs Historial de conversación y extracciones NLP
  * @outputs Score final numérico y sugerencia de handoff.
@@ -9,6 +9,8 @@
  * @updated 2026-04-29
  *
  * Changelog:
+ *   v1.2 (2026-04-29) — Autor: Antigravity
+ *     - [FIX] Issue #186: Implementar gate de intent comercial antes de disparar handoff.
  *   v1.1 (2026-04-29) — Autor: Antigravity
  *     - [FEAT] Issue #185: Expandir LeadSignals con campos de intent comercial y añadir penalizador para estudiantes/becarios.
  */
@@ -87,7 +89,16 @@ export function determinarHandoff(
 	signals: LeadSignals,
 	score: number,
 ): "ventas" | "preventa_tecnica" | null {
-	if (score >= 40) {
+	const hasCommercialIntent =
+		signals.presupuesto_aprobado ||
+		signals.urgencia === "alta" ||
+		signals.quiere_cotizacion ||
+		signals.quiere_demo ||
+		signals.quiere_contacto;
+
+	const isHighValue = score >= 70; // score muy alto: handoff aunque no haya intent explícito
+
+	if (score >= 40 && (hasCommercialIntent || isHighValue)) {
 		if (signals.requiere_integracion || signals.tiene_lms_actual) {
 			return "preventa_tecnica";
 		}
