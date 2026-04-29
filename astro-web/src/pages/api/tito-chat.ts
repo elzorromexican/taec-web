@@ -9,6 +9,8 @@
  * @updated 2026-04-23 10:46:00
  *
  * Changelog:
+ *   v2.2 (2026-04-29) — Autor: Antigravity
+ *     - [REFACTOR] Issue #182: Reemplazar getSystemRulesString por getActiveSystemRules.
  *   v2.1 (2026-04-23) — Autor: Antigravity
  *     - [FIX] Resolución de env vars compatible con Astro SSR (import.meta.env + process.env) para TAEC_GEMINI_KEY
  */
@@ -29,8 +31,8 @@ import {
 } from "../../lib/tito/rag";
 import {
 	evaluateMessageForEscalation,
-	getSystemRulesString,
 } from "../../lib/tito/rules";
+import { getActiveSystemRules } from "../../lib/tito/systemContext";
 import {
 	calcularScore,
 	determinarHandoff,
@@ -147,7 +149,7 @@ export const POST: APIRoute = async ({ request }) => {
 		}
 
 		// ======= MOTOR 1: EVALUAR REGLAS Y TRIGGERS =======
-		const rulesContext = getSystemRulesString();
+		const rulesContext = getActiveSystemRules();
 		const escalationCheck = evaluateMessageForEscalation(message);
 
 		// ======= MOTOR 2: RAG (VECTORES HÍBRIDO) =======
