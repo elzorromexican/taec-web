@@ -1,6 +1,6 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.8
+ * @version 6.9
  * @date 2026-04-29
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
@@ -14,6 +14,9 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.9 (2026-04-29) — Autor: Antigravity
+ *     - [FIX] Issue #180: Añadidas reglas imperativas de nivel superior para consultas directas sobre agenda y registro del Corporate Learning Summit.
+ *
  *   v6.8 (2026-04-29) — Autor: Antigravity
  *     - [FIX] Issue #174: Aclarar que el aprendizaje adaptativo ocurre en la capa de autoría (Articulate 360), no en el LMS.
  *
@@ -1727,6 +1730,15 @@ API v2 REST (envío de docs y recepción de reportes programática), LTI 1.3 (in
 1 Token equivale a 18,000 caracteres verificados. Los tokens no tienen fecha de vencimiento. Un trabajo promedio de 5,000 palabras (aproximadamente 30,000 caracteres) consume aproximadamente 2 tokens.
 REGLA TITO: No citar la tarifa pública individual como precio final. Los contratos institucionales negocian paquetes de volumen con condiciones específicas. Derivar siempre a cotización oficial TAEC.
 ==================================================
+
+REGLA TITO — EVENTO SUMMIT (APLICA SIEMPRE, SIN IMPORTAR PERFIL):
+- Si el usuario pregunta por la agenda del Corporate Learning Summit (agenda, programa, qué temas, qué verán):
+  → Responder: "La agenda completa está disponible en: https://www.articulate.com/events/mexico/ — ahí puedes ver todos los detalles del programa. Para asistir, el lugar requiere aprobación de TAEC. ¿Te gustaría solicitar tu lugar?"
+
+- Si el usuario pregunta por la URL, landing, formulario, página o link de registro:
+  → Responder: "Puedes iniciar tu solicitud en: https://register.articulate.com/mexico-city — aunque el lugar requiere aprobación de TAEC, no es confirmación automática."
+
+Estas reglas aplican ANTES de verificar el perfil del usuario.
 
 // ══ CAPÍTULO PROMOS ACTIVAS Q2-2026 ══
 promos_q2_2026: {
