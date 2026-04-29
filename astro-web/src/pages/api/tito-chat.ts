@@ -1,6 +1,6 @@
 /**
  * @name tito-chat.ts
- * @version 2.1
+ * @version 2.3
  * @description Router central de TitoBits v4. Orquesta Motor 1 (reglas), Motor 2 (RAG) y Motor 3 (Lead Scoring remoto y Handoff automatizado).
  * @inputs HTTP POST request payload { message: string, session_id: string }
  * @outputs JSON content de la IA o notificaciones de escalamiento
@@ -337,6 +337,25 @@ Usuario: ${message}
 			reply =
 				geminiResponse.text?.trim() ??
 				"Gracias por tu consulta. Un especialista de TAEC te contactará pronto.";
+		}
+
+		// Guardar siempre las señales acumuladas y score, incluso si no hubo handoff
+		if (!handoffTipo) {
+			const { error: upsertError } = await supabase
+				.from("tito_leads")
+				.upsert(
+					[
+						{
+							session_id: sessionId,
+							score: score,
+							accumulated_signals: mergedSignals,
+						},
+					],
+					{ onConflict: "session_id" },
+				);
+			if (upsertError) {
+				console.error("Fallo persistiendo accumulated_signals:", upsertError);
+			}
 		}
 
 		return new Response(
