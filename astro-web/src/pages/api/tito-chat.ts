@@ -198,7 +198,7 @@ export const POST: APIRoute = async ({ request }) => {
     // ======= MOTOR 1: EVALUAR REGLAS Y TRIGGERS =======
     let rulesContext = getActiveSystemRules();
     if (softWallActive) {
-      rulesContext += "\\nEl usuario está pendiente de compartir su correo. Al final de tu respuesta, pídelo naturalmente en una línea.";
+      rulesContext += "\nEl usuario está pendiente de compartir su correo. Al final de tu respuesta, pídelo naturalmente en una línea.";
     }
     const escalationCheck = evaluateMessageForEscalation(message);
 
