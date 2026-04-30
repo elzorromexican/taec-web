@@ -9,6 +9,8 @@
  * @updated 2026-04-30
  *
  * Changelog:
+ *   v2.6 (2026-04-30) — Autor: Antigravity
+ *     - [FEAT] Issue #188: "answer first" — responder pregunta antes de pedir datos en handoff.
  *   v2.5 (2026-04-30) — Autor: Antigravity
  *     - [FIX] Issue #187: Responder preguntas legítimas (vía LLM) durante awaiting_contact si softWallActive es true en lugar de forzar FALLBACK_CONTACTO.
  *   v2.4 (2026-04-29) — Autor: Antigravity
@@ -209,6 +211,25 @@ export const POST: APIRoute = async ({ request }) => {
       searchKbItems(messageEmbedding, 0.75, 3),
     ]);
 
+    let ragContext = "";
+    if (kbItems && kbItems.length > 0) {
+      ragContext +=
+        "### BASE DE CONOCIMIENTOS (Prioridad Alta):\n" +
+        kbItems
+          .map(
+            (kb: any) =>
+              `[FAQ ${kb.producto} - ${kb.seccion}] ${kb.pregunta}\nA: ${kb.plus}\nA evitar: ${kb.menos}`,
+          )
+          .join("\n\n") +
+        "\n\n";
+    }
+    if (contextChunks && contextChunks.length > 0) {
+      ragContext +=
+        "### DOCUMENTACIÓN GENERAL:\n" +
+        contextChunks.map((c: any) => c.content).join("\n\n");
+    }
+    ragContext = ragContext.trim();
+
     // ======= MOTOR 3: SCORING Y EXTRACCIONES LLM =======
     const geminiKey =
       (typeof process !== "undefined" && process.env.TAEC_GEMINI_KEY) ||
@@ -361,8 +382,29 @@ Schema esperado:
       if (softWallActive) {
         useGemini = true;
       } else {
-        reply =
+        let answerPart = "";
+        const tieneContenidoRAG = ragContext.length > 0;
+
+        if (tieneContenidoRAG) {
+          try {
+            const answerResponse = await ai.models.generateContent({
+              model: "gemini-2.5-flash",
+              contents: `Responde en máximo 2 oraciones esta pregunta usando el contexto disponible. Solo responde la pregunta, sin preámbulos.
+Contexto: ${ragContext}
+Pregunta: ${message}`,
+            });
+            answerPart = answerResponse.text?.trim() ?? "";
+          } catch (e) {
+            console.error("Error al responder pregunta en handoff:", e);
+          }
+        }
+
+        const captureRequest =
           "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?";
+
+        reply = answerPart
+          ? `${answerPart}\n\n${captureRequest}`
+          : captureRequest;
       }
     } else if (escalationCheck === "INFORM") {
       reply =
@@ -373,24 +415,6 @@ Schema esperado:
 
     if (useGemini) {
       // CONTINUE — responder con Gemini usando contexto RAG
-      let ragContext = "";
-      if (kbItems && kbItems.length > 0) {
-        ragContext +=
-          "### BASE DE CONOCIMIENTOS (Prioridad Alta):\n" +
-          kbItems
-            .map(
-              (kb: any) =>
-                `[FAQ ${kb.producto} - ${kb.seccion}] ${kb.pregunta}\nA: ${kb.plus}\nA evitar: ${kb.menos}`,
-            )
-            .join("\n\n") +
-          "\n\n";
-      }
-      if (contextChunks && contextChunks.length > 0) {
-        ragContext +=
-          "### DOCUMENTACIÓN GENERAL:\n" +
-          contextChunks.map((c: any) => c.content).join("\n\n");
-      }
-      ragContext = ragContext.trim();
 
       // Fetch personality mode from Supabase config (non-blocking, default 'medio')
       let personalityMode: PersonalityMode = "medio";
