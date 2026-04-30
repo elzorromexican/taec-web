@@ -1,14 +1,16 @@
 /**
  * @name tito-chat.ts
- * @version 2.4
+ * @version 2.5
  * @description Router central de TitoBits v4. Orquesta Motor 1 (reglas), Motor 2 (RAG) y Motor 3 (Lead Scoring remoto y Handoff automatizado).
  * @inputs HTTP POST request payload { message: string, session_id: string }
  * @outputs JSON content de la IA o notificaciones de escalamiento
  * @dependencies ../lib/tito/rules, ../lib/tito/rag, ../lib/tito/scoring, ../lib/tito/handoff
  * @created 2026-04-11
- * @updated 2026-04-29
+ * @updated 2026-04-30
  *
  * Changelog:
+ *   v2.5 (2026-04-30) — Autor: Antigravity
+ *     - [FIX] Issue #187: Responder preguntas legítimas (vía LLM) durante awaiting_contact si softWallActive es true en lugar de forzar FALLBACK_CONTACTO.
  *   v2.4 (2026-04-29) — Autor: Antigravity
  *     - [FEAT] Issue #189: Reemplazar generarMiniBrief por buildMiniBrief determinista usando LeadSignals acumulados.
  *   v2.3 (2026-04-29) — Autor: Antigravity
@@ -73,6 +75,8 @@ export const POST: APIRoute = async ({ request }) => {
     const message = body.message || "";
     const sessionId = body.session_id || "anonymous-session";
 
+    let softWallActive = false;
+
     // ======= FASE 3: MODO CAPTURA =======
     const { data: existingLead } = await supabase
       .from("tito_leads")
@@ -96,11 +100,11 @@ export const POST: APIRoute = async ({ request }) => {
         const contacto = extraerContacto(message);
 
         const isRefusal =
-          message.toLowerCase().match(/(no quiero|no te dar|no gracias)/) !==
+          message.toLowerCase().match(/(no quiero|no te dar|no gracias|luego)/) !==
           null;
         const hasDatos = contacto.nombre || contacto.empresa || contacto.email;
 
-        if (isRefusal || !hasDatos) {
+        if (isRefusal) {
           return new Response(
             JSON.stringify({
               reply: FALLBACK_CONTACTO,
@@ -111,73 +115,91 @@ export const POST: APIRoute = async ({ request }) => {
           );
         }
 
-        const mergedNombre = contacto.nombre || existingLead.nombre;
-        const mergedEmail = contacto.email || existingLead.email;
-        const mergedEmpresa = contacto.empresa || existingLead.empresa;
-
-        const faltaNombre = !mergedNombre;
-        const faltaEmail = !mergedEmail;
-
-        let replyCapture = "";
-        let awaitingContactUpdate = false;
-
-        if (!faltaNombre && !faltaEmail) {
-          replyCapture = `Listo ${mergedNombre}, nuestro equipo te contacta en menos de 24 horas hábiles.`;
-          awaitingContactUpdate = false;
-        } else if (faltaEmail) {
-          replyCapture = faltaNombre
-            ? "Gracias. ¿Me compartes tu nombre y correo corporativo?"
-            : `Gracias ${mergedNombre}. ¿Me compartes tu correo corporativo?`;
-          awaitingContactUpdate = true;
-        } else if (faltaNombre) {
-          replyCapture = "Casi listo, ¿me confirmas tu nombre?";
-          awaitingContactUpdate = true;
+        if (!hasDatos) {
+          if (esConsulta) {
+            softWallActive = true;
+          } else {
+            return new Response(
+              JSON.stringify({
+                reply: FALLBACK_CONTACTO,
+                handoff_tipo: existingLead.handoff_tipo,
+                score: existingLead.score,
+              }),
+              { status: 200, headers: { "Content-Type": "application/json" } },
+            );
+          }
         } else {
-          replyCapture =
-            "Gracias. ¿Me compartes tu nombre y correo corporativo?";
-          awaitingContactUpdate = true;
+          const mergedNombre = contacto.nombre || existingLead.nombre;
+          const mergedEmail = contacto.email || existingLead.email;
+          const mergedEmpresa = contacto.empresa || existingLead.empresa;
+
+          const faltaNombre = !mergedNombre;
+          const faltaEmail = !mergedEmail;
+
+          let replyCapture = "";
+          let awaitingContactUpdate = false;
+
+          if (!faltaNombre && !faltaEmail) {
+            replyCapture = `Listo ${mergedNombre}, nuestro equipo te contacta en menos de 24 horas hábiles.`;
+            awaitingContactUpdate = false;
+          } else if (faltaEmail) {
+            replyCapture = faltaNombre
+              ? "Gracias. ¿Me compartes tu nombre y correo corporativo?"
+              : `Gracias ${mergedNombre}. ¿Me compartes tu correo corporativo?`;
+            awaitingContactUpdate = true;
+          } else if (faltaNombre) {
+            replyCapture = "Casi listo, ¿me confirmas tu nombre?";
+            awaitingContactUpdate = true;
+          } else {
+            replyCapture =
+              "Gracias. ¿Me compartes tu nombre y correo corporativo?";
+            awaitingContactUpdate = true;
+          }
+
+          const { data: updatedLead, error: leadUpdateError } = await supabase
+            .from("tito_leads")
+            .update({
+              nombre: mergedNombre,
+              empresa: mergedEmpresa,
+              email: mergedEmail,
+              awaiting_contact: awaitingContactUpdate,
+            })
+            .eq("id", existingLead.id)
+            .select()
+            .single();
+
+          if (!awaitingContactUpdate && !leadUpdateError && updatedLead) {
+            enviarNotificacion({
+              id: updatedLead.id,
+              session_id: sessionId,
+              email: updatedLead.email,
+              nombre: updatedLead.nombre,
+              empresa: updatedLead.empresa,
+              score: updatedLead.score,
+              minibrief: updatedLead.minibrief,
+              handoff_tipo: updatedLead.handoff_tipo as
+                | "ventas"
+                | "preventa_tecnica",
+            });
+          }
+
+          return new Response(
+            JSON.stringify({
+              reply: replyCapture,
+              handoff_tipo: existingLead.handoff_tipo,
+              score: existingLead.score,
+            }),
+            { status: 200, headers: { "Content-Type": "application/json" } },
+          );
         }
-
-        const { data: updatedLead, error: leadUpdateError } = await supabase
-          .from("tito_leads")
-          .update({
-            nombre: mergedNombre,
-            empresa: mergedEmpresa,
-            email: mergedEmail,
-            awaiting_contact: awaitingContactUpdate,
-          })
-          .eq("id", existingLead.id)
-          .select()
-          .single();
-
-        if (!awaitingContactUpdate && !leadUpdateError && updatedLead) {
-          enviarNotificacion({
-            id: updatedLead.id,
-            session_id: sessionId,
-            email: updatedLead.email,
-            nombre: updatedLead.nombre,
-            empresa: updatedLead.empresa,
-            score: updatedLead.score,
-            minibrief: updatedLead.minibrief,
-            handoff_tipo: updatedLead.handoff_tipo as
-              | "ventas"
-              | "preventa_tecnica",
-          });
-        }
-
-        return new Response(
-          JSON.stringify({
-            reply: replyCapture,
-            handoff_tipo: existingLead.handoff_tipo,
-            score: existingLead.score,
-          }),
-          { status: 200, headers: { "Content-Type": "application/json" } },
-        );
       }
     }
 
     // ======= MOTOR 1: EVALUAR REGLAS Y TRIGGERS =======
-    const rulesContext = getActiveSystemRules();
+    let rulesContext = getActiveSystemRules();
+    if (softWallActive) {
+      rulesContext += "\\nEl usuario está pendiente de compartir su correo. Al final de tu respuesta, pídelo naturalmente en una línea.";
+    }
     const escalationCheck = evaluateMessageForEscalation(message);
 
     // ======= MOTOR 2: RAG (VECTORES HÍBRIDO) =======
@@ -306,6 +328,8 @@ Schema esperado:
 
     let reply = "Hola, soy TitoBits v4. Procesando...";
 
+    let useGemini = false;
+
     if (handoffTipo) {
       const miniBrief = buildMiniBrief(mergedSignals, message);
 
@@ -320,7 +344,7 @@ Schema esperado:
               minibrief: miniBrief,
               handoff_tipo: handoffTipo,
               handoff_triggered: true,
-              email: null,
+              email: existingLead?.email || null,
               awaiting_contact: true, // Fase 3: Set to true when handoff triggers
               accumulated_signals: mergedSignals, // ISSUE #184: persist accumulated signals
             },
@@ -334,12 +358,20 @@ Schema esperado:
         console.error("Fallo persistiendo a Supabase tito_leads:", leadError);
       }
 
-      reply =
-        "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?";
+      if (softWallActive) {
+        useGemini = true;
+      } else {
+        reply =
+          "Para conectarte con el especialista correcto, ¿me confirmas tu nombre, empresa y correo corporativo?";
+      }
     } else if (escalationCheck === "INFORM") {
       reply =
         "Por favor indícame la cantidad exacta de licencias o alcances para asistirte.";
     } else {
+      useGemini = true;
+    }
+
+    if (useGemini) {
       // CONTINUE — responder con Gemini usando contexto RAG
       let ragContext = "";
       if (kbItems && kbItems.length > 0) {
