@@ -39,7 +39,7 @@ const isAddons =
 const isCatalog =
 	currentPath.includes("7minutes") || currentPath.includes("customguide");
 
-const isActive = (path) =>
+const isActive = (path: string) =>
 	currentPath === path ||
 	(path !== "/interno/dashboard" &&
 		path !== "/" &&
@@ -397,7 +397,7 @@ const isActive = (path) =>
     });
 
     // 3. Event Delegation para exclusividad en clics (solo 1 abierto a la vez)
-    const sidebarNav = document.querySelector('.sidebar-nav');
+    const sidebarNav = document.querySelector('.sidebar-nav') as HTMLElement | null;
     if (sidebarNav && !sidebarNav.dataset.listenerAttached) {
       sidebarNav.dataset.listenerAttached = 'true';
       sidebarNav.addEventListener('click', (e) => {
@@ -407,7 +407,7 @@ const isActive = (path) =>
           if (group) {
             const isCurrentlyClosed = !group.hasAttribute('open');
             if (isCurrentlyClosed) { // Si vamos a abrirlo, cerramos los demás
-              const allGroups = group.parentElement.querySelectorAll(':scope > details.nav-group');
+              const allGroups = group.parentElement ? group.parentElement.querySelectorAll(':scope > details.nav-group') : [];
               allGroups.forEach(otherGroup => {
                 if (otherGroup !== group && otherGroup.hasAttribute('open')) {
                   otherGroup.removeAttribute('open');

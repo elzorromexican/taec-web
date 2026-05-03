@@ -3,10 +3,10 @@ import { atom } from "nanostores";
 
 if (typeof window !== "undefined") {
 	setPersistentEngine(window.sessionStorage, {
-		addEventListener(key, handler) {
+		addEventListener(_key, handler) {
 			window.addEventListener("storage", handler as any);
 		},
-		removeEventListener(key, handler) {
+		removeEventListener(_key, handler) {
 			window.removeEventListener("storage", handler as any);
 		},
 	});

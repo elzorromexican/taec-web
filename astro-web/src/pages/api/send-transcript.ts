@@ -86,7 +86,7 @@ export const POST: APIRoute = async ({ request }) => {
 				let borderColor = isUser ? "#b6e0fe" : "#e5e7eb";
 				let nameColor = isUser ? "#004775" : "#f59e0b";
 				let senderName = isUser ? userData.name : "Tito Bits";
-				let align = isUser ? "right" : "left";
+				let _align = isUser ? "right" : "left";
 				let alignFlex = isUser ? "flex-end" : "flex-start";
 				let marginClass = isUser ? "margin-left: auto;" : "margin-right: auto;";
 
@@ -95,7 +95,7 @@ export const POST: APIRoute = async ({ request }) => {
 					borderColor = "#ef4444";
 					nameColor = "#b91c1c";
 					senderName = "Sistema";
-					align = "center";
+					_align = "center";
 					alignFlex = "center";
 					marginClass = "margin: 0 auto;";
 				}

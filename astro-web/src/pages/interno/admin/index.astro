@@ -13,12 +13,6 @@ export const prerender = false;
 
 import AdminUI from "../../../components/interno/admin/AdminUI";
 import IntranetLayout from "../../../layouts/IntranetLayout.astro";
-import { supabase } from "../../../lib/supabase";
-
-const supabaseDashboardUrl = import.meta.env.PUBLIC_SUPABASE_URL
-	? import.meta.env.PUBLIC_SUPABASE_URL.replace(".supabase.co", "") +
-		"/project/default"
-	: "https://supabase.com/dashboard/projects";
 
 if (Astro.locals?.rol !== "admin") {
 	return Astro.redirect("/interno/denegado");

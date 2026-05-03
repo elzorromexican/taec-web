@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "zod";
 import { glob } from "astro/loaders";
 
 // Un esquema base flexible para no romper archivos Markdown antiguos que no tengan todos los datos.

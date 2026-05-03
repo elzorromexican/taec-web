@@ -1,14 +1,14 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import HeroComercial from "../../components/ui/HeroComercial.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { r } from "../../utils/paths";
 
 const items = await getCollection("articulos");
-items.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""));
+items.sort((a: CollectionEntry<'articulos'>, b: CollectionEntry<'articulos'>) => (b.data.date || "").localeCompare(a.data.date || ""));
 
 const categories = [
-	...new Set(items.map((p) => p.data.category).filter(Boolean)),
+	...new Set(items.map((p: CollectionEntry<'articulos'>) => p.data.category).filter(Boolean)),
 ].sort();
 ---
 
@@ -62,11 +62,8 @@ const categories = [
     </div>
 
     <div id="grid-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
-      {items.map(item => {
-        const destLink = item.data.link || r(`/articulos/${item.id.replace(/\.mdx?$/, '')}`);
-        const isExternal = !!item.data.link;
-        return (
-          <a class="grid-item" href={destLink} target={isExternal ? "_blank" : "_self"} rel={isExternal ? "noopener noreferrer" : ""} data-title={item.data.title?.toLowerCase() || ''} data-desc={item.data.description?.toLowerCase() || ''} data-cat={item.data.category || ''} style="text-decoration: none; color: inherit; display: block;">
+      {items.map((item: CollectionEntry<'articulos'>) => (
+          <a class="grid-item" href={item.data.link || r(`/articulos/${item.id.split('.')[0]}`)} target={item.data.link ? "_blank" : "_self"} rel={item.data.link ? "noopener noreferrer" : ""} data-title={item.data.title?.toLowerCase() || ''} data-desc={item.data.description?.toLowerCase() || ''} data-cat={item.data.category || ''} style="text-decoration: none; color: inherit; display: block;">
             <article style="background: #ffffff; border: 1px solid #e7e3db; padding: 20px 24px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); height: 100%; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;">
               <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
                 {item.data.category && (
@@ -92,12 +89,11 @@ const categories = [
                 </p>
               )}
               <span style="font-family: monospace; font-size: 11px; text-transform: uppercase; color: #1d4ed8; font-weight: 600; margin-top: auto;">
-                {isExternal ? 'Ir a fuente externa →' : 'Leer artículo →'}
+                {item.data.link ? 'Ir a fuente externa →' : 'Leer artículo →'}
               </span>
             </article>
           </a>
-        )
-      })}
+      ))}
     </div>
     <div id="no-results" style="display: none; text-align: center; padding: 64px 20px; background: #ffffff; border: 1.5px dashed #e7e3db; border-radius: 8px; margin-top: 20px;">
       <h3 style="margin: 0 0 8px; color: #1c1917; font-size: 18px;">Sin resultados</h3>

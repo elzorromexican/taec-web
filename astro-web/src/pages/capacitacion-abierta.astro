@@ -17,13 +17,13 @@ import { contactData } from "../data/contact";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { r } from "../utils/paths";
 
-let cursos = [];
+let cursos: any[] = [];
 try {
   const res = await fetch('https://tienda.taec.com.mx/api/cursosPagina');
   if (res.ok) {
     cursos = await res.json();
     // Ordenar por f_inicio (más próximo primero)
-    cursos.sort((a, b) => new Date(a.f_inicio).getTime() - new Date(b.f_inicio).getTime());
+    cursos.sort((a: any, b: any) => new Date(a.f_inicio).getTime() - new Date(b.f_inicio).getTime());
   }
 } catch (e) {
   console.error("Error fetching cursos:", e);
@@ -247,7 +247,7 @@ try {
     <section class="cursos-section">
       {cursos.length > 0 ? (
         <div class="cursos-grid">
-          {cursos.map(curso => (
+          {cursos.map((curso: any) => (
             <div class="curso-card">
               <span class="curso-via">{curso.via}</span>
               <h3 class="curso-card-title">{curso.producto}</h3>

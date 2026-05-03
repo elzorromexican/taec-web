@@ -12,20 +12,8 @@ interface Props {
 		page: string;
 	};
 	hero: Parameters<typeof HeroComercial>[0];
-	beneficios: {
-		eyebrow?: string;
-		title: string;
-		subtitle?: string;
-		cards: { icon: string; title: string; description: string }[];
-		columns?: number;
-		theme?: string;
-	};
-	faqs: {
-		eyebrow?: string;
-		title: string;
-		faqs: { question: string; answerHtml: string }[];
-		theme?: string;
-	};
+	beneficios: Parameters<typeof GridBeneficios>[0];
+	faqs: Parameters<typeof FAQAccordion>[0];
 	cta: Parameters<typeof CtaFinal>[0];
 }
 

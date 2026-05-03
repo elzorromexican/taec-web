@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "zod";
 import { glob } from "astro/loaders";
 
 const glosarioCollection = defineCollection({
@@ -89,6 +90,16 @@ const quizCollection = defineCollection({
 	}),
 });
 
+const cursosCollection = defineCollection({
+	loader: glob({ pattern: "**/*.md", base: "./src/content/cursos" }),
+	schema: z.object({
+		titulo: z.string().max(250),
+		categoria: z.string().max(100).optional(),
+		precio_usd: z.number().optional(),
+		descripcion: z.string().optional(),
+	}).passthrough(),
+});
+
 export const collections = {
 	glosario: glosarioCollection,
 	blog: blogCollection,
@@ -97,4 +108,5 @@ export const collections = {
 	comparativos: comparativosCollection,
 	radar: radarCollection,
 	quiz: quizCollection,
+	cursos: cursosCollection,
 };

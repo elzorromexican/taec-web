@@ -3,7 +3,7 @@ import CtaFinal from "../components/ui/CtaFinal.astro";
 import HeroComercial from "../components/ui/HeroComercial.astro";
 import { mainNav } from "../data/navigation";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { base, r } from "../utils/paths";
+import { r } from "../utils/paths";
 
 // Extraemos directamente toda la información de "Soluciones" desde la navegación
 const solucionesNav = mainNav.find((item) => item.id === "soluciones");
@@ -58,8 +58,8 @@ const solucionesNav = mainNav.find((item) => item.id === "soluciones");
 
     <CtaFinal 
       title="¿No estás seguro de qué herramienta necesitas?"
-      desc="Habla con uno de nuestros especialistas. Comparamos plataformas contigo y te damos acceso a demos sin compromiso."
-      btnText="Agendar diagnóstico →"
+      subtitle="Habla con uno de nuestros especialistas. Comparamos plataformas contigo y te damos acceso a demos sin compromiso."
+      primaryBtnText="Agendar diagnóstico →"
     />
   </main>
 </BaseLayout>

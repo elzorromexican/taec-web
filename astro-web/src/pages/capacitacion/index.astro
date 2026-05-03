@@ -1,18 +1,23 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import HeroComercial from "../../components/ui/HeroComercial.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { r } from "../../utils/paths";
 
 const cursos = await getCollection("cursos");
-cursos.sort((a, b) => (a.data.titulo || "").localeCompare(b.data.titulo || ""));
+cursos.sort((a: CollectionEntry<'cursos'>, b: CollectionEntry<'cursos'>) => (a.data.titulo || "").localeCompare(b.data.titulo || ""));
 
 const tagCounts: Record<string, number> = {};
-cursos.forEach((p) => {
+cursos.forEach((p: CollectionEntry<'cursos'>) => {
 	const cat = p.data.categoria;
 	if (cat) tagCounts[cat] = (tagCounts[cat] || 0) + 1;
 });
 const tags = Object.keys(tagCounts).sort();
+
+const cursosData = cursos.map(curso => ({
+  curso,
+  destLink: r(`/capacitacion/${curso.id.split('.')[0]}`)
+}));
 ---
 
 <BaseLayout 
@@ -52,10 +57,7 @@ const tags = Object.keys(tagCounts).sort();
     </div>
 
     <div id="grid-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px;">
-      {cursos.map(curso => {
-        const destLink = r(`/capacitacion/${curso.id.replace(/\.mdx?$/, '')}`);
-        
-        return (
+      {cursosData.map(({ curso, destLink }) => (
           <a class="grid-item" href={destLink} data-title={curso.data.titulo?.toLowerCase() || ''} data-tags={curso.data.categoria || ''} style="text-decoration: none; color: inherit; display: block;">
             <article class="premium-blog-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); height: 100%; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; overflow: hidden; position:relative;">
               
@@ -87,8 +89,7 @@ const tags = Object.keys(tagCounts).sort();
               </div>
             </article>
           </a>
-        )
-      })}
+      ))}
     </div>
   </main>
 </BaseLayout>

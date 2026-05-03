@@ -312,7 +312,7 @@ export const POST: APIRoute = async ({ request }) => {
 			else stableList.push(key);
 		}
 
-		const buildListHtml = (list: string[], color: string, colorHex: string) => {
+		const buildListHtml = (list: string[], _color: string, colorHex: string) => {
 			if (list.length === 0)
 				return `<p style="font-size: 13px; color: #6B7280; font-style: italic; margin-left: 15px;">Ningún rubro detectado en este nivel.</p>`;
 			return list

@@ -17,15 +17,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 // Calcular años de experiencia en el build de Astro
 const founded = new Date(2007, 9, 11);
 const now = new Date();
-const anni =
-  now.getFullYear() -
-  founded.getFullYear() -
-  (now < new Date(now.getFullYear(), 9, 11) ? 1 : 0);
 
 export const prerender = false; // <-- CRITICO: Forza SSR para interceptar Headers de Netlify por visitante
 
 import { getCollection } from "astro:content";
-import AnimatedCounter from "../components/ui/AnimatedCounter.astro";
 import { base, r } from "../utils/paths";
 
 const articulosColl = await getCollection("articulos").catch(() => []);
@@ -37,7 +32,7 @@ const dbPosts = [...articulosColl, ...blogColl]
     const finalSlug = p.id;
 
     // Extraemos el año del string (ej: "Octubre 2, 2009" -> 2009). Si no hay fecha, asumimos el año actual.
-    const dateStr = p.data.date || p.data.fecha || "";
+    const dateStr = String(p.data.date || p.data.fecha || "");
     const yearMatch = dateStr.match(/\d{4}/);
     const year = yearMatch
       ? parseInt(yearMatch[0], 10)
@@ -177,7 +172,7 @@ if (activePromos.length > 0) {
         <span class="ticker-badge">Recursos</span>
         <div class="ticker-marquee-wrapper">
           <div class="ticker-track" id="tickerTrack" style={`opacity:0; transition: opacity 0.3s; flex-wrap:nowrap; animation-duration: ${Math.max(65, tickerPool.length * 5)}s;`}>
-            {tickerPool.map((i, idx) => (
+            {tickerPool.map((i, _idx) => (
               <div class="ticker-dom-item" style="display:none; align-items:center;">
                 <a href={i.url ? r(i.url) : r('/blog')} class="ticker-item" style={`text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space: nowrap; ${i.isPromo ? 'font-weight:700;' : ''}`}>
                   <span class="cat" style={i.isPromo ? `background:${i.color}; color:#FFFFFF; border:none; padding:4px 8px; border-radius:4px; font-weight:800; box-shadow:0 2px 4px ${i.color}4D;` : ""}>
@@ -436,7 +431,7 @@ if (activePromos.length > 0) {
   </main>
 
   <script>
-    let originalTickerHTML = null;
+    let originalTickerHTML: string | null = null;
 
     // ── Ticker infinito híbrido
     function initTicker() {
@@ -450,7 +445,7 @@ if (activePromos.length > 0) {
         track.innerHTML = originalTickerHTML;
       }
       
-      const items = Array.from(track.querySelectorAll('.ticker-dom-item'));
+      const items = Array.from(track.querySelectorAll('.ticker-dom-item')) as HTMLElement[];
       if (items.length === 0) return;
 
       // Eliminado el Frontend Shuffle: Respetar el patrón 2 azules -> 1 naranja generado en el Server.
@@ -460,8 +455,8 @@ if (activePromos.length > 0) {
         item.style.display = 'inline-flex';
         track.appendChild(item);
       });
-      items.forEach(item => {
-        const clone = item.cloneNode(true);
+      items.forEach((item) => {
+        const clone = item.cloneNode(true) as HTMLElement;
         clone.style.display = 'inline-flex';
         track.appendChild(clone);
       });
@@ -476,7 +471,7 @@ if (activePromos.length > 0) {
       const btnNext = document.getElementById('testiNext');
       
       if (carousel && btnPrev && btnNext) {
-        const cardW = () => carousel.querySelector('.testi-card').offsetWidth + 20;
+        const cardW = () => (carousel.querySelector('.testi-card') as HTMLElement)?.offsetWidth + 20 || 0;
         
         // Uso de onclick para asegurar 1 solo listener, previniendo stacking de eventos en View Transitions
         btnPrev.onclick = () => carousel.scrollBy({ left: -cardW(), behavior: 'smooth' });

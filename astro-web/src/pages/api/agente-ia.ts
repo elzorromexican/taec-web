@@ -111,9 +111,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 			"gemini-2.5-flash-lite";
 		apiKey = getSafeEnv("TAEC_GEMINI_KEY") || getSafeEnv("GEMINI_API_KEY");
 
-		// @ts-expect-error
 		if (!apiKey && typeof Netlify !== "undefined" && Netlify.env) {
-			// @ts-expect-error
 			apiKey =
 				Netlify.env.get("TAEC_GEMINI_KEY") || Netlify.env.get("GEMINI_API_KEY");
 		}
@@ -142,7 +140,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 			history,
 			userMessage,
 			email,
-			timeZone,
+			timeZone: _timeZone,
 			currentPath,
 			session_id,
 			pageContext,
@@ -457,7 +455,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 			}
 		}
 
-		const promptContactReq = email
+		const _promptContactReq = email
 			? `¿Me confirmas tu nombre y empresa para que un especialista TAEC te contacte hoy?`
 			: `¿Me confirmas tu nombre, empresa y correo para que un especialista TAEC te contacte hoy?`;
 
