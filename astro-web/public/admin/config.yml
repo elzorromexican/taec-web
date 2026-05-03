@@ -1,6 +1,11 @@
 # Permite pruebas y guardado desde http://localhost:4322/admin/
 local_backend: true
 
+slug:
+  encoding: "unicode"
+  clean_accents: true
+  sanitize_replacement: "-"
+
 backend:
   # Usaremos Git-Gateway nativo (para que el equipo Mkt reciba un log-in visual limpio)
   name: git-gateway
