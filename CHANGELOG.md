@@ -6,6 +6,20 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
+## v3.7.5 · 03 may 2026 — Sprints de Optimización SEO (Issues #213 - #218)
+
+### 🔴 SEO Alta
+- **[ISSUE-213] Updating SEO Product Metadata:** Actualización de `<title>` y `<meta name="description">` en cinco páginas de producto (`/customguide-mexico`, `/lys-mexico`, `/ottolearn-mexico`, `/proctorizer-mexico`, y `/strikeplagiarism-mexico`) para un formato SEO <150 caracteres y CTA claros.
+- **[ISSUE-214] Alineación SEO H1 y Meta:** Alineación semántica y resolución de encabezados `<h1>` ocultos o ausentes que ahora coinciden con sus `<meta>` titles en las páginas de producto.
+
+### 🟡 SEO Media
+- **[ISSUE-215] Meta Description Home Page:** Actualización de la descripción meta en el Home (de 73 a ~150 caracteres) detallando mejor la propuesta de valor y las palabras clave de los partners oficiales (Articulate 360, Vyond, Totara).
+- **[ISSUE-216] Optimización SEO Page Titles:** Truncado de 18 títulos de páginas que excedían el límite de 60 caracteres para evitar recortes en la página de resultados de los buscadores (SERP), preservando la palabra clave principal y la firma "TAEC".
+- **[ISSUE-217] Remoción de Hreflang:** Eliminación de la etiqueta hreflang del layout de la aplicación temporalmente hasta que se cuente con soporte multi-país completo, evitando conflictos en el rastreo web.
+- **[ISSUE-218] Auditoría Artículos SEO (Thin Content):** Auditoría intensiva en la ruta `/articulos/` aplicando `<meta name="robots" content="noindex" />` en contenido muy delgado o mediante redirecciones HTTP 410, previniendo penalizaciones por indexado de páginas de baja calidad.
+
+---
+
 ## v3.7.4 · 28 abr 2026 — PR Template con Regeneración Embeddings TitoBits (Issue #168)
 
 ### 🧹 Higiene de Repositorio y CI/CD
