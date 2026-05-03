@@ -4,14 +4,15 @@ import ChatAgent from "../components/chat/ChatAgent";
 import FooterDock from "../components/experiments/FooterDock.astro";
 /**
  * @name BaseLayout
- * @version 1.1
+ * @version 1.2
  * @description Layout principal que provee la estructura HTML, el <head> global con SEO, Header y Footer.
  * @inputs title, description, section, page, image
  * @outputs Estructura HTML completa
  * @dependencies Header.astro, Footer.astro, MobileNav.astro
  * @created 2026-03-22
- * @updated 2026-03-22
+ * @updated 2026-05-03
  */
+// CHANGELOG: 03/05/2026 - Update default SEO meta description fallback
 // CHANGELOG: 19/03/2026 - Centralized SEO logic and dynamic canonical URLs
 // CHANGELOG: 19/03/2026 - Use BASE_URL for asset paths to support GitHub Pages staging
 import Header from "../components/Header.astro";
@@ -21,7 +22,7 @@ import "../styles/product-page.css";
 
 const {
 	title = "TAEC – Partner e-learning para empresas | México y LATAM",
-	description = "18 años ayudando a empresas en México y LATAM a implementar e-learning.",
+	description = "Partner oficial de Articulate 360, Vyond y Totara en México. Licencias con factura CFDI, implementación, producción de cursos y soporte en español. 18 años, +1,500 clientes.",
 	section = "",
 	page = "",
 	image = "",

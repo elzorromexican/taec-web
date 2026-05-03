@@ -3,14 +3,15 @@
 import { contactData, getBookingUrl } from "../data/contact";
 /**
  * @name Index (Inicio)
- * @version 1.1
+ * @version 1.2
  * @description Página principal del sitio web de TAEC.
  * @inputs N/A
  * @outputs Página HTML completa
  * @dependencies BaseLayout.astro, data/contact.ts, data/ticker.json
  * @created 2026-03-22
- * @updated 2026-03-22
+ * @updated 2026-05-03
  */
+// CHANGELOG: 03/05/2026 - Update SEO meta description text
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Calcular años de experiencia en el build de Astro
@@ -107,7 +108,7 @@ if (activePromos.length > 0) {
 
 <BaseLayout 
   title="TAEC – Partner e-learning para empresas | México y LATAM"
-  description="18 años ayudando a empresas en México y LATAM a implementar e-learning."
+  description="Partner oficial de Articulate 360, Vyond y Totara en México. Licencias con factura CFDI, implementación, producción de cursos y soporte en español. 18 años, +1,500 clientes."
   section="Inicio"
   page="index.html"
 >
