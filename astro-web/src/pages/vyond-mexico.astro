@@ -1,4 +1,5 @@
 ---
+// CHANGELOG: 03/05/2026 - Injected visually hidden h1 element inside main content for SEO compliance (Issue #214).
 import CtaFinal from "../components/ui/CtaFinal.astro";
 import FAQAccordion from "../components/ui/FAQAccordion.astro";
 import GridBeneficios from "../components/ui/GridBeneficios.astro";
@@ -152,6 +153,7 @@ const faqsVyond = [
   </style>
 
 <main id="main-content">
+<h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">Vyond México – Plataforma todo-en-uno de creación de video con IA</h1>
 <VyondNav />
 
 <!-- ══ HERO ══ -->
