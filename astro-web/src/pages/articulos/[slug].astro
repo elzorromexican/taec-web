@@ -36,6 +36,7 @@ const schema = {
   title={`${post.data.title} - Artículo | TAEC`}
   description={post.data.description || post.data.title}
   section="Recursos"
+  robots={post.data.robots || "index, follow"}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />

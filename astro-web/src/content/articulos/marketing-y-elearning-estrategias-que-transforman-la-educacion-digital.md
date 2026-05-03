@@ -9,6 +9,7 @@ tags:
   - "edtech"
   - "taec"
 image: /assets/uploads/marketing-y-elearning-estrategias-qe-transorman-la-edcacio-n-digital-1774655920082.jpg
+robots: "noindex"
 ---
 
 
