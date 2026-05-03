@@ -4,6 +4,7 @@ import FAQAccordion from "../components/ui/FAQAccordion.astro";
 import GridBeneficios from "../components/ui/GridBeneficios.astro";
 import HeroComercial from "../components/ui/HeroComercial.astro";
 import { getBookingUrl } from "../data/contact";
+// CHANGELOG: 2026-05-03 - Recortar título SEO a max 60 chars (Issue #216)
 // CHANGELOG: 2026-03-20 - Landing Class completa. Contenido basado en doc estratégico DDC.
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -148,7 +149,7 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Class en México | Aula virtual avanzada para capacitación en vivo | TAEC"
+  title="Class en México | Aula Virtual en Vivo | TAEC"
   description="Class convierte Zoom y Teams en un aula virtual para L&D: breakout rooms, engagement scoring, asistencia automática e integración con LMS. Demo en español con TAEC."
   section="Soluciones"
   page="class-taec.html"
