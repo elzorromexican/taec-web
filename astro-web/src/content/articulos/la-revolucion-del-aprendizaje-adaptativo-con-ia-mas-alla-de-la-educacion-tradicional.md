@@ -11,6 +11,7 @@ tags:
   - "aprendizaje"
   - "taec"
 image: /assets/uploads/la-revolcio-n-del-aprendizaje-adaptativo-con-ia-ma-s-alla-de-la-edcacio-n-tradicional-1774655919046.jpg
+robots: "noindex"
 ---
 
 

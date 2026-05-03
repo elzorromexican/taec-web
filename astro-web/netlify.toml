@@ -130,8 +130,12 @@
 
 [[redirects]]
   from = "/articulos/the-loneliness-o-ai"
-  to = "/articulos/the-loneliness-of-ai"
-  status = 301
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/articulos/the-loneliness-of-ai"
+  status = 410
   force = true
 
 [[redirects]]
