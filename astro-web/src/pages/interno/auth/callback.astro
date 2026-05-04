@@ -26,10 +26,13 @@ export const prerender = false;
     import { supabase } from '../../../lib/supabase';
 
     // Para ver si llegó con hash de tokens:
-    if (window.location.hash.includes('access_token')) {
-       document.getElementById('statusMessage').innerText = "Procesando tokens recibidos...";
-    } else {
-       document.getElementById('statusMessage').innerText = "ATENCIÓN: No llegaron tokens en la URL.";
+    const statusMsg = document.getElementById('statusMessage');
+    if (statusMsg) {
+      if (window.location.hash.includes('access_token')) {
+         statusMsg.innerText = "Procesando tokens recibidos...";
+      } else {
+         statusMsg.innerText = "ATENCIÓN: No llegaron tokens en la URL.";
+      }
     }
     
     supabase.auth.onAuthStateChange((event, session) => {
@@ -44,7 +47,10 @@ export const prerender = false;
     setTimeout(async () => {
        const { data } = await supabase.auth.getSession();
        if (!data.session) {
-         document.getElementById('statusMessage').innerText = "Fallo Crítico: Supabase no procesó la sesión.";
+         const statusMsgFallback = document.getElementById('statusMessage');
+         if (statusMsgFallback) {
+           statusMsgFallback.innerText = "Fallo Crítico: Supabase no procesó la sesión.";
+         }
          alert("Debug info:\nURL Actual: " + window.location.href + "\nHash: " + window.location.hash);
          setTimeout(() => { window.location.href = '/interno/login?error=fallback_auth'; }, 4000);
        }

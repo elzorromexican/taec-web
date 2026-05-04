@@ -53,7 +53,7 @@ items.sort((a, b) => (b.data.date || "").localeCompare(a.data.date || ""));
 
     <div id="grid-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
       {items.map(item => {
-        const destLink = item.data.link || r(`/radar/${item.id.replace(/\.mdx?$/, '')}`);
+        const destLink = item.data.link || r(`/radar/${item.id.split('.')[0]}`);
         const isExternal = !!item.data.link;
         return (
           <a class="grid-item" href={destLink} target={isExternal ? "_blank" : "_self"} rel={isExternal ? "noopener noreferrer" : ""} data-title={item.data.title?.toLowerCase() || ''} data-desc={item.data.description?.toLowerCase() || ''} style="text-decoration: none; color: inherit; display: block;">
@@ -93,14 +93,14 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
     const items = document.querySelectorAll('.grid-item');
     const noResults = document.getElementById('no-results');
     const resultsCount = document.getElementById('results-count');
     
     let currentSearch = '';
 
-    const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
     function filterItems() {
       let visibleCount = 0;
@@ -113,20 +113,22 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
         let matchesSearch = searchNorm ? (titleStr.includes(searchNorm) || descStr.includes(searchNorm)) : true;
         
         if (matchesSearch) {
-          item.style.display = 'block';
+          (item as HTMLElement).style.display = 'block';
           visibleCount++;
         } else {
-          item.style.display = 'none';
+          (item as HTMLElement).style.display = 'none';
         }
       });
       
-      resultsCount.textContent = `${visibleCount} edición` + (visibleCount !== 1 ? 'es' : '');
+      if (resultsCount) {
+        resultsCount.textContent = `${visibleCount} edición` + (visibleCount !== 1 ? 'es' : '');
+      }
       if(noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
     if(searchInput) {
       searchInput.addEventListener('input', (e) => {
-        currentSearch = e.target.value.trim();
+        currentSearch = (e.target as HTMLInputElement).value.trim();
         filterItems();
       });
     }

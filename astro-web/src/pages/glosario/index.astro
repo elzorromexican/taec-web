@@ -125,7 +125,7 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
     const letterBtns = document.querySelectorAll('.letter-btn');
     const items = document.querySelectorAll('.glosario-item');
     const noResults = document.getElementById('no-results');
@@ -135,7 +135,7 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
     let currentLetter = 'ALL';
 
     // Normalizar string para quitar tildes (ej: Educación -> educacion) en la búsqueda
-    const normalize = (str) => {
+    const normalize = (str: string) => {
       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     };
 
@@ -150,8 +150,8 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
         const letterOrig = item.getAttribute('data-letter');
         
         // Remove accents for fuzzy matching
-        const titleStr = normalize(titleOrig);
-        const descStr = normalize(descOrig);
+        const titleStr = normalize(titleOrig || '');
+        const descStr = normalize(descOrig || '');
         
         // Match Search (title OR description)
         let matchesSearch = true;
@@ -166,32 +166,40 @@ input:focus { border-color: #1d4ed8 !important; box-shadow: 0 0 0 3px rgba(29, 7
         }
         
         if (matchesSearch && matchesLetter) {
-          item.style.display = 'block';
+          (item as HTMLElement).style.display = 'block';
           visibleCount++;
         } else {
-          item.style.display = 'none';
+          (item as HTMLElement).style.display = 'none';
         }
       });
       
       // Update UI Counters
-      resultsCount.textContent = `${visibleCount} término${visibleCount !== 1 ? 's' : ''}`;
-      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      if (resultsCount) {
+        resultsCount.textContent = `${visibleCount} término${visibleCount !== 1 ? 's' : ''}`;
+      }
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
     }
 
-    searchInput.addEventListener('input', (e) => {
-      currentSearch = e.target.value.trim();
-      filterItems();
-    });
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        currentSearch = target.value.trim();
+        filterItems();
+      });
+    }
 
     letterBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
         // Remover clase activa de todos
         letterBtns.forEach(b => b.classList.remove('active'));
         // Agregar activa al que se clickeó
-        e.target.classList.add('active');
+        target.classList.add('active');
         
         // Actualizar filtro
-        currentLetter = e.target.getAttribute('data-letter');
+        currentLetter = target.getAttribute('data-letter') || 'ALL';
         
         // UX Fix: Limpiar la búsqueda textual al cambiar de letra para no dejarlo en 0 resultados ocultos
         if (searchInput) {

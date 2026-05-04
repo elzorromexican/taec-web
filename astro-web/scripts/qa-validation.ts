@@ -10,12 +10,9 @@ dotenv.config({ path: resolve(__dirname, "../.env") });
 // Mock import.meta.env para evitar crash en SSR/Node
 // @ts-expect-error
 import.meta.env = import.meta.env || {};
-// @ts-expect-error
 import.meta.env.SUPABASE_URL = process.env.SUPABASE_URL;
-// @ts-expect-error
 import.meta.env.SUPABASE_SERVICE_ROLE_KEY =
 	process.env.SUPABASE_SERVICE_ROLE_KEY;
-// @ts-expect-error
 import.meta.env.TAEC_GEMINI_KEY = process.env.TAEC_GEMINI_KEY;
 
 import * as fs from "fs";

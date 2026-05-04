@@ -7,7 +7,7 @@ import { z } from "zod";
 const CommentSchema = z.object({
 	post_slug: z.string().min(1).max(200),
 	author_name: z.string().min(1).max(100),
-	author_email: z.string().email().max(150),
+	author_email: z.string().email({ message: "Invalid email" }).max(150),
 	author_url: z.string().max(300).optional().default(""),
 	content: z.string().min(1).max(3000),
 	"cf-turnstile-response": z
@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
 			return new Response(
 				JSON.stringify({
 					error: "Datos inválidos.",
-					details: parsed.error.flatten(),
+					details: parsed.error.issues,
 				}),
 				{ status: 400 },
 			);

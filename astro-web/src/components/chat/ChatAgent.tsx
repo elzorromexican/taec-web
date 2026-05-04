@@ -410,7 +410,6 @@ export default function ChatAgent({
 		const idx = msgs.findIndex((m: any) => m.id === id);
 		if (idx !== -1) {
 			const updated = [...msgs];
-			// @ts-expect-error
 			updated[idx] = { ...updated[idx], text, isStreaming, ...extraMeta };
 			if (newRole) {
 				updated[idx].role = newRole as any;

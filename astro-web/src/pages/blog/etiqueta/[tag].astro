@@ -9,15 +9,9 @@
  * @created 2026-03-22
  * @updated 2026-03-22
  */
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { r } from "../../../utils/paths";
-
-const slugify = (str: string) =>
-	str
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/(^-|-$)+/g, "");
 
 export const prerender = true;
 
@@ -28,7 +22,7 @@ export async function getStaticPaths() {
 			.replace(/[^a-z0-9]+/g, "-")
 			.replace(/(^-|-$)+/g, "");
 	const allPosts = await getCollection("blog");
-	const uniqueTags = [...new Set(allPosts.flatMap((p) => p.data.tags || []))];
+	const uniqueTags = [...new Set(allPosts.flatMap((p: CollectionEntry<'blog'>) => p.data.tags || []))];
 
 	return uniqueTags.map((tag: string) => {
 		const slug = _slugify(tag);
@@ -36,7 +30,7 @@ export async function getStaticPaths() {
 			params: { tag: slug },
 			props: {
 				tagName: tag,
-				posts: allPosts.filter((p) =>
+				posts: allPosts.filter((p: CollectionEntry<'blog'>) =>
 					p.data.tags?.map((t: string) => _slugify(t)).includes(slug),
 				),
 			},

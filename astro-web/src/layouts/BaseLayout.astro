@@ -118,7 +118,7 @@ const ogImageURL = new URL(
     if (pathParts.length === 0) return null;
     
     const siteRoot = (Astro.site || 'https://nuevo.taec.com.mx').toString().replace(/\/$/, '');
-    const breadcrumbItems = pathParts.map((part, index) => {
+    const breadcrumbItems = pathParts.map((part: string, index: number) => {
       const url = `${siteRoot}/${pathParts.slice(0, index + 1).join('/')}/`;
       const name = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, ' ');
       return {
@@ -159,10 +159,10 @@ const ogImageURL = new URL(
   </a>
   )}
 
-  <ChatAgent client:load transition:persist isApp={isApp} userName={Astro.locals?.user?.name || Astro.locals?.name || 'Visitante'} />
+  <ChatAgent client:load transition:persist isApp={isApp} userName={(Astro.locals as any)?.user?.name || Astro.locals?.name || 'Visitante'} />
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
   <script>
-    let globalRevealObserver = null;
+    let globalRevealObserver: IntersectionObserver | null = null;
 
     function globalInitReveal() {
       // Limpiar observer anterior para evitar Memory Leaks en View Transitions
@@ -180,7 +180,7 @@ const ogImageURL = new URL(
         });
       }, { threshold: 0.1 });
       
-      reveals.forEach(el => globalRevealObserver.observe(el));
+      reveals.forEach(el => globalRevealObserver?.observe(el));
     }
     
     // Astro Module Scripts se ejecutan SOLO UNA VEZ. Por lo tanto, registramos astro:page-load de forma segura.

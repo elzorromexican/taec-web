@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	videoWrappers.forEach((wrap) => {
 		const video = wrap.querySelector("video");
-		const playBtnIndicator = wrap.querySelector(".prod-video-play");
 
 		if (video) {
 			// Toggle Play/Pause al hacer clic en el contenedor (pero no si se hace clic en el mute button)

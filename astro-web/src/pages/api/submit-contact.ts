@@ -10,7 +10,7 @@ export const prerender = false;
 const ContactSchema = z.object({
 	nombre: z.string().min(1, "El nombre es obligatorio").max(150),
 	empresa: z.string().min(1, "La empresa es obligatoria").max(150),
-	correo: z.string().email("Debe ser un correo válido").max(150),
+	correo: z.string().email({ message: "Debe ser un correo válido" }).max(150),
 	telefono: z.string().max(50).optional().default(""),
 	pais: z.string().min(1, "El país es obligatorio").max(100),
 	interes: z.string().min(1, "El interés es obligatorio").max(150),
@@ -45,7 +45,7 @@ export const POST: APIRoute = async ({ request }) => {
 			return new Response(
 				JSON.stringify({
 					error: "Valores del formulario inválidos",
-					details: result.error.format(),
+					details: result.error.issues,
 				}),
 				{ status: 400 },
 			);

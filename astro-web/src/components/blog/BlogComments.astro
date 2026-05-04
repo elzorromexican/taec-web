@@ -85,10 +85,13 @@
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('comment-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const feedbackBox = document.getElementById('form-feedback');
-    const commentsList = document.getElementById('comments-list');
+    const form = document.getElementById('comment-form') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+    const feedbackBox = document.getElementById('form-feedback') as HTMLDivElement | null;
+    const commentsList = document.getElementById('comments-list') as HTMLDivElement | null;
+
+    // Extend window explicitly for turnstile
+    const win = window as any;
 
     // Extraer slug del artículo actual (ej: /blog/el-rol-del-liderazgo -> el-rol-del-liderazgo)
     const urlParts = window.location.pathname.split('/').filter(Boolean);
@@ -103,7 +106,7 @@
 
     // --- 1. CARGA DE COMENTARIOS APROBADOS ---
     async function loadComments() {
-      if (!supabaseUrl || !supabaseAnonKey) return;
+      if (!supabaseUrl || !supabaseAnonKey || !commentsList) return;
       
       try {
         const response = await fetch(`${supabaseUrl}/rest/v1/comments?post_slug=eq.${postSlug}&status=eq.approved&select=*&order=created_at.asc`, {
@@ -118,7 +121,7 @@
         
         if (comments.length > 0) {
           commentsList.innerHTML = `<h4 style="font-family: var(--font-display, serif); font-size: 1.25rem; color: #1c1917; margin-bottom: 12px;">${comments.length} Comentario(s)</h4>`;
-          comments.forEach(c => {
+          comments.forEach((c: any) => {
             const date = new Date(c.created_at).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
             commentsList.innerHTML += `
               <div style="background: #fdfbf9; padding: 20px; border: 1px solid #e7e3db; border-radius: 8px;">
@@ -163,9 +166,11 @@
         return;
       }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-      submitBtn.style.opacity = '0.7';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.style.opacity = '0.7';
+      }
 
       const payload = {
         post_slug:               postSlug,
@@ -186,22 +191,25 @@
         if (response.ok) {
           showFeedback('¡Gracias! Tu comentario ha sido enviado y está pendiente de moderación.', 'success');
           form.reset();
-          if (window.turnstile) turnstile.reset();
+          if (win.turnstile) win.turnstile.reset();
         } else {
           throw new Error('Error en el servidor Supabase');
         }
       } catch (error) {
         console.error('Error enviando comentario:', error);
         showFeedback('Ocurrió un error al enviar el comentario. Inténtalo más tarde.', 'error');
-        if (window.turnstile) turnstile.reset();
+        if (win.turnstile) win.turnstile.reset();
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Publicar comentario';
-        submitBtn.style.opacity = '1';
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Publicar comentario';
+          submitBtn.style.opacity = '1';
+        }
       }
     });
 
-    function showFeedback(msg, type) {
+    function showFeedback(msg: string, type: 'success' | 'error') {
+      if (!feedbackBox) return;
       feedbackBox.style.display = 'block';
       feedbackBox.textContent = msg;
       if (type === 'success') {

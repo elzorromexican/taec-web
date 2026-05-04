@@ -3,7 +3,6 @@
 import CtaFinal from "../components/ui/CtaFinal.astro";
 import VideoMuteButton from "../components/ui/VideoMuteButton.astro";
 import VyondNav from "../components/ui/VyondNav.astro";
-import { contactData } from "../data/contact";
 import { vendors } from "../data/vendors";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { base, r } from "../utils/paths";
@@ -202,9 +201,9 @@ import { base, r } from "../utils/paths";
 
 <CtaFinal 
   title="Empieza a producir video como una agencia — desde adentro"
-  desc="Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido."
-  btnText="Descargar prueba (15 días) →"
-  btnUrl={vendors.vyond.signup}
+  subtitle="Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido."
+  primaryBtnText="Descargar prueba (15 días) →"
+  primaryBtnUrl={vendors.vyond.signup}
 />
 
 <script src="../scripts/video-player.ts"></script>

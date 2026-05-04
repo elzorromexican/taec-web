@@ -13,12 +13,6 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { r } from "../../../utils/paths";
 
-const slugify = (str: string) =>
-	str
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/(^-|-$)+/g, "");
-
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -73,7 +67,7 @@ const { tagName, terms } = Astro.props;
 
       <div style="display: grid; gap: 16px;">
         {terms.map((t: any) => (
-          <a href={r(`/glosario/${t.id.replace(/\\.mdx?$/, '')}`)} style="display: flex; flex-direction: column; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; background: #ffffff; transition: transform 0.2s, box-shadow 0.2s;" class="term-rel-card">
+          <a href={r(`/glosario/${t.id.split('.')[0]}`)} style="display: flex; flex-direction: column; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; background: #ffffff; transition: transform 0.2s, box-shadow 0.2s;" class="term-rel-card">
             <span style="font-family: var(--font-display, Georgia, serif); font-size: 1.2rem; color: var(--navy-slate); font-weight: 600; line-height: 1.35; margin-bottom: 8px;">{t.data.title}</span>
             <p style="font-size: 14px; color: #475569; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 0;">{t.data.description || ''}</p>
           </a>

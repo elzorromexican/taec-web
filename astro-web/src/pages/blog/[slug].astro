@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import BlogComments from "../../components/blog/BlogComments.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { parseDate } from "../../utils/dateParser";
@@ -12,9 +12,9 @@ export async function getStaticPaths() {
 	const posts = await getCollection("blog");
 
 	// Sort posts descending by date
-	posts.sort((a, b) => parseDate(b.data.date) - parseDate(a.data.date));
+	posts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => parseDate(b.data.date) - parseDate(a.data.date));
 
-	return posts.map((post, i) => ({
+	return posts.map((post: CollectionEntry<'blog'>, i: number) => ({
 		params: { slug: post.id.replace(/\.mdx?$/, "") },
 		props: {
 			post,
@@ -31,7 +31,7 @@ const { Content } = await render(post);
 const allPosts = await getCollection("blog");
 const relatedPosts = allPosts
 	.filter(
-		(p) =>
+		(p: CollectionEntry<'blog'>) =>
 			p.id !== post.id &&
 			p.data.tags?.some((t: string) => post.data.tags?.includes(t)),
 	)
@@ -61,7 +61,7 @@ const schema = {
   section="Recursos"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </Fragment>
 
   <main style="background: #faf8f3; min-height: 70vh; padding: clamp(48px, 6vw, 80px) clamp(16px, 3vw, 24px) 80px;">
