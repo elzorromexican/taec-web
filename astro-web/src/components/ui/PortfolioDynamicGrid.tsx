@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface PortfolioItem {
 	Software?: string;
@@ -9,43 +9,20 @@ interface PortfolioItem {
 	Thumbnail?: string;
 }
 
+const DEMOS: PortfolioItem[] = [
+  { Tipo: "Interactivo", "Nombre del Curso": "Interactivo mograph", "URL del Demo": "https://360.articulate.com/review/content/e962c265-1806-42dd-94bd-aa333a4c47bb/review" },
+  { Tipo: "Interactivo", "Nombre del Curso": "Interactivo con animación 2D", "URL del Demo": "https://360.articulate.com/review/content/7d518f0a-a43b-4ec5-9e85-70d5c930e16e/review" },
+  { Tipo: "Gamificado", "Nombre del Curso": "Gamificado", "URL del Demo": "https://360.articulate.com/review/content/c0445a4b-3851-4eff-890c-99e8e4198d33/review" },
+  { Tipo: "Microlearning", "Nombre del Curso": "Microlearning Responsive Mobile", "URL del Demo": "https://share.articulate.com/JQxr3A_YDn-jGIVQ8jDxi" },
+  { Tipo: "IA", "Nombre del Curso": "Curso con IA de Rise — generado con prompt", "URL del Demo": "https://share.articulate.com/5cs6pmkDlsg2xb8BxkiJ2" },
+  { Tipo: "IA", "Nombre del Curso": "Curso con IA de Rise — guion + IA", "URL del Demo": "https://share.articulate.com/oEvXt57gjDutqPm5r1ZuW" },
+];
+
 export default function PortfolioDynamicGrid() {
-	const [items, setItems] = useState<PortfolioItem[]>([]);
-	const [loading, setLoading] = useState(true);
+	const [items, setItems] = useState<PortfolioItem[]>(DEMOS);
+	const [loading, setLoading] = useState(false);
 	const [activeFilter, setActiveFilter] = useState<string>("Todos");
 	const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
-
-	useEffect(() => {
-		// Endpoint conectado a Google Sheets en tiempo real
-		const endpoint =
-			"https://docs.google.com/spreadsheets/d/e/2PACX-1vQlAX64aluC1BzreG4nLQuOoCbA1M7hfef-mk1b9J1bx1_Zwfnm6_-UT46xk9mesIvrAvJdsPvaZGOb/pub?output=csv";
-
-		fetch(endpoint)
-			.then((res) => res.text())
-			.then((csv) => {
-				// Parseador CSV nativo simple para evitar crash de Vite/CJS
-				const lines = csv.split("\n").filter((line) => line.trim() !== "");
-				if (lines.length > 1) {
-					const headers = lines[0].split(",").map((h) => h.trim());
-					const data = lines.slice(1).map((line) => {
-						const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-						return headers.reduce((obj: any, header, i) => {
-							obj[header] = values[i]
-								? values[i].replace(/^"|"$/g, "").trim()
-								: "";
-							return obj;
-						}, {} as PortfolioItem);
-					});
-					const validData = data.filter((d) => Boolean(d["URL del Demo"]));
-					setItems(validData);
-				}
-				setLoading(false);
-			})
-			.catch((err) => {
-				console.error("Error cargando portafolio:", err);
-				setLoading(false);
-			});
-	}, []);
 
 	const types = [
 		"Todos",
