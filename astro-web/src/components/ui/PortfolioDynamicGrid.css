@@ -35,10 +35,20 @@
 
 .portfolio-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	grid-template-columns: repeat(3, 1fr); /* desktop */
 	gap: 20px;
 	max-width: 1200px;
 	margin: 0 auto;
+}
+@media (max-width: 1023px) {
+	.portfolio-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 767px) {
+	.portfolio-grid {
+		grid-template-columns: 1fr;
+	}
 }
 .portfolio-card {
 	background: #fff;

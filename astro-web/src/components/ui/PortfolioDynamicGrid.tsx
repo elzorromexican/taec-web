@@ -10,12 +10,12 @@ interface PortfolioItem {
 }
 
 const DEMOS: PortfolioItem[] = [
-  { Tipo: "Interactivo", "Nombre del Curso": "Interactivo mograph", "URL del Demo": "https://360.articulate.com/review/content/e962c265-1806-42dd-94bd-aa333a4c47bb/review" },
-  { Tipo: "Interactivo", "Nombre del Curso": "Interactivo con animación 2D", "URL del Demo": "https://360.articulate.com/review/content/7d518f0a-a43b-4ec5-9e85-70d5c930e16e/review" },
-  { Tipo: "Gamificado", "Nombre del Curso": "Gamificado", "URL del Demo": "https://360.articulate.com/review/content/c0445a4b-3851-4eff-890c-99e8e4198d33/review" },
-  { Tipo: "Microlearning", "Nombre del Curso": "Microlearning Responsive Mobile", "URL del Demo": "https://share.articulate.com/JQxr3A_YDn-jGIVQ8jDxi" },
-  { Tipo: "IA", "Nombre del Curso": "Curso con IA de Rise — generado con prompt", "URL del Demo": "https://share.articulate.com/5cs6pmkDlsg2xb8BxkiJ2" },
-  { Tipo: "IA", "Nombre del Curso": "Curso con IA de Rise — guion + IA", "URL del Demo": "https://share.articulate.com/oEvXt57gjDutqPm5r1ZuW" },
+  { Tipo: "Interactivo", "Nombre del Curso": "Interactivo mograph", "URL del Demo": "https://360.articulate.com/review/content/e962c265-1806-42dd-94bd-aa333a4c47bb/review", Thumbnail: "/assets/portafolio/thumb-mograph.jpg" },
+  { Tipo: "Interactivo", "Nombre del Curso": "Interactivo con animación 2D", "URL del Demo": "https://360.articulate.com/review/content/7d518f0a-a43b-4ec5-9e85-70d5c930e16e/review", Thumbnail: "/assets/portafolio/thumb-animacion-2d.jpg" },
+  { Tipo: "Gamificado", "Nombre del Curso": "Gamificado", "URL del Demo": "https://360.articulate.com/review/content/c0445a4b-3851-4eff-890c-99e8e4198d33/review", Thumbnail: "/assets/portafolio/thumb-gamificado.jpg" },
+  { Tipo: "Microlearning", "Nombre del Curso": "Microlearning Responsive Mobile", "URL del Demo": "https://share.articulate.com/JQxr3A_YDn-jGIVQ8jDxi", Thumbnail: "/assets/portafolio/thumb-microlearning.jpg" },
+  { Tipo: "IA", "Nombre del Curso": "Curso con IA de Rise — generado con prompt", "URL del Demo": "https://share.articulate.com/5cs6pmkDlsg2xb8BxkiJ2", Thumbnail: "/assets/portafolio/thumb-ia-prompt.jpg" },
+  { Tipo: "IA", "Nombre del Curso": "Curso con IA de Rise — guion + IA", "URL del Demo": "https://share.articulate.com/oEvXt57gjDutqPm5r1ZuW", Thumbnail: "/assets/portafolio/thumb-ia-guion.jpg" },
 ];
 
 export default function PortfolioDynamicGrid() {
