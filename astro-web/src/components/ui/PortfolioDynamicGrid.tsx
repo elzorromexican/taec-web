@@ -47,7 +47,7 @@ export default function PortfolioDynamicGrid() {
 			<div className="portfolio-header">
 				<h2 className="section-title">Portafolio de Trabajo</h2>
 				<p className="section-sub">
-					Explora +120 casos de éxito reales desarrollados por TAEC.
+					Una muestra de lo que hacemos: 6 cursos-demo con diferentes formatos y niveles de interactividad.
 				</p>
 
 				{/* Capa 1: Filtros de Píldoras */}
