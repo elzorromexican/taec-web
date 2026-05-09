@@ -1,7 +1,7 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.9
- * @date 2026-04-29
+ * @version 6.12
+ * @date 2026-05-09
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
  * @vigencia Revisión trimestral
