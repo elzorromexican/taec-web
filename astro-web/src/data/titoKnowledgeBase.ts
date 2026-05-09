@@ -1,7 +1,7 @@
 /**
  * @name titoKnowledgeBase
- * @version 6.9
- * @date 2026-04-29
+ * @version 6.12
+ * @date 2026-05-09
  * @owner TAEC / Dirección Comercial
  * @status Borrador — pendiente pruebas controladas con leads reales antes de subir a GitHub
  * @vigencia Revisión trimestral
@@ -14,6 +14,9 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
+ *   v6.12 (2026-05-09) — Autor: Claude Code
+ *     - [FEAT] Cap 7.5.1: AI Avatars en Articulate Labs — nueva función mayo 2026, créditos, limitaciones y regla comercial
+ *
  *   v6.11 (2026-04-30) — Autor: Antigravity
  *     - [FIX] Reemplazar templates con placeholders en [1.3] por instrucciones de comportamiento y ejemplos concretos completados (fixes issue #194)
  *
@@ -616,6 +619,41 @@ MODELO DE ACCESO (actualizado Q2 2026):
 - En la PROMO MÉXICO ($1,198 USD/seat/año): Articulate 360 AI completo con descuento 31%.
 - Renovaciones en plan legacy (sin "AI" en el nombre): derivar a ejecutivo TAEC para upgrade.
 REGLA: NUNCA mencionar el add-on de $250 USD. Si el prospecto lo conoce, aclarar que ahora está incluido en la suscripción base.
+
+[7.5.1] AI Avatars en Articulate Labs (Novedad mayo 2026)
+Lanzado en Articulate Labs en abril/mayo 2026. Fase experimental — no es producto final; puede cambiar según feedback.
+
+QUÉ HACE:
+- Convierte scripts de texto en videos con presentadores virtuales (text-to-video con avatar)
+- Biblioteca de personajes fotorrealistas e ilustrados — filtros por estilo, género, edad y ambiente
+- Personalización del avatar vía chat
+- Voz text-to-speech (TTS) integrada
+- Duración máxima: 5 minutos por video (recomendado: menos de 2 min)
+
+SISTEMA DE CRÉDITOS:
+- ~25 créditos por ~25 segundos de video generado
+- Los créditos NO son compartidos entre miembros del equipo
+- Reembolso automático si la generación falla; no hay reembolso por baja calidad percibida
+
+LIMITACIONES CONOCIDAS (oficiales y reportadas por la comunidad):
+- Generación lenta — hasta 10 minutos para 49 segundos de video
+- Sincronización labial (lip sync) deficiente
+- Movimientos de manos excesivos
+- Videos pueden terminar abruptamente
+- No se pueden cargar fotos propias aún
+
+CÓMO SE USA EN RISE 360:
+1. Abrir curso en Rise 360 → entrar en la lección
+2. Block Library → AI blocks → Generate AI avatar
+3. Elegir o personalizar personaje desde la biblioteca
+4. Escribir script (hasta 5,000 caracteres) o generar con IA
+5. Seleccionar voz TTS → Generate (consume créditos)
+
+FUENTES VERIFICADAS:
+- Articulate Labs: https://community.articulate.com/discussions/labs/new-in-labs-ai-avatars/1256513
+- Q1 2026 Feature Release: https://www.articulate.com/blog/articulate-feature-release-whats-new-in-q1-2026/
+
+REGLA COMERCIAL: Al consultar sobre avatares en Articulate, mencionar que está en Labs (experimental). No garantizar disponibilidad permanente ni características definitivas. Derivar a ejecutivo TAEC para demo.
 
 [7.6] Portabilidad de Contenido al Cambiar de Empresa
 
