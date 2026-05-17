@@ -3,7 +3,7 @@ titulo: "Curso Articulate Rise 360+"
 precio_usd: 289
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Articulate Rise 360+ con nuestros expertos certificados."
+descripcion: "Capacitación corporativa en Articulate Rise 360 para equipos L&D. Producción de cursos responsive y modernos. Instructor certificado, en vivo."
 ---
 ## Temario Completo
 

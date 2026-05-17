@@ -3,7 +3,7 @@ titulo: "Curso Articulate Storyline Experto"
 precio_usd: 599
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Articulate Storyline Experto con nuestros expertos certificados."
+descripcion: "Capacitación de nivel experto en Articulate Storyline para equipos L&D corporativos. Dominio completo de la herramienta para producción de cursos profesionales."
 ---
 ## Temario Completo
 

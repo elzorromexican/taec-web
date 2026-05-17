@@ -103,8 +103,24 @@ const ogImageURL = new URL(
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "TAEC",
+    "legalName": "Training and eLearning Consulting",
+    "description": "Reseller autorizado de Articulate 360, Vyond y Totara en México. Servicios B2B: licenciamiento con factura CFDI, implementación de LMS, producción de cursos corporativos y capacitación técnica para equipos L&D.",
     "url": (Astro.site || 'https://nuevo.taec.com.mx').toString().replace(/\/$/, ''),
     "logo": new URL(`${base}assets/logo.svg`, Astro.site || 'https://nuevo.taec.com.mx').toString(),
+    "foundingDate": "2006",
+    "areaServed": ["MX", "CO", "CL", "PE", "AR"],
+    "knowsAbout": [
+      "Articulate 360",
+      "Learning Management Systems",
+      "Corporate eLearning",
+      "Instructional Design",
+      "Vyond",
+      "Totara LMS",
+      "Moodle"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/company/taec-mx"
+    ],
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+52-55-2775-8279",

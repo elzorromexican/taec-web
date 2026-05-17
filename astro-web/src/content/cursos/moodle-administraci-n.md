@@ -3,7 +3,7 @@ titulo: "Moodle Administración"
 precio_usd: 90
 categoria: "Moodle LMS"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Moodle Administración con nuestros expertos certificados."
+descripcion: "Capacitación técnica en administración de Moodle para equipos IT y L&D corporativos. Configuración, roles, plugins y reportes. Modalidad en vivo."
 ---
 ## Temario Completo
 
