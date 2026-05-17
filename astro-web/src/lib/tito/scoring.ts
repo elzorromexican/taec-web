@@ -1,12 +1,18 @@
 /**
  * @name scoring.ts
- * @version 1.0
+ * @version 1.2
  * @description Lógica de asignación de puntajes (Lead Scoring) y determinación de tipo de handoff.
  * @inputs Historial de conversación y extracciones NLP
  * @outputs Score final numérico y sugerencia de handoff.
  * @dependencies N/A
  * @created 2026-04-11
- * @updated 2026-04-11 12:12:00
+ * @updated 2026-04-29
+ *
+ * Changelog:
+ *   v1.2 (2026-04-29) — Autor: Antigravity
+ *     - [FIX] Issue #186: Implementar gate de intent comercial antes de disparar handoff.
+ *   v1.1 (2026-04-29) — Autor: Antigravity
+ *     - [FEAT] Issue #185: Expandir LeadSignals con campos de intent comercial y añadir penalizador para estudiantes/becarios.
  */
 
 export interface LeadSignals {
@@ -17,6 +23,13 @@ export interface LeadSignals {
 	es_cliente_nuevo: boolean;
 	urgencia: "alta" | "media" | "baja" | null;
 	presupuesto_aprobado: boolean;
+	// Nuevos campos de intent comercial
+	quiere_cotizacion: boolean;
+	quiere_demo: boolean;
+	quiere_contacto: boolean;
+	empresa_mencionada: string | null;
+	cargo_mencionado: string | null;
+	dolor_negocio: string | null;
 	// Metadata de Extracción (Observabilidad)
 	extraction_status?: "success" | "fallback" | "error";
 	extraction_source?: "llm" | "regex" | "mock";
@@ -61,6 +74,11 @@ export function calcularScore(signals: LeadSignals): number {
 	if (signals.urgencia === "alta") score += 15 * urgConf;
 	else if (signals.urgencia === "media") score += 5 * urgConf;
 
+	// Penalizador: señales de no-lead
+	if (signals.cargo_mencionado?.toLowerCase().match(/estudiante|becario|practicante/)) {
+		score -= 30;
+	}
+
 	return Math.min(100, Math.round(score));
 }
 
@@ -71,7 +89,16 @@ export function determinarHandoff(
 	signals: LeadSignals,
 	score: number,
 ): "ventas" | "preventa_tecnica" | null {
-	if (score >= 40) {
+	const hasCommercialIntent =
+		signals.presupuesto_aprobado ||
+		signals.urgencia === "alta" ||
+		signals.quiere_cotizacion ||
+		signals.quiere_demo ||
+		signals.quiere_contacto;
+
+	const isHighValue = score >= 70; // score muy alto: handoff aunque no haya intent explícito
+
+	if (score >= 40 && (hasCommercialIntent || isHighValue)) {
 		if (signals.requiere_integracion || signals.tiene_lms_actual) {
 			return "preventa_tecnica";
 		}

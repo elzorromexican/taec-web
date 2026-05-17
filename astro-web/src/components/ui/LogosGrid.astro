@@ -39,8 +39,8 @@ const { eyebrow, logos, theme = "general" } = Astro.props;
   // Hide broken logos gracefully without inline handlers
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.logo-img').forEach(img => {
-      img.addEventListener('error', function() {
-        (this as HTMLElement).style.display = 'none';
+      img.addEventListener('error', (e) => {
+        (e.target as HTMLElement).style.display = 'none';
       });
     });
   });

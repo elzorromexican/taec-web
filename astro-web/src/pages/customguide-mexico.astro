@@ -1,6 +1,17 @@
 ---
+/**
+ * @name customguide-mexico.astro
+ * @version 1.1
+ * @date 2026-05-03
+ * @owner Slim Masmoudi
+ * @status Active
+ * @description Landing Page de CustomGuide para México y LATAM.
+ * 
+ * Changelog:
+ * 2026-05-03 - v1.1: Actualización de metadatos SEO (title y description) para resolver issue #213.
+ * 2026-03-20 - Landing CustomGuide completa. Contenido basado en doc estratégico DDC.
+ */
 import { getBookingUrl } from "../data/contact";
-// CHANGELOG: 2026-03-20 - Landing CustomGuide completa. Contenido basado en doc estratégico DDC.
 import ProductPageLayout from "../layouts/ProductPageLayout.astro";
 import { r } from "../utils/paths";
 
@@ -120,8 +131,8 @@ const casos = [
 
 <ProductPageLayout
   meta={{
-    title: "CustomGuide en México | Cursos personalizables, LMS y capacitación digital lista para usar | TAEC",
-    description: "CustomGuide con TAEC: más de 300 cursos SCORM de Microsoft y Google Workspace, LMS integrado, skill assessments y Course Builder con IA. Demo en español.",
+    title: "CustomGuide en México — Capacitación digital lista para usar | TAEC",
+    description: "Más de 300 cursos SCORM de Microsoft y Google Workspace, LMS integrado, skill assessments y Course Builder con IA. Solicita una demo en español.",
     page: "customguide-mexico.html"
   }}
   hero={{

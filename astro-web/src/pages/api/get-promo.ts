@@ -5,7 +5,6 @@ export const prerender = false; // <-- CRITICO: Forza SSR para procesar país di
 
 export const GET: APIRoute = async ({ request, url, locals }) => {
 	// RED TEAM: Extracción Robusta del País Evaluando Headers y Contextos Edge.
-	// @ts-expect-error
 	const netlifyGeo = locals.netlify?.context?.geo?.country?.code;
 	const headerGeo =
 		request.headers.get("x-country") || request.headers.get("x-nf-country");

@@ -1,78 +1,76 @@
 /**
  * @name handoff.ts
- * @version 1.1
+ * @version 1.2
  * @description Funciones para generar mini briefs de leads y notificar vía Webhook y Correo (Resend).
  * @inputs Record del lead estructurado
  * @outputs Promesa vacía o respuesta de la API de comunicación.
  * @dependencies node-fetch / native fetch
  * @created 2026-04-11
- * @updated 2026-04-23 10:46:00
+ * @updated 2026-04-28
  *
  * Changelog:
+ *   v1.3 (2026-04-29) — Autor: Antigravity
+ *     - [REFACTOR] Issue #189: Eliminar generarMiniBrief legado; ahora se maneja vía buildMiniBrief en tito-chat.ts.
+ *   v1.2 (2026-04-28) — Autor: Antigravity
+ *     - [FIX] Enlaces de contacto hechos clickeables en FALLBACK_CONTACTO.
  *   v1.1 (2026-04-23) — Autor: Antigravity
  *     - [FIX] Resolución de env vars compatible con Astro SSR (import.meta.env + process.env)
  */
 
 interface LeadData {
-	id: string;
-	session_id: string;
-	email: string | null;
-	nombre: string | null;
-	empresa: string | null;
-	score: number;
-	minibrief: string | null;
-	handoff_tipo: "ventas" | "preventa_tecnica";
-}
-
-/**
- * Sintetiza la razón y estado del lead al momento del handoff.
- */
-export function generarMiniBrief(
-	mensajes: { role: string; content: string }[],
-): string {
-	const userMessages = mensajes
-		.filter((m) => m.role === "user")
-		.map((m) => m.content);
-	return `Historial resumido (${userMessages.length} iteraciones). Última interacción: "${userMessages.pop() || "N/A"}"`;
+  id: string;
+  session_id: string;
+  email: string | null;
+  nombre: string | null;
+  empresa: string | null;
+  score: number;
+  minibrief: string | null;
+  handoff_tipo: "ventas" | "preventa_tecnica";
 }
 
 /**
  * Dispara notificaciones asíncronas a los canales correspondientes (Ventas o Preventa Técnica).
  */
 export async function enviarNotificacion(lead: LeadData) {
-	const resendKey =
-		(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.RESEND_API_KEY) ||
-		(typeof process !== "undefined" && process.env.RESEND_API_KEY) ||
-		"";
-	const webhookUrl =
-		(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.GOOGLE_CHAT_WEBHOOK_URL) ||
-		(typeof process !== "undefined" && process.env.GOOGLE_CHAT_WEBHOOK_URL) ||
-		"";
-	const ventasEmail =
-		(typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VENTAS_EMAIL) ||
-		(typeof process !== "undefined" && process.env.VENTAS_EMAIL) ||
-		"info@taec.com.mx";
+  const resendKey =
+    (typeof import.meta !== "undefined" &&
+      import.meta.env &&
+      import.meta.env.RESEND_API_KEY) ||
+    (typeof process !== "undefined" && process.env.RESEND_API_KEY) ||
+    "";
+  const webhookUrl =
+    (typeof import.meta !== "undefined" &&
+      import.meta.env &&
+      import.meta.env.GOOGLE_CHAT_WEBHOOK_URL) ||
+    (typeof process !== "undefined" && process.env.GOOGLE_CHAT_WEBHOOK_URL) ||
+    "";
+  const ventasEmail =
+    (typeof import.meta !== "undefined" &&
+      import.meta.env &&
+      import.meta.env.VENTAS_EMAIL) ||
+    (typeof process !== "undefined" && process.env.VENTAS_EMAIL) ||
+    "info@taec.com.mx";
 
-	// 1. Notificación a Google Chat
-	if (webhookUrl) {
-		const chatMessage = {
-			text: `🚨 *Nuevo Lead Calificado (${lead.handoff_tipo})*\n*Score:* ${lead.score}\n*ID Sesión:* ${lead.session_id}\n*Empresa:* ${lead.empresa || "N/A"}\n*Email:* ${lead.email || "Pendiente"}\n*Brief:* ${lead.minibrief}`,
-		};
+  // 1. Notificación a Google Chat
+  if (webhookUrl) {
+    const chatMessage = {
+      text: `🚨 *Nuevo Lead Calificado (${lead.handoff_tipo})*\n*Score:* ${lead.score}\n*ID Sesión:* ${lead.session_id}\n*Empresa:* ${lead.empresa || "N/A"}\n*Email:* ${lead.email || "Pendiente"}\n*Brief:* ${lead.minibrief}`,
+    };
 
-		await fetch(webhookUrl, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(chatMessage),
-		}).catch((err) => console.error("Error enviando Webhook de Chat:", err));
-	}
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(chatMessage),
+    }).catch((err) => console.error("Error enviando Webhook de Chat:", err));
+  }
 
-	// 2. Correo de Ventas vía Resend
-	if (resendKey) {
-		const resendPayload = {
-			from: "TitoBits <leads@taec.com.mx>",
-			to: [ventasEmail],
-			subject: `Nuevo Lead TitoBits [SCORE: ${lead.score}] - ${lead.empresa || lead.email || "Anónimo"}`,
-			html: `
+  // 2. Correo de Ventas vía Resend
+  if (resendKey) {
+    const resendPayload = {
+      from: "TitoBits <leads@taec.com.mx>",
+      to: [ventasEmail],
+      subject: `Nuevo Lead TitoBits [SCORE: ${lead.score}] - ${lead.empresa || lead.email || "Anónimo"}`,
+      html: `
         <h2>Nuevo Lead de TitoBits v4</h2>
         <ul>
           <li><strong>Handoff:</strong> ${lead.handoff_tipo}</li>
@@ -83,57 +81,64 @@ export async function enviarNotificacion(lead: LeadData) {
         </ul>
         <p><strong>Mini Brief:</strong><br/>${lead.minibrief}</p>
       `,
-		};
+    };
 
-		await fetch("https://api.resend.com/emails", {
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${resendKey}`,
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(resendPayload),
-		}).catch((err) =>
-			console.error("Error enviando notificacion Resend:", err),
-		);
-	} else {
-		console.warn(
-			"Falta RESEND_API_KEY. Notificación por correo (Resend) omitida. Google Chat fue invocado si su key existe.",
-		);
-	}
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(resendPayload),
+    }).catch((err) =>
+      console.error("Error enviando notificacion Resend:", err),
+    );
+  } else {
+    console.warn(
+      "Falta RESEND_API_KEY. Notificación por correo (Resend) omitida. Google Chat fue invocado si su key existe.",
+    );
+  }
 }
 
 // Constante de fallback — hardcodeada, no generada por LLM
 export const FALLBACK_CONTACTO = `Sin problema. Puedes contactarnos directamente:
-• Correo: info@taec.com.mx
-• WhatsApp: https://api.whatsapp.com/send/?phone=5215527758279`;
+• Correo: [info@taec.com.mx](mailto:info@taec.com.mx)
+• WhatsApp: [Escríbenos por WhatsApp](https://api.whatsapp.com/send/?phone=5215527758279)`;
 
 // Extrae nombre, empresa y email de un mensaje de texto libre
 export function extraerContacto(message: string): {
-	nombre: string | null;
-	empresa: string | null;
-	email: string | null;
+  nombre: string | null;
+  empresa: string | null;
+  email: string | null;
 } {
-	const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/;
-	const emailMatch = message.match(emailRegex);
-	const email = emailMatch ? emailMatch[0] : null;
+  const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/;
+  const emailMatch = message.match(emailRegex);
+  const email = emailMatch ? emailMatch[0] : null;
 
-	const textWithoutEmail = message.replace(emailRegex, "").trim();
+  const textWithoutEmail = message.replace(emailRegex, "").trim();
 
-	let nombre: string | null = null;
-	let empresa: string | null = null;
+  let nombre: string | null = null;
+  let empresa: string | null = null;
 
-	const soyMatch = textWithoutEmail.match(/soy\s+([^,.]+?)(?:\s+de\s+|\s+en\s+|,|$)/i);
-	if (soyMatch?.[1]) nombre = soyMatch[1].trim();
+  const soyMatch = textWithoutEmail.match(
+    /soy\s+([^,.]+?)(?:\s+de\s+|\s+en\s+|,|$)/i,
+  );
+  if (soyMatch?.[1]) nombre = soyMatch[1].trim();
 
-	if (!nombre) {
-		const lines = textWithoutEmail.split(/[\n,]+/).map((l) => l.trim()).filter(Boolean);
-		if (lines[0] && lines[0].length > 1 && lines[0].length < 60) {
-			nombre = lines[0];
-		}
-	}
+  if (!nombre) {
+    const lines = textWithoutEmail
+      .split(/[\n,]+/)
+      .map((l) => l.trim())
+      .filter(Boolean);
+    if (lines[0] && lines[0].length > 1 && lines[0].length < 60) {
+      nombre = lines[0];
+    }
+  }
 
-	const deMatch = textWithoutEmail.match(/(?:de|en)\s+([A-Z][a-zA-Z0-9\s]+?)(?:\s*$|,|\.|@)/m);
-	if (deMatch?.[1]) empresa = deMatch[1].trim();
+  const deMatch = textWithoutEmail.match(
+    /(?:de|en)\s+([A-Z][a-zA-Z0-9\s]+?)(?:\s*$|,|\.|@)/m,
+  );
+  if (deMatch?.[1]) empresa = deMatch[1].trim();
 
-	return { nombre, empresa, email };
+  return { nombre, empresa, email };
 }

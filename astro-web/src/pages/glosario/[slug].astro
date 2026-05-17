@@ -45,7 +45,7 @@ const schema = {
   section="Recursos"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </Fragment>
 
   <main style="background: #faf8f3; min-height: 70vh; padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 24px) 80px;">

@@ -3,7 +3,7 @@ titulo: "Curso Articulate 360 Básico"
 precio_usd: 429
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Articulate 360 Básico con nuestros expertos certificados."
+descripcion: "Introducción a Articulate 360 para equipos de capacitación corporativa. Fundamentos de Storyline y Rise con instructor certificado. Taller en vivo."
 ---
 ## Temario Completo
 

@@ -11,9 +11,10 @@ import {
 	ddcFaqs,
 	ddcHero,
 	ddcLogos,
-	ddcProceso,
+	// ddcProceso,
 	ddcServicios,
 } from "../data/ddc";
+// CHANGELOG: 2026-05-03 - Recortar título SEO a max 60 chars (Issue #216)
 // CHANGELOG: 2026-03-20 - Nueva landing DDC (Desarrollo de Contenidos).
 // Fuente de contenido: src/data/ddc.ts · PDF "Info DDC para sitio web"
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -24,7 +25,7 @@ const bookingUrl = getBookingUrl();
 ---
 
 <BaseLayout
-  title="Desarrollo de Contenidos e-Learning | Articulate + Vyond + IA | TAEC"
+  title="Desarrollo de Contenidos e-Learning con IA | TAEC"
   description="Cursos a medida con Articulate 360, Vyond e IA generativa. Metodología ADDIE + Agile SAM, Project Manager dedicado y archivos editables garantizados. TAEC DDC · México y LATAM."
   section="Soluciones"
   page="desarrollo-de-contenidos.html"
@@ -72,8 +73,8 @@ const bookingUrl = getBookingUrl();
   <section class="ddc-portafolio-cta">
     <div class="cta-banner">
       <h2 class="cta-banner-title">Transformamos la teoría en experiencias memorables</h2>
-      <p class="cta-banner-text">Explora más de 120 casos de éxito reales donde hemos digitalizado el conocimiento corporativo usando las herramientas líderes del mercado.</p>
-      <a href="/portafolio" class="btn-portafolio">Explorar Portafolio Interactivo →</a>
+      <p class="cta-banner-text">Una muestra de lo que hacemos: 6 cursos-demo con diferentes formatos y niveles de interactividad.</p>
+      <a href="/portafolio" class="btn-portafolio">Ver ejemplos de cursos-demo →</a>
     </div>
   </section>
 
@@ -95,7 +96,7 @@ const bookingUrl = getBookingUrl();
       <p class="section-sub">ADDIE para diseño instruccional · Agile SAM para producción multimedia · Tu PM controla tiempos y calidad.</p>
       <div class="proceso-image-container">
         <!-- Imagen original: Cómo trabajamos.jpeg con bloqueo CLS -->
-        <img src="/assets/como-trabajamos.jpeg" alt="Cómo trabajamos" class="proceso-image" width="1600" height="900" loading="lazy" />
+        <img src="/assets/como-trabajamos-v2.jpeg" alt="Cómo trabajamos" class="proceso-image" width="1600" height="900" loading="lazy" />
       </div>
 
     </div>

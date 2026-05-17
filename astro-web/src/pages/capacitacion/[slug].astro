@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { r } from "../../utils/paths";
 
@@ -7,20 +7,19 @@ export const prerender = true;
 
 export async function getStaticPaths() {
 	const cursos = await getCollection("cursos");
-	return cursos.map((curso) => ({
+	return cursos.map((curso: CollectionEntry<'cursos'>) => ({
 		params: { slug: curso.id.replace(/\.mdx?$/, "") },
 		props: { curso },
 	}));
 }
 
 const { curso } = Astro.props;
-const { Content } = await curso.render();
+const { Content } = await render(curso);
 
 const TITLE = curso.data.titulo || curso.id;
 const PRECIO = curso.data.precio_usd || 0;
 const CATEGORIA = curso.data.categoria || "Curso";
 const DESC = curso.data.descripcion || "Capacitación Oficial TAEC";
-const IMAGE = curso.data.portada || "/images/cursos/default.webp";
 ---
 
 <BaseLayout 

@@ -10,6 +10,7 @@ tags:
   - "vyond"
   - "taec"
 image: /assets/uploads/simlaciones-de-elearning-para-omentar-la-empati-a-y-retener-clientes-1774655920872.jpg
+robots: "noindex"
 ---
 
 ### Transformando la Capacitación en una Herramienta de Conexión Humana

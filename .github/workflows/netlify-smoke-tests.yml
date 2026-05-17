@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.12.0
 
@@ -87,7 +87,7 @@ jobs:
 
       - name: Comment error in PR (via Commit SHA)
         if: failure() && env.CLAUDE_TEST_COMMENT != ''
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         env:
           COMMENT_BODY: ${{ env.CLAUDE_TEST_COMMENT }}
           SHA: ${{ github.event.deployment.sha }}

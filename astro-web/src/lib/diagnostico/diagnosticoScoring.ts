@@ -10,7 +10,6 @@
  */
 
 import type {
-	DiagnosticStage,
 	PainAxis,
 	PainLevel,
 	PlatformId,

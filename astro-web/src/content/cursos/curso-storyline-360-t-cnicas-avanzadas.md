@@ -3,7 +3,7 @@ titulo: "Curso Storyline 360 Técnicas Avanzadas"
 precio_usd: 345
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Storyline 360 Técnicas Avanzadas con nuestros expertos certificados."
+descripcion: "Taller avanzado de Storyline 360 para diseñadores instruccionales corporativos. Interacciones complejas, variables y publicación SCORM. En vivo con instructor."
 ---
 ## Temario Completo
 

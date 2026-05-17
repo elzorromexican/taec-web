@@ -3,7 +3,7 @@ titulo: "Lo esencial para el diseño de E-learning"
 precio_usd: 449
 categoria: "Diseño Instruccional"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Lo esencial para el diseño de E-learning con nuestros expertos certificados."
+descripcion: "Fundamentos de diseño de e-learning para equipos L&D corporativos. Bases metodológicas y buenas prácticas para producción de contenido de capacitación."
 ---
 ## Temario Completo
 

@@ -3,7 +3,7 @@ titulo: "Moodle Administración y Creación de Cursos"
 precio_usd: 230
 categoria: "Moodle LMS"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Moodle Administración y Creación de Cursos con nuestros expertos certificados."
+descripcion: "Capacitación integral en Moodle para equipos IT y L&D corporativos: administración completa y creación de cursos. En vivo con instructor certificado."
 ---
 ## Temario Completo
 

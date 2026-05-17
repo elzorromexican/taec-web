@@ -21,6 +21,126 @@
 # en dist/ se delega a la función SSR de Astro.
 # force = false garantiza que los archivos estáticos siguen teniendo prioridad.
 [[redirects]]
+  from = "/articulos/aprovechando-la-plasticidad-neral-para-mejorar-el-aprendizaje-en-elearning"
+  to = "/articulos/aprovechando-la-plasticidad-neural-para-mejorar-el-aprendizaje-en-elearning"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/co-mo-elegir-n-lms-sin-perder-tiempo-ni-dinero-versio-n-latam"
+  to = "/articulos/como-elegir-un-lms-sin-perder-tiempo-ni-dinero-version-latam-2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/co-mo-la-metodologi-a-addie-pede-mejorar-t-estrategia-de-contenido"
+  to = "/articulos/como-la-metodologia-addie-revoluciona-tu-contenido-en-linkedin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/el-elearning-no-es-solo-qottomar-n-crso-en-li-nea-qot-metodologi-as-qe-lo-demestran"
+  to = "/articulos/el-elearning-no-es-solo-tomar-un-curso-en-linea-10-metodologias-que-lo-demuestran"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/el-rol-del-liderazgo-en-la-capacitacion"
+  to = "/articulos/el-rol-del-liderazgo-en-la-capacitacion-una-responsabilidad-ineludible"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/el-rol-evoltivo-del-li-der-de-aprendizaje-corporativo-en-la-era-de-la-ia"
+  to = "/articulos/el-rol-evolutivo-del-lider-de-aprendizaje-corporativo-en-la-era-de-la-ia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/el-tro-de-la-edcacio-n-seg-n-elon-msk-la-revolcio-n-adaptativa"
+  to = "/articulos/el-futuro-de-la-educacion-segun-elon-musk-la-revolucion-adaptativa"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/elearning-accesible-la-tecnologi-a-qe-edca-cando-inclye"
+  to = "/articulos/elearning-accesible-la-tecnologia-que-educa-cuando-incluye"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/elearning-para-pymes-co-mo-capacitar-a-t-eqipo-sin-gastar-de-ma-s"
+  to = "/articulos/elearning-para-pymes-como-capacitar-a-tu-equipo-sin-gastar-de-mas"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/es-la-hora-de-actalizar-s-lms"
+  to = "/articulos/es-la-hora-de-actualizar-su-lms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/la-ia-generativa-y-adaptativa-transorma-el-elearning-esta-t-organizacio-n-preparada"
+  to = "/articulos/la-ia-generativa-y-adaptativa-transforma-el-elearning-esta-tu-organizacion-preparada"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/la-paradoja-de-la-capacitacio-n-empresarial-entre-la-obligacio-n-y-el-deseo"
+  to = "/articulos/la-paradoja-de-la-capacitacion-empresarial-entre-la-obligacion-y-el-deseo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/la-revolcio-n-del-aprendizaje-adaptativo-con-ia-ma-s-alla-de-la-edcacio-n-tradicional"
+  to = "/articulos/la-revolucion-del-aprendizaje-adaptativo-con-ia-mas-alla-de-la-educacion-tradicional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/la-revolcio-n-edtech-taec-en-el-epicentro-de-la-transormacio-n-edcativa-en-latam"
+  to = "/articulos/la-revolucion-edtech-taec-en-el-epicentro-de-la-transformacion-educativa-en-latam"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/ma-s-alla-de-los-grandes-mo-dlos-e-learning-alternativas-creativas"
+  to = "/articulos/mas-alla-de-los-grandes-modulos-e-learning-10-alternativas-creativas"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/marketing-y-elearning-estrategias-qe-transorman-la-edcacio-n-digital"
+  to = "/articulos/marketing-y-elearning-estrategias-que-transforman-la-educacion-digital"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/por-qe-microsot-eligio-articlate-localization-lecciones-para-elearning-mltiling-e"
+  to = "/articulos/por-que-microsoft-eligio-articulate-localization-lecciones-para-elearning-multilingue"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/simlaciones-de-elearning-para-omentar-la-empati-a-y-retener-clientes"
+  to = "/articulos/como-usar-simulaciones-de-elearning-para-fomentar-la-empatia-y-retener-clientes"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articulos/the-loneliness-o-ai"
+  to = "/gone"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/articulos/the-loneliness-of-ai"
+  to = "/gone"
+  status = 410
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/ssr"
   status = 200

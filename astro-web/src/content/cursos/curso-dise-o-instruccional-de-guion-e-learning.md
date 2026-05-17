@@ -3,7 +3,7 @@ titulo: "Curso Diseño Instruccional de guion e-learning"
 precio_usd: 212
 categoria: "Diseño Instruccional"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Diseño Instruccional de guion e-learning con nuestros expertos certificados."
+descripcion: "Taller de diseño instruccional y guionismo para equipos de capacitación corporativa. Metodologías ADDIE y SAM aplicadas a proyectos de e-learning empresarial."
 ---
 ## Temario Completo
 

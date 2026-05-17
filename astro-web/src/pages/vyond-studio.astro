@@ -1,15 +1,15 @@
 ---
+// CHANGELOG: 2026-05-03 - Recortar título SEO a max 60 chars (Issue #216)
 import CtaFinal from "../components/ui/CtaFinal.astro";
 import VideoMuteButton from "../components/ui/VideoMuteButton.astro";
 import VyondNav from "../components/ui/VyondNav.astro";
-import { contactData } from "../data/contact";
 import { vendors } from "../data/vendors";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { base, r } from "../utils/paths";
 ---
 
 <BaseLayout 
-  title="Vyond Studio en México — Editor profesional de video animado | TAEC"
+  title="Vyond Studio en México | Video Animado | TAEC"
   description="Crea videos animados y mixed media con Vyond Studio. Traducción automática a 80+ idiomas, 1,100+ avatares IA y control creativo total. Partner oficial en México."
   section="Soluciones"
   page="vyond-studio.html"
@@ -201,9 +201,9 @@ import { base, r } from "../utils/paths";
 
 <CtaFinal 
   title="Empieza a producir video como una agencia — desde adentro"
-  desc="Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido."
-  btnText="Descargar prueba (15 días) →"
-  btnUrl={vendors.vyond.signup}
+  subtitle="Consulta con el equipo TAEC la licencia de Vyond Studio para tu organización. Soporte en español incluido."
+  primaryBtnText="Descargar prueba (15 días) →"
+  primaryBtnUrl={vendors.vyond.signup}
 />
 
 <script src="../scripts/video-player.ts"></script>

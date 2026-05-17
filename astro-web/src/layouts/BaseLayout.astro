@@ -4,14 +4,16 @@ import ChatAgent from "../components/chat/ChatAgent";
 import FooterDock from "../components/experiments/FooterDock.astro";
 /**
  * @name BaseLayout
- * @version 1.1
+ * @version 1.3
  * @description Layout principal que provee la estructura HTML, el <head> global con SEO, Header y Footer.
  * @inputs title, description, section, page, image
  * @outputs Estructura HTML completa
  * @dependencies Header.astro, Footer.astro, MobileNav.astro
  * @created 2026-03-22
- * @updated 2026-03-22
+ * @updated 2026-05-03
  */
+// CHANGELOG: 03/05/2026 - Remove hreflang tag until multi-country is supported
+// CHANGELOG: 03/05/2026 - Update default SEO meta description fallback
 // CHANGELOG: 19/03/2026 - Centralized SEO logic and dynamic canonical URLs
 // CHANGELOG: 19/03/2026 - Use BASE_URL for asset paths to support GitHub Pages staging
 import Header from "../components/Header.astro";
@@ -21,7 +23,7 @@ import "../styles/product-page.css";
 
 const {
 	title = "TAEC – Partner e-learning para empresas | México y LATAM",
-	description = "18 años ayudando a empresas en México y LATAM a implementar e-learning.",
+	description = "Partner oficial de Articulate 360, Vyond y Totara en México. Licencias con factura CFDI, implementación, producción de cursos y soporte en español. 18 años, +1,500 clientes.",
 	section = "",
 	page = "",
 	image = "",
@@ -65,7 +67,6 @@ const ogImageURL = new URL(
   <!-- Geo & Regional Tags -->
   <meta name="geo.region" content="MX" />
   <meta name="geo.placename" content="Ciudad de México" />
-  <link rel="alternate" hreflang="es-419" href={canonicalURL} />
 
   <link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
 
@@ -102,8 +103,24 @@ const ogImageURL = new URL(
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "TAEC",
+    "legalName": "Training and eLearning Consulting",
+    "description": "Reseller autorizado de Articulate 360, Vyond y Totara en México. Servicios B2B: licenciamiento con factura CFDI, implementación de LMS, producción de cursos corporativos y capacitación técnica para equipos L&D.",
     "url": (Astro.site || 'https://nuevo.taec.com.mx').toString().replace(/\/$/, ''),
     "logo": new URL(`${base}assets/logo.svg`, Astro.site || 'https://nuevo.taec.com.mx').toString(),
+    "foundingDate": "2006",
+    "areaServed": ["MX", "CO", "CL", "PE", "AR"],
+    "knowsAbout": [
+      "Articulate 360",
+      "Learning Management Systems",
+      "Corporate eLearning",
+      "Instructional Design",
+      "Vyond",
+      "Totara LMS",
+      "Moodle"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/company/taec-mx"
+    ],
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+52-55-2775-8279",
@@ -117,7 +134,7 @@ const ogImageURL = new URL(
     if (pathParts.length === 0) return null;
     
     const siteRoot = (Astro.site || 'https://nuevo.taec.com.mx').toString().replace(/\/$/, '');
-    const breadcrumbItems = pathParts.map((part, index) => {
+    const breadcrumbItems = pathParts.map((part: string, index: number) => {
       const url = `${siteRoot}/${pathParts.slice(0, index + 1).join('/')}/`;
       const name = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, ' ');
       return {
@@ -158,10 +175,10 @@ const ogImageURL = new URL(
   </a>
   )}
 
-  <ChatAgent client:load transition:persist isApp={isApp} userName={Astro.locals?.user?.name || Astro.locals?.name || 'Visitante'} />
+  <ChatAgent client:load transition:persist isApp={isApp} userName={(Astro.locals as any)?.user?.name || Astro.locals?.name || 'Visitante'} />
   <script is:inline src={`${base}assets/js/nav.js`} defer></script>
   <script>
-    let globalRevealObserver = null;
+    let globalRevealObserver: IntersectionObserver | null = null;
 
     function globalInitReveal() {
       // Limpiar observer anterior para evitar Memory Leaks en View Transitions
@@ -179,7 +196,7 @@ const ogImageURL = new URL(
         });
       }, { threshold: 0.1 });
       
-      reveals.forEach(el => globalRevealObserver.observe(el));
+      reveals.forEach(el => globalRevealObserver?.observe(el));
     }
     
     // Astro Module Scripts se ejecutan SOLO UNA VEZ. Por lo tanto, registramos astro:page-load de forma segura.

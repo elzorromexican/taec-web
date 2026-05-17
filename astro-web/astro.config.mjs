@@ -1,5 +1,7 @@
 // CHANGELOG: 19/03/2026 - Configured site URL and base properties.
 // CHANGELOG: 19/03/2026 - site + base now driven by env vars for staging vs production.
+// CHANGELOG: 02/05/2026 - Added sitemap filter to exclude /interno/ and /admin/ routes to fix issue #202.
+// CHANGELOG: 02/05/2026 - Fixed sitemap filter to catch base routes without trailing slashes.
 // @ts-check
 
 import netlify from "@astrojs/netlify";
@@ -46,6 +48,11 @@ export default defineConfig({
 	// En Astro 6, 'output' es globalmente 'server' ('hybrid' está deprecado).
 	// Pages se renderizan estáticas por defecto a menos que usen SSR.
 	output: "server",
-	integrations: [react(), sitemap()],
+	integrations: [
+		react(),
+		sitemap({
+			filter: (page) => !page.includes("/interno") && !page.includes("/admin"),
+		}),
+	],
 	adapter: isNetlify ? netlify() : node({ mode: "standalone" }),
 });

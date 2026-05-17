@@ -1,12 +1,12 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { r } from "../../utils/paths";
 export const prerender = true;
 
 export async function getStaticPaths() {
 	const posts = await getCollection("articulos");
-	return posts.map((post) => ({
+	return posts.map((post: CollectionEntry<'articulos'>) => ({
 		params: { slug: post.id.replace(/\.mdx?$/, "") },
 		props: { post },
 	}));
@@ -36,9 +36,10 @@ const schema = {
   title={`${post.data.title} - Artículo | TAEC`}
   description={post.data.description || post.data.title}
   section="Recursos"
+  robots={post.data.robots || "index, follow"}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </Fragment>
 
   <main style="background: #faf8f3; min-height: 70vh; padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 24px) 80px;">

@@ -54,6 +54,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 </BaseLayout>
 
 <script>
+  declare global {
+    interface Window {
+      updateCommentStatus: (id: string, newStatus: string) => Promise<void>;
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
@@ -61,13 +67,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     let accessToken = localStorage.getItem('sb-access-token');
     let currentStatus = 'pending';
 
-    const loginView = document.getElementById('login-view');
-    const dashboardView = document.getElementById('dashboard-view');
-    const loginForm = document.getElementById('login-form');
-    const logoutBtn = document.getElementById('logout-btn');
-    const loginFeedback = document.getElementById('login-feedback');
-    const commentsContainer = document.getElementById('comments-container');
+    const loginView = document.getElementById('login-view') as HTMLElement | null;
+    const dashboardView = document.getElementById('dashboard-view') as HTMLElement | null;
+    const loginForm = document.getElementById('login-form') as HTMLFormElement | null;
+    const logoutBtn = document.getElementById('logout-btn') as HTMLButtonElement | null;
+    const loginFeedback = document.getElementById('login-feedback') as HTMLElement | null;
+    const commentsContainer = document.getElementById('comments-container') as HTMLElement | null;
     const tabBtns = document.querySelectorAll('.tab-btn');
+
+    if (!loginView || !dashboardView || !loginForm || !logoutBtn || !loginFeedback || !commentsContainer) {
+      return;
+    }
 
     // Inicialización
     if (accessToken) {
@@ -77,8 +87,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     // LOGIN
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+      const emailInput = document.getElementById('email') as HTMLInputElement | null;
+      const passwordInput = document.getElementById('password') as HTMLInputElement | null;
+      
+      if (!emailInput || !passwordInput) return;
+      
+      const email = emailInput.value;
+      const password = passwordInput.value;
 
       try {
         const res = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
@@ -91,9 +106,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         if (data.error) throw new Error(data.error_description || 'Credenciales inválidas');
         
         accessToken = data.access_token;
-        localStorage.setItem('sb-access-token', accessToken);
+        if(accessToken) localStorage.setItem('sb-access-token', accessToken);
         showDashboard();
-      } catch (err) {
+      } catch (err: any) {
         loginFeedback.textContent = err.message;
         loginFeedback.style.display = 'block';
       }
@@ -112,26 +127,30 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     tabBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         tabBtns.forEach(b => {
-          b.style.background = '#e7e3db';
-          b.style.color = '#44403c';
+          const el = b as HTMLElement;
+          el.style.background = '#e7e3db';
+          el.style.color = '#44403c';
         });
-        e.target.style.background = '#1d4ed8';
-        e.target.style.color = 'white';
-        currentStatus = e.target.dataset.status;
-        loadComments();
+        const target = e.target as HTMLElement;
+        if (target) {
+          target.style.background = '#1d4ed8';
+          target.style.color = 'white';
+          currentStatus = target.dataset.status || 'pending';
+          loadComments();
+        }
       });
     });
 
     function showDashboard() {
-      loginView.style.display = 'none';
-      dashboardView.style.display = 'block';
-      logoutBtn.style.display = 'block';
+      if(loginView) loginView.style.display = 'none';
+      if(dashboardView) dashboardView.style.display = 'block';
+      if(logoutBtn) logoutBtn.style.display = 'block';
       loadComments();
     }
 
     // CARGAR COMENTARIOS
     async function loadComments() {
-      commentsContainer.innerHTML = '<p style="color: #78716c;">Cargando...</p>';
+      if(commentsContainer) commentsContainer.innerHTML = '<p style="color: #78716c;">Cargando...</p>';
       try {
         const res = await fetch(`${supabaseUrl}/rest/v1/comments?status=eq.${currentStatus}&order=created_at.desc`, {
           headers: {
@@ -141,55 +160,57 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         });
         
         if (res.status === 401) {
-          logoutBtn.click(); // Token expirado
+          if(logoutBtn) logoutBtn.click(); // Token expirado
           return;
         }
 
         const comments = await res.json();
         
         if (comments.length === 0) {
-          commentsContainer.innerHTML = '<p style="color: #78716c;">No hay comentarios en esta lista.</p>';
+          if(commentsContainer) commentsContainer.innerHTML = '<p style="color: #78716c;">No hay comentarios en esta lista.</p>';
           return;
         }
 
-        commentsContainer.innerHTML = '';
-        comments.forEach(c => {
-          const formattedDate = new Date(c.created_at).toLocaleString('es-MX');
-          
-          let actionButtons = '';
-          if (currentStatus === 'pending') {
-            actionButtons = `
-              <button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: var(--check-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✅ Aprobar</button>
-              <button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">🗑️ Rechazar</button>
-            `;
-          } else if (currentStatus === 'approved') {
-            actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Mover a Rechazados</button>`;
-          } else {
-            actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: var(--check-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Aprobar y Restaurar</button>`;
-          }
+        if(commentsContainer) {
+          commentsContainer.innerHTML = '';
+          comments.forEach((c: any) => {
+            const formattedDate = new Date(c.created_at).toLocaleString('es-MX');
+            
+            let actionButtons = '';
+            if (currentStatus === 'pending') {
+              actionButtons = `
+                <button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: var(--check-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✅ Aprobar</button>
+                <button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">🗑️ Rechazar</button>
+              `;
+            } else if (currentStatus === 'approved') {
+              actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'rejected')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Mover a Rechazados</button>`;
+            } else {
+              actionButtons = `<button onclick="updateCommentStatus('${c.id}', 'approved')" style="background: var(--check-green); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Aprobar y Restaurar</button>`;
+            }
 
-          commentsContainer.innerHTML += `
-            <div style="border: 1px solid #e7e3db; padding: 16px; border-radius: 8px; background: white;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                <strong style="color: #1c1917;">${c.author_name} (<a href="mailto:${c.author_email}">${c.author_email}</a>)</strong>
-                <span style="color: #78716c; font-size: 0.85rem;">${formattedDate}</span>
+            commentsContainer.innerHTML += `
+              <div style="border: 1px solid #e7e3db; padding: 16px; border-radius: 8px; background: white;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                  <strong style="color: #1c1917;">${c.author_name} (<a href="mailto:${c.author_email}">${c.author_email}</a>)</strong>
+                  <span style="color: #78716c; font-size: 0.85rem;">${formattedDate}</span>
+                </div>
+                <p style="font-size: 0.85rem; color: #1d4ed8; margin-bottom: 12px;">En artículo: <code>/blog/${c.post_slug}</code></p>
+                <p style="color: #44403c; margin-bottom: 16px; white-space: pre-wrap;">${c.content}</p>
+                <div style="display: flex; gap: 8px;">
+                  ${actionButtons}
+                </div>
               </div>
-              <p style="font-size: 0.85rem; color: #1d4ed8; margin-bottom: 12px;">En artículo: <code>/blog/${c.post_slug}</code></p>
-              <p style="color: #44403c; margin-bottom: 16px; white-space: pre-wrap;">${c.content}</p>
-              <div style="display: flex; gap: 8px;">
-                ${actionButtons}
-              </div>
-            </div>
-          `;
-        });
+            `;
+          });
+        }
       } catch (err) {
         console.error(err);
-        commentsContainer.innerHTML = '<p style="color: #ef4444;">Error al cargar datos.</p>';
+        if(commentsContainer) commentsContainer.innerHTML = '<p style="color: #ef4444;">Error al cargar datos.</p>';
       }
     }
 
     // ACTUALIZAR ESTADO (Global for onclick)
-    window.updateCommentStatus = async function(id, newStatus) {
+    window.updateCommentStatus = async function(id: string, newStatus: string) {
       if (!confirm(`¿Seguro que deseas cambiar el estado a ${newStatus}?`)) return;
 
       try {

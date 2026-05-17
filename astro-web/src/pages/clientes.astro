@@ -1,5 +1,4 @@
 ---
-import { contactData } from "../data/contact";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import { r } from "../utils/paths";
@@ -256,7 +255,7 @@ const testimonios = [
       card.addEventListener('click', () => { if (i !== cur) go(i); });
     }
 
-    function positionFor(offset) {
+    function positionFor(offset: number) {
       const abs = Math.abs(offset);
       if (abs === 0) return { rotY: 0,   tx: 0,   tz: 0,    blur: 0,   opacity: 1,    scale: 1 };
       if (abs === 1) return { rotY: offset > 0 ? -42 : 42, tx: offset * 20, tz: -130, blur: 2,   opacity: .72,  scale: .87 };
@@ -264,9 +263,9 @@ const testimonios = [
       return             { rotY: offset > 0 ? -70 : 70, tx: offset * 40, tz: -320, blur: 8,   opacity: .12,  scale: .65 };
     }
 
-    function update(animate) {
+    function update(animate: boolean) {
       cards.forEach(card => {
-        const cElement = card;
+        const cElement = card as HTMLElement;
         const idxAttr = cElement.getAttribute('data-idx') || "0";
         const i = parseInt(idxAttr, 10);
         const offset = i - cur;
@@ -278,13 +277,15 @@ const testimonios = [
           : 'none';
         cElement.style.transform = transform;
         cElement.style.filter = p.blur ? `blur(${p.blur}px)` : 'none';
-        cElement.style.opacity = p.opacity;
-        cElement.style.zIndex = 10 - Math.abs(offset);
+        cElement.style.opacity = String(p.opacity);
+        cElement.style.zIndex = String(10 - Math.abs(offset));
         cElement.style.pointerEvents = offset === 0 ? 'none' : 'auto';
       });
 
-      belt.style.transition = animate ? 'margin-left .55s cubic-bezier(.4,0,.2,1)' : 'none';
-      belt.style.marginLeft = (-cur * GAP) + 'px';
+      if (belt) {
+        belt.style.transition = animate ? 'margin-left .55s cubic-bezier(.4,0,.2,1)' : 'none';
+        belt.style.marginLeft = (-cur * GAP) + 'px';
+      }
 
       if (countEl) countEl.textContent = `${cur + 1} / ${total}`;
       if (dotsEl) {
@@ -295,7 +296,7 @@ const testimonios = [
       }
     }
 
-    function go(i) {
+    function go(i: number) {
       cur = i;
       update(true);
     }
