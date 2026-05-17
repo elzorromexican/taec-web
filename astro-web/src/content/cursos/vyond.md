@@ -3,7 +3,7 @@ titulo: "Vyond"
 precio_usd: 268
 categoria: "Vyond"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Vyond con nuestros expertos certificados."
+descripcion: "Taller de Vyond para equipos de diseño instruccional y comunicación corporativa. Producción de videos animados para capacitación empresarial. En vivo con instructor."
 ---
 ## Temario Completo
 

@@ -3,7 +3,7 @@ titulo: "Curso Articulate 360 Avanzado"
 precio_usd: 289
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Articulate 360 Avanzado con nuestros expertos certificados."
+descripcion: "Taller avanzado de Articulate 360 para diseñadores instruccionales con experiencia previa. Técnicas de producción profesional y publicación en LMS. En vivo."
 ---
 ## Temario Completo
 

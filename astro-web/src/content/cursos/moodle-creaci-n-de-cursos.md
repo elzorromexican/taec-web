@@ -3,7 +3,7 @@ titulo: "Moodle Creación de Cursos"
 precio_usd: 190
 categoria: "Moodle LMS"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Moodle Creación de Cursos con nuestros expertos certificados."
+descripcion: "Taller de creación de cursos en Moodle para instructores y diseñadores instruccionales corporativos. Actividades, evaluaciones y recursos. En vivo."
 ---
 ## Temario Completo
 

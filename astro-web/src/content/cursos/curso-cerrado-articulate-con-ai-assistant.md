@@ -3,7 +3,7 @@ titulo: "Curso Cerrado Articulate con AI Assistant"
 precio_usd: 3750
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Cerrado Articulate con AI Assistant con nuestros expertos certificados."
+descripcion: "Taller corporativo: Articulate 360 con AI Assistant para equipos L&D. Producción acelerada de cursos con inteligencia artificial integrada. En vivo."
 ---
 ## Temario Completo
 

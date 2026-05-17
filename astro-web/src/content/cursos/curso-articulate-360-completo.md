@@ -3,7 +3,7 @@ titulo: "Curso Articulate 360 Completo"
 precio_usd: 749
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Curso Articulate 360 Completo con nuestros expertos certificados."
+descripcion: "Capacitación corporativa en Articulate 360 para equipos L&D: desde fundamentos hasta producción de cursos profesionales. Instructor certificado, modalidad en vivo."
 ---
 ## Temario Completo
 

@@ -3,7 +3,7 @@ titulo: "Desarrollo de paquete de actividades"
 precio_usd: 6027
 categoria: "DDC"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Desarrollo de paquete de actividades con nuestros expertos certificados."
+descripcion: "Taller corporativo de desarrollo de paquetes de actividades e-learning. Producción profesional bajo estándares SCORM/xAPI para empresas."
 ---
 ## Temario Completo
 

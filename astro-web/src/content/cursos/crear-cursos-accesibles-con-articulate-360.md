@@ -3,7 +3,7 @@ titulo: "Crear cursos accesibles con Articulate 360"
 precio_usd: 580
 categoria: "Articulate 360"
 portada: "/images/cursos/default.webp"
-descripcion: "Aprende y domina Crear cursos accesibles con Articulate 360 con nuestros expertos certificados."
+descripcion: "Capacitación corporativa en accesibilidad para e-learning con Articulate 360. Estándares WCAG aplicados a la producción de cursos. Para equipos L&D."
 ---
 ## Temario Completo
 
