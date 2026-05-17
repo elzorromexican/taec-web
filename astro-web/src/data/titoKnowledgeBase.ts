@@ -14,30 +14,9 @@
  *   - Auditoría de Red Team (Stress Tests de Pricing y Enrutamiento)
  *
  * Changelog:
- *   v6.12 (2026-05-09) — Autor: Claude Code
- *     - [FEAT] Cap 7.5.1: AI Avatars en Articulate Labs — nueva función mayo 2026, créditos, limitaciones y regla comercial
- *
- *   v6.11 (2026-04-30) — Autor: Antigravity
- *     - [FIX] Reemplazar templates con placeholders en [1.3] por instrucciones de comportamiento y ejemplos concretos completados (fixes issue #194)
- *
- *   v6.10 (2026-04-29) — Autor: Antigravity
- *     - [REFACTOR] Issue #182: Eliminar Capítulo 0, reglas de Summit y Promos Q2, ahora centralizadas en systemContext.ts
- *
- *   v6.9 (2026-04-29) — Autor: Antigravity
- *     - [FIX] Issue #180: Añadidas reglas imperativas de nivel superior para consultas directas sobre agenda y registro del Corporate Learning Summit.
- *
- *   v6.8 (2026-04-29) — Autor: Antigravity
- *     - [FIX] Issue #174: Aclarar que el aprendizaje adaptativo ocurre en la capa de autoría (Articulate 360), no en el LMS.
- *
- *   v6.7 (2026-04-29) — Autor: Antigravity
- *     - [FIX] Issue #173: Agregar ejemplo explícito para evitar evaluación errónea de implementaciones de iSpring.
- *
- *   v6.6 (2026-04-28) — Autor: Antigravity
- *     - [FIX] Issue #172: Actualizar agenda del Corporate Learning Summit a URL pública en evento_summit.
- *
- *   v6.5 (2026-04-28) — Autor: Antigravity
- *     - [FIX] Issue #166: 8 fallos detectados en QA live (Summit, contexto, LTI).
- *
+ *   v6.5 (2026-05-17) — Autor: Antigravity
+ *     - [FEAT] Agregadas secciones de justificación ejecutiva (.EXEC) para Totara, Pifini, Proctorizer y Strike en el Cap 23.
+ *     - [FEAT] Añadida [REGLA DE DATOS VENDOR] para proteger reportes y métricas comerciales.
  *   v6.4 (2026-04-27) — Autor: Antigravity
  *     - [REFACTOR] Caps 7–22 migrados a astro-web/src/content/wiki/plataformas/*.md
  *     - [FEAT] Script build:kb compila wiki MD → titoKnowledgeBase.ts
@@ -1589,6 +1568,12 @@ Este capítulo responde dudas de evaluación técnica y funcional durante el pro
 Si el cliente pregunta sobre configuración, implementación o soporte post-compra, responder brevemente
 y escalar: "Para la implementación, nuestro equipo técnico te acompaña paso a paso — ¿te conecto con un especialista?"
 
+[REGLA DE DATOS VENDOR]
+Los datos cuantitativos de las secciones EXEC (% reducción de costos, velocidad de cierre, ROI)
+provienen de materiales propios de cada vendor. No presentarlos como estadísticas de mercado
+independientes. Usar framing: "según datos de [vendor]" o "organizaciones reportan [según vendor]".
+Siempre derivar a cotización y demo para validar con el contexto del cliente.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SECCIÓN A — TOTARA LEARN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1628,6 +1613,41 @@ Sí, soporta SAML 2.0 con integración a Azure AD, Okta, ADFS y otros Identity P
 [23.A.7] ¿Totara genera reportes de cumplimiento de certificaciones?
 
 Sí, mediante Report Builder. Los reportes incluyen usuario, estado de certificación, fecha de completación y fecha de caducidad. Se pueden filtrar por Estado = Caducado o Próximo a vencer, asignarse a managers para ver solo su equipo, y programar envío automático por correo. Desde Totara 20 hay bloque de Cumplimiento de Certificaciones para dashboard en tiempo real.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN A.EXEC — TOTARA LEARN · JUSTIFICACIÓN EJECUTIVA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[23.A.EXEC.1] ¿Cómo se justifica Totara frente a un LMS básico o cursos sueltos?
+
+Las organizaciones que migran a Totara reportan reducción significativa de horas administrativas
+en L&D. El ROI proviene de tres fuentes: (1) reducción de horas de gestión manual, (2) eliminación
+de incumplimientos en auditorías y sus costos asociados, (3) aceleración del onboarding con rutas
+automáticas por rol.
+
+[23.A.EXEC.2] ¿Por qué Totara frente a un LMS incluido en la suite de RH (SAP, Cornerstone)?
+
+Totara suele ofrecer costo total más accesible con mayor flexibilidad de personalización que suites
+HCM cerradas. Combina LMS + desempeño + engagement en una sola plataforma, reduciendo herramientas
+aisladas.
+
+[23.A.EXEC.3] ¿Qué métricas concretas puede presentar un director de capacitación para mostrar ROI?
+
+Métricas comunes: reducción de horas de administración, disminución de incumplimientos en auditorías,
+tiempos más cortos para certificar nuevos ingresos, aumento en tasas de finalización de rutas
+críticas. Casos de referencia (según Totara): Clínica Alemana Chile centralizó 8,000 colaboradores
+con 100% cumplimiento JCI; Salud Digna México gestionó +1 millón de cursos con 93% satisfacción.
+
+[23.A.EXEC.4] ¿Cómo gestiona Totara el cumplimiento normativo en sectores regulados?
+
+Certificaciones con fecha de caducidad, alertas automáticas de recertificación, reportes de
+auditoría en tiempo real. Para PLD en sector financiero: registra historial de intentos y tiempo
+de dedicación, proporcionando evidencias inalterables ante reguladores en México, Chile o Colombia.
+
+[23.A.EXEC.5] ¿Cómo facilita Totara la capacitación de audiencias externas?
+
+Mediante multi-tenencia: portales independientes y brandeados para cada socio comercial, gestionados
+desde una sola instancia central con catálogos y experiencias privadas para cada aliado.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SECCIÓN B — PIFINI LEARN / NETEXAM
@@ -1676,6 +1696,35 @@ Sí. Soporta SCORM 1.2, SCORM 2004 y xAPI. El sistema detecta automáticamente e
 Sí, es su caso de uso principal. Los grupos controlan qué catálogo de cursos y certificaciones ve cada canal. Combinado con la IA prescriptiva y la integración CRM, es la plataforma más completa del portafolio TAEC para redes de distribución y habilitación de ventas externas. Ver también Cap 6 (PIFINI Discovery) para criterios de enrutamiento comercial.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN B.EXEC — PIFINI LEARN / NETEXAM · JUSTIFICACIÓN EJECUTIVA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[23.B.EXEC.1] ¿Qué ROI pueden esperar las organizaciones de una plataforma de partner enablement?
+
+Según datos internos del vendor: socios certificados cierran deals un 38% más rápido y generan
+tratos en promedio un 32% más grandes. Pifini facilita medir la diferencia al correlacionar
+formación, certificaciones y resultados de ventas vía integración CRM.
+REGLA TITO: Presentar estos datos como referencia del vendor, no como estadística de mercado
+neutral. Derivar a cotización para validar con datos del cliente.
+
+[23.B.EXEC.2] ¿Cómo justifica Pifini la inversión ante un CFO?
+
+Variables duras: aumento de ventas por partner certificado, reducción del churn en canales y menor
+tiempo para activar nuevos socios. La integración con CRM permite mostrar cuántos dólares en ventas
+ha generado cada dólar invertido en capacitar a un socio específico.
+
+[23.B.EXEC.3] ¿Por qué Pifini en lugar de extender el LMS interno a socios?
+
+En muchas organizaciones Pifini convive con el LMS interno (uno para empleados, otro para partners).
+Pifini trae de serie procesos, analítica e integraciones para revenue y canal sin forzar el LMS
+interno a casos de uso para los que no fue diseñado.
+
+[23.B.EXEC.4] ¿Qué sectores obtienen más valor de Pifini en LATAM?
+
+Mayor tracción en tecnología, SaaS B2B y fabricantes con redes de distribuidores. También en
+organizaciones que ya operan con PRM y CRM y quieren conectar capacitación con esos flujos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SECCIÓN C — PROCTORIZER
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1712,6 +1761,30 @@ Grabación completa de video y audio, capturas de incidentes específicos, regis
 No requiere app nativa: accede desde Chrome o Edge en el dispositivo móvil. Compatible con tablets iOS y Android (pantalla igual o mayor a 7 pulgadas) y smartphones.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN C.EXEC — PROCTORIZER · JUSTIFICACIÓN EJECUTIVA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[23.C.EXEC.1] ¿Qué ROI se puede argumentar al implementar proctoring remoto vs exámenes presenciales?
+
+Elimina costos de logística, sedes, viáticos y tiempos muertos. Según datos del vendor:
+organizaciones reportan reducciones de más del 60% en costos operativos de certificación masiva.
+Permite escalar evaluaciones a más sedes o países sin multiplicar personal de supervisión.
+REGLA TITO: Presentar como referencia del vendor.
+
+[23.C.EXEC.2] ¿Cómo se responde a "confiamos en la honestidad de nuestros empleados"?
+
+La confianza no es una métrica de cumplimiento. En auditorías externas o certificaciones legales,
+la evidencia forense de Proctorizer blinda a la empresa ante demandas y garantiza la validez
+jurídica de las certificaciones. La supervisión es escalonada: ligera para cursos internos,
+máximo rigor para exámenes con consecuencias salariales o regulatorias.
+
+[23.C.EXEC.3] ¿Qué sectores lideran el uso de proctoring en LATAM?
+
+Sector financiero (PLD, CNBV), salud (validación de conocimientos técnicos) y telecomunicaciones
+(reclutamiento masivo). Caso de referencia: Claro Colombia trasladó sus evaluaciones psicométricas
+de reclutamiento a Proctorizer.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SECCIÓN D — STRIKE PLAGIARISM
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1743,7 +1816,72 @@ API v2 REST (envío de docs y recepción de reportes programática), LTI 1.3 (in
 
 1 Token equivale a 18,000 caracteres verificados. Los tokens no tienen fecha de vencimiento. Un trabajo promedio de 5,000 palabras (aproximadamente 30,000 caracteres) consume aproximadamente 2 tokens.
 REGLA TITO: No citar la tarifa pública individual como precio final. Los contratos institucionales negocian paquetes de volumen con condiciones específicas. Derivar siempre a cotización oficial TAEC.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECCIÓN D.EXEC — STRIKE PLAGIARISM · JUSTIFICACIÓN EJECUTIVA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[23.D.EXEC.1] ¿Cuál es el riesgo de no contar con detección de IA en documentos corporativos?
+
+El riesgo es reputacional y legal: publicar como propios reportes generados por IA puede invalidar
+patentes y destruir la credibilidad ante clientes. Para agencias de marketing, el contenido
+generado masivamente por IA es penalizado por Google, arruinando la estrategia SEO.
+
+[23.D.EXEC.2] ¿Por qué Strike frente a Turnitin?
+
+(1) Modelo de pago por tokens (flexible) vs suscripción institucional rígida de Turnitin.
+(2) Detección de IA especializada en español — precisión declarada >99% según vendor (Turnitin
+tiene enfoque primario en inglés).
+(3) Módulo de detección de plagio por traducción (texto en inglés traducido al español).
+(4) Soporte regional con oficinas en LATAM.
+REGLA TITO: Los datos de precisión son declarados por el vendor. Derivar a demo para validar con
+textos reales del cliente.
+
+[23.D.EXEC.3] ¿Es viable Strike para una empresa pequeña o mediana?
+
+Sí. El modelo de tokens permite comprar solo lo necesario. Un token = 18,000 caracteres ≈ trabajo
+de 3,000-4,000 palabras. Los tokens no vencen. Elimina las barreras de entrada de suscripciones
+anuales de otros competidores.
 ==================================================
 
+// ══ CAPÍTULO PROMOS ACTIVAS Q2-2026 ══
+promos_q2_2026: {
+  vigencia: "Hasta 30 junio 2026",
+  
+  promo_001_teams_ai: {
+    condicion: "IS_MEXICO === true",
+    producto: "Articulate 360 AI Teams",
+    precio_promo: "$1,198 USD/seat/año",
+    precio_normal: "$1,749 USD",
+    descuento: "31%",
+    facturacion: "México únicamente (MXN + CFDI)",
+    accion: "Mencionar ANTES de dar cotización cuando tema sea Articulate 360 Teams. Copy sugerido: 'Por cierto, tenemos un precio especial Q2 para equipos en México: $1,198 USD por seat con AI incluido, vs $1,749 normal. Válido hasta junio.'",
+    prohibido: "Ofrecer este precio a usuarios fuera de México"
+  },
 
+  promo_002_localization: {
+    condicion: "Siempre (worldwide)",
+    producto: "Articulate Localization — plan de publicación",
+    descuento: "20%",
+    accion: "Mencionar proactivamente cuando el usuario hable de traducción, multi-idioma, localización de cursos o distribución en varios países. PRIMERO posicionar el beneficio gratuito incluido, LUEGO introducir el descuento en el plan de publicación.",
+    copy_sugerido: "¿Sabías que Articulate Localization ya viene incluida en tu suscripción? Puedes traducir y validar cursos en Rise 360 sin costo adicional — solo pagas cuando estés listo para publicar y distribuir. Y este Q2 tenemos 20% de descuento en el plan de publicación. ¿Tienes proyectos en varios idiomas que quieras lanzar?",
+    nota: "Validadores de idiomas NO necesitan licencia Articulate 360, solo email. Dato útil para reducir fricción del cliente."
+  },
+
+  evento_summit: {
+    condicion: "Perfil L&D, HR, Formación Corporativa, Director de Capacitación",
+    nombre: "Corporate Learning Summit México",
+    fecha: "7 de mayo de 2026",
+    venue: "The St. Regis, CDMX",
+    hora_inicio: "8:30 AM hora CDMX",
+    direccion_venue: "Paseo de la Reforma 439, CDMX",
+    cohost: "TAEC + Articulate",
+    registro: "https://register.articulate.com/mexico-city",
+    agenda_disponible: false,
+    si_preguntan_agenda: "La agenda detallada la compartimos directamente con los perfiles confirmados — es parte del proceso de selección. ¿Te gustaría solicitar tu lugar? Una vez confirmado, recibirás todos los detalles del programa.",
+    flujo_registro: "Solicitud sujeta a aprobación. TAEC confirma personalmente. Nunca decir 'puedes asistir', siempre 'puedes solicitar tu lugar'. Proceso: 1) Usuario comparte correo corporativo en el chat, 2) TAEC lo contacta para confirmar.",
+    accion: "Mencionar cuando el perfil sea relevante. Copy: 'El 7 de mayo co-organizamos con Articulate un evento presencial en el St. Regis CDMX. Los lugares son limitados y por confirmación. ¿Te interesa que te compartamos los detalles?'",
+    prohibido: "Garantizar asistencia. Nunca decir 'puedes asistir' — siempre 'puedes solicitar tu lugar'"
+  }
+}
 `;

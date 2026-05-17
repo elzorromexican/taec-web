@@ -6,25 +6,21 @@ Producción futura: `https://nuevo.taec.com.mx`
 > Historial anterior (v1.0 – v1.5 · mar 2026) archivado en:
 ---
 
-## v3.7.5 · 03 may 2026 — Sprints de Optimización SEO (Issues #213 - #218)
+## v3.7.4 · 28 abr 2026 — Cumplimiento JSDoc, TitoBits y Estabilización UI (Sprint #159)
 
-### 🔴 SEO Alta
-- **[ISSUE-213] Updating SEO Product Metadata:** Actualización de `<title>` y `<meta name="description">` en cinco páginas de producto (`/customguide-mexico`, `/lys-mexico`, `/ottolearn-mexico`, `/proctorizer-mexico`, y `/strikeplagiarism-mexico`) para un formato SEO <150 caracteres y CTA claros.
-- **[ISSUE-214] Alineación SEO H1 y Meta:** Alineación semántica y resolución de encabezados `<h1>` ocultos o ausentes que ahora coinciden con sus `<meta>` titles en las páginas de producto.
+### 🤖 TitoBits Knowledge Base & Agenda Loop
+- **Resolución de Infinite Loop en Agenda Summit:** Se actualizó la lógica del `evento_summit` en `titoKnowledgeBase.ts` inyectando los campos `agenda_disponible`, `si_preguntan_agenda` y `flujo_registro` (Issue #161). Esto previene que el agente entre en bucle cuando le solicitan la agenda del evento y, en cambio, dirige limpiamente a los usuarios a registrarse mediante correo corporativo.
+- **Migración de Knowledge Base (Wiki):** Se retomó la arquitectura de migración del script `build-kb.ts`. Se ajustó al estándar de codificación exigido por el proyecto, eliminando cadenas prohibidas y garantizando el formato de JSDoc estricto de cara al despliegue híbrido de la Wiki.
 
-### 🟡 SEO Media
-- **[ISSUE-215] Meta Description Home Page:** Actualización de la descripción meta en el Home (de 73 a ~150 caracteres) detallando mejor la propuesta de valor y las palabras clave de los partners oficiales (Articulate 360, Vyond, Totara).
-- **[ISSUE-216] Optimización SEO Page Titles:** Truncado de 18 títulos de páginas que excedían el límite de 60 caracteres para evitar recortes en la página de resultados de los buscadores (SERP), preservando la palabra clave principal y la firma "TAEC".
-- **[ISSUE-217] Remoción de Hreflang:** Eliminación de la etiqueta hreflang del layout de la aplicación temporalmente hasta que se cuente con soporte multi-país completo, evitando conflictos en el rastreo web.
-- **[ISSUE-218] Auditoría Artículos SEO (Thin Content):** Auditoría intensiva en la ruta `/articulos/` aplicando `<meta name="robots" content="noindex" />` en contenido muy delgado o mediante redirecciones HTTP 410, previniendo penalizaciones por indexado de páginas de baja calidad.
+### 🧹 Higiene de Repositorio y Estándares de Documentación
+- **Estandarización de JSDoc en Páginas Astro:** Se actualizaron los encabezados JSDoc en cuatro archivos críticos (`totara-lms-mexico.astro`, `recursos.astro`, `ecosistema-edtech-latam.astro` y `proctorizer-mexico.astro` así como en `titoKnowledgeBase.ts`). Se eliminaron etiquetas no estándar (`@changelog`) y se exigió el cumplimiento irrestricto de los campos definidos en `CLAUDE.md`: `@name`, `@version`, `@date`, `@owner`, `@status`, `@vigencia`, `@description` y el bloque `Changelog:`.
+- **Integridad del Repositorio:** El código en la rama de trabajo cumple con todas las políticas de linting y estructura de documentación.
 
----
+### 🎨 Correcciones Estéticas y UI/UX
+- **Eliminación de Clases Fantasma:** En `ecosistema-edtech-latam.astro`, se eliminó la dependencia de la clase CSS inexistente `btn-rec-primary` para el botón "Agenda una consultoría", sustituyéndola por estilos en línea consistentes. Esto previene comportamientos visuales indefinidos y se adhiere a las prácticas globales.
 
-## v3.7.4 · 28 abr 2026 — PR Template con Regeneración Embeddings TitoBits (Issue #168)
-
-### 🧹 Higiene de Repositorio y CI/CD
-- **PR Template Obligatorio:** Creación de `.github/pull_request_template.md` estandarizando el checklist para todas las contribuciones.
-- **Checklist Post-Merge:** Inyección de instrucciones estrictas para la regeneración manual de embeddings (`generate_kb_embeddings.py` y `run-reindex.ts`) y la prueba de humo en el chat de producción, garantizando que las actualizaciones de conocimiento de TitoBits (KB, Wiki y Reglas) sean reflejadas exitosamente en el entorno productivo.
+### 📝 Contenido y Casos de Éxito LATAM (Recursos & Landing Pages)
+- **Integración de Social Proof:** Se añadieron tarjetas de éxito localizadas (Clínica Alemana, Salud Digna y Claro Colombia) en las landings de productos core (`totara-lms-mexico.astro` y `proctorizer-mexico.astro`), y se destacó el artículo "Ecosistema EdTech LATAM" en el hub de recursos para potenciar el engagement regional.
 
 ---
 
